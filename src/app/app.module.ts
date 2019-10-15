@@ -20,6 +20,7 @@ import {FeedbackComponent} from './feedback/feedback.component';
 import {PrivacyComponent} from './privacy/privacy.component'; 
 import {SearchbarComponent} from './searchbar/searchbar.component';
 import {TermsAndCondComponent} from './terms-and-cond/terms-and-cond.component'; 
+import {CategryListComponent} from './categry-list/categry-list.component';
 import {BookmarksComponent} from './bookmarks/bookmarks.component'; 
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
@@ -32,7 +33,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 @NgModule({
   declarations: [AppComponent, SettingsComponent, LoginComponent, AllCategoryComponent, 
   CategoryResultComponent,FeedbackComponent, PrivacyComponent,
-  SearchbarComponent,TermsAndCondComponent, BookmarksComponent],
+  SearchbarComponent,TermsAndCondComponent, BookmarksComponent,CategryListComponent],
   entryComponents: [],
   imports: [FormsModule,BrowserModule,ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [ 
