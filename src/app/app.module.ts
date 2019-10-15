@@ -27,7 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-
+import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
   declarations: [AppComponent, SettingsComponent, LoginComponent, AllCategoryComponent, 
@@ -35,7 +35,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
   SearchbarComponent,TermsAndCondComponent, BookmarksComponent],
   entryComponents: [],
   imports: [FormsModule,BrowserModule,ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
-  providers: [ 
+  providers: [
+  Network,
   SocialSharing,   
   StatusBar,
   SplashScreen,

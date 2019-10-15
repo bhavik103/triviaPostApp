@@ -13,6 +13,8 @@ import * as _ from 'lodash';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { Observable } from 'rxjs/Observable';
+import { Network } from '@ionic-native/network';
 
 @Component({
 	selector: 'app-home',
@@ -47,12 +49,9 @@ export class HomePage implements AfterViewInit {
 	searchKey;
 	appendedNews;
 	constructor(private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, public toastController: ToastController, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
-
 	}
 
-	ngAfterViewInit() {
-
-	}
+	ngAfterViewInit() {}
 
 	ionViewWillEnter() {
 		setTimeout(function(){
@@ -331,6 +330,7 @@ export class HomePage implements AfterViewInit {
 	 		this.text = "There are no news yet..."
 	 	}
 	 	this.newsArray = res;
+	 	localStorage.setItem('newsArray',JSON.stringify(this.newsArray));
 	 	if (this.tokenLocalStorage) {
 	 		_.forEach(this.newsArray, (save) => {
 	 			_.forEach(save.bookMark, (Id) => {
@@ -339,6 +339,7 @@ export class HomePage implements AfterViewInit {
 	 				}
 	 			})
 	 		})
+	 		localStorage.setItem('newsArray',JSON.stringify(this.newsArray));
 	 	}
 
 	 	this.buildForSwiper();

@@ -30,29 +30,29 @@ export class AppComponent {
     private router: Router,
     protected deeplinks: Deeplinks,
   ) {
-    // Check Internet conectivity
+    // // Check Internet conectivity
     var offline = Observable.fromEvent(document, "offline");
     var online = Observable.fromEvent(document, "online");
 
-    offline.subscribe(() => {
-      this.hide = false;
-      this.toast = this.toastController.create({
-        message: 'Please check your internet connection',
-        animated: true,
-        showCloseButton: true,
-        closeButtonText: "OK",
-        cssClass: "my-toast",
-        position: "bottom",
-        color: "danger"
-      }).then((obj) => {
-        obj.present();
-      });
-    });
+    // offline.subscribe(() => {
+    //   this.hide = false;
+    //   this.toast = this.toastController.create({
+    //     message: 'Please check your internet connection',
+    //     animated: true,
+    //     showCloseButton: true,
+    //     closeButtonText: "OK",
+    //     cssClass: "my-toast",
+    //     position: "bottom",
+    //     color: "danger"
+    //   }).then((obj) => {
+    //     obj.present();
+    //   });
+    // });
 
-    online.subscribe(() => {
-      this.toastController.dismiss();
-      this.hide = true;
-    });
+    // online.subscribe(() => {
+    //   this.toastController.dismiss();
+    //   this.hide = true;
+    // });
 
     if (!localStorage.getItem('language')) {
       localStorage.setItem('language', "English");

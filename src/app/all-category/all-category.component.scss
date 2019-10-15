@@ -18,32 +18,36 @@ input{
 .catCard{
     background-image: url('assets/images/CategoryBackground.png');
     margin: 0 auto;
-    height: 133px;
+    height: 100%;
 }
 
 .catCard ion-card-content{
-    margin:auto;
-    padding: 10px;
+    margin: auto;
+    padding: 35px 15px 25px;
     text-align: center;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    height: 100%;
 }
-
+.notification_bells {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
 #blackBell{
-    float: right;
-    margin-bottom: 10px;
     width: 11px!important;
     height: 14px;
 }
 
 #redBell{
-    float: right;
-    margin-bottom: 10px;
     width: 16px!important;
     height: 17px;
 }
 
 #catTitle{
-    margin-top: 10px;
-    font-size: 19px
+    margin-top: 0px;
+    font-size: 16px
 }
 
 #catHeading{

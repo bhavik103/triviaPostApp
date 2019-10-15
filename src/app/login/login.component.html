@@ -24,7 +24,7 @@
 			</div>
 			<button (click)="userLogin(login)" class="loginClick">Login</button><br>
 			<div id="forgotModal">
-				<input type="checkbox" name="" id="remember"><span id="rememberMe">Remember me</span>
+				<input type="checkbox" name="" id="remember"><label for="remember">Remember me</label>
 				<span class="fdiv">
 					<label id="forgotPassword" for="forgotPasswordModal">Forgot Password?</label>
 					<input type="checkbox" id="forgotPasswordModal" class="checkBox" />
@@ -32,7 +32,7 @@
 						<div class="modal__inner">
 							<p id="signup"><i>Forgot Password</i></p>
 							<form [formGroup]="forgotPassword">
-								<div class="signupInput">
+								<div class="signup_input">
 									<ion-icon name="mail"></ion-icon>
 									<input type="text" name="" placeholder="Please enter email" formControlName="email" [(ngModel)]="forgot.email">
 								</div>
@@ -90,5 +90,26 @@
 			</div>
 		</div>
 	</div>
-	<div class="loader" *ngIf="loading">Loading...</div>
+	<div id="loader-wrapper" *ngIf="loading">
+		<div id="loader">
+			<span class="logo_container">
+				<img src="../../assets/images/Logo.png" alt="logo">
+			</span>
+			<div class="ml-loader">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<p class="text-center">Loding Data...</p>
+		</div>
+	</div>
 </ion-content>

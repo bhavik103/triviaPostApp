@@ -38,10 +38,10 @@ body {
 #page_slider{ display: none; }
 
 .swiper-slide p{
-  font-size: 15pt;  
+  font-size: 14pt;  
 }
 .swiper-slide .hindi-news p{
-  font-size: 15pt; 
+  font-size: 14pt; 
 }
 .display-none{
   display: none !important;

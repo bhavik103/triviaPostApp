@@ -84,9 +84,9 @@ b {
 				label {
 					position: absolute;
 					top: 15%;
-					right: 0;
-					height: 30px;
-					width: 30px;
+					right: 10px;
+					height: 25px;
+					width: 25px;
 					transition: all 200ms ease-in-out;
 					&:hover {
 					}
@@ -126,7 +126,7 @@ b {
 		transition: opacity 500ms ease-in-out;
 		&__inner {
 			transform: translate(-50%, -50%) scale(.75);
-			top: 59%;
+			top: 50%;
 			color: #fff;
 			font-size: 24px;
 			left: 50%;
@@ -164,10 +164,10 @@ b {
 				}
 				label {
 					position: absolute;
-					top: 0;
-					right: 0;
-					height: 30px;
-					width: 30px;
+					top: 0px;
+					right: 25px;
+					height: 24px;
+					width: 24px;
 					transition: all 200ms ease-in-out;
 					&:hover {
 					}
@@ -200,7 +200,7 @@ b {
 	text-align: center;
 	width: 100%;
 	color: #fff;
-	background: #CE2837;
+	background: #ED2424;
 }
 
 .signupButton{
@@ -250,7 +250,7 @@ ion-content.background{
 
 #forgotPassword{
 	float:right;
-	color:red;
+	color:#ED2424;
 	font-size: 17px;
 }
 
@@ -281,23 +281,24 @@ ion-content.background{
 	font-size: 17px;
 }
 .socialLogin .googleLogin, .facebookLogin{
-	width:100%;
-	padding:8px;
-	color:#fff;
-	border-radius:50px;
-	font-size:17px;
+	width: 100%;
+    padding: 14px;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 16px;
 }
 .socialLogin .googleLogin{
-	background-color:#BB1A13;
+	background-color:#D9534E;
 }
 
 .socialLogin .facebookLogin{
-	background-color:#2C5CA9;
+	background-color:#3779B7;
 }
 
 .socialLogin img{
 	height: auto;
-	width: 12px;
+	width: auto;
+	max-height: 16px;
 	padding-right:4px;
 }
 .socialLogin{
@@ -316,19 +317,24 @@ ion-content.background{
 }
 
 .signup_input{
+	position: relative;
+	margin-bottom: 15px;
 	ion-icon{
 		position: absolute;
 		color: grey;
-		left: 9%;
-		padding-top: 6px;
+		left: 10px;
 		font-size: 20px;
+		top: 0;
+		bottom: 0;
+		margin: auto;
 	}
 	input{
 		padding-left: 35px;
-		border-radius: 50px;
-		margin-bottom: 14px;
-		height: 35px;
+		border-radius: 10px;
+		margin-bottom: 0;
+		height: 45px;
 		width: 100%;
+		border: 1px solid #ccc;
 	}
 }
 
@@ -347,16 +353,17 @@ ion-content.background{
 #signup{
 	text-align: center;
 	font-size: 30px;
-	margin: 0;
+	margin: 0px 0px 10px;
 }
 
 .loginClick{
 	width: 100%;
-	padding: 10px;
-	border-radius: 50px;
-	background-color: #CE2837;
-	color: #fff;
-	font-size: 17px;
+    padding: 12px;
+    border-radius: 10px;
+    background-color: #ED2424;
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 10px;	
 }
 
 #forgotModal{
@@ -379,6 +386,26 @@ ion-content.background{
 .signUp input{
 	color:black;
 }
-button.googleLogin img {
-    width: 20px!important;
+input#remember{
+	display: none;
+}
+input#remember + label {
+    position: relative;
+    padding-left: 30px;
+}
+input#remember + label:before {
+	position: absolute;
+	content: "";
+	background-image: url('assets/images/check box.png');
+	height: 20px;
+	width: 20px;
+	background-position: 0px 0px;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	background-color: #fff;
+}
+input#remember:checked + label:before{
+	background-position: 20px 0px;
 }

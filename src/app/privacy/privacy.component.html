@@ -12,5 +12,26 @@
 	<div *ngFor="let policy of privacyPolicy">
 		<div [innerHTML]="policy.policy"></div>	
 	</div>
-	<div class="loader" *ngIf="loading">Loading...</div>
+	<div id="loader-wrapper" *ngIf="loading">
+		<div id="loader">
+			<span class="logo_container">
+				<img src="../../assets/images/Logo.png" alt="logo">
+			</span>
+			<div class="ml-loader">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<p class="text-center">Loding Data...</p>
+		</div>
+	</div>
 </ion-content>

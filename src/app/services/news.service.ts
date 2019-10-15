@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { from as observableFrom } from 'rxjs';
 import {config} from '../config';
 import {News} from '../home/news';
+import { Network } from '@ionic-native/network/ngx';
 @Injectable({
 	providedIn: 'root'
 })
@@ -18,16 +19,20 @@ export class NewsService {
 		return throwError('Error! something went wrong.');
 	}
 
-	constructor(private http: HttpClient) { }
+	constructor(private network: Network,private http: HttpClient) { }
 
 	//fetch all news
 	getAllNews(){
-		return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').pipe(
-			map((res) => {
-				this.newsArray = res['data'];
-				return this.newsArray;
-			}),
-			catchError(this.handleError));
+		if(this.network.type == 'none' ){
+		}else{	
+			return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').pipe(
+				map((res) => {
+					this.newsArray = res['data'];
+					localStorage.setItem('newsArray',this.newsArray)
+					return this.newsArray;
+				}),
+				catchError(this.handleError));
+		}
 	}
 
 	allCatNews(id){

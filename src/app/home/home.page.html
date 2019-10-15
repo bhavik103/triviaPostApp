@@ -36,9 +36,9 @@
 									<ion-row>
 										<ion-col size="8">
 											<p *ngIf="language == 'English'" class="news-title">
-												{{news.newsTitleEnglish}}</p>
+												{{news.newsTitleEnglish | slice:0:55}}</p>
 											<p *ngIf="language == 'Hindi'" class="news-title" style="font-size: 27px">
-												{{news.newsTitleHindi}}</p>
+												{{news.newsTitleHindi | slice:0:55}}</p>
 										</ion-col>
 										<ion-col size="4">
 											<img src="../../assets/images/Logo.png" style="height: 110px" />
@@ -84,9 +84,28 @@
 		</div>
 		<!-- <div class="swiper-pagination swiper-pagination-v"></div> -->
 	</div>
-</ion-content>
-<ion-content *ngIf="loading">
-	<div class="loader">Loading...</div>
+	<div id="loader-wrapper" *ngIf="loading">
+		<div id="loader">
+			<span class="logo_container">
+				<img src="../../assets/images/Logo.png" alt="logo">
+			</span>
+			<div class="ml-loader">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<p class="text-center">Loding Data...</p>
+		</div>
+	</div>
 </ion-content>
 <ion-content *ngIf="isTextVisible">
 	<div class="no-news-text">
