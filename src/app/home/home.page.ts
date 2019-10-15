@@ -67,7 +67,6 @@ export class HomePage implements AfterViewInit {
 		setTimeout(function(){
 			$('.news-title').each(function() {
 				var $text = $(this).text();
-				console.log("text..........",$text)
 				if($text.length > 70){
 					$text = $text.substring(0,70);
 					$(this).text($text + '...');
@@ -153,7 +152,7 @@ export class HomePage implements AfterViewInit {
 				this.catNews(param.id);
 			} else if (this.router.url.includes('single-news')) {
 				this.getSingleNews(param.id);
-			} else if (this.router.url.includes('search-news')) {
+			} else if (this.router.url.includes('search-news')){
 				this.searchNews(param.key);
 			} else {
 				this.getNews();
