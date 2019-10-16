@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { Platform } from '@ionic/angular';
 import {Category} from '../home/category';
+import { Network } from '@ionic-native/network/ngx';
 
 @Injectable({
 	providedIn: 'root'
@@ -13,7 +14,7 @@ import {Category} from '../home/category';
 export class CategoryService {
 	categories: Category[];
 
-	constructor(private http: HttpClient) { }
+	constructor(private network: Network,private http: HttpClient) { }
 
 	private handleError(error: HttpErrorResponse) {
 		return throwError('Error! something went wrong.');
@@ -21,12 +22,25 @@ export class CategoryService {
 
 	//get all cateogries
 	getAll(): Observable<Category[]> {
-		return this.http.get(config.baseApiUrl + "category").pipe(
-			map((res) => {
-				this.categories = res['data'];
-				return this.categories;
-			}),
-			catchError(this.handleError));
+		return new Observable(observer => {
+			if(this.network.type == 'none' ){
+				console.log(JSON.parse(localStorage.getItem("newsArray")));
+				this.categories = JSON.parse(localStorage.getItem("categories"))
+				observer.next(this.categories);
+				observer.complete();
+			} else{    
+				this.http.get(config.baseApiUrl + "category").subscribe(
+					(result: object) => {
+						this.categories = result['data'];
+						localStorage.setItem('categories',JSON.stringify(this.categories))
+						observer.next(this.categories);
+						observer.complete();
+					},
+					(error) => {
+						observer.error(error);
+					});
+			}
+		});
 	}
 
 	notifyUser(catId){

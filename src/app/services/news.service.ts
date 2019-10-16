@@ -14,7 +14,6 @@ export class NewsService {
 	newsArray: any;
 	singleNews: any;
 
-
 	private handleError(error: HttpErrorResponse) {
 		return throwError('Error! something went wrong.');
 	}
@@ -22,17 +21,26 @@ export class NewsService {
 	constructor(private network: Network,private http: HttpClient) { }
 
 	//fetch all news
-	getAllNews(){
-		if(this.network.type == 'none' ){
-		}else{	
-			return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').pipe(
-				map((res) => {
-					this.newsArray = res['data'];
-					localStorage.setItem('newsArray',this.newsArray)
-					return this.newsArray;
-				}),
-				catchError(this.handleError));
-		}
+	getAllNews(): Observable<any>{
+		return new Observable(observer => {
+			if(this.network.type == 'none' ){
+				console.log(JSON.parse(localStorage.getItem("newsArray")));
+				this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
+				observer.next(this.newsArray);
+				observer.complete();
+			} else{    
+				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').subscribe(
+					(result: object) => {
+						this.newsArray = result['data'];
+						localStorage.setItem('newsArray',JSON.stringify(this.newsArray))
+						observer.next(this.newsArray);
+						observer.complete();
+					},
+					(error) => {
+						observer.error(error);
+					});
+			}
+		});
 	}
 
 	allCatNews(id){
@@ -69,8 +77,6 @@ export class NewsService {
 
 	//get single news
 	getSingleNews(id): Observable<News[]> {
-		console.log('service',id);
-		// http://192.168.1.83:5000/api/single-news?postId=5d92fae2ec36d35216e159a6
 		return this.http.get(config.baseApiUrl + 'single-news?postId=' + id).pipe(
 			map((res) => {
 				this.singleNews = res['data'];
@@ -81,7 +87,6 @@ export class NewsService {
 	}
 
 	newsCount(data) {
-		
 		return this.http.put(config.baseApiUrl + 'post-views',data);
 	}
 }

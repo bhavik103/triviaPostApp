@@ -101,4 +101,3 @@ export class BookmarksComponent implements OnInit {
 		this.router.navigate(['post/'+ id]);
 	}
 }
-

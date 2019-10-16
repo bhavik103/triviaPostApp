@@ -241,13 +241,6 @@ export class HomePage implements AfterViewInit, OnInit {
             (res: any) => {
                 console.log("all news==========>", res)
                 this.loadNewsToPage(res, userId);
-                // this.route.params.subscribe(param => {
-                //  if (!this.router.url.includes('single-news')) {
-                //      this.loadNewsToPage(res, userId);
-                //  } else {
-                //      this.appendSinleNews(res, userId)
-                //  }
-                // })
             },
             (err) => {
                 this.loading = false;
