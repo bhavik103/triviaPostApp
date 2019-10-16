@@ -1,22 +1,22 @@
 <ion-header no-border>
 	<ion-toolbar *ngIf="!bookMark && !catTitle && !searchKey">
-		<ion-icon name="arrow-round-back" class="homeBack" routerLink="/allcategory" (click)="removeJs()"></ion-icon>
+		<ion-icon name="arrow-round-back" class="homeBack" routerLink="/allcategory"></ion-icon>
 			<ion-title style="text-align: center;margin-right: 15px;">Trivia Post</ion-title>
 	</ion-toolbar>
 	<ion-toolbar *ngIf="bookMark">
-		<ion-icon name="arrow-round-back" class="homeBack" routerLink="/bookmarks" (click)="removeJs()"></ion-icon>
+		<ion-icon name="arrow-round-back" class="homeBack" routerLink="/bookmarks"></ion-icon>
 		<ion-title>
 			Bookmarked News
 		</ion-title>
 	</ion-toolbar>
 	<ion-toolbar *ngIf="catTitle">
-		<ion-icon name="arrow-round-back" class="homeBack" routerLink="/allcategory" (click)="removeJs()"></ion-icon>
+		<ion-icon name="arrow-round-back" class="homeBack" routerLink="/allcategory"></ion-icon>
 		<ion-title>
 			{{catTitle}}
 		</ion-title>
 	</ion-toolbar>
 	<ion-toolbar *ngIf="searchKey">
-		<ion-icon name="arrow-round-back" class="homeBack" routerLink="/searchBar" (click)="removeJs()"></ion-icon>
+		<ion-icon name="arrow-round-back" class="homeBack" routerLink="/searchBar"></ion-icon>
 			Results for {{searchKey}}
 	</ion-toolbar>
 </ion-header>
@@ -36,9 +36,10 @@
 									<ion-row>
 										<ion-col size="8">
 											<p *ngIf="language == 'English'" class="news-title">
-												{{news.newsTitleEnglish | slice:0:55}}</p>
+												{{news.newsTitleEnglish | slice:0:55}}...</p>
 											<p *ngIf="language == 'Hindi'" class="news-title" style="font-size: 27px">
-												{{news.newsTitleHindi | slice:0:55}}</p>
+												{{news.newsTitleHindi | slice:0:55}}...</p>
+
 										</ion-col>
 										<ion-col size="4">
 											<img src="../../assets/images/Logo.png" style="height: 110px" />
