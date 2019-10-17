@@ -81,9 +81,12 @@ export class HomePage implements AfterViewInit, OnInit {
         if (!this.notifyflag) {
             localStorage.setItem('notification', 'true');
         }
+
         this.notificationTapped();
+        
         // Screen Orientation Lock
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+        
         //  Deeplinks
         this.deeplinks.route({
             '/': {},
@@ -102,6 +105,8 @@ export class HomePage implements AfterViewInit, OnInit {
             this.loggedInUser = decodedToken.user._id;
         }
     }
+
+    // Back Button actions
     backButtonFunction() {
         this.platform.backButton.subscribe(async () => {
             this.route.params.subscribe(param => {
