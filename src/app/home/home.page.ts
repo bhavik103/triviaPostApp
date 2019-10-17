@@ -2,7 +2,7 @@ import { Component, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { Category } from './category';
 import { config } from '../config';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { NewsService } from '../services/news.service';
 import { News } from './news';
 import { FCM } from '@ionic-native/fcm/ngx';
@@ -47,18 +47,121 @@ export class HomePage implements AfterViewInit, OnInit {
     appendedNews;
     constructor(private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, public toastController: ToastController, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
-    ngAfterViewInit() {
+    doRefill(){
+        console.log("Reseting ion-html");
+        $(document).ready(()=>{
+            $("#homepage-ion-content").html("");
+            console.log("ion-content before loading html ",$("#homepage-ion-content").html())
+            $("#homepage-ion-content").html(this.refillIonContent());
+            //console.log(this.refillIonContent());
+            console.log("ion-content After loading html ",$("#homepage-ion-content").html())
+        });
+
+
     }
+    refillIonContent(){
+        return `<div class="swiper-container swiper-container-v ">
+        <div class="swiper-wrapper ">
+        <div class="swiper-slide background" *ngFor="let news of newsArray; let i = index" id={{news.newsId}}
+        style="padding:15px">
+        <div class="swiper-container swiper-container-h " id="swiper-h-{{news.newsId}}">
+        <div class="swiper-wrapper" id="swiper-wrapper{{i}}">
+        <div class="page_slider swiper-slide newsId-{{news.newsId}} "
+        style="background-color: transparent" id="page_slider{{i}}">
+        <div class='content' style="position: relative">
+        <div id="sliderContent{{i}}">
+        <!-- Title & Logo -->
+        <ion-row>
+        <ion-col size="8">
+        <p *ngIf="language == 'English'" class="news-title">
+        {{news.newsTitleEnglish | slice:0:55}}...</p>
+        <p *ngIf="language == 'Hindi'" class="news-title" style="font-size: 27px">
+        {{news.newsTitleHindi | slice:0:55}}...</p>
+
+        </ion-col>
+        <ion-col size="4">
+        <img src="../../assets/images/Logo.png" style="height: 110px" />
+        </ion-col>
+        </ion-row>
+
+        <!-- Post Image -->
+        <div class="post_img">
+        <img src="{{mediaPath}}{{news.newsImage}}" style="height:350px !important;" />
+        </div>
+
+        <!-- Content -->
+        <div class="contentPost">
+        <div *ngIf="language == 'English'" [innerHTML]="news.newsEnglish">
+        </div>
+        <div class="hindi-news" *ngIf="language == 'Hindi'"
+        [innerHTML]="news.newsHindi">
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <!-- Bookmark -->
+        <div style="position: absolute; bottom: 0px;z-index: 28;">
+        <img src="assets/images/Bookmarks.png" class="bookmark" *ngIf="!news.bookmarkKey"
+        (click)="bookmark(i)" />
+        <img src="assets/images/Bookmark.png" class="bookmark" *ngIf="news.bookmarkKey"
+        (click)="bookmark(i)" />
+        </div>
+        <!-- Share button -->
+        <div class="share-button" *ngIf="language == 'English'"
+        (click)="sharePost(news.newsId, news.newsTitleEnglish)">
+        <img src="../../assets/images/Share.png" class="icon" />
+        </div>
+        <div class="share-button" *ngIf="language == 'Hindi'"
+        (click)="sharePost(news.newsId, news.newsTitleHindi)">
+        <img src="../../assets/images/Share.png" class="icon" />
+        </div>
+        <div class="swiper-pagination swiper-pagination-h"></div>
+        </div>
+        </div>
+        </div>
+        <!-- <div class="swiper-pagination swiper-pagination-v"></div> -->
+        </div>
+        <div id="loader-wrapper" *ngIf="loading">
+        <div id="loader">
+        <span class="logo_container">
+        <img src="../../assets/images/Logo.png" alt="logo">
+        </span>
+        <div class="ml-loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        </div>
+        <p class="text-center">Loding Data...</p>
+        </div>
+        </div>
+        </ion-content>
+        `;
+    }
+
     ionViewDidLeave() {
         console.warn("ionViewDidLeave");
+        $("#homepage-ion-content").html("");
+        delete this.newsArray;
+        console.warn("Removing homepage-ion-content",$("#homepage-ion-content").html());
         this.removeSwiperJs();
     }
     removeSwiperJs() {
-        console.log("Removing Swiper.js");
+        //console.log("Removing Swiper.js");
         $('#scriptid').remove();
     }
     addSwiperJs() {
-        console.log("ReInitializing swiper");
+        //console.log("ReInitializing swiper");
         var script = document.createElement('script');
         script.setAttribute('id', 'scriptid');
         script.src = "assets/js/swiper.js";
@@ -71,7 +174,7 @@ export class HomePage implements AfterViewInit, OnInit {
         });
     }
     viewInitFunctions() {
-        console.log("viewInitFunctions")
+        //console.log("viewInitFunctions")
         this.removeSwiperJs();
         this.notifyflag = localStorage.getItem('notification');
         this.language = localStorage.language;
@@ -94,9 +197,9 @@ export class HomePage implements AfterViewInit, OnInit {
         }).subscribe((match) => {
             this.router.navigate(['home/single-news/' + match.$args.id]);
         },
-            (nomatch) => {
-                alert("UnMatched" + nomatch);
-            });
+        (nomatch) => {
+            // alert("UnMatched" + nomatch);
+        });
         this.tokenLocalStorage = localStorage.getItem('accessToken');
         if (this.tokenLocalStorage) {
             var base64Url = this.tokenLocalStorage.split('.')[1];
@@ -127,10 +230,10 @@ export class HomePage implements AfterViewInit, OnInit {
         // localStorage.setItem('isRefresh', 'true');
         if (localStorage.getItem('isRefresh') == 'true') {
             localStorage.setItem('isRefresh', 'false');
-            console.log("reloading")
-            window.location.reload();
+            //console.log("reloading")
+            // window.location.reload();
         } else {
-            console.log("skipping reload")
+            //console.log("skipping reload")
             localStorage.setItem('isRefresh', 'true');
         }
     }
@@ -142,14 +245,19 @@ export class HomePage implements AfterViewInit, OnInit {
         // this.doReload();
         this.checkForCurrentSlideFromLocalStorage();
         this.language = localStorage.language;
+        // this.pageContent(this.router.url);
         this.route.params.subscribe(param => {
             this.pageContent(this.router.url, param);
         });
+
+
     }
     ngOnExit() {
+        console.warn("ngOnExit")
     }
     // Load Content according to url
     pageContent(url, param) {
+        this.doRefill();
         console.log("Redirected From : ", url, param)
         if (url.includes('bookmark')) {
             this.bookMark = true
@@ -162,35 +270,36 @@ export class HomePage implements AfterViewInit, OnInit {
         } else if (url.includes('search-news')) {
             this.searchNews(param.key);
         } else {
+            console.log("Calling for All news in Feeds");
             this.getNews();
         }
     }
     /**
      * get Single news --- PENDING TO DEVELOP
      */
-    getSingleNews(id): void {
-        console.log("this.id", id)
+     getSingleNews(id): void {
+        //console.log("this.id", id)
         this.loading = true;
         this.language = localStorage.language;
         this.checkForToken();
         var userId = this.loggedInUser;
-        console.log(userId);
+        //console.log(userId);
         this._newsService.getSingleNews(id).subscribe((res: any) => {
-            console.log("this.single", res);
+            //console.log("this.single", res);
             this.newsArray = res;
             this.getNews()
-            console.log("for-----------------", this.newsArray);
-            console.log(this.newsArray);
+            //console.log("for-----------------", this.newsArray);
+            //console.log(this.newsArray);
         },
-            (err) => {
-                this.loading = false;
-                this.error = err;
-            });
+        (err) => {
+            this.loading = false;
+            this.error = err;
+        });
     }
     /**
      * Searched result
      */
-    searchNews(key) {
+     searchNews(key) {
         this.loading = true;
         this.language = localStorage.getItem('language');
         this.checkForToken();
@@ -228,7 +337,7 @@ export class HomePage implements AfterViewInit, OnInit {
         var userId = this.loggedInUser;
         this._newsService.allCatNews(id).subscribe(
             (res: any) => {
-                console.log("res of cat news", res)
+                //console.log("res of cat news", res)
                 this.loadNewsToPage(res, userId);
             },
             (err) => {
@@ -244,7 +353,7 @@ export class HomePage implements AfterViewInit, OnInit {
         var userId = this.loggedInUser;
         this._newsService.getAllNews().subscribe(
             (res: any) => {
-                console.log("all news==========>", res)
+                //console.log("all news==========>", res)
                 this.loadNewsToPage(res, userId);
             },
             (err) => {
@@ -256,14 +365,14 @@ export class HomePage implements AfterViewInit, OnInit {
     appendSinleNews(res, userId) {
         this.loading = false;
         if (!res.length) {
-            console.log("res in if=======>", res);
+            //console.log("res in if=======>", res);
             this.isTextVisible = true;
             this.text = "There are no news yet..."
         }
         this.appendedNews = res;
-        console.log("this.app", this.appendedNews, this.newsArray);
+        //console.log("this.app", this.appendedNews, this.newsArray);
         _.forEach(this.appendedNews, (news, index) => {
-            console.log("id in foreach=========>", news.newsId);
+            //console.log("id in foreach=========>", news.newsId);
             if (news.newsId == this.appendedNews.newsId) {
                 this.appendedNews.splice(index, 1)
             }
@@ -271,10 +380,10 @@ export class HomePage implements AfterViewInit, OnInit {
         this.newsArray = this.appendedNews;
         if (this.tokenLocalStorage) {
             _.forEach(this.newsArray, (save) => {
-                console.log("in foreach======>", save)
+                //console.log("in foreach======>", save)
                 _.forEach(save.bookMark, (Id) => {
                     if (Id == userId) {
-                        console.log("in loadNewsArray bookmark===========>", this.newsArray)
+                        //console.log("in loadNewsArray bookmark===========>", this.newsArray)
                         save['bookmarkKey'] = true
                     }
                 })
@@ -310,18 +419,18 @@ export class HomePage implements AfterViewInit, OnInit {
                 })
             })
         }
-        console.log("Waiting for calling BuildSwiper", Date.now())
+        //console.log("Waiting for calling BuildSwiper", Date.now())
         this.delay(500).then(any => {
-            console.log("Calling BuildSwiper at ", Date.now())
+            //console.log("Calling BuildSwiper at ", Date.now())
             this.buildForSwiper().then(() => {
-                console.log("Swiper Built. Now adding Swiper.JS")
+                //console.log("Swiper Built. Now adding Swiper.JS")
                 this.addSwiperJs();
             });
-            console.log("Check function after call to buildForSwiper()");
+            //console.log("Check function after call to buildForSwiper()");
         });
     }
     async delay(ms: number) {
-        await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log("fired"));
+        await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log("delay fired"));
     }
     async buildForSwiper() {
         for (let i = 0; i < this.newsArray.length; i++) {
@@ -363,7 +472,7 @@ export class HomePage implements AfterViewInit, OnInit {
                 toastData.present();
             });
         }, err => {
-            console.log('err===========>', err.error.message);
+            //console.log('err===========>', err.error.message);
             this.toast = this.toastController.create({
                 message: err.error.message,
                 duration: 2000,
@@ -375,18 +484,18 @@ export class HomePage implements AfterViewInit, OnInit {
     }
     //  Do Share Post 
     sharePost(id, newsTitle) {
-        console.log("in sharepost=========>", id, newsTitle)
+        //console.log("in sharepost=========>", id, newsTitle)
         var message = "Check out this amazing news " + '" ' + newsTitle + ' "';
         var subject = "Trivia Post";
         var str = newsTitle;
         var url = 'https://triviapost.com/post/' + id;
         this.socialSharing.share(message, subject, null, url)
-            .then((entries) => {
-                console.log('success ' + JSON.stringify(entries));
-            })
-            .catch((error) => {
-                alert('error ' + JSON.stringify(error));
-            });
+        .then((entries) => {
+            //console.log('success ' + JSON.stringify(entries));
+        })
+        .catch((error) => {
+            alert('error ' + JSON.stringify(error));
+        });
     }
     checkForCurrentSlideFromLocalStorage() {
         var that = this;
@@ -408,20 +517,20 @@ export class HomePage implements AfterViewInit, OnInit {
     }
     fcmToken() {
         this.fcm.getToken().then(token => {
-            console.log("Device", token);
+            //console.log("Device", token);
             localStorage.setItem('deviceToken', token);
         });
         this.fcm.onTokenRefresh().subscribe(token => {
-            console.log("Device", token);
+            //console.log("Device", token);
             localStorage.setItem('deviceToken', token);
         });
         this.fcm.onNotification().subscribe(data => {
             this.router.navigate(['settings']);
             alert(JSON.stringify(data));
             if (data.wasTapped) {
-                console.log('Received in background');
+                //console.log('Received in background');
             } else {
-                console.log('Received in foreground');
+                //console.log('Received in foreground');
             }
         });
     }
