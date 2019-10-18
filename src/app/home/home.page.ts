@@ -45,8 +45,7 @@ export class HomePage implements OnInit {
     bookMark: boolean = false;
     mediaPath = config.mediaApiUrl;
     data: { postId: any; postType: any; };
-    
-    appendedNews: { newsId: any; length: any; splice: (arg0: any, arg1: number) => void; };
+    appendedNews: { newsId: any; splice: (arg0: any, arg1: number) => void; };
     constructor(private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, public toastController: ToastController, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 
@@ -98,6 +97,7 @@ export class HomePage implements OnInit {
             this.router.navigate(['home/single-news/' + match.$args.id]);
         },
         (nomatch) => {
+            // alert("UnMatched" + nomatch);
         });
         this.tokenLocalStorage = localStorage.getItem('accessToken');
         if (this.tokenLocalStorage) {
@@ -111,7 +111,7 @@ export class HomePage implements OnInit {
 
 // ion-content RESET 
     doRefill(){
-        console.warn("Reseting ion-html");
+        console.log("Reseting ion-html");
         $(document).ready(()=>{
             $("#homepage-ion-content").html("");
             console.log("ion-content before loading html ",$("#homepage-ion-content").html())
@@ -226,6 +226,7 @@ export class HomePage implements OnInit {
         } else if (url.includes('search-news')) {
             this.searchNews(param.key);
         } else {
+            console.log("Calling for All news in Feeds");
             this.getNews();
         }
     }
@@ -290,13 +291,18 @@ export class HomePage implements OnInit {
      * get Single news --- PENDING TO DEVELOP
      */
     getSingleNews(id: any): void {
+        //console.log("this.id", id)
         this.loading = true;
         this.language = localStorage.language;
         this.checkForToken();
         var userId = this.loggedInUser;
+        //console.log(userId);
         this._newsService.getSingleNews(id).subscribe((res: any) => {
+            //console.log("this.single", res);
             this.newsArray = res;
             this.getNews()
+            //console.log("for-----------------", this.newsArray);
+            //console.log(this.newsArray);
         },
         (err) => {
             this.loading = false;
@@ -344,6 +350,7 @@ export class HomePage implements OnInit {
         var userId = this.loggedInUser;
         this._newsService.allCatNews(id).subscribe(
             (res: any) => {
+                console.log("CATNEWS UPDATED!!!     ")
                 this.loadNewsToPage(res, userId);
             },
             (err) => {
@@ -359,7 +366,8 @@ export class HomePage implements OnInit {
         var userId = this.loggedInUser;
         this._newsService.getAllNews().subscribe(
             (res: any) => {
-                //console.log("all news==========>", res)
+                console.log("all news==========>", res)
+                
                 this.loadNewsToPage(res, userId);
             },
             (err) => {
@@ -368,7 +376,7 @@ export class HomePage implements OnInit {
             });
     }
     //  On Clicking Notification
-    appendSinleNews(res, userId: any) {
+    appendSinleNews(res: { newsId: any; splice: (arg0: any, arg1: number) => void; length: any; }, userId: any) {
         this.loading = false;
         if (!res.length) {
             this.isTextVisible = true;
@@ -503,6 +511,11 @@ export class HomePage implements OnInit {
         this.fcm.onNotification().subscribe(data => {
             this.router.navigate(['settings']);
             alert(JSON.stringify(data));
+            if (data.wasTapped) {
+                //console.log('Received in background');
+            } else {
+                //console.log('Received in foreground');
+            }
         });
     }
 

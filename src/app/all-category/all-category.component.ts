@@ -6,13 +6,14 @@ import {Router, NavigationExtras} from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import * as _ from 'lodash';
 import {Platform } from '@ionic/angular';
+import { Observable } from 'rxjs';
 @Component({
 	selector: 'app-all-category',
 	templateUrl: './all-category.component.html',
 	styleUrls: ['./all-category.component.scss'],
 })
 export class AllCategoryComponent implements OnInit {
-	category_array: any;
+	categories$: Observable<Category>;
 	toast: any;
 	error = '';
 	tokenLocalStorage: any;
@@ -20,8 +21,12 @@ export class AllCategoryComponent implements OnInit {
 	loggedInUser: any;
 	loading:any;
 	language: string;
+	myTitle: string;
+	that;
 	constructor(public platform:Platform, public toastController: ToastController,public _categoryService: CategoryService, private router:Router){
 		this.getCategories();
+		this.categories$;
+		this.myTitle = "Old Title";
 	}
 
 	ngOnInit() {
@@ -36,11 +41,22 @@ export class AllCategoryComponent implements OnInit {
         });
 		this.language = localStorage.getItem('language');
 		console.log("language in all category",this.language)
-		this.getCategories();
+		// this.getCategories();
 	}
 
+	handleCategories(res:any,that){
+	}
+	handleCatError(err){
+		this.loading = false;
+		this.error = err;
+		console.error(err);
+	}
+
+	handleCatComplete(){
+		console.log("Observable Category Completed")
+	}
 	getCategories(){
-		this.loading = true;
+		// this.loading = true;
 		this.tokenLocalStorage = localStorage.getItem('accessToken');
 		if(this.tokenLocalStorage){
 			var base64Url = this.tokenLocalStorage.split('.')[1];
@@ -49,24 +65,27 @@ export class AllCategoryComponent implements OnInit {
 			this.loggedInUser = decodedToken.user._id;
 			console.log("Decoded",this.loggedInUser);
 		}
-		var userId =  this.loggedInUser;
-		console.log(userId);
-		this._categoryService.getAll().subscribe(
-			(res: any) => {
-				this.loading = false;
-				this.category_array = res;
-				_.forEach(res,(user)=>{
-					_.forEach(user.notify,(Id)=>{
-						if(Id == userId){
-							user['isNotify'] = true
-						}
-					})
-				})
-			},
-			(err) => {
-				this.loading = false;
-				this.error = err;
-			});
+		var that = this;
+		// this._categoryService.getAll().subscribe(function(res: Category[]){
+		// 	console.log("Data in Component is updated!!!",res)
+		// 		var userId =  that.loggedInUser;
+		// 		that.loading = false;
+				
+		// 		that.updateCategories(res)
+		// 		_.forEach(res,(user)=>{
+		// 			_.forEach(user.notify,(Id)=>{
+		// 				if(Id == userId){
+		// 					user['isNotify'] = true
+		// 				}
+		// 			})
+		// 		})
+		// 	console.log("Updated Category Array",this.categories$);
+	
+		// },this.handleCatError,this.handleCatComplete);
+
+
+		this.categories$ = this._categoryService.getAll().pipe();
+
 	}
 
 	search(){

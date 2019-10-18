@@ -10,13 +10,16 @@
 		</div>
 	</ion-toolbar>
 </ion-header>
-<ion-content>
+
+<ion-content >
 	<input placeholder="Search for news" (click)="search()">
 	<ion-row>
-		<h1 id="catHeading"><i>Topics</i></h1>
+			<h1 id="catHeading"><i>Topics</i> </h1>
 	</ion-row>
+
 	<ion-row>
-		<ion-col size="6" *ngFor="let category of category_array" class="catList">
+
+		<ion-col size="6" *ngFor="let category of categories$ | async " class="catList">
             <ion-card class="catCard">
                 <ion-card-content>
                     <div class="notification_bells">

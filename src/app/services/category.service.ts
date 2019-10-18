@@ -23,22 +23,34 @@ export class CategoryService {
 	//get all cateogries
 	getAll(): Observable<Category[]> {
 		return new Observable(observer => {
+			this.categories = JSON.parse(localStorage.getItem("categories"))
+			observer.next(this.categories);
+				
 			if(this.network.type == 'none' ){
 				console.log(JSON.parse(localStorage.getItem("newsArray")));
-				this.categories = JSON.parse(localStorage.getItem("categories"))
-				observer.next(this.categories);
 				observer.complete();
 			} else{    
+
 				this.http.get(config.baseApiUrl + "category").subscribe(
 					(result: object) => {
 						this.categories = result['data'];
 						localStorage.setItem('categories',JSON.stringify(this.categories))
 						observer.next(this.categories);
-						observer.complete();
 					},
 					(error) => {
 						observer.error(error);
 					});
+					// setInterval(function(){
+					// 	var cats = getLocalStorageCategories();
+					// 	console.log("Next Service Data = ",cats);
+					// 	observer.next(cats);
+					// 	function getLocalStorageCategories(){
+					// 		return JSON.parse(localStorage.getItem("categories"));
+					// 	}
+					
+					// },10000);
+					// observer.complete();
+
 			}
 		});
 	}
