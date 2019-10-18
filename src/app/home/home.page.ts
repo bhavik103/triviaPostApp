@@ -13,6 +13,7 @@ import * as _ from 'lodash';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { Observable } from 'rxjs';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -45,20 +46,21 @@ export class HomePage implements OnInit {
     bookMark: boolean = false;
     mediaPath = config.mediaApiUrl;
     data: { postId: any; postType: any; };
-    
-    appendedNews: { newsId: any; length: any; splice: (arg0: any, arg1: number) => void; };
+    appendedNews: { newsId: any; splice: (arg0: any, arg1: number) => void; };
+    hide: boolean;
     constructor(private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, public toastController: ToastController, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 
     // Event Listeners
-    ngOnInit(){
+    ngOnInit() {
+        this.checkforInternet();
         console.warn("ngOnInit");
         this.loading = true;
         this.viewInitFunctions();
         this.backButtonFunction();
         this.checkForCurrentSlideFromLocalStorage();
         this.language = localStorage.language;
-        this.route.params.subscribe((param:any) => {
+        this.route.params.subscribe((param: any) => {
             this.pageContent(this.router.url, param);
         });
     }
@@ -69,7 +71,7 @@ export class HomePage implements OnInit {
         console.warn("ionViewDidLeave");
         $("#homepage-ion-content").html("");
         delete this.newsArray;
-        console.warn("Removing homepage-ion-content",$("#homepage-ion-content").html());
+        console.warn("Removing homepage-ion-content", $("#homepage-ion-content").html());
         this.removeSwiperJs();
     }
 
@@ -86,10 +88,10 @@ export class HomePage implements OnInit {
         }
         this.notificationTapped();
 
-        
+
         // Screen Orientation Lock
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-        
+
         //  Deeplinks
         this.deeplinks.route({
             '/': {},
@@ -97,23 +99,56 @@ export class HomePage implements OnInit {
         }).subscribe((match) => {
             this.router.navigate(['home/single-news/' + match.$args.id]);
         },
-        (nomatch) => {
-        });
-        this.checkForToken();
+            (nomatch) => {
+                // alert("UnMatched" + nomatch);
+            });
+        this.tokenLocalStorage = localStorage.getItem('accessToken');
+        if (this.tokenLocalStorage) {
+            var base64Url = this.tokenLocalStorage.split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+            var decodedToken = JSON.parse(window.atob(base64));
+            this.loggedInUser = decodedToken.user._id;
+        }
     }
 
+    //check for internet
 
-// ion-content RESET 
-    doRefill(){
-        console.warn("Reseting ion-html");
-        $(document).ready(()=>{
+    checkforInternet() {
+        // // Check Internet conectivity
+        var offline = Observable.fromEvent(document, "offline");
+        var online = Observable.fromEvent(document, "online");
+
+        offline.subscribe(() => {
+            this.hide = false;
+            this.toast = this.toastController.create({
+                message: 'Please check your internet connection',
+                animated: true,
+                showCloseButton: true,
+                closeButtonText: "OK",
+                cssClass: "my-toast",
+                position: "bottom",
+                color: "danger"
+            }).then((obj) => {
+                obj.present();
+            });
+        });
+
+        online.subscribe(() => {
+            this.toastController.dismiss();
+            this.hide = true;
+        });
+    }
+    // ion-content RESET 
+    doRefill() {
+        console.log("Reseting ion-html");
+        $(document).ready(() => {
             $("#homepage-ion-content").html("");
-            console.log("ion-content before loading html ",$("#homepage-ion-content").html())
+            console.log("ion-content before loading html ", $("#homepage-ion-content").html())
             $("#homepage-ion-content").html(this.refillIonContent());
-            console.log("ion-content After loading html ",$("#homepage-ion-content").html())
+            console.log("ion-content After loading html ", $("#homepage-ion-content").html())
         });
     }
-    refillIonContent(){
+    refillIonContent() {
         return `<div class="swiper-container swiper-container-v ">
         <div class="swiper-wrapper ">
         <div class="swiper-slide background" *ngFor="let news of newsArray; let i = index" id={{news.newsId}}
@@ -131,18 +166,15 @@ export class HomePage implements OnInit {
         {{news.newsTitleEnglish | slice:0:55}}...</p>
         <p *ngIf="language == 'Hindi'" class="news-title" style="font-size: 27px">
         {{news.newsTitleHindi | slice:0:55}}...</p>
-
         </ion-col>
         <ion-col size="4">
         <img src="../../assets/images/Logo.png" style="height: 110px" />
         </ion-col>
         </ion-row>
-
         <!-- Post Image -->
         <div class="post_img">
         <img src="{{mediaPath}}{{news.newsImage}}" style="height:350px !important;" />
         </div>
-
         <!-- Content -->
         <div class="contentPost">
         <div *ngIf="language == 'English'" [innerHTML]="news.newsEnglish">
@@ -177,35 +209,60 @@ export class HomePage implements OnInit {
         </div>
         <!-- <div class="swiper-pagination swiper-pagination-v"></div> -->
         </div>
-        
+        <div id="loader-wrapper" *ngIf="loading">
+        <div id="loader">
+        <span class="logo_container">
+        <img src="../../assets/images/Logo.png" alt="logo">
+        </span>
+        <div class="ml-loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        </div>
+        <p class="text-center">Loding Data...</p>
+        </div>
+        </div>
         </ion-content>
         `;
     }
 
 
-
-// RENDEREING FLOW
+    // RENDEREING FLOW
     // Load Content according to url -- called from each GET api.
     pageContent(url: string, param: { catTitle: any; id: any; key: any; }) {
         this.doRefill();
         console.log("Redirected From : ", url, param)
-        if (url.includes('bookmark')) {
-            this.bookMark = true
-            this.bookmarkedNews();
-        } else if (url.includes('category')) {
-            this.catTitle = param.catTitle;
-            this.catNews(param.id);
-        } else if (url.includes('single-news')) {
-            this.getSingleNews(param.id);
-        } else if (url.includes('search-news')) {
-            this.searchNews(param.key);
-        } else {
-            this.getNews();
-        }
+
+        setTimeout(() => {
+            if (url.includes('bookmark')) {
+                this.bookMark = true
+                this.bookmarkedNews();
+            } else if (url.includes('category')) {
+                this.catTitle = param.catTitle;
+                this.catNews(param.id);
+            } else if (url.includes('single-news')) {
+                console.log("In single news");
+                this.getSingleNews(param.id);
+            } else if (url.includes('search-news')) {
+                this.searchNews(param.key);
+            } else {
+                console.log("Calling for All news in Feeds");
+                this.getNews();
+            }
+        }, 1000);
     }
 
     //  Load news to newsArray for all scenarios.
-    loadNewsToPage(res: any, userId: any, checkForBookmark = false) {
+    loadNewsToPage(res: News[], userId: any, checkForBookmark = false) {
         console.info("loadToNewsPage Called ", "res = ", res, "userId", userId, "checkForBookmark", checkForBookmark);
         this.newsArray = [];
         this.loading = false;
@@ -249,7 +306,7 @@ export class HomePage implements OnInit {
     }
 
 
-// API CALLS
+    // API CALLS
     // View Count increment
     newPostView(postId: { split: (arg0: string) => any[]; }) {
         postId = postId.split("-")[1];
@@ -264,19 +321,23 @@ export class HomePage implements OnInit {
      * get Single news --- PENDING TO DEVELOP
      */
     getSingleNews(id: any): void {
+        //console.log("this.id", id)
         this.loading = true;
         this.language = localStorage.language;
         this.checkForToken();
         var userId = this.loggedInUser;
+        //console.log(userId);
         this._newsService.getSingleNews(id).subscribe((res: any) => {
+            //console.log("this.single", res);
             // this.newsArray = res;
-            console.log("in single news====>",res)
-            this.loadNewsToPage(res, userId);
+            this.loadNewsToPage(res, userId)
+            //console.log("for-----------------", this.newsArray);
+            //console.log(this.newsArray);
         },
-        (err) => {
-            this.loading = false;
-            this.error = err;
-        });
+            (err) => {
+                this.loading = false;
+                this.error = err;
+            });
     }
     /**
      * Searched result
@@ -319,6 +380,7 @@ export class HomePage implements OnInit {
         var userId = this.loggedInUser;
         this._newsService.allCatNews(id).subscribe(
             (res: any) => {
+                console.log("CATNEWS UPDATED!!!     ")
                 this.loadNewsToPage(res, userId);
             },
             (err) => {
@@ -334,14 +396,8 @@ export class HomePage implements OnInit {
         var userId = this.loggedInUser;
         this._newsService.getAllNews().subscribe(
             (res: any) => {
-                // this.route.params.subscribe(param => {
-                //      if (!this.router.url.includes('single-news')) {
-                //          this.loadNewsToPage(res, userId);
-                //      } else {
-                //          this.appendSinleNews(res, userId)
-                //      }
-                //  })
                 console.log("all news==========>", res)
+
                 this.loadNewsToPage(res, userId);
             },
             (err) => {
@@ -350,7 +406,7 @@ export class HomePage implements OnInit {
             });
     }
     //  On Clicking Notification
-    appendSinleNews(res, userId: any) {
+    appendSinleNews(res: { newsId: any; splice: (arg0: any, arg1: number) => void; length: any; }, userId: any) {
         this.loading = false;
         if (!res.length) {
             this.isTextVisible = true;
@@ -359,7 +415,7 @@ export class HomePage implements OnInit {
         this.appendedNews = res;
 
         _.forEach(this.appendedNews, (news: { newsId: any; }, index: any) => {
-            if(news.newsId == this.appendedNews.newsId) {
+            if (news.newsId == this.appendedNews.newsId) {
                 this.appendedNews.splice(index, 1)
             }
         })
@@ -375,10 +431,10 @@ export class HomePage implements OnInit {
         }
         this.buildForSwiper();
     }
-   
 
 
-// BUTTON ACTIONS
+
+    // BUTTON ACTIONS
     //  Do Bookmark
     bookmark(index: string | number) {
         this._newsService.bookmarkPost(this.newsArray[index].newsId).subscribe((res: any) => {
@@ -407,19 +463,19 @@ export class HomePage implements OnInit {
         var str = newsTitle;
         var url = 'https://triviapost.com/post/' + id;
         this.socialSharing.share(message, subject, null, url)
-        .then((entries) => {
-            //console.log('success ' + JSON.stringify(entries));
-        })
-        .catch((error) => {
-            alert('error ' + JSON.stringify(error));
-        });
+            .then((entries) => {
+                //console.log('success ' + JSON.stringify(entries));
+            })
+            .catch((error) => {
+                alert('error ' + JSON.stringify(error));
+            });
     }
 
 
 
 
 
-// SWIPER 
+    // SWIPER 
     async delay(ms: number) {
         await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log("delay fired"));
     }
@@ -463,12 +519,12 @@ export class HomePage implements OnInit {
         document.body.appendChild(script);
     }
 
-// END SWIPER
+    // END SWIPER
 
 
 
 
-// Notification and utility
+    // Notification and utility
     notificationTapped() {
         this.fcm.onNotification().subscribe(data => {
             this.router.navigate(['home/single-news/' + data.newsId]);
@@ -485,6 +541,11 @@ export class HomePage implements OnInit {
         this.fcm.onNotification().subscribe(data => {
             this.router.navigate(['settings']);
             alert(JSON.stringify(data));
+            if (data.wasTapped) {
+                //console.log('Received in background');
+            } else {
+                //console.log('Received in foreground');
+            }
         });
     }
 
