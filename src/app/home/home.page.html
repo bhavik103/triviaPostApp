@@ -21,7 +21,7 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="!loading && !isTextVisible">
+<ion-content id="homepage-ion-content" *ngIf="!loading && !isTextVisible">
 	<div class="swiper-container swiper-container-v ">
 		<div class="swiper-wrapper ">
 			<div class="swiper-slide background" *ngFor="let news of newsArray; let i = index" id={{news.newsId}}
