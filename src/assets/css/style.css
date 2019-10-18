@@ -16,7 +16,7 @@ body {
 .swiper-slide{
   text-align: center;
   font-size: 18px;
-  background: #fff;
+  /* background: #fff; */
   display: -webkit-box;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -31,6 +31,7 @@ body {
   align-items: normal;
 }
 .swiper-container-v{
+  background-image: url("../../assets/images/Brown-Background.png")!important;
   background: #eee;
 }
 #page_slider{ display: none; }
@@ -40,7 +41,6 @@ body {
 }
 .swiper-slide .hindi-news p{
   font-size: 12pt; 
-
 }
 .display-none{
   display: none !important;

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header no-border>\n\t<ion-toolbar *ngIf=\"!bookMark && !catTitle && !searchKey\">\n\t\t<ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/allcategory\"></ion-icon>\n\t\t\t<ion-title style=\"text-align: center;margin-right: 15px;\">Trivia Post</ion-title>\n\t</ion-toolbar>\n\t<ion-toolbar *ngIf=\"bookMark\">\n\t\t<ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/bookmarks\"></ion-icon>\n\t\t<ion-title>\n\t\t\tBookmarked News\n\t\t</ion-title>\n\t</ion-toolbar>\n\t<ion-toolbar *ngIf=\"catTitle\">\n\t\t<ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/allcategory\"></ion-icon>\n\t\t<ion-title>\n\t\t\t{{catTitle}}\n\t\t</ion-title>\n\t</ion-toolbar>\n\t<ion-toolbar *ngIf=\"searchKey\">\n\t\t<ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/searchBar\"></ion-icon>\n\t\t\tResults for {{searchKey}}\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"!loading && !isTextVisible\">\n\t<div class=\"swiper-container swiper-container-v \">\n\t\t<div class=\"swiper-wrapper \">\n\t\t\t<div class=\"swiper-slide background\" *ngFor=\"let news of newsArray; let i = index\" id={{news.newsId}}\n\t\t\t\tstyle=\"padding:15px\">\n\t\t\t\t<div class=\"swiper-container swiper-container-h \" id=\"swiper-h-{{news.newsId}}\">\n\t\t\t\t\t<div class=\"swiper-wrapper\" id=\"swiper-wrapper{{i}}\">\n\t\t\t\t\t\t<div class=\"page_slider swiper-slide newsId-{{news.newsId}} \"\n\t\t\t\t\t\t\tstyle=\"background-color: transparent\" id=\"page_slider{{i}}\">\n\t\t\t\t\t\t\t<div class='content' style=\"position: relative\">\n\t\t\t\t\t\t\t\t<div id=\"sliderContent{{i}}\">\n\t\t\t\t\t\t\t\t\t<!-- Title & Logo -->\n\t\t\t\t\t\t\t\t\t<ion-row>\n\t\t\t\t\t\t\t\t\t\t<ion-col size=\"8\">\n\t\t\t\t\t\t\t\t\t\t\t<p *ngIf=\"language == 'English'\" class=\"news-title\">\n\t\t\t\t\t\t\t\t\t\t\t\t{{news.newsTitleEnglish | slice:0:55}}...</p>\n\t\t\t\t\t\t\t\t\t\t\t<p *ngIf=\"language == 'Hindi'\" class=\"news-title\" style=\"font-size: 27px\">\n\t\t\t\t\t\t\t\t\t\t\t\t{{news.newsTitleHindi | slice:0:55}}...</p>\n\n\t\t\t\t\t\t\t\t\t\t</ion-col>\n\t\t\t\t\t\t\t\t\t\t<ion-col size=\"4\">\n\t\t\t\t\t\t\t\t\t\t\t<img src=\"../../assets/images/Logo.png\" style=\"height: 110px\" />\n\t\t\t\t\t\t\t\t\t\t</ion-col>\n\t\t\t\t\t\t\t\t\t</ion-row>\n\n\t\t\t\t\t\t\t\t\t<!-- Post Image -->\n\t\t\t\t\t\t\t\t\t<div class=\"post_img\">\n\t\t\t\t\t\t\t\t\t\t<img src=\"{{mediaPath}}{{news.newsImage}}\" style=\"height:350px !important;\" />\n\t\t\t\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t\t\t\t<!-- Content -->\n\t\t\t\t\t\t\t\t\t<div class=\"contentPost\">\n\t\t\t\t\t\t\t\t\t\t<div *ngIf=\"language == 'English'\" [innerHTML]=\"news.newsEnglish\">\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t<div class=\"hindi-news\" *ngIf=\"language == 'Hindi'\"\n\t\t\t\t\t\t\t\t\t\t\t[innerHTML]=\"news.newsHindi\">\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- Bookmark -->\n\t\t\t\t\t<div style=\"position: absolute; bottom: 0px;z-index: 28;\">\n\t\t\t\t\t\t<img src=\"assets/images/Bookmarks.png\" class=\"bookmark\" *ngIf=\"!news.bookmarkKey\"\n\t\t\t\t\t\t\t(click)=\"bookmark(i)\" />\n\t\t\t\t\t\t<img src=\"assets/images/Bookmark.png\" class=\"bookmark\" *ngIf=\"news.bookmarkKey\"\n\t\t\t\t\t\t\t(click)=\"bookmark(i)\" />\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- Share button -->\n\t\t\t\t\t<div class=\"share-button\" *ngIf=\"language == 'English'\"\n\t\t\t\t\t\t(click)=\"sharePost(news.newsId, news.newsTitleEnglish)\">\n\t\t\t\t\t\t<img src=\"../../assets/images/Share.png\" class=\"icon\" />\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"share-button\" *ngIf=\"language == 'Hindi'\"\n\t\t\t\t\t\t(click)=\"sharePost(news.newsId, news.newsTitleHindi)\">\n\t\t\t\t\t\t<img src=\"../../assets/images/Share.png\" class=\"icon\" />\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"swiper-pagination swiper-pagination-h\"></div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<!-- <div class=\"swiper-pagination swiper-pagination-v\"></div> -->\n\t</div>\n\t<div id=\"loader-wrapper\" *ngIf=\"loading\">\n\t\t<div id=\"loader\">\n\t\t\t<span class=\"logo_container\">\n\t\t\t\t<img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n\t\t\t</span>\n\t\t\t<div class=\"ml-loader\">\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t</div>\n\t\t\t<p class=\"text-center\">Loding Data...</p>\n\t\t</div>\n\t</div>\n</ion-content>\n<ion-content *ngIf=\"isTextVisible\">\n\t<div class=\"no-news-text\">\n\t\t<span>{{text}}</span>\n\t</div>\n</ion-content>"
+module.exports = "<ion-header no-border>\n\t<ion-toolbar *ngIf=\"!bookMark && !catTitle && !searchKey\">\n\t\t<ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/allcategory\"></ion-icon>\n\t\t\t<ion-title style=\"text-align: center;margin-right: 15px;\">Trivia Post</ion-title>\n\t</ion-toolbar>\n\t<ion-toolbar *ngIf=\"bookMark\">\n\t\t<ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/bookmarks\"></ion-icon>\n\t\t<ion-title>\n\t\t\tBookmarked News\n\t\t</ion-title>\n\t</ion-toolbar>\n\t<ion-toolbar *ngIf=\"catTitle\">\n\t\t<ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/allcategory\"></ion-icon>\n\t\t<ion-title>\n\t\t\t{{catTitle}}\n\t\t</ion-title>\n\t</ion-toolbar>\n\t<ion-toolbar *ngIf=\"searchKey\">\n\t\t<ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/searchBar\"></ion-icon>\n\t\t\tResults for {{searchKey}}\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content id=\"homepage-ion-content\" *ngIf=\"!loading && !isTextVisible\">\n\t<div class=\"swiper-container swiper-container-v \">\n\t\t<div class=\"swiper-wrapper \">\n\t\t\t<div class=\"swiper-slide background\" *ngFor=\"let news of newsArray; let i = index\" id={{news.newsId}}\n\t\t\t\tstyle=\"padding:15px\">\n\t\t\t\t<div class=\"swiper-container swiper-container-h \" id=\"swiper-h-{{news.newsId}}\">\n\t\t\t\t\t<div class=\"swiper-wrapper\" id=\"swiper-wrapper{{i}}\">\n\t\t\t\t\t\t<div class=\"page_slider swiper-slide newsId-{{news.newsId}} \"\n\t\t\t\t\t\t\tstyle=\"background-color: transparent\" id=\"page_slider{{i}}\">\n\t\t\t\t\t\t\t<div class='content' style=\"position: relative\">\n\t\t\t\t\t\t\t\t<div id=\"sliderContent{{i}}\">\n\t\t\t\t\t\t\t\t\t<!-- Title & Logo -->\n\t\t\t\t\t\t\t\t\t<ion-row>\n\t\t\t\t\t\t\t\t\t\t<ion-col size=\"8\">\n\t\t\t\t\t\t\t\t\t\t\t<p *ngIf=\"language == 'English'\" class=\"news-title\">\n\t\t\t\t\t\t\t\t\t\t\t\t{{news.newsTitleEnglish | slice:0:70}}<span *ngIf=\"news.newsTitleEnglish.length >= 56\">...</span></p>\n\t\t\t\t\t\t\t\t\t\t\t<p *ngIf=\"language == 'Hindi'\" class=\"news-title\" style=\"font-size: 27px\">\n\t\t\t\t\t\t\t\t\t\t\t\t{{news.newsTitleHindi | slice:0:70}}<span *ngIf=\"news.newsTitleHindi.length >= 56\">...</span></p>\n\t\t\t\t\t\t\t\t\t\t</ion-col>\n\t\t\t\t\t\t\t\t\t\t<ion-col size=\"4\">\n\t\t\t\t\t\t\t\t\t\t\t<img src=\"../../assets/images/Logo.png\" style=\"height: 75px\" />\n\t\t\t\t\t\t\t\t\t\t</ion-col>\n\t\t\t\t\t\t\t\t\t</ion-row>\n\n\t\t\t\t\t\t\t\t\t<!-- Post Image -->\n\t\t\t\t\t\t\t\t\t<div class=\"post_img\">\n\t\t\t\t\t\t\t\t\t\t<img src=\"{{mediaPath}}{{news.newsImage}}\" />\n\t\t\t\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t\t\t\t<!-- Content -->\n\t\t\t\t\t\t\t\t\t<div class=\"contentPost\">\n\t\t\t\t\t\t\t\t\t\t<div *ngIf=\"language == 'English'\" [innerHTML]=\"news.newsEnglish\">\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t<div class=\"hindi-news\" *ngIf=\"language == 'Hindi'\"\n\t\t\t\t\t\t\t\t\t\t\t[innerHTML]=\"news.newsHindi\">\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- Bookmark -->\n\t\t\t\t\t<div style=\"position: absolute; bottom: 0px;z-index: 28;\">\n\t\t\t\t\t\t<img src=\"assets/images/Bookmarks.png\" class=\"bookmark\" *ngIf=\"!news.bookmarkKey\"\n\t\t\t\t\t\t\t(click)=\"bookmark(i)\" />\n\t\t\t\t\t\t<img src=\"assets/images/Bookmark.png\" class=\"bookmark\" *ngIf=\"news.bookmarkKey\"\n\t\t\t\t\t\t\t(click)=\"bookmark(i)\" />\n\t\t\t\t\t</div>\n\t\t\t\t\t<!-- Share button -->\n\t\t\t\t\t<div class=\"share-button\" *ngIf=\"language == 'English'\"\n\t\t\t\t\t\t(click)=\"sharePost(news.newsId, news.newsTitleEnglish)\">\n\t\t\t\t\t\t<img src=\"../../assets/images/Share.png\" class=\"icon\" />\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"share-button\" *ngIf=\"language == 'Hindi'\"\n\t\t\t\t\t\t(click)=\"sharePost(news.newsId, news.newsTitleHindi)\">\n\t\t\t\t\t\t<img src=\"../../assets/images/Share.png\" class=\"icon\" />\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"swiper-pagination swiper-pagination-h\"></div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<!-- <div class=\"swiper-pagination swiper-pagination-v\"></div> -->\n\t</div>\n\t<div id=\"loader-wrapper\" *ngIf=\"loading\">\n\t\t<div id=\"loader\">\n\t\t\t<span class=\"logo_container\">\n\t\t\t\t<img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n\t\t\t</span>\n\t\t\t<div class=\"ml-loader\">\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t</div>\n\t\t\t<p class=\"text-center\">Loding Data...</p>\n\t\t</div>\n\t</div>\n</ion-content>\n<ion-content *ngIf=\"isTextVisible\">\n\t<div class=\"no-news-text\">\n\t\t<span>{{text}}</span>\n\t</div>\n</ion-content>"
 
 /***/ }),
 
@@ -68,7 +68,7 @@ var HomePageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".homeBack {\n  float: left;\n  font-size: 20px;\n  padding-left: 15px;\n}\n\nion-card {\n  border: 1px solid blue;\n  box-shadow: 0 2px 3px -4px blue;\n}\n\n.post_img {\n  width: 100%;\n  height: 200px !important;\n  padding: 0 20px;\n  overflow: hidden;\n  margin: auto;\n}\n\n.post_img img {\n  max-width: 100%;\n  min-width: 100%;\n  max-height: 100%;\n  min-height: 100%;\n}\n\n.share-button {\n  width: 40px;\n  height: 40px;\n  background-color: #c21c00;\n  border-radius: 50%;\n  position: absolute;\n  bottom: 1px;\n  right: 10px;\n  z-index: 1;\n}\n\nimg.icon {\n  height: 20px;\n  width: 20px;\n  margin-top: 10px;\n  margin-left: -3px;\n}\n\nimg.bookmark {\n  height: 30px;\n  width: 20px;\n  margin-left: 10px;\n  z-index: 1111111;\n}\n\n.background {\n  background-image: url('Brown-Background.png') !important;\n  background-repeat: no-repeat;\n  background-size: cover;\n  padding: 0 12px !important;\n}\n\n.news-title {\n  margin: auto;\n  font-size: 17pt;\n  color: black;\n  text-align: left;\n}\n\n.no-news-text {\n  height: 100%;\n  width: 100%;\n  background: white;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n\n.contentPost {\n  text-align: left;\n}\n\n.no-news-text span {\n  font-size: 35px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvbmV3L3RyaXZpYVBvc3RBcHBfYi9zcmMvYXBwL2hvbWUvaG9tZS5wYWdlLnNjc3MiLCJzcmMvYXBwL2hvbWUvaG9tZS5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBTUE7RUFDRSxXQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FDTEY7O0FEY0E7RUFDRSxzQkFBQTtFQUdBLCtCQUFBO0FDWEY7O0FEYUU7RUFDRSxXQUFBO0VBQ0Esd0JBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0FDVko7O0FEWUU7RUFDRSxlQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsZ0JBQUE7QUNUSjs7QURXRTtFQUNFLFdBQUE7RUFDQSxZQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQTtFQUNBLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLFdBQUE7RUFDQSxVQUFBO0FDUko7O0FEVUM7RUFDQyxZQUFBO0VBQ0EsV0FBQTtFQUNBLGdCQUFBO0VBQ0EsaUJBQUE7QUNQRjs7QURTQztFQUNFLFlBQUE7RUFDQSxXQUFBO0VBQ0EsaUJBQUE7RUFDQSxnQkFBQTtBQ05IOztBRFFBO0VBQ0Usd0RBQUE7RUFDQSw0QkFBQTtFQUNBLHNCQUFBO0VBQ0EsMEJBQUE7QUNMRjs7QURPQTtFQUNFLFlBQUE7RUFDQSxlQUFBO0VBQ0EsWUFBQTtFQUNBLGdCQUFBO0FDSkY7O0FETUE7RUFDRSxZQUFBO0VBQ0QsV0FBQTtFQUNBLGlCQUFBO0VBQ0Esb0JBQUE7RUFBQSxhQUFBO0VBQ0EseUJBQUE7VUFBQSxtQkFBQTtFQUNBLHdCQUFBO1VBQUEsdUJBQUE7QUNIRDs7QURLQTtFQUNFLGdCQUFBO0FDRkY7O0FESUE7RUFDRSxlQUFBO0FDREYiLCJmaWxlIjoic3JjL2FwcC9ob21lL2hvbWUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLy8gaW1nLmljb257XG4vLyAgIGhlaWdodDogMjBweDtcbi8vICAgd2lkdGg6IDE3cHg7XG4vLyAgIG1hcmdpbjogMCAxMnB4XG4vLyB9XG5cbi5ob21lQmFja3tcbiAgZmxvYXQ6IGxlZnQ7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgcGFkZGluZy1sZWZ0OiAxNXB4O1xufVxuXG4vLyBpb24tY29udGVudHtcbi8vICAgLS1jb2xvcjogYmxhY2s7XG4vLyAgIC0tYmFja2dyb3VuZDogdXJsKCcuLi8uLi9hc3NldHMvaW1hZ2VzL0Jyb3duLUJhY2tncm91bmQucG5nJykgbm8tcmVwZWF0IGNlbnRlciBjZW50ZXIgZml4ZWRcbi8vIH1cblxuXG5pb24tY2FyZHtcbiAgYm9yZGVyOiAxcHggc29saWQgYmx1ZTtcbiAgLXdlYmtpdC1ib3gtc2hhZG93OiAwIDJweCAzcHggLTNweCBibHVlO1xuICAtbW96LWJveC1zaGFkb3c6IDAgMnB4IDNweCAtNHB4IGJsdWU7XG4gIGJveC1zaGFkb3c6IDAgMnB4IDNweCAtNHB4IGJsdWU7XG4gIH1cbiAgLnBvc3RfaW1nIHtcbiAgICB3aWR0aDogMTAwJTtcbiAgICBoZWlnaHQ6IDIwMHB4ICFpbXBvcnRhbnQ7XG4gICAgcGFkZGluZzowIDIwcHg7XG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICBtYXJnaW46IGF1dG87XG4gIH1cbiAgLnBvc3RfaW1nIGltZ3tcbiAgICBtYXgtd2lkdGg6IDEwMCU7XG4gICAgbWluLXdpZHRoOiAxMDAlO1xuICAgIG1heC1oZWlnaHQ6IDEwMCU7XG4gICAgbWluLWhlaWdodDogMTAwJTtcbiAgfVxuICAuc2hhcmUtYnV0dG9ue1xuICAgIHdpZHRoOjQwcHg7XG4gICAgaGVpZ2h0OjQwcHg7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2MyMWMwMDtcbiAgICBib3JkZXItcmFkaXVzOiA1MCU7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIGJvdHRvbTogMXB4O1xuICAgIHJpZ2h0OjEwcHg7XG4gICAgei1pbmRleDogMTtcbiAgfVxuIGltZy5pY29uIHtcbiAgaGVpZ2h0OiAyMHB4O1xuICB3aWR0aDogMjBweDtcbiAgbWFyZ2luLXRvcDogMTBweDtcbiAgbWFyZ2luLWxlZnQ6IC0zcHg7XG4gfVxuIGltZy5ib29rbWFya3tcbiAgIGhlaWdodDogMzBweDtcbiAgIHdpZHRoOiAyMHB4O1xuICAgbWFyZ2luLWxlZnQ6IDEwcHg7XG4gICB6LWluZGV4OiAxMTExMTExO1xuIH1cbi5iYWNrZ3JvdW5ke1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi9hc3NldHMvaW1hZ2VzL0Jyb3duLUJhY2tncm91bmQucG5nXCIpIWltcG9ydGFudDtcbiAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcbiAgYmFja2dyb3VuZC1zaXplOiBjb3ZlcjtcbiAgcGFkZGluZzogMCAxMnB4ICFpbXBvcnRhbnQ7XG59XG4ubmV3cy10aXRsZXtcbiAgbWFyZ2luOiBhdXRvO1xuICBmb250LXNpemU6IDE3cHQ7XG4gIGNvbG9yOmJsYWNrO1xuICB0ZXh0LWFsaWduOmxlZnQ7XG59XG4ubm8tbmV3cy10ZXh0e1xuICBoZWlnaHQ6IDEwMCU7XG5cdHdpZHRoOiAxMDAlO1xuXHRiYWNrZ3JvdW5kOiB3aGl0ZTtcblx0ZGlzcGxheTogZmxleDtcblx0YWxpZ24taXRlbXM6IGNlbnRlcjtcblx0anVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG59XG4uY29udGVudFBvc3R7XG4gIHRleHQtYWxpZ246bGVmdDtcbn1cbi5uby1uZXdzLXRleHQgc3BhbntcbiAgZm9udC1zaXplOjM1cHg7XG59IiwiLmhvbWVCYWNrIHtcbiAgZmxvYXQ6IGxlZnQ7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgcGFkZGluZy1sZWZ0OiAxNXB4O1xufVxuXG5pb24tY2FyZCB7XG4gIGJvcmRlcjogMXB4IHNvbGlkIGJsdWU7XG4gIC13ZWJraXQtYm94LXNoYWRvdzogMCAycHggM3B4IC0zcHggYmx1ZTtcbiAgLW1vei1ib3gtc2hhZG93OiAwIDJweCAzcHggLTRweCBibHVlO1xuICBib3gtc2hhZG93OiAwIDJweCAzcHggLTRweCBibHVlO1xufVxuXG4ucG9zdF9pbWcge1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAyMDBweCAhaW1wb3J0YW50O1xuICBwYWRkaW5nOiAwIDIwcHg7XG4gIG92ZXJmbG93OiBoaWRkZW47XG4gIG1hcmdpbjogYXV0bztcbn1cblxuLnBvc3RfaW1nIGltZyB7XG4gIG1heC13aWR0aDogMTAwJTtcbiAgbWluLXdpZHRoOiAxMDAlO1xuICBtYXgtaGVpZ2h0OiAxMDAlO1xuICBtaW4taGVpZ2h0OiAxMDAlO1xufVxuXG4uc2hhcmUtYnV0dG9uIHtcbiAgd2lkdGg6IDQwcHg7XG4gIGhlaWdodDogNDBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2MyMWMwMDtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvdHRvbTogMXB4O1xuICByaWdodDogMTBweDtcbiAgei1pbmRleDogMTtcbn1cblxuaW1nLmljb24ge1xuICBoZWlnaHQ6IDIwcHg7XG4gIHdpZHRoOiAyMHB4O1xuICBtYXJnaW4tdG9wOiAxMHB4O1xuICBtYXJnaW4tbGVmdDogLTNweDtcbn1cblxuaW1nLmJvb2ttYXJrIHtcbiAgaGVpZ2h0OiAzMHB4O1xuICB3aWR0aDogMjBweDtcbiAgbWFyZ2luLWxlZnQ6IDEwcHg7XG4gIHotaW5kZXg6IDExMTExMTE7XG59XG5cbi5iYWNrZ3JvdW5kIHtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiLi4vLi4vYXNzZXRzL2ltYWdlcy9Ccm93bi1CYWNrZ3JvdW5kLnBuZ1wiKSAhaW1wb3J0YW50O1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyO1xuICBwYWRkaW5nOiAwIDEycHggIWltcG9ydGFudDtcbn1cblxuLm5ld3MtdGl0bGUge1xuICBtYXJnaW46IGF1dG87XG4gIGZvbnQtc2l6ZTogMTdwdDtcbiAgY29sb3I6IGJsYWNrO1xuICB0ZXh0LWFsaWduOiBsZWZ0O1xufVxuXG4ubm8tbmV3cy10ZXh0IHtcbiAgaGVpZ2h0OiAxMDAlO1xuICB3aWR0aDogMTAwJTtcbiAgYmFja2dyb3VuZDogd2hpdGU7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xufVxuXG4uY29udGVudFBvc3Qge1xuICB0ZXh0LWFsaWduOiBsZWZ0O1xufVxuXG4ubm8tbmV3cy10ZXh0IHNwYW4ge1xuICBmb250LXNpemU6IDM1cHg7XG59Il19 */"
+module.exports = ".homeBack {\n  float: left;\n  font-size: 20px;\n  padding-left: 15px;\n}\n\nion-card {\n  border: 1px solid blue;\n  box-shadow: 0 2px 3px -4px blue;\n}\n\n.post_img {\n  width: 100%;\n  padding-top: 40%;\n  overflow: hidden;\n  position: relative;\n}\n\n.post_img img {\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  margin: auto;\n  -o-object-fit: cover;\n     object-fit: cover;\n  max-width: 100%;\n  min-width: 100%;\n  max-height: 100%;\n  min-height: 100%;\n}\n\n.share-button {\n  width: 40px;\n  height: 40px;\n  background-color: #c21c00;\n  border-radius: 50%;\n  position: absolute;\n  bottom: 1px;\n  right: 10px;\n  z-index: 9999;\n}\n\nimg.icon {\n  height: 20px;\n  width: 20px;\n  margin-top: 10px;\n  margin-left: -3px;\n}\n\nimg.bookmark {\n  height: 30px;\n  width: 20px;\n  margin-left: 10px;\n  z-index: 1111111;\n}\n\n.background {\n  background-image: url('Brown-Background.png') !important;\n  background-repeat: no-repeat;\n  background-size: cover;\n  padding: 0 12px !important;\n}\n\n.news-title {\n  margin: auto;\n  font-size: 14pt;\n  color: black;\n  text-align: left;\n}\n\n.no-news-text {\n  height: 100%;\n  width: 100%;\n  background: white;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n\n.contentPost {\n  text-align: left;\n}\n\n.no-news-text span {\n  font-size: 35px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvbmV3L3RyaXZpYVBvc3RBcHBfYi9zcmMvYXBwL2hvbWUvaG9tZS5wYWdlLnNjc3MiLCJzcmMvYXBwL2hvbWUvaG9tZS5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBTUE7RUFDRSxXQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FDTEY7O0FEY0E7RUFDRSxzQkFBQTtFQUdBLCtCQUFBO0FDWEY7O0FEYUU7RUFDRSxXQUFBO0VBQ0EsZ0JBQUE7RUFDQSxnQkFBQTtFQUNBLGtCQUFBO0FDVko7O0FEWUU7RUFDRSxrQkFBQTtFQUNBLE9BQUE7RUFDQSxRQUFBO0VBQ0EsTUFBQTtFQUNBLFNBQUE7RUFDQSxZQUFBO0VBQ0Esb0JBQUE7S0FBQSxpQkFBQTtFQUNBLGVBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxnQkFBQTtBQ1RKOztBRFdFO0VBQ0UsV0FBQTtFQUNBLFlBQUE7RUFDQSx5QkFBQTtFQUNBLGtCQUFBO0VBQ0Esa0JBQUE7RUFDQSxXQUFBO0VBQ0EsV0FBQTtFQUNBLGFBQUE7QUNSSjs7QURVQztFQUNDLFlBQUE7RUFDQSxXQUFBO0VBQ0EsZ0JBQUE7RUFDQSxpQkFBQTtBQ1BGOztBRFNDO0VBQ0UsWUFBQTtFQUNBLFdBQUE7RUFDQSxpQkFBQTtFQUNBLGdCQUFBO0FDTkg7O0FEUUE7RUFDRSx3REFBQTtFQUNBLDRCQUFBO0VBQ0Esc0JBQUE7RUFDQSwwQkFBQTtBQ0xGOztBRE9BO0VBQ0UsWUFBQTtFQUNBLGVBQUE7RUFDQSxZQUFBO0VBQ0EsZ0JBQUE7QUNKRjs7QURNQTtFQUNFLFlBQUE7RUFDRCxXQUFBO0VBQ0EsaUJBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7RUFDQSx5QkFBQTtVQUFBLG1CQUFBO0VBQ0Esd0JBQUE7VUFBQSx1QkFBQTtBQ0hEOztBREtBO0VBQ0UsZ0JBQUE7QUNGRjs7QURJQTtFQUNFLGVBQUE7QUNERiIsImZpbGUiOiJzcmMvYXBwL2hvbWUvaG9tZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBpbWcuaWNvbntcbi8vICAgaGVpZ2h0OiAyMHB4O1xuLy8gICB3aWR0aDogMTdweDtcbi8vICAgbWFyZ2luOiAwIDEycHhcbi8vIH1cblxuLmhvbWVCYWNre1xuICBmbG9hdDogbGVmdDtcbiAgZm9udC1zaXplOiAyMHB4O1xuICBwYWRkaW5nLWxlZnQ6IDE1cHg7XG59XG5cbi8vIGlvbi1jb250ZW50e1xuLy8gICAtLWNvbG9yOiBibGFjaztcbi8vICAgLS1iYWNrZ3JvdW5kOiB1cmwoJy4uLy4uL2Fzc2V0cy9pbWFnZXMvQnJvd24tQmFja2dyb3VuZC5wbmcnKSBuby1yZXBlYXQgY2VudGVyIGNlbnRlciBmaXhlZFxuLy8gfVxuXG5cbmlvbi1jYXJke1xuICBib3JkZXI6IDFweCBzb2xpZCBibHVlO1xuICAtd2Via2l0LWJveC1zaGFkb3c6IDAgMnB4IDNweCAtM3B4IGJsdWU7XG4gIC1tb3otYm94LXNoYWRvdzogMCAycHggM3B4IC00cHggYmx1ZTtcbiAgYm94LXNoYWRvdzogMCAycHggM3B4IC00cHggYmx1ZTtcbiAgfVxuICAucG9zdF9pbWcge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIHBhZGRpbmctdG9wOjQwJTtcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgfVxuICAucG9zdF9pbWcgaW1ne1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICBsZWZ0OiAwO1xuICAgIHJpZ2h0OiAwO1xuICAgIHRvcDogMDtcbiAgICBib3R0b206IDA7XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIG9iamVjdC1maXQ6IGNvdmVyO1xuICAgIG1heC13aWR0aDogMTAwJTtcbiAgICBtaW4td2lkdGg6IDEwMCU7XG4gICAgbWF4LWhlaWdodDogMTAwJTtcbiAgICBtaW4taGVpZ2h0OiAxMDAlO1xuICB9XG4gIC5zaGFyZS1idXR0b257XG4gICAgd2lkdGg6NDBweDtcbiAgICBoZWlnaHQ6NDBweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjYzIxYzAwO1xuICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgYm90dG9tOiAxcHg7XG4gICAgcmlnaHQ6MTBweDtcbiAgICB6LWluZGV4OiA5OTk5O1xuICB9XG4gaW1nLmljb24ge1xuICBoZWlnaHQ6IDIwcHg7XG4gIHdpZHRoOiAyMHB4O1xuICBtYXJnaW4tdG9wOiAxMHB4O1xuICBtYXJnaW4tbGVmdDogLTNweDtcbiB9XG4gaW1nLmJvb2ttYXJre1xuICAgaGVpZ2h0OiAzMHB4O1xuICAgd2lkdGg6IDIwcHg7XG4gICBtYXJnaW4tbGVmdDogMTBweDtcbiAgIHotaW5kZXg6IDExMTExMTE7XG4gfVxuLmJhY2tncm91bmR7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uL2Fzc2V0cy9pbWFnZXMvQnJvd24tQmFja2dyb3VuZC5wbmdcIikhaW1wb3J0YW50O1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyO1xuICBwYWRkaW5nOiAwIDEycHggIWltcG9ydGFudDtcbn1cbi5uZXdzLXRpdGxle1xuICBtYXJnaW46IGF1dG87XG4gIGZvbnQtc2l6ZTogMTRwdDtcbiAgY29sb3I6YmxhY2s7XG4gIHRleHQtYWxpZ246bGVmdDtcbn1cbi5uby1uZXdzLXRleHR7XG4gIGhlaWdodDogMTAwJTtcblx0d2lkdGg6IDEwMCU7XG5cdGJhY2tncm91bmQ6IHdoaXRlO1xuXHRkaXNwbGF5OiBmbGV4O1xuXHRhbGlnbi1pdGVtczogY2VudGVyO1xuXHRqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbn1cbi5jb250ZW50UG9zdHtcbiAgdGV4dC1hbGlnbjpsZWZ0O1xufVxuLm5vLW5ld3MtdGV4dCBzcGFue1xuICBmb250LXNpemU6MzVweDtcbn0iLCIuaG9tZUJhY2sge1xuICBmbG9hdDogbGVmdDtcbiAgZm9udC1zaXplOiAyMHB4O1xuICBwYWRkaW5nLWxlZnQ6IDE1cHg7XG59XG5cbmlvbi1jYXJkIHtcbiAgYm9yZGVyOiAxcHggc29saWQgYmx1ZTtcbiAgLXdlYmtpdC1ib3gtc2hhZG93OiAwIDJweCAzcHggLTNweCBibHVlO1xuICAtbW96LWJveC1zaGFkb3c6IDAgMnB4IDNweCAtNHB4IGJsdWU7XG4gIGJveC1zaGFkb3c6IDAgMnB4IDNweCAtNHB4IGJsdWU7XG59XG5cbi5wb3N0X2ltZyB7XG4gIHdpZHRoOiAxMDAlO1xuICBwYWRkaW5nLXRvcDogNDAlO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG59XG5cbi5wb3N0X2ltZyBpbWcge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICB0b3A6IDA7XG4gIGJvdHRvbTogMDtcbiAgbWFyZ2luOiBhdXRvO1xuICBvYmplY3QtZml0OiBjb3ZlcjtcbiAgbWF4LXdpZHRoOiAxMDAlO1xuICBtaW4td2lkdGg6IDEwMCU7XG4gIG1heC1oZWlnaHQ6IDEwMCU7XG4gIG1pbi1oZWlnaHQ6IDEwMCU7XG59XG5cbi5zaGFyZS1idXR0b24ge1xuICB3aWR0aDogNDBweDtcbiAgaGVpZ2h0OiA0MHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjYzIxYzAwO1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm90dG9tOiAxcHg7XG4gIHJpZ2h0OiAxMHB4O1xuICB6LWluZGV4OiA5OTk5O1xufVxuXG5pbWcuaWNvbiB7XG4gIGhlaWdodDogMjBweDtcbiAgd2lkdGg6IDIwcHg7XG4gIG1hcmdpbi10b3A6IDEwcHg7XG4gIG1hcmdpbi1sZWZ0OiAtM3B4O1xufVxuXG5pbWcuYm9va21hcmsge1xuICBoZWlnaHQ6IDMwcHg7XG4gIHdpZHRoOiAyMHB4O1xuICBtYXJnaW4tbGVmdDogMTBweDtcbiAgei1pbmRleDogMTExMTExMTtcbn1cblxuLmJhY2tncm91bmQge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi9hc3NldHMvaW1hZ2VzL0Jyb3duLUJhY2tncm91bmQucG5nXCIpICFpbXBvcnRhbnQ7XG4gIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG4gIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XG4gIHBhZGRpbmc6IDAgMTJweCAhaW1wb3J0YW50O1xufVxuXG4ubmV3cy10aXRsZSB7XG4gIG1hcmdpbjogYXV0bztcbiAgZm9udC1zaXplOiAxNHB0O1xuICBjb2xvcjogYmxhY2s7XG4gIHRleHQtYWxpZ246IGxlZnQ7XG59XG5cbi5uby1uZXdzLXRleHQge1xuICBoZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOiAxMDAlO1xuICBiYWNrZ3JvdW5kOiB3aGl0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG59XG5cbi5jb250ZW50UG9zdCB7XG4gIHRleHQtYWxpZ246IGxlZnQ7XG59XG5cbi5uby1uZXdzLXRleHQgc3BhbiB7XG4gIGZvbnQtc2l6ZTogMzVweDtcbn0iXX0= */"
 
 /***/ }),
 
@@ -96,6 +96,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
 /* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
 /* harmony import */ var _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/keyboard/ngx */ "./node_modules/@ionic-native/keyboard/ngx/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
 
 
 
@@ -123,42 +125,41 @@ var HomePage = /** @class */ (function () {
         this.router = router;
         this.keyboard = keyboard;
         this.newsArray = [];
+        this.horizontalSwipers = [];
         this.error = '';
         this.isVisible = false;
-        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_3__["config"].mediaApiUrl;
         this.loading = false;
-        this.horizontalSwipers = [];
         this.isTextVisible = false;
         this.isCalled = false;
         this.bookMark = false;
+        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_3__["config"].mediaApiUrl;
     }
-    HomePage.prototype.ngAfterViewInit = function () {
+    // Event Listeners
+    HomePage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.checkforInternet();
+        console.warn("ngOnInit");
+        this.loading = true;
+        this.viewInitFunctions();
+        this.backButtonFunction();
+        this.checkForCurrentSlideFromLocalStorage();
+        this.language = localStorage.language;
+        this.route.params.subscribe(function (param) {
+            _this.pageContent(_this.router.url, param);
+        });
+    };
+    HomePage.prototype.ngOnExit = function () {
+        console.warn("ngOnExit");
     };
     HomePage.prototype.ionViewDidLeave = function () {
         console.warn("ionViewDidLeave");
+        $("#homepage-ion-content").html("");
+        delete this.newsArray;
+        console.warn("Removing homepage-ion-content", $("#homepage-ion-content").html());
         this.removeSwiperJs();
-    };
-    HomePage.prototype.removeSwiperJs = function () {
-        console.log("Removing Swiper.js");
-        $('#scriptid').remove();
-    };
-    HomePage.prototype.addSwiperJs = function () {
-        console.log("ReInitializing swiper");
-        var script = document.createElement('script');
-        script.setAttribute('id', 'scriptid');
-        script.src = "assets/js/swiper.js";
-        document.body.appendChild(script);
-    };
-    // Notification Tapped.
-    HomePage.prototype.notificationTapped = function () {
-        var _this = this;
-        this.fcm.onNotification().subscribe(function (data) {
-            _this.router.navigate(['home/single-news/' + data.newsId]);
-        });
     };
     HomePage.prototype.viewInitFunctions = function () {
         var _this = this;
-        console.log("viewInitFunctions");
         this.removeSwiperJs();
         this.notifyflag = localStorage.getItem('notification');
         this.language = localStorage.language;
@@ -178,7 +179,7 @@ var HomePage = /** @class */ (function () {
         }).subscribe(function (match) {
             _this.router.navigate(['home/single-news/' + match.$args.id]);
         }, function (nomatch) {
-            alert("UnMatched" + nomatch);
+            // alert("UnMatched" + nomatch);
         });
         this.tokenLocalStorage = localStorage.getItem('accessToken');
         if (this.tokenLocalStorage) {
@@ -188,6 +189,101 @@ var HomePage = /** @class */ (function () {
             this.loggedInUser = decodedToken.user._id;
         }
     };
+    //check for internet
+    HomePage.prototype.checkforInternet = function () {
+        var _this = this;
+        // // Check Internet conectivity
+        var offline = rxjs__WEBPACK_IMPORTED_MODULE_13__["Observable"].fromEvent(document, "offline");
+        var online = rxjs__WEBPACK_IMPORTED_MODULE_13__["Observable"].fromEvent(document, "online");
+        offline.subscribe(function () {
+            _this.hide = false;
+            _this.toast = _this.toastController.create({
+                message: 'Please check your internet connection',
+                animated: true,
+                showCloseButton: true,
+                closeButtonText: "OK",
+                cssClass: "my-toast",
+                position: "bottom",
+                color: "danger"
+            }).then(function (obj) {
+                obj.present();
+            });
+        });
+        online.subscribe(function () {
+            _this.toastController.dismiss();
+            _this.hide = true;
+        });
+    };
+    // ion-content RESET 
+    HomePage.prototype.doRefill = function () {
+        var _this = this;
+        console.log("Reseting ion-html");
+        $(document).ready(function () {
+            $("#homepage-ion-content").html("");
+            console.log("ion-content before loading html ", $("#homepage-ion-content").html());
+            $("#homepage-ion-content").html(_this.refillIonContent());
+            console.log("ion-content After loading html ", $("#homepage-ion-content").html());
+        });
+    };
+    HomePage.prototype.refillIonContent = function () {
+        return "<div class=\"swiper-container swiper-container-v \">\n        <div class=\"swiper-wrapper \">\n        <div class=\"swiper-slide background\" *ngFor=\"let news of newsArray; let i = index\" id={{news.newsId}}\n        style=\"padding:15px\">\n        <div class=\"swiper-container swiper-container-h \" id=\"swiper-h-{{news.newsId}}\">\n        <div class=\"swiper-wrapper\" id=\"swiper-wrapper{{i}}\">\n        <div class=\"page_slider swiper-slide newsId-{{news.newsId}} \"\n        style=\"background-color: transparent\" id=\"page_slider{{i}}\">\n        <div class='content' style=\"position: relative\">\n        <div id=\"sliderContent{{i}}\">\n        <!-- Title & Logo -->\n        <ion-row>\n        <ion-col size=\"8\">\n        <p *ngIf=\"language == 'English'\" class=\"news-title\">\n        {{news.newsTitleEnglish | slice:0:55}}...</p>\n        <p *ngIf=\"language == 'Hindi'\" class=\"news-title\" style=\"font-size: 27px\">\n        {{news.newsTitleHindi | slice:0:55}}...</p>\n        </ion-col>\n        <ion-col size=\"4\">\n        <img src=\"../../assets/images/Logo.png\" style=\"height: 110px\" />\n        </ion-col>\n        </ion-row>\n        <!-- Post Image -->\n        <div class=\"post_img\">\n        <img src=\"{{mediaPath}}{{news.newsImage}}\" style=\"height:350px !important;\" />\n        </div>\n        <!-- Content -->\n        <div class=\"contentPost\">\n        <div *ngIf=\"language == 'English'\" [innerHTML]=\"news.newsEnglish\">\n        </div>\n        <div class=\"hindi-news\" *ngIf=\"language == 'Hindi'\"\n        [innerHTML]=\"news.newsHindi\">\n        </div>\n        </div>\n        </div>\n        </div>\n        </div>\n        </div>\n        <!-- Bookmark -->\n        <div style=\"position: absolute; bottom: 0px;z-index: 28;\">\n        <img src=\"assets/images/Bookmarks.png\" class=\"bookmark\" *ngIf=\"!news.bookmarkKey\"\n        (click)=\"bookmark(i)\" />\n        <img src=\"assets/images/Bookmark.png\" class=\"bookmark\" *ngIf=\"news.bookmarkKey\"\n        (click)=\"bookmark(i)\" />\n        </div>\n        <!-- Share button -->\n        <div class=\"share-button\" *ngIf=\"language == 'English'\"\n        (click)=\"sharePost(news.newsId, news.newsTitleEnglish)\">\n        <img src=\"../../assets/images/Share.png\" class=\"icon\" />\n        </div>\n        <div class=\"share-button\" *ngIf=\"language == 'Hindi'\"\n        (click)=\"sharePost(news.newsId, news.newsTitleHindi)\">\n        <img src=\"../../assets/images/Share.png\" class=\"icon\" />\n        </div>\n        <div class=\"swiper-pagination swiper-pagination-h\"></div>\n        </div>\n        </div>\n        </div>\n        <!-- <div class=\"swiper-pagination swiper-pagination-v\"></div> -->\n        </div>\n        <div id=\"loader-wrapper\" *ngIf=\"loading\">\n        <div id=\"loader\">\n        <span class=\"logo_container\">\n        <img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n        </span>\n        <div class=\"ml-loader\">\n        <div></div>\n        <div></div>\n        <div></div>\n        <div></div>\n        <div></div>\n        <div></div>\n        <div></div>\n        <div></div>\n        <div></div>\n        <div></div>\n        <div></div>\n        <div></div>\n        </div>\n        <p class=\"text-center\">Loding Data...</p>\n        </div>\n        </div>\n        </ion-content>\n        ";
+    };
+    // RENDEREING FLOW
+    // Load Content according to url -- called from each GET api.
+    HomePage.prototype.pageContent = function (url, param) {
+        var _this = this;
+        this.doRefill();
+        console.log("Redirected From : ", url, param);
+        setTimeout(function () {
+            if (url.includes('bookmark')) {
+                _this.bookMark = true;
+                _this.bookmarkedNews();
+            }
+            else if (url.includes('category')) {
+                _this.catTitle = param.catTitle;
+                _this.catNews(param.id);
+            }
+            else if (url.includes('single-news')) {
+                console.log("In single news");
+                _this.getSingleNews(param.id);
+            }
+            else if (url.includes('search-news')) {
+                _this.searchNews(param.key);
+            }
+            else {
+                console.log("Calling for All news in Feeds");
+                _this.getNews();
+            }
+        }, 1000);
+    };
+    //  Load news to newsArray for all scenarios.
+    HomePage.prototype.loadNewsToPage = function (res, userId, checkForBookmark) {
+        var _this = this;
+        if (checkForBookmark === void 0) { checkForBookmark = false; }
+        console.info("loadToNewsPage Called ", "res = ", res, "userId", userId, "checkForBookmark", checkForBookmark);
+        this.newsArray = [];
+        this.loading = false;
+        if (!res.length) {
+            this.isTextVisible = true;
+            this.text = "There are no news yet...";
+        }
+        this.newsArray = res;
+        if (this.tokenLocalStorage && !checkForBookmark) {
+            lodash__WEBPACK_IMPORTED_MODULE_9__["forEach"](this.newsArray, function (save) {
+                lodash__WEBPACK_IMPORTED_MODULE_9__["forEach"](save.bookMark, function (Id) {
+                    if (Id == userId) {
+                        save['bookmarkKey'] = true;
+                    }
+                });
+            });
+        }
+        this.delay(500).then(function (any) {
+            _this.buildForSwiper().then(function () {
+                _this.addSwiperJs();
+            });
+        });
+    };
+    // Back Button actions
     HomePage.prototype.backButtonFunction = function () {
         var _this = this;
         this.platform.backButton.subscribe(function () { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
@@ -213,71 +309,33 @@ var HomePage = /** @class */ (function () {
             });
         }); });
     };
-    HomePage.prototype.doReload = function () {
-        // localStorage.setItem('isRefresh', 'true');
-        if (localStorage.getItem('isRefresh') == 'true') {
-            localStorage.setItem('isRefresh', 'false');
-            console.log("reloading");
-            window.location.reload();
-        }
-        else {
-            console.log("skipping reload");
-            localStorage.setItem('isRefresh', 'true');
-        }
-    };
-    HomePage.prototype.ngOnInit = function () {
-        var _this = this;
-        console.warn("ngOnInit");
-        this.loading = true;
-        this.viewInitFunctions();
-        this.backButtonFunction();
-        // this.doReload();
-        this.checkForCurrentSlideFromLocalStorage();
-        this.language = localStorage.language;
-        this.route.params.subscribe(function (param) {
-            _this.pageContent(_this.router.url, param);
-        });
-    };
-    HomePage.prototype.ngOnExit = function () {
-    };
-    // Load Content according to url
-    HomePage.prototype.pageContent = function (url, param) {
-        console.log("Redirected From : ", url, param);
-        if (url.includes('bookmark')) {
-            this.bookMark = true;
-            this.bookmarkedNews();
-        }
-        else if (url.includes('category')) {
-            this.catTitle = param.catTitle;
-            this.catNews(param.id);
-        }
-        else if (url.includes('single-news')) {
-            this.getSingleNews(param.id);
-        }
-        else if (url.includes('search-news')) {
-            this.searchNews(param.key);
-        }
-        else {
-            this.getNews();
-        }
+    // API CALLS
+    // View Count increment
+    HomePage.prototype.newPostView = function (postId) {
+        postId = postId.split("-")[1];
+        this.data = {
+            postId: postId,
+            postType: localStorage.language
+        };
+        this._newsService.newsCount(this.data);
     };
     /**
      * get Single news --- PENDING TO DEVELOP
      */
     HomePage.prototype.getSingleNews = function (id) {
         var _this = this;
-        console.log("this.id", id);
+        //console.log("this.id", id)
         this.loading = true;
         this.language = localStorage.language;
         this.checkForToken();
         var userId = this.loggedInUser;
-        console.log(userId);
+        //console.log(userId);
         this._newsService.getSingleNews(id).subscribe(function (res) {
-            console.log("this.single", res);
-            _this.newsArray = res;
-            _this.getNews();
-            console.log("for-----------------", _this.newsArray);
-            console.log(_this.newsArray);
+            //console.log("this.single", res);
+            // this.newsArray = res;
+            _this.loadNewsToPage(res, userId);
+            //console.log("for-----------------", this.newsArray);
+            //console.log(this.newsArray);
         }, function (err) {
             _this.loading = false;
             _this.error = err;
@@ -322,7 +380,7 @@ var HomePage = /** @class */ (function () {
         this.checkForToken();
         var userId = this.loggedInUser;
         this._newsService.allCatNews(id).subscribe(function (res) {
-            console.log("res of cat news", res);
+            console.log("CATNEWS UPDATED!!!     ");
             _this.loadNewsToPage(res, userId);
         }, function (err) {
             _this.loading = false;
@@ -339,13 +397,6 @@ var HomePage = /** @class */ (function () {
         this._newsService.getAllNews().subscribe(function (res) {
             console.log("all news==========>", res);
             _this.loadNewsToPage(res, userId);
-            // this.route.params.subscribe(param => {
-            //  if (!this.router.url.includes('single-news')) {
-            //      this.loadNewsToPage(res, userId);
-            //  } else {
-            //      this.appendSinleNews(res, userId)
-            //  }
-            // })
         }, function (err) {
             _this.loading = false;
             _this.error = err;
@@ -356,14 +407,11 @@ var HomePage = /** @class */ (function () {
         var _this = this;
         this.loading = false;
         if (!res.length) {
-            console.log("res in if=======>", res);
             this.isTextVisible = true;
             this.text = "There are no news yet...";
         }
         this.appendedNews = res;
-        console.log("this.app", this.appendedNews, this.newsArray);
         lodash__WEBPACK_IMPORTED_MODULE_9__["forEach"](this.appendedNews, function (news, index) {
-            console.log("id in foreach=========>", news.newsId);
             if (news.newsId == _this.appendedNews.newsId) {
                 _this.appendedNews.splice(index, 1);
             }
@@ -371,10 +419,8 @@ var HomePage = /** @class */ (function () {
         this.newsArray = this.appendedNews;
         if (this.tokenLocalStorage) {
             lodash__WEBPACK_IMPORTED_MODULE_9__["forEach"](this.newsArray, function (save) {
-                console.log("in foreach======>", save);
                 lodash__WEBPACK_IMPORTED_MODULE_9__["forEach"](save.bookMark, function (Id) {
                     if (Id == userId) {
-                        console.log("in loadNewsArray bookmark===========>", _this.newsArray);
                         save['bookmarkKey'] = true;
                     }
                 });
@@ -382,51 +428,49 @@ var HomePage = /** @class */ (function () {
         }
         this.buildForSwiper();
     };
-    HomePage.prototype.checkForToken = function () {
-        this.tokenLocalStorage = localStorage.getItem('accessToken');
-        if (this.tokenLocalStorage) {
-            var base64Url = this.tokenLocalStorage.split('.')[1];
-            var base64 = base64Url.replace('-', '+').replace('_', '/');
-            var decodedToken = JSON.parse(window.atob(base64));
-            this.loggedInUser = decodedToken.user._id;
-        }
-    };
-    //  Load news to newsArray for all scenarios.
-    HomePage.prototype.loadNewsToPage = function (res, userId, checkForBookmark) {
+    // BUTTON ACTIONS
+    //  Do Bookmark
+    HomePage.prototype.bookmark = function (index) {
         var _this = this;
-        if (checkForBookmark === void 0) { checkForBookmark = false; }
-        console.info("loadToNewsPage Called ", "res = ", res, "userId", userId, "checkForBookmark", checkForBookmark);
-        this.newsArray = [];
-        this.loading = false;
-        if (!res.length) {
-            this.isTextVisible = true;
-            this.text = "There are no news yet...";
-        }
-        this.newsArray = res;
-        if (this.tokenLocalStorage && !checkForBookmark) {
-            lodash__WEBPACK_IMPORTED_MODULE_9__["forEach"](this.newsArray, function (save) {
-                lodash__WEBPACK_IMPORTED_MODULE_9__["forEach"](save.bookMark, function (Id) {
-                    if (Id == userId) {
-                        save['bookmarkKey'] = true;
-                    }
-                });
+        this._newsService.bookmarkPost(this.newsArray[index].newsId).subscribe(function (res) {
+            _this.newsArray[index].bookmarkKey = !_this.newsArray[index].bookmarkKey;
+            _this.toast = _this.toastController.create({
+                message: res.message,
+                duration: 2000,
+                color: 'success'
+            }).then(function (toastData) {
+                toastData.present();
             });
-        }
-        console.log("Waiting for calling BuildSwiper", Date.now());
-        this.delay(500).then(function (any) {
-            console.log("Calling BuildSwiper at ", Date.now());
-            _this.buildForSwiper().then(function () {
-                console.log("Swiper Built. Now adding Swiper.JS");
-                _this.addSwiperJs();
+        }, function (err) {
+            _this.toast = _this.toastController.create({
+                message: err.error.message,
+                duration: 2000,
+                color: 'danger'
+            }).then(function (toastData) {
+                toastData.present();
             });
-            console.log("Check function after call to buildForSwiper()");
         });
     };
+    //  Do Share Post 
+    HomePage.prototype.sharePost = function (id, newsTitle) {
+        var message = "Check out this amazing news " + '" ' + newsTitle + ' "';
+        var subject = "Trivia Post";
+        var str = newsTitle;
+        var url = 'https://triviapost.com/post/' + id;
+        this.socialSharing.share(message, subject, null, url)
+            .then(function (entries) {
+            //console.log('success ' + JSON.stringify(entries));
+        })
+            .catch(function (error) {
+            alert('error ' + JSON.stringify(error));
+        });
+    };
+    // SWIPER 
     HomePage.prototype.delay = function (ms) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(function () { return resolve(); }, ms); }).then(function () { return console.log("fired"); })];
+                    case 0: return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(function () { return resolve(); }, ms); }).then(function () { return console.log("delay fired"); })];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -489,43 +533,50 @@ var HomePage = /** @class */ (function () {
             });
         });
     };
-    //  Do Bookmark
-    HomePage.prototype.bookmark = function (index) {
+    HomePage.prototype.removeSwiperJs = function () {
+        $('#scriptid').remove();
+    };
+    HomePage.prototype.addSwiperJs = function () {
+        var script = document.createElement('script');
+        script.setAttribute('id', 'scriptid');
+        script.src = "assets/js/swiper.js";
+        document.body.appendChild(script);
+    };
+    // END SWIPER
+    // Notification and utility
+    HomePage.prototype.notificationTapped = function () {
         var _this = this;
-        this._newsService.bookmarkPost(this.newsArray[index].newsId).subscribe(function (res) {
-            _this.newsArray[index].bookmarkKey = !_this.newsArray[index].bookmarkKey;
-            _this.toast = _this.toastController.create({
-                message: res.message,
-                duration: 2000,
-                color: 'success'
-            }).then(function (toastData) {
-                toastData.present();
-            });
-        }, function (err) {
-            console.log('err===========>', err.error.message);
-            _this.toast = _this.toastController.create({
-                message: err.error.message,
-                duration: 2000,
-                color: 'danger'
-            }).then(function (toastData) {
-                toastData.present();
-            });
+        this.fcm.onNotification().subscribe(function (data) {
+            _this.router.navigate(['home/single-news/' + data.newsId]);
         });
     };
-    //  Do Share Post 
-    HomePage.prototype.sharePost = function (id, newsTitle) {
-        console.log("in sharepost=========>", id, newsTitle);
-        var message = "Check out this amazing news " + '" ' + newsTitle + ' "';
-        var subject = "Trivia Post";
-        var str = newsTitle;
-        var url = 'https://triviapost.com/post/' + id;
-        this.socialSharing.share(message, subject, null, url)
-            .then(function (entries) {
-            console.log('success ' + JSON.stringify(entries));
-        })
-            .catch(function (error) {
-            alert('error ' + JSON.stringify(error));
+    HomePage.prototype.fcmToken = function () {
+        var _this = this;
+        this.fcm.getToken().then(function (token) {
+            localStorage.setItem('deviceToken', token);
         });
+        this.fcm.onTokenRefresh().subscribe(function (token) {
+            localStorage.setItem('deviceToken', token);
+        });
+        this.fcm.onNotification().subscribe(function (data) {
+            _this.router.navigate(['settings']);
+            alert(JSON.stringify(data));
+            if (data.wasTapped) {
+                //console.log('Received in background');
+            }
+            else {
+                //console.log('Received in foreground');
+            }
+        });
+    };
+    HomePage.prototype.checkForToken = function () {
+        this.tokenLocalStorage = localStorage.getItem('accessToken');
+        if (this.tokenLocalStorage) {
+            var base64Url = this.tokenLocalStorage.split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+            var decodedToken = JSON.parse(window.atob(base64));
+            this.loggedInUser = decodedToken.user._id;
+        }
     };
     HomePage.prototype.checkForCurrentSlideFromLocalStorage = function () {
         var that = this;
@@ -535,36 +586,6 @@ var HomePage = /** @class */ (function () {
                 that.newPostView(that.currentPostId);
             }
         }, 500);
-    };
-    // View Count increment
-    HomePage.prototype.newPostView = function (postId) {
-        postId = postId.split("-")[1];
-        this.data = {
-            postId: postId,
-            postType: localStorage.language
-        };
-        this._newsService.newsCount(this.data);
-    };
-    HomePage.prototype.fcmToken = function () {
-        var _this = this;
-        this.fcm.getToken().then(function (token) {
-            console.log("Device", token);
-            localStorage.setItem('deviceToken', token);
-        });
-        this.fcm.onTokenRefresh().subscribe(function (token) {
-            console.log("Device", token);
-            localStorage.setItem('deviceToken', token);
-        });
-        this.fcm.onNotification().subscribe(function (data) {
-            _this.router.navigate(['settings']);
-            alert(JSON.stringify(data));
-            if (data.wasTapped) {
-                console.log('Received in background');
-            }
-            else {
-                console.log('Received in foreground');
-            }
-        });
     };
     HomePage.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
