@@ -42,22 +42,19 @@ export class SearchbarComponent implements OnInit {
 
     searchNews(key){
 		this.keyValue = key;
-        this.loading = true;
         this._newsService.searchedNews(key).subscribe(
             (res: News[]) => {
-                this.keyboard.hide();
-                this.loading = false;
                 this.newsArray = res;
                 this.searchLength = this.newsArray.length;
                 console.log(this.newsArray);
             },
             (err) => {
-                this.loading = false;
                 this.error = err;
             });
     }
 
     getSingleSearch(){
+       this.keyboard.hide();
        this.router.navigate(['home/search-news/'+ this.keyValue]);
    }
 }

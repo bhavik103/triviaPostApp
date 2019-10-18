@@ -22,13 +22,17 @@ export class NewsService {
 
 	//fetch all news
 	getAllNews(): Observable<any>{
-		return new Observable(observer => {
-			if(this.network.type == 'none' ){
+		if(this.network.type == 'none' ){
+			return new Observable(observer => {
 				console.log(JSON.parse(localStorage.getItem("newsArray")));
 				this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
-				observer.next(this.newsArray);
-				observer.complete();
-			} else{    
+				setTimeout(() => {
+					observer.next(this.newsArray);
+					observer.complete();
+				}, 1);
+			});
+		} else{    
+			return new Observable(observer => {
 				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').subscribe(
 					(result: object) => {
 						this.newsArray = result['data'];
@@ -39,8 +43,8 @@ export class NewsService {
 					(error) => {
 						observer.error(error);
 					});
-			}
-		});
+			});
+		}
 	}
 
 	allCatNews(id){
@@ -87,6 +91,7 @@ export class NewsService {
 	}
 
 	newsCount(data) {
+		console.log("post data", data);
 		return this.http.put(config.baseApiUrl + 'post-views',data);
 	}
 }

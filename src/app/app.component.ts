@@ -29,7 +29,7 @@ export class AppComponent {
     private fcm: FCM,
     private router: Router,
     protected deeplinks: Deeplinks,
-  ) {
+    ) {
     // // Check Internet conectivity
     var offline = Observable.fromEvent(document, "offline");
     var online = Observable.fromEvent(document, "online");
@@ -67,8 +67,8 @@ export class AppComponent {
   initializeApp() {
     const handleBranch = () => {
       this.platform.ready().then(() => {
-        this.statusBar.backgroundColorByHexString('#000000');
         this.splashScreen.hide();
+        this.statusBar.backgroundColorByHexString('#000000');
       });
     }
   }

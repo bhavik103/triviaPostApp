@@ -28,7 +28,7 @@ export class CategoryService {
 				this.categories = JSON.parse(localStorage.getItem("categories"))
 				observer.next(this.categories);
 				observer.complete();
-			} else{    
+			}else{    
 				this.http.get(config.baseApiUrl + "category").subscribe(
 					(result: object) => {
 						this.categories = result['data'];
