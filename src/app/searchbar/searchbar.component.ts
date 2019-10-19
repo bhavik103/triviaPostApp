@@ -40,17 +40,22 @@ export class SearchbarComponent implements OnInit {
         this.language = localStorage.getItem('language');
     }
 
-    searchNews(key){
-		this.keyValue = key;
-        this._newsService.searchedNews(key).subscribe(
-            (res: News[]) => {
-                this.newsArray = res;
-                this.searchLength = this.newsArray.length;
-                console.log(this.newsArray);
-            },
-            (err) => {
-                this.error = err;
-            });
+    searchNews(key) {
+        this.keyValue = key;
+        if (this.keyValue.length == 0) {
+            this.newsArray = [];
+            this.searchLength = this.newsArray;
+        } else {
+            this._newsService.searchedNews(key).subscribe(
+                (res: any) => {
+                    this.newsArray = res;
+                    this.searchLength = this.newsArray.length;
+                    console.log(this.newsArray);
+                },
+                (err) => {
+                    this.error = err;
+                });
+        }
     }
 
     getSingleSearch(){

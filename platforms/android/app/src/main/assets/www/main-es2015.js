@@ -564,6 +564,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+
 
 
 
@@ -572,7 +574,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AllCategoryComponent = class AllCategoryComponent {
-    constructor(platform, toastController, _categoryService, router) {
+    constructor(network, platform, toastController, _categoryService, router) {
+        this.network = network;
         this.platform = platform;
         this.toastController = toastController;
         this._categoryService = _categoryService;
@@ -633,31 +636,42 @@ let AllCategoryComponent = class AllCategoryComponent {
         this.router.navigate(['catResult'], navigationExtras);
     }
     addNotify(catId) {
-        console.log("ts", catId);
-        this._categoryService.notifyUser(catId).subscribe((res) => {
-            console.log("res", res);
+        if (this.network.type == 'none') {
             this.toast = this.toastController.create({
-                message: res.message,
-                duration: 2000,
-                color: 'success'
-            }).then((toastData) => {
-                this.getCategories();
-                console.log(toastData);
-                toastData.present();
-            });
-        }, err => {
-            this.toast = this.toastController.create({
-                message: err.error.message,
+                message: "No internet connection",
                 duration: 2000,
                 color: 'danger'
             }).then((toastData) => {
-                console.log(toastData);
                 toastData.present();
             });
-        });
+        }
+        else {
+            this._categoryService.notifyUser(catId).subscribe((res) => {
+                console.log("res", res);
+                this.toast = this.toastController.create({
+                    message: res.message,
+                    duration: 2000,
+                    color: 'success'
+                }).then((toastData) => {
+                    this.getCategories();
+                    console.log(toastData);
+                    toastData.present();
+                });
+            }, err => {
+                this.toast = this.toastController.create({
+                    message: err.error.message,
+                    duration: 2000,
+                    color: 'danger'
+                }).then((toastData) => {
+                    console.log(toastData);
+                    toastData.present();
+                });
+            });
+        }
     }
 };
 AllCategoryComponent.ctorParameters = () => [
+    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"] },
     { type: _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"] },
@@ -669,7 +683,7 @@ AllCategoryComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./all-category.component.html */ "./node_modules/raw-loader/index.js!./src/app/all-category/all-category.component.html"),
         styles: [__webpack_require__(/*! ./all-category.component.scss */ "./src/app/all-category/all-category.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
 ], AllCategoryComponent);
 
 
@@ -843,7 +857,7 @@ let AppComponent = class AppComponent {
         offline.subscribe(() => {
             this.hide = false;
             this.toast = this.toastController.create({
-                message: 'Please check your internet connection',
+                message: 'No internet connection',
                 animated: true,
                 showCloseButton: true,
                 duration: 2000,
@@ -1813,13 +1827,19 @@ let SearchbarComponent = class SearchbarComponent {
     }
     searchNews(key) {
         this.keyValue = key;
-        this._newsService.searchedNews(key).subscribe((res) => {
-            this.newsArray = res;
-            this.searchLength = this.newsArray.length;
-            console.log(this.newsArray);
-        }, (err) => {
-            this.error = err;
-        });
+        if (this.keyValue.length == 0) {
+            this.newsArray = [];
+            this.searchLength = this.newsArray;
+        }
+        else {
+            this._newsService.searchedNews(key).subscribe((res) => {
+                this.newsArray = res;
+                this.searchLength = this.newsArray.length;
+                console.log(this.newsArray);
+            }, (err) => {
+                this.error = err;
+            });
+        }
     }
     getSingleSearch() {
         this.keyboard.hide();
@@ -2093,18 +2113,41 @@ let NewsService = class NewsService {
                 });
             });
         }
-        // return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&categoryId='+id).pipe(
+    }
+    searchedNews(searchKey) {
+        if (this.network.type == 'none') {
+            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](observer => {
+                console.log("fdfdfd", JSON.parse(localStorage.getItem("newsArray")));
+                console.log("regex");
+                this.newsArray = JSON.parse(localStorage.getItem("newsArray"));
+                const items = this.newsArray.filter(item => item.newsTitleEnglish.indexOf(searchKey) !== -1);
+                console.log("after", items);
+                this.newsArray = items;
+                setTimeout(() => {
+                    observer.next(this.newsArray);
+                    observer.complete();
+                }, 1);
+            });
+        }
+        else {
+            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](observer => {
+                this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&keyword=' + searchKey).subscribe((result) => {
+                    this.newsArray = result['data'];
+                    console.log("in cat service", this.newsArray);
+                    // localStorage.setItem('newsArray',JSON.stringify(this.newsArray))
+                    observer.next(this.newsArray);
+                    observer.complete();
+                }, (error) => {
+                    observer.error(error);
+                });
+            });
+        }
+        // return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&keyword=' + searchKey).pipe(
         // 	map((res) => {
         // 		this.newsArray = res['data'];
         // 		return this.newsArray;
         // 	}),
         // 	catchError(this.handleError));
-    }
-    searchedNews(searchKey) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&keyword=' + searchKey).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((res) => {
-            this.newsArray = res['data'];
-            return this.newsArray;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     }
     getAllBookmarks() {
         console.log("Hello");

@@ -570,6 +570,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+
 
 
 
@@ -578,7 +580,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AllCategoryComponent = /** @class */ (function () {
-    function AllCategoryComponent(platform, toastController, _categoryService, router) {
+    function AllCategoryComponent(network, platform, toastController, _categoryService, router) {
+        this.network = network;
         this.platform = platform;
         this.toastController = toastController;
         this._categoryService = _categoryService;
@@ -644,30 +647,41 @@ var AllCategoryComponent = /** @class */ (function () {
     };
     AllCategoryComponent.prototype.addNotify = function (catId) {
         var _this = this;
-        console.log("ts", catId);
-        this._categoryService.notifyUser(catId).subscribe(function (res) {
-            console.log("res", res);
-            _this.toast = _this.toastController.create({
-                message: res.message,
-                duration: 2000,
-                color: 'success'
-            }).then(function (toastData) {
-                _this.getCategories();
-                console.log(toastData);
-                toastData.present();
-            });
-        }, function (err) {
-            _this.toast = _this.toastController.create({
-                message: err.error.message,
+        if (this.network.type == 'none') {
+            this.toast = this.toastController.create({
+                message: "No internet connection",
                 duration: 2000,
                 color: 'danger'
             }).then(function (toastData) {
-                console.log(toastData);
                 toastData.present();
             });
-        });
+        }
+        else {
+            this._categoryService.notifyUser(catId).subscribe(function (res) {
+                console.log("res", res);
+                _this.toast = _this.toastController.create({
+                    message: res.message,
+                    duration: 2000,
+                    color: 'success'
+                }).then(function (toastData) {
+                    _this.getCategories();
+                    console.log(toastData);
+                    toastData.present();
+                });
+            }, function (err) {
+                _this.toast = _this.toastController.create({
+                    message: err.error.message,
+                    duration: 2000,
+                    color: 'danger'
+                }).then(function (toastData) {
+                    console.log(toastData);
+                    toastData.present();
+                });
+            });
+        }
     };
     AllCategoryComponent.ctorParameters = function () { return [
+        { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"] },
         { type: _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"] },
@@ -679,7 +693,7 @@ var AllCategoryComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./all-category.component.html */ "./node_modules/raw-loader/index.js!./src/app/all-category/all-category.component.html"),
             styles: [__webpack_require__(/*! ./all-category.component.scss */ "./src/app/all-category/all-category.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], AllCategoryComponent);
     return AllCategoryComponent;
 }());
@@ -859,7 +873,7 @@ var AppComponent = /** @class */ (function () {
         offline.subscribe(function () {
             _this.hide = false;
             _this.toast = _this.toastController.create({
-                message: 'Please check your internet connection',
+                message: 'No internet connection',
                 animated: true,
                 showCloseButton: true,
                 duration: 2000,
@@ -1888,13 +1902,19 @@ var SearchbarComponent = /** @class */ (function () {
     SearchbarComponent.prototype.searchNews = function (key) {
         var _this = this;
         this.keyValue = key;
-        this._newsService.searchedNews(key).subscribe(function (res) {
-            _this.newsArray = res;
-            _this.searchLength = _this.newsArray.length;
-            console.log(_this.newsArray);
-        }, function (err) {
-            _this.error = err;
-        });
+        if (this.keyValue.length == 0) {
+            this.newsArray = [];
+            this.searchLength = this.newsArray;
+        }
+        else {
+            this._newsService.searchedNews(key).subscribe(function (res) {
+                _this.newsArray = res;
+                _this.searchLength = _this.newsArray.length;
+                console.log(_this.newsArray);
+            }, function (err) {
+                _this.error = err;
+            });
+        }
     };
     SearchbarComponent.prototype.getSingleSearch = function () {
         this.keyboard.hide();
@@ -2176,19 +2196,42 @@ var NewsService = /** @class */ (function () {
                 });
             });
         }
-        // return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&categoryId='+id).pipe(
+    };
+    NewsService.prototype.searchedNews = function (searchKey) {
+        var _this = this;
+        if (this.network.type == 'none') {
+            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
+                console.log("fdfdfd", JSON.parse(localStorage.getItem("newsArray")));
+                console.log("regex");
+                _this.newsArray = JSON.parse(localStorage.getItem("newsArray"));
+                var items = _this.newsArray.filter(function (item) { return item.newsTitleEnglish.indexOf(searchKey) !== -1; });
+                console.log("after", items);
+                _this.newsArray = items;
+                setTimeout(function () {
+                    observer.next(_this.newsArray);
+                    observer.complete();
+                }, 1);
+            });
+        }
+        else {
+            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
+                _this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&keyword=' + searchKey).subscribe(function (result) {
+                    _this.newsArray = result['data'];
+                    console.log("in cat service", _this.newsArray);
+                    // localStorage.setItem('newsArray',JSON.stringify(this.newsArray))
+                    observer.next(_this.newsArray);
+                    observer.complete();
+                }, function (error) {
+                    observer.error(error);
+                });
+            });
+        }
+        // return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&keyword=' + searchKey).pipe(
         // 	map((res) => {
         // 		this.newsArray = res['data'];
         // 		return this.newsArray;
         // 	}),
         // 	catchError(this.handleError));
-    };
-    NewsService.prototype.searchedNews = function (searchKey) {
-        var _this = this;
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&keyword=' + searchKey).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
-            _this.newsArray = res['data'];
-            return _this.newsArray;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     };
     NewsService.prototype.getAllBookmarks = function () {
         var _this = this;

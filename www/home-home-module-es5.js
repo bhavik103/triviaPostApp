@@ -97,6 +97,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
 /* harmony import */ var _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/keyboard/ngx */ "./node_modules/@ionic-native/keyboard/ngx/index.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+
 
 
 
@@ -112,7 +114,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var HomePage = /** @class */ (function () {
-    function HomePage(route, screenOrientation, platform, socialSharing, toastController, deeplinks, fcm, _newsService, _categoryService, router, keyboard) {
+    function HomePage(network, route, screenOrientation, platform, socialSharing, toastController, deeplinks, fcm, _newsService, _categoryService, router, keyboard) {
+        this.network = network;
         this.route = route;
         this.screenOrientation = screenOrientation;
         this.platform = platform;
@@ -201,7 +204,7 @@ var HomePage = /** @class */ (function () {
         offline.subscribe(function () {
             _this.hide = false;
             _this.toast = _this.toastController.create({
-                message: 'Please check your internet connection',
+                message: 'No internet connection',
                 animated: true,
                 duration: 2000,
                 showCloseButton: true,
@@ -442,24 +445,35 @@ var HomePage = /** @class */ (function () {
     //  Do Bookmark
     HomePage.prototype.bookmark = function (index) {
         var _this = this;
-        this._newsService.bookmarkPost(this.newsArray[index].newsId).subscribe(function (res) {
-            _this.newsArray[index].bookmarkKey = !_this.newsArray[index].bookmarkKey;
-            _this.toast = _this.toastController.create({
-                message: res.message,
-                duration: 2000,
-                color: 'success'
-            }).then(function (toastData) {
-                toastData.present();
-            });
-        }, function (err) {
-            _this.toast = _this.toastController.create({
-                message: err.error.message,
+        if (this.network.type == 'none') {
+            this.toast = this.toastController.create({
+                message: "No internet connection",
                 duration: 2000,
                 color: 'danger'
             }).then(function (toastData) {
                 toastData.present();
             });
-        });
+        }
+        else {
+            this._newsService.bookmarkPost(this.newsArray[index].newsId).subscribe(function (res) {
+                _this.newsArray[index].bookmarkKey = !_this.newsArray[index].bookmarkKey;
+                _this.toast = _this.toastController.create({
+                    message: res.message,
+                    duration: 2000,
+                    color: 'success'
+                }).then(function (toastData) {
+                    toastData.present();
+                });
+            }, function (err) {
+                _this.toast = _this.toastController.create({
+                    message: err.error.message,
+                    duration: 2000,
+                    color: 'danger'
+                }).then(function (toastData) {
+                    toastData.present();
+                });
+            });
+        }
     };
     //  Do Share Post 
     HomePage.prototype.sharePost = function (id, newsTitle) {
@@ -598,6 +612,7 @@ var HomePage = /** @class */ (function () {
         }, 500);
     };
     HomePage.ctorParameters = function () { return [
+        { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_14__["Network"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
         { type: _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_11__["ScreenOrientation"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"] },
@@ -616,7 +631,7 @@ var HomePage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./home.page.html */ "./node_modules/raw-loader/index.js!./src/app/home/home.page.html"),
             styles: [__webpack_require__(/*! ./home.page.scss */ "./src/app/home/home.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"], _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_11__["ScreenOrientation"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_10__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["ToastController"], _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__["Deeplinks"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__["FCM"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_12__["Keyboard"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_14__["Network"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"], _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_11__["ScreenOrientation"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_10__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["ToastController"], _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__["Deeplinks"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__["FCM"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_12__["Keyboard"]])
     ], HomePage);
     return HomePage;
 }());

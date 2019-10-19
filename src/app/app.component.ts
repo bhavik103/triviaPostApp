@@ -37,7 +37,7 @@ export class AppComponent {
     offline.subscribe(() => {
       this.hide = false;
       this.toast = this.toastController.create({
-        message: 'Please check your internet connection',
+        message: 'No internet connection',
         animated: true,
         showCloseButton: true,
         duration: 2000,

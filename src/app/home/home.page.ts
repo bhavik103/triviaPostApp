@@ -14,6 +14,8 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { Observable } from 'rxjs';
+import { Network } from '@ionic-native/network/ngx';
+
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -48,7 +50,7 @@ export class HomePage implements OnInit {
     data: { postId: any; postType: any; };
     appendedNews: { newsId: any; splice: (arg0: any, arg1: number) => void; };
     hide: boolean;
-    constructor(private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, public toastController: ToastController, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
+    constructor(private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, public toastController: ToastController, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 
     // Event Listeners
@@ -123,7 +125,7 @@ export class HomePage implements OnInit {
         offline.subscribe(() => {
             this.hide = false;
             this.toast = this.toastController.create({
-                message: 'Please check your internet connection',
+                message: 'No internet connection',
                 animated: true,
                 duration: 2000,
                 showCloseButton: true,
@@ -447,24 +449,34 @@ export class HomePage implements OnInit {
     // BUTTON ACTIONS
     //  Do Bookmark
     bookmark(index: string | number) {
-        this._newsService.bookmarkPost(this.newsArray[index].newsId).subscribe((res: any) => {
-            this.newsArray[index].bookmarkKey = !this.newsArray[index].bookmarkKey;
+        if (this.network.type == 'none') {
             this.toast = this.toastController.create({
-                message: res.message,
-                duration: 2000,
-                color: 'success'
-            }).then((toastData) => {
-                toastData.present();
-            });
-        }, err => {
-            this.toast = this.toastController.create({
-                message: err.error.message,
+                message: "No internet connection",
                 duration: 2000,
                 color: 'danger'
             }).then((toastData) => {
                 toastData.present();
             });
-        })
+        } else {
+            this._newsService.bookmarkPost(this.newsArray[index].newsId).subscribe((res: any) => {
+                this.newsArray[index].bookmarkKey = !this.newsArray[index].bookmarkKey;
+                this.toast = this.toastController.create({
+                    message: res.message,
+                    duration: 2000,
+                    color: 'success'
+                }).then((toastData) => {
+                    toastData.present();
+                });
+            }, err => {
+                this.toast = this.toastController.create({
+                    message: err.error.message,
+                    duration: 2000,
+                    color: 'danger'
+                }).then((toastData) => {
+                    toastData.present();
+                });
+            })
+        }
     }
     //  Do Share Post 
     sharePost(id: string, newsTitle: string) {
