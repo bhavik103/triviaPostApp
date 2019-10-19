@@ -19,6 +19,10 @@ input{
     background-image: url('assets/images/CategoryBackground.png');
     margin: 0 auto;
     height: 100%;
+    border-radius: 0!important;
+    box-shadow: none!important;
+    background-size: 100% auto;
+    background-position: center;
 }
 
 .catCard ion-card-content{

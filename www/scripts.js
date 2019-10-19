@@ -197,7 +197,6 @@ options.doneFunc();}});};})(jQuery);
 		document.body.appendChild(script);
 	},200);
 	console.log("In custom script.........");
-	
 });
 ;/**
  * Swiper 5.0.3
@@ -682,6 +681,7 @@ var currentPostId;
       if (includeMargins) {
         // eslint-disable-next-line
         var styles = this.styles();
+        console.log("This styles",styles);
         return this[0].offsetHeight + parseFloat(styles.getPropertyValue('margin-top')) + parseFloat(styles.getPropertyValue('margin-bottom'));
       }
       return this[0].offsetHeight;
@@ -1586,6 +1586,7 @@ var currentPostId;
             var paddingBottom = parseFloat(slideStyles.getPropertyValue('padding-bottom'));
             var marginTop = parseFloat(slideStyles.getPropertyValue('margin-top'));
             var marginBottom = parseFloat(slideStyles.getPropertyValue('margin-bottom'));
+            console.log("This styles",marginBottom);
             var boxSizing$1 = slideStyles.getPropertyValue('box-sizing');
             if (boxSizing$1 && boxSizing$1 === 'border-box') {
               slideSize = height + marginTop + marginBottom;

@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 	styleUrls: ['./all-category.component.scss'],
 })
 export class AllCategoryComponent implements OnInit {
-	categories$: Observable<Category>;
+	categories$: Observable<any>;
 	toast: any;
 	error = '';
 	tokenLocalStorage: any;
@@ -34,6 +34,7 @@ export class AllCategoryComponent implements OnInit {
 	}
 
 	ionViewWillEnter(){
+		// this.loading = true;
 		this.platform.backButton.subscribe(async () => {
             if(this.router.url.includes('allcategory')){
                 this.router.navigate(['home']);
@@ -56,7 +57,7 @@ export class AllCategoryComponent implements OnInit {
 		console.log("Observable Category Completed")
 	}
 	getCategories(){
-		// this.loading = true;
+		
 		this.tokenLocalStorage = localStorage.getItem('accessToken');
 		if(this.tokenLocalStorage){
 			var base64Url = this.tokenLocalStorage.split('.')[1];
@@ -66,26 +67,9 @@ export class AllCategoryComponent implements OnInit {
 			console.log("Decoded",this.loggedInUser);
 		}
 		var that = this;
-		// this._categoryService.getAll().subscribe(function(res: Category[]){
-		// 	console.log("Data in Component is updated!!!",res)
-		// 		var userId =  that.loggedInUser;
-		// 		that.loading = false;
-				
-		// 		that.updateCategories(res)
-		// 		_.forEach(res,(user)=>{
-		// 			_.forEach(user.notify,(Id)=>{
-		// 				if(Id == userId){
-		// 					user['isNotify'] = true
-		// 				}
-		// 			})
-		// 		})
-		// 	console.log("Updated Category Array",this.categories$);
-	
-		// },this.handleCatError,this.handleCatComplete);
-
-
+		console.log("before", this.categories$);
 		this.categories$ = this._categoryService.getAll().pipe();
-
+		console.log("after", this.categories$);
 	}
 
 	search(){

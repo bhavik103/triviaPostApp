@@ -14,6 +14,7 @@ import * as _ from 'lodash';
 export class CategoryService {
 	categories: Category[];
 	loggedInUser;
+	loading:any;
 	constructor(private network: Network, private http: HttpClient) { }
 
 	private handleError(error: HttpErrorResponse) {
@@ -36,7 +37,6 @@ export class CategoryService {
 			this.notifyChange();
 			
 			observer.next(this.categories);
-
 			if (this.network.type == 'none') {
 				console.log(JSON.parse(localStorage.getItem("newsArray")));
 				observer.complete();
@@ -61,7 +61,6 @@ export class CategoryService {
 
 				// },10000);
 				// observer.complete();
-
 			}
 		});
 	}

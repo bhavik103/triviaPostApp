@@ -110,7 +110,9 @@ export class HomePage implements OnInit {
             this.loggedInUser = decodedToken.user._id;
         }
     }
-
+    ionViewWillEnter() {
+        this.loading = true;
+    }
     //check for internet
 
     checkforInternet() {
@@ -209,28 +211,30 @@ export class HomePage implements OnInit {
         </div>
         <!-- <div class="swiper-pagination swiper-pagination-v"></div> -->
         </div>
-        <div id="loader-wrapper" *ngIf="loading">
-        <div id="loader">
-        <span class="logo_container">
-        <img src="../../assets/images/Logo.png" alt="logo">
-        </span>
-        <div class="ml-loader">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        </div>
-        <p class="text-center">Loding Data...</p>
-        </div>
-        </div>
+        <ion-content *ngIf="loading">
+	    <div id="loader-wrapper">
+		<div id="loader">
+		<span class="logo_container">
+		<img src="../../assets/images/Logo.png" alt="logo">
+	    </span>
+		<div class="ml-loader">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		</div>
+		<p class="text-center">Loding Data...</p>
+		</div>
+	    </div>
+        </ion-content>
         </ion-content>
         `;
     }
@@ -241,20 +245,25 @@ export class HomePage implements OnInit {
     pageContent(url: string, param: { catTitle: any; id: any; key: any; }) {
         this.doRefill();
         console.log("Redirected From : ", url, param)
-
+        // this.loading = true;
         setTimeout(() => {
             if (url.includes('bookmark')) {
+                this.loading = false;
                 this.bookMark = true
                 this.bookmarkedNews();
             } else if (url.includes('category')) {
+                this.loading = false;
                 this.catTitle = param.catTitle;
                 this.catNews(param.id);
             } else if (url.includes('single-news')) {
+                this.loading = false;
                 console.log("In single news");
                 this.getSingleNews(param.id);
             } else if (url.includes('search-news')) {
+                this.loading = false;
                 this.searchNews(param.key);
             } else {
+                this.loading = false;
                 console.log("Calling for All news in Feeds");
                 this.getNews();
             }
@@ -374,13 +383,13 @@ export class HomePage implements OnInit {
             });
     }
     catNews(id: any): void {
-        this.loading = true;
+        console.log(this.loading)
         this.language = localStorage.getItem('language');
         this.checkForToken();
         var userId = this.loggedInUser;
         this._newsService.allCatNews(id).subscribe(
             (res: any) => {
-                console.log("CATNEWS UPDATED!!!     ")
+                console.log("CATNEWS UPDATED!!!")
                 this.loadNewsToPage(res, userId);
             },
             (err) => {

@@ -6,5 +6,4 @@ $(document).ready(function() {
 		document.body.appendChild(script);
 	},200);
 	console.log("In custom script.........");
-	
 });
