@@ -53,7 +53,6 @@ export class HomePage implements OnInit {
 
     // Event Listeners
     ngOnInit() {
-        this.checkforInternet();
         console.warn("ngOnInit");
         this.loading = true;
         this.viewInitFunctions();
@@ -112,6 +111,7 @@ export class HomePage implements OnInit {
     }
     ionViewWillEnter() {
         this.loading = true;
+        this.checkforInternet();
     }
     //check for internet
 
@@ -125,6 +125,7 @@ export class HomePage implements OnInit {
             this.toast = this.toastController.create({
                 message: 'Please check your internet connection',
                 animated: true,
+                duration: 2000,
                 showCloseButton: true,
                 closeButtonText: "OK",
                 cssClass: "my-toast",

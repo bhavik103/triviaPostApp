@@ -15,12 +15,10 @@ import {LoginComponent} from './login/login.component';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { IonicStorageModule } from '@ionic/storage';
-import {CategoryResultComponent} from './category-result/category-result.component';
 import {FeedbackComponent} from './feedback/feedback.component'; 
 import {PrivacyComponent} from './privacy/privacy.component'; 
 import {SearchbarComponent} from './searchbar/searchbar.component';
-import {TermsAndCondComponent} from './terms-and-cond/terms-and-cond.component'; 
-import {CategryListComponent} from './categry-list/categry-list.component';
+import {TermsAndCondComponent} from './terms-and-cond/terms-and-cond.component';
 import {BookmarksComponent} from './bookmarks/bookmarks.component'; 
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
@@ -31,9 +29,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Network } from '@ionic-native/network/ngx';
 
 @NgModule({
-  declarations: [AppComponent, SettingsComponent, LoginComponent, AllCategoryComponent, 
-  CategoryResultComponent,FeedbackComponent, PrivacyComponent,
-  SearchbarComponent,TermsAndCondComponent, BookmarksComponent,CategryListComponent],
+  declarations: [AppComponent, SettingsComponent, LoginComponent, AllCategoryComponent,FeedbackComponent, PrivacyComponent,
+  SearchbarComponent,TermsAndCondComponent, BookmarksComponent],
   entryComponents: [],
   imports: [FormsModule,BrowserModule,ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [

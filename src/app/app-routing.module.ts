@@ -3,14 +3,11 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
 import { AllCategoryComponent } from './all-category/all-category.component';
-
-import { CategoryResultComponent } from './category-result/category-result.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { TermsAndCondComponent } from './terms-and-cond/terms-and-cond.component';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
-import { CategryListComponent } from './categry-list/categry-list.component';
 import { AuthGuard, LoginGuard } from './guards/user.guard';
 const routes: Routes = [
 	{
@@ -53,10 +50,6 @@ const routes: Routes = [
 		component: AllCategoryComponent
 	},
 	{
-		path: 'catResult',
-		component: CategoryResultComponent
-	},
-	{
 		path: 'feedback',
 		component: FeedbackComponent
 	},
@@ -75,11 +68,7 @@ const routes: Routes = [
 	{
 		path: 'bookmarks',
 		component: BookmarksComponent
-	},
-	// {
-	// 	path: 'category-list/:id',
-	// 	component: CategryListComponent
-	// }
+	}
 
 ];
 

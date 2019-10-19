@@ -40,6 +40,7 @@ export class AppComponent {
         message: 'Please check your internet connection',
         animated: true,
         showCloseButton: true,
+        duration: 2000,
         closeButtonText: "OK",
         cssClass: "my-toast",
         position: "bottom",

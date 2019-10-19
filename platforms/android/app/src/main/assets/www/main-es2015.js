@@ -471,28 +471,6 @@ module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-icon name=\"arro
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/category-result/category-result.component.html":
-/*!******************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/category-result/category-result.component.html ***!
-  \******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-icon name=\"arrow-round-back\" class=\"backCatRes\" routerLink=\"/allcategory\"></ion-icon>\n\t\t<ion-title class=\"ion-text-center\" *ngFor=\"let news of newsArray; let i=index\">\n\t\t\t<span *ngIf=\"i==0\" id=\"catTitle\">{{news.newsCategory}}</span>\n\t\t</ion-title>\n\t</ion-toolbar>\n</ion-header>\n<ion-content fullscreen>\n\n\t<div *ngFor=\"let news of newsArray\">\n\t\t<p *ngIf=\"language == 'English'\">{{news.newsTitleEnglish}}</p>\n\t\t<p *ngIf=\"language == 'Hindi'\">{{news.newsTitleEnglish}}</p>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"6\" >\n\t\t\t\t<img src=\"assets/images/Bookmarks.png\" class=\"icon\" *ngIf=\"!news.bookmarkKey\" (click)=\"bookmark(news.newsId)\" />\n\t\t\t\t<img src=\"assets/images/Bookmark.png\" class=\"icon\" *ngIf=\"news.bookmarkKey\" (click)=\"bookmark(news.newsId)\" />\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"6\" >\n\t\t\t\t<img src=\"assets/images/Share the App.png\" class=\"icon\" *ngIf=\"language == 'English'\" (click)=\"sharePost(news.newsId, news.newsTitleEnglish)\">\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</div>\n\t<div class=\"loader\" *ngIf=\"loading\">Loading...</div>\n</ion-content>"
-
-/***/ }),
-
-/***/ "./node_modules/raw-loader/index.js!./src/app/categry-list/categry-list.component.html":
-/*!************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/categry-list/categry-list.component.html ***!
-  \************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<!-- <ion-header no-border>\n  <ion-toolbar *ngIf=\"!bookMark && !catTitle && !searchKey\">\n    <ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/allcategory\" (click)=\"removeJs()\"></ion-icon>\n    <ion-title style=\"text-align: center;margin-right: 15px;\">Trivia Post</ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"bookMark\">\n    <ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/bookmarks\" (click)=\"removeJs()\"></ion-icon>\n    <ion-title>\n      Bookmarked News\n    </ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"catTitle\">\n    <ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/allcategory\" (click)=\"removeJs()\"></ion-icon>\n    <ion-title>\n      {{catTitle}}\n    </ion-title>\n  </ion-toolbar>\n  <ion-toolbar *ngIf=\"searchKey\">\n    <ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/searchBar\" (click)=\"removeJs()\"></ion-icon>\n    Results for {{searchKey}}\n  </ion-toolbar>\n</ion-header> -->\n\n<ion-header no-border>\n  <ion-toolbar *ngIf=\"!bookMark && !catTitle && !searchKey\">\n    <ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/allcategory\" (click)=\"removeJs()\"></ion-icon>\n    <ion-title style=\"text-align: center;margin-right: 15px;\">Category</ion-title>\n  </ion-toolbar>\n</ion-header>\n<ion-content *ngIf=\"!loading && !isTextVisible\">\n  <div class=\"swiper-container swiper-container-v \">\n    <div class=\"swiper-wrapper \">\n      <div class=\"swiper-slide background\" *ngFor=\"let news of newsArray; let i = index\" id={{news.newsId}}\n        style=\"padding:15px\">\n        <div class=\"swiper-container swiper-container-h \" id=\"swiper-h-{{news.newsId}}\">\n          <div class=\"swiper-wrapper\" id=\"swiper-wrapper{{i}}\">\n            <div class=\"page_slider swiper-slide newsId-{{news.newsId}} \" style=\"background-color: transparent\"\n              id=\"page_slider{{i}}\">\n              <div class='content' style=\"position: relative\">\n                <div id=\"sliderContent{{i}}\">\n                  <!-- Title & Logo -->\n                  <ion-row>\n                    <ion-col size=\"8\">\n                      <p *ngIf=\"language == 'English'\" class=\"news-title\">\n                        {{news.newsTitleEnglish}}</p>\n                      <p *ngIf=\"language == 'Hindi'\" class=\"news-title\" style=\"font-size: 20px\">\n                        {{news.newsTitleHindi}}</p>\n                    </ion-col>\n                    <ion-col size=\"4\">\n                      <img src=\"../../assets/images/Logo.png\" style=\"height: 110px\" />\n                    </ion-col>\n                  </ion-row>\n\n                  <!-- Post Image -->\n                  <div class=\"post_img\">\n                    <img src=\"{{mediaPath}}{{news.newsImage}}\" style=\"height:350px !important;\" />\n                  </div>\n\n                  <!-- Content -->\n                  <div class=\"contentPost\">\n                    <div *ngIf=\"language == 'English'\" [innerHTML]=\"news.newsEnglish\">\n                    </div>\n                    <div class=\"hindi-news\" *ngIf=\"language == 'Hindi'\" [innerHTML]=\"news.newsHindi\">\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n          <!-- Bookmark -->\n          <div style=\"position: absolute; bottom: 0px;z-index: 28;\">\n            <img src=\"assets/images/Bookmarks.png\" class=\"bookmark\" *ngIf=\"!news.bookmarkKey\" (click)=\"bookmark(i)\" />\n            <img src=\"assets/images/Bookmark.png\" class=\"bookmark\" *ngIf=\"news.bookmarkKey\" (click)=\"bookmark(i)\" />\n          </div>\n          <!-- Share button -->\n          <div class=\"share-button\" *ngIf=\"language == 'English'\"\n            (click)=\"sharePost(news.newsId, news.newsTitleEnglish)\">\n            <img src=\"../../assets/images/Share.png\" class=\"icon\" />\n          </div>\n          <div class=\"share-button\" *ngIf=\"language == 'Hindi'\" (click)=\"sharePost(news.newsId, news.newsTitleHindi)\">\n            <img src=\"../../assets/images/Share.png\" class=\"icon\" />\n          </div>\n          <div class=\"swiper-pagination swiper-pagination-h\"></div>\n        </div>\n      </div>\n    </div>\n    <!-- <div class=\"swiper-pagination swiper-pagination-v\"></div> -->\n  </div>\n</ion-content>"
-
-/***/ }),
-
 /***/ "./node_modules/raw-loader/index.js!./src/app/feedback/feedback.component.html":
 /*!****************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/feedback/feedback.component.html ***!
@@ -544,7 +522,7 @@ module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-row>\n\t\t\t<ion-col s
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n\t<ion-toolbar class=\"settingsToolbar\">\n\t\t<ion-icon name=\"arrow-round-back\" routerLink=\"/allcategory\"></ion-icon>\n\t\t<span id=\"settingTitle\"> Options</span>\n\t\t<span id=\"profile\" *ngIf=\"tokenLocalStorage && firstCharUser\" (click)=\"logout()\">{{firstCharUser}}</span>\n\t\t<span id=\"personIcon\" *ngIf=\"tokenLocalStorage && !firstCharUser\" (click)=\"logout()\"><ion-icon name=\"person\"></ion-icon></span>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content>\n\t<div class=\"settings loginDiv\" padding *ngIf=\"!tokenLocalStorage\">\n\t\t<h1 class=\"savePref\" *ngIf=\"language == 'English'\"><i>Save your preferences</i></h1>\n\t\t<h1 class=\"savePref\" *ngIf=\"language == 'Hindi'\"><i>सेव योर  परेफरेंस</i></h1>\n\t\t<h4 class=\"signInBook\" *ngIf=\"language == 'English'\">Sign In to save your Bookmarks.</h4>\n\t\t<h4 class=\"signInBook\" *ngIf=\"language == 'Hindi'\">अपने बुकमार्क को सेव करने के लिए साइन इन करें।</h4>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"6\" class=\"signInCol\">\n\t\t\t\t<button id=\"signInButton\" routerLink=\"/login\" >Sign In</button>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"6\">\n\t\t\t\t<button id=\"googleplus\" routerLink=\"/login\" ><img src=\"assets/images/GooglePlus.png\" height=\"12px;\"></button>\n\t\t\t\t<button id=\"facebookLogin\" routerLink=\"/login\" ><img src=\"assets/images/Facebook.png\" height=\"12px;\"></button>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</div>\n\n\t<div>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"2\" class=\"langColTwo\" padding>\n\t\t\t\t<span>Aa</span>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding>\n\t\t\t\t\t<ion-col size=\"5\" class=\"languageDiv\">\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Language</span>\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">भाषा</span>\n\t\t\t\t\t</ion-col>\n\t\t\t\t\t<ion-col size=\"7\">\n\t\t\t\t\t\t<span *ngIf=\"language == 'Hindi'\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\" selected=\"true\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t\t<ion-select-option value=\"English\">English</ion-select-option>\n\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t\t<span *ngIf=\"language == 'English'\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t<ion-select-option value=\"English\" selected=\"true\">English</ion-select-option>\n\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t\t<span *ngIf=\"!language\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t<ion-select-option value=\"English\" selected=\"true\">English</ion-select-option>\n\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</ion-col>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" class=\"settingIconCol\" padding>\n\t\t\t\t<img src=\"assets/images/Bookmarks.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/bookmarks\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Bookmarks</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">बुकमार्क</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" class=\"settingIconCol\" padding>\n\t\t\t\t<img src=\"assets/images/Notification.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Notification</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">नोटफ़केशन</span>\n\t\t\t\t\t<label class=\"switch\" *ngIf=\"notifyFlag === 'true'\">\n\t\t\t\t\t\t<input type=\"checkbox\" (change)=\"notificationSwitch($event)\" checked=\"checked\"><div></div>\n\t\t\t\t\t</label>\n\t\t\t\t\t<label class=\"switch\" *ngIf=\"notifyFlag === 'false'\">\n\t\t\t\t\t\t<input type=\"checkbox\" (change)=\"notificationSwitch($event)\"><div></div>\n\t\t\t\t\t</label>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" padding>\n\t\t\t\t<img src=\"assets/images/Feedback.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/feedback\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Feedback</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">फ़ीड्बैक्</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" padding>\n\t\t\t\t<img src=\"assets/images/Privacy Policy.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div  padding routerLink=\"/privacy\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Privacy Policy</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">प्राइवेसी पालिसी</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" padding>\n\t\t\t\t<img src=\"assets/images/terms.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/terms\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Terms & condition</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">टर्म्स एंड  कंडीशन</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\"> \n\t\t\t<ion-col size=\"2\" class=\"settingIconCol\" padding>\n\t\t\t\t<img src=\"assets/images/Share the App.png\" class=\"optionsList\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding (click)=\"sendShare()\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Share this app</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">शेयर थिस अप्प</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</div>\n</ion-content>"
+module.exports = "<ion-header>\n\t<ion-toolbar class=\"settingsToolbar\">\n\t\t<ion-icon name=\"arrow-round-back\" routerLink=\"/allcategory\"></ion-icon>\n\t\t<span id=\"settingTitle\"> Options</span>\n\t\t<span id=\"profile\" *ngIf=\"tokenLocalStorage && firstCharUser\" (click)=\"logout()\">{{firstCharUser}}</span>\n\t\t<span id=\"personIcon\" *ngIf=\"tokenLocalStorage && !firstCharUser\" (click)=\"logout()\"><ion-icon name=\"person\"></ion-icon></span>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content>\n\t<div class=\"settings loginDiv\" padding *ngIf=\"!tokenLocalStorage\">\n\t\t<h1 class=\"savePref\" *ngIf=\"language == 'English'\"><i>Save your preferences</i></h1>\n\t\t<h1 class=\"savePref\" *ngIf=\"language == 'Hindi'\"><i>सेव योर  परेफरेंस</i></h1>\n\t\t<h4 class=\"signInBook\" *ngIf=\"language == 'English'\">Sign In to save your Bookmarks.</h4>\n\t\t<h4 class=\"signInBook\" *ngIf=\"language == 'Hindi'\">अपने बुकमार्क को सेव करने के लिए साइन इन करें।</h4>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"6\" class=\"signInCol\">\n\t\t\t\t<button id=\"signInButton\" routerLink=\"/login\" >Sign In</button>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"6\">\n\t\t\t\t<button id=\"googleplus\" routerLink=\"/login\" ><img src=\"assets/images/GooglePlus.png\" height=\"12px;\"></button>\n\t\t\t\t<button id=\"facebookLogin\" routerLink=\"/login\" ><img src=\"assets/images/Facebook.png\" height=\"12px;\"></button>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</div>\n\n\t<div>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"2\" class=\"langColTwo\" padding>\n\t\t\t\t<span>Aa</span>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding>\n\t\t\t\t\t<ion-col size=\"5\" class=\"languageDiv\">\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Language</span>\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">भाषा</span>\n\t\t\t\t\t</ion-col>\n\t\t\t\t\t<ion-col size=\"7\">\n\t\t\t\t\t\t<span *ngIf=\"language == 'Hindi'\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\" selected=\"true\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t\t<ion-select-option value=\"English\">English</ion-select-option>\n\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t\t<span *ngIf=\"language == 'English'\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t<ion-select-option value=\"English\" selected=\"true\">English</ion-select-option>\n\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t\t<span *ngIf=\"!language\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t<ion-select-option value=\"English\" selected=\"true\">English</ion-select-option>\n\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</ion-col>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" class=\"settingIconCol\" padding>\n\t\t\t\t<img src=\"assets/images/Bookmarks1.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/bookmarks\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Bookmarks</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">बुकमार्क</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" class=\"settingIconCol\" padding>\n\t\t\t\t<img src=\"assets/images/Notification.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Notification</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">नोटफ़केशन</span>\n\t\t\t\t\t<label class=\"switch\" *ngIf=\"notifyFlag === 'true'\">\n\t\t\t\t\t\t<input type=\"checkbox\" (change)=\"notificationSwitch($event)\" checked=\"checked\"><div></div>\n\t\t\t\t\t</label>\n\t\t\t\t\t<label class=\"switch\" *ngIf=\"notifyFlag === 'false'\">\n\t\t\t\t\t\t<input type=\"checkbox\" (change)=\"notificationSwitch($event)\"><div></div>\n\t\t\t\t\t</label>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" padding>\n\t\t\t\t<img src=\"assets/images/Feedback.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/feedback\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Feedback</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">फ़ीड्बैक्</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" padding>\n\t\t\t\t<img src=\"assets/images/Privacy Policy.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div  padding routerLink=\"/privacy\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Privacy Policy</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">प्राइवेसी पालिसी</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" padding>\n\t\t\t\t<img src=\"assets/images/terms.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/terms\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Terms & condition</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">टर्म्स एंड  कंडीशन</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\"> \n\t\t\t<ion-col size=\"2\" class=\"settingIconCol\" padding>\n\t\t\t\t<img src=\"assets/images/Share the App.png\" class=\"optionsList\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding (click)=\"sendShare()\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Share this app</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">शेयर थिस अप्प</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</div>\n</ion-content>"
 
 /***/ }),
 
@@ -566,7 +544,7 @@ module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-icon name=\"arrow-roun
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "input {\n  height: 38px !important;\n  outline: none !important;\n  box-shadow: none !important;\n  border: none !important;\n  background-color: #eff1f5 !important;\n  border-radius: 10px !important;\n  color: black !important;\n  width: 93% !important;\n  padding: 14px !important;\n  margin: 14px !important;\n}\n\n.catList {\n  padding: 10px;\n}\n\n.catCard {\n  background-image: url('CategoryBackground.png');\n  margin: 0 auto;\n  height: 100%;\n  border-radius: 0 !important;\n  box-shadow: none !important;\n  background-size: 100% auto;\n  background-position: center;\n}\n\n.catCard ion-card-content {\n  margin: auto;\n  padding: 35px 15px 25px;\n  text-align: center;\n  display: -webkit-box;\n  display: flex;\n  align-content: center;\n  flex-wrap: wrap;\n  height: 100%;\n}\n\n.notification_bells {\n  position: absolute;\n  top: 8px;\n  right: 8px;\n}\n\n#blackBell {\n  width: 11px !important;\n  height: 14px;\n}\n\n#redBell {\n  width: 16px !important;\n  height: 17px;\n}\n\n#catTitle {\n  margin-top: 0px;\n  font-size: 16px;\n}\n\n#catHeading {\n  font-size: 28px;\n  padding-left: 16px;\n}\n\n.iconForward {\n  margin-right: 10px;\n  margin-top: 3px;\n}\n\n.iconSettings {\n  font-size: 20px;\n  margin-top: 3px;\n  padding-left: 15px;\n}\n\n#feedsLink {\n  font-size: 16px;\n  padding-bottom: 5px;\n  margin-right: 5px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvbmV3L3RyaXZpYXBvc3Qvc3JjL2FwcC9hbGwtY2F0ZWdvcnkvYWxsLWNhdGVnb3J5LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9hbGwtY2F0ZWdvcnkvYWxsLWNhdGVnb3J5LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksdUJBQUE7RUFDQSx3QkFBQTtFQUNBLDJCQUFBO0VBQ0EsdUJBQUE7RUFDQSxvQ0FBQTtFQUNBLDhCQUFBO0VBQ0EsdUJBQUE7RUFDQSxxQkFBQTtFQUNBLHdCQUFBO0VBQ0EsdUJBQUE7QUNDSjs7QURFQTtFQUNJLGFBQUE7QUNDSjs7QURFQTtFQUNJLCtDQUFBO0VBQ0EsY0FBQTtFQUNBLFlBQUE7RUFDQSwyQkFBQTtFQUNBLDJCQUFBO0VBQ0EsMEJBQUE7RUFDQSwyQkFBQTtBQ0NKOztBREVBO0VBQ0ksWUFBQTtFQUNBLHVCQUFBO0VBQ0Esa0JBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7RUFDQSxxQkFBQTtFQUNBLGVBQUE7RUFDQSxZQUFBO0FDQ0o7O0FEQ0E7RUFDSSxrQkFBQTtFQUNBLFFBQUE7RUFDQSxVQUFBO0FDRUo7O0FEQUE7RUFDSSxzQkFBQTtFQUNBLFlBQUE7QUNHSjs7QURBQTtFQUNJLHNCQUFBO0VBQ0EsWUFBQTtBQ0dKOztBREFBO0VBQ0ksZUFBQTtFQUNBLGVBQUE7QUNHSjs7QURBQTtFQUNJLGVBQUE7RUFDQSxrQkFBQTtBQ0dKOztBREFBO0VBQ0ksa0JBQUE7RUFDQSxlQUFBO0FDR0o7O0FEQUE7RUFDSSxlQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FDR0o7O0FEQUE7RUFDSSxlQUFBO0VBQ0EsbUJBQUE7RUFDQSxpQkFBQTtBQ0dKIiwiZmlsZSI6InNyYy9hcHAvYWxsLWNhdGVnb3J5L2FsbC1jYXRlZ29yeS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlucHV0e1xuICAgIGhlaWdodDogMzhweCAhaW1wb3J0YW50O1xuICAgIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgICBib3gtc2hhZG93OiBub25lICFpbXBvcnRhbnQ7XG4gICAgYm9yZGVyOiBub25lICFpbXBvcnRhbnQ7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2VmZjFmNSAhaW1wb3J0YW50O1xuICAgIGJvcmRlci1yYWRpdXM6IDEwcHggIWltcG9ydGFudDtcbiAgICBjb2xvcjogYmxhY2sgIWltcG9ydGFudDtcbiAgICB3aWR0aDogOTMlIWltcG9ydGFudDtcbiAgICBwYWRkaW5nOiAxNHB4IWltcG9ydGFudDtcbiAgICBtYXJnaW46IDE0cHghaW1wb3J0YW50O1xufVxuXG4uY2F0TGlzdHtcbiAgICBwYWRkaW5nOiAxMHB4O1xufVxuXG4uY2F0Q2FyZHtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoJ2Fzc2V0cy9pbWFnZXMvQ2F0ZWdvcnlCYWNrZ3JvdW5kLnBuZycpO1xuICAgIG1hcmdpbjogMCBhdXRvO1xuICAgIGhlaWdodDogMTAwJTtcbiAgICBib3JkZXItcmFkaXVzOiAwIWltcG9ydGFudDtcbiAgICBib3gtc2hhZG93OiBub25lIWltcG9ydGFudDtcbiAgICBiYWNrZ3JvdW5kLXNpemU6IDEwMCUgYXV0bztcbiAgICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiBjZW50ZXI7XG59XG5cbi5jYXRDYXJkIGlvbi1jYXJkLWNvbnRlbnR7XG4gICAgbWFyZ2luOiBhdXRvO1xuICAgIHBhZGRpbmc6IDM1cHggMTVweCAyNXB4O1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBmbGV4LXdyYXA6IHdyYXA7XG4gICAgaGVpZ2h0OiAxMDAlO1xufVxuLm5vdGlmaWNhdGlvbl9iZWxscyB7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogOHB4O1xuICAgIHJpZ2h0OiA4cHg7XG59XG4jYmxhY2tCZWxse1xuICAgIHdpZHRoOiAxMXB4IWltcG9ydGFudDtcbiAgICBoZWlnaHQ6IDE0cHg7XG59XG5cbiNyZWRCZWxse1xuICAgIHdpZHRoOiAxNnB4IWltcG9ydGFudDtcbiAgICBoZWlnaHQ6IDE3cHg7XG59XG5cbiNjYXRUaXRsZXtcbiAgICBtYXJnaW4tdG9wOiAwcHg7XG4gICAgZm9udC1zaXplOiAxNnB4XG59XG5cbiNjYXRIZWFkaW5ne1xuICAgIGZvbnQtc2l6ZTogMjhweDtcbiAgICBwYWRkaW5nLWxlZnQ6IDE2cHg7ICAgIFxufVxuXG4uaWNvbkZvcndhcmR7XG4gICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xuICAgIG1hcmdpbi10b3A6IDNweDtcbn1cblxuLmljb25TZXR0aW5nc3tcbiAgICBmb250LXNpemU6IDIwcHg7XG4gICAgbWFyZ2luLXRvcDogM3B4O1xuICAgIHBhZGRpbmctbGVmdDogMTVweDtcbn1cblxuI2ZlZWRzTGlua3tcbiAgICBmb250LXNpemU6IDE2cHg7XG4gICAgcGFkZGluZy1ib3R0b206IDVweDtcbiAgICBtYXJnaW4tcmlnaHQ6IDVweDtcbn0iLCJpbnB1dCB7XG4gIGhlaWdodDogMzhweCAhaW1wb3J0YW50O1xuICBvdXRsaW5lOiBub25lICFpbXBvcnRhbnQ7XG4gIGJveC1zaGFkb3c6IG5vbmUgIWltcG9ydGFudDtcbiAgYm9yZGVyOiBub25lICFpbXBvcnRhbnQ7XG4gIGJhY2tncm91bmQtY29sb3I6ICNlZmYxZjUgIWltcG9ydGFudDtcbiAgYm9yZGVyLXJhZGl1czogMTBweCAhaW1wb3J0YW50O1xuICBjb2xvcjogYmxhY2sgIWltcG9ydGFudDtcbiAgd2lkdGg6IDkzJSAhaW1wb3J0YW50O1xuICBwYWRkaW5nOiAxNHB4ICFpbXBvcnRhbnQ7XG4gIG1hcmdpbjogMTRweCAhaW1wb3J0YW50O1xufVxuXG4uY2F0TGlzdCB7XG4gIHBhZGRpbmc6IDEwcHg7XG59XG5cbi5jYXRDYXJkIHtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiYXNzZXRzL2ltYWdlcy9DYXRlZ29yeUJhY2tncm91bmQucG5nXCIpO1xuICBtYXJnaW46IDAgYXV0bztcbiAgaGVpZ2h0OiAxMDAlO1xuICBib3JkZXItcmFkaXVzOiAwICFpbXBvcnRhbnQ7XG4gIGJveC1zaGFkb3c6IG5vbmUgIWltcG9ydGFudDtcbiAgYmFja2dyb3VuZC1zaXplOiAxMDAlIGF1dG87XG4gIGJhY2tncm91bmQtcG9zaXRpb246IGNlbnRlcjtcbn1cblxuLmNhdENhcmQgaW9uLWNhcmQtY29udGVudCB7XG4gIG1hcmdpbjogYXV0bztcbiAgcGFkZGluZzogMzVweCAxNXB4IDI1cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24tY29udGVudDogY2VudGVyO1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGhlaWdodDogMTAwJTtcbn1cblxuLm5vdGlmaWNhdGlvbl9iZWxscyB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiA4cHg7XG4gIHJpZ2h0OiA4cHg7XG59XG5cbiNibGFja0JlbGwge1xuICB3aWR0aDogMTFweCAhaW1wb3J0YW50O1xuICBoZWlnaHQ6IDE0cHg7XG59XG5cbiNyZWRCZWxsIHtcbiAgd2lkdGg6IDE2cHggIWltcG9ydGFudDtcbiAgaGVpZ2h0OiAxN3B4O1xufVxuXG4jY2F0VGl0bGUge1xuICBtYXJnaW4tdG9wOiAwcHg7XG4gIGZvbnQtc2l6ZTogMTZweDtcbn1cblxuI2NhdEhlYWRpbmcge1xuICBmb250LXNpemU6IDI4cHg7XG4gIHBhZGRpbmctbGVmdDogMTZweDtcbn1cblxuLmljb25Gb3J3YXJkIHtcbiAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xuICBtYXJnaW4tdG9wOiAzcHg7XG59XG5cbi5pY29uU2V0dGluZ3Mge1xuICBmb250LXNpemU6IDIwcHg7XG4gIG1hcmdpbi10b3A6IDNweDtcbiAgcGFkZGluZy1sZWZ0OiAxNXB4O1xufVxuXG4jZmVlZHNMaW5rIHtcbiAgZm9udC1zaXplOiAxNnB4O1xuICBwYWRkaW5nLWJvdHRvbTogNXB4O1xuICBtYXJnaW4tcmlnaHQ6IDVweDtcbn0iXX0= */"
+module.exports = "input {\n  height: 38px !important;\n  outline: none !important;\n  box-shadow: none !important;\n  border: none !important;\n  background-color: #eff1f5 !important;\n  border-radius: 10px !important;\n  color: black !important;\n  width: 93% !important;\n  padding: 14px !important;\n  margin: 14px !important;\n}\n\n.catList {\n  padding: 10px;\n}\n\n.catCard {\n  background-image: url('brownbg.png');\n  margin: 0 auto;\n  height: 100%;\n  border-radius: 0 !important;\n  box-shadow: none !important;\n  background-size: 100% auto;\n  background-position: center;\n}\n\n.catCard ion-card-content {\n  margin: auto;\n  padding: 35px 15px 25px;\n  text-align: center;\n  display: -webkit-box;\n  display: flex;\n  align-content: center;\n  flex-wrap: wrap;\n  height: 100%;\n}\n\n.notification_bells {\n  position: absolute;\n  top: 8px;\n  right: 8px;\n}\n\n#blackBell {\n  width: 11px !important;\n  height: 14px;\n}\n\n#redBell {\n  width: 16px !important;\n  height: 17px;\n}\n\n#catTitle {\n  margin-top: 0px;\n  font-size: 16px;\n}\n\n#catHeading {\n  font-size: 28px;\n  padding-left: 16px;\n}\n\n.iconForward {\n  margin-right: 10px;\n  margin-top: 3px;\n}\n\n.iconSettings {\n  font-size: 20px;\n  margin-top: 3px;\n  padding-left: 15px;\n}\n\n#feedsLink {\n  font-size: 16px;\n  padding-bottom: 5px;\n  margin-right: 5px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvbmV3L3RyaXZpYXBvc3Qvc3JjL2FwcC9hbGwtY2F0ZWdvcnkvYWxsLWNhdGVnb3J5LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9hbGwtY2F0ZWdvcnkvYWxsLWNhdGVnb3J5LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksdUJBQUE7RUFDQSx3QkFBQTtFQUNBLDJCQUFBO0VBQ0EsdUJBQUE7RUFDQSxvQ0FBQTtFQUNBLDhCQUFBO0VBQ0EsdUJBQUE7RUFDQSxxQkFBQTtFQUNBLHdCQUFBO0VBQ0EsdUJBQUE7QUNDSjs7QURFQTtFQUNJLGFBQUE7QUNDSjs7QURFQTtFQUNJLG9DQUFBO0VBQ0EsY0FBQTtFQUNBLFlBQUE7RUFDQSwyQkFBQTtFQUNBLDJCQUFBO0VBQ0EsMEJBQUE7RUFDQSwyQkFBQTtBQ0NKOztBREVBO0VBQ0ksWUFBQTtFQUNBLHVCQUFBO0VBQ0Esa0JBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7RUFDQSxxQkFBQTtFQUNBLGVBQUE7RUFDQSxZQUFBO0FDQ0o7O0FEQ0E7RUFDSSxrQkFBQTtFQUNBLFFBQUE7RUFDQSxVQUFBO0FDRUo7O0FEQUE7RUFDSSxzQkFBQTtFQUNBLFlBQUE7QUNHSjs7QURBQTtFQUNJLHNCQUFBO0VBQ0EsWUFBQTtBQ0dKOztBREFBO0VBQ0ksZUFBQTtFQUNBLGVBQUE7QUNHSjs7QURBQTtFQUNJLGVBQUE7RUFDQSxrQkFBQTtBQ0dKOztBREFBO0VBQ0ksa0JBQUE7RUFDQSxlQUFBO0FDR0o7O0FEQUE7RUFDSSxlQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FDR0o7O0FEQUE7RUFDSSxlQUFBO0VBQ0EsbUJBQUE7RUFDQSxpQkFBQTtBQ0dKIiwiZmlsZSI6InNyYy9hcHAvYWxsLWNhdGVnb3J5L2FsbC1jYXRlZ29yeS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlucHV0e1xuICAgIGhlaWdodDogMzhweCAhaW1wb3J0YW50O1xuICAgIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgICBib3gtc2hhZG93OiBub25lICFpbXBvcnRhbnQ7XG4gICAgYm9yZGVyOiBub25lICFpbXBvcnRhbnQ7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2VmZjFmNSAhaW1wb3J0YW50O1xuICAgIGJvcmRlci1yYWRpdXM6IDEwcHggIWltcG9ydGFudDtcbiAgICBjb2xvcjogYmxhY2sgIWltcG9ydGFudDtcbiAgICB3aWR0aDogOTMlIWltcG9ydGFudDtcbiAgICBwYWRkaW5nOiAxNHB4IWltcG9ydGFudDtcbiAgICBtYXJnaW46IDE0cHghaW1wb3J0YW50O1xufVxuXG4uY2F0TGlzdHtcbiAgICBwYWRkaW5nOiAxMHB4O1xufVxuXG4uY2F0Q2FyZHtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoJ2Fzc2V0cy9pbWFnZXMvYnJvd25iZy5wbmcnKTtcbiAgICBtYXJnaW46IDAgYXV0bztcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgYm9yZGVyLXJhZGl1czogMCFpbXBvcnRhbnQ7XG4gICAgYm94LXNoYWRvdzogbm9uZSFpbXBvcnRhbnQ7XG4gICAgYmFja2dyb3VuZC1zaXplOiAxMDAlIGF1dG87XG4gICAgYmFja2dyb3VuZC1wb3NpdGlvbjogY2VudGVyO1xufVxuXG4uY2F0Q2FyZCBpb24tY2FyZC1jb250ZW50e1xuICAgIG1hcmdpbjogYXV0bztcbiAgICBwYWRkaW5nOiAzNXB4IDE1cHggMjVweDtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBhbGlnbi1jb250ZW50OiBjZW50ZXI7XG4gICAgZmxleC13cmFwOiB3cmFwO1xuICAgIGhlaWdodDogMTAwJTtcbn1cbi5ub3RpZmljYXRpb25fYmVsbHMge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDhweDtcbiAgICByaWdodDogOHB4O1xufVxuI2JsYWNrQmVsbHtcbiAgICB3aWR0aDogMTFweCFpbXBvcnRhbnQ7XG4gICAgaGVpZ2h0OiAxNHB4O1xufVxuXG4jcmVkQmVsbHtcbiAgICB3aWR0aDogMTZweCFpbXBvcnRhbnQ7XG4gICAgaGVpZ2h0OiAxN3B4O1xufVxuXG4jY2F0VGl0bGV7XG4gICAgbWFyZ2luLXRvcDogMHB4O1xuICAgIGZvbnQtc2l6ZTogMTZweFxufVxuXG4jY2F0SGVhZGluZ3tcbiAgICBmb250LXNpemU6IDI4cHg7XG4gICAgcGFkZGluZy1sZWZ0OiAxNnB4OyAgICBcbn1cblxuLmljb25Gb3J3YXJke1xuICAgIG1hcmdpbi1yaWdodDogMTBweDtcbiAgICBtYXJnaW4tdG9wOiAzcHg7XG59XG5cbi5pY29uU2V0dGluZ3N7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIG1hcmdpbi10b3A6IDNweDtcbiAgICBwYWRkaW5nLWxlZnQ6IDE1cHg7XG59XG5cbiNmZWVkc0xpbmt7XG4gICAgZm9udC1zaXplOiAxNnB4O1xuICAgIHBhZGRpbmctYm90dG9tOiA1cHg7XG4gICAgbWFyZ2luLXJpZ2h0OiA1cHg7XG59IiwiaW5wdXQge1xuICBoZWlnaHQ6IDM4cHggIWltcG9ydGFudDtcbiAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICBib3gtc2hhZG93OiBub25lICFpbXBvcnRhbnQ7XG4gIGJvcmRlcjogbm9uZSAhaW1wb3J0YW50O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZWZmMWY1ICFpbXBvcnRhbnQ7XG4gIGJvcmRlci1yYWRpdXM6IDEwcHggIWltcG9ydGFudDtcbiAgY29sb3I6IGJsYWNrICFpbXBvcnRhbnQ7XG4gIHdpZHRoOiA5MyUgIWltcG9ydGFudDtcbiAgcGFkZGluZzogMTRweCAhaW1wb3J0YW50O1xuICBtYXJnaW46IDE0cHggIWltcG9ydGFudDtcbn1cblxuLmNhdExpc3Qge1xuICBwYWRkaW5nOiAxMHB4O1xufVxuXG4uY2F0Q2FyZCB7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybChcImFzc2V0cy9pbWFnZXMvYnJvd25iZy5wbmdcIik7XG4gIG1hcmdpbjogMCBhdXRvO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGJvcmRlci1yYWRpdXM6IDAgIWltcG9ydGFudDtcbiAgYm94LXNoYWRvdzogbm9uZSAhaW1wb3J0YW50O1xuICBiYWNrZ3JvdW5kLXNpemU6IDEwMCUgYXV0bztcbiAgYmFja2dyb3VuZC1wb3NpdGlvbjogY2VudGVyO1xufVxuXG4uY2F0Q2FyZCBpb24tY2FyZC1jb250ZW50IHtcbiAgbWFyZ2luOiBhdXRvO1xuICBwYWRkaW5nOiAzNXB4IDE1cHggMjVweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1jb250ZW50OiBjZW50ZXI7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4ubm90aWZpY2F0aW9uX2JlbGxzIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDhweDtcbiAgcmlnaHQ6IDhweDtcbn1cblxuI2JsYWNrQmVsbCB7XG4gIHdpZHRoOiAxMXB4ICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogMTRweDtcbn1cblxuI3JlZEJlbGwge1xuICB3aWR0aDogMTZweCAhaW1wb3J0YW50O1xuICBoZWlnaHQ6IDE3cHg7XG59XG5cbiNjYXRUaXRsZSB7XG4gIG1hcmdpbi10b3A6IDBweDtcbiAgZm9udC1zaXplOiAxNnB4O1xufVxuXG4jY2F0SGVhZGluZyB7XG4gIGZvbnQtc2l6ZTogMjhweDtcbiAgcGFkZGluZy1sZWZ0OiAxNnB4O1xufVxuXG4uaWNvbkZvcndhcmQge1xuICBtYXJnaW4tcmlnaHQ6IDEwcHg7XG4gIG1hcmdpbi10b3A6IDNweDtcbn1cblxuLmljb25TZXR0aW5ncyB7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgbWFyZ2luLXRvcDogM3B4O1xuICBwYWRkaW5nLWxlZnQ6IDE1cHg7XG59XG5cbiNmZWVkc0xpbmsge1xuICBmb250LXNpemU6IDE2cHg7XG4gIHBhZGRpbmctYm90dG9tOiA1cHg7XG4gIG1hcmdpbi1yaWdodDogNXB4O1xufSJdfQ== */"
 
 /***/ }),
 
@@ -714,14 +692,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _settings_settings_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./settings/settings.component */ "./src/app/settings/settings.component.ts");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _all_category_all_category_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./all-category/all-category.component */ "./src/app/all-category/all-category.component.ts");
-/* harmony import */ var _category_result_category_result_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./category-result/category-result.component */ "./src/app/category-result/category-result.component.ts");
-/* harmony import */ var _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./feedback/feedback.component */ "./src/app/feedback/feedback.component.ts");
-/* harmony import */ var _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./privacy/privacy.component */ "./src/app/privacy/privacy.component.ts");
-/* harmony import */ var _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./searchbar/searchbar.component */ "./src/app/searchbar/searchbar.component.ts");
-/* harmony import */ var _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./terms-and-cond/terms-and-cond.component */ "./src/app/terms-and-cond/terms-and-cond.component.ts");
-/* harmony import */ var _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./bookmarks/bookmarks.component */ "./src/app/bookmarks/bookmarks.component.ts");
-/* harmony import */ var _guards_user_guard__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./guards/user.guard */ "./src/app/guards/user.guard.ts");
-
+/* harmony import */ var _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./feedback/feedback.component */ "./src/app/feedback/feedback.component.ts");
+/* harmony import */ var _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./privacy/privacy.component */ "./src/app/privacy/privacy.component.ts");
+/* harmony import */ var _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./searchbar/searchbar.component */ "./src/app/searchbar/searchbar.component.ts");
+/* harmony import */ var _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./terms-and-cond/terms-and-cond.component */ "./src/app/terms-and-cond/terms-and-cond.component.ts");
+/* harmony import */ var _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./bookmarks/bookmarks.component */ "./src/app/bookmarks/bookmarks.component.ts");
+/* harmony import */ var _guards_user_guard__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./guards/user.guard */ "./src/app/guards/user.guard.ts");
 
 
 
@@ -767,36 +743,32 @@ const routes = [
     {
         path: 'login',
         component: _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"],
-        canActivate: [_guards_user_guard__WEBPACK_IMPORTED_MODULE_12__["LoginGuard"]]
+        canActivate: [_guards_user_guard__WEBPACK_IMPORTED_MODULE_11__["LoginGuard"]]
     },
     {
         path: 'allcategory',
         component: _all_category_all_category_component__WEBPACK_IMPORTED_MODULE_5__["AllCategoryComponent"]
     },
     {
-        path: 'catResult',
-        component: _category_result_category_result_component__WEBPACK_IMPORTED_MODULE_6__["CategoryResultComponent"]
-    },
-    {
         path: 'feedback',
-        component: _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_7__["FeedbackComponent"]
+        component: _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_6__["FeedbackComponent"]
     },
     {
         path: 'privacy',
-        component: _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_8__["PrivacyComponent"]
+        component: _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_7__["PrivacyComponent"]
     },
     {
         path: 'searchBar',
-        component: _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_9__["SearchbarComponent"]
+        component: _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_8__["SearchbarComponent"]
     },
     {
         path: 'terms',
-        component: _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_10__["TermsAndCondComponent"]
+        component: _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_9__["TermsAndCondComponent"]
     },
     {
         path: 'bookmarks',
-        component: _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_11__["BookmarksComponent"]
-    },
+        component: _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_10__["BookmarksComponent"]
+    }
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
@@ -874,6 +846,7 @@ let AppComponent = class AppComponent {
                 message: 'Please check your internet connection',
                 animated: true,
                 showCloseButton: true,
+                duration: 2000,
                 closeButtonText: "OK",
                 cssClass: "my-toast",
                 position: "bottom",
@@ -959,22 +932,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ "./node_modules/@ionic-native/google-plus/ngx/index.js");
 /* harmony import */ var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic-native/facebook/ngx */ "./node_modules/@ionic-native/facebook/ngx/index.js");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
-/* harmony import */ var _category_result_category_result_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./category-result/category-result.component */ "./src/app/category-result/category-result.component.ts");
-/* harmony import */ var _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./feedback/feedback.component */ "./src/app/feedback/feedback.component.ts");
-/* harmony import */ var _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./privacy/privacy.component */ "./src/app/privacy/privacy.component.ts");
-/* harmony import */ var _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./searchbar/searchbar.component */ "./src/app/searchbar/searchbar.component.ts");
-/* harmony import */ var _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./terms-and-cond/terms-and-cond.component */ "./src/app/terms-and-cond/terms-and-cond.component.ts");
-/* harmony import */ var _categry_list_categry_list_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./categry-list/categry-list.component */ "./src/app/categry-list/categry-list.component.ts");
-/* harmony import */ var _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./bookmarks/bookmarks.component */ "./src/app/bookmarks/bookmarks.component.ts");
-/* harmony import */ var _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ionic-native/keyboard/ngx */ "./node_modules/@ionic-native/keyboard/ngx/index.js");
-/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
-/* harmony import */ var _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @ionic-native/deeplinks/ngx */ "./node_modules/@ionic-native/deeplinks/ngx/index.js");
-/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
-
-
+/* harmony import */ var _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./feedback/feedback.component */ "./src/app/feedback/feedback.component.ts");
+/* harmony import */ var _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./privacy/privacy.component */ "./src/app/privacy/privacy.component.ts");
+/* harmony import */ var _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./searchbar/searchbar.component */ "./src/app/searchbar/searchbar.component.ts");
+/* harmony import */ var _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./terms-and-cond/terms-and-cond.component */ "./src/app/terms-and-cond/terms-and-cond.component.ts");
+/* harmony import */ var _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./bookmarks/bookmarks.component */ "./src/app/bookmarks/bookmarks.component.ts");
+/* harmony import */ var _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ionic-native/keyboard/ngx */ "./node_modules/@ionic-native/keyboard/ngx/index.js");
+/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
+/* harmony import */ var _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ionic-native/deeplinks/ngx */ "./node_modules/@ionic-native/deeplinks/ngx/index.js");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
 
 
 
@@ -1009,23 +978,22 @@ let AppModule = class AppModule {
 };
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"], _settings_settings_component__WEBPACK_IMPORTED_MODULE_12__["SettingsComponent"], _login_login_component__WEBPACK_IMPORTED_MODULE_14__["LoginComponent"], _all_category_all_category_component__WEBPACK_IMPORTED_MODULE_13__["AllCategoryComponent"],
-            _category_result_category_result_component__WEBPACK_IMPORTED_MODULE_18__["CategoryResultComponent"], _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_19__["FeedbackComponent"], _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_20__["PrivacyComponent"],
-            _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_21__["SearchbarComponent"], _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_22__["TermsAndCondComponent"], _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_24__["BookmarksComponent"], _categry_list_categry_list_component__WEBPACK_IMPORTED_MODULE_23__["CategryListComponent"]],
+        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"], _settings_settings_component__WEBPACK_IMPORTED_MODULE_12__["SettingsComponent"], _login_login_component__WEBPACK_IMPORTED_MODULE_14__["LoginComponent"], _all_category_all_category_component__WEBPACK_IMPORTED_MODULE_13__["AllCategoryComponent"], _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_18__["FeedbackComponent"], _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_19__["PrivacyComponent"],
+            _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_20__["SearchbarComponent"], _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_21__["TermsAndCondComponent"], _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_22__["BookmarksComponent"]],
         entryComponents: [],
-        imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_27__["FormsModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_27__["ReactiveFormsModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_17__["IonicStorageModule"].forRoot(), _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"]],
+        imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_25__["FormsModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_25__["ReactiveFormsModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_17__["IonicStorageModule"].forRoot(), _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"]],
         providers: [
-            _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_31__["Network"],
-            _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_26__["SocialSharing"],
+            _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_29__["Network"],
+            _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_24__["SocialSharing"],
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"],
             _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_15__["GooglePlus"],
             _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_16__["Facebook"],
             _guards_user_guard__WEBPACK_IMPORTED_MODULE_8__["LoginGuard"],
-            _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_25__["Keyboard"],
-            _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_29__["Deeplinks"],
-            _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_30__["ScreenOrientation"],
-            _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_28__["FCM"],
+            _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_23__["Keyboard"],
+            _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_27__["Deeplinks"],
+            _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_28__["ScreenOrientation"],
+            _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_26__["FCM"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] },
             { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"], useClass: _interceptor__WEBPACK_IMPORTED_MODULE_9__["MyInterceptor"], multi: true }
         ],
@@ -1177,308 +1145,6 @@ BookmarksComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ActionSheetController"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
 ], BookmarksComponent);
-
-
-
-/***/ }),
-
-/***/ "./src/app/category-result/category-result.component.scss":
-/*!****************************************************************!*\
-  !*** ./src/app/category-result/category-result.component.scss ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "img.icon {\n  height: 20px;\n  width: 17px;\n  margin: 0 12px;\n}\n\n#catTitle {\n  margin-left: 5px;\n  float: left;\n}\n\n.backCatRes {\n  float: left;\n  font-size: 20px;\n  padding-left: 15px;\n}\n\nion-content {\n  --color: black;\n  --background: url('Brown-Background.png') no-repeat center center fixed;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvbmV3L3RyaXZpYXBvc3Qvc3JjL2FwcC9jYXRlZ29yeS1yZXN1bHQvY2F0ZWdvcnktcmVzdWx0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jYXRlZ29yeS1yZXN1bHQvY2F0ZWdvcnktcmVzdWx0LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7RUFDQSxjQUFBO0FDQ0E7O0FERUE7RUFDQSxnQkFBQTtFQUNBLFdBQUE7QUNDQTs7QURFQTtFQUNDLFdBQUE7RUFDQSxlQUFBO0VBQ0Esa0JBQUE7QUNDRDs7QURFQTtFQUNDLGNBQUE7RUFDQSx1RUFBQTtBQ0NEIiwiZmlsZSI6InNyYy9hcHAvY2F0ZWdvcnktcmVzdWx0L2NhdGVnb3J5LXJlc3VsdC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImltZy5pY29ue1xuaGVpZ2h0OiAyMHB4O1xud2lkdGg6IDE3cHg7XG5tYXJnaW46IDAgMTJweFxufVxuXG4jY2F0VGl0bGV7XG5tYXJnaW4tbGVmdDogNXB4O1xuZmxvYXQ6IGxlZnQ7XG59XG5cbi5iYWNrQ2F0UmVze1xuXHRmbG9hdDogbGVmdDtcblx0Zm9udC1zaXplOiAyMHB4O1xuXHRwYWRkaW5nLWxlZnQ6IDE1cHg7XG59XG5cbmlvbi1jb250ZW50e1xuXHQtLWNvbG9yOiBibGFjaztcblx0LS1iYWNrZ3JvdW5kOiB1cmwoJy4uLy4uL2Fzc2V0cy9pbWFnZXMvQnJvd24tQmFja2dyb3VuZC5wbmcnKSBuby1yZXBlYXQgY2VudGVyIGNlbnRlciBmaXhlZDtcbn0iLCJpbWcuaWNvbiB7XG4gIGhlaWdodDogMjBweDtcbiAgd2lkdGg6IDE3cHg7XG4gIG1hcmdpbjogMCAxMnB4O1xufVxuXG4jY2F0VGl0bGUge1xuICBtYXJnaW4tbGVmdDogNXB4O1xuICBmbG9hdDogbGVmdDtcbn1cblxuLmJhY2tDYXRSZXMge1xuICBmbG9hdDogbGVmdDtcbiAgZm9udC1zaXplOiAyMHB4O1xuICBwYWRkaW5nLWxlZnQ6IDE1cHg7XG59XG5cbmlvbi1jb250ZW50IHtcbiAgLS1jb2xvcjogYmxhY2s7XG4gIC0tYmFja2dyb3VuZDogdXJsKFwiLi4vLi4vYXNzZXRzL2ltYWdlcy9Ccm93bi1CYWNrZ3JvdW5kLnBuZ1wiKSBuby1yZXBlYXQgY2VudGVyIGNlbnRlciBmaXhlZDtcbn0iXX0= */"
-
-/***/ }),
-
-/***/ "./src/app/category-result/category-result.component.ts":
-/*!**************************************************************!*\
-  !*** ./src/app/category-result/category-result.component.ts ***!
-  \**************************************************************/
-/*! exports provided: CategoryResultComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoryResultComponent", function() { return CategoryResultComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/news.service */ "./src/app/services/news.service.ts");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
-
-
-
-
-
-
-
-
-let CategoryResultComponent = class CategoryResultComponent {
-    constructor(toastController, socialSharing, _newsService, route, router) {
-        this.toastController = toastController;
-        this.socialSharing = socialSharing;
-        this._newsService = _newsService;
-        this.route = route;
-        this.router = router;
-        this.error = '';
-        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_4__["config"].mediaApiUrl;
-        this.route.queryParams.subscribe(params => {
-            if (this.router.getCurrentNavigation().extras.state) {
-                this.catId = this.router.getCurrentNavigation().extras.state.catId;
-                console.log('data in edit profile=====>', this.catId);
-                this.catNews(this.catId);
-            }
-        });
-    }
-    ngOnInit() { }
-    catNews(id) {
-        this.loading = true;
-        this.language = localStorage.getItem('language');
-        this.tokenLocalStorage = localStorage.getItem('accessToken');
-        console.log("line 66", this.tokenLocalStorage);
-        if (this.tokenLocalStorage) {
-            var base64Url = this.tokenLocalStorage.split('.')[1];
-            var base64 = base64Url.replace('-', '+').replace('_', '/');
-            var decodedToken = JSON.parse(window.atob(base64));
-            this.loggedInUser = decodedToken.user._id;
-            console.log("Decoded", this.loggedInUser);
-        }
-        var userId = this.loggedInUser;
-        this._newsService.allCatNews(id).subscribe((res) => {
-            this.loading = false;
-            this.newsArray = res;
-            console.log(this.newsArray);
-            if (this.tokenLocalStorage) {
-                lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](this.newsArray, (save) => {
-                    lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](save.bookMark, (Id) => {
-                        if (Id == userId) {
-                            console.log(Id);
-                            save['bookmarkKey'] = true;
-                        }
-                    });
-                });
-            }
-            console.log(this.newsArray);
-        }, (err) => {
-            this.loading = false;
-            this.error = err;
-        });
-    }
-    sharePost(id, newsTitle) {
-        var message = "Check out this amazing news -->  " + newsTitle;
-        var subject = "Trivia Post";
-        var str = newsTitle;
-        var url = 'https://triviapost.com/post/' + id;
-        this.socialSharing.share(message, subject, null, url)
-            .then((entries) => {
-            console.log('success ' + JSON.stringify(entries));
-        })
-            .catch((error) => {
-            alert('error ' + JSON.stringify(error));
-        });
-    }
-    bookmark(id) {
-        this._newsService.bookmarkPost(id).subscribe((res) => {
-            this.catNews(id);
-            this.toast = this.toastController.create({
-                message: res.message,
-                duration: 2000,
-                color: 'success'
-            }).then((toastData) => {
-                this.route.queryParams.subscribe(params => {
-                    if (this.router.getCurrentNavigation().extras.state) {
-                        this.catId = this.router.getCurrentNavigation().extras.state.catId;
-                        console.log('data in edit profile=====>', this.catId);
-                        this.catNews(this.catId);
-                    }
-                });
-                toastData.present();
-            });
-        }, err => {
-            console.log('err===========>', err.error.message);
-            this.toast = this.toastController.create({
-                message: err.error.message,
-                duration: 2000,
-                color: 'danger'
-            }).then((toastData) => {
-                toastData.present();
-            });
-        });
-    }
-};
-CategoryResultComponent.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"] },
-    { type: _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__["SocialSharing"] },
-    { type: _services_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
-];
-CategoryResultComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-category-result',
-        template: __webpack_require__(/*! raw-loader!./category-result.component.html */ "./node_modules/raw-loader/index.js!./src/app/category-result/category-result.component.html"),
-        styles: [__webpack_require__(/*! ./category-result.component.scss */ "./src/app/category-result/category-result.component.scss")]
-    }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__["SocialSharing"], _services_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
-], CategoryResultComponent);
-
-
-
-/***/ }),
-
-/***/ "./src/app/categry-list/categry-list.component.scss":
-/*!**********************************************************!*\
-  !*** ./src/app/categry-list/categry-list.component.scss ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".post_img {\n  width: 100%;\n  height: 200px !important;\n  padding: 0 20px;\n  overflow: hidden;\n  margin: auto;\n}\n\n.post_img img {\n  max-width: 100%;\n  min-width: 100%;\n  max-height: 100%;\n  min-height: 100%;\n}\n\n.share-button {\n  width: 40px;\n  height: 40px;\n  background-color: #c21c00;\n  border-radius: 50%;\n  position: absolute;\n  bottom: 1px;\n  right: 10px;\n  z-index: 1;\n}\n\nimg.icon {\n  height: 20px;\n  width: 20px;\n  margin-top: 10px;\n  margin-left: -3px;\n}\n\nimg.bookmark {\n  height: 30px;\n  width: 20px;\n  margin-left: 10px;\n  z-index: 1111111;\n}\n\n.background {\n  background-image: url('Brown-Background.png') !important;\n  background-repeat: no-repeat;\n  background-size: cover;\n  padding: 0 12px !important;\n}\n\n.news-title {\n  margin: auto;\n  font-size: 20px;\n  color: black;\n  text-align: left;\n}\n\n.no-news-text {\n  height: 100%;\n  width: 100%;\n  background: white;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n          justify-content: center;\n}\n\n.contentPost {\n  text-align: left;\n}\n\n.no-news-text span {\n  font-size: 35px;\n}\n\nion-header ion-toolbar:first-child {\n  --background: #E7DBC6 !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvbmV3L3RyaXZpYXBvc3Qvc3JjL2FwcC9jYXRlZ3J5LWxpc3QvY2F0ZWdyeS1saXN0LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9jYXRlZ3J5LWxpc3QvY2F0ZWdyeS1saXN0LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksV0FBQTtFQUNBLHdCQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsWUFBQTtBQ0NKOztBRENFO0VBQ0UsZUFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGdCQUFBO0FDRUo7O0FEQUU7RUFDRSxXQUFBO0VBQ0EsWUFBQTtFQUNBLHlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxrQkFBQTtFQUNBLFdBQUE7RUFDQSxXQUFBO0VBQ0EsVUFBQTtBQ0dKOztBRERDO0VBQ0MsWUFBQTtFQUNBLFdBQUE7RUFDQSxnQkFBQTtFQUNBLGlCQUFBO0FDSUY7O0FERkM7RUFDRSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGlCQUFBO0VBQ0EsZ0JBQUE7QUNLSDs7QURIQTtFQUNFLHdEQUFBO0VBQ0EsNEJBQUE7RUFDQSxzQkFBQTtFQUNBLDBCQUFBO0FDTUY7O0FESkE7RUFDRSxZQUFBO0VBQ0EsZUFBQTtFQUNBLFlBQUE7RUFDQSxnQkFBQTtBQ09GOztBRExBO0VBQ0UsWUFBQTtFQUNELFdBQUE7RUFDQSxpQkFBQTtFQUNBLG9CQUFBO0VBQUEsYUFBQTtFQUNBLHlCQUFBO1VBQUEsbUJBQUE7RUFDQSx3QkFBQTtVQUFBLHVCQUFBO0FDUUQ7O0FETkE7RUFDRSxnQkFBQTtBQ1NGOztBRFBBO0VBQ0UsZUFBQTtBQ1VGOztBRFBBO0VBQ0UsZ0NBQUE7QUNVRiIsImZpbGUiOiJzcmMvYXBwL2NhdGVncnktbGlzdC9jYXRlZ3J5LWxpc3QuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucG9zdF9pbWcge1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIGhlaWdodDogMjAwcHggIWltcG9ydGFudDtcbiAgICBwYWRkaW5nOjAgMjBweDtcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuICAgIG1hcmdpbjogYXV0bztcbiAgfVxuICAucG9zdF9pbWcgaW1ne1xuICAgIG1heC13aWR0aDogMTAwJTtcbiAgICBtaW4td2lkdGg6IDEwMCU7XG4gICAgbWF4LWhlaWdodDogMTAwJTtcbiAgICBtaW4taGVpZ2h0OiAxMDAlO1xuICB9XG4gIC5zaGFyZS1idXR0b257XG4gICAgd2lkdGg6NDBweDtcbiAgICBoZWlnaHQ6NDBweDtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjYzIxYzAwO1xuICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgYm90dG9tOiAxcHg7XG4gICAgcmlnaHQ6MTBweDtcbiAgICB6LWluZGV4OiAxO1xuICB9XG4gaW1nLmljb24ge1xuICBoZWlnaHQ6IDIwcHg7XG4gIHdpZHRoOiAyMHB4O1xuICBtYXJnaW4tdG9wOiAxMHB4O1xuICBtYXJnaW4tbGVmdDogLTNweDtcbiB9XG4gaW1nLmJvb2ttYXJre1xuICAgaGVpZ2h0OiAzMHB4O1xuICAgd2lkdGg6IDIwcHg7XG4gICBtYXJnaW4tbGVmdDogMTBweDtcbiAgIHotaW5kZXg6IDExMTExMTE7XG4gfVxuLmJhY2tncm91bmR7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybChcIi4uLy4uL2Fzc2V0cy9pbWFnZXMvQnJvd24tQmFja2dyb3VuZC5wbmdcIikhaW1wb3J0YW50O1xuICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0O1xuICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyO1xuICBwYWRkaW5nOiAwIDEycHggIWltcG9ydGFudDtcbn1cbi5uZXdzLXRpdGxle1xuICBtYXJnaW46IGF1dG87XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgY29sb3I6YmxhY2s7XG4gIHRleHQtYWxpZ246bGVmdDtcbn1cbi5uby1uZXdzLXRleHR7XG4gIGhlaWdodDogMTAwJTtcblx0d2lkdGg6IDEwMCU7XG5cdGJhY2tncm91bmQ6IHdoaXRlO1xuXHRkaXNwbGF5OiBmbGV4O1xuXHRhbGlnbi1pdGVtczogY2VudGVyO1xuXHRqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbn1cbi5jb250ZW50UG9zdHtcbiAgdGV4dC1hbGlnbjpsZWZ0O1xufVxuLm5vLW5ld3MtdGV4dCBzcGFue1xuICBmb250LXNpemU6MzVweDtcbn1cblxuaW9uLWhlYWRlciBpb24tdG9vbGJhcjpmaXJzdC1jaGlsZCB7XG4gIC0tYmFja2dyb3VuZDogI0U3REJDNiAhaW1wb3J0YW50O1xufSIsIi5wb3N0X2ltZyB7XG4gIHdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDIwMHB4ICFpbXBvcnRhbnQ7XG4gIHBhZGRpbmc6IDAgMjBweDtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4ucG9zdF9pbWcgaW1nIHtcbiAgbWF4LXdpZHRoOiAxMDAlO1xuICBtaW4td2lkdGg6IDEwMCU7XG4gIG1heC1oZWlnaHQ6IDEwMCU7XG4gIG1pbi1oZWlnaHQ6IDEwMCU7XG59XG5cbi5zaGFyZS1idXR0b24ge1xuICB3aWR0aDogNDBweDtcbiAgaGVpZ2h0OiA0MHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjYzIxYzAwO1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm90dG9tOiAxcHg7XG4gIHJpZ2h0OiAxMHB4O1xuICB6LWluZGV4OiAxO1xufVxuXG5pbWcuaWNvbiB7XG4gIGhlaWdodDogMjBweDtcbiAgd2lkdGg6IDIwcHg7XG4gIG1hcmdpbi10b3A6IDEwcHg7XG4gIG1hcmdpbi1sZWZ0OiAtM3B4O1xufVxuXG5pbWcuYm9va21hcmsge1xuICBoZWlnaHQ6IDMwcHg7XG4gIHdpZHRoOiAyMHB4O1xuICBtYXJnaW4tbGVmdDogMTBweDtcbiAgei1pbmRleDogMTExMTExMTtcbn1cblxuLmJhY2tncm91bmQge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCIuLi8uLi9hc3NldHMvaW1hZ2VzL0Jyb3duLUJhY2tncm91bmQucG5nXCIpICFpbXBvcnRhbnQ7XG4gIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG4gIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XG4gIHBhZGRpbmc6IDAgMTJweCAhaW1wb3J0YW50O1xufVxuXG4ubmV3cy10aXRsZSB7XG4gIG1hcmdpbjogYXV0bztcbiAgZm9udC1zaXplOiAyMHB4O1xuICBjb2xvcjogYmxhY2s7XG4gIHRleHQtYWxpZ246IGxlZnQ7XG59XG5cbi5uby1uZXdzLXRleHQge1xuICBoZWlnaHQ6IDEwMCU7XG4gIHdpZHRoOiAxMDAlO1xuICBiYWNrZ3JvdW5kOiB3aGl0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG59XG5cbi5jb250ZW50UG9zdCB7XG4gIHRleHQtYWxpZ246IGxlZnQ7XG59XG5cbi5uby1uZXdzLXRleHQgc3BhbiB7XG4gIGZvbnQtc2l6ZTogMzVweDtcbn1cblxuaW9uLWhlYWRlciBpb24tdG9vbGJhcjpmaXJzdC1jaGlsZCB7XG4gIC0tYmFja2dyb3VuZDogI0U3REJDNiAhaW1wb3J0YW50O1xufSJdfQ== */"
-
-/***/ }),
-
-/***/ "./src/app/categry-list/categry-list.component.ts":
-/*!********************************************************!*\
-  !*** ./src/app/categry-list/categry-list.component.ts ***!
-  \********************************************************/
-/*! exports provided: CategryListComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategryListComponent", function() { return CategryListComponent; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/news.service */ "./src/app/services/news.service.ts");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
-
-
-
-
-
-
-let CategryListComponent = class CategryListComponent {
-    constructor(route, _newsService) {
-        this.route = route;
-        this._newsService = _newsService;
-        this.loading = false;
-        this.error = '';
-        this.newsArray = [];
-        this.isTextVisible = false;
-        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_5__["config"].mediaApiUrl;
-        setTimeout(function () {
-            console.log("ReInitializing swiper");
-            $('#scriptid').remove();
-            var script = document.createElement('script');
-            script.setAttribute('id', 'scriptid');
-            script.src = "assets/js/swiper.js";
-            document.body.appendChild(script);
-        }, 1800);
-    }
-    ngOnInit() {
-        this.route.params.subscribe(param => {
-            console.log("params=========>", param);
-            this.catNews(param.id);
-        });
-    }
-    catNews(id) {
-        this.loading = true;
-        this.language = localStorage.getItem('language');
-        this.checkForToken();
-        var userId = this.loggedInUser;
-        this._newsService.allCatNews(id).subscribe((res) => {
-            console.log("res of cat news", res);
-            this.loadNewsToPage(res, userId);
-        }, (err) => {
-            this.loading = false;
-            this.error = err;
-        });
-    }
-    checkForToken() {
-        this.tokenLocalStorage = localStorage.getItem('accessToken');
-        if (this.tokenLocalStorage) {
-            var base64Url = this.tokenLocalStorage.split('.')[1];
-            var base64 = base64Url.replace('-', '+').replace('_', '/');
-            var decodedToken = JSON.parse(window.atob(base64));
-            this.loggedInUser = decodedToken.user._id;
-        }
-    }
-    loadNewsToPage(res, userId) {
-        this.newsArray = [];
-        this.loading = false;
-        if (!res.length) {
-            this.isTextVisible = true;
-            this.text = "There are no news yet...";
-        }
-        this.newsArray = res;
-        if (this.tokenLocalStorage) {
-            lodash__WEBPACK_IMPORTED_MODULE_4__["forEach"](this.newsArray, (save) => {
-                lodash__WEBPACK_IMPORTED_MODULE_4__["forEach"](save.bookMark, (Id) => {
-                    if (Id == userId) {
-                        save['bookmarkKey'] = true;
-                    }
-                });
-            });
-        }
-        this.buildForSwiper();
-    }
-    buildForSwiper() {
-        console.log("in buildfunction========================");
-        for (let i = 0; i < this.newsArray.length; i++) {
-            console.log("Slider", "New news for building news letter ", i);
-            $(function () {
-                var window_height = $(document).height() * 0.66;
-                var content_height = window_height;
-                function buildNewsletter() {
-                    if ($('#sliderContent' + i).contents().length > 0) {
-                        console.log("Slider", "ENTERED INTO IF STATEMENT");
-                        let page = $("#page_slider" + i).clone().addClass("swiper-slide").css("display", "block");
-                        $(".swiper-container-h > #swiper-wrapper" + i).append(page);
-                        $(".swiper-container-h > #swiper-wrapper" + i + "> .page_slider:first-child").css("display", "none");
-                        $('#sliderContent' + i).columnize({
-                            columns: 1,
-                            target: "#swiper-wrapper" + i + " .swiper-slide:last .content",
-                            overflow: {
-                                height: content_height,
-                                id: "#sliderContent" + i,
-                                doneFunc: function () {
-                                }
-                            },
-                        });
-                    }
-                    else {
-                        console.log("in else condition================>");
-                        // this.buildForSwiper();
-                    }
-                }
-                setTimeout(buildNewsletter, 1000);
-            });
-        }
-        //  this.reInitializeSwiper();
-    }
-};
-CategryListComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
-    { type: _services_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"] }
-];
-CategryListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-categry-list',
-        template: __webpack_require__(/*! raw-loader!./categry-list.component.html */ "./node_modules/raw-loader/index.js!./src/app/categry-list/categry-list.component.html"),
-        styles: [__webpack_require__(/*! ./categry-list.component.scss */ "./src/app/categry-list/categry-list.component.scss")]
-    }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _services_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"]])
-], CategryListComponent);
 
 
 
@@ -2395,10 +2061,44 @@ let NewsService = class NewsService {
         }
     }
     allCatNews(id) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&categoryId=' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((res) => {
-            this.newsArray = res['data'];
-            return this.newsArray;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+        if (this.network.type == 'none') {
+            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](observer => {
+                console.log(JSON.parse(localStorage.getItem("newsArray")));
+                this.newsArray = JSON.parse(localStorage.getItem("newsArray"));
+                var filtersArray = [id];
+                var filtered = this.newsArray.filter(function (element) {
+                    var cats = element.newsCategoryId.split(' ');
+                    return cats.filter(function (cat) {
+                        return filtersArray.indexOf(cat) > -1;
+                    }).length === filtersArray.length;
+                });
+                this.newsArray = filtered;
+                console.log("filtered", filtered);
+                setTimeout(() => {
+                    observer.next(this.newsArray);
+                    observer.complete();
+                }, 1);
+            });
+        }
+        else {
+            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](observer => {
+                this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&categoryId=' + id).subscribe((result) => {
+                    this.newsArray = result['data'];
+                    console.log("in cat service", this.newsArray);
+                    // localStorage.setItem('newsArray',JSON.stringify(this.newsArray))
+                    observer.next(this.newsArray);
+                    observer.complete();
+                }, (error) => {
+                    observer.error(error);
+                });
+            });
+        }
+        // return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&categoryId='+id).pipe(
+        // 	map((res) => {
+        // 		this.newsArray = res['data'];
+        // 		return this.newsArray;
+        // 	}),
+        // 	catchError(this.handleError));
     }
     searchedNews(searchKey) {
         return this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&keyword=' + searchKey).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((res) => {
