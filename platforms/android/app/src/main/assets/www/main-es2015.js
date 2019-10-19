@@ -445,7 +445,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<div>\n\t\t\t<ion-icon name=\"settings\" class=\"iconSettings\" routerLink=\"/settings\" float-left></ion-icon>\n\t\t\t<span float-right class=\"iconForward\"><ion-icon name=\"arrow-forward\"></ion-icon></span>\n\t\t\t<span routerLink=\"/home\" float-right id=\"feedsLink\">Feeds</span>\n\t\t\t<ion-title class=\"ion-text-center\">\n\t\t\t\tTrivia Post\n\t\t\t</ion-title>\n\t\t</div>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content >\n\t<input placeholder=\"Search for news\" (click)=\"search()\">\n\t<ion-row>\n\t\t\t<h1 id=\"catHeading\"><i>Topics</i> </h1>\n\t</ion-row>\n\n\t<ion-row>\n\n\t\t<ion-col size=\"6\" *ngFor=\"let category of categories$ | async \" class=\"catList\">\n            <ion-card class=\"catCard\">\n                <ion-card-content>\n                    <div class=\"notification_bells\">\n                        <img src=\"assets/images/Category-notification.png\" *ngIf=\"!category.isNotify\" id=\"blackBell\" (click)=\"addNotify(category.categoryId)\">\n                        <img src=\"assets/images/Category-notification-2.png\" *ngIf=\"category.isNotify\" id=\"redBell\" (click)=\"addNotify(category.categoryId)\">\n                    </div>\n                    <div *ngIf=\"language == 'English'\" routerLink=\"/home/category/{{category.categoryId}}/{{category.categoryTitle}}\">\n                        <h2 id=\"catTitle\" ><strong>{{category.categoryTitle}}</strong></h2>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div *ngIf=\"language == 'Hindi'\" routerLink=\"/home/category/{{category.categoryId}}/{{category.categoryTitleHn}}\">\n                        <h2 id=\"catTitle\" ><strong>{{category.categoryTitleHn}}</strong></h2>    \n                    </div>\n                </ion-card-content>\n            </ion-card>\n        </ion-col>\n\t</ion-row>\n\t<div id=\"loader-wrapper\" *ngIf=\"loading\">\n\t\t<div id=\"loader\">\n\t\t\t<span class=\"logo_container\">\n\t\t\t\t<img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n\t\t\t</span>\n\t\t\t<div class=\"ml-loader\">\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t</div>\n\t\t\t<p class=\"text-center\">Loding Data...</p>\n\t\t</div>\n\t</div>\n</ion-content>"
+module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<div>\n\t\t\t<ion-icon name=\"settings\" class=\"iconSettings\" routerLink=\"/settings\" float-left></ion-icon>\n\t\t\t<span float-right class=\"iconForward\"><ion-icon name=\"arrow-forward\"></ion-icon></span>\n\t\t\t<span routerLink=\"/home\" float-right id=\"feedsLink\">Feeds</span>\n\t\t\t<ion-title class=\"ion-text-center\">\n\t\t\t\tTrivia Post\n\t\t\t</ion-title>\n\t\t</div>\n\t</ion-toolbar>\n</ion-header>\n<ion-content>\n\t<input placeholder=\"Search for news\" (click)=\"search()\">\n\t<ion-row>\n\t\t<h1 id=\"catHeading\"><i>Topics</i></h1>\n\t</ion-row>\n\t<ion-row>\n\t\t<ion-col size=\"6\" *ngFor=\"let category of category_array\" class=\"catList\">\n            <ion-card class=\"catCard\">\n                <ion-card-content>\n                    <div class=\"notification_bells\">\n                        <img src=\"assets/images/Category-notification.png\" *ngIf=\"!category.isNotify\" id=\"blackBell\" (click)=\"addNotify(category.categoryId)\">\n                        <img src=\"assets/images/Category-notification-2.png\" *ngIf=\"category.isNotify\" id=\"redBell\" (click)=\"addNotify(category.categoryId)\">\n                    </div>\n                    <div *ngIf=\"language == 'English'\" routerLink=\"/home/category/{{category.categoryId}}/{{category.categoryTitle}}\">\n                        <h2 id=\"catTitle\" ><strong>{{category.categoryTitle}}</strong></h2>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div *ngIf=\"language == 'Hindi'\" routerLink=\"/home/category/{{category.categoryId}}/{{category.categoryTitleHn}}\">\n                        <h2 id=\"catTitle\" ><strong>{{category.categoryTitleHn}}</strong></h2>    \n                    </div>\n                </ion-card-content>\n            </ion-card>\n        </ion-col>\n\t</ion-row>\n\t<div id=\"loader-wrapper\" *ngIf=\"loading\">\n\t\t<div id=\"loader\">\n\t\t\t<span class=\"logo_container\">\n\t\t\t\t<img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n\t\t\t</span>\n\t\t\t<div class=\"ml-loader\">\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t</div>\n\t\t\t<p class=\"text-center\">Loding Data...</p>\n\t\t</div>\n\t</div>\n</ion-content>"
 
 /***/ }),
 
@@ -586,6 +586,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
+
 
 
 
@@ -602,8 +605,6 @@ let AllCategoryComponent = class AllCategoryComponent {
         this.error = '';
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_3__["config"].mediaApiUrl;
         this.getCategories();
-        this.categories$;
-        this.myTitle = "Old Title";
     }
     ngOnInit() {
         this.language = localStorage.getItem('language');
@@ -616,20 +617,10 @@ let AllCategoryComponent = class AllCategoryComponent {
         }));
         this.language = localStorage.getItem('language');
         console.log("language in all category", this.language);
-        // this.getCategories();
-    }
-    handleCategories(res, that) {
-    }
-    handleCatError(err) {
-        this.loading = false;
-        this.error = err;
-        console.error(err);
-    }
-    handleCatComplete() {
-        console.log("Observable Category Completed");
+        this.getCategories();
     }
     getCategories() {
-        // this.loading = true;
+        this.loading = true;
         this.tokenLocalStorage = localStorage.getItem('accessToken');
         if (this.tokenLocalStorage) {
             var base64Url = this.tokenLocalStorage.split('.')[1];
@@ -638,22 +629,22 @@ let AllCategoryComponent = class AllCategoryComponent {
             this.loggedInUser = decodedToken.user._id;
             console.log("Decoded", this.loggedInUser);
         }
-        var that = this;
-        // this._categoryService.getAll().subscribe(function(res: Category[]){
-        // 	console.log("Data in Component is updated!!!",res)
-        // 		var userId =  that.loggedInUser;
-        // 		that.loading = false;
-        // 		that.updateCategories(res)
-        // 		_.forEach(res,(user)=>{
-        // 			_.forEach(user.notify,(Id)=>{
-        // 				if(Id == userId){
-        // 					user['isNotify'] = true
-        // 				}
-        // 			})
-        // 		})
-        // 	console.log("Updated Category Array",this.categories$);
-        // },this.handleCatError,this.handleCatComplete);
-        this.categories$ = this._categoryService.getAll().pipe();
+        var userId = this.loggedInUser;
+        console.log(userId);
+        this._categoryService.getAll().subscribe((res) => {
+            this.loading = false;
+            this.category_array = res;
+            lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](res, (user) => {
+                lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](user.notify, (Id) => {
+                    if (Id == userId) {
+                        user['isNotify'] = true;
+                    }
+                });
+            });
+        }, (err) => {
+            this.loading = false;
+            this.error = err;
+        });
     }
     search() {
         this.router.navigate(['searchBar']);
@@ -880,24 +871,24 @@ let AppComponent = class AppComponent {
         // // Check Internet conectivity
         var offline = rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__["Observable"].fromEvent(document, "offline");
         var online = rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__["Observable"].fromEvent(document, "online");
-        offline.subscribe(() => {
-            this.hide = false;
-            this.toast = this.toastController.create({
-                message: 'Please check your internet connection',
-                animated: true,
-                showCloseButton: true,
-                closeButtonText: "OK",
-                cssClass: "my-toast",
-                position: "bottom",
-                color: "danger"
-            }).then((obj) => {
-                obj.present();
-            });
-        });
-        online.subscribe(() => {
-            this.toastController.dismiss();
-            this.hide = true;
-        });
+        // offline.subscribe(() => {
+        //   this.hide = false;
+        //   this.toast = this.toastController.create({
+        //     message: 'Please check your internet connection',
+        //     animated: true,
+        //     showCloseButton: true,
+        //     closeButtonText: "OK",
+        //     cssClass: "my-toast",
+        //     position: "bottom",
+        //     color: "danger"
+        //   }).then((obj) => {
+        //     obj.present();
+        //   });
+        // });
+        // online.subscribe(() => {
+        //   this.toastController.dismiss();
+        //   this.hide = true;
+        // });
         if (!localStorage.getItem('language')) {
             localStorage.setItem('language', "English");
         }
@@ -909,8 +900,8 @@ let AppComponent = class AppComponent {
     initializeApp() {
         const handleBranch = () => {
             this.platform.ready().then(() => {
-                this.splashScreen.hide();
                 this.statusBar.backgroundColorByHexString('#000000');
+                this.splashScreen.hide();
             });
         };
     }
@@ -2159,16 +2150,19 @@ let SearchbarComponent = class SearchbarComponent {
     }
     searchNews(key) {
         this.keyValue = key;
+        this.loading = true;
         this._newsService.searchedNews(key).subscribe((res) => {
+            this.keyboard.hide();
+            this.loading = false;
             this.newsArray = res;
             this.searchLength = this.newsArray.length;
             console.log(this.newsArray);
         }, (err) => {
+            this.loading = false;
             this.error = err;
         });
     }
     getSingleSearch() {
-        this.keyboard.hide();
         this.router.navigate(['home/search-news/' + this.keyValue]);
     }
 };
@@ -2210,11 +2204,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
-
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 
 
 
@@ -2222,60 +2213,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let CategoryService = class CategoryService {
-    constructor(network, http) {
-        this.network = network;
+    constructor(http) {
         this.http = http;
     }
     handleError(error) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])('Error! something went wrong.');
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["throwError"])('Error! something went wrong.');
     }
     //get all cateogries
     getAll() {
-        const tokenLocalStorage = localStorage.getItem('accessToken');
-        if (tokenLocalStorage) {
-            var base64Url = tokenLocalStorage.split('.')[1];
-            var base64 = base64Url.replace('-', '+').replace('_', '/');
-            var decodedToken = JSON.parse(window.atob(base64));
-            this.loggedInUser = decodedToken.user._id;
-            console.log("Decoded", this.loggedInUser);
-        }
-        return new rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"](observer => {
-            this.categories = JSON.parse(localStorage.getItem("categories"));
-            this.notifyChange();
-            observer.next(this.categories);
-            if (this.network.type == 'none') {
-                console.log(JSON.parse(localStorage.getItem("newsArray")));
-                observer.complete();
-            }
-            else {
-                this.http.get(_config__WEBPACK_IMPORTED_MODULE_3__["config"].baseApiUrl + "category").subscribe((result) => {
-                    this.categories = result['data'];
-                    localStorage.setItem('categories', JSON.stringify(this.categories));
-                    this.notifyChange();
-                    observer.next(this.categories);
-                }, (error) => {
-                    observer.error(error);
-                });
-                // setInterval(function(){
-                // 	var cats = getLocalStorageCategories();
-                // 	console.log("Next Service Data = ",cats);
-                // 	observer.next(cats);
-                // 	function getLocalStorageCategories(){
-                // 		return JSON.parse(localStorage.getItem("categories"));
-                // 	}
-                // },10000);
-                // observer.complete();
-            }
-        });
-    }
-    notifyChange() {
-        lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](this.categories, (user) => {
-            lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](user.notify, (Id) => {
-                if (Id == this.loggedInUser) {
-                    user['isNotify'] = true;
-                }
-            });
-        });
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_3__["config"].baseApiUrl + "category").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])((res) => {
+            this.categories = res['data'];
+            return this.categories;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
     }
     notifyUser(catId) {
         console.log(catId);
@@ -2283,14 +2232,13 @@ let CategoryService = class CategoryService {
     }
 };
 CategoryService.ctorParameters = () => [
-    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"] },
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
 ];
 CategoryService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root'
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
 ], CategoryService);
 
 
@@ -2384,26 +2332,13 @@ let NewsService = class NewsService {
     //fetch all news
     getAllNews() {
         if (this.network.type == 'none') {
-            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](observer => {
-                console.log(JSON.parse(localStorage.getItem("newsArray")));
-                this.newsArray = JSON.parse(localStorage.getItem("newsArray"));
-                setTimeout(() => {
-                    observer.next(this.newsArray);
-                    observer.complete();
-                }, 1);
-            });
         }
         else {
-            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](observer => {
-                this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED').subscribe((result) => {
-                    this.newsArray = result['data'];
-                    localStorage.setItem('newsArray', JSON.stringify(this.newsArray));
-                    observer.next(this.newsArray);
-                    observer.complete();
-                }, (error) => {
-                    observer.error(error);
-                });
-            });
+            return this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((res) => {
+                this.newsArray = res['data'];
+                localStorage.setItem('newsArray', this.newsArray);
+                return this.newsArray;
+            }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
         }
     }
     allCatNews(id) {
@@ -2430,6 +2365,8 @@ let NewsService = class NewsService {
     }
     //get single news
     getSingleNews(id) {
+        console.log('service', id);
+        // http://192.168.1.83:5000/api/single-news?postId=5d92fae2ec36d35216e159a6
         return this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'single-news?postId=' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((res) => {
             this.singleNews = res['data'];
             console.log("ser", this.singleNews);
@@ -2437,7 +2374,6 @@ let NewsService = class NewsService {
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     }
     newsCount(data) {
-        console.log("post data", data);
         return this.http.put(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'post-views', data);
     }
 };
