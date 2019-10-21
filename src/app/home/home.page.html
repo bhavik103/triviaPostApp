@@ -24,8 +24,8 @@
 <ion-content id="homepage-ion-content" *ngIf="!loading && !isTextVisible">
 	<div class="swiper-container swiper-container-v ">
 		<div class="swiper-wrapper ">
-			<div class="swiper-slide background" *ngFor="let news of newsArray; let i = index" id={{news.newsId}}
-				style="padding:15px">
+			<div class="swiper-slide background" *ngFor="let news of newsArray; let i = index; last as isLast"
+				id={{news.newsId}} style="padding:15px">
 				<div class="swiper-container swiper-container-h " id="swiper-h-{{news.newsId}}">
 					<div class="swiper-wrapper" id="swiper-wrapper{{i}}">
 						<div class="page_slider swiper-slide newsId-{{news.newsId}} "
@@ -56,6 +56,9 @@
 									<div class="contentPost">
 										<div *ngIf="language == 'English'" [innerHTML]="news.newsEnglish">
 										</div>
+										<span *ngIf="isLast">
+											<div id="snackbar">Some text some message..</div>
+										</span>
 										<div class="hindi-news" *ngIf="language == 'Hindi'"
 											[innerHTML]="news.newsHindi">
 										</div>
@@ -81,7 +84,9 @@
 						<img src="../../assets/images/Share.png" class="icon" />
 					</div>
 					<div class="swiper-pagination swiper-pagination-h"></div>
+					<!-- <span *ngIf="lastcall">{{lastSlideToast()}} </span> -->
 				</div>
+
 			</div>
 		</div>
 		<!-- <div class="swiper-pagination swiper-pagination-v"></div> -->

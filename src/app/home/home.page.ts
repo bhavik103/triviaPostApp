@@ -445,20 +445,36 @@ export class HomePage implements OnInit {
         this.buildForSwiper();
     }
 
+    // last slide toast
 
+    // lastSlideToast() {
+    //     console.log("Last post %%%%%%%%%%%%%%5")
+    //     this.toast = this.toastController.create({
+    //         message: 'No more post',
+    //         animated: true,
+    //         duration: 2000,
+    //         showCloseButton: true,
+    //         closeButtonText: "OK",
+    //         cssClass: "my-toast",
+    //         position: "bottom",
+    //         color: "primary"
+    //     }).then((obj) => {
+    //         obj.present();
+    //     });
+    // }
 
     // BUTTON ACTIONS
     //  Do Bookmark
     bookmark(index: string | number) {
-        if(this.network.type == 'none') {
+        if (this.network.type == 'none') {
             this.toast = this.toastController.create({
                 message: "No internet connection",
                 duration: 2000,
                 color: 'danger'
-            }).then((toastData) =>{
+            }).then((toastData) => {
                 toastData.present();
             });
-        }else{
+        } else {
             this._newsService.bookmarkPost(this.newsArray[index].newsId).subscribe((res: any) => {
                 this.newsArray[index].bookmarkKey = !this.newsArray[index].bookmarkKey;
                 this.toast = this.toastController.create({
@@ -550,8 +566,10 @@ export class HomePage implements OnInit {
         });
     }
 
-    fcmToken(){
+    fcmToken() {
+        console.log("in fcmtoken function");
         this.fcm.getToken().then(token => {
+            console.log("inside get fcmtoken", token);
             localStorage.setItem('deviceToken', token);
         });
         this.fcm.onTokenRefresh().subscribe(token => {
@@ -560,15 +578,15 @@ export class HomePage implements OnInit {
         this.fcm.onNotification().subscribe(data => {
             this.router.navigate(['settings']);
             alert(JSON.stringify(data));
-            if (data.wasTapped){
+            if (data.wasTapped) {
                 //console.log('Received in background');
-            }else {
+            } else {
                 //console.log('Received in foreground');
             }
         });
     }
 
-    checkForToken(){
+    checkForToken() {
         this.tokenLocalStorage = localStorage.getItem('accessToken');
         if (this.tokenLocalStorage) {
             var base64Url = this.tokenLocalStorage.split('.')[1];
