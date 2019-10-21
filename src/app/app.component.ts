@@ -68,6 +68,13 @@ export class AppComponent {
   initializeApp() {
     const handleBranch = () => {
       this.platform.ready().then(() => {
+        // console.log("fsdf",this.platform);
+        // if(this.platform.is('ios')){
+        //   console.log("IOS");
+        // }
+        // if(this.platform.is('android')){
+        //   console.log("Android");
+        // }
         this.splashScreen.hide();
         this.statusBar.backgroundColorByHexString('#000000');
       });

@@ -8,6 +8,7 @@ import {News} from '../home/news';
 import { ActionSheetController,Platform } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { Observable } from 'rxjs/Observable';
 @Component({
 	selector: 'app-bookmarks',
 	templateUrl: './bookmarks.component.html',
@@ -23,6 +24,7 @@ export class BookmarksComponent implements OnInit {
 	toast:any;
 	bookmarkLength: any;
 	loading:any;
+	hide;
 	constructor(private platform: Platform, private socialSharing: SocialSharing,public toastController: ToastController,public actionSheetController: ActionSheetController,public _newsService: NewsService,public _categoryService: CategoryService, private router:Router) { }
 
 	ngOnInit() {
@@ -33,6 +35,28 @@ export class BookmarksComponent implements OnInit {
         });
 		this.bookmarkedNews();
 		this.language = localStorage.getItem('language');
+	}
+
+	ionViewWillEnter(){
+		// // Check Internet conectivity
+		var offline = Observable.fromEvent(document, "offline");
+		var online = Observable.fromEvent(document, "online");
+	
+		offline.subscribe(() => {
+		  this.hide = false;
+		  this.toast = this.toastController.create({
+			message: 'No internet connection',
+			animated: true,
+			showCloseButton: true,
+			duration: 2000,
+			closeButtonText: "OK",
+			cssClass: "my-toast",
+			position: "bottom",
+			color: "danger"
+		  }).then((obj) => {
+			obj.present();
+		  });
+		});
 	}
 
 	bookmarkedNews(): void{

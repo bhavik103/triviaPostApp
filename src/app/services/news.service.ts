@@ -22,16 +22,16 @@ export class NewsService {
 
 	//fetch all news
 	getAllNews(): Observable<any> {
-		if (this.network.type == 'none') {
+		if(this.network.type == 'none'){
 			return new Observable(observer => {
 				console.log(JSON.parse(localStorage.getItem("newsArray")));
 				this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
 				setTimeout(() => {
 					observer.next(this.newsArray);
 					observer.complete();
-				}, 1);
+				},1);
 			});
-		} else {
+		}else{
 			return new Observable(observer => {
 				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').subscribe(
 					(result: object) => {
@@ -149,6 +149,6 @@ export class NewsService {
 
 	newsCount(data) {
 		console.log("post data", data);
-		return this.http.put(config.baseApiUrl + 'post-views', data);
+		return this.http.put(config.baseApiUrl + 'post-views', {data});
 	}
 }

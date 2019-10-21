@@ -884,6 +884,13 @@ let AppComponent = class AppComponent {
     initializeApp() {
         const handleBranch = () => {
             this.platform.ready().then(() => {
+                // console.log("fsdf",this.platform);
+                // if(this.platform.is('ios')){
+                //   console.log("IOS");
+                // }
+                // if(this.platform.is('android')){
+                //   console.log("Android");
+                // }
                 this.splashScreen.hide();
                 this.statusBar.backgroundColorByHexString('#000000');
             });
@@ -1048,6 +1055,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/news.service */ "./src/app/services/news.service.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
+/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs-compat/_esm2015/Observable.js");
+
 
 
 
@@ -1077,6 +1086,26 @@ let BookmarksComponent = class BookmarksComponent {
         }));
         this.bookmarkedNews();
         this.language = localStorage.getItem('language');
+    }
+    ionViewWillEnter() {
+        // // Check Internet conectivity
+        var offline = rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__["Observable"].fromEvent(document, "offline");
+        var online = rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__["Observable"].fromEvent(document, "online");
+        offline.subscribe(() => {
+            this.hide = false;
+            this.toast = this.toastController.create({
+                message: 'No internet connection',
+                animated: true,
+                showCloseButton: true,
+                duration: 2000,
+                closeButtonText: "OK",
+                cssClass: "my-toast",
+                position: "bottom",
+                color: "danger"
+            }).then((obj) => {
+                obj.present();
+            });
+        });
     }
     bookmarkedNews() {
         this.loading = true;
@@ -2169,7 +2198,7 @@ let NewsService = class NewsService {
     }
     newsCount(data) {
         console.log("post data", data);
-        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'post-views', data);
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'post-views', { data });
     }
 };
 NewsService.ctorParameters = () => [

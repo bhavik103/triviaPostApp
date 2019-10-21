@@ -264,6 +264,7 @@ export class HomePage implements OnInit {
                 this.getSingleNews(param.id);
             } else if (url.includes('search-news')) {
                 this.loading = false;
+                this.searchKey = param.key;
                 this.searchNews(param.key);
             } else {
                 this.loading = false;
@@ -449,15 +450,15 @@ export class HomePage implements OnInit {
     // BUTTON ACTIONS
     //  Do Bookmark
     bookmark(index: string | number) {
-        if (this.network.type == 'none') {
+        if(this.network.type == 'none') {
             this.toast = this.toastController.create({
                 message: "No internet connection",
                 duration: 2000,
                 color: 'danger'
-            }).then((toastData) => {
+            }).then((toastData) =>{
                 toastData.present();
             });
-        } else {
+        }else{
             this._newsService.bookmarkPost(this.newsArray[index].newsId).subscribe((res: any) => {
                 this.newsArray[index].bookmarkKey = !this.newsArray[index].bookmarkKey;
                 this.toast = this.toastController.create({
@@ -542,10 +543,6 @@ export class HomePage implements OnInit {
     }
 
     // END SWIPER
-
-
-
-
     // Notification and utility
     notificationTapped() {
         this.fcm.onNotification().subscribe(data => {
@@ -553,7 +550,7 @@ export class HomePage implements OnInit {
         });
     }
 
-    fcmToken() {
+    fcmToken(){
         this.fcm.getToken().then(token => {
             localStorage.setItem('deviceToken', token);
         });
@@ -563,15 +560,15 @@ export class HomePage implements OnInit {
         this.fcm.onNotification().subscribe(data => {
             this.router.navigate(['settings']);
             alert(JSON.stringify(data));
-            if (data.wasTapped) {
+            if (data.wasTapped){
                 //console.log('Received in background');
-            } else {
+            }else {
                 //console.log('Received in foreground');
             }
         });
     }
 
-    checkForToken() {
+    checkForToken(){
         this.tokenLocalStorage = localStorage.getItem('accessToken');
         if (this.tokenLocalStorage) {
             var base64Url = this.tokenLocalStorage.split('.')[1];

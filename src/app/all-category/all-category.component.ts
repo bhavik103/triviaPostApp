@@ -87,8 +87,8 @@ export class AllCategoryComponent implements OnInit {
 		this.router.navigate(['catResult'], navigationExtras);
 	}
 
-	addNotify(catId) {
-		if (this.network.type == 'none') {
+	addNotify(catId){
+		if(this.network.type == 'none'){
 			this.toast = this.toastController.create({
 				message: "No internet connection",
 				duration: 2000,
@@ -96,7 +96,7 @@ export class AllCategoryComponent implements OnInit {
 			}).then((toastData) => {
 				toastData.present();
 			});
-		} else {
+		}else{
 			this._categoryService.notifyUser(catId).subscribe((res: any) => {
 				console.log("res", res);
 				this.toast = this.toastController.create({
