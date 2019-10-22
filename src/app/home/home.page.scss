@@ -3,70 +3,70 @@
 //   width: 17px;
 //   margin: 0 12px
 // }
-
 .homeBack {
-  float: left;
-  font-size: 20px;
-  padding-left: 15px;
+    float: left;
+    font-size: 20px;
+    padding-left: 15px;
 }
 
 // ion-content{
 //   --color: black;
 //   --background: url('../../assets/images/Brown-Background.png') no-repeat center center fixed
 // }
-
 ion-card {
-  border: 1px solid blue;
-  -webkit-box-shadow: 0 2px 3px -3px blue;
-  -moz-box-shadow: 0 2px 3px -4px blue;
-  box-shadow: 0 2px 3px -4px blue;
+    border: 1px solid blue;
+    -webkit-box-shadow: 0 2px 3px -3px blue;
+    -moz-box-shadow: 0 2px 3px -4px blue;
+    box-shadow: 0 2px 3px -4px blue;
 }
 
-.post_img img{
-  height: 130px;
-  width: 100%;
-}
 .post_img {
-  width: 100%;
-  padding-top: 35%;
-  overflow: hidden;
-  position: relative;
+    width: 100%;
+    padding-top: calc(100% * 9 / 16);
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
 }
 
-.post_img img{
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  min-height: 100%;
-  max-height: 100%;
-  min-width: 100%;
-  max-width: 100%;
-  object-fit: contain;
+.post_img img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -o-object-fit: cover;
+    object-fit: cover;
+    min-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    max-width: 100%;
 }
+
 .share-button {
-  width: 40px;
-  height: 40px;
-  background-color: #c21c00;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 1px;
-  right: 10px;
-  z-index: 9999;
+    width: 40px;
+    height: 40px;
+    background-color: #c21c00;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 1px;
+    right: 10px;
+    z-index: 9999;
 }
+
 img.icon {
-  height: 20px;
-  width: 20px;
-  margin-top: 10px;
-  margin-left: -3px;
+    height: 20px;
+    width: 20px;
+    margin-top: 10px;
+    margin-left: -3px;
 }
+
 img.bookmark {
-  height: 30px;
-  width: 20px;
-  margin-left: 10px;
-  z-index: 1111111;
+    height: 30px;
+    width: 20px;
+    margin-left: 10px;
+    z-index: 1111111;
 }
+
 // .background{
 //   background-image: url("../../assets/images/Brown-Background.png")!important;
 //   background-repeat: no-repeat;
@@ -74,39 +74,44 @@ img.bookmark {
 //   padding: 0 12px !important;
 // }
 .news-title {
-  margin: auto;
-  font-size: 14pt;
-  color: black;
-  text-align: left;
+    margin: auto;
+    font-size: 14pt;
+    color: black;
+    text-align: left;
+    position: absolute;
+    bottom: 10px;
 }
+
 .no-news-text {
-  height: 100%;
-  width: 100%;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    height: 100%;
+    width: 100%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.contentPost{
-  text-align: left;
+
+.contentPost {
+    text-align: left;
 }
+
 .no-news-text span {
-  font-size: 35px;
+    font-size: 35px;
 }
 
 //toast last post
-#lastPostToast{
-  display: none;
-  background-color: #8c8c8c;
-  line-height: 40px;
-  width: 141px;
-  border-radius: 30px;
-  color: white;
-  text-align: center;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 7%;
-  margin: auto;
-  opacity: 1;
- }
+#lastPostToast {
+    display: none;
+    background-color: #8c8c8c;
+    line-height: 40px;
+    width: 141px;
+    border-radius: 30px;
+    color: white;
+    text-align: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 7%;
+    margin: auto;
+    opacity: 1;
+}

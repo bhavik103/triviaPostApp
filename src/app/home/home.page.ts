@@ -55,7 +55,7 @@ export class HomePage implements OnInit {
 
     // Event Listeners
     ngOnInit() {
-        
+
         console.warn("ngOnInit");
         this.loading = true;
         this.viewInitFunctions();
@@ -600,8 +600,8 @@ export class HomePage implements OnInit {
         }
     }
 
-    swipeevent(e,l){
-        if(l+1 == this.resLength){
+    swipeevent(e, l) {
+        if (l + 1 == this.resLength) {
             $('#lastPostToast').hide().fadeIn(800).delay(500).fadeOut(800);
             // $('#lastPostToast').show();
         }
@@ -611,7 +611,7 @@ export class HomePage implements OnInit {
         setInterval(function () {
             if (that.currentPostId != localStorage.currentPostId) {
                 that.currentPostId = localStorage.currentPostId;
-                console.log("postid",this.currentPostId);
+                console.log("postid", this.currentPostId);
                 that.newPostView(localStorage.currentPostId);
             }
         }, 500);
