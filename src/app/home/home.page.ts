@@ -526,7 +526,7 @@ export class HomePage implements OnInit {
     async buildForSwiper() {
         for (let i = 0; i < this.newsArray.length; i++) {
             $(async function () {
-                var window_height = $(document).height() * 0.66;
+                var window_height = $(document).height() * 0.56;
                 var content_height = window_height;
                 async function buildNewsletter() {
                     if ($('#sliderContent' + i).contents().length > 0) {
