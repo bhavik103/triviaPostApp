@@ -602,13 +602,8 @@ export class HomePage implements OnInit {
 
     swipeevent(e,l){
         if(l+1 == this.resLength){
-            this.toast = this.toastController.create({
-                message: "No more posts",
-                duration: 500,
-                color: 'danger'
-            }).then((toastData) => {
-                toastData.present();
-            });
+            $('#lastPostToast').hide().fadeIn(800).delay(500).fadeOut(800);
+            // $('#lastPostToast').show();
         }
     }
     checkForCurrentSlideFromLocalStorage() {

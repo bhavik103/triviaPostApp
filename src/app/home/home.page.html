@@ -66,6 +66,7 @@
 						</div>
 					</div>
 					<!-- Bookmark -->
+					<p id="lastPostToast" *ngIf="isLast">No more posts</p>
 					<div style="position: absolute; bottom: 0px;z-index: 28;">
 						<img src="assets/images/Bookmarks1.png" class="bookmark" *ngIf="!news.bookmarkKey"
 							(click)="bookmark(i)" />

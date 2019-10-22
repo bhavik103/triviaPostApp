@@ -93,3 +93,20 @@ img.bookmark {
 .no-news-text span {
   font-size: 35px;
 }
+
+//toast last post
+#lastPostToast{
+  display: none;
+  background-color: #8c8c8c;
+  line-height: 40px;
+  width: 141px;
+  border-radius: 30px;
+  color: white;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 7%;
+  margin: auto;
+  opacity: 1;
+ }

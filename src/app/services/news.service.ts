@@ -147,7 +147,7 @@ export class NewsService {
 			catchError(this.handleError));
 	}
 
-	newsCount(data) {
+	newsCount(data){
 		console.log("post data", data);
 		return this.http.put(config.baseApiUrl + 'post-views', data);
 	}
