@@ -21,7 +21,7 @@
 				<p class="newsCat" *ngIf="language == 'English'">{{searchNews.newsCategory}}</p>
 				<p class="newsCat" *ngIf="language == 'Hindi'">{{searchNews.newsCategoryHn}}</p>
 				<span class="optionsList" *ngIf="language == 'English'"
-					[innerHTML]="searchNews.newsTitleEnglish"></span>
+					[innerHTML]="searchNews.newsTitleEnglish | slice:0:70"></span>
 				<span class="optionsList" *ngIf="language == 'Hindi'" [innerHTML]="searchNews.newsTitleHindi"></span>
 			</div>
 		</ion-col>

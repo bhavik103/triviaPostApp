@@ -1,6 +1,5 @@
 import { Component, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
 import { CategoryService } from '../services/category.service';
-import { Category } from './category';
 import { config } from '../config';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { NewsService } from '../services/news.service';
@@ -13,8 +12,9 @@ import * as _ from 'lodash';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
-import { Observable } from 'rxjs';
+import { Observable, VirtualTimeScheduler } from 'rxjs';
 import { Network } from '@ionic-native/network/ngx';
+import 'hammerjs';
 
 @Component({
     selector: 'app-home',
@@ -38,7 +38,6 @@ export class HomePage implements OnInit {
     catTitle: any;
     searchKey: any;
     newsArray: any = [];
-    category_array: Category[];
     horizontalSwipers = [];
     error = '';
     isVisible = false;
@@ -50,11 +49,13 @@ export class HomePage implements OnInit {
     data: { postId: any; postType: any; };
     appendedNews: { newsId: any; splice: (arg0: any, arg1: number) => void; };
     hide: boolean;
+    resLength: number;
     constructor(private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, public toastController: ToastController, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 
     // Event Listeners
     ngOnInit() {
+        
         console.warn("ngOnInit");
         this.loading = true;
         this.viewInitFunctions();
@@ -113,6 +114,9 @@ export class HomePage implements OnInit {
     }
     ionViewWillEnter() {
         this.loading = true;
+        setTimeout(() => {
+            $('#snackbar').show();
+        }, 3000);
         this.checkforInternet();
     }
     //check for internet
@@ -279,6 +283,7 @@ export class HomePage implements OnInit {
         console.info("loadToNewsPage Called ", "res = ", res, "userId", userId, "checkForBookmark", checkForBookmark);
         this.newsArray = [];
         this.loading = false;
+        this.resLength = res.length;
         if (!res.length) {
             this.isTextVisible = true
             this.text = "There are no news yet..."
@@ -327,7 +332,7 @@ export class HomePage implements OnInit {
             postId: postId,
             postType: localStorage.language
         }
-        this._newsService.newsCount(this.data);
+        this._newsService.newsCount(this.data).subscribe();
     }
 
     /**
@@ -585,7 +590,6 @@ export class HomePage implements OnInit {
             }
         });
     }
-
     checkForToken() {
         this.tokenLocalStorage = localStorage.getItem('accessToken');
         if (this.tokenLocalStorage) {
@@ -595,12 +599,25 @@ export class HomePage implements OnInit {
             this.loggedInUser = decodedToken.user._id;
         }
     }
+
+    swipeevent(e,l){
+        if(l+1 == this.resLength){
+            this.toast = this.toastController.create({
+                message: "No more posts",
+                duration: 500,
+                color: 'danger'
+            }).then((toastData) => {
+                toastData.present();
+            });
+        }
+    }
     checkForCurrentSlideFromLocalStorage() {
         var that = this;
         setInterval(function () {
             if (that.currentPostId != localStorage.currentPostId) {
                 that.currentPostId = localStorage.currentPostId;
-                that.newPostView(that.currentPostId);
+                console.log("postid",this.currentPostId);
+                that.newPostView(localStorage.currentPostId);
             }
         }, 500);
     }

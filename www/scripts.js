@@ -189,13 +189,13 @@ if(h<min)min=h;}}($inBox));var avgH=totalH/numCols;if(options.lastNeverTallest&&
 $inBox.append($("<br style='clear:both;'>"));}
 $inBox.find('.column').find(':first.removeiffirst').remove();$inBox.find('.column').find(':last.removeiflast').remove();$inBox.data("columnizing",false);if(options.overflow){options.overflow.doneFunc();}
 options.doneFunc();}});};})(jQuery);
-;$(document).ready(function() {
+;$(document).ready(function () {
 	var script = document.createElement('script');
-	script.setAttribute('id', 'scriptid' );
+	script.setAttribute('id', 'scriptid');
 	script.src = "assets/js/swiper.js";
-	setTimeout(function(){
+	setTimeout(function () {
 		document.body.appendChild(script);
-	},200);
+	}, 200);
 	console.log("In custom script.........");
 });
 ;/**

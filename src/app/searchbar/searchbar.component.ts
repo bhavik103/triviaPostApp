@@ -60,6 +60,8 @@ export class SearchbarComponent implements OnInit {
 
     getSingleSearch(){
        this.keyboard.hide();
-       this.router.navigate(['home/search-news/'+ this.keyValue]);
+       setTimeout(() => {
+           this.router.navigate(['home/search-news/'+ this.keyValue]);
+       }, 500);
    }
 }

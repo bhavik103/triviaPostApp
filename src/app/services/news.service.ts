@@ -149,6 +149,6 @@ export class NewsService {
 
 	newsCount(data) {
 		console.log("post data", data);
-		return this.http.put(config.baseApiUrl + 'post-views', {data});
+		return this.http.put(config.baseApiUrl + 'post-views', data);
 	}
 }

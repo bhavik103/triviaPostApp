@@ -511,7 +511,7 @@ module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-icon name=\"arrow-roun
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"2\" class=\"searchBack\">\n\t\t\t\t<ion-icon name=\"arrow-round-back\" routerLink=\"/allcategory\"></ion-icon>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<ion-input set-focuser type=\"text\" placeholder=\"Search here..\"\n\t\t\t\t\t(input)=\"searchNews($event.target.value)\"></ion-input>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</ion-toolbar>\n</ion-header>\n<ion-content padding>\n\t<ion-row class=\"searchResults\" *ngFor=\"let searchNews of newsArray\">\n\t\t<ion-col size=\"3\" class=\"newsImg\" padding (click)=\"getSingleSearch()\">\n\t\t\t<img src=\"{{mediaPath}}{{searchNews.newsImage}}\" height=\"73px\" width=\"100%\">\n\t\t</ion-col>\n\t\t<ion-col size=\"9\" (click)=\"getSingleSearch()\">\n\t\t\t<div padding>\n\t\t\t\t<p class=\"newsCat\" *ngIf=\"language == 'English'\">{{searchNews.newsCategory}}</p>\n\t\t\t\t<p class=\"newsCat\" *ngIf=\"language == 'Hindi'\">{{searchNews.newsCategoryHn}}</p>\n\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\"\n\t\t\t\t\t[innerHTML]=\"searchNews.newsTitleEnglish\"></span>\n\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\" [innerHTML]=\"searchNews.newsTitleHindi\"></span>\n\t\t\t</div>\n\t\t</ion-col>\n\t</ion-row>\n\t<ion-row *ngIf=\"searchLength == 0\">\n\t\t<ion-col size=\"12\">\n\t\t\t<h1>No result found!</h1>\n\t\t</ion-col>\n\t</ion-row>\n\t<div id=\"loader-wrapper\" *ngIf=\"loading\">\n\t\t<div id=\"loader\">\n\t\t\t<span class=\"logo_container\">\n\t\t\t\t<img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n\t\t\t</span>\n\t\t\t<div class=\"ml-loader\">\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t</div>\n\t\t\t<p class=\"text-center\">Loding Data...</p>\n\t\t</div>\n\t</div>\n</ion-content>"
+module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"2\" class=\"searchBack\">\n\t\t\t\t<ion-icon name=\"arrow-round-back\" routerLink=\"/allcategory\"></ion-icon>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<ion-input set-focuser type=\"text\" placeholder=\"Search here..\"\n\t\t\t\t\t(input)=\"searchNews($event.target.value)\"></ion-input>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</ion-toolbar>\n</ion-header>\n<ion-content padding>\n\t<ion-row class=\"searchResults\" *ngFor=\"let searchNews of newsArray\">\n\t\t<ion-col size=\"3\" class=\"newsImg\" padding (click)=\"getSingleSearch()\">\n\t\t\t<img src=\"{{mediaPath}}{{searchNews.newsImage}}\" height=\"73px\" width=\"100%\">\n\t\t</ion-col>\n\t\t<ion-col size=\"9\" (click)=\"getSingleSearch()\">\n\t\t\t<div padding>\n\t\t\t\t<p class=\"newsCat\" *ngIf=\"language == 'English'\">{{searchNews.newsCategory}}</p>\n\t\t\t\t<p class=\"newsCat\" *ngIf=\"language == 'Hindi'\">{{searchNews.newsCategoryHn}}</p>\n\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\"\n\t\t\t\t\t[innerHTML]=\"searchNews.newsTitleEnglish | slice:0:70\"></span>\n\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\" [innerHTML]=\"searchNews.newsTitleHindi\"></span>\n\t\t\t</div>\n\t\t</ion-col>\n\t</ion-row>\n\t<ion-row *ngIf=\"searchLength == 0\">\n\t\t<ion-col size=\"12\">\n\t\t\t<h1>No result found!</h1>\n\t\t</ion-col>\n\t</ion-row>\n\t<div id=\"loader-wrapper\" *ngIf=\"loading\">\n\t\t<div id=\"loader\">\n\t\t\t<span class=\"logo_container\">\n\t\t\t\t<img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n\t\t\t</span>\n\t\t\t<div class=\"ml-loader\">\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t</div>\n\t\t\t<p class=\"text-center\">Loding Data...</p>\n\t\t</div>\n\t</div>\n</ion-content>"
 
 /***/ }),
 
@@ -929,11 +929,12 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!*******************************!*\
   !*** ./src/app/app.module.ts ***!
   \*******************************/
-/*! exports provided: AppModule */
+/*! exports provided: HammerConfig, AppModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HammerConfig", function() { return HammerConfig; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
@@ -965,6 +966,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ionic-native/deeplinks/ngx */ "./node_modules/@ionic-native/deeplinks/ngx/index.js");
 /* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
 /* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_30__);
 
 
 
@@ -995,6 +998,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+class HammerConfig extends _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["HammerGestureConfig"] {
+    constructor() {
+        super(...arguments);
+        this.overrides = {
+            'swipe': { direction: hammerjs__WEBPACK_IMPORTED_MODULE_30__["DIRECTION_ALL"] }
+        };
+    }
+}
 let AppModule = class AppModule {
 };
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1004,6 +1017,10 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         entryComponents: [],
         imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_25__["FormsModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_25__["ReactiveFormsModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_17__["IonicStorageModule"].forRoot(), _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"]],
         providers: [
+            {
+                provide: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["HAMMER_GESTURE_CONFIG"],
+                useClass: HammerConfig
+            },
             _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_29__["Network"],
             _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_24__["SocialSharing"],
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"],
@@ -1872,7 +1889,9 @@ let SearchbarComponent = class SearchbarComponent {
     }
     getSingleSearch() {
         this.keyboard.hide();
-        this.router.navigate(['home/search-news/' + this.keyValue]);
+        setTimeout(() => {
+            this.router.navigate(['home/search-news/' + this.keyValue]);
+        }, 500);
     }
 };
 SearchbarComponent.ctorParameters = () => [
@@ -2198,7 +2217,7 @@ let NewsService = class NewsService {
     }
     newsCount(data) {
         console.log("post data", data);
-        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'post-views', { data });
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'post-views', data);
     }
 };
 NewsService.ctorParameters = () => [
