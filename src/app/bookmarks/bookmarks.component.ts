@@ -65,7 +65,7 @@ export class BookmarksComponent implements OnInit {
 			(res) => {
 				this.loading = false;
 				this.newsObj = res;
-				this.newsArray = this.newsObj.post;
+				this.newsArray = this.newsObj;
 				this.bookmarkLength = this.newsArray.length;
 			},
 			(err) => {

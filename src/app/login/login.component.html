@@ -1,17 +1,17 @@
-<ion-header>
+<!-- <ion-header>
     <ion-toolbar>
         <ion-icon name="arrow-round-back" class="loginBack" routerLink="/settings"></ion-icon>
-        <ion-title>
+        <ion-title style="font-size:22px">
             Login
         </ion-title>
     </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content class="background">
+<ion-content class="background" (swiperight)="goBack()">
     <div class="componentMainDiv">
         <div class="header">
-            <h1 id="welcomeHead"><i>Welcome to</i></h1>
-            <img src="assets/images/Logo.png" height="auto" width="89px">
+            <p id="welcomeHead">Welcome to</p>
+            <img src="assets/images/Logo.png" height="auto" width="35%">
         </div>
         <form [formGroup]="loginForm" padding class="loginForm">
             <div class="signup_input loginInput">
@@ -30,7 +30,7 @@
 					<input type="checkbox" id="forgotPasswordModal" class="checkBox" />
 					<div class="modal">
 						<div class="modal__inner">
-							<p id="signup"><i>Forgot Password</i></p>
+							<p style="text-align: center;"><i id="signup">Forgot Password</i></p>
 							<form [formGroup]="forgotPassword">
 								<div class="signup_input">
 									<ion-icon name="mail"></ion-icon>
@@ -63,7 +63,7 @@
             <input type="checkbox" id="signupModal" class="checkBox" />
             <div class="modal signUp">
                 <div class="modal__inner">
-                    <p id="signupHead"><i>Sign Up</i></p>
+                    <p style="text-align: center;"><i id="signupHead">Sign Up</i></p>
                     <form [formGroup]="signupForm">
                         <div class="signup_input">
                             <ion-icon name="person"></ion-icon>
