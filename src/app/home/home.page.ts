@@ -55,7 +55,7 @@ export class HomePage implements OnInit {
 
     // Event Listeners
     ngOnInit() {
-        
+
         console.warn("ngOnInit");
         this.loading = true;
         this.viewInitFunctions();
@@ -526,7 +526,7 @@ export class HomePage implements OnInit {
     async buildForSwiper() {
         for (let i = 0; i < this.newsArray.length; i++) {
             $(async function () {
-                var window_height = $(document).height() * 0.66;
+                var window_height = $(document).height() * 0.56;
                 var content_height = window_height;
                 async function buildNewsletter() {
                     if ($('#sliderContent' + i).contents().length > 0) {
@@ -600,8 +600,8 @@ export class HomePage implements OnInit {
         }
     }
 
-    swipeevent(e,l){
-        if(l+1 == this.resLength){
+    swipeevent(e, l) {
+        if (l + 1 == this.resLength) {
             $('#lastPostToast').hide().fadeIn(800).delay(500).fadeOut(800);
             // $('#lastPostToast').show();
         }
@@ -611,7 +611,7 @@ export class HomePage implements OnInit {
         setInterval(function () {
             if (that.currentPostId != localStorage.currentPostId) {
                 that.currentPostId = localStorage.currentPostId;
-                console.log("postid",this.currentPostId);
+                console.log("postid", this.currentPostId);
                 that.newPostView(localStorage.currentPostId);
             }
         }, 500);
