@@ -6,6 +6,7 @@ import { from as observableFrom } from 'rxjs';
 import { config } from '../config';
 import { News } from '../home/news';
 import { Network } from '@ionic-native/network/ngx';
+import * as _ from 'lodash';
 @Injectable({
 	providedIn: 'root'
 })
@@ -13,7 +14,7 @@ export class NewsService {
 	authorization = localStorage.getItem('accessToken');
 	newsArray: any;
 	singleNews: any;
-
+	userId: any;
 	private handleError(error: HttpErrorResponse) {
 		return throwError('Error! something went wrong.');
 	}
@@ -22,16 +23,16 @@ export class NewsService {
 
 	//fetch all news
 	getAllNews(): Observable<any> {
-		if(this.network.type == 'none'){
+		if (this.network.type == 'none') {
 			return new Observable(observer => {
 				console.log(JSON.parse(localStorage.getItem("newsArray")));
 				this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
 				setTimeout(() => {
 					observer.next(this.newsArray);
 					observer.complete();
-				},1);
+				}, 1);
 			});
-		}else{
+		} else {
 			return new Observable(observer => {
 				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').subscribe(
 					(result: object) => {
@@ -88,11 +89,11 @@ export class NewsService {
 	searchedNews(searchKey) {
 		if (this.network.type == 'none') {
 			return new Observable(observer => {
-				console.log("fdfdfd",JSON.parse(localStorage.getItem("newsArray")));
+				console.log("fdfdfd", JSON.parse(localStorage.getItem("newsArray")));
 				console.log("regex");
 				this.newsArray = JSON.parse(localStorage.getItem("newsArray"));
 				const items = this.newsArray.filter(item => item.newsTitleEnglish.indexOf(searchKey) !== -1);
-				console.log("after",items);
+				console.log("after", items);
 				this.newsArray = items;
 				setTimeout(() => {
 					observer.next(this.newsArray);
@@ -127,6 +128,11 @@ export class NewsService {
 		return this.http.get(config.baseApiUrl + 'bookmark').pipe(
 			map((res) => {
 				this.newsArray = res['data'];
+				this.newsArray = this.newsArray.post;
+				this.newsArray.map((e) => {
+					e['bookmarkKey'] = true;
+				});
+				console.log('this.newsArraythis.newsArraythis.newsArray', this.newsArray);
 				return this.newsArray;
 			}),
 			catchError(this.handleError));
@@ -147,7 +153,7 @@ export class NewsService {
 			catchError(this.handleError));
 	}
 
-	newsCount(data){
+	newsCount(data) {
 		console.log("post data", data);
 		return this.http.put(config.baseApiUrl + 'post-views', data);
 	}

@@ -7,6 +7,7 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import {FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import {Platform } from '@ionic/angular';
+import 'hammerjs';
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
@@ -69,6 +70,11 @@ export class LoginComponent implements OnInit {
 			}
 		}
 	}
+
+	goBack(){
+		this.router.navigateByUrl('/settings');
+	}
+
 	doGoogleLogin() {
 		console.log("in google login============")
 		this.googlePlus.login({})

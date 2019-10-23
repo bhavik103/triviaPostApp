@@ -384,7 +384,7 @@ export class HomePage implements OnInit {
             (res) => {
                 this.loading = false;
                 var userId = this.loggedInUser;
-                this.loadNewsToPage(res.post, userId, true);
+                this.loadNewsToPage(res, userId, true);
             },
             (err) => {
                 this.loading = false;
@@ -526,7 +526,7 @@ export class HomePage implements OnInit {
     async buildForSwiper() {
         for (let i = 0; i < this.newsArray.length; i++) {
             $(async function () {
-                var window_height = $(document).height() * 0.56;
+                var window_height = $(document).height() * 0.60;
                 var content_height = window_height;
                 async function buildNewsletter() {
                     if ($('#sliderContent' + i).contents().length > 0) {

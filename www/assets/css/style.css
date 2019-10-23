@@ -1,55 +1,66 @@
-html, body {
-  position: relative;
-  height: 100%;
-}
+html,
 body {
-  font-size: 14px;
-  color:#000;
-  margin: 0;
-  padding: 0;
+    position: relative;
+    height: 100%;
 }
-.swiper-container {
-  width: 100%;
-  height: 100%;
-  /* position: relative; */
-}
-.swiper-slide{
-  text-align: center;
-  font-size: 18px;
-  /* background: #fff; */
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: normal;
-  -ms-flex-pack: normal;
-  -webkit-justify-content: normal;
-  justify-content: normal;
-  -webkit-box-align: normal;
-  -ms-flex-align: normal;
-  -webkit-align-items: normal;
-  align-items: normal;
-}
-.swiper-container-v{
-  background-image: url("../../assets/images/Brown-Background.png")!important;
-  background: #eee;
-}
-#page_slider{ display: none; }
 
-.swiper-slide p{
-  font-size: 11.5pt;  
+body {
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+    padding: 0;
 }
-.swiper-slide .hindi-news p{
-  font-size: 12pt; 
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+    /* position: relative; */
 }
-.display-none{
-  display: none !important;
-}
-@media (min-width:360px) and (max-width: 360px){
-  .news-title{
-    margin: auto;
-    font-size: 1.0rem !important;
-    color: black;
+
+.swiper-slide {
     text-align: center;
-  }
+    font-size: 18px;
+    /* background: #fff; */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: normal;
+    -ms-flex-pack: normal;
+    -webkit-justify-content: normal;
+    justify-content: normal;
+    -webkit-box-align: normal;
+    -ms-flex-align: normal;
+    -webkit-align-items: normal;
+    align-items: normal;
+}
+
+.swiper-container-v {
+    background-image: url("../../assets/images/Brown-Background.png")!important;
+    background: #eee;
+}
+
+#page_slider {
+    display: none;
+}
+
+.swiper-slide p {
+    font-size: 9.8pt;
+}
+
+.swiper-slide .hindi-news p {
+    font-size: 12pt;
+}
+
+.display-none {
+    display: none !important;
+}
+
+@media (min-width:360px) and (max-width: 360px) {
+    .news-title {
+        margin: auto;
+        font-size: 1.0rem !important;
+        color: black;
+        text-align: center;
+    }
 }
