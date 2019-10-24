@@ -2,24 +2,24 @@
 * {
   box-sizing: border-box;
 }
-@font-face {
-  font-family: "FREESCPT";
-  src: url("../../assets/fonts/FREESCPT.TTF");
-  font-weight: 200;
-  font-style: normal;
-}
+// @font-face {
+//   font-family: "FREESCPT";
+//   src: url("../../assets/fonts/FREESCPT.TTF");
+//   font-weight: 200;
+//   font-style: normal;
+// }
 
-@font-face {
-  font-family: "MyHappyEnding";
-  src: url("../../assets/fonts/MyHappyEnding.ttf");
-  font-weight: 200;
-  font-style: normal;
-}
+// @font-face {
+//   font-family: "MyHappyEnding";
+//   src: url("../../assets/fonts/MyHappyEnding.ttf");
+//   font-weight: 200;
+//   font-style: normal;
+// }
 
-* {
-  font-family: "MyHappyEnding";
-  font-size: 24px;
-}
+// * {
+//   font-family: "MyHappyEnding";
+//   font-size: 24px;
+// }
 html {
   font-size: 24px;
   margin: 0;
@@ -280,7 +280,7 @@ ion-content.background {
 #forgotPassword {
   float: right;
   color: #ed2424;
-  font-size: 21px;
+  font-size: 18px;
 }
 
 .otherLoginBreak {
@@ -308,7 +308,7 @@ ion-content.background {
 #otherLoginTitle {
   text-align: center;
   margin: 0;
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .socialLogin .googleLogin,
@@ -317,7 +317,7 @@ ion-content.background {
   padding: 14px;
   color: #fff;
   border-radius: 10px;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .socialLogin .googleLogin {
@@ -346,7 +346,7 @@ ion-content.background {
 
 #signupLine {
   text-align: center;
-  font-size: 23px;
+  font-size: 17px;
   margin: 5px 0px;
 }
 
@@ -409,7 +409,7 @@ ion-content.background {
   font-family: 'FREESCPT';
   margin: 0;
   font-style: italic;
-  font-size: 50px;
+  font-size: 31px;
   letter-spacing: -1px;
   line-height: 30px;
 }
