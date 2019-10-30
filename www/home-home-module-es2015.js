@@ -160,6 +160,7 @@ let HomePage = class HomePage {
         this.removeSwiperJs();
     }
     viewInitFunctions() {
+        this.notificationTapped();
         this.removeSwiperJs();
         this.notifyflag = localStorage.getItem('notification');
         this.language = localStorage.language;
@@ -169,7 +170,6 @@ let HomePage = class HomePage {
         if (!this.notifyflag) {
             localStorage.setItem('notification', 'true');
         }
-        this.notificationTapped();
         // Screen Orientation Lock
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
         //  Deeplinks
@@ -643,8 +643,7 @@ let HomePage = class HomePage {
             localStorage.setItem('deviceToken', token);
         });
         this.fcm.onNotification().subscribe(data => {
-            this.router.navigate(['settings']);
-            alert(JSON.stringify(data));
+            this.router.navigate(['home/single-news/' + data.newsId]);
             if (data.wasTapped) {
                 //console.log('Received in background');
             }

@@ -165,6 +165,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage.prototype.viewInitFunctions = function () {
         var _this = this;
+        this.notificationTapped();
         this.removeSwiperJs();
         this.notifyflag = localStorage.getItem('notification');
         this.language = localStorage.language;
@@ -174,7 +175,6 @@ var HomePage = /** @class */ (function () {
         if (!this.notifyflag) {
             localStorage.setItem('notification', 'true');
         }
-        this.notificationTapped();
         // Screen Orientation Lock
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
         //  Deeplinks
@@ -609,8 +609,7 @@ var HomePage = /** @class */ (function () {
             localStorage.setItem('deviceToken', token);
         });
         this.fcm.onNotification().subscribe(function (data) {
-            _this.router.navigate(['settings']);
-            alert(JSON.stringify(data));
+            _this.router.navigate(['home/single-news/' + data.newsId]);
             if (data.wasTapped) {
                 //console.log('Received in background');
             }
