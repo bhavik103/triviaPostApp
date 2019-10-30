@@ -78,7 +78,7 @@ export class HomePage implements OnInit {
     }
 
     viewInitFunctions() {
-
+        this.notificationTapped();
         this.removeSwiperJs();
         this.notifyflag = localStorage.getItem('notification');
         this.language = localStorage.language;
@@ -88,7 +88,7 @@ export class HomePage implements OnInit {
         if (!this.notifyflag) {
             localStorage.setItem('notification', 'true');
         }
-        this.notificationTapped();
+        
 
 
         // Screen Orientation Lock
@@ -581,8 +581,7 @@ export class HomePage implements OnInit {
             localStorage.setItem('deviceToken', token);
         });
         this.fcm.onNotification().subscribe(data => {
-            this.router.navigate(['settings']);
-            alert(JSON.stringify(data));
+            this.router.navigate(['home/single-news/' + data.newsId]);
             if (data.wasTapped) {
                 //console.log('Received in background');
             } else {

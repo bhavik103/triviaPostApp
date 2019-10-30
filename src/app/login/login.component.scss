@@ -2,29 +2,20 @@
 * {
   box-sizing: border-box;
 }
-// @font-face {
-//   font-family: "FREESCPT";
-//   src: url("../../assets/fonts/FREESCPT.TTF");
-//   font-weight: 200;
-//   font-style: normal;
-// }
 
-// @font-face {
-//   font-family: "MyHappyEnding";
-//   src: url("../../assets/fonts/MyHappyEnding.ttf");
-//   font-weight: 200;
-//   font-style: normal;
-// }
-
-// * {
-//   font-family: "MyHappyEnding";
-//   font-size: 24px;
-// }
 html {
   font-size: 24px;
   margin: 0;
   background: lighten(black, 20%);
   color: white;
+}
+
+input{
+  font-size: 16px;
+}
+
+input::-webkit-input-placeholder {
+    font-size:16px;
 }
 
 p {
@@ -49,7 +40,7 @@ b {
     position: relative;
     width: 100%;
   }
-  .modal {
+  .modal{
     z-index: 2;
     opacity: 0;
     visibility: hidden;
@@ -87,7 +78,7 @@ b {
   .checkBox {
     display: none;
   }
-  input {
+  input{
     &:checked {
       + .modal {
         opacity: 1;
@@ -280,7 +271,7 @@ ion-content.background {
 #forgotPassword {
   float: right;
   color: #ed2424;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .otherLoginBreak {
@@ -308,16 +299,16 @@ ion-content.background {
 #otherLoginTitle {
   text-align: center;
   margin: 0;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .socialLogin .googleLogin,
 .facebookLogin {
   width: 100%;
-  padding: 14px;
+  padding: 12px;
   color: #fff;
   border-radius: 10px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .socialLogin .googleLogin {
@@ -341,7 +332,7 @@ ion-content.background {
 
 #signupLink {
   color: red;
-  font-size: 23px;
+  font-size: 16px;
 }
 
 #signupLine {
@@ -353,6 +344,7 @@ ion-content.background {
 .signup_input {
   position: relative;
   margin-bottom: 15px;
+  color: #000;
   ion-icon {
     position: absolute;
     color: grey;
@@ -415,7 +407,6 @@ ion-content.background {
 }
 
 .componentMainDiv {
- 
   margin-top: 50px;
 }
 

@@ -74,7 +74,7 @@ export class SettingsComponent implements OnInit {
 				text: 'Logout',
 				role: 'destructive',
 				handler: () => {
-					this._userService.logOut();
+					this._userService.logOut().subscribe();
 					localStorage.removeItem('accessToken');
 					this.fcm.getToken().then(token => {
 						localStorage.setItem('deviceToken', token);
