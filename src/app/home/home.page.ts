@@ -14,6 +14,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { Observable, VirtualTimeScheduler } from 'rxjs';
 import { Network } from '@ionic-native/network/ngx';
+import { UserService } from '../services/user.service';
 import 'hammerjs';
 
 @Component({
@@ -50,7 +51,7 @@ export class HomePage implements OnInit {
     appendedNews: { newsId: any; splice: (arg0: any, arg1: number) => void; };
     hide: boolean;
     resLength: number;
-    constructor(private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, public toastController: ToastController, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
+    constructor(private _userService: UserService, private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, public toastController: ToastController, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 
     // Event Listeners
@@ -88,7 +89,7 @@ export class HomePage implements OnInit {
         if (!this.notifyflag) {
             localStorage.setItem('notification', 'true');
         }
-        
+
 
 
         // Screen Orientation Lock
@@ -576,6 +577,18 @@ export class HomePage implements OnInit {
         this.fcm.getToken().then(token => {
             console.log("inside get fcmtoken", token);
             localStorage.setItem('deviceToken', token);
+            if (!localStorage.getItem('annonymous')) {
+                setTimeout(() => {
+                    this._userService.firstTimeUser().subscribe((res: any) => {
+                        console.log("ANNONYMOUS USER SUCCESS", res);
+                        localStorage.setItem('annonymous', 'true');
+                        localStorage.setItem('annonymousNotify', 'true');
+                    },
+                        (err) => {
+                        });
+                }, 1000);
+
+            }
         });
         this.fcm.onTokenRefresh().subscribe(token => {
             localStorage.setItem('deviceToken', token);
