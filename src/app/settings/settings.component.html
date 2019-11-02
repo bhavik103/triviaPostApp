@@ -79,10 +79,11 @@
 				<div padding>
 					<span class="optionsList" *ngIf="language == 'English'">Notification</span>
 					<span class="optionsList" *ngIf="language == 'Hindi'">नोटफ़केशन</span>
-					<label class="switch" *ngIf="notifyFlag === 'true'">
+					<!-- <span *ngIf="annonymous === 'true'">Hello</span> -->
+					<label class="switch" *ngIf="notifyFlag === 'true' || annonymousNotify === 'true'">
 						<input type="checkbox" (change)="notificationSwitch($event)" checked="checked"><div></div>
 					</label>
-					<label class="switch" *ngIf="notifyFlag === 'false'">
+					<label class="switch" *ngIf="notifyFlag === 'false' || annonymousNotify === 'false'">
 						<input type="checkbox" (change)="notificationSwitch($event)"><div></div>
 					</label>
 				</div>

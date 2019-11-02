@@ -1,13 +1,13 @@
-import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
-import {UserService} from '../services/user.service'
-import {Router} from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { UserService } from '../services/user.service'
+import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ActionSheetController, Platform } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Storage } from '@ionic/storage';
 import { FCM } from '@ionic-native/fcm/ngx';
-import { GeneralService} from '../services/general.service';
+import { GeneralService } from '../services/general.service';
 @Component({
 	selector: 'app-settings',
 	templateUrl: './settings.component.html',
@@ -22,44 +22,47 @@ export class SettingsComponent implements OnInit {
 	userData: any;
 	error: any;
 	privacyPolicy: any;
+	annonymousNotify: any;
 
 	customActionSheetOptions: any = {
-		  addCancelButtonWithLabel: false,
+		addCancelButtonWithLabel: false,
 	};
 
-	constructor(private cd: ChangeDetectorRef,public _generalService: GeneralService,private platform: Platform,private fcm: FCM,private storage: Storage,private socialSharing: SocialSharing,public actionSheetController: ActionSheetController,public _userService: UserService, private router: Router, public toastController: ToastController) { 
+	constructor(private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router, public toastController: ToastController) {
 	}
 
 	ngOnInit() {
 		this.getUrl();
 		this.platform.backButton.subscribe(async () => {
-			if(this.router.url.includes('settings')){
+			if (this.router.url.includes('settings')) {
 				this.router.navigate(['allcategory']);
 			}
 		});
 
 		this.tokenLocalStorage = localStorage.getItem('accessToken');
 		this.notifyFlag = localStorage.getItem('notification');
+		this.annonymousNotify = localStorage.getItem('annonymousNotify');
+		console.log(this.annonymousNotify);
 
-		if(this.tokenLocalStorage){
+		if (this.tokenLocalStorage) {
 			var base64Url = this.tokenLocalStorage.split('.')[1];
 			var base64 = base64Url.replace('-', '+').replace('_', '/');
 			var decodedToken = JSON.parse(window.atob(base64));
-			if(decodedToken.user.email){
+			if (decodedToken.user.email) {
 				this.firstCharUser = decodedToken.user.email.charAt(0).toUpperCase();
 			}
 		}
 		this.language = localStorage.getItem('language');
 
-		if(this.tokenLocalStorage){
+		if (this.tokenLocalStorage) {
 			this.getUserDetail();
 		}
 	}
 
-	removeCancelButton(){
+	removeCancelButton() {
 		(document.querySelector('.action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-md') as HTMLElement).style.display = 'none';
 	}
-	getUrl(){
+	getUrl() {
 		this._generalService.getPolicy().subscribe(
 			(res: any) => {
 				this.privacyPolicy = res;
@@ -68,7 +71,7 @@ export class SettingsComponent implements OnInit {
 				this.error = err;
 			});
 	}
-	async logout(){
+	async logout() {
 		const actionSheet = await this.actionSheetController.create({
 			buttons: [{
 				text: 'Logout',
@@ -88,7 +91,7 @@ export class SettingsComponent implements OnInit {
 						message: 'You have been logged out!',
 						duration: 2000,
 						color: 'primary'
-					}).then((toastData)=>{
+					}).then((toastData) => {
 						toastData.present();
 					});
 				}
@@ -106,34 +109,38 @@ export class SettingsComponent implements OnInit {
 		var message = "An awesome news app that is only you need!";
 		var subject = "Install Trivia Post";
 		var url = this.privacyPolicy[0].applink;
-		this.socialSharing.share("Check out Trivia Post App. I found it best for reading news","Trivia Post App", null , url)
-		.then((entries) => {
-			console.log('success ' + JSON.stringify(entries));
-		})
-		.catch((error) => {
-			alert('error ' + JSON.stringify(error));
-		});
+		this.socialSharing.share("Check out Trivia Post App. I found it best for reading news", "Trivia Post App", null, url)
+			.then((entries) => {
+				console.log('success ' + JSON.stringify(entries));
+			})
+			.catch((error) => {
+				alert('error ' + JSON.stringify(error));
+			});
 	}
 
-	languageChange($event){		
+	languageChange($event) {
 		var language = $event.target.value;
 		localStorage.setItem('language', language);
 		this.changeLanOnClick();
 	}
 
-	changeLanOnClick(){
-		this.language = localStorage.getItem('language');	
+	changeLanOnClick() {
+		this.language = localStorage.getItem('language');
 	}
 
-	notificationSwitch(e){
+	notificationSwitch(e) {
 		localStorage.setItem('notification', e.target.checked);
+		localStorage.setItem('annonymousNotify', e.target.checked);
+		var accessToken = localStorage.getItem('accessToken');
 		this._userService.notifyToggle(e.target.checked).subscribe((res: any) => {
-			this.getUserDetail();
+			if (accessToken) {
+				this.getUserDetail();
+			}
 			this.toast = this.toastController.create({
 				message: res.message,
 				duration: 2000,
 				color: 'success'
-			}).then((toastData)=>{
+			}).then((toastData) => {
 				toastData.present();
 			});
 		}, err => {
@@ -142,13 +149,13 @@ export class SettingsComponent implements OnInit {
 				message: err.error.message,
 				duration: 2000,
 				color: 'danger'
-			}).then((toastData)=>{
+			}).then((toastData) => {
 				toastData.present();
 			});
 		})
 	}
 
-	getUserDetail(): void{
+	getUserDetail(): void {
 		this._userService.getUserDetail().subscribe(
 			(res: any) => {
 				this.userData = res.notification;
