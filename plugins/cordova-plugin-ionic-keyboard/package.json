@@ -2,7 +2,7 @@
   "_args": [
     [
       "cordova-plugin-ionic-keyboard@2.2.0",
-      "/var/www/html/triviapost"
+      "/var/www/html/Bhavik/Projects/triviapost"
     ]
   ],
   "_development": true,
@@ -27,7 +27,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic-keyboard/-/cordova-plugin-ionic-keyboard-2.2.0.tgz",
   "_spec": "2.2.0",
-  "_where": "/var/www/html/triviapost",
+  "_where": "/var/www/html/Bhavik/Projects/triviapost",
   "author": {
     "name": "Apache Software Foundation"
   },

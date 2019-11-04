@@ -2,7 +2,7 @@
   "_args": [
     [
       "cordova-plugin-fcm-with-dependecy-updated@3.2.0",
-      "/var/www/html/triviapost"
+      "/var/www/html/Bhavik/Projects/triviapost"
     ]
   ],
   "_from": "cordova-plugin-fcm-with-dependecy-updated@3.2.0",
@@ -26,7 +26,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-fcm-with-dependecy-updated/-/cordova-plugin-fcm-with-dependecy-updated-3.2.0.tgz",
   "_spec": "3.2.0",
-  "_where": "/var/www/html/triviapost",
+  "_where": "/var/www/html/Bhavik/Projects/triviapost",
   "author": {
     "name": "André Augusto Tissot"
   },
