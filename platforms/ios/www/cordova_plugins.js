@@ -280,22 +280,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-ionic-webview.IonicWebView",
-      "file": "plugins/cordova-plugin-ionic-webview/src/www/util.js",
-      "pluginId": "cordova-plugin-ionic-webview",
-      "clobbers": [
-        "Ionic.WebView"
-      ]
-    },
-    {
-      "id": "cordova-plugin-ionic-webview.ios-wkwebview-exec",
-      "file": "plugins/cordova-plugin-ionic-webview/src/www/ios/ios-wkwebview-exec.js",
-      "pluginId": "cordova-plugin-ionic-webview",
-      "clobbers": [
-        "cordova.exec"
-      ]
-    },
-    {
       "id": "cordova-plugin-network-information.network",
       "file": "plugins/cordova-plugin-network-information/www/network.js",
       "pluginId": "cordova-plugin-network-information",
@@ -366,6 +350,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
         "IonicDeeplink"
       ],
       "runs": true
+    },
+    {
+      "id": "cordova-plugin-ionic-webview.ios-wkwebview-exec",
+      "file": "plugins/cordova-plugin-ionic-webview/src/www/ios/ios-wkwebview-exec.js",
+      "pluginId": "cordova-plugin-ionic-webview",
+      "clobbers": [
+        "cordova.exec"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -377,7 +369,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-fcm-with-dependecy-updated": "3.2.0",
     "cordova-plugin-googleplus": "8.1.1",
     "cordova-plugin-ionic-keyboard": "2.2.0",
-    "cordova-plugin-ionic-webview": "4.1.1",
     "cordova-plugin-network-information": "2.0.2",
     "cordova-plugin-screen-orientation": "3.0.2",
     "cordova-plugin-splashscreen": "5.0.3",
@@ -386,6 +377,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-x-socialsharing": "5.6.0",
     "cordova-sqlite-storage": "3.3.0",
-    "ionic-plugin-deeplinks": "1.0.20"
+    "ionic-plugin-deeplinks": "1.0.20",
+    "cordova-plugin-ionic-webview": "1.2.1"
   };
 });

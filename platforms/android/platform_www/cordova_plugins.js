@@ -369,7 +369,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-fcm-with-dependecy-updated": "3.2.0",
     "cordova-plugin-googleplus": "8.1.1",
     "cordova-plugin-ionic-keyboard": "2.2.0",
-    "cordova-plugin-ionic-webview": "4.1.1",
+    "cordova-plugin-ionic-webview": "4.1.3",
     "cordova-plugin-network-information": "2.0.2",
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-screen-orientation": "3.0.2",

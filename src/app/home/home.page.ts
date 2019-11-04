@@ -84,7 +84,7 @@ export class HomePage implements OnInit {
         this.notifyflag = localStorage.getItem('notification');
         this.language = localStorage.language;
         // Notification
-        this.fcmToken();
+        
         this.checkForCurrentSlideFromLocalStorage();
         if (!this.notifyflag) {
             localStorage.setItem('notification', 'true');
@@ -114,6 +114,11 @@ export class HomePage implements OnInit {
         }
     }
     ionViewWillEnter() {
+        this.fcm.getToken().then(token => {
+            console.log("inside get fcmtoken", token);
+            localStorage.setItem('deviceToken', token);
+        })
+        this.fcmToken();
         this.loading = true;
         setTimeout(() => {
             $('#snackbar').show();
@@ -308,20 +313,36 @@ export class HomePage implements OnInit {
 
     // Back Button actions
     backButtonFunction() {
-        this.platform.backButton.subscribe(async () => {
-            this.route.params.subscribe(param => {
-                if (this.router.url.includes('bookmark')) {
-                    this.router.navigate(['bookmarks']);
-                } else if (this.router.url.includes('category')) {
-                    this.router.navigate(['allcategory']);
-                } else if (this.router.url.includes('single-news')) {
-                    this.router.navigate(['allcategory']);
-                } else if (this.router.url.includes('search-news')) {
-                } else {
-                    navigator['app'].exitApp();
-                }
+        setTimeout(() => {
+            this.platform.backButton.subscribe(async () => {
+                this.route.params.subscribe(param => {
+                    if (this.router.url.includes('bookmark')) {
+                        this.router.navigate(['bookmarks']);
+                    } else if (this.router.url.includes('category')) {
+                        this.router.navigate(['allcategory']);
+                    } else if (this.router.url.includes('single-news')) {
+                        this.router.navigate(['allcategory']);
+                    } else if (this.router.url.includes('search-news')) {
+                    } else {
+                        navigator['app'].exitApp();
+                    }
+                });
             });
-        });
+        }, 3000);
+        // this.platform.backButton.subscribe(async () => {
+        //     this.route.params.subscribe(param => {
+        //         if (this.router.url.includes('bookmark')) {
+        //             this.router.navigate(['bookmarks']);
+        //         } else if (this.router.url.includes('category')) {
+        //             this.router.navigate(['allcategory']);
+        //         } else if (this.router.url.includes('single-news')) {
+        //             this.router.navigate(['allcategory']);
+        //         } else if (this.router.url.includes('search-news')) {
+        //         } else {
+        //             navigator['app'].exitApp();
+        //         }
+        //     });
+        // });
     }
 
 
@@ -577,18 +598,13 @@ export class HomePage implements OnInit {
         this.fcm.getToken().then(token => {
             console.log("inside get fcmtoken", token);
             localStorage.setItem('deviceToken', token);
-            if (!localStorage.getItem('annonymous')) {
-                setTimeout(() => {
-                    this._userService.firstTimeUser().subscribe((res: any) => {
-                        console.log("ANNONYMOUS USER SUCCESS", res);
-                        localStorage.setItem('annonymous', 'true');
-                        localStorage.setItem('annonymousNotify', 'true');
-                    },
-                        (err) => {
-                        });
-                }, 1000);
-
-            }
+            setTimeout(() => {
+                this._userService.firstTimeUser().subscribe((res: any) => {
+                    localStorage.setItem('annonymousNotify', 'true');
+                },
+                    (err) => {
+                    });
+            }, 1000);
         });
         this.fcm.onTokenRefresh().subscribe(token => {
             localStorage.setItem('deviceToken', token);
@@ -620,6 +636,7 @@ export class HomePage implements OnInit {
     }
     checkForCurrentSlideFromLocalStorage() {
         var that = this;
+
         setInterval(function () {
             if (that.currentPostId != localStorage.currentPostId) {
                 that.currentPostId = localStorage.currentPostId;
