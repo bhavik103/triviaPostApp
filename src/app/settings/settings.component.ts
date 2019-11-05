@@ -1,20 +1,19 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '../services/user.service'
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
 import { ActionSheetController, Platform } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Storage } from '@ionic/storage';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { GeneralService } from '../services/general.service';
+import { ToastService } from "../services/toast.service";
 @Component({
 	selector: 'app-settings',
 	templateUrl: './settings.component.html',
 	styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-	toast: any;
 	tokenLocalStorage: any;
 	language: any;
 	firstCharUser: any;
@@ -28,7 +27,7 @@ export class SettingsComponent implements OnInit {
 		addCancelButtonWithLabel: false,
 	};
 
-	constructor(private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router, public toastController: ToastController) {
+	constructor(private _toastService: ToastService,private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router){
 	}
 
 	ngOnInit() {
@@ -87,13 +86,7 @@ export class SettingsComponent implements OnInit {
 						localStorage.setItem('deviceToken', token);
 					});
 					this.router.navigate(['/allcategory']);
-					this.toast = this.toastController.create({
-						message: 'You have been logged out!',
-						duration: 2000,
-						color: 'primary'
-					}).then((toastData) => {
-						toastData.present();
-					});
+					this._toastService.toastFunction('You have been logged out!','primary');
 				}
 			}, {
 				text: 'Cancel',
@@ -136,22 +129,9 @@ export class SettingsComponent implements OnInit {
 			if (accessToken) {
 				this.getUserDetail();
 			}
-			this.toast = this.toastController.create({
-				message: res.message,
-				duration: 2000,
-				color: 'success'
-			}).then((toastData) => {
-				toastData.present();
-			});
+			this._toastService.toastFunction(res.message,'success');
 		}, err => {
-			console.log('err===========>', err.error.message);
-			this.toast = this.toastController.create({
-				message: err.error.message,
-				duration: 2000,
-				color: 'danger'
-			}).then((toastData) => {
-				toastData.present();
-			});
+			this._toastService.toastFunction(err.error.message,'danger');
 		})
 	}
 
