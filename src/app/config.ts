@@ -6,8 +6,6 @@ export const config = {
 	baseApiUrl : baseUrl,
 	mediaApiUrl: mediaUrl
 }
-
-
 // Commands for signed APK 
 
 // 1) keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
@@ -17,7 +15,3 @@ export const config = {
 
 //Google analytics error soln
 // ionic cordova plugin add cordova-android-play-services-gradle-release
-
-// post view
-// who viewed the post
-// post viewed
