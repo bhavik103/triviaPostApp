@@ -7,7 +7,7 @@ import { News } from './news';
 import { FCM } from '@ionic-native/fcm/ngx';
 declare var $: any;
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
-import { ToastController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import * as _ from 'lodash';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -16,6 +16,7 @@ import { Observable, VirtualTimeScheduler } from 'rxjs';
 import { Network } from '@ionic-native/network/ngx';
 import { UserService } from '../services/user.service';
 import 'hammerjs';
+import { ToastService  } from "../services/toast.service";
 
 @Component({
     selector: 'app-home',
@@ -24,7 +25,6 @@ import 'hammerjs';
 })
 
 export class HomePage implements OnInit {
-    toast: any;
     bookmarks: any;
     tokenLocalStorage: any;
     language: string;
@@ -51,12 +51,11 @@ export class HomePage implements OnInit {
     appendedNews: { newsId: any; splice: (arg0: any, arg1: number) => void; };
     hide: boolean;
     resLength: number;
-    constructor(private _userService: UserService, private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, public toastController: ToastController, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
+    constructor(private _toastService: ToastService,private _userService: UserService, private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 
     // Event Listeners
     ngOnInit() {
-
         console.warn("ngOnInit");
         this.loading = true;
         this.viewInitFunctions();
@@ -134,22 +133,10 @@ export class HomePage implements OnInit {
 
         offline.subscribe(() => {
             this.hide = false;
-            this.toast = this.toastController.create({
-                message: 'No internet connection',
-                animated: true,
-                duration: 2000,
-                showCloseButton: true,
-                closeButtonText: "OK",
-                cssClass: "my-toast",
-                position: "bottom",
-                color: "danger"
-            }).then((obj) => {
-                obj.present();
-            });
+            this._toastService.toastFunction('No internet connection','danger');
         });
 
         online.subscribe(() => {
-            this.toastController.dismiss();
             this.hide = true;
         });
     }
@@ -313,36 +300,20 @@ export class HomePage implements OnInit {
 
     // Back Button actions
     backButtonFunction() {
-        setTimeout(() => {
-            this.platform.backButton.subscribe(async () => {
-                this.route.params.subscribe(param => {
-                    if (this.router.url.includes('bookmark')) {
-                        this.router.navigate(['bookmarks']);
-                    } else if (this.router.url.includes('category')) {
-                        this.router.navigate(['allcategory']);
-                    } else if (this.router.url.includes('single-news')) {
-                        this.router.navigate(['allcategory']);
-                    } else if (this.router.url.includes('search-news')) {
-                    } else {
-                        navigator['app'].exitApp();
-                    }
-                });
+        this.platform.backButton.subscribe(async () => {
+            this.route.params.subscribe(param => {
+                if (this.router.url.includes('bookmark')) {
+                    this.router.navigate(['bookmarks']);
+                } else if (this.router.url.includes('category')) {
+                    this.router.navigate(['allcategory']);
+                } else if (this.router.url.includes('single-news')) {
+                    this.router.navigate(['allcategory']);
+                } else if (this.router.url.includes('search-news')) {
+                } else {
+                    navigator['app'].exitApp();
+                }
             });
-        }, 3000);
-        // this.platform.backButton.subscribe(async () => {
-        //     this.route.params.subscribe(param => {
-        //         if (this.router.url.includes('bookmark')) {
-        //             this.router.navigate(['bookmarks']);
-        //         } else if (this.router.url.includes('category')) {
-        //             this.router.navigate(['allcategory']);
-        //         } else if (this.router.url.includes('single-news')) {
-        //             this.router.navigate(['allcategory']);
-        //         } else if (this.router.url.includes('search-news')) {
-        //         } else {
-        //             navigator['app'].exitApp();
-        //         }
-        //     });
-        // });
+        });
     }
 
 
@@ -361,18 +332,12 @@ export class HomePage implements OnInit {
      * get Single news --- PENDING TO DEVELOP
      */
     getSingleNews(id: any): void {
-        //console.log("this.id", id)
         this.loading = true;
         this.language = localStorage.language;
         this.checkForToken();
         var userId = this.loggedInUser;
-        //console.log(userId);
         this._newsService.getSingleNews(id).subscribe((res: any) => {
-            //console.log("this.single", res);
-            // this.newsArray = res;
             this.loadNewsToPage(res, userId)
-            //console.log("for-----------------", this.newsArray);
-            //console.log(this.newsArray);
         },
             (err) => {
                 this.loading = false;
@@ -472,53 +437,16 @@ export class HomePage implements OnInit {
         this.buildForSwiper();
     }
 
-    // last slide toast
-
-    // lastSlideToast() {
-    //     console.log("Last post %%%%%%%%%%%%%%5")
-    //     this.toast = this.toastController.create({
-    //         message: 'No more post',
-    //         animated: true,
-    //         duration: 2000,
-    //         showCloseButton: true,
-    //         closeButtonText: "OK",
-    //         cssClass: "my-toast",
-    //         position: "bottom",
-    //         color: "primary"
-    //     }).then((obj) => {
-    //         obj.present();
-    //     });
-    // }
-
-    // BUTTON ACTIONS
     //  Do Bookmark
     bookmark(index: string | number) {
         if (this.network.type == 'none') {
-            this.toast = this.toastController.create({
-                message: "No internet connection",
-                duration: 2000,
-                color: 'danger'
-            }).then((toastData) => {
-                toastData.present();
-            });
+            this._toastService.toastFunction('No internet connection','danger');
         } else {
             this._newsService.bookmarkPost(this.newsArray[index].newsId).subscribe((res: any) => {
                 this.newsArray[index].bookmarkKey = !this.newsArray[index].bookmarkKey;
-                this.toast = this.toastController.create({
-                    message: res.message,
-                    duration: 2000,
-                    color: 'success'
-                }).then((toastData) => {
-                    toastData.present();
-                });
+                this._toastService.toastFunction(res.message,'success');
             }, err => {
-                this.toast = this.toastController.create({
-                    message: err.error.message,
-                    duration: 2000,
-                    color: 'danger'
-                }).then((toastData) => {
-                    toastData.present();
-                });
+                this._toastService.toastFunction(err.error.message,'danger');
             })
         }
     }
@@ -530,16 +458,11 @@ export class HomePage implements OnInit {
         var url = 'https://triviapost.com/post/' + id;
         this.socialSharing.share(message, subject, null, url)
             .then((entries) => {
-                //console.log('success ' + JSON.stringify(entries));
             })
             .catch((error) => {
                 alert('error ' + JSON.stringify(error));
             });
     }
-
-
-
-
 
     // SWIPER 
     async delay(ms: number) {

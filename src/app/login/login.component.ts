@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import {FormGroup, FormControl, Validators } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
+import { ToastService } from "../services/toast.service";
 import {Platform } from '@ionic/angular';
 import 'hammerjs';
 @Component({
@@ -14,9 +14,8 @@ import 'hammerjs';
 	styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-	toast: any;
 	loading: any;
-	constructor(public platform:Platform, public toastController: ToastController,private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) {}
+	constructor(private _toastService: ToastService,public platform:Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) {}
 	ngOnInit() {
 		this.platform.backButton.subscribe(async () => {
             if(this.router.url.includes('login')){
@@ -117,29 +116,14 @@ export class LoginComponent implements OnInit {
 		this.loading = true;
 		this._userService.signup(user).subscribe((res:any)=>{
 			this.loading = false;
-			this.toast = this.toastController.create({
-				message: res.message,
-				duration: 2000,
-				color: 'success'
-			}).then((toastData)=>{
-				console.log(toastData);
-				toastData.present();
-			});
+			this._toastService.toastFunction(res.message,'success');
 			this.signupForm.reset();
 			this.router.navigate(['settings']);
 			this.router.navigate(['login']);
 		},
 		err=>{
 			this.loading = false;
-			this.toast = this.toastController.create({
-				message: err.message,
-				duration: 2000,
-				color: 'danger'
-			}).then((toastData)=>{
-				console.log(toastData);
-				toastData.present();
-			});
-			console.log(err);
+			this._toastService.toastFunction(err.error.message,'danger');
 		})
 	}
 
@@ -154,26 +138,11 @@ export class LoginComponent implements OnInit {
 		console.log(login);
 		this._userService.customLogin(login).subscribe((res: any) => {
 			this.loading = false;
-			this.toast = this.toastController.create({
-				message: res.message,
-				duration: 2000,
-				color: 'success'
-			}).then((toastData)=>{
-				console.log(toastData);
-				toastData.present();
-			});
+			this._toastService.toastFunction(res.message,'success');
 			this.router.navigate(['allcategory']);
 		}, err => {
 			this.loading = false;
-			console.log('err===========>', err.error.message);
-			this.toast = this.toastController.create({
-				message: err.error.message,
-				duration: 2000,
-				color: 'danger'
-			}).then((toastData)=>{
-				console.log(toastData);
-				toastData.present();
-			});
+			this._toastService.toastFunction(err.error.message,'success');
 		})
 	}
 
@@ -181,26 +150,12 @@ export class LoginComponent implements OnInit {
 		this.loading = true;
 		this._userService.passwordReset(user).subscribe((res: any) => {
 			this.loading = false;
-			this.toast = this.toastController.create({
-				message: res.message,
-				duration: 2000,
-				color: 'success'
-			}).then((toastData)=>{
-				console.log(toastData);
-				toastData.present();
-			});
+			this._toastService.toastFunction(res.message,'success');
+
 			this.router.navigate(['settings']);
 		}, err => {
 			this.loading = false;
-			console.log('err===========>', err.error.message);
-			this.toast = this.toastController.create({
-				message: err.error.message,
-				duration: 2000,
-				color: 'danger'
-			}).then((toastData)=>{
-				console.log(toastData);
-				toastData.present();
-			});
+			this._toastService.toastFunction(err.error.message,'success');
 		})	
 	}
 

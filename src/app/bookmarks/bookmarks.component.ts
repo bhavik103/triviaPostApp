@@ -6,9 +6,9 @@ import {Router} from '@angular/router';
 import {NewsService} from '../services/news.service';
 import {News} from '../home/news';
 import { ActionSheetController,Platform } from '@ionic/angular';
-import { ToastController } from '@ionic/angular';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Observable } from 'rxjs/Observable';
+import { ToastService } from '../services/toast.service';
 @Component({
 	selector: 'app-bookmarks',
 	templateUrl: './bookmarks.component.html',
@@ -21,11 +21,10 @@ export class BookmarksComponent implements OnInit {
 	error = '';
 	language: string;
 	mediaPath = config.mediaApiUrl;
-	toast:any;
 	bookmarkLength: any;
 	loading:any;
 	hide;
-	constructor(private platform: Platform, private socialSharing: SocialSharing,public toastController: ToastController,public actionSheetController: ActionSheetController,public _newsService: NewsService,public _categoryService: CategoryService, private router:Router) { }
+	constructor(private _toastService: ToastService ,private platform: Platform, private socialSharing: SocialSharing,public actionSheetController: ActionSheetController,public _newsService: NewsService,public _categoryService: CategoryService, private router:Router) { }
 
 	ngOnInit() {
 		this.platform.backButton.subscribe(async () => {
@@ -44,18 +43,9 @@ export class BookmarksComponent implements OnInit {
 	
 		offline.subscribe(() => {
 		  this.hide = false;
-		  this.toast = this.toastController.create({
-			message: 'No internet connection',
-			animated: true,
-			showCloseButton: true,
-			duration: 2000,
-			closeButtonText: "OK",
-			cssClass: "my-toast",
-			position: "bottom",
-			color: "danger"
-		  }).then((obj) => {
-			obj.present();
-		  });
+		  const message = 'No internet connection';
+		  const color = 'danger';
+		  this._toastService.toastFunction(message,color);
 		});
 	}
 
@@ -83,24 +73,11 @@ export class BookmarksComponent implements OnInit {
 				handler: () => {
 					this._newsService.bookmarkPost(id).subscribe((res: any) => {
 						console.log("res",res);
-						this.toast = this.toastController.create({
-							message: res.message,
-							duration: 2000,
-							color: 'success'
-						}).then((toastData)=>{
-							this.bookmarkedNews();
-							console.log(toastData);
-							toastData.present();
-						});
+						this._toastService.toastFunction(res.message,'success');
+						this.bookmarkedNews();
 					}, err => {
-						this.toast = this.toastController.create({
-							message: err.error.message,
-							duration: 2000,
-							color: 'danger'
-						}).then((toastData)=>{
-							console.log(toastData);
-							toastData.present();
-						});
+						this._toastService.toastFunction(err.error.message,'danger');
+						this.bookmarkedNews();
 					})
 				}
 			}, {
