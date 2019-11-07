@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
-import { AllCategoryComponent } from './all-category/all-category.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
@@ -16,25 +15,8 @@ const routes: Routes = [
 		pathMatch: 'full'
 	},
 	{
-		path: 'home/bookmark',
-		loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-	},
-	{
-		path: 'home/category/:id/:catTitle',
-		loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-	},
-	{
 		path: 'home',
-		loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-	},
-	{
-		path: 'home/single-news/:id',
-		loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-	},
-
-	{
-		path: 'home/search-news/:key',
-		loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+		loadChildren: './home/home.module#HomePageModule'
 	},
 	{
 		path: 'settings',
@@ -44,10 +26,6 @@ const routes: Routes = [
 		path: 'login',
 		component: LoginComponent,
 		canActivate: [LoginGuard]
-	},
-	{
-		path: 'allcategory',
-		component: AllCategoryComponent
 	},
 	{
 		path: 'feedback',
@@ -68,8 +46,15 @@ const routes: Routes = [
 	{
 		path: 'bookmarks',
 		component: BookmarksComponent
+	},
+  	{ 
+		path: 'single-post/:id',
+		loadChildren: './single-post/single-post.module#SinglePostPageModule'
+	},
+  	{ 
+		path: 'single-category/:id/:cat',
+		loadChildren: './single-category/single-category.module#SingleCategoryPageModule'
 	}
-
 ];
 
 @NgModule({

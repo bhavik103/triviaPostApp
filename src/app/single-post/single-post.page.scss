@@ -1,0 +1,91 @@
+p{
+    margin: 5px;
+}
+.homeBack {
+  float: left;
+  font-size: 20px;
+  padding-left: 15px;
+}
+.postImage img {
+  min-width: 100%;
+}
+.postTitle p {
+  font-size: 30px;
+  font-weight: 500;
+  padding-left: 10px;
+  letter-spacing: 0.5px;
+}
+
+.subPostTitle,.post p{
+    font-size: 15px;
+    font-weight: 300;
+    padding-left: 10px;
+}
+.catTitle{
+    color:#961300;
+    font-weight: 400;
+}
+.createdBy{
+    font-weight: 400;
+}
+
+.floatShare{
+  position: fixed;
+  width: 41px;
+  height: 41px;
+  bottom: 40px;
+  left: 40px;
+  background-color: #CE2837;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+}
+
+.shareImage{
+  height: 21px;
+  float: right;
+  padding-right: 15px;
+}
+
+a.float + div.label-container {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s ease;
+}
+
+a.float:hover + div.label-container{
+  visibility: visible;
+  opacity: 1;
+}
+
+.floatBookmark{
+  right: 40px;
+}
+.unbookmark{
+  color: black;
+  float: right;
+}
+
+.bookmarked{
+  color: #CE2837;
+}
+.actionButton {
+  font-size: 22px;
+  padding: 5px 11px;
+  border-bottom: 1px solid #dcdcdc;
+}
+.actionButton span {
+  font-size: 17px!important;
+}
+.heart_icon{
+  float: left;
+  padding-right: 5px;
+  margin-top: 2px;
+}
+ion-title{
+  float: left;
+}
+.liked{
+  color:#CE2837;
+}

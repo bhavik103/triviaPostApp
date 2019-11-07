@@ -141,4 +141,7 @@ export class UserService {
 	passwordReset(email) {
 		return this.http.post(config.baseApiUrl + "forgotpassword", email);
 	}
+	userRating(rating){
+		return this.http.post(config.baseApiUrl + 'ratings',{ratingValue:rating});
+	}
 }

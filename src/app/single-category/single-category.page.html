@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-icon name="arrow-round-back" class="homeBack" routerLink="/home/categories" float-left></ion-icon>
+    <ion-title>{{catName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content (swiperight)="goToCategories()" ion-padding>
+    <ion-row>
+        <ion-col size="6" *ngFor="let news of newsArray; let i = index; last as isLast">
+            <ion-card (click)="singleNews(news.newsId)">
+                <ion-card-header>
+                    <img src="{{mediaPath}}{{news.newsImage}}" height="91px" alt="">
+                </ion-card-header>
+
+                <ion-card-content>
+                    {{news.newsTitleEnglish | slice:0:40}}
+                    <span *ngIf="news.newsTitleEnglish.length >=40">...</span>
+                    <!-- <p class="postTime">56 min</p> -->
+                </ion-card-content>
+                <ion-row class="cardfooter">
+                    <p>{{news.createdAt | timeAgo}}</p>
+                </ion-row>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+    <p *ngIf="noNews == true" class="noNews">No news in this category!</p>
+</ion-content>

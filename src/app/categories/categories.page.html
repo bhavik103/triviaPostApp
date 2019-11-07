@@ -1,0 +1,27 @@
+<ion-content (swipeleft)="goToAllPosts()">
+    <ion-row>
+        <ion-col size="6" *ngFor="let category of categories$ | async">
+            <ion-card>
+                <ion-card-header (click)="singeCategory(category.categoryId,category.categoryTitle)">
+                    <img src="{{mediaPath}}{{category.categoryImage}}" height="91px " alt="">
+                </ion-card-header>
+
+                <ion-card-content (click)="singeCategory(category.categoryId,category.categoryTitle)">
+                    <span *ngIf="language == 'English'">{{category.categoryTitle}}</span> 
+                    <span *ngIf="language == 'Hindi'">{{category.categoryTitleHn}}</span>
+                </ion-card-content>
+                <ion-row class="cardfooter">
+                    <ion-col size="9">
+                        <p>{{category.countPost}} posts</p>
+                    </ion-col>
+                    <ion-col size="3">
+                        <img src="assets/images/Category-notification.png" *ngIf="!category.isNotify" id="blackBell"
+                            (click)="addNotify(category.categoryId)">
+                        <img src="assets/images/Category-notification-2.png" *ngIf="category.isNotify" id="redBell"
+                            (click)="addNotify(category.categoryId)">
+                    </ion-col>
+                </ion-row>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+</ion-content>

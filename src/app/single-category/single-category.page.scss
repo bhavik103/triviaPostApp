@@ -1,0 +1,37 @@
+ion-card-header {
+  padding: 0;
+}
+
+ion-card-content {
+  padding: 5px 10px 10px 10px;
+  min-height: 60px;
+}
+
+ion-card,
+ion-col {
+  padding: 0;
+  border-radius: 0;
+}
+
+ion-button {
+  --background-focused: #961300;
+}
+
+.cardfooter {
+  padding: 0px 0px 0px 10px;
+}
+.homeBack {
+  float: left;
+  font-size: 20px;
+  padding-left: 15px;
+}
+.noNews {
+  font-size: 30px;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  margin: auto;
+  text-align: center;
+}

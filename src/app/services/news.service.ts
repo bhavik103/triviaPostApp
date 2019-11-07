@@ -23,6 +23,7 @@ export class NewsService {
 
 	//fetch all news
 	getAllNews(): Observable<any> {
+		
 		if (this.network.type == 'none') {
 			return new Observable(observer => {
 				console.log(JSON.parse(localStorage.getItem("newsArray")));
@@ -49,6 +50,7 @@ export class NewsService {
 	}
 
 	allCatNews(id) {
+		console.log("Inside",id)
 		if (this.network.type == 'none') {
 			return new Observable(observer => {
 				console.log(JSON.parse(localStorage.getItem("newsArray")));
@@ -71,6 +73,7 @@ export class NewsService {
 			});
 		} else {
 			return new Observable(observer => {
+				console.log("in ");
 				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&categoryId=' + id).subscribe(
 					(result: object) => {
 						this.newsArray = result['data'];
@@ -144,7 +147,7 @@ export class NewsService {
 
 	//get single news
 	getSingleNews(id): Observable<News[]> {
-		return this.http.get(config.baseApiUrl + 'single-news?postId=' + id).pipe(
+		return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&postId=' + id).pipe(
 			map((res) => {
 				this.singleNews = res['data'];
 				console.log("ser", this.singleNews);
@@ -156,5 +159,9 @@ export class NewsService {
 	newsCount(data) {
 		console.log("post data", data);
 		return this.http.put(config.baseApiUrl + 'post-views', data);
+	}
+
+	likepost(id){
+		return this.http.put(config.baseApiUrl + 'post-like',{postId: id});
 	}
 }

@@ -63,6 +63,7 @@ export class AppComponent {
     if (!localStorage.getItem('notification')) {
       localStorage.setItem('notification', "true");
     }
+    this.router.navigateByUrl('/home/all-post');
     this.initializeApp();
   }
 
@@ -71,32 +72,6 @@ export class AppComponent {
       this.platform.ready().then(() => {
         this.splashScreen.hide();
         this.statusBar.backgroundColorByHexString('#000000');
-
-        // console.log("in fcmtoken function");
-        // this.fcm.getToken().then(token => {
-        //     console.log("inside get fcmtoken", token);
-        //     localStorage.setItem('deviceToken', token);
-        //     if (!localStorage.getItem('annonymous')){
-        //         this._userService.firstTimeUser().subscribe((res: any) => {
-        //             console.log("ANNONYMOUS USER SUCCESS", res);
-        //             localStorage.setItem('annonymous', 'true');
-        //             localStorage.setItem('annonymousNotify', 'true');
-        //         },
-        //             (err) => {
-        //             });
-        //     }
-        // });
-        // this.fcm.onTokenRefresh().subscribe(token => {
-        //     localStorage.setItem('deviceToken', token);
-        // });
-        // this.fcm.onNotification().subscribe(data => {
-        //     this.router.navigate(['home/single-news/' + data.newsId]);
-        //     if (data.wasTapped) {
-        //         //console.log('Received in background');
-        //     } else {
-        //         //console.log('Received in foreground');
-        //     }
-        // });
       });
     }
   }

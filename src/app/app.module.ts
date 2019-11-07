@@ -10,7 +10,6 @@ import { MyInterceptor } from './interceptor';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SettingsComponent } from './settings/settings.component';
-import { AllCategoryComponent } from './all-category/all-category.component';
 import { LoginComponent } from './login/login.component';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
@@ -29,7 +28,11 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import * as Hammer from 'hammerjs';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-
+import { AllPostPageModule } from "./all-post/all-post.module";
+import { CategoriesPageModule } from "./categories/categories.module";
+import { all } from 'q';
+import { StarRatingModule } from 'ionic4-star-rating';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 export class HammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -38,11 +41,12 @@ export class HammerConfig extends HammerGestureConfig {
 }
 
 @NgModule({
-  declarations: [AppComponent, SettingsComponent, LoginComponent, AllCategoryComponent, FeedbackComponent, PrivacyComponent,
+  declarations: [AppComponent, SettingsComponent, LoginComponent, FeedbackComponent, PrivacyComponent,
     SearchbarComponent, TermsAndCondComponent, BookmarksComponent],
   entryComponents: [],
-  imports: [FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [StarRatingModule,CategoriesPageModule,AllPostPageModule,FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
+    LocalNotifications,
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: HammerConfig

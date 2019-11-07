@@ -89,10 +89,16 @@
       "DEEPLINK_5_SCHEME": " ",
       "DEEPLINK_5_HOST": " ",
       "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
     }
   },
   "dependent_plugins": {
     "es6-promise-plugin": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-badge": {
       "PACKAGE_NAME": "io.ionic.triviapost"
     }
   }

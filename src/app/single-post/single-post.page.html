@@ -1,0 +1,43 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-icon name="arrow-round-back" class="homeBack" routerLink="/home/all-post" float-left></ion-icon>
+    <ion-title>
+      Trivia Post
+    </ion-title>
+    <img src="../../assets/images/Share.png" *ngFor="let news of singlepost" class="icon shareImage"
+      (click)="sharePost(news.newsId, news.newsTitleEnglish)" />
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div *ngFor="let news of singlepost" class="singlePost">
+    <div class="postImage">
+      <img src="{{mediaPath}}{{news.newsImage}}" alt="">
+    </div>
+    <div class="postTitle">
+      <p *ngIf="language == 'English'">{{news.newsTitleEnglish}}</p>
+      <p *ngIf="language == 'Hindi'">{{news.newsTitleHindi}}</p>
+    </div>
+    <div class="subPostTitle">
+      <p class="createdBy">By {{news.createdBy.firstName | titlecase}}</p>
+      <p>{{news.createdAt | timeAgo}} | <span class="catTitle" (click)="categoryClick(news.newsCategoryId, news.newsCategory)">{{news.newsCategory}}</span></p>
+    </div>
+    <div class="actionButton">
+      <ion-icon name="heart" class="heart_icon liked" *ngIf="news.likeKey"
+      (click)="alreadyLiked()"></ion-icon>
+      <ion-icon name="heart-empty" class="heart_icon" *ngIf="!news.likeKey" (click)="likePost(news.newsId)"></ion-icon>
+      <span>{{news.likesCount}}</span>
+      <a>
+        <ion-icon name="bookmark" class="unbookmark  shareImage" *ngIf="!news.bookmarkKey"
+          (click)="bookmark(news.newsId)"></ion-icon>
+        <ion-icon name="bookmark" class="bookmarked shareImage" *ngIf="news.bookmarkKey"
+          (click)="bookmark(news.newsId)"></ion-icon>
+      </a>
+    </div>
+    <div class="post">
+      <p [innerHTML]="news.newsEnglish" *ngIf="language == 'English'"></p>
+      <p [innerHTML]="news.newsHindi" *ngIf="language == 'Hindi'"></p>
+    </div>
+  </div>
+</ion-content>

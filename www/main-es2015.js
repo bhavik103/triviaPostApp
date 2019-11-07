@@ -5,21 +5,47 @@
   !*** ./$$_lazy_route_resource lazy namespace object ***!
   \******************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-function webpackEmptyAsyncContext(req) {
-	// Here Promise.resolve().then() is used instead of new Promise() to prevent
-	// uncaught exception popping up in devtools
-	return Promise.resolve().then(function() {
-		var e = new Error("Cannot find module '" + req + "'");
-		e.code = 'MODULE_NOT_FOUND';
-		throw e;
+var map = {
+	"../all-post/all-post.module": [
+		"./src/app/all-post/all-post.module.ts"
+	],
+	"../categories/categories.module": [
+		"./src/app/categories/categories.module.ts"
+	],
+	"./home/home.module": [
+		"./src/app/home/home.module.ts",
+		"home-home-module"
+	],
+	"./single-category/single-category.module": [
+		"./src/app/single-category/single-category.module.ts",
+		"single-category-single-category-module"
+	],
+	"./single-post/single-post.module": [
+		"./src/app/single-post/single-post.module.ts",
+		"single-post-single-post-module"
+	]
+};
+function webpackAsyncContext(req) {
+	if(!__webpack_require__.o(map, req)) {
+		return Promise.resolve().then(function() {
+			var e = new Error("Cannot find module '" + req + "'");
+			e.code = 'MODULE_NOT_FOUND';
+			throw e;
+		});
+	}
+
+	var ids = map[req], id = ids[0];
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
+		return __webpack_require__(id);
 	});
 }
-webpackEmptyAsyncContext.keys = function() { return []; };
-webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
-module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
+module.exports = webpackAsyncContext;
 
 /***/ }),
 
@@ -438,14 +464,14 @@ module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/all-category/all-category.component.html":
-/*!************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/all-category/all-category.component.html ***!
-  \************************************************************************************/
+/***/ "./node_modules/raw-loader/index.js!./src/app/all-post/all-post.page.html":
+/*!***********************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/all-post/all-post.page.html ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<div>\n\t\t\t<ion-icon name=\"settings\" class=\"iconSettings\" routerLink=\"/settings\" float-left></ion-icon>\n\t\t\t<span float-right class=\"iconForward\"><ion-icon name=\"arrow-forward\"></ion-icon></span>\n\t\t\t<span routerLink=\"/home\" float-right id=\"feedsLink\">Feeds</span>\n\t\t\t<ion-title class=\"ion-text-center\">\n\t\t\t\tTrivia Post\n\t\t\t</ion-title>\n\t\t</div>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content >\n\t<input placeholder=\"Search for news\" (click)=\"search()\">\n\t<ion-row>\n\t\t\t<h1 id=\"catHeading\"><i>Topics</i> </h1>\n\t</ion-row>\n\n\t<ion-row>\n\n\t\t<ion-col size=\"6\" *ngFor=\"let category of categories$ | async \" class=\"catList\">\n            <ion-card class=\"catCard\">\n                <ion-card-content>\n                    <div class=\"notification_bells\">\n                        <img src=\"assets/images/Category-notification.png\" *ngIf=\"!category.isNotify\" id=\"blackBell\" (click)=\"addNotify(category.categoryId)\">\n                        <img src=\"assets/images/Category-notification-2.png\" *ngIf=\"category.isNotify\" id=\"redBell\" (click)=\"addNotify(category.categoryId)\">\n                    </div>\n                    <div *ngIf=\"language == 'English'\" routerLink=\"/home/category/{{category.categoryId}}/{{category.categoryTitle}}\">\n                        <h2 id=\"catTitle\" ><strong>{{category.categoryTitle}}</strong></h2>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div *ngIf=\"language == 'Hindi'\" routerLink=\"/home/category/{{category.categoryId}}/{{category.categoryTitleHn}}\">\n                        <h2 id=\"catTitle\" ><strong>{{category.categoryTitleHn}}</strong></h2>    \n                    </div>\n                </ion-card-content>\n            </ion-card>\n        </ion-col>\n\t</ion-row>\n\t<div id=\"loader-wrapper\" *ngIf=\"loading\">\n\t\t<div id=\"loader\">\n\t\t\t<span class=\"logo_container\">\n\t\t\t\t<img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n\t\t\t</span>\n\t\t\t<div class=\"ml-loader\">\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t</div>\n\t\t\t<p class=\"text-center\">Loding Data...</p>\n\t\t</div>\n\t</div>\n</ion-content>"
+module.exports = "<ion-content (swiperight)=\"goToCategories()\" ion-padding>\n    <ion-row>\n        <ion-col size=\"6\" *ngFor=\"let news of newsArray; let i = index; last as isLast\">\n            <ion-card (click)=\"singleNews(news.newsId)\">\n                <ion-card-header>\n                    <img src=\"{{mediaPath}}{{news.newsImage}}\" height=\"91px\" alt=\"\">\n                </ion-card-header>\n\n                <ion-card-content>\n                    {{news.newsTitleEnglish | slice:0:40}}\n                    <span *ngIf=\"news.newsTitleEnglish.length >=40\">...</span>\n                </ion-card-content>\n                <ion-row class=\"cardfooter\">\n                    <ion-col size=\"9\">\n                        {{news.createdAt | timeAgo}}\n                    </ion-col>\n                    <ion-col size=\"3\">\n                        {{news.likesCount}} <span *ngIf=\"news.likesCount == 1\">like</span><span\n                            *ngIf=\"news.likesCount > 1\">likes</span>\n                    </ion-col>\n                </ion-row>\n            </ion-card>\n        </ion-col>\n    </ion-row>\n</ion-content>"
 
 /***/ }),
 
@@ -468,6 +494,17 @@ module.exports = "<ion-app>\n  <ion-router-outlet></ion-router-outlet>\n</ion-ap
 /***/ (function(module, exports) {
 
 module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-icon name=\"arrow-round-back\" class=\"bookmarkBack\" routerLink=\"/settings\"></ion-icon>\n        <ion-title>\n            Bookmarks\n        </ion-title>\n    </ion-toolbar>\n</ion-header>\n<ion-content padding>\n    <h2 id=\"bookmarkHead\">My Bookmarks</h2>\n    <ion-row class=\"searchResults\" *ngFor=\"let news of newsArray\">\n        <ion-col size=\"3\" class=\"bookmarkImgCol\" padding routerLink=\"/home/bookmark\">\n            <div class=\"bookmark-img\">\n                <img src=\"{{mediaPath}}{{news.newsImage}}\">\n            </div>\n        </ion-col>\n        <ion-col size=\"7\" routerLink=\"/home/bookmark\">\n            <div padding>\n                <p class=\"bookmarkCat\" *ngIf=\"language == 'English'\">{{news.newsCategory}}</p>\n                <p class=\"bookmarkCat\" *ngIf=\"language == 'Hindi'\">{{news.newsCategoryHn}}</p>\n                <span class=\"optionsList\" *ngIf=\"language == 'Hindi'\" [innerHTML]=\"news.newsTitleHindi\"></span>\n                <span class=\"optionsList\" *ngIf=\"language == 'English'\" [innerHTML]=\"news.newsTitleEnglish\"></span>\n            </div>\n        </ion-col>\n        <ion-col class=\"bookmarkActButton\" (click)=\"bookmarkAction(news.newsId, news.newsTitleEnglish)\">\n            <img src=\"assets/images/menu.png\">\n        </ion-col>\n    </ion-row>\n    <ion-row *ngIf=\"bookmarkLength == 0\">\n        <ion-col size=\"12\">\n            <h1>You have no bookmarks!</h1>\n        </ion-col>\n    </ion-row>\n    <div id=\"loader-wrapper\" *ngIf=\"loading\">\n        <div id=\"loader\">\n            <span class=\"logo_container\">\n                <img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n            </span>\n            <div class=\"ml-loader\">\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n            <p class=\"text-center\">Loding Data...</p>\n        </div>\n    </div>\n</ion-content>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/categories/categories.page.html":
+/*!***************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/categories/categories.page.html ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ion-content (swipeleft)=\"goToAllPosts()\">\n    <ion-row>\n        <ion-col size=\"6\" *ngFor=\"let category of categories$ | async\">\n            <ion-card>\n                <ion-card-header (click)=\"singeCategory(category.categoryId,category.categoryTitle)\">\n                    <img src=\"{{mediaPath}}{{category.categoryImage}}\" height=\"91px \" alt=\"\">\n                </ion-card-header>\n\n                <ion-card-content (click)=\"singeCategory(category.categoryId,category.categoryTitle)\">\n                    {{category.categoryTitle}}\n                </ion-card-content>\n                <ion-row class=\"cardfooter\">\n                    <ion-col size=\"9\">\n                        <p>{{category.countPost}} posts</p>\n                    </ion-col>\n                    <ion-col size=\"3\">\n                        <img src=\"assets/images/Category-notification.png\" *ngIf=\"!category.isNotify\" id=\"blackBell\"\n                            (click)=\"addNotify(category.categoryId)\">\n                        <img src=\"assets/images/Category-notification-2.png\" *ngIf=\"category.isNotify\" id=\"redBell\"\n                            (click)=\"addNotify(category.categoryId)\">\n                    </ion-col>\n                </ion-row>\n            </ion-card>\n        </ion-col>\n    </ion-row>\n</ion-content>"
 
 /***/ }),
 
@@ -511,7 +548,7 @@ module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-icon name=\"arrow-roun
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"2\" class=\"searchBack\">\n\t\t\t\t<ion-icon name=\"arrow-round-back\" routerLink=\"/allcategory\"></ion-icon>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<ion-input set-focuser type=\"text\" placeholder=\"Search here..\"\n\t\t\t\t\t(input)=\"searchNews($event.target.value)\"></ion-input>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</ion-toolbar>\n</ion-header>\n<ion-content padding>\n\t<ion-row class=\"searchResults\" *ngFor=\"let searchNews of newsArray\">\n\t\t<ion-col size=\"3\" class=\"newsImg\" padding (click)=\"getSingleSearch()\">\n\t\t\t<img src=\"{{mediaPath}}{{searchNews.newsImage}}\" height=\"73px\" width=\"100%\">\n\t\t</ion-col>\n\t\t<ion-col size=\"9\" (click)=\"getSingleSearch()\">\n\t\t\t<div padding>\n\t\t\t\t<p class=\"newsCat\" *ngIf=\"language == 'English'\">{{searchNews.newsCategory}}</p>\n\t\t\t\t<p class=\"newsCat\" *ngIf=\"language == 'Hindi'\">{{searchNews.newsCategoryHn}}</p>\n\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\"\n\t\t\t\t\t[innerHTML]=\"searchNews.newsTitleEnglish | slice:0:70\"></span>\n\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\" [innerHTML]=\"searchNews.newsTitleHindi\"></span>\n\t\t\t</div>\n\t\t</ion-col>\n\t</ion-row>\n\t<ion-row *ngIf=\"searchLength == 0\">\n\t\t<ion-col size=\"12\">\n\t\t\t<h1>No result found!</h1>\n\t\t</ion-col>\n\t</ion-row>\n\t<div id=\"loader-wrapper\" *ngIf=\"loading\">\n\t\t<div id=\"loader\">\n\t\t\t<span class=\"logo_container\">\n\t\t\t\t<img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n\t\t\t</span>\n\t\t\t<div class=\"ml-loader\">\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t</div>\n\t\t\t<p class=\"text-center\">Loding Data...</p>\n\t\t</div>\n\t</div>\n</ion-content>"
+module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"2\" class=\"searchBack\">\n\t\t\t\t<ion-icon name=\"arrow-round-back\" routerLink=\"/home/categories\"></ion-icon>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<ion-input set-focuser type=\"text\" placeholder=\"Search here..\"\n\t\t\t\t\t(input)=\"searchNews($event.target.value)\"></ion-input>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</ion-toolbar>\n</ion-header>\n<ion-content padding>\n\t<ion-row class=\"searchResults\" *ngFor=\"let searchNews of newsArray\">\n\t\t<ion-col size=\"3\" class=\"newsImg\" padding (click)=\"getSingleSearch()\">\n\t\t\t<img src=\"{{mediaPath}}{{searchNews.newsImage}}\" height=\"73px\" width=\"100%\">\n\t\t</ion-col>\n\t\t<ion-col size=\"9\" (click)=\"getSingleSearch()\">\n\t\t\t<div padding>\n\t\t\t\t<p class=\"newsCat\" *ngIf=\"language == 'English'\">{{searchNews.newsCategory}}</p>\n\t\t\t\t<p class=\"newsCat\" *ngIf=\"language == 'Hindi'\">{{searchNews.newsCategoryHn}}</p>\n\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\"\n\t\t\t\t\t[innerHTML]=\"searchNews.newsTitleEnglish | slice:0:70\"></span>\n\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\" [innerHTML]=\"searchNews.newsTitleHindi\"></span>\n\t\t\t</div>\n\t\t</ion-col>\n\t</ion-row>\n\t<ion-row *ngIf=\"searchLength == 0\">\n\t\t<ion-col size=\"12\">\n\t\t\t<h1>No result found!</h1>\n\t\t</ion-col>\n\t</ion-row>\n\t<div id=\"loader-wrapper\" *ngIf=\"loading\">\n\t\t<div id=\"loader\">\n\t\t\t<span class=\"logo_container\">\n\t\t\t\t<img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n\t\t\t</span>\n\t\t\t<div class=\"ml-loader\">\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t\t<div></div>\n\t\t\t</div>\n\t\t\t<p class=\"text-center\">Loding Data...</p>\n\t\t</div>\n\t</div>\n</ion-content>"
 
 /***/ }),
 
@@ -522,7 +559,7 @@ module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-row>\n\t\t\t<ion-col s
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n\t<ion-toolbar class=\"settingsToolbar\">\n\t\t<ion-icon name=\"arrow-round-back\" routerLink=\"/allcategory\"></ion-icon>\n\t\t<span id=\"settingTitle\"> Options</span>\n\t\t<span id=\"profile\" *ngIf=\"tokenLocalStorage && firstCharUser\" (click)=\"logout()\">{{firstCharUser}}</span>\n\t\t<span id=\"personIcon\" *ngIf=\"tokenLocalStorage && !firstCharUser\" (click)=\"logout()\"><ion-icon name=\"person\"></ion-icon></span>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content>\n\t<div class=\"settings loginDiv\" padding *ngIf=\"!tokenLocalStorage\">\n\t\t<h1 class=\"savePref\" *ngIf=\"language == 'English'\"><i>Save your preferences</i></h1>\n\t\t<h1 class=\"savePref\" *ngIf=\"language == 'Hindi'\"><i>सेव योर  परेफरेंस</i></h1>\n\t\t<h4 class=\"signInBook\" *ngIf=\"language == 'English'\">Sign In to save your Bookmarks.</h4>\n\t\t<h4 class=\"signInBook\" *ngIf=\"language == 'Hindi'\">अपने बुकमार्क को सेव करने के लिए साइन इन करें।</h4>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"6\" class=\"signInCol\">\n\t\t\t\t<button id=\"signInButton\" routerLink=\"/login\" >Sign In</button>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"6\">\n\t\t\t\t<button id=\"googleplus\" routerLink=\"/login\" ><img src=\"assets/images/GooglePlus.png\" height=\"12px;\"></button>\n\t\t\t\t<button id=\"facebookLogin\" routerLink=\"/login\" ><img src=\"assets/images/Facebook.png\" height=\"12px;\"></button>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</div>\n\n\t<div>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"2\" class=\"langColTwo\" padding>\n\t\t\t\t<span>Aa</span>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding>\n\t\t\t\t\t<ion-col size=\"5\" class=\"languageDiv\">\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Language</span>\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">भाषा</span>\n\t\t\t\t\t</ion-col>\n\t\t\t\t\t<ion-col size=\"7\">\n\t\t\t\t\t\t<span *ngIf=\"language == 'Hindi'\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\" selected=\"true\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t\t<ion-select-option value=\"English\">English</ion-select-option>\n\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t\t<span *ngIf=\"language == 'English'\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t<ion-select-option value=\"English\" selected=\"true\">English</ion-select-option>\n\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t\t<span *ngIf=\"!language\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t<ion-select-option value=\"English\" selected=\"true\">English</ion-select-option>\n\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</ion-col>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" class=\"settingIconCol\" padding>\n\t\t\t\t<img src=\"assets/images/Bookmarks1.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/bookmarks\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Bookmarks</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">बुकमार्क</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" class=\"settingIconCol\" padding>\n\t\t\t\t<img src=\"assets/images/Notification.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Notification</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">नोटफ़केशन</span>\n\t\t\t\t\t<!-- <span *ngIf=\"annonymous === 'true'\">Hello</span> -->\n\t\t\t\t\t<label class=\"switch\" *ngIf=\"notifyFlag === 'true' || annonymousNotify === 'true'\">\n\t\t\t\t\t\t<input type=\"checkbox\" (change)=\"notificationSwitch($event)\" checked=\"checked\"><div></div>\n\t\t\t\t\t</label>\n\t\t\t\t\t<label class=\"switch\" *ngIf=\"notifyFlag === 'false' || annonymousNotify === 'false'\">\n\t\t\t\t\t\t<input type=\"checkbox\" (change)=\"notificationSwitch($event)\"><div></div>\n\t\t\t\t\t</label>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" padding>\n\t\t\t\t<img src=\"assets/images/Feedback.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/feedback\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Feedback</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">फ़ीड्बैक्</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" padding>\n\t\t\t\t<img src=\"assets/images/Privacy Policy.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div  padding routerLink=\"/privacy\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Privacy Policy</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">प्राइवेसी पालिसी</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" padding>\n\t\t\t\t<img src=\"assets/images/terms.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/terms\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Terms & condition</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">टर्म्स एंड  कंडीशन</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\"> \n\t\t\t<ion-col size=\"2\" class=\"settingIconCol\" padding>\n\t\t\t\t<img src=\"assets/images/Share the App.png\" class=\"optionsList\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding (click)=\"sendShare()\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Share this app</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">शेयर थिस अप्प</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</div>\n</ion-content>"
+module.exports = "<ion-header>\n\t<ion-toolbar class=\"settingsToolbar\">\n\t\t<ion-icon name=\"arrow-round-back\" routerLink=\"/home/categories\"></ion-icon>\n\t\t<span id=\"settingTitle\"> Options</span>\n\t\t<span id=\"profile\" *ngIf=\"tokenLocalStorage && firstCharUser\" (click)=\"logout()\">{{firstCharUser}}</span>\n\t\t<span id=\"personIcon\" *ngIf=\"tokenLocalStorage && !firstCharUser\" (click)=\"logout()\">\n\t\t\t<ion-icon name=\"person\"></ion-icon>\n\t\t</span>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content>\n\t<div class=\"settings loginDiv\" padding *ngIf=\"!tokenLocalStorage\">\n\t\t<h1 class=\"savePref\" *ngIf=\"language == 'English'\"><i>Save your preferences</i></h1>\n\t\t<h1 class=\"savePref\" *ngIf=\"language == 'Hindi'\"><i>सेव योर परेफरेंस</i></h1>\n\t\t<h4 class=\"signInBook\" *ngIf=\"language == 'English'\">Sign In to save your Bookmarks.</h4>\n\t\t<h4 class=\"signInBook\" *ngIf=\"language == 'Hindi'\">अपने बुकमार्क को सेव करने के लिए साइन इन करें।</h4>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"6\" class=\"signInCol\">\n\t\t\t\t<button id=\"signInButton\" routerLink=\"/login\">Sign In</button>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"6\">\n\t\t\t\t<button id=\"googleplus\" routerLink=\"/login\"><img src=\"assets/images/GooglePlus.png\"\n\t\t\t\t\t\theight=\"12px;\"></button>\n\t\t\t\t<button id=\"facebookLogin\" routerLink=\"/login\"><img src=\"assets/images/Facebook.png\"\n\t\t\t\t\t\theight=\"12px;\"></button>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</div>\n\n\t<div>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"2\" class=\"langColTwo\" padding>\n\t\t\t\t<span>Aa</span>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding>\n\t\t\t\t\t<ion-col size=\"5\" class=\"languageDiv\">\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Language</span>\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">भाषा</span>\n\t\t\t\t\t</ion-col>\n\t\t\t\t\t<ion-col size=\"7\">\n\t\t\t\t\t\t<span *ngIf=\"language == 'Hindi'\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\" selected=\"true\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t\t<ion-select-option value=\"English\">English</ion-select-option>\n\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t\t<span *ngIf=\"language == 'English'\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t<ion-select-option value=\"English\" selected=\"true\">English</ion-select-option>\n\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t\t<span *ngIf=\"!language\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t<ion-select-option value=\"English\" selected=\"true\">English</ion-select-option>\n\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</ion-col>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" class=\"settingIconCol\" padding>\n\t\t\t\t<img src=\"assets/images/Bookmarks1.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/bookmarks\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Bookmarks</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">बुकमार्क</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" class=\"settingIconCol\" padding>\n\t\t\t\t<img src=\"assets/images/Notification.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Notification</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">नोटफ़केशन</span>\n\t\t\t\t\t<!-- <span *ngIf=\"annonymous === 'true'\">Hello</span> -->\n\t\t\t\t\t<label class=\"switch\" *ngIf=\"notifyFlag === 'true' || annonymousNotify === 'true'\">\n\t\t\t\t\t\t<input type=\"checkbox\" (change)=\"notificationSwitch($event)\" checked=\"checked\">\n\t\t\t\t\t\t<div></div>\n\t\t\t\t\t</label>\n\t\t\t\t\t<label class=\"switch\" *ngIf=\"notifyFlag === 'false' || annonymousNotify === 'false'\">\n\t\t\t\t\t\t<input type=\"checkbox\" (change)=\"notificationSwitch($event)\">\n\t\t\t\t\t\t<div></div>\n\t\t\t\t\t</label>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" padding>\n\t\t\t\t<img src=\"assets/images/Feedback.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/feedback\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Feedback</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">फ़ीड्बैक्</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" padding>\n\t\t\t\t<img src=\"assets/images/Privacy Policy.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/privacy\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Privacy Policy</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">प्राइवेसी पालिसी</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" padding>\n\t\t\t\t<img src=\"assets/images/terms.png\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding routerLink=\"/terms\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Terms & condition</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">टर्म्स एंड कंडीशन</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t<ion-col size=\"2\" class=\"settingIconCol\" padding>\n\t\t\t\t<img src=\"assets/images/Share the App.png\" class=\"optionsList\">\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"10\">\n\t\t\t\t<div padding (click)=\"sendShare()\">\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Share this app</span>\n\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">शेयर थिस अप्प</span>\n\t\t\t\t</div>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\n\t\t<ion-row id=\"ratingRow\">\n\t\t\t<div id=\"ratingHead\" *ngIf=\"!rating\">How's your experience?</div>\n\t\t\t<div id=\"ratingHead\" *ngIf=\"rating\">You have rated us</div>\n\t\t\t<div id=\"rating\">\n\t\t\t\t<ionic4-star-rating #rating activeIcon=\"ios-star\" defaultIcon=\"ios-star-outline\" activeColor=\"#ce2837\"\n\t\t\t\t\tdefaultColor=\"#ddd\" readonly=\"false\" rating=\"3\" fontSize=\"32px\"\n\t\t\t\t\t(ratingChanged)=\"logRatingChange($event)\" *ngIf=\"!rating\">\n\t\t\t\t</ionic4-star-rating>\n\t\t\t\t<ionic4-star-rating #rating activeIcon=\"ios-star\" defaultIcon=\"ios-star-outline\" activeColor=\"#ce2837\" defaultColor=\"#ddd\" readonly=\"true\" rating=\"{{userRating}}\" fontSize=\"32px\" *ngIf=\"rating\">\n\t\t\t\t</ionic4-star-rating>\n\t\t\t</div>\n\t\t</ion-row>\n\t</div>\n</ion-content>"
 
 /***/ }),
 
@@ -537,34 +574,24 @@ module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-icon name=\"arrow-roun
 
 /***/ }),
 
-/***/ "./src/app/all-category/all-category.component.scss":
-/*!**********************************************************!*\
-  !*** ./src/app/all-category/all-category.component.scss ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "input {\n  height: 38px !important;\n  outline: none !important;\n  box-shadow: none !important;\n  border: none !important;\n  background-color: #eff1f5 !important;\n  border-radius: 10px !important;\n  color: black !important;\n  width: 93% !important;\n  padding: 14px !important;\n  margin: 14px !important;\n}\n\n.catList {\n  padding: 10px;\n}\n\n.catCard {\n  background-image: url('brownbg.png');\n  margin: 0 auto;\n  height: 100%;\n  border-radius: 0 !important;\n  box-shadow: none !important;\n  background-size: 100% auto;\n  background-position: center;\n}\n\n.catCard ion-card-content {\n  margin: auto;\n  padding: 35px 15px 25px;\n  text-align: center;\n  display: -webkit-box;\n  display: flex;\n  align-content: center;\n  flex-wrap: wrap;\n  height: 100%;\n}\n\n.notification_bells {\n  position: absolute;\n  top: 8px;\n  right: 8px;\n}\n\n#blackBell {\n  width: 11px !important;\n  height: 14px;\n}\n\n#redBell {\n  width: 16px !important;\n  height: 17px;\n}\n\n#catTitle {\n  margin-top: 0px;\n  font-size: 16px;\n}\n\n#catHeading {\n  font-size: 28px;\n  padding-left: 16px;\n}\n\n.iconForward {\n  margin-right: 10px;\n  margin-top: 3px;\n}\n\n.iconSettings {\n  font-size: 20px;\n  margin-top: 3px;\n  padding-left: 15px;\n}\n\n#feedsLink {\n  font-size: 16px;\n  padding-bottom: 5px;\n  margin-right: 5px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvQmhhdmlrL1Byb2plY3RzL3RyaXZpYXBvc3Qvc3JjL2FwcC9hbGwtY2F0ZWdvcnkvYWxsLWNhdGVnb3J5LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9hbGwtY2F0ZWdvcnkvYWxsLWNhdGVnb3J5LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksdUJBQUE7RUFDQSx3QkFBQTtFQUNBLDJCQUFBO0VBQ0EsdUJBQUE7RUFDQSxvQ0FBQTtFQUNBLDhCQUFBO0VBQ0EsdUJBQUE7RUFDQSxxQkFBQTtFQUNBLHdCQUFBO0VBQ0EsdUJBQUE7QUNDSjs7QURFQTtFQUNJLGFBQUE7QUNDSjs7QURFQTtFQUNJLG9DQUFBO0VBQ0EsY0FBQTtFQUNBLFlBQUE7RUFDQSwyQkFBQTtFQUNBLDJCQUFBO0VBQ0EsMEJBQUE7RUFDQSwyQkFBQTtBQ0NKOztBREVBO0VBQ0ksWUFBQTtFQUNBLHVCQUFBO0VBQ0Esa0JBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7RUFDQSxxQkFBQTtFQUNBLGVBQUE7RUFDQSxZQUFBO0FDQ0o7O0FEQ0E7RUFDSSxrQkFBQTtFQUNBLFFBQUE7RUFDQSxVQUFBO0FDRUo7O0FEQUE7RUFDSSxzQkFBQTtFQUNBLFlBQUE7QUNHSjs7QURBQTtFQUNJLHNCQUFBO0VBQ0EsWUFBQTtBQ0dKOztBREFBO0VBQ0ksZUFBQTtFQUNBLGVBQUE7QUNHSjs7QURBQTtFQUNJLGVBQUE7RUFDQSxrQkFBQTtBQ0dKOztBREFBO0VBQ0ksa0JBQUE7RUFDQSxlQUFBO0FDR0o7O0FEQUE7RUFDSSxlQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FDR0o7O0FEQUE7RUFDSSxlQUFBO0VBQ0EsbUJBQUE7RUFDQSxpQkFBQTtBQ0dKIiwiZmlsZSI6InNyYy9hcHAvYWxsLWNhdGVnb3J5L2FsbC1jYXRlZ29yeS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlucHV0e1xuICAgIGhlaWdodDogMzhweCAhaW1wb3J0YW50O1xuICAgIG91dGxpbmU6IG5vbmUgIWltcG9ydGFudDtcbiAgICBib3gtc2hhZG93OiBub25lICFpbXBvcnRhbnQ7XG4gICAgYm9yZGVyOiBub25lICFpbXBvcnRhbnQ7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2VmZjFmNSAhaW1wb3J0YW50O1xuICAgIGJvcmRlci1yYWRpdXM6IDEwcHggIWltcG9ydGFudDtcbiAgICBjb2xvcjogYmxhY2sgIWltcG9ydGFudDtcbiAgICB3aWR0aDogOTMlIWltcG9ydGFudDtcbiAgICBwYWRkaW5nOiAxNHB4IWltcG9ydGFudDtcbiAgICBtYXJnaW46IDE0cHghaW1wb3J0YW50O1xufVxuXG4uY2F0TGlzdHtcbiAgICBwYWRkaW5nOiAxMHB4O1xufVxuXG4uY2F0Q2FyZHtcbiAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoJ2Fzc2V0cy9pbWFnZXMvYnJvd25iZy5wbmcnKTtcbiAgICBtYXJnaW46IDAgYXV0bztcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgYm9yZGVyLXJhZGl1czogMCFpbXBvcnRhbnQ7XG4gICAgYm94LXNoYWRvdzogbm9uZSFpbXBvcnRhbnQ7XG4gICAgYmFja2dyb3VuZC1zaXplOiAxMDAlIGF1dG87XG4gICAgYmFja2dyb3VuZC1wb3NpdGlvbjogY2VudGVyO1xufVxuXG4uY2F0Q2FyZCBpb24tY2FyZC1jb250ZW50e1xuICAgIG1hcmdpbjogYXV0bztcbiAgICBwYWRkaW5nOiAzNXB4IDE1cHggMjVweDtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBhbGlnbi1jb250ZW50OiBjZW50ZXI7XG4gICAgZmxleC13cmFwOiB3cmFwO1xuICAgIGhlaWdodDogMTAwJTtcbn1cbi5ub3RpZmljYXRpb25fYmVsbHMge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IDhweDtcbiAgICByaWdodDogOHB4O1xufVxuI2JsYWNrQmVsbHtcbiAgICB3aWR0aDogMTFweCFpbXBvcnRhbnQ7XG4gICAgaGVpZ2h0OiAxNHB4O1xufVxuXG4jcmVkQmVsbHtcbiAgICB3aWR0aDogMTZweCFpbXBvcnRhbnQ7XG4gICAgaGVpZ2h0OiAxN3B4O1xufVxuXG4jY2F0VGl0bGV7XG4gICAgbWFyZ2luLXRvcDogMHB4O1xuICAgIGZvbnQtc2l6ZTogMTZweFxufVxuXG4jY2F0SGVhZGluZ3tcbiAgICBmb250LXNpemU6IDI4cHg7XG4gICAgcGFkZGluZy1sZWZ0OiAxNnB4OyAgICBcbn1cblxuLmljb25Gb3J3YXJke1xuICAgIG1hcmdpbi1yaWdodDogMTBweDtcbiAgICBtYXJnaW4tdG9wOiAzcHg7XG59XG5cbi5pY29uU2V0dGluZ3N7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIG1hcmdpbi10b3A6IDNweDtcbiAgICBwYWRkaW5nLWxlZnQ6IDE1cHg7XG59XG5cbiNmZWVkc0xpbmt7XG4gICAgZm9udC1zaXplOiAxNnB4O1xuICAgIHBhZGRpbmctYm90dG9tOiA1cHg7XG4gICAgbWFyZ2luLXJpZ2h0OiA1cHg7XG59IiwiaW5wdXQge1xuICBoZWlnaHQ6IDM4cHggIWltcG9ydGFudDtcbiAgb3V0bGluZTogbm9uZSAhaW1wb3J0YW50O1xuICBib3gtc2hhZG93OiBub25lICFpbXBvcnRhbnQ7XG4gIGJvcmRlcjogbm9uZSAhaW1wb3J0YW50O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZWZmMWY1ICFpbXBvcnRhbnQ7XG4gIGJvcmRlci1yYWRpdXM6IDEwcHggIWltcG9ydGFudDtcbiAgY29sb3I6IGJsYWNrICFpbXBvcnRhbnQ7XG4gIHdpZHRoOiA5MyUgIWltcG9ydGFudDtcbiAgcGFkZGluZzogMTRweCAhaW1wb3J0YW50O1xuICBtYXJnaW46IDE0cHggIWltcG9ydGFudDtcbn1cblxuLmNhdExpc3Qge1xuICBwYWRkaW5nOiAxMHB4O1xufVxuXG4uY2F0Q2FyZCB7XG4gIGJhY2tncm91bmQtaW1hZ2U6IHVybChcImFzc2V0cy9pbWFnZXMvYnJvd25iZy5wbmdcIik7XG4gIG1hcmdpbjogMCBhdXRvO1xuICBoZWlnaHQ6IDEwMCU7XG4gIGJvcmRlci1yYWRpdXM6IDAgIWltcG9ydGFudDtcbiAgYm94LXNoYWRvdzogbm9uZSAhaW1wb3J0YW50O1xuICBiYWNrZ3JvdW5kLXNpemU6IDEwMCUgYXV0bztcbiAgYmFja2dyb3VuZC1wb3NpdGlvbjogY2VudGVyO1xufVxuXG4uY2F0Q2FyZCBpb24tY2FyZC1jb250ZW50IHtcbiAgbWFyZ2luOiBhdXRvO1xuICBwYWRkaW5nOiAzNXB4IDE1cHggMjVweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBkaXNwbGF5OiBmbGV4O1xuICBhbGlnbi1jb250ZW50OiBjZW50ZXI7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4ubm90aWZpY2F0aW9uX2JlbGxzIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDhweDtcbiAgcmlnaHQ6IDhweDtcbn1cblxuI2JsYWNrQmVsbCB7XG4gIHdpZHRoOiAxMXB4ICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogMTRweDtcbn1cblxuI3JlZEJlbGwge1xuICB3aWR0aDogMTZweCAhaW1wb3J0YW50O1xuICBoZWlnaHQ6IDE3cHg7XG59XG5cbiNjYXRUaXRsZSB7XG4gIG1hcmdpbi10b3A6IDBweDtcbiAgZm9udC1zaXplOiAxNnB4O1xufVxuXG4jY2F0SGVhZGluZyB7XG4gIGZvbnQtc2l6ZTogMjhweDtcbiAgcGFkZGluZy1sZWZ0OiAxNnB4O1xufVxuXG4uaWNvbkZvcndhcmQge1xuICBtYXJnaW4tcmlnaHQ6IDEwcHg7XG4gIG1hcmdpbi10b3A6IDNweDtcbn1cblxuLmljb25TZXR0aW5ncyB7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgbWFyZ2luLXRvcDogM3B4O1xuICBwYWRkaW5nLWxlZnQ6IDE1cHg7XG59XG5cbiNmZWVkc0xpbmsge1xuICBmb250LXNpemU6IDE2cHg7XG4gIHBhZGRpbmctYm90dG9tOiA1cHg7XG4gIG1hcmdpbi1yaWdodDogNXB4O1xufSJdfQ== */"
-
-/***/ }),
-
-/***/ "./src/app/all-category/all-category.component.ts":
-/*!********************************************************!*\
-  !*** ./src/app/all-category/all-category.component.ts ***!
-  \********************************************************/
-/*! exports provided: AllCategoryComponent */
+/***/ "./src/app/all-post/all-post.module.ts":
+/*!*********************************************!*\
+  !*** ./src/app/all-post/all-post.module.ts ***!
+  \*********************************************/
+/*! exports provided: AllPostPageModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AllCategoryComponent", function() { return AllCategoryComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AllPostPageModule", function() { return AllPostPageModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/category.service */ "./src/app/services/category.service.ts");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+/* harmony import */ var _all_post_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./all-post.page */ "./src/app/all-post/all-post.page.ts");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../shared/shared.module */ "./src/app/shared/shared.module.ts");
 
 
 
@@ -573,118 +600,105 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-let AllCategoryComponent = class AllCategoryComponent {
-    constructor(network, platform, toastController, _categoryService, router) {
-        this.network = network;
-        this.platform = platform;
-        this.toastController = toastController;
-        this._categoryService = _categoryService;
+const routes = [
+    {
+        path: '',
+        component: _all_post_page__WEBPACK_IMPORTED_MODULE_6__["AllPostPage"]
+    }
+];
+let AllPostPageModule = class AllPostPageModule {
+};
+AllPostPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        imports: [
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
+            _shared_shared_module__WEBPACK_IMPORTED_MODULE_7__["SharedModule"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes)
+        ],
+        declarations: [_all_post_page__WEBPACK_IMPORTED_MODULE_6__["AllPostPage"]]
+    })
+], AllPostPageModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/all-post/all-post.page.scss":
+/*!*********************************************!*\
+  !*** ./src/app/all-post/all-post.page.scss ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "ion-card-header {\n  padding: 0;\n  padding-top: 55%;\n  position: relative;\n}\n\nion-card-header img {\n  display: block;\n  max-width: 100%;\n  min-width: 100%;\n  min-height: 100%;\n  max-height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n}\n\nion-card-content {\n  padding: 5px 10px 10px 10px;\n  min-height: 60px;\n}\n\nion-card,\nion-col {\n  padding: 0;\n  border-radius: 0;\n}\n\nion-button {\n  --background-focused: #961300;\n}\n\n.cardfooter {\n  padding: 0px 0px 10px 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvQmhhdmlrL1Byb2plY3RzL3RyaXZpYXBvc3Qvc3JjL2FwcC9hbGwtcG9zdC9hbGwtcG9zdC5wYWdlLnNjc3MiLCJzcmMvYXBwL2FsbC1wb3N0L2FsbC1wb3N0LnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQUE7RUFDQSxnQkFBQTtFQUNBLGtCQUFBO0FDQ0Y7O0FEQ0E7RUFDRSxjQUFBO0VBQ0EsZUFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGdCQUFBO0VBQ0Esb0JBQUE7S0FBQSxpQkFBQTtFQUNBLGtCQUFBO0VBQ0EsTUFBQTtFQUNBLE9BQUE7RUFDQSxRQUFBO0VBQ0EsU0FBQTtBQ0VGOztBRENBO0VBQ0UsMkJBQUE7RUFDQSxnQkFBQTtBQ0VGOztBRENBOztFQUVFLFVBQUE7RUFDQSxnQkFBQTtBQ0VGOztBRENBO0VBQ0UsNkJBQUE7QUNFRjs7QURDQTtFQUNFLDBCQUFBO0FDRUYiLCJmaWxlIjoic3JjL2FwcC9hbGwtcG9zdC9hbGwtcG9zdC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tY2FyZC1oZWFkZXIge1xuICBwYWRkaW5nOiAwO1xuICBwYWRkaW5nLXRvcDogNTUlO1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG59XG5pb24tY2FyZC1oZWFkZXIgaW1nIHtcbiAgZGlzcGxheTogYmxvY2s7XG4gIG1heC13aWR0aDogMTAwJTtcbiAgbWluLXdpZHRoOiAxMDAlO1xuICBtaW4taGVpZ2h0OiAxMDAlO1xuICBtYXgtaGVpZ2h0OiAxMDAlO1xuICBvYmplY3QtZml0OiBjb3ZlcjtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDA7XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBib3R0b206IDA7XG59XG5cbmlvbi1jYXJkLWNvbnRlbnQge1xuICBwYWRkaW5nOiA1cHggMTBweCAxMHB4IDEwcHg7XG4gIG1pbi1oZWlnaHQ6IDYwcHg7XG59XG5cbmlvbi1jYXJkLFxuaW9uLWNvbCB7XG4gIHBhZGRpbmc6IDA7XG4gIGJvcmRlci1yYWRpdXM6IDA7XG59XG5cbmlvbi1idXR0b24ge1xuICAtLWJhY2tncm91bmQtZm9jdXNlZDogIzk2MTMwMDtcbn1cblxuLmNhcmRmb290ZXJ7XG4gIHBhZGRpbmc6MHB4IDBweCAxMHB4IDEwcHg7XG59IiwiaW9uLWNhcmQtaGVhZGVyIHtcbiAgcGFkZGluZzogMDtcbiAgcGFkZGluZy10b3A6IDU1JTtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuXG5pb24tY2FyZC1oZWFkZXIgaW1nIHtcbiAgZGlzcGxheTogYmxvY2s7XG4gIG1heC13aWR0aDogMTAwJTtcbiAgbWluLXdpZHRoOiAxMDAlO1xuICBtaW4taGVpZ2h0OiAxMDAlO1xuICBtYXgtaGVpZ2h0OiAxMDAlO1xuICBvYmplY3QtZml0OiBjb3ZlcjtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDA7XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBib3R0b206IDA7XG59XG5cbmlvbi1jYXJkLWNvbnRlbnQge1xuICBwYWRkaW5nOiA1cHggMTBweCAxMHB4IDEwcHg7XG4gIG1pbi1oZWlnaHQ6IDYwcHg7XG59XG5cbmlvbi1jYXJkLFxuaW9uLWNvbCB7XG4gIHBhZGRpbmc6IDA7XG4gIGJvcmRlci1yYWRpdXM6IDA7XG59XG5cbmlvbi1idXR0b24ge1xuICAtLWJhY2tncm91bmQtZm9jdXNlZDogIzk2MTMwMDtcbn1cblxuLmNhcmRmb290ZXIge1xuICBwYWRkaW5nOiAwcHggMHB4IDEwcHggMTBweDtcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/all-post/all-post.page.ts":
+/*!*******************************************!*\
+  !*** ./src/app/all-post/all-post.page.ts ***!
+  \*******************************************/
+/*! exports provided: AllPostPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AllPostPage", function() { return AllPostPage; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/news.service */ "./src/app/services/news.service.ts");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
+
+
+
+
+
+
+let AllPostPage = class AllPostPage {
+    constructor(router, _newsService) {
         this.router = router;
-        this.error = '';
-        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_3__["config"].mediaApiUrl;
-        this.getCategories();
-        this.categories$;
-        this.myTitle = "Old Title";
+        this._newsService = _newsService;
+        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_5__["config"].mediaApiUrl;
     }
     ngOnInit() {
-        this.language = localStorage.getItem('language');
     }
     ionViewWillEnter() {
-        // this.loading = true;
-        this.platform.backButton.subscribe(() => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            if (this.router.url.includes('allcategory')) {
-                this.router.navigate(['home']);
-            }
-        }));
-        this.language = localStorage.getItem('language');
-        console.log("language in all category", this.language);
-        // this.getCategories();
+        this.getAllPost();
     }
-    handleCategories(res, that) {
+    goToCategories() {
+        this.router.navigateByUrl('/home/categories');
     }
-    handleCatError(err) {
-        this.loading = false;
-        this.error = err;
-        console.error(err);
+    //get all news - HOME PAGE ( FEEDS )
+    getAllPost() {
+        this._newsService.getAllNews().subscribe((res) => {
+            console.log("all news==========>", res);
+            this.newsArray = res;
+        }, (err) => {
+            this.newsArray = localStorage.newsArray;
+        });
     }
-    handleCatComplete() {
-        console.log("Observable Category Completed");
-    }
-    getCategories() {
-        this.tokenLocalStorage = localStorage.getItem('accessToken');
-        if (this.tokenLocalStorage) {
-            var base64Url = this.tokenLocalStorage.split('.')[1];
-            var base64 = base64Url.replace('-', '+').replace('_', '/');
-            var decodedToken = JSON.parse(window.atob(base64));
-            this.loggedInUser = decodedToken.user._id;
-            console.log("Decoded", this.loggedInUser);
-        }
-        var that = this;
-        console.log("before", this.categories$);
-        this.categories$ = this._categoryService.getAll().pipe();
-        console.log("after", this.categories$);
-    }
-    search() {
-        this.router.navigate(['searchBar']);
-    }
-    categoryNews(id) {
-        let navigationExtras = {
-            state: {
-                catId: id
-            }
-        };
-        this.router.navigate(['catResult'], navigationExtras);
-    }
-    addNotify(catId) {
-        if (this.network.type == 'none') {
-            this.toast = this.toastController.create({
-                message: "No internet connection",
-                duration: 2000,
-                color: 'danger'
-            }).then((toastData) => {
-                toastData.present();
-            });
-        }
-        else {
-            this._categoryService.notifyUser(catId).subscribe((res) => {
-                console.log("res", res);
-                this.toast = this.toastController.create({
-                    message: res.message,
-                    duration: 2000,
-                    color: 'success'
-                }).then((toastData) => {
-                    this.getCategories();
-                    console.log(toastData);
-                    toastData.present();
-                });
-            }, err => {
-                this.toast = this.toastController.create({
-                    message: err.error.message,
-                    duration: 2000,
-                    color: 'danger'
-                }).then((toastData) => {
-                    console.log(toastData);
-                    toastData.present();
-                });
-            });
-        }
+    singleNews(postid) {
+        console.log('postid', postid);
+        this.router.navigateByUrl('/single-post/' + postid);
     }
 };
-AllCategoryComponent.ctorParameters = () => [
-    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"] },
-    { type: _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+AllPostPage.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"] }
 ];
-AllCategoryComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+AllPostPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-        selector: 'app-all-category',
-        template: __webpack_require__(/*! raw-loader!./all-category.component.html */ "./node_modules/raw-loader/index.js!./src/app/all-category/all-category.component.html"),
-        styles: [__webpack_require__(/*! ./all-category.component.scss */ "./src/app/all-category/all-category.component.scss")]
+        selector: 'app-all-post',
+        template: __webpack_require__(/*! raw-loader!./all-post.page.html */ "./node_modules/raw-loader/index.js!./src/app/all-post/all-post.page.html"),
+        styles: [__webpack_require__(/*! ./all-post.page.scss */ "./src/app/all-post/all-post.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
-], AllCategoryComponent);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"]])
+], AllPostPage);
 
 
 
@@ -705,14 +719,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _settings_settings_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./settings/settings.component */ "./src/app/settings/settings.component.ts");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _all_category_all_category_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./all-category/all-category.component */ "./src/app/all-category/all-category.component.ts");
-/* harmony import */ var _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./feedback/feedback.component */ "./src/app/feedback/feedback.component.ts");
-/* harmony import */ var _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./privacy/privacy.component */ "./src/app/privacy/privacy.component.ts");
-/* harmony import */ var _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./searchbar/searchbar.component */ "./src/app/searchbar/searchbar.component.ts");
-/* harmony import */ var _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./terms-and-cond/terms-and-cond.component */ "./src/app/terms-and-cond/terms-and-cond.component.ts");
-/* harmony import */ var _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./bookmarks/bookmarks.component */ "./src/app/bookmarks/bookmarks.component.ts");
-/* harmony import */ var _guards_user_guard__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./guards/user.guard */ "./src/app/guards/user.guard.ts");
-
+/* harmony import */ var _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./feedback/feedback.component */ "./src/app/feedback/feedback.component.ts");
+/* harmony import */ var _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./privacy/privacy.component */ "./src/app/privacy/privacy.component.ts");
+/* harmony import */ var _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./searchbar/searchbar.component */ "./src/app/searchbar/searchbar.component.ts");
+/* harmony import */ var _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./terms-and-cond/terms-and-cond.component */ "./src/app/terms-and-cond/terms-and-cond.component.ts");
+/* harmony import */ var _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./bookmarks/bookmarks.component */ "./src/app/bookmarks/bookmarks.component.ts");
+/* harmony import */ var _guards_user_guard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./guards/user.guard */ "./src/app/guards/user.guard.ts");
 
 
 
@@ -731,24 +743,8 @@ const routes = [
         pathMatch: 'full'
     },
     {
-        path: 'home/bookmark',
-        loadChildren: () => __webpack_require__.e(/*! import() | home-home-module */ "home-home-module").then(__webpack_require__.bind(null, /*! ./home/home.module */ "./src/app/home/home.module.ts")).then(m => m.HomePageModule)
-    },
-    {
-        path: 'home/category/:id/:catTitle',
-        loadChildren: () => __webpack_require__.e(/*! import() | home-home-module */ "home-home-module").then(__webpack_require__.bind(null, /*! ./home/home.module */ "./src/app/home/home.module.ts")).then(m => m.HomePageModule)
-    },
-    {
         path: 'home',
-        loadChildren: () => __webpack_require__.e(/*! import() | home-home-module */ "home-home-module").then(__webpack_require__.bind(null, /*! ./home/home.module */ "./src/app/home/home.module.ts")).then(m => m.HomePageModule)
-    },
-    {
-        path: 'home/single-news/:id',
-        loadChildren: () => __webpack_require__.e(/*! import() | home-home-module */ "home-home-module").then(__webpack_require__.bind(null, /*! ./home/home.module */ "./src/app/home/home.module.ts")).then(m => m.HomePageModule)
-    },
-    {
-        path: 'home/search-news/:key',
-        loadChildren: () => __webpack_require__.e(/*! import() | home-home-module */ "home-home-module").then(__webpack_require__.bind(null, /*! ./home/home.module */ "./src/app/home/home.module.ts")).then(m => m.HomePageModule)
+        loadChildren: './home/home.module#HomePageModule'
     },
     {
         path: 'settings',
@@ -757,31 +753,35 @@ const routes = [
     {
         path: 'login',
         component: _login_login_component__WEBPACK_IMPORTED_MODULE_4__["LoginComponent"],
-        canActivate: [_guards_user_guard__WEBPACK_IMPORTED_MODULE_11__["LoginGuard"]]
-    },
-    {
-        path: 'allcategory',
-        component: _all_category_all_category_component__WEBPACK_IMPORTED_MODULE_5__["AllCategoryComponent"]
+        canActivate: [_guards_user_guard__WEBPACK_IMPORTED_MODULE_10__["LoginGuard"]]
     },
     {
         path: 'feedback',
-        component: _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_6__["FeedbackComponent"]
+        component: _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_5__["FeedbackComponent"]
     },
     {
         path: 'privacy',
-        component: _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_7__["PrivacyComponent"]
+        component: _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_6__["PrivacyComponent"]
     },
     {
         path: 'searchBar',
-        component: _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_8__["SearchbarComponent"]
+        component: _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_7__["SearchbarComponent"]
     },
     {
         path: 'terms',
-        component: _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_9__["TermsAndCondComponent"]
+        component: _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_8__["TermsAndCondComponent"]
     },
     {
         path: 'bookmarks',
-        component: _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_10__["BookmarksComponent"]
+        component: _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_9__["BookmarksComponent"]
+    },
+    {
+        path: 'single-post/:id',
+        loadChildren: './single-post/single-post.module#SinglePostPageModule'
+    },
+    {
+        path: 'single-category/:id/:cat',
+        loadChildren: './single-category/single-category.module#SingleCategoryPageModule'
     }
 ];
 let AppRoutingModule = class AppRoutingModule {
@@ -882,6 +882,7 @@ let AppComponent = class AppComponent {
         if (!localStorage.getItem('notification')) {
             localStorage.setItem('notification', "true");
         }
+        this.router.navigateByUrl('/home/all-post');
         this.initializeApp();
     }
     initializeApp() {
@@ -889,31 +890,6 @@ let AppComponent = class AppComponent {
             this.platform.ready().then(() => {
                 this.splashScreen.hide();
                 this.statusBar.backgroundColorByHexString('#000000');
-                // console.log("in fcmtoken function");
-                // this.fcm.getToken().then(token => {
-                //     console.log("inside get fcmtoken", token);
-                //     localStorage.setItem('deviceToken', token);
-                //     if (!localStorage.getItem('annonymous')){
-                //         this._userService.firstTimeUser().subscribe((res: any) => {
-                //             console.log("ANNONYMOUS USER SUCCESS", res);
-                //             localStorage.setItem('annonymous', 'true');
-                //             localStorage.setItem('annonymousNotify', 'true');
-                //         },
-                //             (err) => {
-                //             });
-                //     }
-                // });
-                // this.fcm.onTokenRefresh().subscribe(token => {
-                //     localStorage.setItem('deviceToken', token);
-                // });
-                // this.fcm.onNotification().subscribe(data => {
-                //     this.router.navigate(['home/single-news/' + data.newsId]);
-                //     if (data.wasTapped) {
-                //         //console.log('Received in background');
-                //     } else {
-                //         //console.log('Received in foreground');
-                //     }
-                // });
             });
         };
     }
@@ -972,25 +948,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _settings_settings_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./settings/settings.component */ "./src/app/settings/settings.component.ts");
-/* harmony import */ var _all_category_all_category_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./all-category/all-category.component */ "./src/app/all-category/all-category.component.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ "./node_modules/@ionic-native/google-plus/ngx/index.js");
-/* harmony import */ var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic-native/facebook/ngx */ "./node_modules/@ionic-native/facebook/ngx/index.js");
-/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
-/* harmony import */ var _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./feedback/feedback.component */ "./src/app/feedback/feedback.component.ts");
-/* harmony import */ var _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./privacy/privacy.component */ "./src/app/privacy/privacy.component.ts");
-/* harmony import */ var _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./searchbar/searchbar.component */ "./src/app/searchbar/searchbar.component.ts");
-/* harmony import */ var _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./terms-and-cond/terms-and-cond.component */ "./src/app/terms-and-cond/terms-and-cond.component.ts");
-/* harmony import */ var _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./bookmarks/bookmarks.component */ "./src/app/bookmarks/bookmarks.component.ts");
-/* harmony import */ var _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ionic-native/keyboard/ngx */ "./node_modules/@ionic-native/keyboard/ngx/index.js");
-/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
-/* harmony import */ var _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ionic-native/deeplinks/ngx */ "./node_modules/@ionic-native/deeplinks/ngx/index.js");
-/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_30___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_30__);
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/google-plus/ngx */ "./node_modules/@ionic-native/google-plus/ngx/index.js");
+/* harmony import */ var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/facebook/ngx */ "./node_modules/@ionic-native/facebook/ngx/index.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
+/* harmony import */ var _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./feedback/feedback.component */ "./src/app/feedback/feedback.component.ts");
+/* harmony import */ var _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./privacy/privacy.component */ "./src/app/privacy/privacy.component.ts");
+/* harmony import */ var _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./searchbar/searchbar.component */ "./src/app/searchbar/searchbar.component.ts");
+/* harmony import */ var _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./terms-and-cond/terms-and-cond.component */ "./src/app/terms-and-cond/terms-and-cond.component.ts");
+/* harmony import */ var _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./bookmarks/bookmarks.component */ "./src/app/bookmarks/bookmarks.component.ts");
+/* harmony import */ var _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ionic-native/keyboard/ngx */ "./node_modules/@ionic-native/keyboard/ngx/index.js");
+/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
+/* harmony import */ var _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ionic-native/deeplinks/ngx */ "./node_modules/@ionic-native/deeplinks/ngx/index.js");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_29___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_29__);
+/* harmony import */ var _all_post_all_post_module__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./all-post/all-post.module */ "./src/app/all-post/all-post.module.ts");
+/* harmony import */ var _categories_categories_module__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./categories/categories.module */ "./src/app/categories/categories.module.ts");
+/* harmony import */ var ionic4_star_rating__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ionic4-star-rating */ "./node_modules/ionic4-star-rating/dist/index.js");
+
+
 
 
 
@@ -1027,7 +1007,7 @@ class HammerConfig extends _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2_
     constructor() {
         super(...arguments);
         this.overrides = {
-            'swipe': { direction: hammerjs__WEBPACK_IMPORTED_MODULE_30__["DIRECTION_ALL"] }
+            'swipe': { direction: hammerjs__WEBPACK_IMPORTED_MODULE_29__["DIRECTION_ALL"] }
         };
     }
 }
@@ -1035,26 +1015,26 @@ let AppModule = class AppModule {
 };
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"], _settings_settings_component__WEBPACK_IMPORTED_MODULE_12__["SettingsComponent"], _login_login_component__WEBPACK_IMPORTED_MODULE_14__["LoginComponent"], _all_category_all_category_component__WEBPACK_IMPORTED_MODULE_13__["AllCategoryComponent"], _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_18__["FeedbackComponent"], _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_19__["PrivacyComponent"],
-            _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_20__["SearchbarComponent"], _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_21__["TermsAndCondComponent"], _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_22__["BookmarksComponent"]],
+        declarations: [_app_component__WEBPACK_IMPORTED_MODULE_10__["AppComponent"], _settings_settings_component__WEBPACK_IMPORTED_MODULE_12__["SettingsComponent"], _login_login_component__WEBPACK_IMPORTED_MODULE_13__["LoginComponent"], _feedback_feedback_component__WEBPACK_IMPORTED_MODULE_17__["FeedbackComponent"], _privacy_privacy_component__WEBPACK_IMPORTED_MODULE_18__["PrivacyComponent"],
+            _searchbar_searchbar_component__WEBPACK_IMPORTED_MODULE_19__["SearchbarComponent"], _terms_and_cond_terms_and_cond_component__WEBPACK_IMPORTED_MODULE_20__["TermsAndCondComponent"], _bookmarks_bookmarks_component__WEBPACK_IMPORTED_MODULE_21__["BookmarksComponent"]],
         entryComponents: [],
-        imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_25__["FormsModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_25__["ReactiveFormsModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_17__["IonicStorageModule"].forRoot(), _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"]],
+        imports: [ionic4_star_rating__WEBPACK_IMPORTED_MODULE_32__["StarRatingModule"], _categories_categories_module__WEBPACK_IMPORTED_MODULE_31__["CategoriesPageModule"], _all_post_all_post_module__WEBPACK_IMPORTED_MODULE_30__["AllPostPageModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_24__["FormsModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_24__["ReactiveFormsModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_16__["IonicStorageModule"].forRoot(), _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"]],
         providers: [
             {
                 provide: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["HAMMER_GESTURE_CONFIG"],
                 useClass: HammerConfig
             },
-            _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_29__["Network"],
-            _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_24__["SocialSharing"],
+            _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_28__["Network"],
+            _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_23__["SocialSharing"],
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_7__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_6__["SplashScreen"],
-            _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_15__["GooglePlus"],
-            _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_16__["Facebook"],
+            _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_14__["GooglePlus"],
+            _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_15__["Facebook"],
             _guards_user_guard__WEBPACK_IMPORTED_MODULE_8__["LoginGuard"],
-            _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_23__["Keyboard"],
-            _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_27__["Deeplinks"],
-            _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_28__["ScreenOrientation"],
-            _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_26__["FCM"],
+            _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_22__["Keyboard"],
+            _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_26__["Deeplinks"],
+            _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_27__["ScreenOrientation"],
+            _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_25__["FCM"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicRouteStrategy"] },
             { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"], useClass: _interceptor__WEBPACK_IMPORTED_MODULE_9__["MyInterceptor"], multi: true }
         ],
@@ -1096,6 +1076,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
 /* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs-compat/_esm2015/Observable.js");
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
 
 
 
@@ -1107,10 +1088,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let BookmarksComponent = class BookmarksComponent {
-    constructor(platform, socialSharing, toastController, actionSheetController, _newsService, _categoryService, router) {
+    constructor(_toastService, platform, socialSharing, actionSheetController, _newsService, _categoryService, router) {
+        this._toastService = _toastService;
         this.platform = platform;
         this.socialSharing = socialSharing;
-        this.toastController = toastController;
         this.actionSheetController = actionSheetController;
         this._newsService = _newsService;
         this._categoryService = _categoryService;
@@ -1133,18 +1114,9 @@ let BookmarksComponent = class BookmarksComponent {
         var online = rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__["Observable"].fromEvent(document, "online");
         offline.subscribe(() => {
             this.hide = false;
-            this.toast = this.toastController.create({
-                message: 'No internet connection',
-                animated: true,
-                showCloseButton: true,
-                duration: 2000,
-                closeButtonText: "OK",
-                cssClass: "my-toast",
-                position: "bottom",
-                color: "danger"
-            }).then((obj) => {
-                obj.present();
-            });
+            const message = 'No internet connection';
+            const color = 'danger';
+            this._toastService.toastFunction(message, color);
         });
     }
     bookmarkedNews() {
@@ -1169,24 +1141,11 @@ let BookmarksComponent = class BookmarksComponent {
                         handler: () => {
                             this._newsService.bookmarkPost(id).subscribe((res) => {
                                 console.log("res", res);
-                                this.toast = this.toastController.create({
-                                    message: res.message,
-                                    duration: 2000,
-                                    color: 'success'
-                                }).then((toastData) => {
-                                    this.bookmarkedNews();
-                                    console.log(toastData);
-                                    toastData.present();
-                                });
+                                this._toastService.toastFunction(res.message, 'success');
+                                this.bookmarkedNews();
                             }, err => {
-                                this.toast = this.toastController.create({
-                                    message: err.error.message,
-                                    duration: 2000,
-                                    color: 'danger'
-                                }).then((toastData) => {
-                                    console.log(toastData);
-                                    toastData.present();
-                                });
+                                this._toastService.toastFunction(err.error.message, 'danger');
+                                this.bookmarkedNews();
                             });
                         }
                     }, {
@@ -1212,9 +1171,9 @@ let BookmarksComponent = class BookmarksComponent {
     }
 };
 BookmarksComponent.ctorParameters = () => [
+    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
     { type: _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__["SocialSharing"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ActionSheetController"] },
     { type: _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"] },
     { type: _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"] },
@@ -1226,8 +1185,162 @@ BookmarksComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./bookmarks.component.html */ "./node_modules/raw-loader/index.js!./src/app/bookmarks/bookmarks.component.html"),
         styles: [__webpack_require__(/*! ./bookmarks.component.scss */ "./src/app/bookmarks/bookmarks.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ActionSheetController"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ActionSheetController"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
 ], BookmarksComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/categories/categories.module.ts":
+/*!*************************************************!*\
+  !*** ./src/app/categories/categories.module.ts ***!
+  \*************************************************/
+/*! exports provided: CategoriesPageModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoriesPageModule", function() { return CategoriesPageModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _categories_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./categories.page */ "./src/app/categories/categories.page.ts");
+
+
+
+
+
+
+
+const routes = [
+    {
+        path: '',
+        component: _categories_page__WEBPACK_IMPORTED_MODULE_6__["CategoriesPage"]
+    }
+];
+let CategoriesPageModule = class CategoriesPageModule {
+};
+CategoriesPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        imports: [
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"].forChild(routes)
+        ],
+        declarations: [_categories_page__WEBPACK_IMPORTED_MODULE_6__["CategoriesPage"]]
+    })
+], CategoriesPageModule);
+
+
+
+/***/ }),
+
+/***/ "./src/app/categories/categories.page.scss":
+/*!*************************************************!*\
+  !*** ./src/app/categories/categories.page.scss ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "ion-card-header {\n  padding: 0;\n  padding-top: 55%;\n  position: relative;\n}\n\nion-card-header img {\n  display: block;\n  max-width: 100%;\n  min-width: 100%;\n  min-height: 100%;\n  max-height: 100%;\n  -o-object-fit: cover;\n     object-fit: cover;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n}\n\nion-card-content {\n  padding: 5px 10px 10px 10px;\n  min-height: 47px;\n}\n\nion-card,\nion-col {\n  padding: 0;\n  border-radius: 0;\n}\n\nion-button {\n  --background-focused: #961300;\n}\n\n.cardfooter {\n  padding: 0px 0px 0px 10px;\n}\n\n#blackBell, #redBell {\n  margin: auto;\n  margin-top: 24%;\n}\n\n#blackBell {\n  width: 11px !important;\n  height: 14px;\n}\n\n#redBell {\n  width: 16px !important;\n  height: 17px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvQmhhdmlrL1Byb2plY3RzL3RyaXZpYXBvc3Qvc3JjL2FwcC9jYXRlZ29yaWVzL2NhdGVnb3JpZXMucGFnZS5zY3NzIiwic3JjL2FwcC9jYXRlZ29yaWVzL2NhdGVnb3JpZXMucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7QUNDRjs7QURDQTtFQUNFLGNBQUE7RUFDQSxlQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxvQkFBQTtLQUFBLGlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxNQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7RUFDQSxTQUFBO0FDRUY7O0FEQUE7RUFDRSwyQkFBQTtFQUNBLGdCQUFBO0FDR0Y7O0FEQUE7O0VBRUUsVUFBQTtFQUNBLGdCQUFBO0FDR0Y7O0FEQUE7RUFDRSw2QkFBQTtBQ0dGOztBRERBO0VBQ0UseUJBQUE7QUNJRjs7QURGQTtFQUNFLFlBQUE7RUFDQSxlQUFBO0FDS0Y7O0FESEE7RUFDRSxzQkFBQTtFQUNBLFlBQUE7QUNNRjs7QURIQTtFQUNFLHNCQUFBO0VBQ0EsWUFBQTtBQ01GIiwiZmlsZSI6InNyYy9hcHAvY2F0ZWdvcmllcy9jYXRlZ29yaWVzLnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1jYXJkLWhlYWRlciB7XG4gIHBhZGRpbmc6IDA7XG4gIHBhZGRpbmctdG9wOiA1NSU7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn1cbmlvbi1jYXJkLWhlYWRlciBpbWcge1xuICBkaXNwbGF5OiBibG9jaztcbiAgbWF4LXdpZHRoOiAxMDAlO1xuICBtaW4td2lkdGg6IDEwMCU7XG4gIG1pbi1oZWlnaHQ6IDEwMCU7XG4gIG1heC1oZWlnaHQ6IDEwMCU7XG4gIG9iamVjdC1maXQ6IGNvdmVyO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogMDtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG4gIGJvdHRvbTogMDtcbn1cbmlvbi1jYXJkLWNvbnRlbnQge1xuICBwYWRkaW5nOiA1cHggMTBweCAxMHB4IDEwcHg7XG4gIG1pbi1oZWlnaHQ6IDQ3cHg7XG59XG5cbmlvbi1jYXJkLFxuaW9uLWNvbCB7XG4gIHBhZGRpbmc6IDA7XG4gIGJvcmRlci1yYWRpdXM6IDA7XG59XG5cbmlvbi1idXR0b24ge1xuICAtLWJhY2tncm91bmQtZm9jdXNlZDogIzk2MTMwMDtcbn1cbi5jYXJkZm9vdGVye1xuICBwYWRkaW5nOjBweCAwcHggMHB4IDEwcHg7XG59XG4jYmxhY2tCZWxsLCNyZWRCZWxse1xuICBtYXJnaW46IGF1dG87XG4gIG1hcmdpbi10b3A6IDI0JTtcbn1cbiNibGFja0JlbGx7XG4gIHdpZHRoOiAxMXB4IWltcG9ydGFudDtcbiAgaGVpZ2h0OiAxNHB4O1xufVxuXG4jcmVkQmVsbHtcbiAgd2lkdGg6IDE2cHghaW1wb3J0YW50O1xuICBoZWlnaHQ6IDE3cHg7XG59IiwiaW9uLWNhcmQtaGVhZGVyIHtcbiAgcGFkZGluZzogMDtcbiAgcGFkZGluZy10b3A6IDU1JTtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xufVxuXG5pb24tY2FyZC1oZWFkZXIgaW1nIHtcbiAgZGlzcGxheTogYmxvY2s7XG4gIG1heC13aWR0aDogMTAwJTtcbiAgbWluLXdpZHRoOiAxMDAlO1xuICBtaW4taGVpZ2h0OiAxMDAlO1xuICBtYXgtaGVpZ2h0OiAxMDAlO1xuICBvYmplY3QtZml0OiBjb3ZlcjtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDA7XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBib3R0b206IDA7XG59XG5cbmlvbi1jYXJkLWNvbnRlbnQge1xuICBwYWRkaW5nOiA1cHggMTBweCAxMHB4IDEwcHg7XG4gIG1pbi1oZWlnaHQ6IDQ3cHg7XG59XG5cbmlvbi1jYXJkLFxuaW9uLWNvbCB7XG4gIHBhZGRpbmc6IDA7XG4gIGJvcmRlci1yYWRpdXM6IDA7XG59XG5cbmlvbi1idXR0b24ge1xuICAtLWJhY2tncm91bmQtZm9jdXNlZDogIzk2MTMwMDtcbn1cblxuLmNhcmRmb290ZXIge1xuICBwYWRkaW5nOiAwcHggMHB4IDBweCAxMHB4O1xufVxuXG4jYmxhY2tCZWxsLCAjcmVkQmVsbCB7XG4gIG1hcmdpbjogYXV0bztcbiAgbWFyZ2luLXRvcDogMjQlO1xufVxuXG4jYmxhY2tCZWxsIHtcbiAgd2lkdGg6IDExcHggIWltcG9ydGFudDtcbiAgaGVpZ2h0OiAxNHB4O1xufVxuXG4jcmVkQmVsbCB7XG4gIHdpZHRoOiAxNnB4ICFpbXBvcnRhbnQ7XG4gIGhlaWdodDogMTdweDtcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/categories/categories.page.ts":
+/*!***********************************************!*\
+  !*** ./src/app/categories/categories.page.ts ***!
+  \***********************************************/
+/*! exports provided: CategoriesPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoriesPage", function() { return CategoriesPage; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/category.service */ "./src/app/services/category.service.ts");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
+
+
+
+
+
+
+
+
+let CategoriesPage = class CategoriesPage {
+    constructor(_toastService, network, _categoryService, router) {
+        this._toastService = _toastService;
+        this.network = network;
+        this._categoryService = _categoryService;
+        this.router = router;
+        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_5__["config"].mediaApiUrl;
+        this.getCategories();
+        this.categories$;
+    }
+    ngOnInit() {
+    }
+    goToAllPosts() {
+        this.router.navigateByUrl('/home/all-post');
+    }
+    getCategories() {
+        // this.tokenLocalStorage = localStorage.getItem('accessToken');
+        // if (this.tokenLocalStorage){
+        // 	var base64Url = this.tokenLocalStorage.split('.')[1];
+        // 	var base64 = base64Url.replace('-', '+').replace('_', '/');
+        // 	var decodedToken = JSON.parse(window.atob(base64));
+        // 	this.loggedInUser = decodedToken.user._id;
+        // 	console.log("Decoded", this.loggedInUser);
+        // }
+        // var that = this;
+        this.categories$ = this._categoryService.getAll().pipe();
+        console.log("after", this.categories$);
+    }
+    singeCategory(catId, catname) {
+        console.log('catId compoennt', catId);
+        this.router.navigateByUrl('single-category/' + catId + '/' + catname);
+    }
+    addNotify(catId) {
+        if (this.network.type == 'none') {
+            const message = "No internet connection";
+            const color = "danger";
+            this._toastService.toastFunction(message, color);
+        }
+        else {
+            this._categoryService.notifyUser(catId).subscribe((res) => {
+                this._toastService.toastFunction(res.message, 'success');
+                this.getCategories();
+            }, err => {
+                this.getCategories();
+                this._toastService.toastFunction(err.error.message, 'danger');
+            });
+        }
+    }
+};
+CategoriesPage.ctorParameters = () => [
+    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"] },
+    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"] },
+    { type: _services_category_service__WEBPACK_IMPORTED_MODULE_4__["CategoryService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
+];
+CategoriesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-categories',
+        template: __webpack_require__(/*! raw-loader!./categories.page.html */ "./node_modules/raw-loader/index.js!./src/app/categories/categories.page.html"),
+        styles: [__webpack_require__(/*! ./categories.page.scss */ "./src/app/categories/categories.page.scss")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _services_category_service__WEBPACK_IMPORTED_MODULE_4__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+], CategoriesPage);
 
 
 
@@ -1243,10 +1356,10 @@ BookmarksComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "config", function() { return config; });
-const baseUrl = "https://admin.triviapost.in:5000/api/";
-const mediaUrl = "https://admin.triviapost.in/server/";
-// const baseUrl = "http://192.168.1.83:7010/api/"; 
-// const mediaUrl = "http://192.168.1.83/TriviaPost/Trivia-BackEnd/";
+// const baseUrl = "https://admin.triviapost.in:5000/api/"; 
+// const mediaUrl = "https://admin.triviapost.in/server/";
+const baseUrl = "http://192.168.1.83:7010/api/";
+const mediaUrl = "http://192.168.1.83/TriviaPost/Trivia-BackEnd/";
 const config = {
     baseApiUrl: baseUrl,
     mediaApiUrl: mediaUrl
@@ -1257,9 +1370,6 @@ const config = {
 // 3) zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk triviapost.apk
 //Google analytics error soln
 // ionic cordova plugin add cordova-android-play-services-gradle-release
-// post view
-// who viewed the post
-// post viewed
 
 
 /***/ }),
@@ -1291,6 +1401,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
 
 
 
@@ -1299,9 +1410,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let FeedbackComponent = class FeedbackComponent {
-    constructor(platform, toastController, _userService, router) {
+    constructor(platform, _toastService, _userService, router) {
         this.platform = platform;
-        this.toastController = toastController;
+        this._toastService = _toastService;
         this._userService = _userService;
         this.router = router;
         this.feedbackForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormGroup"]({
@@ -1328,32 +1439,17 @@ let FeedbackComponent = class FeedbackComponent {
         this.loading = true;
         this._userService.userFeedbackFrom(feedback).subscribe((res) => {
             this.loading = false;
-            this.toast = this.toastController.create({
-                message: res.message,
-                duration: 2000,
-                color: 'success'
-            }).then((toastData) => {
-                console.log(toastData);
-                toastData.present();
-            });
+            this._toastService.toastFunction(res.message, 'success');
             this.router.navigate(['settings']);
         }, err => {
             this.loading = false;
-            console.log('err===========>', err.error.message);
-            this.toast = this.toastController.create({
-                message: err.error.message,
-                duration: 2000,
-                color: 'danger'
-            }).then((toastData) => {
-                console.log(toastData);
-                toastData.present();
-            });
+            this._toastService.toastFunction(err.error.message, 'danger');
         });
     }
 };
 FeedbackComponent.ctorParameters = () => [
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"] },
+    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_6__["ToastService"] },
     { type: _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
 ];
@@ -1363,7 +1459,7 @@ FeedbackComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./feedback.component.html */ "./node_modules/raw-loader/index.js!./src/app/feedback/feedback.component.html"),
         styles: [__webpack_require__(/*! ./feedback.component.scss */ "./src/app/feedback/feedback.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"], _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _services_toast_service__WEBPACK_IMPORTED_MODULE_6__["ToastService"], _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
 ], FeedbackComponent);
 
 
@@ -1548,9 +1644,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/facebook/ngx */ "./node_modules/@ionic-native/facebook/ngx/index.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_9__);
 
 
 
@@ -1562,9 +1659,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let LoginComponent = class LoginComponent {
-    constructor(platform, toastController, googlePlus, _userService, router, fb) {
+    constructor(_toastService, platform, googlePlus, _userService, router, fb) {
+        this._toastService = _toastService;
         this.platform = platform;
-        this.toastController = toastController;
         this.googlePlus = googlePlus;
         this._userService = _userService;
         this.router = router;
@@ -1627,7 +1724,7 @@ let LoginComponent = class LoginComponent {
             console.log('res==of google==============>', res);
             this._userService.googleLogin(res.accessToken).subscribe((res) => {
                 this.loading = false;
-                this.router.navigate(['allcategory']);
+                this.router.navigate(['home/categories']);
             }, err => {
                 this.loading = false;
                 console.log('err==========>', err);
@@ -1649,7 +1746,7 @@ let LoginComponent = class LoginComponent {
                 console.log('accessToken=============,accessToken', accessToken);
                 this._userService.fbLogin(accessToken).subscribe((res) => {
                     this.loading = false;
-                    this.router.navigate(['allcategory']);
+                    this.router.navigate(['home/categories']);
                 }, err => {
                     this.loading = false;
                     console.log('err===========>', err);
@@ -1661,28 +1758,13 @@ let LoginComponent = class LoginComponent {
         this.loading = true;
         this._userService.signup(user).subscribe((res) => {
             this.loading = false;
-            this.toast = this.toastController.create({
-                message: res.message,
-                duration: 2000,
-                color: 'success'
-            }).then((toastData) => {
-                console.log(toastData);
-                toastData.present();
-            });
+            this._toastService.toastFunction(res.message, 'success');
             this.signupForm.reset();
             this.router.navigate(['settings']);
             this.router.navigate(['login']);
         }, err => {
             this.loading = false;
-            this.toast = this.toastController.create({
-                message: err.message,
-                duration: 2000,
-                color: 'danger'
-            }).then((toastData) => {
-                console.log(toastData);
-                toastData.present();
-            });
-            console.log(err);
+            this._toastService.toastFunction(err.error.message, 'danger');
         });
     }
     userLogin(login) {
@@ -1697,52 +1779,22 @@ let LoginComponent = class LoginComponent {
         console.log(login);
         this._userService.customLogin(login).subscribe((res) => {
             this.loading = false;
-            this.toast = this.toastController.create({
-                message: res.message,
-                duration: 2000,
-                color: 'success'
-            }).then((toastData) => {
-                console.log(toastData);
-                toastData.present();
-            });
-            this.router.navigate(['allcategory']);
+            this._toastService.toastFunction(res.message, 'success');
+            this.router.navigate(['home/categories']);
         }, err => {
             this.loading = false;
-            console.log('err===========>', err.error.message);
-            this.toast = this.toastController.create({
-                message: err.error.message,
-                duration: 2000,
-                color: 'danger'
-            }).then((toastData) => {
-                console.log(toastData);
-                toastData.present();
-            });
+            this._toastService.toastFunction(err.error.message, 'success');
         });
     }
     resetPassword(user) {
         this.loading = true;
         this._userService.passwordReset(user).subscribe((res) => {
             this.loading = false;
-            this.toast = this.toastController.create({
-                message: res.message,
-                duration: 2000,
-                color: 'success'
-            }).then((toastData) => {
-                console.log(toastData);
-                toastData.present();
-            });
+            this._toastService.toastFunction(res.message, 'success');
             this.router.navigate(['settings']);
         }, err => {
             this.loading = false;
-            console.log('err===========>', err.error.message);
-            this.toast = this.toastController.create({
-                message: err.error.message,
-                duration: 2000,
-                color: 'danger'
-            }).then((toastData) => {
-                console.log(toastData);
-                toastData.present();
-            });
+            this._toastService.toastFunction(err.error.message, 'success');
         });
     }
     signUpClose() {
@@ -1750,8 +1802,8 @@ let LoginComponent = class LoginComponent {
     }
 };
 LoginComponent.ctorParameters = () => [
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["ToastController"] },
+    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"] },
     { type: _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_2__["GooglePlus"] },
     { type: _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
@@ -1763,7 +1815,7 @@ LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./login.component.html */ "./node_modules/raw-loader/index.js!./src/app/login/login.component.html"),
         styles: [__webpack_require__(/*! ./login.component.scss */ "./src/app/login/login.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["ToastController"], _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_2__["GooglePlus"], _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_5__["Facebook"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_2__["GooglePlus"], _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_5__["Facebook"]])
 ], LoginComponent);
 
 
@@ -2163,6 +2215,7 @@ let NewsService = class NewsService {
         }
     }
     allCatNews(id) {
+        console.log("Inside", id);
         if (this.network.type == 'none') {
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](observer => {
                 console.log(JSON.parse(localStorage.getItem("newsArray")));
@@ -2184,6 +2237,7 @@ let NewsService = class NewsService {
         }
         else {
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](observer => {
+                console.log("in ");
                 this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&categoryId=' + id).subscribe((result) => {
                     this.newsArray = result['data'];
                     console.log("in cat service", this.newsArray);
@@ -2248,7 +2302,7 @@ let NewsService = class NewsService {
     }
     //get single news
     getSingleNews(id) {
-        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'single-news?postId=' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((res) => {
+        return this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&postId=' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((res) => {
             this.singleNews = res['data'];
             console.log("ser", this.singleNews);
             return this.singleNews;
@@ -2257,6 +2311,9 @@ let NewsService = class NewsService {
     newsCount(data) {
         console.log("post data", data);
         return this.http.put(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'post-views', data);
+    }
+    likepost(id) {
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'post-like', { postId: id });
     }
 };
 NewsService.ctorParameters = () => [
@@ -2269,6 +2326,51 @@ NewsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]])
 ], NewsService);
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/toast.service.ts":
+/*!*******************************************!*\
+  !*** ./src/app/services/toast.service.ts ***!
+  \*******************************************/
+/*! exports provided: ToastService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToastService", function() { return ToastService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
+let ToastService = class ToastService {
+    constructor(toastController) {
+        this.toastController = toastController;
+    }
+    toastFunction(message, color) {
+        this.toast = this.toastController.create({
+            message: message,
+            duration: 2000,
+            color: color
+        }).then((toastData) => {
+            toastData.present();
+        });
+        return "Toast Shown";
+    }
+};
+ToastService.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
+];
+ToastService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
+], ToastService);
 
 
 
@@ -2442,7 +2544,7 @@ UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".settings {\n  border-bottom: 1px solid lightgrey;\n  cursor: pointer;\n}\n\n.loginDiv {\n  height: 170px;\n  background: url('brownbg.png');\n}\n\n.item-radio.item ion-label {\n  color: #DD6873;\n}\n\n.settingsToolbar ion-icon {\n  float: left;\n  zoom: 1;\n  margin-left: 9px;\n  font-size: 20px;\n}\n\n.settingsToolbar #settingTitle {\n  margin-left: 10px;\n  font-size: 18px;\n}\n\n#signInButton {\n  color: #fff;\n  border-radius: 50px;\n  background-color: #CE2837;\n  padding: 10.5px 36.5px;\n  font-size: 17px;\n}\n\n#googleplus {\n  color: #fff;\n  font-weight: 800;\n  font-size: 15px;\n  border-radius: 50%;\n  background-color: #d9534e;\n  padding: 10px 9.5px;\n  float: right;\n}\n\n#googleplus img {\n  margin-top: 3px;\n}\n\n#facebookLogin {\n  color: #fff;\n  border-radius: 50%;\n  margin-right: 4px;\n  background-color: #3779b7;\n  padding: 9px 15px;\n  font-weight: 950;\n  font-size: 20px;\n  float: right;\n}\n\n.optionsList {\n  font-size: 18px;\n  color: gray;\n}\n\n.switch input {\n  position: absolute;\n  opacity: 0;\n}\n\n/**\n* 1. Adjust this to size\n*/\n\n.switch {\n  display: inline-block;\n  font-size: 20px;\n  /* 1 */\n  height: 1em;\n  width: 2em;\n  /*background: #CE2837;*/\n  background-color: #c5bdbd;\n  border-radius: 1em;\n  float: right;\n}\n\n.switch div {\n  height: 1em;\n  width: 1em;\n  border-radius: 1em;\n  background: white;\n  box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.3);\n  -webkit-transition: all 300ms;\n  transition: all 300ms;\n}\n\n.switch input:checked + div {\n  -webkit-transform: translate3d(100%, 0, 0);\n  transform: translate3d(100%, 0, 0);\n  background: #CE2837;\n}\n\n#profile {\n  border-radius: 50%;\n  padding: 5px 12px;\n  float: right;\n  background-color: red;\n  color: #fff;\n  margin-right: 5px;\n}\n\n.settingIcon img {\n  width: 17px;\n  height: 19px;\n  margin-top: 6px;\n  margin-left: 13px;\n}\n\n.settingIconCol {\n  margin: auto;\n}\n\n.savePref {\n  font-size: 31px;\n  margin: 10px 0px;\n}\n\n.signInBook {\n  font-size: 19px;\n  margin: 10px 0px;\n}\n\n.signInCol {\n  padding-left: 0;\n}\n\n.langColTwo {\n  margin: auto;\n  font-size: 29px;\n  text-align: center;\n}\n\n.langColTwo span {\n  margin-left: 5px;\n  margin-top: 5px;\n  font-size: 17px;\n}\n\n.languageDiv {\n  float: left;\n}\n\n.langColor {\n  color: #DD6D77;\n}\n\n.langColor ion-select {\n  max-width: 50%;\n  float: right;\n}\n\n#personIcon ion-icon {\n  zoom: 1.1;\n}\n\n#personIcon {\n  border-radius: 50%;\n  padding: 5px 7px;\n  float: right;\n  background-color: red;\n  color: #fff;\n  margin-right: 5px;\n  margin-left: 0px;\n}\n\n#personIcon ion-icon {\n  margin-left: 0px;\n}\n\n.action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-md button.action-sheet-button.ion-activatable.action-sheet-cancel.sc-ion-action-sheet-md.activated {\n  display: none !important;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvQmhhdmlrL1Byb2plY3RzL3RyaXZpYXBvc3Qvc3JjL2FwcC9zZXR0aW5ncy9zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvc2V0dGluZ3Mvc2V0dGluZ3MuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDQSxrQ0FBQTtFQUNBLGVBQUE7QUNDQTs7QURFQTtFQUNBLGFBQUE7RUFDQSw4QkFBQTtBQ0NBOztBREVBO0VBQ0EsY0FBQTtBQ0NBOztBREVBO0VBQ0ksV0FBQTtFQUNBLE9BQUE7RUFDQSxnQkFBQTtFQUNBLGVBQUE7QUNDSjs7QURFQTtFQUNBLGlCQUFBO0VBQ0EsZUFBQTtBQ0NBOztBREVBO0VBQ0EsV0FBQTtFQUNBLG1CQUFBO0VBQ0EseUJBQUE7RUFDQSxzQkFBQTtFQUNBLGVBQUE7QUNDQTs7QURFQTtFQUNBLFdBQUE7RUFDQSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxrQkFBQTtFQUNBLHlCQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0FDQ0E7O0FEQ0E7RUFDQSxlQUFBO0FDRUE7O0FEQUE7RUFDQSxXQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLHlCQUFBO0VBQ0EsaUJBQUE7RUFDQSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxZQUFBO0FDR0E7O0FEQUE7RUFDQSxlQUFBO0VBQ0EsV0FBQTtBQ0dBOztBREFBO0VBQ0Esa0JBQUE7RUFDQSxVQUFBO0FDR0E7O0FEQUE7O0NBQUE7O0FBSUE7RUFDQSxxQkFBQTtFQUNBLGVBQUE7RUFBaUIsTUFBQTtFQUNqQixXQUFBO0VBQ0EsVUFBQTtFQUNBLHVCQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQTtFQUNBLFlBQUE7QUNHQTs7QURBQTtFQUNBLFdBQUE7RUFDQSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLDRDQUFBO0VBQ0EsNkJBQUE7RUFFQSxxQkFBQTtBQ0dBOztBREFBO0VBQ0EsMENBQUE7RUFFQSxrQ0FBQTtFQUNBLG1CQUFBO0FDR0E7O0FEQUE7RUFDQSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0EsWUFBQTtFQUNBLHFCQUFBO0VBQ0EsV0FBQTtFQUNBLGlCQUFBO0FDR0E7O0FEREE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGVBQUE7RUFDQSxpQkFBQTtBQ0lBOztBRERBO0VBQ0EsWUFBQTtBQ0lBOztBRERBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0FDSUE7O0FEREE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7QUNJQTs7QURGQTtFQUNBLGVBQUE7QUNLQTs7QURIQTtFQUNBLFlBQUE7RUFDQSxlQUFBO0VBQ0Esa0JBQUE7QUNNQTs7QURIQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLGVBQUE7QUNNQTs7QURKQTtFQUNBLFdBQUE7QUNPQTs7QURKQTtFQUNBLGNBQUE7QUNPQTs7QURKQTtFQUNBLGNBQUE7RUFDQSxZQUFBO0FDT0E7O0FESkE7RUFDQSxTQUFBO0FDT0E7O0FESkE7RUFDQSxrQkFBQTtFQUNBLGdCQUFBO0VBQ0EsWUFBQTtFQUNBLHFCQUFBO0VBQ0EsV0FBQTtFQUNBLGlCQUFBO0VBQ0EsZ0JBQUE7QUNPQTs7QURKQTtFQUNBLGdCQUFBO0FDT0E7O0FESkE7RUFDQyx3QkFBQTtBQ09EIiwiZmlsZSI6InNyYy9hcHAvc2V0dGluZ3Mvc2V0dGluZ3MuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc2V0dGluZ3N7XG5ib3JkZXItYm90dG9tOiAxcHggc29saWQgbGlnaHRncmV5O1xuY3Vyc29yOnBvaW50ZXI7XG59XG5cbi5sb2dpbkRpdntcbmhlaWdodDoxNzBweDtcbmJhY2tncm91bmQ6IHVybCgnYXNzZXRzL2ltYWdlcy9icm93bmJnLnBuZycpO1xufVxuXG4uaXRlbS1yYWRpby5pdGVtIGlvbi1sYWJlbCB7XG5jb2xvcjogI0RENjg3MzsgLy95b3VyIGNvbG9yIGhlcmVcbn1cblxuLnNldHRpbmdzVG9vbGJhciBpb24taWNvbntcbiAgICBmbG9hdDogbGVmdDtcbiAgICB6b29tOiAxO1xuICAgIG1hcmdpbi1sZWZ0OiA5cHg7XG4gICAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4uc2V0dGluZ3NUb29sYmFyICNzZXR0aW5nVGl0bGV7XG5tYXJnaW4tbGVmdDogMTBweDtcbmZvbnQtc2l6ZTogMThweDtcbn1cblxuI3NpZ25JbkJ1dHRvbntcbmNvbG9yOiNmZmY7XG5ib3JkZXItcmFkaXVzOiA1MHB4O1xuYmFja2dyb3VuZC1jb2xvcjogI0NFMjgzNztcbnBhZGRpbmc6IDEwLjVweCAzNi41cHg7XG5mb250LXNpemU6IDE3cHg7XG59XG5cbiNnb29nbGVwbHVze1xuY29sb3I6ICNmZmY7XG5mb250LXdlaWdodDogODAwO1xuZm9udC1zaXplOiAxNXB4O1xuYm9yZGVyLXJhZGl1czogNTAlO1xuYmFja2dyb3VuZC1jb2xvcjogI2Q5NTM0ZTtcbnBhZGRpbmc6IDEwcHggOS41cHg7XG5mbG9hdDogcmlnaHRcbn1cbiNnb29nbGVwbHVzIGltZ3tcbm1hcmdpbi10b3A6IDNweDtcbn1cbiNmYWNlYm9va0xvZ2lue1xuY29sb3I6I2ZmZjtcbmJvcmRlci1yYWRpdXM6IDUwJTtcbm1hcmdpbi1yaWdodDo0cHg7XG5iYWNrZ3JvdW5kLWNvbG9yOiAjMzc3OWI3O1xucGFkZGluZzogOXB4IDE1cHg7XG5mb250LXdlaWdodDogOTUwO1xuZm9udC1zaXplOiAyMHB4O1xuZmxvYXQ6IHJpZ2h0O1xufVxuXG4ub3B0aW9uc0xpc3R7XG5mb250LXNpemU6IDE4cHg7XG5jb2xvcjogZ3JheTtcbn1cblxuLnN3aXRjaCBpbnB1dCB7XG5wb3NpdGlvbjogYWJzb2x1dGU7XG5vcGFjaXR5OiAwO1xufVxuXG4vKipcbiogMS4gQWRqdXN0IHRoaXMgdG8gc2l6ZVxuKi9cblxuLnN3aXRjaCB7XG5kaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG5mb250LXNpemU6IDIwcHg7IC8qIDEgKi9cbmhlaWdodDogMWVtO1xud2lkdGg6IDJlbTtcbi8qYmFja2dyb3VuZDogI0NFMjgzNzsqL1xuYmFja2dyb3VuZC1jb2xvcjogI2M1YmRiZDtcbmJvcmRlci1yYWRpdXM6IDFlbTtcbmZsb2F0OnJpZ2h0O1xufVxuXG4uc3dpdGNoIGRpdiB7XG5oZWlnaHQ6IDFlbTtcbndpZHRoOiAxZW07XG5ib3JkZXItcmFkaXVzOiAxZW07XG5iYWNrZ3JvdW5kOiB3aGl0ZTtcbmJveC1zaGFkb3c6IDAgMC4xZW0gMC4zZW0gcmdiYSgwLDAsMCwwLjMpO1xuLXdlYmtpdC10cmFuc2l0aW9uOiBhbGwgMzAwbXM7XG4tbW96LXRyYW5zaXRpb246IGFsbCAzMDBtcztcbnRyYW5zaXRpb246IGFsbCAzMDBtcztcbn1cblxuLnN3aXRjaCBpbnB1dDpjaGVja2VkICsgZGl2IHtcbi13ZWJraXQtdHJhbnNmb3JtOiB0cmFuc2xhdGUzZCgxMDAlLCAwLCAwKTtcbi1tb3otdHJhbnNmb3JtOiB0cmFuc2xhdGUzZCgxMDAlLCAwLCAwKTtcbnRyYW5zZm9ybTogdHJhbnNsYXRlM2QoMTAwJSwgMCwgMCk7XG5iYWNrZ3JvdW5kOiAjQ0UyODM3O1xufVxuXG4jcHJvZmlsZXtcbmJvcmRlci1yYWRpdXM6IDUwJTtcbnBhZGRpbmc6IDVweCAxMnB4O1xuZmxvYXQ6IHJpZ2h0O1xuYmFja2dyb3VuZC1jb2xvcjogcmVkO1xuY29sb3I6ICNmZmY7XG5tYXJnaW4tcmlnaHQ6IDVweDtcbn1cbi5zZXR0aW5nSWNvbiBpbWd7XG53aWR0aDogMTdweDtcbmhlaWdodDogMTlweDtcbm1hcmdpbi10b3A6IDZweDtcbm1hcmdpbi1sZWZ0OiAxM3B4O1xufVxuXG4uc2V0dGluZ0ljb25Db2x7XG5tYXJnaW46YXV0bztcbn1cblxuLnNhdmVQcmVme1xuZm9udC1zaXplOiAzMXB4O1xubWFyZ2luOiAxMHB4IDBweDtcbn1cblxuLnNpZ25JbkJvb2t7XG5mb250LXNpemU6IDE5cHg7XG5tYXJnaW46IDEwcHggMHB4O1xufVxuLnNpZ25JbkNvbHtcbnBhZGRpbmctbGVmdDowXG59XG4ubGFuZ0NvbFR3b3tcbm1hcmdpbjogYXV0bztcbmZvbnQtc2l6ZTogMjlweDtcbnRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmxhbmdDb2xUd28gc3Bhbntcbm1hcmdpbi1sZWZ0OiA1cHg7XG5tYXJnaW4tdG9wOiA1cHg7XG5mb250LXNpemU6MTdweFxufVxuLmxhbmd1YWdlRGl2e1xuZmxvYXQ6IGxlZnQ7XHRcbn1cblxuLmxhbmdDb2xvcntcbmNvbG9yOiAjREQ2RDc3XG59XG5cbi5sYW5nQ29sb3IgaW9uLXNlbGVjdHtcbm1heC13aWR0aDogNTAlO1xuZmxvYXQ6IHJpZ2h0O1xufVxuXG4jcGVyc29uSWNvbiBpb24taWNvbntcbnpvb206IDEuMTtcbn1cblxuI3BlcnNvbkljb257XG5ib3JkZXItcmFkaXVzOiA1MCU7XG5wYWRkaW5nOiA1cHggN3B4O1xuZmxvYXQ6IHJpZ2h0O1xuYmFja2dyb3VuZC1jb2xvcjogcmVkO1xuY29sb3I6ICNmZmY7XG5tYXJnaW4tcmlnaHQ6IDVweDtcbm1hcmdpbi1sZWZ0OjBweDtcbn1cblxuI3BlcnNvbkljb24gaW9uLWljb257XG5tYXJnaW4tbGVmdDowcHg7XG59XG5cbi5hY3Rpb24tc2hlZXQtZ3JvdXAuYWN0aW9uLXNoZWV0LWdyb3VwLWNhbmNlbC5zYy1pb24tYWN0aW9uLXNoZWV0LW1kIGJ1dHRvbi5hY3Rpb24tc2hlZXQtYnV0dG9uLmlvbi1hY3RpdmF0YWJsZS5hY3Rpb24tc2hlZXQtY2FuY2VsLnNjLWlvbi1hY3Rpb24tc2hlZXQtbWQuYWN0aXZhdGVke1xuXHRkaXNwbGF5Om5vbmUhaW1wb3J0YW50O1xufSIsIi5zZXR0aW5ncyB7XG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCBsaWdodGdyZXk7XG4gIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmxvZ2luRGl2IHtcbiAgaGVpZ2h0OiAxNzBweDtcbiAgYmFja2dyb3VuZDogdXJsKFwiYXNzZXRzL2ltYWdlcy9icm93bmJnLnBuZ1wiKTtcbn1cblxuLml0ZW0tcmFkaW8uaXRlbSBpb24tbGFiZWwge1xuICBjb2xvcjogI0RENjg3Mztcbn1cblxuLnNldHRpbmdzVG9vbGJhciBpb24taWNvbiB7XG4gIGZsb2F0OiBsZWZ0O1xuICB6b29tOiAxO1xuICBtYXJnaW4tbGVmdDogOXB4O1xuICBmb250LXNpemU6IDIwcHg7XG59XG5cbi5zZXR0aW5nc1Rvb2xiYXIgI3NldHRpbmdUaXRsZSB7XG4gIG1hcmdpbi1sZWZ0OiAxMHB4O1xuICBmb250LXNpemU6IDE4cHg7XG59XG5cbiNzaWduSW5CdXR0b24ge1xuICBjb2xvcjogI2ZmZjtcbiAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogI0NFMjgzNztcbiAgcGFkZGluZzogMTAuNXB4IDM2LjVweDtcbiAgZm9udC1zaXplOiAxN3B4O1xufVxuXG4jZ29vZ2xlcGx1cyB7XG4gIGNvbG9yOiAjZmZmO1xuICBmb250LXdlaWdodDogODAwO1xuICBmb250LXNpemU6IDE1cHg7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Q5NTM0ZTtcbiAgcGFkZGluZzogMTBweCA5LjVweDtcbiAgZmxvYXQ6IHJpZ2h0O1xufVxuXG4jZ29vZ2xlcGx1cyBpbWcge1xuICBtYXJnaW4tdG9wOiAzcHg7XG59XG5cbiNmYWNlYm9va0xvZ2luIHtcbiAgY29sb3I6ICNmZmY7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgbWFyZ2luLXJpZ2h0OiA0cHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICMzNzc5Yjc7XG4gIHBhZGRpbmc6IDlweCAxNXB4O1xuICBmb250LXdlaWdodDogOTUwO1xuICBmb250LXNpemU6IDIwcHg7XG4gIGZsb2F0OiByaWdodDtcbn1cblxuLm9wdGlvbnNMaXN0IHtcbiAgZm9udC1zaXplOiAxOHB4O1xuICBjb2xvcjogZ3JheTtcbn1cblxuLnN3aXRjaCBpbnB1dCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgb3BhY2l0eTogMDtcbn1cblxuLyoqXG4qIDEuIEFkanVzdCB0aGlzIHRvIHNpemVcbiovXG4uc3dpdGNoIHtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICBmb250LXNpemU6IDIwcHg7XG4gIC8qIDEgKi9cbiAgaGVpZ2h0OiAxZW07XG4gIHdpZHRoOiAyZW07XG4gIC8qYmFja2dyb3VuZDogI0NFMjgzNzsqL1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjYzViZGJkO1xuICBib3JkZXItcmFkaXVzOiAxZW07XG4gIGZsb2F0OiByaWdodDtcbn1cblxuLnN3aXRjaCBkaXYge1xuICBoZWlnaHQ6IDFlbTtcbiAgd2lkdGg6IDFlbTtcbiAgYm9yZGVyLXJhZGl1czogMWVtO1xuICBiYWNrZ3JvdW5kOiB3aGl0ZTtcbiAgYm94LXNoYWRvdzogMCAwLjFlbSAwLjNlbSByZ2JhKDAsIDAsIDAsIDAuMyk7XG4gIC13ZWJraXQtdHJhbnNpdGlvbjogYWxsIDMwMG1zO1xuICAtbW96LXRyYW5zaXRpb246IGFsbCAzMDBtcztcbiAgdHJhbnNpdGlvbjogYWxsIDMwMG1zO1xufVxuXG4uc3dpdGNoIGlucHV0OmNoZWNrZWQgKyBkaXYge1xuICAtd2Via2l0LXRyYW5zZm9ybTogdHJhbnNsYXRlM2QoMTAwJSwgMCwgMCk7XG4gIC1tb3otdHJhbnNmb3JtOiB0cmFuc2xhdGUzZCgxMDAlLCAwLCAwKTtcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUzZCgxMDAlLCAwLCAwKTtcbiAgYmFja2dyb3VuZDogI0NFMjgzNztcbn1cblxuI3Byb2ZpbGUge1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIHBhZGRpbmc6IDVweCAxMnB4O1xuICBmbG9hdDogcmlnaHQ7XG4gIGJhY2tncm91bmQtY29sb3I6IHJlZDtcbiAgY29sb3I6ICNmZmY7XG4gIG1hcmdpbi1yaWdodDogNXB4O1xufVxuXG4uc2V0dGluZ0ljb24gaW1nIHtcbiAgd2lkdGg6IDE3cHg7XG4gIGhlaWdodDogMTlweDtcbiAgbWFyZ2luLXRvcDogNnB4O1xuICBtYXJnaW4tbGVmdDogMTNweDtcbn1cblxuLnNldHRpbmdJY29uQ29sIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4uc2F2ZVByZWYge1xuICBmb250LXNpemU6IDMxcHg7XG4gIG1hcmdpbjogMTBweCAwcHg7XG59XG5cbi5zaWduSW5Cb29rIHtcbiAgZm9udC1zaXplOiAxOXB4O1xuICBtYXJnaW46IDEwcHggMHB4O1xufVxuXG4uc2lnbkluQ29sIHtcbiAgcGFkZGluZy1sZWZ0OiAwO1xufVxuXG4ubGFuZ0NvbFR3byB7XG4gIG1hcmdpbjogYXV0bztcbiAgZm9udC1zaXplOiAyOXB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5sYW5nQ29sVHdvIHNwYW4ge1xuICBtYXJnaW4tbGVmdDogNXB4O1xuICBtYXJnaW4tdG9wOiA1cHg7XG4gIGZvbnQtc2l6ZTogMTdweDtcbn1cblxuLmxhbmd1YWdlRGl2IHtcbiAgZmxvYXQ6IGxlZnQ7XG59XG5cbi5sYW5nQ29sb3Ige1xuICBjb2xvcjogI0RENkQ3Nztcbn1cblxuLmxhbmdDb2xvciBpb24tc2VsZWN0IHtcbiAgbWF4LXdpZHRoOiA1MCU7XG4gIGZsb2F0OiByaWdodDtcbn1cblxuI3BlcnNvbkljb24gaW9uLWljb24ge1xuICB6b29tOiAxLjE7XG59XG5cbiNwZXJzb25JY29uIHtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBwYWRkaW5nOiA1cHggN3B4O1xuICBmbG9hdDogcmlnaHQ7XG4gIGJhY2tncm91bmQtY29sb3I6IHJlZDtcbiAgY29sb3I6ICNmZmY7XG4gIG1hcmdpbi1yaWdodDogNXB4O1xuICBtYXJnaW4tbGVmdDogMHB4O1xufVxuXG4jcGVyc29uSWNvbiBpb24taWNvbiB7XG4gIG1hcmdpbi1sZWZ0OiAwcHg7XG59XG5cbi5hY3Rpb24tc2hlZXQtZ3JvdXAuYWN0aW9uLXNoZWV0LWdyb3VwLWNhbmNlbC5zYy1pb24tYWN0aW9uLXNoZWV0LW1kIGJ1dHRvbi5hY3Rpb24tc2hlZXQtYnV0dG9uLmlvbi1hY3RpdmF0YWJsZS5hY3Rpb24tc2hlZXQtY2FuY2VsLnNjLWlvbi1hY3Rpb24tc2hlZXQtbWQuYWN0aXZhdGVkIHtcbiAgZGlzcGxheTogbm9uZSAhaW1wb3J0YW50O1xufSJdfQ== */"
+module.exports = ".settings {\n  border-bottom: 1px solid lightgrey;\n  cursor: pointer;\n}\n\n.loginDiv {\n  height: 170px;\n  background: url('brownbg.png');\n}\n\n.item-radio.item ion-label {\n  color: #dd6873;\n}\n\n.settingsToolbar ion-icon {\n  float: left;\n  zoom: 1;\n  margin-left: 9px;\n  font-size: 20px;\n}\n\n.settingsToolbar #settingTitle {\n  margin-left: 10px;\n  font-size: 18px;\n}\n\n#signInButton {\n  color: #fff;\n  border-radius: 50px;\n  background-color: #ce2837;\n  padding: 10.5px 36.5px;\n  font-size: 17px;\n}\n\n#googleplus {\n  color: #fff;\n  font-weight: 800;\n  font-size: 15px;\n  border-radius: 50%;\n  background-color: #d9534e;\n  padding: 10px 9.5px;\n  float: right;\n}\n\n#googleplus img {\n  margin-top: 3px;\n}\n\n#facebookLogin {\n  color: #fff;\n  border-radius: 50%;\n  margin-right: 4px;\n  background-color: #3779b7;\n  padding: 9px 15px;\n  font-weight: 950;\n  font-size: 20px;\n  float: right;\n}\n\n.optionsList {\n  font-size: 18px;\n  color: gray;\n}\n\n.switch input {\n  position: absolute;\n  opacity: 0;\n}\n\n/**\n* 1. Adjust this to size\n*/\n\n.switch {\n  display: inline-block;\n  font-size: 20px;\n  /* 1 */\n  height: 1em;\n  width: 2em;\n  /*background: #CE2837;*/\n  background-color: #c5bdbd;\n  border-radius: 1em;\n  float: right;\n}\n\n.switch div {\n  height: 1em;\n  width: 1em;\n  border-radius: 1em;\n  background: white;\n  box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.3);\n  -webkit-transition: all 300ms;\n  transition: all 300ms;\n}\n\n.switch input:checked + div {\n  -webkit-transform: translate3d(100%, 0, 0);\n  transform: translate3d(100%, 0, 0);\n  background: #ce2837;\n}\n\n#profile {\n  border-radius: 50%;\n  padding: 5px 12px;\n  float: right;\n  background-color: red;\n  color: #fff;\n  margin-right: 5px;\n}\n\n.settingIcon img {\n  width: 17px;\n  height: 19px;\n  margin-top: 6px;\n  margin-left: 13px;\n}\n\n.settingIconCol {\n  margin: auto;\n}\n\n.savePref {\n  font-size: 31px;\n  margin: 10px 0px;\n}\n\n.signInBook {\n  font-size: 19px;\n  margin: 10px 0px;\n}\n\n.signInCol {\n  padding-left: 0;\n}\n\n.langColTwo {\n  margin: auto;\n  font-size: 29px;\n  text-align: center;\n}\n\n.langColTwo span {\n  margin-left: 5px;\n  margin-top: 5px;\n  font-size: 17px;\n}\n\n.languageDiv {\n  float: left;\n}\n\n.langColor {\n  color: #dd6d77;\n}\n\n.langColor ion-select {\n  max-width: 50%;\n  float: right;\n}\n\n#personIcon ion-icon {\n  zoom: 1.1;\n}\n\n#personIcon {\n  border-radius: 50%;\n  padding: 5px 7px;\n  float: right;\n  background-color: red;\n  color: #fff;\n  margin-right: 5px;\n  margin-left: 0px;\n}\n\n#personIcon ion-icon {\n  margin-left: 0px;\n}\n\n.action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-md button.action-sheet-button.ion-activatable.action-sheet-cancel.sc-ion-action-sheet-md.activated {\n  display: none !important;\n}\n\n#ratingRow {\n  margin: 20px;\n}\n\n#ratingHead {\n  width: 100%;\n  font-size: 20px;\n  text-align: center;\n}\n\n#rating {\n  margin: auto;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvQmhhdmlrL1Byb2plY3RzL3RyaXZpYXBvc3Qvc3JjL2FwcC9zZXR0aW5ncy9zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvc2V0dGluZ3Mvc2V0dGluZ3MuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxrQ0FBQTtFQUNBLGVBQUE7QUNDRjs7QURFQTtFQUNFLGFBQUE7RUFDQSw4QkFBQTtBQ0NGOztBREVBO0VBQ0UsY0FBQTtBQ0NGOztBREVBO0VBQ0UsV0FBQTtFQUNBLE9BQUE7RUFDQSxnQkFBQTtFQUNBLGVBQUE7QUNDRjs7QURFQTtFQUNFLGlCQUFBO0VBQ0EsZUFBQTtBQ0NGOztBREVBO0VBQ0UsV0FBQTtFQUNBLG1CQUFBO0VBQ0EseUJBQUE7RUFDQSxzQkFBQTtFQUNBLGVBQUE7QUNDRjs7QURFQTtFQUNFLFdBQUE7RUFDQSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxrQkFBQTtFQUNBLHlCQUFBO0VBQ0EsbUJBQUE7RUFDQSxZQUFBO0FDQ0Y7O0FEQ0E7RUFDRSxlQUFBO0FDRUY7O0FEQUE7RUFDRSxXQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLHlCQUFBO0VBQ0EsaUJBQUE7RUFDQSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxZQUFBO0FDR0Y7O0FEQUE7RUFDRSxlQUFBO0VBQ0EsV0FBQTtBQ0dGOztBREFBO0VBQ0Usa0JBQUE7RUFDQSxVQUFBO0FDR0Y7O0FEQUE7O0NBQUE7O0FBSUE7RUFDRSxxQkFBQTtFQUNBLGVBQUE7RUFBaUIsTUFBQTtFQUNqQixXQUFBO0VBQ0EsVUFBQTtFQUNBLHVCQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQTtFQUNBLFlBQUE7QUNHRjs7QURBQTtFQUNFLFdBQUE7RUFDQSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLDRDQUFBO0VBQ0EsNkJBQUE7RUFFQSxxQkFBQTtBQ0dGOztBREFBO0VBQ0UsMENBQUE7RUFFQSxrQ0FBQTtFQUNBLG1CQUFBO0FDR0Y7O0FEQUE7RUFDRSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0EsWUFBQTtFQUNBLHFCQUFBO0VBQ0EsV0FBQTtFQUNBLGlCQUFBO0FDR0Y7O0FEREE7RUFDRSxXQUFBO0VBQ0EsWUFBQTtFQUNBLGVBQUE7RUFDQSxpQkFBQTtBQ0lGOztBRERBO0VBQ0UsWUFBQTtBQ0lGOztBRERBO0VBQ0UsZUFBQTtFQUNBLGdCQUFBO0FDSUY7O0FEREE7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7QUNJRjs7QURGQTtFQUNFLGVBQUE7QUNLRjs7QURIQTtFQUNFLFlBQUE7RUFDQSxlQUFBO0VBQ0Esa0JBQUE7QUNNRjs7QURIQTtFQUNFLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLGVBQUE7QUNNRjs7QURKQTtFQUNFLFdBQUE7QUNPRjs7QURKQTtFQUNFLGNBQUE7QUNPRjs7QURKQTtFQUNFLGNBQUE7RUFDQSxZQUFBO0FDT0Y7O0FESkE7RUFDRSxTQUFBO0FDT0Y7O0FESkE7RUFDRSxrQkFBQTtFQUNBLGdCQUFBO0VBQ0EsWUFBQTtFQUNBLHFCQUFBO0VBQ0EsV0FBQTtFQUNBLGlCQUFBO0VBQ0EsZ0JBQUE7QUNPRjs7QURKQTtFQUNFLGdCQUFBO0FDT0Y7O0FESkE7RUFFRSx3QkFBQTtBQ01GOztBREpBO0VBQ0UsWUFBQTtBQ09GOztBRExBO0VBQ0UsV0FBQTtFQUNBLGVBQUE7RUFDQSxrQkFBQTtBQ1FGOztBRE5BO0VBQ0UsWUFBQTtBQ1NGIiwiZmlsZSI6InNyYy9hcHAvc2V0dGluZ3Mvc2V0dGluZ3MuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc2V0dGluZ3Mge1xuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgbGlnaHRncmV5O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbi5sb2dpbkRpdiB7XG4gIGhlaWdodDogMTcwcHg7XG4gIGJhY2tncm91bmQ6IHVybChcImFzc2V0cy9pbWFnZXMvYnJvd25iZy5wbmdcIik7XG59XG5cbi5pdGVtLXJhZGlvLml0ZW0gaW9uLWxhYmVsIHtcbiAgY29sb3I6ICNkZDY4NzM7IC8veW91ciBjb2xvciBoZXJlXG59XG5cbi5zZXR0aW5nc1Rvb2xiYXIgaW9uLWljb24ge1xuICBmbG9hdDogbGVmdDtcbiAgem9vbTogMTtcbiAgbWFyZ2luLWxlZnQ6IDlweDtcbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4uc2V0dGluZ3NUb29sYmFyICNzZXR0aW5nVGl0bGUge1xuICBtYXJnaW4tbGVmdDogMTBweDtcbiAgZm9udC1zaXplOiAxOHB4O1xufVxuXG4jc2lnbkluQnV0dG9uIHtcbiAgY29sb3I6ICNmZmY7XG4gIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICNjZTI4Mzc7XG4gIHBhZGRpbmc6IDEwLjVweCAzNi41cHg7XG4gIGZvbnQtc2l6ZTogMTdweDtcbn1cblxuI2dvb2dsZXBsdXMge1xuICBjb2xvcjogI2ZmZjtcbiAgZm9udC13ZWlnaHQ6IDgwMDtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIGJhY2tncm91bmQtY29sb3I6ICNkOTUzNGU7XG4gIHBhZGRpbmc6IDEwcHggOS41cHg7XG4gIGZsb2F0OiByaWdodDtcbn1cbiNnb29nbGVwbHVzIGltZyB7XG4gIG1hcmdpbi10b3A6IDNweDtcbn1cbiNmYWNlYm9va0xvZ2luIHtcbiAgY29sb3I6ICNmZmY7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgbWFyZ2luLXJpZ2h0OiA0cHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICMzNzc5Yjc7XG4gIHBhZGRpbmc6IDlweCAxNXB4O1xuICBmb250LXdlaWdodDogOTUwO1xuICBmb250LXNpemU6IDIwcHg7XG4gIGZsb2F0OiByaWdodDtcbn1cblxuLm9wdGlvbnNMaXN0IHtcbiAgZm9udC1zaXplOiAxOHB4O1xuICBjb2xvcjogZ3JheTtcbn1cblxuLnN3aXRjaCBpbnB1dCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgb3BhY2l0eTogMDtcbn1cblxuLyoqXG4qIDEuIEFkanVzdCB0aGlzIHRvIHNpemVcbiovXG5cbi5zd2l0Y2gge1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIGZvbnQtc2l6ZTogMjBweDsgLyogMSAqL1xuICBoZWlnaHQ6IDFlbTtcbiAgd2lkdGg6IDJlbTtcbiAgLypiYWNrZ3JvdW5kOiAjQ0UyODM3OyovXG4gIGJhY2tncm91bmQtY29sb3I6ICNjNWJkYmQ7XG4gIGJvcmRlci1yYWRpdXM6IDFlbTtcbiAgZmxvYXQ6IHJpZ2h0O1xufVxuXG4uc3dpdGNoIGRpdiB7XG4gIGhlaWdodDogMWVtO1xuICB3aWR0aDogMWVtO1xuICBib3JkZXItcmFkaXVzOiAxZW07XG4gIGJhY2tncm91bmQ6IHdoaXRlO1xuICBib3gtc2hhZG93OiAwIDAuMWVtIDAuM2VtIHJnYmEoMCwgMCwgMCwgMC4zKTtcbiAgLXdlYmtpdC10cmFuc2l0aW9uOiBhbGwgMzAwbXM7XG4gIC1tb3otdHJhbnNpdGlvbjogYWxsIDMwMG1zO1xuICB0cmFuc2l0aW9uOiBhbGwgMzAwbXM7XG59XG5cbi5zd2l0Y2ggaW5wdXQ6Y2hlY2tlZCArIGRpdiB7XG4gIC13ZWJraXQtdHJhbnNmb3JtOiB0cmFuc2xhdGUzZCgxMDAlLCAwLCAwKTtcbiAgLW1vei10cmFuc2Zvcm06IHRyYW5zbGF0ZTNkKDEwMCUsIDAsIDApO1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZTNkKDEwMCUsIDAsIDApO1xuICBiYWNrZ3JvdW5kOiAjY2UyODM3O1xufVxuXG4jcHJvZmlsZSB7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgcGFkZGluZzogNXB4IDEycHg7XG4gIGZsb2F0OiByaWdodDtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmVkO1xuICBjb2xvcjogI2ZmZjtcbiAgbWFyZ2luLXJpZ2h0OiA1cHg7XG59XG4uc2V0dGluZ0ljb24gaW1nIHtcbiAgd2lkdGg6IDE3cHg7XG4gIGhlaWdodDogMTlweDtcbiAgbWFyZ2luLXRvcDogNnB4O1xuICBtYXJnaW4tbGVmdDogMTNweDtcbn1cblxuLnNldHRpbmdJY29uQ29sIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4uc2F2ZVByZWYge1xuICBmb250LXNpemU6IDMxcHg7XG4gIG1hcmdpbjogMTBweCAwcHg7XG59XG5cbi5zaWduSW5Cb29rIHtcbiAgZm9udC1zaXplOiAxOXB4O1xuICBtYXJnaW46IDEwcHggMHB4O1xufVxuLnNpZ25JbkNvbCB7XG4gIHBhZGRpbmctbGVmdDogMDtcbn1cbi5sYW5nQ29sVHdvIHtcbiAgbWFyZ2luOiBhdXRvO1xuICBmb250LXNpemU6IDI5cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmxhbmdDb2xUd28gc3BhbiB7XG4gIG1hcmdpbi1sZWZ0OiA1cHg7XG4gIG1hcmdpbi10b3A6IDVweDtcbiAgZm9udC1zaXplOiAxN3B4O1xufVxuLmxhbmd1YWdlRGl2IHtcbiAgZmxvYXQ6IGxlZnQ7XG59XG5cbi5sYW5nQ29sb3Ige1xuICBjb2xvcjogI2RkNmQ3Nztcbn1cblxuLmxhbmdDb2xvciBpb24tc2VsZWN0IHtcbiAgbWF4LXdpZHRoOiA1MCU7XG4gIGZsb2F0OiByaWdodDtcbn1cblxuI3BlcnNvbkljb24gaW9uLWljb24ge1xuICB6b29tOiAxLjE7XG59XG5cbiNwZXJzb25JY29uIHtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBwYWRkaW5nOiA1cHggN3B4O1xuICBmbG9hdDogcmlnaHQ7XG4gIGJhY2tncm91bmQtY29sb3I6IHJlZDtcbiAgY29sb3I6ICNmZmY7XG4gIG1hcmdpbi1yaWdodDogNXB4O1xuICBtYXJnaW4tbGVmdDogMHB4O1xufVxuXG4jcGVyc29uSWNvbiBpb24taWNvbiB7XG4gIG1hcmdpbi1sZWZ0OiAwcHg7XG59XG5cbi5hY3Rpb24tc2hlZXQtZ3JvdXAuYWN0aW9uLXNoZWV0LWdyb3VwLWNhbmNlbC5zYy1pb24tYWN0aW9uLXNoZWV0LW1kXG4gIGJ1dHRvbi5hY3Rpb24tc2hlZXQtYnV0dG9uLmlvbi1hY3RpdmF0YWJsZS5hY3Rpb24tc2hlZXQtY2FuY2VsLnNjLWlvbi1hY3Rpb24tc2hlZXQtbWQuYWN0aXZhdGVkIHtcbiAgZGlzcGxheTogbm9uZSAhaW1wb3J0YW50O1xufVxuI3JhdGluZ1Jvd3tcbiAgbWFyZ2luOiAyMHB4O1xufVxuI3JhdGluZ0hlYWR7XG4gIHdpZHRoOiAxMDAlO1xuICBmb250LXNpemU6IDIwcHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbiNyYXRpbmcge1xuICBtYXJnaW46IGF1dG87XG59XG4iLCIuc2V0dGluZ3Mge1xuICBib3JkZXItYm90dG9tOiAxcHggc29saWQgbGlnaHRncmV5O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5cbi5sb2dpbkRpdiB7XG4gIGhlaWdodDogMTcwcHg7XG4gIGJhY2tncm91bmQ6IHVybChcImFzc2V0cy9pbWFnZXMvYnJvd25iZy5wbmdcIik7XG59XG5cbi5pdGVtLXJhZGlvLml0ZW0gaW9uLWxhYmVsIHtcbiAgY29sb3I6ICNkZDY4NzM7XG59XG5cbi5zZXR0aW5nc1Rvb2xiYXIgaW9uLWljb24ge1xuICBmbG9hdDogbGVmdDtcbiAgem9vbTogMTtcbiAgbWFyZ2luLWxlZnQ6IDlweDtcbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4uc2V0dGluZ3NUb29sYmFyICNzZXR0aW5nVGl0bGUge1xuICBtYXJnaW4tbGVmdDogMTBweDtcbiAgZm9udC1zaXplOiAxOHB4O1xufVxuXG4jc2lnbkluQnV0dG9uIHtcbiAgY29sb3I6ICNmZmY7XG4gIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICNjZTI4Mzc7XG4gIHBhZGRpbmc6IDEwLjVweCAzNi41cHg7XG4gIGZvbnQtc2l6ZTogMTdweDtcbn1cblxuI2dvb2dsZXBsdXMge1xuICBjb2xvcjogI2ZmZjtcbiAgZm9udC13ZWlnaHQ6IDgwMDtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIGJhY2tncm91bmQtY29sb3I6ICNkOTUzNGU7XG4gIHBhZGRpbmc6IDEwcHggOS41cHg7XG4gIGZsb2F0OiByaWdodDtcbn1cblxuI2dvb2dsZXBsdXMgaW1nIHtcbiAgbWFyZ2luLXRvcDogM3B4O1xufVxuXG4jZmFjZWJvb2tMb2dpbiB7XG4gIGNvbG9yOiAjZmZmO1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIG1hcmdpbi1yaWdodDogNHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMzc3OWI3O1xuICBwYWRkaW5nOiA5cHggMTVweDtcbiAgZm9udC13ZWlnaHQ6IDk1MDtcbiAgZm9udC1zaXplOiAyMHB4O1xuICBmbG9hdDogcmlnaHQ7XG59XG5cbi5vcHRpb25zTGlzdCB7XG4gIGZvbnQtc2l6ZTogMThweDtcbiAgY29sb3I6IGdyYXk7XG59XG5cbi5zd2l0Y2ggaW5wdXQge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIG9wYWNpdHk6IDA7XG59XG5cbi8qKlxuKiAxLiBBZGp1c3QgdGhpcyB0byBzaXplXG4qL1xuLnN3aXRjaCB7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgZm9udC1zaXplOiAyMHB4O1xuICAvKiAxICovXG4gIGhlaWdodDogMWVtO1xuICB3aWR0aDogMmVtO1xuICAvKmJhY2tncm91bmQ6ICNDRTI4Mzc7Ki9cbiAgYmFja2dyb3VuZC1jb2xvcjogI2M1YmRiZDtcbiAgYm9yZGVyLXJhZGl1czogMWVtO1xuICBmbG9hdDogcmlnaHQ7XG59XG5cbi5zd2l0Y2ggZGl2IHtcbiAgaGVpZ2h0OiAxZW07XG4gIHdpZHRoOiAxZW07XG4gIGJvcmRlci1yYWRpdXM6IDFlbTtcbiAgYmFja2dyb3VuZDogd2hpdGU7XG4gIGJveC1zaGFkb3c6IDAgMC4xZW0gMC4zZW0gcmdiYSgwLCAwLCAwLCAwLjMpO1xuICAtd2Via2l0LXRyYW5zaXRpb246IGFsbCAzMDBtcztcbiAgLW1vei10cmFuc2l0aW9uOiBhbGwgMzAwbXM7XG4gIHRyYW5zaXRpb246IGFsbCAzMDBtcztcbn1cblxuLnN3aXRjaCBpbnB1dDpjaGVja2VkICsgZGl2IHtcbiAgLXdlYmtpdC10cmFuc2Zvcm06IHRyYW5zbGF0ZTNkKDEwMCUsIDAsIDApO1xuICAtbW96LXRyYW5zZm9ybTogdHJhbnNsYXRlM2QoMTAwJSwgMCwgMCk7XG4gIHRyYW5zZm9ybTogdHJhbnNsYXRlM2QoMTAwJSwgMCwgMCk7XG4gIGJhY2tncm91bmQ6ICNjZTI4Mzc7XG59XG5cbiNwcm9maWxlIHtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBwYWRkaW5nOiA1cHggMTJweDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XG4gIGNvbG9yOiAjZmZmO1xuICBtYXJnaW4tcmlnaHQ6IDVweDtcbn1cblxuLnNldHRpbmdJY29uIGltZyB7XG4gIHdpZHRoOiAxN3B4O1xuICBoZWlnaHQ6IDE5cHg7XG4gIG1hcmdpbi10b3A6IDZweDtcbiAgbWFyZ2luLWxlZnQ6IDEzcHg7XG59XG5cbi5zZXR0aW5nSWNvbkNvbCB7XG4gIG1hcmdpbjogYXV0bztcbn1cblxuLnNhdmVQcmVmIHtcbiAgZm9udC1zaXplOiAzMXB4O1xuICBtYXJnaW46IDEwcHggMHB4O1xufVxuXG4uc2lnbkluQm9vayB7XG4gIGZvbnQtc2l6ZTogMTlweDtcbiAgbWFyZ2luOiAxMHB4IDBweDtcbn1cblxuLnNpZ25JbkNvbCB7XG4gIHBhZGRpbmctbGVmdDogMDtcbn1cblxuLmxhbmdDb2xUd28ge1xuICBtYXJnaW46IGF1dG87XG4gIGZvbnQtc2l6ZTogMjlweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4ubGFuZ0NvbFR3byBzcGFuIHtcbiAgbWFyZ2luLWxlZnQ6IDVweDtcbiAgbWFyZ2luLXRvcDogNXB4O1xuICBmb250LXNpemU6IDE3cHg7XG59XG5cbi5sYW5ndWFnZURpdiB7XG4gIGZsb2F0OiBsZWZ0O1xufVxuXG4ubGFuZ0NvbG9yIHtcbiAgY29sb3I6ICNkZDZkNzc7XG59XG5cbi5sYW5nQ29sb3IgaW9uLXNlbGVjdCB7XG4gIG1heC13aWR0aDogNTAlO1xuICBmbG9hdDogcmlnaHQ7XG59XG5cbiNwZXJzb25JY29uIGlvbi1pY29uIHtcbiAgem9vbTogMS4xO1xufVxuXG4jcGVyc29uSWNvbiB7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgcGFkZGluZzogNXB4IDdweDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XG4gIGNvbG9yOiAjZmZmO1xuICBtYXJnaW4tcmlnaHQ6IDVweDtcbiAgbWFyZ2luLWxlZnQ6IDBweDtcbn1cblxuI3BlcnNvbkljb24gaW9uLWljb24ge1xuICBtYXJnaW4tbGVmdDogMHB4O1xufVxuXG4uYWN0aW9uLXNoZWV0LWdyb3VwLmFjdGlvbi1zaGVldC1ncm91cC1jYW5jZWwuc2MtaW9uLWFjdGlvbi1zaGVldC1tZCBidXR0b24uYWN0aW9uLXNoZWV0LWJ1dHRvbi5pb24tYWN0aXZhdGFibGUuYWN0aW9uLXNoZWV0LWNhbmNlbC5zYy1pb24tYWN0aW9uLXNoZWV0LW1kLmFjdGl2YXRlZCB7XG4gIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuI3JhdGluZ1JvdyB7XG4gIG1hcmdpbjogMjBweDtcbn1cblxuI3JhdGluZ0hlYWQge1xuICB3aWR0aDogMTAwJTtcbiAgZm9udC1zaXplOiAyMHB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbiNyYXRpbmcge1xuICBtYXJnaW46IGF1dG87XG59Il19 */"
 
 /***/ }),
 
@@ -2465,6 +2567,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
 /* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
 /* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/general.service */ "./src/app/services/general.service.ts");
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
 
 
 
@@ -2476,7 +2579,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SettingsComponent = class SettingsComponent {
-    constructor(cd, _generalService, platform, fcm, storage, socialSharing, actionSheetController, _userService, router, toastController) {
+    constructor(_toastService, cd, _generalService, platform, fcm, storage, socialSharing, actionSheetController, _userService, router) {
+        this._toastService = _toastService;
         this.cd = cd;
         this._generalService = _generalService;
         this.platform = platform;
@@ -2486,12 +2590,12 @@ let SettingsComponent = class SettingsComponent {
         this.actionSheetController = actionSheetController;
         this._userService = _userService;
         this.router = router;
-        this.toastController = toastController;
         this.customActionSheetOptions = {
             addCancelButtonWithLabel: false,
         };
     }
     ngOnInit() {
+        this.getUserRating();
         this.getUrl();
         this.platform.backButton.subscribe(() => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             if (this.router.url.includes('settings')) {
@@ -2541,13 +2645,7 @@ let SettingsComponent = class SettingsComponent {
                                 localStorage.setItem('deviceToken', token);
                             });
                             this.router.navigate(['/allcategory']);
-                            this.toast = this.toastController.create({
-                                message: 'You have been logged out!',
-                                duration: 2000,
-                                color: 'primary'
-                            }).then((toastData) => {
-                                toastData.present();
-                            });
+                            this._toastService.toastFunction('You have been logged out!', 'primary');
                         }
                     }, {
                         text: 'Cancel',
@@ -2587,22 +2685,9 @@ let SettingsComponent = class SettingsComponent {
             if (accessToken) {
                 this.getUserDetail();
             }
-            this.toast = this.toastController.create({
-                message: res.message,
-                duration: 2000,
-                color: 'success'
-            }).then((toastData) => {
-                toastData.present();
-            });
+            this._toastService.toastFunction(res.message, 'success');
         }, err => {
-            console.log('err===========>', err.error.message);
-            this.toast = this.toastController.create({
-                message: err.error.message,
-                duration: 2000,
-                color: 'danger'
-            }).then((toastData) => {
-                toastData.present();
-            });
+            this._toastService.toastFunction(err.error.message, 'danger');
         });
     }
     getUserDetail() {
@@ -2612,8 +2697,20 @@ let SettingsComponent = class SettingsComponent {
             this.error = err;
         });
     }
+    logRatingChange(e) {
+        localStorage.setItem('rating', e);
+        this.rating = true;
+        this.userRating = localStorage.getItem('rating');
+    }
+    getUserRating() {
+        if (localStorage.getItem('rating')) {
+            this.rating = true;
+            this.userRating = localStorage.getItem('rating');
+        }
+    }
 };
 SettingsComponent.ctorParameters = () => [
+    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] },
     { type: _services_general_service__WEBPACK_IMPORTED_MODULE_8__["GeneralService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"] },
@@ -2622,8 +2719,7 @@ SettingsComponent.ctorParameters = () => [
     { type: _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_5__["SocialSharing"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"] },
     { type: _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
 ];
 SettingsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2631,8 +2727,42 @@ SettingsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./settings.component.html */ "./node_modules/raw-loader/index.js!./src/app/settings/settings.component.html"),
         styles: [__webpack_require__(/*! ./settings.component.scss */ "./src/app/settings/settings.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _services_general_service__WEBPACK_IMPORTED_MODULE_8__["GeneralService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_7__["FCM"], _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_5__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"], _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _services_general_service__WEBPACK_IMPORTED_MODULE_8__["GeneralService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_7__["FCM"], _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_5__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"], _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
 ], SettingsComponent);
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/shared.module.ts":
+/*!*****************************************!*\
+  !*** ./src/app/shared/shared.module.ts ***!
+  \*****************************************/
+/*! exports provided: SharedModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function() { return SharedModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var time_ago_pipe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! time-ago-pipe */ "./node_modules/time-ago-pipe/esm2015/time-ago-pipe.js");
+
+
+
+
+let SharedModule = class SharedModule {
+};
+SharedModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        declarations: [time_ago_pipe__WEBPACK_IMPORTED_MODULE_3__["TimeAgoPipe"]],
+        imports: [
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]
+        ],
+        exports: [time_ago_pipe__WEBPACK_IMPORTED_MODULE_3__["TimeAgoPipe"]]
+    })
+], SharedModule);
 
 
 

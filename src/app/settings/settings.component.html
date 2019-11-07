@@ -1,25 +1,29 @@
 <ion-header>
 	<ion-toolbar class="settingsToolbar">
-		<ion-icon name="arrow-round-back" routerLink="/allcategory"></ion-icon>
+		<ion-icon name="arrow-round-back" routerLink="/home/categories"></ion-icon>
 		<span id="settingTitle"> Options</span>
 		<span id="profile" *ngIf="tokenLocalStorage && firstCharUser" (click)="logout()">{{firstCharUser}}</span>
-		<span id="personIcon" *ngIf="tokenLocalStorage && !firstCharUser" (click)="logout()"><ion-icon name="person"></ion-icon></span>
+		<span id="personIcon" *ngIf="tokenLocalStorage && !firstCharUser" (click)="logout()">
+			<ion-icon name="person"></ion-icon>
+		</span>
 	</ion-toolbar>
 </ion-header>
 
 <ion-content>
 	<div class="settings loginDiv" padding *ngIf="!tokenLocalStorage">
 		<h1 class="savePref" *ngIf="language == 'English'"><i>Save your preferences</i></h1>
-		<h1 class="savePref" *ngIf="language == 'Hindi'"><i>सेव योर  परेफरेंस</i></h1>
+		<h1 class="savePref" *ngIf="language == 'Hindi'"><i>सेव योर परेफरेंस</i></h1>
 		<h4 class="signInBook" *ngIf="language == 'English'">Sign In to save your Bookmarks.</h4>
 		<h4 class="signInBook" *ngIf="language == 'Hindi'">अपने बुकमार्क को सेव करने के लिए साइन इन करें।</h4>
 		<ion-row>
 			<ion-col size="6" class="signInCol">
-				<button id="signInButton" routerLink="/login" >Sign In</button>
+				<button id="signInButton" routerLink="/login">Sign In</button>
 			</ion-col>
 			<ion-col size="6">
-				<button id="googleplus" routerLink="/login" ><img src="assets/images/GooglePlus.png" height="12px;"></button>
-				<button id="facebookLogin" routerLink="/login" ><img src="assets/images/Facebook.png" height="12px;"></button>
+				<button id="googleplus" routerLink="/login"><img src="assets/images/GooglePlus.png"
+						height="12px;"></button>
+				<button id="facebookLogin" routerLink="/login"><img src="assets/images/Facebook.png"
+						height="12px;"></button>
 			</ion-col>
 		</ion-row>
 	</div>
@@ -81,10 +85,12 @@
 					<span class="optionsList" *ngIf="language == 'Hindi'">नोटफ़केशन</span>
 					<!-- <span *ngIf="annonymous === 'true'">Hello</span> -->
 					<label class="switch" *ngIf="notifyFlag === 'true' || annonymousNotify === 'true'">
-						<input type="checkbox" (change)="notificationSwitch($event)" checked="checked"><div></div>
+						<input type="checkbox" (change)="notificationSwitch($event)" checked="checked">
+						<div></div>
 					</label>
 					<label class="switch" *ngIf="notifyFlag === 'false' || annonymousNotify === 'false'">
-						<input type="checkbox" (change)="notificationSwitch($event)"><div></div>
+						<input type="checkbox" (change)="notificationSwitch($event)">
+						<div></div>
 					</label>
 				</div>
 			</ion-col>
@@ -108,7 +114,7 @@
 				<img src="assets/images/Privacy Policy.png">
 			</ion-col>
 			<ion-col size="10">
-				<div  padding routerLink="/privacy">
+				<div padding routerLink="/privacy">
 					<span class="optionsList" *ngIf="language == 'English'">Privacy Policy</span>
 					<span class="optionsList" *ngIf="language == 'Hindi'">प्राइवेसी पालिसी</span>
 				</div>
@@ -122,12 +128,12 @@
 			<ion-col size="10">
 				<div padding routerLink="/terms">
 					<span class="optionsList" *ngIf="language == 'English'">Terms & condition</span>
-					<span class="optionsList" *ngIf="language == 'Hindi'">टर्म्स एंड  कंडीशन</span>
+					<span class="optionsList" *ngIf="language == 'Hindi'">टर्म्स एंड कंडीशन</span>
 				</div>
 			</ion-col>
 		</ion-row>
 
-		<ion-row class="settings settingIcon"> 
+		<ion-row class="settings settingIcon">
 			<ion-col size="2" class="settingIconCol" padding>
 				<img src="assets/images/Share the App.png" class="optionsList">
 			</ion-col>
@@ -137,6 +143,19 @@
 					<span class="optionsList" *ngIf="language == 'Hindi'">शेयर थिस अप्प</span>
 				</div>
 			</ion-col>
+		</ion-row>
+
+		<ion-row id="ratingRow">
+			<div id="ratingHead" *ngIf="!rating">How's your experience?</div>
+			<div id="ratingHead" *ngIf="rating">You have rated us</div>
+			<div id="rating">
+				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ce2837"
+					defaultColor="#ddd" readonly="false" fontSize="32px"
+					(ratingChanged)="logRatingChange($event)" rating="0" *ngIf="!rating">
+				</ionic4-star-rating>
+				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ce2837" defaultColor="#ddd" readonly="true" rating="{{userRating}}" fontSize="32px" *ngIf="rating">
+				</ionic4-star-rating>
+			</div>
 		</ion-row>
 	</div>
 </ion-content>

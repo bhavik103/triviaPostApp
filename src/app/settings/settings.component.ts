@@ -22,15 +22,18 @@ export class SettingsComponent implements OnInit {
 	error: any;
 	privacyPolicy: any;
 	annonymousNotify: any;
+	rating: any;
 
 	customActionSheetOptions: any = {
 		addCancelButtonWithLabel: false,
 	};
+	userRating: string;
 
-	constructor(private _toastService: ToastService,private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router){
+	constructor(private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
 	}
 
 	ngOnInit() {
+		this.getUserRating();
 		this.getUrl();
 		this.platform.backButton.subscribe(async () => {
 			if (this.router.url.includes('settings')) {
@@ -86,7 +89,7 @@ export class SettingsComponent implements OnInit {
 						localStorage.setItem('deviceToken', token);
 					});
 					this.router.navigate(['/allcategory']);
-					this._toastService.toastFunction('You have been logged out!','primary');
+					this._toastService.toastFunction('You have been logged out!', 'primary');
 				}
 			}, {
 				text: 'Cancel',
@@ -129,9 +132,9 @@ export class SettingsComponent implements OnInit {
 			if (accessToken) {
 				this.getUserDetail();
 			}
-			this._toastService.toastFunction(res.message,'success');
+			this._toastService.toastFunction(res.message, 'success');
 		}, err => {
-			this._toastService.toastFunction(err.error.message,'danger');
+			this._toastService.toastFunction(err.error.message, 'danger');
 		})
 	}
 
@@ -143,5 +146,19 @@ export class SettingsComponent implements OnInit {
 			(err) => {
 				this.error = err;
 			});
+	}
+
+	logRatingChange(rating) {
+		localStorage.setItem('rating', rating);
+		this._userService.userRating(rating).subscribe();
+		this.rating = true;
+		this.userRating = localStorage.getItem('rating');
+	}
+
+	getUserRating() {
+		if (localStorage.getItem('rating')) {
+			this.rating = true;
+			this.userRating = localStorage.getItem('rating');
+		}
 	}
 }
