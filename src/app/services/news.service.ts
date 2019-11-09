@@ -146,14 +146,43 @@ export class NewsService {
 	}
 
 	//get single news
-	getSingleNews(id): Observable<News[]> {
-		return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&postId=' + id).pipe(
-			map((res) => {
-				this.singleNews = res['data'];
-				console.log("ser", this.singleNews);
-				return this.singleNews;
-			}),
-			catchError(this.handleError));
+	getSingleNews(id){
+		if (this.network.type == 'none') {
+			return new Observable(observer => {
+				console.log(JSON.parse(localStorage.getItem("newsArray")));
+				this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
+				var filtersArray = [id];
+
+				var filtered = this.newsArray.filter(function (element) {
+					var news = element.newsId.split(' ');
+
+					return news.filter(function (post) {
+						return filtersArray.indexOf(post) > -1;
+					}).length === filtersArray.length;
+				});
+				this.newsArray = filtered;
+				console.log("filtered", filtered);
+				setTimeout(() => {
+					observer.next(this.newsArray);
+					observer.complete();
+				}, 1);
+			});
+		} else {
+			return new Observable(observer => {
+				console.log("in ");
+				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&postId=' + id).subscribe(
+					(result: object) => {
+						this.newsArray = result['data'];
+						console.log("in cat service", this.newsArray);
+						// localStorage.setItem('newsArray',JSON.stringify(this.newsArray))
+						observer.next(this.newsArray);
+						observer.complete();
+					},
+					(error) => {
+						observer.error(error);
+					});
+			});
+		}
 	}
 
 	newsCount(data) {

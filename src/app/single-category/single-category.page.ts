@@ -42,4 +42,7 @@ export class SingleCategoryPage implements OnInit {
   goToCategories(){
     this.router.navigateByUrl('/home/categories')
   }
+  singleNews(id){
+    this.router.navigateByUrl('/single-post/'+id + '/category')
+  }
 }

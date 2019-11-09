@@ -9,4 +9,5 @@ target 'Trivia Post' do
 	pod 'FBSDKShareKit', '5.2.3'
 	pod 'GoogleSignIn', '~> 4.4.0'
 	pod 'GoogleUtilities', '~> 6.2.3'
+	pod 'Firebase/Analytics', '~> 6.3.0'
 end

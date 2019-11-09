@@ -18,7 +18,9 @@ ion-card-header img {
 }
 ion-card-content {
   padding: 5px 10px 10px 10px;
-  min-height: 47px;
+  min-height: 60px;
+  max-height: 66px;
+  overflow: hidden;
 }
 
 ion-card,
@@ -30,19 +32,20 @@ ion-col {
 ion-button {
   --background-focused: #961300;
 }
-.cardfooter{
-  padding:0px 0px 0px 10px;
+.cardfooter {
+  padding: 0px 0px 0px 10px;
 }
-#blackBell,#redBell{
+#blackBell,
+#redBell {
   margin: auto;
   margin-top: 24%;
 }
-#blackBell{
-  width: 11px!important;
+#blackBell {
+  width: 11px !important;
   height: 14px;
 }
 
-#redBell{
-  width: 16px!important;
+#redBell {
+  width: 16px !important;
   height: 17px;
 }

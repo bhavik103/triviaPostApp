@@ -1,6 +1,15 @@
 <ion-header no-border>
   <ion-toolbar>
-    <ion-icon name="arrow-round-back" class="homeBack" routerLink="/home/all-post" float-left></ion-icon>
+    <ion-icon name="arrow-round-back" *ngIf="!backKeyBookmark && !backKeyCategory && !backKeySearch" class="homeBack"
+      routerLink="/home/all-post" float-left></ion-icon>
+    <ion-icon name="arrow-round-back" *ngIf="backKeyBookmark" class="homeBack" routerLink="/bookmarks" float-left>
+    </ion-icon>
+    <span *ngFor="let news of singlepost">
+      <ion-icon name="arrow-round-back" *ngIf="backKeyCategory" class="homeBack" routerLink="/single-category/{{news.newsCategoryId}}/{{news.newsCategory}}" float-left>
+      </ion-icon>
+    </span>
+    <ion-icon name="arrow-round-back" *ngIf="backKeySearch" class="homeBack" routerLink="/searchBar" float-left>
+    </ion-icon>
     <ion-title>
       Trivia Post
     </ion-title>
@@ -20,12 +29,12 @@
       <p *ngIf="language == 'Hindi'">{{news.newsTitleHindi}}</p>
     </div>
     <div class="subPostTitle">
-      <p class="createdBy">By {{news.createdBy.firstName | titlecase}}</p>
-      <p>{{news.createdAt | timeAgo}} | <span class="catTitle" (click)="categoryClick(news.newsCategoryId, news.newsCategory)">{{news.newsCategory}}</span></p>
+      <!-- <p class="createdBy">By {{news.createdBy.firstName | titlecase}}</p> -->
+      <p class="newsInfo">{{news.createdAt | timeAgo}} | <span class="catTitle"
+          (click)="categoryClick(news.newsCategoryId, news.newsCategory)">{{news.newsCategory}}</span></p>
     </div>
     <div class="actionButton">
-      <ion-icon name="heart" class="heart_icon liked" *ngIf="news.likeKey"
-      (click)="alreadyLiked()"></ion-icon>
+      <ion-icon name="heart" class="heart_icon liked" *ngIf="news.likeKey" (click)="alreadyLiked()"></ion-icon>
       <ion-icon name="heart-empty" class="heart_icon" *ngIf="!news.likeKey" (click)="likePost(news.newsId)"></ion-icon>
       <span>{{news.likesCount}}</span>
       <a>
@@ -39,5 +48,29 @@
       <p [innerHTML]="news.newsEnglish" *ngIf="language == 'English'"></p>
       <p [innerHTML]="news.newsHindi" *ngIf="language == 'Hindi'"></p>
     </div>
+  </div>
+</ion-content>
+<ion-content *ngIf="loading">
+  <div id="loader-wrapper">
+      <div id="loader">
+          <span class="logo_container">
+              <img src="../../assets/images/Logo.png" alt="logo">
+          </span>
+          <div class="ml-loader">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+          </div>
+          <p class="text-center">Loding Data...</p>
+      </div>
   </div>
 </ion-content>

@@ -19,7 +19,13 @@
                     <!-- <p class="postTime">56 min</p> -->
                 </ion-card-content>
                 <ion-row class="cardfooter">
-                    <p>{{news.createdAt | timeAgo}}</p>
+                    <ion-col size="9">
+                        {{news.createdAt | timeAgo}}
+                    </ion-col>
+                    <ion-col size="3">
+                        {{news.likesCount}} <span *ngIf="news.likesCount == 0">like</span><span *ngIf="news.likesCount == 1">like</span><span
+                            *ngIf="news.likesCount > 1">likes</span>
+                    </ion-col>
                 </ion-row>
             </ion-card>
         </ion-col>

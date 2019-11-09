@@ -8,7 +8,7 @@
     "sources": {
         "https://github.com/CocoaPods/Specs.git": {
             "source": "https://github.com/CocoaPods/Specs.git",
-            "count": 2
+            "count": 3
         }
     },
     "libraries": {
@@ -35,6 +35,11 @@
         "GoogleUtilities": {
             "name": "GoogleUtilities",
             "spec": "~> 6.2.3",
+            "count": 1
+        },
+        "Firebase/Analytics": {
+            "name": "Firebase/Analytics",
+            "spec": "~> 6.3.0",
             "count": 1
         }
     }

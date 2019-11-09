@@ -86,6 +86,7 @@
 		69E82F979A314EC1A8E96751 /* GCDWebServerFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF4FF0526834C3C84525D88 /* GCDWebServerFileResponse.m */; };
 		E359882E297344ED9903D2F7 /* GCDWebServerStreamedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6B1737FC8344428EB6E4F8 /* GCDWebServerStreamedResponse.m */; };
 		2C2F458B7ACD41E0AE841A76 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18F9AC0EA3F4D20B4AF4C97 /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F52149845252476F82EDF9D7 /* FirebaseAnalyticsPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A9080107B914FA6A2764711 /* FirebaseAnalyticsPlugin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -260,6 +261,8 @@
 		EAC00A5213624530A2F1CD72 /* GCDWebServerFileResponse.h */ = {isa = PBXFileReference; name = "GCDWebServerFileResponse.h"; path = "cordova-plugin-ionic-webview/GCDWebServerFileResponse.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		1044D588E3B842A78E02C729 /* GCDWebServerStreamedResponse.h */ = {isa = PBXFileReference; name = "GCDWebServerStreamedResponse.h"; path = "cordova-plugin-ionic-webview/GCDWebServerStreamedResponse.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		B18F9AC0EA3F4D20B4AF4C97 /* WebKit.framework */ = {isa = PBXFileReference; name = "WebKit.framework"; path = "System/Library/Frameworks/WebKit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		4A9080107B914FA6A2764711 /* FirebaseAnalyticsPlugin.m */ = {isa = PBXFileReference; name = "FirebaseAnalyticsPlugin.m"; path = "cordova-plugin-firebase-analytics/FirebaseAnalyticsPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		C9D93317CFA143ADB0C65AC0 /* FirebaseAnalyticsPlugin.h */ = {isa = PBXFileReference; name = "FirebaseAnalyticsPlugin.h"; path = "cordova-plugin-firebase-analytics/FirebaseAnalyticsPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -522,6 +525,8 @@
 				AC1D44748B1444E1937B0742 /* GCDWebServerErrorResponse.h */,
 				EAC00A5213624530A2F1CD72 /* GCDWebServerFileResponse.h */,
 				1044D588E3B842A78E02C729 /* GCDWebServerStreamedResponse.h */,
+				4A9080107B914FA6A2764711 /* FirebaseAnalyticsPlugin.m */,
+				C9D93317CFA143ADB0C65AC0 /* FirebaseAnalyticsPlugin.h */,
 			);
 			name = Plugins;
 			path = "Trivia Post/Plugins";
@@ -769,6 +774,7 @@
 				8C528030643A434084E6EB6D /* GCDWebServerErrorResponse.m in Sources */,
 				69E82F979A314EC1A8E96751 /* GCDWebServerFileResponse.m in Sources */,
 				E359882E297344ED9903D2F7 /* GCDWebServerStreamedResponse.m in Sources */,
+				F52149845252476F82EDF9D7 /* FirebaseAnalyticsPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -813,7 +819,7 @@
 				INFOPLIST_FILE = "Trivia Post/Trivia Post-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.ionic.starter;
+				PRODUCT_BUNDLE_IDENTIFIER = io.ionic.triviapost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				CODE_SIGN_ENTITLEMENTS = "Trivia Post/Resources/Trivia Post.entitlements";
@@ -848,7 +854,7 @@
 				INFOPLIST_FILE = "Trivia Post/Trivia Post-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.ionic.starter;
+				PRODUCT_BUNDLE_IDENTIFIER = io.ionic.triviapost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				CODE_SIGN_ENTITLEMENTS = "Trivia Post/Resources/Trivia Post.entitlements";
@@ -891,7 +897,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = io.ionic.starter;
+				PRODUCT_BUNDLE_IDENTIFIER = io.ionic.triviapost;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				CODE_SIGN_ENTITLEMENTS = "Trivia Post/Resources/Trivia Post.entitlements";
@@ -933,7 +939,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = io.ionic.starter;
+				PRODUCT_BUNDLE_IDENTIFIER = io.ionic.triviapost;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				CODE_SIGN_ENTITLEMENTS = "Trivia Post/Resources/Trivia Post.entitlements";

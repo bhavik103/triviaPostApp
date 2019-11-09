@@ -47,11 +47,23 @@ const routes: Routes = [
 		path: 'bookmarks',
 		component: BookmarksComponent
 	},
-  	{ 
+	{
 		path: 'single-post/:id',
 		loadChildren: './single-post/single-post.module#SinglePostPageModule'
 	},
-  	{ 
+	{
+		path: 'single-post/:id/:bookmark',
+		loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostPageModule)
+	},
+	{
+		path: 'single-post/:id/:search',
+		loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostPageModule)
+	},
+	{
+		path: 'single-post/:id/:category',
+		loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostPageModule)
+	},
+	{
 		path: 'single-category/:id/:cat',
 		loadChildren: './single-category/single-category.module#SingleCategoryPageModule'
 	}

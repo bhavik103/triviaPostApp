@@ -6,6 +6,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ToastService } from '../services/toast.service';
 import { Network } from '@ionic-native/network/ngx';
 import * as _ from 'lodash';
+import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
 @Component({
   selector: 'app-single-post',
@@ -18,16 +19,42 @@ export class SinglePostPage implements OnInit {
   tokenLocalStorage: string;
   loggedInUser: any;
   language: string;
-
-  constructor(private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
+  backKeyBookmark: boolean;
+  backKeyCategory: boolean;
+  backKeySearch: boolean;
+  loading: boolean;
+  constructor(private firebaseAnalytics: FirebaseAnalytics, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
     this.singlePost();
+    this.route.params.subscribe((param: any) => {
+      this.configureBack(this.router.url, param);
+    });
+  }
+  ionViewWillEnter() {
+    console.log('ionViewDidLoad ProfilePage');
+    // Firebase Analytics 'screen_view' event tracking
+    this.firebaseAnalytics.setCurrentScreen('Single Post').then(res => {
+      console.log("firebase", res)
+    })
+    var postId = this.route.snapshot.params['id'];
   }
 
+  configureBack(url, param) {
+    console.log("url, param", url, param);
+    if (url.includes('bookmark')) {
+      this.backKeyBookmark = true;
+    } else if (url.includes('category')) {
+      this.backKeyCategory = true;
+    } else if (url.includes('search')) {
+      this.backKeySearch = true;
+    }
+  }
   singlePost() {
+    this.loading = true;
     this.language = localStorage.getItem('language');
     var postId = this.route.snapshot.params['id'];
+
     this.tokenLocalStorage = localStorage.getItem('accessToken');
     if (this.tokenLocalStorage) {
       var base64Url = this.tokenLocalStorage.split('.')[1];
@@ -36,6 +63,7 @@ export class SinglePostPage implements OnInit {
       this.loggedInUser = decodedToken.user._id;
     }
     this._newsService.getSingleNews(postId).subscribe(res => {
+      this.loading = false;
       const singlepostArray = [];
       singlepostArray.push(res[0]);
       this.singlepost = singlepostArray;
@@ -57,6 +85,10 @@ export class SinglePostPage implements OnInit {
           })
         })
       }
+      // console.log("News Title", this.singlepost[0]['newsTitleEnglish'])
+      this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.singlepost[0]['newsTitleEnglish'] }).then(res => {
+        console.log("Post Tracked", res)
+      })
       console.log("Single newsssssss", this.singlepost);
     });
   }
@@ -71,7 +103,7 @@ export class SinglePostPage implements OnInit {
     var message = "Check out this amazing news " + '" ' + newsTitle + ' "';
     var subject = "Trivia Post";
     var str = newsTitle;
-    var url = 'https://triviapost.com/post/' + id;
+    var url = 'https://triviapost.in/post/' + id;
     this.socialSharing.share(message, subject, null, url)
       .then((entries) => {
       })
@@ -96,20 +128,25 @@ export class SinglePostPage implements OnInit {
   }
 
   //like post
-  likePost(postid){
-    this._newsService.likepost(postid).subscribe((res: any) =>{
+  likePost(postid) {
+    if (this.network.type == 'none') {
+      this._toastService.toastFunction('No internet connection', 'danger');
       this.singlePost();
-      this._toastService.toastFunction(res.message,'success');
-    }), err=> {
-      this._toastService.toastFunction(err.error.message,'danger');
+    } else {
+      this._newsService.likepost(postid).subscribe((res: any) => {
+        this.singlePost();
+        this._toastService.toastFunction(res.message, 'success');
+      }), err => {
+        this._toastService.toastFunction(err.error.message, 'danger');
+      }
     }
   }
 
-  alreadyLiked(){
-    this._toastService.toastFunction('You have already liked!','danger');
+  alreadyLiked() {
+    this._toastService.toastFunction('You have already liked!', 'danger');
   }
 
-  categoryClick(catId,catName){
-    this.router.navigateByUrl('/single-category/'+catId+'/'+catName);
+  categoryClick(catId, catName) {
+    this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
   }
 }

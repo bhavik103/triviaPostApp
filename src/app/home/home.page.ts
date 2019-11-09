@@ -50,6 +50,7 @@ export class HomePage implements OnInit {
     appendedNews: { newsId: any; splice: (arg0: any, arg1: number) => void; };
     hide: boolean;
     resLength: number;
+    subscription: any;
     constructor(private localNotifications:LocalNotifications,private _toastService: ToastService, private _userService: UserService, private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 
@@ -58,14 +59,20 @@ export class HomePage implements OnInit {
         console.warn("ngOnInit");
         this.loading = true;
         this.viewInitFunctions();
-        this.backButtonFunction();
         this.language = localStorage.language;
         this.route.params.subscribe((param: any) => {
             this.pageContent(this.router.url, param);
         });
     }
 
-
+    ionViewDidEnter(){
+        this.subscription = this.platform.backButton.subscribe(()=>{
+            navigator['app'].exitApp();
+        });
+    }
+    ionViewWillLeave(){
+        this.subscription.unsubscribe();
+  }
     viewInitFunctions() {
         this.notificationTapped();
         this.notifyflag = localStorage.getItem('notification');
@@ -82,7 +89,7 @@ export class HomePage implements OnInit {
             '/': {},
             '/post/:id': { "post:": true }
         }).subscribe((match) => {
-            this.router.navigate(['home/single-news/' + match.$args.id]);
+            this.router.navigate(['single-post/' + match.$args.id]);
         },
             (nomatch) => {
                 // alert("UnMatched" + nomatch);
@@ -126,24 +133,6 @@ export class HomePage implements OnInit {
     }
     pageContent(url: string, param: { catTitle: any; id: any; key: any; }) {
         console.log("Redirected From : ", url, param)
-    }
-
-    // Back Button actions
-    backButtonFunction() {
-        this.platform.backButton.subscribe(async () => {
-            this.route.params.subscribe(param => {
-                if (this.router.url.includes('bookmark')) {
-                    this.router.navigate(['bookmarks']);
-                } else if (this.router.url.includes('category')) {
-                    this.router.navigate(['allcategory']);
-                } else if (this.router.url.includes('single-news')) {
-                    this.router.navigate(['allcategory']);
-                } else if (this.router.url.includes('search-news')) {
-                } else {
-                    navigator['app'].exitApp();
-                }
-            });
-        });
     }
 
     //get all news - HOME PAGE ( FEEDS )
@@ -198,7 +187,7 @@ export class HomePage implements OnInit {
     // Notification and utility
     notificationTapped() {
         this.fcm.onNotification().subscribe(data => {
-            this.router.navigate(['home/single-news/' + data.newsId]);
+            this.router.navigate(['/single-post/' + data.newsId]);
             if (data.wasTapped) {
                 console.log('Received in background', data.wasTapped);
               } else {

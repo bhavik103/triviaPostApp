@@ -92,6 +92,16 @@
     },
     "cordova-plugin-local-notification": {
       "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-androidx": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-androidx-adapter": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-firebase-analytics": {
+      "FIREBASE_ANALYTICS_VERSION": "17.2.+",
+      "PACKAGE_NAME": "io.ionic.triviapost"
     }
   },
   "dependent_plugins": {
@@ -99,6 +109,12 @@
       "PACKAGE_NAME": "io.ionic.triviapost"
     },
     "cordova-plugin-badge": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-support-android-plugin": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-support-google-services": {
       "PACKAGE_NAME": "io.ionic.triviapost"
     }
   }

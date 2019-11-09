@@ -16,7 +16,7 @@
 		<ion-col size="3" class="newsImg" padding (click)="getSingleSearch()">
 			<img src="{{mediaPath}}{{searchNews.newsImage}}" height="73px" width="100%">
 		</ion-col>
-		<ion-col size="9" (click)="getSingleSearch()">
+		<ion-col size="9" (click)="getSingleSearch(searchNews.newsId)">
 			<div padding>
 				<p class="newsCat" *ngIf="language == 'English'">{{searchNews.newsCategory}}</p>
 				<p class="newsCat" *ngIf="language == 'Hindi'">{{searchNews.newsCategoryHn}}</p>

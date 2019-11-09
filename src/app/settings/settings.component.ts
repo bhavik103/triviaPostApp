@@ -36,9 +36,7 @@ export class SettingsComponent implements OnInit {
 		this.getUserRating();
 		this.getUrl();
 		this.platform.backButton.subscribe(async () => {
-			if (this.router.url.includes('settings')) {
-				this.router.navigate(['allcategory']);
-			}
+			this.router.navigate(['home/categories']);
 		});
 
 		this.tokenLocalStorage = localStorage.getItem('accessToken');
@@ -88,7 +86,7 @@ export class SettingsComponent implements OnInit {
 					this.fcm.onTokenRefresh().subscribe(token => {
 						localStorage.setItem('deviceToken', token);
 					});
-					this.router.navigate(['/allcategory']);
+					this.router.navigate(['/home/categories']);
 					this._toastService.toastFunction('You have been logged out!', 'primary');
 				}
 			}, {

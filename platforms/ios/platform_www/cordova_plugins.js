@@ -358,6 +358,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "cordova.exec"
       ]
+    },
+    {
+      "id": "cordova-plugin-firebase-analytics.FirebaseAnalytics",
+      "file": "plugins/cordova-plugin-firebase-analytics/www/FirebaseAnalytics.js",
+      "pluginId": "cordova-plugin-firebase-analytics",
+      "merges": [
+        "cordova.plugins.firebase.analytics"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -378,6 +386,9 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-x-socialsharing": "5.6.0",
     "cordova-sqlite-storage": "3.3.0",
     "ionic-plugin-deeplinks": "1.0.20",
-    "cordova-plugin-ionic-webview": "1.2.1"
+    "cordova-plugin-ionic-webview": "1.2.1",
+    "cordova-plugin-androidx": "1.0.2",
+    "cordova-plugin-androidx-adapter": "1.1.0",
+    "cordova-plugin-firebase-analytics": "4.0.0"
   };
 });

@@ -189,15 +189,14 @@ if(h<min)min=h;}}($inBox));var avgH=totalH/numCols;if(options.lastNeverTallest&&
 $inBox.append($("<br style='clear:both;'>"));}
 $inBox.find('.column').find(':first.removeiffirst').remove();$inBox.find('.column').find(':last.removeiflast').remove();$inBox.data("columnizing",false);if(options.overflow){options.overflow.doneFunc();}
 options.doneFunc();}});};})(jQuery);
-;$(document).ready(function() {
+;$(document).ready(function () {
 	var script = document.createElement('script');
-	script.setAttribute('id', 'scriptid' );
+	script.setAttribute('id', 'scriptid');
 	script.src = "assets/js/swiper.js";
-	setTimeout(function(){
+	setTimeout(function () {
 		document.body.appendChild(script);
-	},200);
+	}, 200);
 	console.log("In custom script.........");
-	
 });
 ;/**
  * Swiper 5.0.3
@@ -682,6 +681,7 @@ var currentPostId;
       if (includeMargins) {
         // eslint-disable-next-line
         var styles = this.styles();
+        console.log("This styles",styles);
         return this[0].offsetHeight + parseFloat(styles.getPropertyValue('margin-top')) + parseFloat(styles.getPropertyValue('margin-bottom'));
       }
       return this[0].offsetHeight;
@@ -1586,6 +1586,7 @@ var currentPostId;
             var paddingBottom = parseFloat(slideStyles.getPropertyValue('padding-bottom'));
             var marginTop = parseFloat(slideStyles.getPropertyValue('margin-top'));
             var marginBottom = parseFloat(slideStyles.getPropertyValue('margin-bottom'));
+            console.log("This styles",marginBottom);
             var boxSizing$1 = slideStyles.getPropertyValue('box-sizing');
             if (boxSizing$1 && boxSizing$1 === 'border-box') {
               slideSize = height + marginTop + marginBottom;

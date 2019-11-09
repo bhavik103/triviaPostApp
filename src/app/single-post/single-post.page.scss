@@ -74,6 +74,8 @@ a.float:hover + div.label-container{
   font-size: 22px;
   padding: 5px 11px;
   border-bottom: 1px solid #dcdcdc;
+  display: table;
+    width: 100%
 }
 .actionButton span {
   font-size: 17px!important;
@@ -88,4 +90,7 @@ ion-title{
 }
 .liked{
   color:#CE2837;
+}
+.newsInfo{
+  font-size:12px;
 }

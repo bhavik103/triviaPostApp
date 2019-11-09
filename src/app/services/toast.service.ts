@@ -12,7 +12,7 @@ export class ToastService {
     this.toast = this.toastController.create({
       message: message,
       duration: 2000,
-      color: color
+      color: 'danger'
     }).then((toastData) => {
       toastData.present();
     });

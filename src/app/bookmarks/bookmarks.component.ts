@@ -85,7 +85,7 @@ export class BookmarksComponent implements OnInit {
 				handler: () => {
 					var message = "Check out this amazing news " + '" ' + title + ' "';
 					var subject = "Trivia Post";
-					var url = 'https://triviapost.com/post/' + id; 
+					var url = 'https://triviapost.in/post/' + id; 
 					this.socialSharing.share(message,subject, null , url)
 					.then((entries) => {
 						console.log('success ' + JSON.stringify(entries));
@@ -99,6 +99,6 @@ export class BookmarksComponent implements OnInit {
 	}
 
 	getSingleBookmark(id){
-		this.router.navigate(['post/'+ id]);
+		this.router.navigate(['single-post/'+ id + '/bookmark']);
 	}
 }
