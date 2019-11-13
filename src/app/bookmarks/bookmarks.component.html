@@ -22,7 +22,7 @@
                 <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish"></span>
             </div>
         </ion-col>
-        <ion-col class="bookmarkActButton" (click)="bookmarkAction(news.newsId, news.newsTitleEnglish)">
+        <ion-col class="bookmarkActButton" (click)="bookmarkAction(news.newsImage,news.fcmLink,news.newsId, news.newsTitleEnglish)">
             <img src="assets/images/menu.png">
         </ion-col>
     </ion-row>

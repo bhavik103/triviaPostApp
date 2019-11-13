@@ -127,6 +127,14 @@
             {
               "xml": "<feature name=\"FirebaseAnalytics\"><param name=\"ios-package\" value=\"FirebaseAnalyticsPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<preference name=\"DYNAMIC_LINK_URIPREFIX\" value=\"https://“triviaposts.page.link”\" />",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"FirebaseDynamicLinks\"><param name=\"ios-package\" value=\"FirebaseDynamicLinksPlugin\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -148,6 +156,10 @@
             },
             {
               "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>https</string></array></dict></array>",
+              "count": 1
+            },
+            {
+              "xml": "<array><dict><key>CFBundleTypeRole</key><string>Editor</string><key>CFBundleURLName</key><string>BUNDLE_ID</string><key>CFBundleURLSchemes</key><array><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string></array></dict></array>",
               "count": 1
             }
           ],
@@ -210,6 +222,26 @@
           "aps-environment": [
             {
               "xml": "<string>production</string>",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "*-Debug.plist": {
+        "parents": {
+          "com.apple.developer.associated-domains": [
+            {
+              "xml": "<array><string>applinks:“triviapost.in”</string><string>applinks:“triviaposts.page.link”</string></array>",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "*-Release.plist": {
+        "parents": {
+          "com.apple.developer.associated-domains": [
+            {
+              "xml": "<array><string>applinks:“triviapost.in”</string><string>applinks:“triviaposts.page.link”</string></array>",
               "count": 1
             }
           ]
@@ -290,6 +322,11 @@
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     },
     "cordova-plugin-firebase-analytics": {
+      "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
+    },
+    "cordova-plugin-firebase-dynamiclinks": {
+      "APP_DOMAIN": "“triviapost.in”",
+      "PAGE_LINK_DOMAIN": "“triviaposts.page.link”",
       "PACKAGE_NAME": "$(PRODUCT_BUNDLE_IDENTIFIER)"
     }
   },
@@ -661,6 +698,14 @@
       "merges": [
         "cordova.plugins.firebase.analytics"
       ]
+    },
+    {
+      "id": "cordova-plugin-firebase-dynamiclinks.FirebaseDynamicLinks",
+      "file": "plugins/cordova-plugin-firebase-dynamiclinks/www/FirebaseDynamicLinks.js",
+      "pluginId": "cordova-plugin-firebase-dynamiclinks",
+      "merges": [
+        "cordova.plugins.firebase.dynamiclinks"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -684,6 +729,7 @@
     "cordova-plugin-ionic-webview": "1.2.1",
     "cordova-plugin-androidx": "1.0.2",
     "cordova-plugin-androidx-adapter": "1.1.0",
-    "cordova-plugin-firebase-analytics": "4.0.0"
+    "cordova-plugin-firebase-analytics": "4.0.0",
+    "cordova-plugin-firebase-dynamiclinks": "4.0.1"
   }
 }

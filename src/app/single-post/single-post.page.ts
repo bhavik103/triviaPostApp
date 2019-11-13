@@ -6,6 +6,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ToastService } from '../services/toast.service';
 import { Network } from '@ionic-native/network/ngx';
 import * as _ from 'lodash';
+import { ActionSheetController, Platform } from '@ionic/angular';
 import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 
 @Component({
@@ -23,7 +24,7 @@ export class SinglePostPage implements OnInit {
   backKeyCategory: boolean;
   backKeySearch: boolean;
   loading: boolean;
-  constructor(private firebaseAnalytics: FirebaseAnalytics, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
+  constructor(private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
     this.singlePost();
@@ -99,12 +100,13 @@ export class SinglePostPage implements OnInit {
   }
 
   //  Do Share Post 
-  sharePost(id: string, newsTitle: string) {
-    var message = "Check out this amazing news " + '" ' + newsTitle + ' "';
+  sharePost(link: string, newsTitle: string, newsImage) {
+    var message = "Check out this amazing news " + '"' + newsTitle + '" ';
     var subject = "Trivia Post";
     var str = newsTitle;
-    var url = 'https://triviapost.in/post/' + id;
-    this.socialSharing.share(message, subject, null, url)
+    var file = this.mediaPath + newsImage;
+    var url = link;
+    this.socialSharing.share(url, subject, null, message)
       .then((entries) => {
       })
       .catch((error) => {

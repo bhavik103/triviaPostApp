@@ -173,4 +173,8 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
+    <preference name="DYNAMIC_LINK_URIPREFIX" value="https://“triviaposts.page.link”" />
+    <feature name="FirebaseDynamicLinks">
+        <param name="ios-package" value="FirebaseDynamicLinksPlugin" />
+    </feature>
 </widget>

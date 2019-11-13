@@ -3,6 +3,9 @@ import 'hammerjs';
 import { Router } from '@angular/router';
 import { NewsService } from '../services/news.service';
 import { config } from '../config';
+import { Deeplinks } from '@ionic-native/deeplinks/ngx';
+import { FCM } from '@ionic-native/fcm/ngx';
+import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 
 @Component({
   selector: 'app-all-post',
@@ -13,11 +16,71 @@ export class AllPostPage implements OnInit {
   newsArray: any;
   mediaPath = config.mediaApiUrl;
   language: string;
-  constructor(private router: Router, public _newsService: NewsService) { }
+  constructor(private firebaseDynamicLinks: FirebaseDynamicLinks, private fcm: FCM, private deeplinks: Deeplinks, private router: Router, public _newsService: NewsService) { }
 
   ngOnInit() {
+
+
+    if(!config.isvisited && !config.counter){
+      this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
+        var postId = res.deepLink.split('?')[1].split('=')[1];
+        console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1])
+        console.log('Is Visited:------------- 1', config.isvisited);
+        
+  
+        if (!config.isvisited && !config.counter) {
+          config.counter ++;
+          config.isvisited = true;
+          console.log('Is Visited:------------- 2', config.isvisited);
+  
+        }else{
+          config.counter ++;
+          config.isvisited = false;
+          console.log('Is Visited:------------- 3', config.isvisited);
+  
+        }
+  
+        console.log('Is visited:', config.isvisited);
+  
+        // if (!config.isvisited) {
+        //   this.router.navigate(['single-post/' + postId]);
+        //   config.isvisited = true;
+        // }
+  
+        this.router.navigate(['single-post/' + postId]);
+      }, (error: any) => {
+        console.log(error)
+      });
+  
+    }
+
+
   }
   ionViewWillEnter() {
+
+
+
+    //  Deeplinks
+    // console.log("routes", JSON.stringify(this.deeplinks, null, 2));
+    // this.deeplinks.route({
+    //   '/': {},
+    //   '/nr5y': { "post:": true },
+    //   '/post/:id': { "post:": true }
+    // }).subscribe((match) => {
+    //   console.log("match link", match.$args.id);
+    //   this.router.navigate(['single-post/' + match.$args.id]);
+    // },
+    //   (nomatch) => {
+    //     // alert("UnMatched" + nomatch);
+    //   });
+    this.fcm.onNotification().subscribe(data => {
+      this.router.navigate(['/single-post/' + data.newsId]);
+      if (data.wasTapped) {
+        console.log('Received in background', data.wasTapped);
+      } else {
+        console.log('Received in foreground');
+      }
+    });
     this.getAllPost();
   }
 
@@ -38,8 +101,8 @@ export class AllPostPage implements OnInit {
       });
   }
 
-  singleNews(postid){
-    console.log('postid',postid);
-    this.router.navigateByUrl('/single-post/'+ postid);
+  singleNews(postid) {
+    console.log('postid', postid);
+    this.router.navigateByUrl('/single-post/' + postid);
   }
 }

@@ -4,7 +4,6 @@ p{
 .homeBack {
   float: left;
   font-size: 20px;
-  padding-left: 15px;
 }
 .postImage img {
   min-width: 100%;
@@ -43,9 +42,10 @@ p{
 }
 
 .shareImage{
-  height: 21px;
+  height: 20px;
   float: right;
   padding-right: 15px;
+  margin: 14px 0px 0px 0px;
 }
 
 a.float + div.label-container {
@@ -87,6 +87,8 @@ a.float:hover + div.label-container{
 }
 ion-title{
   float: left;
+  line-height: 46px;
+  padding-left: 10px;
 }
 .liked{
   color:#CE2837;

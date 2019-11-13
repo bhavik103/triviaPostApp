@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { Observable } from 'rxjs/Observable';
 import { ToastController, } from '@ionic/angular';
+import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
+import { config } from './config';
+
 
 import 'rxjs/add/observable/fromEvent';
 import { UserService } from './services/user.service';
@@ -22,6 +25,7 @@ export class AppComponent {
   hide: boolean = true;
   toast: any;
   constructor(
+    private firebaseDynamicLinks: FirebaseDynamicLinks,
     private _userService: UserService,
     public toastController: ToastController,
     private platform: Platform,
@@ -30,7 +34,18 @@ export class AppComponent {
     private fcm: FCM,
     private router: Router,
     protected deeplinks: Deeplinks,
-    ) {
+  ) {
+    this.deeplinks.route({
+      '/': {},
+      '/nr5y': { "post:": true },
+      '/post/:id': { "post:": true }
+    }).subscribe((match) => {
+      console.log("match link", match.$args.id);
+      this.router.navigate(['single-post/' + match.$args.id]);
+    },
+      (nomatch) => {
+        // alert("UnMatched" + nomatch);
+      });
     // // Check Internet conectivity
     var offline = Observable.fromEvent(document, "offline");
     var online = Observable.fromEvent(document, "online");
@@ -70,6 +85,26 @@ export class AppComponent {
   initializeApp() {
     const handleBranch = () => {
       this.platform.ready().then(() => {
+        this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
+          var postId = res.deepLink.split('?')[1].split('=')[1];
+          console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1])
+
+          console.log('Is Visited In App Component:-------------', config.isvisited);
+
+
+          // if (!config.isvisited) {
+          //   this.router.navigate(['single-post/' + postId]);
+          //   config.isvisited = true;
+          //   console.log('Is Visited Inside If:-------------', config.isvisited);
+          // }
+
+          this.router.navigate(['single-post/' + postId]);
+          config.isvisited = true;
+
+
+        }, (error: any) => {
+          console.log(error)
+        });
         this.splashScreen.hide();
         this.statusBar.backgroundColorByHexString('#000000');
       });

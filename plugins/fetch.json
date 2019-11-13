@@ -164,10 +164,7 @@
     },
     "is_top_level": true,
     "variables": {
-      "URL_SCHEME": "triviapost",
-      "ANDROID_SCHEME": " ",
-      "ANDROID_HOST": " ",
-      "ANDROID_PATHPREFIX": "/"
+      "URL_SCHEME": "triviapost"
     }
   },
   "cordova-plugin-screen-orientation": {
@@ -243,5 +240,17 @@
     },
     "is_top_level": false,
     "variables": {}
+  },
+  "cordova-plugin-firebase-dynamiclinks": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-firebase-dynamiclinks@^4.0.1"
+    },
+    "is_top_level": true,
+    "variables": {
+      "APP_DOMAIN": "“triviapost.in”",
+      "APP_PATH": "/",
+      "PAGE_LINK_DOMAIN": "“triviaposts.page.link”"
+    }
   }
 }

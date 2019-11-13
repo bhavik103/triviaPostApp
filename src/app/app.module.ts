@@ -34,6 +34,7 @@ import { all } from 'q';
 import { StarRatingModule } from 'ionic4-star-rating';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
+import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 
 export class HammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -47,6 +48,7 @@ export class HammerConfig extends HammerGestureConfig {
   entryComponents: [],
   imports: [StarRatingModule,CategoriesPageModule,AllPostPageModule,FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
+    FirebaseDynamicLinks,
     FirebaseAnalytics,
     LocalNotifications,
     {

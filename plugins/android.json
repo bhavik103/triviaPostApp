@@ -102,6 +102,13 @@
     "cordova-plugin-firebase-analytics": {
       "FIREBASE_ANALYTICS_VERSION": "17.2.+",
       "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-firebase-dynamiclinks": {
+      "APP_DOMAIN": "“basabiso.com”",
+      "PAGE_LINK_DOMAIN": "“basabiso.page.link”",
+      "FIREBASE_ANALYTICS_VERSION": "17.2.+",
+      "FIREBASE_DYNAMIC_LINKS_VERSION": "19.0.+",
+      "PACKAGE_NAME": "io.ionic.triviapost"
     }
   },
   "dependent_plugins": {

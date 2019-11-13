@@ -8,5 +8,10 @@
 	<array>
 		<string>$(AppIdentifierPrefix)$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	</array>
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:“triviapost.in”</string>
+		<string>applinks:“triviaposts.page.link”</string>
+	</array>
 </dict>
 </plist>

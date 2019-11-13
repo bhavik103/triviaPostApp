@@ -17,6 +17,8 @@ import { UserService } from '../services/user.service';
 import 'hammerjs';
 import { ToastService } from "../services/toast.service";
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
+
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -51,7 +53,7 @@ export class HomePage implements OnInit {
     hide: boolean;
     resLength: number;
     subscription: any;
-    constructor(private localNotifications:LocalNotifications,private _toastService: ToastService, private _userService: UserService, private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
+    constructor(private firebaseDynamicLinks: FirebaseDynamicLinks, private localNotifications: LocalNotifications, private _toastService: ToastService, private _userService: UserService, private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 
     // Event Listeners
@@ -65,15 +67,17 @@ export class HomePage implements OnInit {
         });
     }
 
-    ionViewDidEnter(){
-        this.subscription = this.platform.backButton.subscribe(()=>{
+    ionViewDidEnter() {
+        this.subscription = this.platform.backButton.subscribe(() => {
             navigator['app'].exitApp();
         });
     }
-    ionViewWillLeave(){
+    ionViewWillLeave() {
         this.subscription.unsubscribe();
-  }
+    }
     viewInitFunctions() {
+        console.log('this.firebaseDynamicLinks', this.firebaseDynamicLinks);
+        
         this.notificationTapped();
         this.notifyflag = localStorage.getItem('notification');
         this.language = localStorage.language;
@@ -85,15 +89,17 @@ export class HomePage implements OnInit {
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
         //  Deeplinks
-        this.deeplinks.route({
-            '/': {},
-            '/post/:id': { "post:": true }
-        }).subscribe((match) => {
-            this.router.navigate(['single-post/' + match.$args.id]);
-        },
-            (nomatch) => {
-                // alert("UnMatched" + nomatch);
-            });
+        // this.deeplinks.route({
+        //     '/': {},
+        //     '/Rk22': { "post:": true },
+        //     '/post/:id': { "post:": true }
+        // }).subscribe((match) => {
+        //     console.log("match link", match.$args.id);
+        //     this.router.navigate(['single-post/' + match.$args.id]);
+        // },
+        //     (nomatch) => {
+        //         // alert("UnMatched" + nomatch);
+        //     });
         this.tokenLocalStorage = localStorage.getItem('accessToken');
         if (this.tokenLocalStorage) {
             var base64Url = this.tokenLocalStorage.split('.')[1];
@@ -154,9 +160,9 @@ export class HomePage implements OnInit {
     }
 
     search() {
-		this.router.navigate(['searchBar']);
+        this.router.navigate(['searchBar']);
     }
-    
+
     //  Do Bookmark
     bookmark(index: string | number) {
         if (this.network.type == 'none') {
@@ -190,17 +196,17 @@ export class HomePage implements OnInit {
             this.router.navigate(['/single-post/' + data.newsId]);
             if (data.wasTapped) {
                 console.log('Received in background', data.wasTapped);
-              } else {
+            } else {
                 // this.router.navigate(['/home/leave-application'])
                 this.router.navigate([data.redirectTo]);
                 console.log('Received in foreground');
                 this.localNotifications.schedule({
-                  id: data.id,
-                  title: 'Trivia Post',
-                  text: data.body,
-                  foreground: true // Show the notification while app is open
+                    id: data.id,
+                    title: 'Trivia Post',
+                    text: data.body,
+                    foreground: true // Show the notification while app is open
                 });
-              }
+            }
         });
     }
 

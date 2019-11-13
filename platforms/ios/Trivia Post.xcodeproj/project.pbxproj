@@ -87,6 +87,8 @@
 		E359882E297344ED9903D2F7 /* GCDWebServerStreamedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AA6B1737FC8344428EB6E4F8 /* GCDWebServerStreamedResponse.m */; };
 		2C2F458B7ACD41E0AE841A76 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B18F9AC0EA3F4D20B4AF4C97 /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F52149845252476F82EDF9D7 /* FirebaseAnalyticsPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A9080107B914FA6A2764711 /* FirebaseAnalyticsPlugin.m */; };
+		72F4721F9EC8421787CE2005 /* AppDelegate+FirebaseDynamicLinksPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 906659F3EE804AC7A997C321 /* AppDelegate+FirebaseDynamicLinksPlugin.m */; };
+		ABA7BA1C88744840A99E12CE /* FirebaseDynamicLinksPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 850BC4D60BD042A28ED749CF /* FirebaseDynamicLinksPlugin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +265,10 @@
 		B18F9AC0EA3F4D20B4AF4C97 /* WebKit.framework */ = {isa = PBXFileReference; name = "WebKit.framework"; path = "System/Library/Frameworks/WebKit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		4A9080107B914FA6A2764711 /* FirebaseAnalyticsPlugin.m */ = {isa = PBXFileReference; name = "FirebaseAnalyticsPlugin.m"; path = "cordova-plugin-firebase-analytics/FirebaseAnalyticsPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		C9D93317CFA143ADB0C65AC0 /* FirebaseAnalyticsPlugin.h */ = {isa = PBXFileReference; name = "FirebaseAnalyticsPlugin.h"; path = "cordova-plugin-firebase-analytics/FirebaseAnalyticsPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		906659F3EE804AC7A997C321 /* AppDelegate+FirebaseDynamicLinksPlugin.m */ = {isa = PBXFileReference; name = "AppDelegate+FirebaseDynamicLinksPlugin.m"; path = "cordova-plugin-firebase-dynamiclinks/AppDelegate+FirebaseDynamicLinksPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		850BC4D60BD042A28ED749CF /* FirebaseDynamicLinksPlugin.m */ = {isa = PBXFileReference; name = "FirebaseDynamicLinksPlugin.m"; path = "cordova-plugin-firebase-dynamiclinks/FirebaseDynamicLinksPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		06F2C0C1E547427EAA2B52C2 /* AppDelegate+FirebaseDynamicLinksPlugin.h */ = {isa = PBXFileReference; name = "AppDelegate+FirebaseDynamicLinksPlugin.h"; path = "cordova-plugin-firebase-dynamiclinks/AppDelegate+FirebaseDynamicLinksPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		D6F8153359774C6FB46F40DB /* FirebaseDynamicLinksPlugin.h */ = {isa = PBXFileReference; name = "FirebaseDynamicLinksPlugin.h"; path = "cordova-plugin-firebase-dynamiclinks/FirebaseDynamicLinksPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -527,6 +533,10 @@
 				1044D588E3B842A78E02C729 /* GCDWebServerStreamedResponse.h */,
 				4A9080107B914FA6A2764711 /* FirebaseAnalyticsPlugin.m */,
 				C9D93317CFA143ADB0C65AC0 /* FirebaseAnalyticsPlugin.h */,
+				906659F3EE804AC7A997C321 /* AppDelegate+FirebaseDynamicLinksPlugin.m */,
+				850BC4D60BD042A28ED749CF /* FirebaseDynamicLinksPlugin.m */,
+				06F2C0C1E547427EAA2B52C2 /* AppDelegate+FirebaseDynamicLinksPlugin.h */,
+				D6F8153359774C6FB46F40DB /* FirebaseDynamicLinksPlugin.h */,
 			);
 			name = Plugins;
 			path = "Trivia Post/Plugins";
@@ -775,6 +785,8 @@
 				69E82F979A314EC1A8E96751 /* GCDWebServerFileResponse.m in Sources */,
 				E359882E297344ED9903D2F7 /* GCDWebServerStreamedResponse.m in Sources */,
 				F52149845252476F82EDF9D7 /* FirebaseAnalyticsPlugin.m in Sources */,
+				72F4721F9EC8421787CE2005 /* AppDelegate+FirebaseDynamicLinksPlugin.m in Sources */,
+				ABA7BA1C88744840A99E12CE /* FirebaseDynamicLinksPlugin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -64,7 +64,7 @@ export class BookmarksComponent implements OnInit {
 			});
 	}
 
-	async bookmarkAction(id, title){
+	async bookmarkAction(newsImage,link,id, title){
 		console.log(id);
 		const actionSheet = await this.actionSheetController.create({
 			buttons: [{
@@ -83,15 +83,16 @@ export class BookmarksComponent implements OnInit {
 			}, {
 				text: 'Share',
 				handler: () => {
-					var message = "Check out this amazing news " + '" ' + title + ' "';
+					var message = "Check out this amazing news " + '"' + title + '" ';
 					var subject = "Trivia Post";
-					var url = 'https://triviapost.in/post/' + id; 
-					this.socialSharing.share(message,subject, null , url)
+					var url = link;
+					var file = this.mediaPath + newsImage;
+					this.socialSharing.share(message,subject, file , url)
 					.then((entries) => {
 						console.log('success ' + JSON.stringify(entries));
 					})
 					.catch((error) => {
-					});	
+					});
 				}
 			}]
 		});

@@ -493,7 +493,7 @@ module.exports = "<ion-app>\n  <ion-router-outlet></ion-router-outlet>\n</ion-ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-icon name=\"arrow-round-back\" class=\"bookmarkBack\" routerLink=\"/settings\"></ion-icon>\n        <ion-title>\n            Bookmarks\n        </ion-title>\n    </ion-toolbar>\n</ion-header>\n<ion-content padding>\n    <h2 id=\"bookmarkHead\">My Bookmarks</h2>\n    <ion-row class=\"searchResults\" *ngFor=\"let news of newsArray\">\n        <ion-col size=\"3\" class=\"bookmarkImgCol\" padding (click)=\"getSingleBookmark(news.newsId)\">\n            <div class=\"bookmark-img\">\n                <img src=\"{{mediaPath}}{{news.newsImage}}\">\n            </div>\n        </ion-col>\n        <ion-col size=\"7\" (click)=\"getSingleBookmark(news.newsId)\">\n            <div padding>\n                <p class=\"bookmarkCat\" *ngIf=\"language == 'English'\">{{news.newsCategory}}</p>\n                <p class=\"bookmarkCat\" *ngIf=\"language == 'Hindi'\">{{news.newsCategoryHn}}</p>\n                <span class=\"optionsList\" *ngIf=\"language == 'Hindi'\" [innerHTML]=\"news.newsTitleHindi\"></span>\n                <span class=\"optionsList\" *ngIf=\"language == 'English'\" [innerHTML]=\"news.newsTitleEnglish\"></span>\n            </div>\n        </ion-col>\n        <ion-col class=\"bookmarkActButton\" (click)=\"bookmarkAction(news.newsId, news.newsTitleEnglish)\">\n            <img src=\"assets/images/menu.png\">\n        </ion-col>\n    </ion-row>\n    <ion-row *ngIf=\"bookmarkLength == 0\">\n        <ion-col size=\"12\">\n            <h1>You have no bookmarks!</h1>\n        </ion-col>\n    </ion-row>\n    <div id=\"loader-wrapper\" *ngIf=\"loading\">\n        <div id=\"loader\">\n            <span class=\"logo_container\">\n                <img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n            </span>\n            <div class=\"ml-loader\">\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n            <p class=\"text-center\">Loding Data...</p>\n        </div>\n    </div>\n</ion-content>"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-icon name=\"arrow-round-back\" class=\"bookmarkBack\" routerLink=\"/settings\"></ion-icon>\n        <ion-title>\n            Bookmarks\n        </ion-title>\n    </ion-toolbar>\n</ion-header>\n<ion-content padding>\n    <h2 id=\"bookmarkHead\">My Bookmarks</h2>\n    <ion-row class=\"searchResults\" *ngFor=\"let news of newsArray\">\n        <ion-col size=\"3\" class=\"bookmarkImgCol\" padding (click)=\"getSingleBookmark(news.newsId)\">\n            <div class=\"bookmark-img\">\n                <img src=\"{{mediaPath}}{{news.newsImage}}\">\n            </div>\n        </ion-col>\n        <ion-col size=\"7\" (click)=\"getSingleBookmark(news.newsId)\">\n            <div padding>\n                <p class=\"bookmarkCat\" *ngIf=\"language == 'English'\">{{news.newsCategory}}</p>\n                <p class=\"bookmarkCat\" *ngIf=\"language == 'Hindi'\">{{news.newsCategoryHn}}</p>\n                <span class=\"optionsList\" *ngIf=\"language == 'Hindi'\" [innerHTML]=\"news.newsTitleHindi\"></span>\n                <span class=\"optionsList\" *ngIf=\"language == 'English'\" [innerHTML]=\"news.newsTitleEnglish\"></span>\n            </div>\n        </ion-col>\n        <ion-col class=\"bookmarkActButton\" (click)=\"bookmarkAction(news.newsImage,news.fcmLink,news.newsId, news.newsTitleEnglish)\">\n            <img src=\"assets/images/menu.png\">\n        </ion-col>\n    </ion-row>\n    <ion-row *ngIf=\"bookmarkLength == 0\">\n        <ion-col size=\"12\">\n            <h1>You have no bookmarks!</h1>\n        </ion-col>\n    </ion-row>\n    <div id=\"loader-wrapper\" *ngIf=\"loading\">\n        <div id=\"loader\">\n            <span class=\"logo_container\">\n                <img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n            </span>\n            <div class=\"ml-loader\">\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n                <div></div>\n            </div>\n            <p class=\"text-center\">Loding Data...</p>\n        </div>\n    </div>\n</ion-content>"
 
 /***/ }),
 
@@ -653,6 +653,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/news.service */ "./src/app/services/news.service.ts");
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
+/* harmony import */ var _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/deeplinks/ngx */ "./node_modules/@ionic-native/deeplinks/ngx/index.js");
+/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
+/* harmony import */ var _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/firebase-dynamic-links/ngx */ "./node_modules/@ionic-native/firebase-dynamic-links/ngx/index.js");
+
+
+
 
 
 
@@ -660,14 +666,64 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AllPostPage = class AllPostPage {
-    constructor(router, _newsService) {
+    constructor(firebaseDynamicLinks, fcm, deeplinks, router, _newsService) {
+        this.firebaseDynamicLinks = firebaseDynamicLinks;
+        this.fcm = fcm;
+        this.deeplinks = deeplinks;
         this.router = router;
         this._newsService = _newsService;
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_5__["config"].mediaApiUrl;
     }
     ngOnInit() {
+        if (!_config__WEBPACK_IMPORTED_MODULE_5__["config"].isvisited && !_config__WEBPACK_IMPORTED_MODULE_5__["config"].counter) {
+            this.firebaseDynamicLinks.onDynamicLink().subscribe((res) => {
+                var postId = res.deepLink.split('?')[1].split('=')[1];
+                console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1]);
+                console.log('Is Visited:------------- 1', _config__WEBPACK_IMPORTED_MODULE_5__["config"].isvisited);
+                if (!_config__WEBPACK_IMPORTED_MODULE_5__["config"].isvisited && !_config__WEBPACK_IMPORTED_MODULE_5__["config"].counter) {
+                    _config__WEBPACK_IMPORTED_MODULE_5__["config"].counter++;
+                    _config__WEBPACK_IMPORTED_MODULE_5__["config"].isvisited = true;
+                    console.log('Is Visited:------------- 2', _config__WEBPACK_IMPORTED_MODULE_5__["config"].isvisited);
+                }
+                else {
+                    _config__WEBPACK_IMPORTED_MODULE_5__["config"].counter++;
+                    _config__WEBPACK_IMPORTED_MODULE_5__["config"].isvisited = false;
+                    console.log('Is Visited:------------- 3', _config__WEBPACK_IMPORTED_MODULE_5__["config"].isvisited);
+                }
+                console.log('Is visited:', _config__WEBPACK_IMPORTED_MODULE_5__["config"].isvisited);
+                // if (!config.isvisited) {
+                //   this.router.navigate(['single-post/' + postId]);
+                //   config.isvisited = true;
+                // }
+                this.router.navigate(['single-post/' + postId]);
+            }, (error) => {
+                console.log(error);
+            });
+        }
     }
     ionViewWillEnter() {
+        //  Deeplinks
+        // console.log("routes", JSON.stringify(this.deeplinks, null, 2));
+        // this.deeplinks.route({
+        //   '/': {},
+        //   '/nr5y': { "post:": true },
+        //   '/post/:id': { "post:": true }
+        // }).subscribe((match) => {
+        //   console.log("match link", match.$args.id);
+        //   this.router.navigate(['single-post/' + match.$args.id]);
+        // },
+        //   (nomatch) => {
+        //     // alert("UnMatched" + nomatch);
+        //   });
+        this.fcm.onNotification().subscribe(data => {
+            this.router.navigate(['/single-post/' + data.newsId]);
+            if (data.wasTapped) {
+                console.log('Received in background', data.wasTapped);
+            }
+            else {
+                console.log('Received in foreground');
+            }
+        });
         this.getAllPost();
     }
     goToCategories() {
@@ -689,6 +745,9 @@ let AllPostPage = class AllPostPage {
     }
 };
 AllPostPage.ctorParameters = () => [
+    { type: _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_8__["FirebaseDynamicLinks"] },
+    { type: _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_7__["FCM"] },
+    { type: _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_6__["Deeplinks"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
     { type: _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"] }
 ];
@@ -698,7 +757,7 @@ AllPostPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./all-post.page.html */ "./node_modules/raw-loader/index.js!./src/app/all-post/all-post.page.html"),
         styles: [__webpack_require__(/*! ./all-post.page.scss */ "./src/app/all-post/all-post.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_8__["FirebaseDynamicLinks"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_7__["FCM"], _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_6__["Deeplinks"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"]])
 ], AllPostPage);
 
 
@@ -842,8 +901,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/deeplinks/ngx */ "./node_modules/@ionic-native/deeplinks/ngx/index.js");
 /* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs-compat/_esm2015/Observable.js");
-/* harmony import */ var rxjs_add_observable_fromEvent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/add/observable/fromEvent */ "./node_modules/rxjs-compat/_esm2015/add/observable/fromEvent.js");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/firebase-dynamic-links/ngx */ "./node_modules/@ionic-native/firebase-dynamic-links/ngx/index.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./config */ "./src/app/config.ts");
+/* harmony import */ var rxjs_add_observable_fromEvent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! rxjs/add/observable/fromEvent */ "./node_modules/rxjs-compat/_esm2015/add/observable/fromEvent.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
+
+
 
 
 
@@ -857,7 +920,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(_userService, toastController, platform, splashScreen, statusBar, fcm, router, deeplinks) {
+    constructor(firebaseDynamicLinks, _userService, toastController, platform, splashScreen, statusBar, fcm, router, deeplinks) {
+        this.firebaseDynamicLinks = firebaseDynamicLinks;
         this._userService = _userService;
         this.toastController = toastController;
         this.platform = platform;
@@ -867,6 +931,16 @@ let AppComponent = class AppComponent {
         this.router = router;
         this.deeplinks = deeplinks;
         this.hide = true;
+        this.deeplinks.route({
+            '/': {},
+            '/nr5y': { "post:": true },
+            '/post/:id': { "post:": true }
+        }).subscribe((match) => {
+            console.log("match link", match.$args.id);
+            this.router.navigate(['single-post/' + match.$args.id]);
+        }, (nomatch) => {
+            // alert("UnMatched" + nomatch);
+        });
         // // Check Internet conectivity
         var offline = rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__["Observable"].fromEvent(document, "offline");
         var online = rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__["Observable"].fromEvent(document, "online");
@@ -901,6 +975,20 @@ let AppComponent = class AppComponent {
     initializeApp() {
         const handleBranch = () => {
             this.platform.ready().then(() => {
+                this.firebaseDynamicLinks.onDynamicLink().subscribe((res) => {
+                    var postId = res.deepLink.split('?')[1].split('=')[1];
+                    console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1]);
+                    console.log('Is Visited In App Component:-------------', _config__WEBPACK_IMPORTED_MODULE_10__["config"].isvisited);
+                    // if (!config.isvisited) {
+                    //   this.router.navigate(['single-post/' + postId]);
+                    //   config.isvisited = true;
+                    //   console.log('Is Visited Inside If:-------------', config.isvisited);
+                    // }
+                    this.router.navigate(['single-post/' + postId]);
+                    _config__WEBPACK_IMPORTED_MODULE_10__["config"].isvisited = true;
+                }, (error) => {
+                    console.log(error);
+                });
                 this.splashScreen.hide();
                 this.statusBar.backgroundColorByHexString('#000000');
             });
@@ -908,7 +996,8 @@ let AppComponent = class AppComponent {
     }
 };
 AppComponent.ctorParameters = () => [
-    { type: _services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"] },
+    { type: _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_9__["FirebaseDynamicLinks"] },
+    { type: _services_user_service__WEBPACK_IMPORTED_MODULE_12__["UserService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] },
     { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"] },
@@ -923,7 +1012,8 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
         styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"],
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_9__["FirebaseDynamicLinks"],
+        _services_user_service__WEBPACK_IMPORTED_MODULE_12__["UserService"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
         _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"],
@@ -984,6 +1074,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ionic4_star_rating__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ionic4-star-rating */ "./node_modules/ionic4-star-rating/dist/index.js");
 /* harmony import */ var _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! @ionic-native/local-notifications/ngx */ "./node_modules/@ionic-native/local-notifications/ngx/index.js");
 /* harmony import */ var _ionic_native_firebase_analytics_ngx__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! @ionic-native/firebase-analytics/ngx */ "./node_modules/@ionic-native/firebase-analytics/ngx/index.js");
+/* harmony import */ var _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! @ionic-native/firebase-dynamic-links/ngx */ "./node_modules/@ionic-native/firebase-dynamic-links/ngx/index.js");
+
 
 
 
@@ -1037,6 +1129,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         entryComponents: [],
         imports: [ionic4_star_rating__WEBPACK_IMPORTED_MODULE_32__["StarRatingModule"], _categories_categories_module__WEBPACK_IMPORTED_MODULE_31__["CategoriesPageModule"], _all_post_all_post_module__WEBPACK_IMPORTED_MODULE_30__["AllPostPageModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_24__["FormsModule"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_24__["ReactiveFormsModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_16__["IonicStorageModule"].forRoot(), _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_11__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"]],
         providers: [
+            _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_35__["FirebaseDynamicLinks"],
             _ionic_native_firebase_analytics_ngx__WEBPACK_IMPORTED_MODULE_34__["FirebaseAnalytics"],
             _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_33__["LocalNotifications"],
             {
@@ -1150,7 +1243,7 @@ let BookmarksComponent = class BookmarksComponent {
             this.error = err;
         });
     }
-    bookmarkAction(id, title) {
+    bookmarkAction(newsImage, link, id, title) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             console.log(id);
             const actionSheet = yield this.actionSheetController.create({
@@ -1170,10 +1263,11 @@ let BookmarksComponent = class BookmarksComponent {
                     }, {
                         text: 'Share',
                         handler: () => {
-                            var message = "Check out this amazing news " + '" ' + title + ' "';
+                            var message = "Check out this amazing news " + '"' + title + '" ';
                             var subject = "Trivia Post";
-                            var url = 'https://triviapost.in/post/' + id;
-                            this.socialSharing.share(message, subject, null, url)
+                            var url = link;
+                            var file = this.mediaPath + newsImage;
+                            this.socialSharing.share(message, subject, file, url)
                                 .then((entries) => {
                                 console.log('success ' + JSON.stringify(entries));
                             })
@@ -1373,9 +1467,11 @@ const mediaUrl = "https://admin.triviapost.in/server/";
 // const mediaUrl = "http://192.168.1.83/TriviaPost/Trivia-BackEnd/";
 const config = {
     baseApiUrl: baseUrl,
-    mediaApiUrl: mediaUrl
+    mediaApiUrl: mediaUrl,
+    isvisited: false,
+    counter: 0
 };
-// Commands for signed APK 
+// Commands for signed APK
 // 1) keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
 // 2) jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk alias_name
 // 3) zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk triviapost.apk

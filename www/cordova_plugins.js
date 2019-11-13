@@ -400,6 +400,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "merges": [
         "cordova.plugins.firebase.analytics"
       ]
+    },
+    {
+      "id": "cordova-plugin-firebase-dynamiclinks.FirebaseDynamicLinks",
+      "file": "plugins/cordova-plugin-firebase-dynamiclinks/www/FirebaseDynamicLinks.js",
+      "pluginId": "cordova-plugin-firebase-dynamiclinks",
+      "merges": [
+        "cordova.plugins.firebase.dynamiclinks"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -427,6 +435,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-androidx-adapter": "1.1.0",
     "cordova-support-android-plugin": "1.0.1",
     "cordova-support-google-services": "1.3.1",
-    "cordova-plugin-firebase-analytics": "4.0.0"
+    "cordova-plugin-firebase-analytics": "4.0.0",
+    "cordova-plugin-firebase-dynamiclinks": "4.0.1"
   };
 });

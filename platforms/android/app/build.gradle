@@ -306,6 +306,7 @@ dependencies {
     implementation "androidx.annotation:annotation:1.0.0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "com.google.firebase:firebase-analytics:17.2.+"
+    implementation "com.google.firebase:firebase-dynamic-links:19.0.+"
     // SUB-PROJECT DEPENDENCIES END
 
     implementation(project(path: ":CordovaLib"))
