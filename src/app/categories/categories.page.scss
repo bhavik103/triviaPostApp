@@ -18,11 +18,14 @@ ion-card-header img {
 }
 ion-card-content {
   padding: 5px 10px 10px 10px;
-  min-height: 60px;
-  max-height: 66px;
+  min-height: 47px;
+  max-height: 56px;
   overflow: hidden;
+  padding-bottom: 0;
 }
-
+ion-card{
+  border: 2px solid #961300!important;
+}
 ion-card,
 ion-col {
   padding: 0;

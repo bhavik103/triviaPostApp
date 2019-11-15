@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import {UserService} from '../services/user.service'
-import {Router} from '@angular/router';
+import { UserService } from '../services/user.service'
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
-import {FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastService } from "../services/toast.service";
-import {Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import 'hammerjs';
+import * as $ from 'jquery';
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
@@ -15,14 +16,19 @@ import 'hammerjs';
 })
 export class LoginComponent implements OnInit {
 	loading: any;
-	constructor(private _toastService: ToastService,public platform:Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) {}
+	emailLogin: any;
+	email: any;
+	constructor(private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
 	ngOnInit() {
 		this.platform.backButton.subscribe(async () => {
-            if(this.router.url.includes('login')){
-                this.router.navigate(['settings']);
-            }
-        });
+			if (this.router.url.includes('login')) {
+				this.router.navigate(['settings']);
+			}
+		});
 		this.rememberMe();
+	}
+	ionViewWillEnter() {
+		this.email = localStorage.getItem('email');
 	}
 
 	signupForm = new FormGroup({
@@ -53,8 +59,8 @@ export class LoginComponent implements OnInit {
 	forgot = {
 		email: "",
 	}
-	rememberMe(){
-		if(localStorage.getItem("remembered")){
+	rememberMe() {
+		if (localStorage.getItem("remembered")) {
 			var login = JSON.parse(localStorage.getItem("remembered"));
 			console.log(login);
 
@@ -62,7 +68,7 @@ export class LoginComponent implements OnInit {
 				userName: login.userName,
 				password: login.password
 			}
-		}else{
+		} else {
 			this.login = {
 				userName: "",
 				password: ""
@@ -70,25 +76,25 @@ export class LoginComponent implements OnInit {
 		}
 	}
 
-	goBack(){
+	goBack() {
 		this.router.navigateByUrl('/settings');
 	}
 
 	doGoogleLogin() {
 		console.log("in google login============")
 		this.googlePlus.login({})
-		.then((res) => {
-			this.loading = true;
-			console.log('res==of google==============>', res);
-			this._userService.googleLogin(res.accessToken).subscribe((res: any) => {
-				this.loading = false;
-				this.router.navigate(['home/categories']);
-			}, err => {
-				this.loading = false;
-				console.log('err==========>', err)
+			.then((res) => {
+				this.loading = true;
+				console.log('res==of google==============>', res);
+				this._userService.googleLogin(res.accessToken).subscribe((res: any) => {
+					this.loading = false;
+					this.router.navigate(['home/categories']);
+				}, err => {
+					this.loading = false;
+					console.log('err==========>', err)
+				})
 			})
-		})
-		.catch(err => console.error('err==============>', err));
+			.catch(err => console.error('err==============>', err));
 	}
 
 	async doFbLogin() {
@@ -97,69 +103,75 @@ export class LoginComponent implements OnInit {
 		//the permissions your facebook app needs from the user
 		permissions = ["public_profile", "email"];
 		this.fb.login(permissions)
-		.then((response: FacebookLoginResponse) => {
-			this.loading = true;
-			console.log('response=============>', response)
-			let accessToken = response.authResponse.accessToken;
-			console.log('accessToken=============,accessToken', accessToken)
-			this._userService.fbLogin(accessToken).subscribe((res: any) => {
-				this.loading = false;
-				this.router.navigate(['home/categories']);
-			}, err => {
-				this.loading = false;
-				console.log('err===========>', err)
+			.then((response: FacebookLoginResponse) => {
+				this.loading = true;
+				console.log('response=============>', response)
+				let accessToken = response.authResponse.accessToken;
+				console.log('accessToken=============,accessToken', accessToken)
+				this._userService.fbLogin(accessToken).subscribe((res: any) => {
+					this.loading = false;
+					this.router.navigate(['home/categories']);
+				}, err => {
+					this.loading = false;
+					console.log('err===========>', err)
+				})
 			})
-		})
 	}
 
-	signup(user){
+	signup(user) {
 		this.loading = true;
-		this._userService.signup(user).subscribe((res:any)=>{
+		this._userService.signup(user).subscribe((res: any) => {
 			this.loading = false;
-			this._toastService.toastFunction(res.message,'success');
+			this._toastService.toastFunction(res.message, 'success');
 			this.signupForm.reset();
 			this.router.navigate(['settings']);
 			this.router.navigate(['login']);
 		},
-		err=>{
-			this.loading = false;
-			this._toastService.toastFunction(err.error.message,'danger');
-		})
+			err => {
+				this.loading = false;
+				this._toastService.toastFunction(err.error.message, 'danger');
+			})
 	}
 
-	userLogin(login){
+	userLogin(login) {
 		this.loading = true;
 		const element = document.getElementById('remember') as HTMLInputElement;
-		if(element.checked){
-			localStorage.setItem("remembered", JSON.stringify(login));			
-		}else{
+		if (element.checked) {
+			localStorage.setItem("remembered", JSON.stringify(login));
+		} else {
 			localStorage.removeItem('remembered');
 		}
 		console.log(login);
 		this._userService.customLogin(login).subscribe((res: any) => {
 			this.loading = false;
-			this._toastService.toastFunction(res.message,'success');
+			this._toastService.toastFunction(res.message, 'success');
 			this.router.navigate(['home/categories']);
 		}, err => {
 			this.loading = false;
-			this._toastService.toastFunction(err.error.message,'success');
+			this._toastService.toastFunction(err.error.message, 'success');
 		})
 	}
 
-	resetPassword(user){
+	resetPassword(user) {
 		this.loading = true;
 		this._userService.passwordReset(user).subscribe((res: any) => {
 			this.loading = false;
-			this._toastService.toastFunction(res.message,'success');
+			this._toastService.toastFunction(res.message, 'success');
 
 			this.router.navigate(['settings']);
 		}, err => {
 			this.loading = false;
-			this._toastService.toastFunction(err.error.message,'success');
-		})	
+			this._toastService.toastFunction(err.error.message, 'success');
+		})
 	}
 
-	signUpClose(){
+	signUpClose() {
 		this.signupForm.reset();
+	}
+
+	signInRoute() {
+		this.emailLogin = $('#emailInput').val();
+		localStorage.setItem('email', this.emailLogin);
+		this.router.navigateByUrl('/signin')
 	}
 }

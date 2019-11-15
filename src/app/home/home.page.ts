@@ -160,21 +160,7 @@ export class HomePage implements OnInit {
     }
 
     search() {
-        this.router.navigate(['searchBar']);
-    }
-
-    //  Do Bookmark
-    bookmark(index: string | number) {
-        if (this.network.type == 'none') {
-            this._toastService.toastFunction('No internet connection', 'danger');
-        } else {
-            this._newsService.bookmarkPost(this.newsArray[index].newsId).subscribe((res: any) => {
-                this.newsArray[index].bookmarkKey = !this.newsArray[index].bookmarkKey;
-                this._toastService.toastFunction(res.message, 'success');
-            }, err => {
-                this._toastService.toastFunction(err.error.message, 'danger');
-            })
-        }
+        this.router.navigateByUrl('/searchBar');
     }
     //  Do Share Post 
     sharePost(id: string, newsTitle: string) {

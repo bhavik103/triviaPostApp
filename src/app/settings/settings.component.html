@@ -11,30 +11,31 @@
 
 <ion-content>
 	<div class="settings loginDiv" padding *ngIf="!tokenLocalStorage">
-		<h1 class="savePref" *ngIf="language == 'English'"><i>Save your preferences</i></h1>
-		<h1 class="savePref" *ngIf="language == 'Hindi'"><i>सेव योर परेफरेंस</i></h1>
+		<h1 class="savePref" *ngIf="language == 'English'">Save your preferences</h1>
+		<h1 class="savePref" *ngIf="language == 'Hindi'">सेव योर परेफरेंस</h1>
 		<h4 class="signInBook" *ngIf="language == 'English'">Sign In to save your Bookmarks.</h4>
 		<h4 class="signInBook" *ngIf="language == 'Hindi'">अपने बुकमार्क को सेव करने के लिए साइन इन करें।</h4>
 		<ion-row>
-			<ion-col size="6" class="signInCol">
+			<ion-col size="5" class="signInCol">
 				<button id="signInButton" routerLink="/login">Sign In</button>
 			</ion-col>
-			<ion-col size="6">
+			<ion-col size="7">
+				<span id="loginOption">or using</span>
 				<button id="googleplus" routerLink="/login"><img src="assets/images/GooglePlus.png"
-						height="12px;"></button>
+						height="16px;"></button>
 				<button id="facebookLogin" routerLink="/login"><img src="assets/images/Facebook.png"
-						height="12px;"></button>
+						height="19px;"></button>
 			</ion-col>
 		</ion-row>
 	</div>
 
-	<div>
+	<div class="optionsDiv">
 		<ion-row>
-			<ion-col size="2" class="langColTwo" padding>
+			<ion-col size="2" class="langColTwo" >
 				<span>Aa</span>
 			</ion-col>
 			<ion-col size="10">
-				<div padding>
+				<div >
 					<ion-col size="5" class="languageDiv">
 						<span class="optionsList" *ngIf="language == 'English'">Language</span>
 						<span class="optionsList" *ngIf="language == 'Hindi'">भाषा</span>
@@ -64,11 +65,11 @@
 		</ion-row>
 
 		<ion-row class="settings settingIcon">
-			<ion-col size="2" class="settingIconCol" padding>
-				<img src="assets/images/Bookmarks1.png">
+			<ion-col size="2" class="settingIconCol" >
+				<ion-icon name="bookmark"></ion-icon>
 			</ion-col>
 			<ion-col size="10">
-				<div padding routerLink="/bookmarks">
+				<div  routerLink="/bookmarks">
 					<span class="optionsList" *ngIf="language == 'English'">Bookmarks</span>
 					<span class="optionsList" *ngIf="language == 'Hindi'">बुकमार्क</span>
 				</div>
@@ -76,11 +77,11 @@
 		</ion-row>
 
 		<ion-row class="settings settingIcon">
-			<ion-col size="2" class="settingIconCol" padding>
-				<img src="assets/images/Notification.png">
+			<ion-col size="2" class="settingIconCol" >
+				<ion-icon name="notifications-outline"></ion-icon>
 			</ion-col>
 			<ion-col size="10">
-				<div padding>
+				<div >
 					<span class="optionsList" *ngIf="language == 'English'">Notification</span>
 					<span class="optionsList" *ngIf="language == 'Hindi'">नोटफ़केशन</span>
 					<!-- <span *ngIf="annonymous === 'true'">Hello</span> -->
@@ -98,11 +99,11 @@
 
 
 		<ion-row class="settings settingIcon">
-			<ion-col size="2" padding>
-				<img src="assets/images/Feedback.png">
+			<ion-col size="2" >
+				<ion-icon name="chatboxes"></ion-icon>
 			</ion-col>
 			<ion-col size="10">
-				<div padding routerLink="/feedback">
+				<div  routerLink="/feedback">
 					<span class="optionsList" *ngIf="language == 'English'">Feedback</span>
 					<span class="optionsList" *ngIf="language == 'Hindi'">फ़ीड्बैक्</span>
 				</div>
@@ -110,11 +111,11 @@
 		</ion-row>
 
 		<ion-row class="settings settingIcon">
-			<ion-col size="2" padding>
-				<img src="assets/images/Privacy Policy.png">
+			<ion-col size="2" >
+				<ion-icon name="lock"></ion-icon>
 			</ion-col>
 			<ion-col size="10">
-				<div padding routerLink="/privacy">
+				<div  routerLink="/privacy">
 					<span class="optionsList" *ngIf="language == 'English'">Privacy Policy</span>
 					<span class="optionsList" *ngIf="language == 'Hindi'">प्राइवेसी पालिसी</span>
 				</div>
@@ -122,11 +123,11 @@
 		</ion-row>
 
 		<ion-row class="settings settingIcon">
-			<ion-col size="2" padding>
-				<img src="assets/images/terms.png">
+			<ion-col size="2" >
+				<ion-icon name="paper"></ion-icon>
 			</ion-col>
 			<ion-col size="10">
-				<div padding routerLink="/terms">
+				<div  routerLink="/terms">
 					<span class="optionsList" *ngIf="language == 'English'">Terms & condition</span>
 					<span class="optionsList" *ngIf="language == 'Hindi'">टर्म्स एंड कंडीशन</span>
 				</div>
@@ -134,11 +135,11 @@
 		</ion-row>
 
 		<ion-row class="settings settingIcon">
-			<ion-col size="2" class="settingIconCol" padding>
-				<img src="assets/images/Share the App.png" class="optionsList">
+			<ion-col size="2" class="settingIconCol" >
+				<ion-icon name="share"></ion-icon>
 			</ion-col>
 			<ion-col size="10">
-				<div padding (click)="sendShare()">
+				<div  (click)="sendShare()">
 					<span class="optionsList" *ngIf="language == 'English'">Share this app</span>
 					<span class="optionsList" *ngIf="language == 'Hindi'">शेयर थिस अप्प</span>
 				</div>
@@ -146,15 +147,21 @@
 		</ion-row>
 
 		<ion-row id="ratingRow">
-			<div id="ratingHead" *ngIf="!rating">How's your experience?</div>
-			<div id="ratingHead" *ngIf="rating">You have rated us</div>
+			<img src="assets/images/settingBackground.png" alt="">
+			<div class="logo">
+				<img src="assets/images/Logo.png" height="50px" alt="">
+			</div>
+			<div id="ratingHead" *ngIf="!rating">How was the experience with us?</div>
+			<div id="ratingHead" *ngIf="rating">Excellent !</div>
 			<div id="rating">
 				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ce2837"
 					defaultColor="#ddd" readonly="false" fontSize="32px"
 					(ratingChanged)="logRatingChange($event)" rating="0" *ngIf="!rating">
 				</ionic4-star-rating>
-				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ce2837" defaultColor="#ddd" readonly="true" rating="{{userRating}}" fontSize="32px" *ngIf="rating">
+				
+				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#F18D16" defaultColor="#ddd" readonly="true" rating="{{userRating}}" fontSize="32px" *ngIf="rating">
 				</ionic4-star-rating>
+				<div id="ratingHead" class="greetings" *ngIf="rating">Thank you for loving us !</div>
 			</div>
 		</ion-row>
 	</div>

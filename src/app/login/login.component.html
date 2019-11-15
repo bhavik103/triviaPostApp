@@ -1,56 +1,37 @@
 <ion-content class="background" (swiperight)="goBack()">
+    <!-- <div class="languageDiv">
+        <div class="language">
+            <span id="langTitle">Language : </span> English <ion-icon name="globe" id="globeIcon"></ion-icon>
+        </div>
+    </div> -->
     <div class="componentMainDiv">
         <div class="header">
-            <p id="welcomeHead">Welcome to</p>
             <img src="assets/images/Logo.png" height="auto" width="30%">
+            <div>Interesting and</div>
+            <div>Informative reads</div>
         </div>
         <form [formGroup]="loginForm" padding class="loginForm">
-            <div class="signup_input loginInput">
-                <ion-icon name="person"></ion-icon>
-                <input type="text" name="" placeholder="Username" formControlName="userName" [(ngModel)]="login.userName">
-            </div>
-            <div class="signup_input loginInput">
-                <ion-icon name="lock"></ion-icon>
-                <input type="password" name="" placeholder="Password" formControlName="password" [(ngModel)]="login.password">
-            </div>
-            <button (click)="userLogin(login)" class="loginClick">Login</button><br>
-            <div id="forgotModal">
-                <input type="checkbox" name="" id="remember"><label for="remember">Remember me</label>
-                <span class="fdiv">
-					<label id="forgotPassword" for="forgotPasswordModal">Forgot Password?</label>
-					<input type="checkbox" id="forgotPasswordModal" class="checkBox" />
-					<div class="modal">
-						<div class="modal__inner">
-							<p style="text-align: center;"><i id="signup">Forgot Password</i></p>
-							<form [formGroup]="forgotPassword">
-								<div class="signup_input">
-									<ion-icon name="mail"></ion-icon>
-									<input type="text" name="" placeholder="Please enter email" formControlName="email" [(ngModel)]="forgot.email">
-								</div>
-								<div class="signupButton">
-									<button (click)="resetPassword(forgot)">Reset Password</button>
-								</div>
-							</form>
-							<label for="forgotPasswordModal"><ion-icon class="forgotModalClose" name="close"></ion-icon></label>
-						</div>
-					</div>
-				</span>
-            </div>
-            <h2 class="otherLoginBreak"><span> or </span></h2>
-            <h3 id="otherLoginTitle">Login with your social media account</h3>
+            <button class="googleLogin" (click)="doGoogleLogin()">
+                <span class="socialIcon">
+                    <img src="assets/images/google.png" alt="" height="26px">
+                </span>
+                <span class="socialCenter">Google</span>
+            </button>
+            <button class="facebookLogin" (click)="doFbLogin()">
+                <span class="socialIcon">
+                        <img src="assets/images/facebook.png" alt="" height="26px">
+                </span>
+                <span class="socialCenter">Facebook</span>
+            </button>
+            <button class="signupModalButton">
+                <span class="socialIcon">
+                    <ion-icon name="person"></ion-icon>
+                </span>
+                <span class="socialCenter"><label for="signupModal" class="open">Signup</label></span>
+            </button>
+            <h2 class="otherLoginBreak"><span> OR </span></h2>
         </form>
-        <ion-row padding class="socialLogin">
-            <ion-col size="6">
-                <button class="facebookLogin" (click)="doFbLogin()"><img src="assets/images/Facebook.png"> Facebook</button>
-            </ion-col>
-            <ion-col size="6">
-                <button class="googleLogin" (click)="doGoogleLogin()"><img src="assets/images/GooglePlus.png"> Google</button>
-            </ion-col>
-        </ion-row>
-        <h2 class="otherLoginBreak" padding></h2>
         <div class="pop">
-            <h3 id="signupLine">Don't have an account? <span id="signupLink"><label for="signupModal" class="open">Signup up here!</label></span></h3>
-
             <input type="checkbox" id="signupModal" class="checkBox" />
             <div class="modal signUp">
                 <div class="modal__inner">
@@ -58,49 +39,56 @@
                     <form [formGroup]="signupForm">
                         <div class="signup_input">
                             <ion-icon name="person"></ion-icon>
-                            <input type="text" name="" placeholder="Username" formControlName="userName" [(ngModel)]="user.userName">
+                            <input type="text" name="" placeholder="Username" formControlName="userName"
+                                [(ngModel)]="user.userName">
                         </div>
                         <div class="signup_input">
                             <ion-icon name="mail"></ion-icon>
-                            <input type="text" name="" placeholder="Email Address" formControlName="email" [(ngModel)]="user.email">
+                            <input type="text" name="" placeholder="Email Address" formControlName="email"
+                                [(ngModel)]="user.email">
                         </div>
                         <div class="signup_input">
                             <ion-icon name="call"></ion-icon>
-                            <input type="text" name="" placeholder="Phone Number" formControlName="mobile" [(ngModel)]="user.mobile">
+                            <input type="text" name="" placeholder="Phone Number" formControlName="mobile"
+                                [(ngModel)]="user.mobile">
                         </div>
                         <div class="signup_input">
                             <ion-icon name="lock"></ion-icon>
-                            <input type="password" name="" placeholder="Password" formControlName="password" [(ngModel)]="user.password">
+                            <input type="password" name="" placeholder="Password" formControlName="password"
+                                [(ngModel)]="user.password">
                         </div>
                         <div class="signupButton">
                             <button (click)="signup(user)">Signup</button>
                         </div>
                     </form>
-                    <label for="signupModal"><ion-icon name="close" class="signupClose" (click)="signUpClose()"></ion-icon></label>
+                    <label for="signupModal">
+                        <ion-icon name="close" class="signupClose" (click)="signUpClose()"></ion-icon>
+                    </label>
                 </div>
             </div>
         </div>
+        <div class="buttonInside">
+            <input placeholder="Email" id="emailInput" [(ngModel)]="email">
+            <button id="linkSignIn" (click)="signInRoute()">Sign In <span id="loginArrow">></span></button>
+            <p id="agreement">By Sign in you agree to <span routerLink="/terms">"Terms of Use"</span> and <span routerLink="/privacy">"Privacy Policy"</span></p>
+        </div>
     </div>
-    <div id="loader-wrapper" *ngIf="loading">
+</ion-content>
+<ion-content *ngIf="loading">
+    <div id="loader-wrapper">
         <div id="loader">
+            <span class="welcomeTo">Welcome to</span>
             <span class="logo_container">
-				<img src="../../assets/images/Logo.png" alt="logo">
-			</span>
-            <div class="ml-loader">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <img src="../../assets/images/Logo.png" alt="logo">
+            </span>
+            <div class="welcomeTo appDesc">Interesting and</div>
+            <div class="welcomeTo appDesc">Informative reads</div>
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
             </div>
-            <p class="text-center">Loding Data...</p>
+            <p class="text-center">Loding...</p>
         </div>
     </div>
 </ion-content>

@@ -43,7 +43,11 @@ export class SettingsComponent implements OnInit {
 		this.notifyFlag = localStorage.getItem('notification');
 		this.annonymousNotify = localStorage.getItem('annonymousNotify');
 		console.log(this.annonymousNotify);
+		if(this.tokenLocalStorage){
+			console.log("token");
+			$('.settings').css('padding-top','23px');
 
+		}
 		if (this.tokenLocalStorage) {
 			var base64Url = this.tokenLocalStorage.split('.')[1];
 			var base64 = base64Url.replace('-', '+').replace('_', '/');
@@ -102,6 +106,7 @@ export class SettingsComponent implements OnInit {
 	sendShare() {
 		var message = "An awesome news app that is only you need!";
 		var subject = "Install Trivia Post";
+		console.log("Share", this.privacyPolicy)
 		var url = this.privacyPolicy[0].applink;
 		this.socialSharing.share("Check out Trivia Post App. I found it best for reading news", "Trivia Post App", null, url)
 			.then((entries) => {

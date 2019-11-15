@@ -22,10 +22,12 @@ export class SearchbarComponent implements OnInit {
     mediaPath = config.mediaApiUrl;
     searchLength: any;
     loading: any;
+    box: any;
 	constructor(private platform: Platform,private router: Router ,public _newsService: NewsService,private renderer: Renderer, private elementRef: ElementRef, public keyboard: Keyboard) { }
 	keyValue;
-
+    @ViewChild('searchInput',{static: false}) searchInput;
     ngOnInit() {
+        this.box = true; 
         this.platform.backButton.subscribe(async () => {
            if(this.router.url.includes('searchBar')){
                this.router.navigate(['allcategory']);
@@ -39,18 +41,22 @@ export class SearchbarComponent implements OnInit {
         }, 500);
         this.language = localStorage.getItem('language');
     }
-
+    ngAfterViewChecked() {
+        this.searchInput.setFocus()
+      }
     searchNews(key) {
         this.keyValue = key;
         if (this.keyValue.length == 0) {
             this.newsArray = [];
             this.searchLength = this.newsArray;
+            this.box = true;
         } else {
             this._newsService.searchedNews(key).subscribe(
                 (res: any) => {
                     this.newsArray = res;
                     this.searchLength = this.newsArray.length;
                     console.log(this.newsArray);
+                    this.box = false;
                 },
                 (err) => {
                     this.error = err;

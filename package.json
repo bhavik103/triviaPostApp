@@ -35,9 +35,11 @@
         "@ionic-native/firebase-analytics": "^5.16.0",
         "@ionic-native/firebase-dynamic-links": "^5.16.0",
         "@ionic-native/google-plus": "^5.13.0",
+        "@ionic-native/in-app-browser": "^5.16.0",
         "@ionic-native/ionic-webview": "^5.14.0",
         "@ionic-native/keyboard": "^5.14.0",
         "@ionic-native/local-notifications": "^5.16.0",
+        "@ionic-native/native-page-transitions": "^5.16.0",
         "@ionic-native/network": "^5.14.0",
         "@ionic-native/screen-orientation": "^5.14.0",
         "@ionic-native/social-sharing": "^5.14.0",
@@ -46,6 +48,7 @@
         "@ionic/angular": "^4.7.1",
         "@ionic/storage": "^2.2.0",
         "@types/jquery": "^3.3.31",
+        "com.telerik.plugins.nativepagetransitions": "^0.6.5",
         "cordova-android": "^8.1.0",
         "cordova-ios": "^5.0.1",
         "cordova-plugin-advanced-http": "^2.1.1",
@@ -59,6 +62,7 @@
         "cordova-plugin-firebase-analytics": "^4.0.0",
         "cordova-plugin-firebase-dynamiclinks": "^4.0.1",
         "cordova-plugin-googleplus": "^8.1.1",
+        "cordova-plugin-inappbrowser": "^3.1.0",
         "cordova-plugin-ionic-webview": "^4.0.0",
         "cordova-plugin-local-notification": "^0.9.0-beta.2",
         "cordova-plugin-network-information": "^2.0.2",
@@ -168,7 +172,9 @@
                 "APP_DOMAIN": "“triviapost.in”",
                 "APP_PATH": "/",
                 "PAGE_LINK_DOMAIN": "“triviaposts.page.link”"
-            }
+            },
+            "cordova-plugin-inappbrowser": {},
+            "com.telerik.plugins.nativepagetransitions": {}
         },
         "platforms": [
             "ios",

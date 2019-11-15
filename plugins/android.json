@@ -109,6 +109,12 @@
       "FIREBASE_ANALYTICS_VERSION": "17.2.+",
       "FIREBASE_DYNAMIC_LINKS_VERSION": "19.0.+",
       "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "com.telerik.plugins.nativepagetransitions": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
     }
   },
   "dependent_plugins": {

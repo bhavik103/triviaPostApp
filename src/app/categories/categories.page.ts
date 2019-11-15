@@ -16,6 +16,7 @@ export class CategoriesPage implements OnInit {
   categories$: Observable<any>;
   mediaPath = config.mediaApiUrl;
   language: any;
+  loading: any;
   constructor(private _toastService: ToastService ,private network: Network,private _categoryService: CategoryService, private router: Router) {
     this.getCategories();
     this.categories$;

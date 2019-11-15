@@ -5,7 +5,7 @@
 				<ion-icon name="arrow-round-back" routerLink="/home/categories"></ion-icon>
 			</ion-col>
 			<ion-col size="10">
-				<ion-input set-focuser type="text" placeholder="Search here.."
+				<ion-input set-focuser #searchInput type="text" placeholder="Search here.."
 					(input)="searchNews($event.target.value)"></ion-input>
 			</ion-col>
 		</ion-row>
@@ -26,31 +26,26 @@
 			</div>
 		</ion-col>
 	</ion-row>
-	<ion-row *ngIf="searchLength == 0">
-		<ion-col size="12">
-			<h1>No result found!</h1>
-		</ion-col>
-	</ion-row>
 	<div id="loader-wrapper" *ngIf="loading">
-		<div id="loader">
-			<span class="logo_container">
-				<img src="../../assets/images/Logo.png" alt="logo">
-			</span>
-			<div class="ml-loader">
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-			<p class="text-center">Loding Data...</p>
-		</div>
+        <div id="loader">
+            <span class="welcomeTo">Welcome to</span>
+            <span class="logo_container">
+                <img src="../../assets/images/Logo.png" alt="logo">
+            </span>
+            <div class="welcomeTo appDesc">Interesting and</div>
+            <div class="welcomeTo appDesc">Informative reads</div>
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+            <p class="text-center">Loding...</p>
+        </div>
+    </div>
+	<div *ngIf="box" id="box">
+		<img src="assets/images/seo.png" alt="">
+	</div>
+	<div *ngIf="searchLength == 0" id="box">
+		<img src="assets/images/seo.png" alt="">
 	</div>
 </ion-content>

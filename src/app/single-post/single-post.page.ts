@@ -8,6 +8,7 @@ import { Network } from '@ionic-native/network/ngx';
 import * as _ from 'lodash';
 import { ActionSheetController, Platform } from '@ionic/angular';
 import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-single-post',
@@ -24,7 +25,7 @@ export class SinglePostPage implements OnInit {
   backKeyCategory: boolean;
   backKeySearch: boolean;
   loading: boolean;
-  constructor(private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
+  constructor(private iab: InAppBrowser,private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
     this.singlePost();
@@ -150,5 +151,11 @@ export class SinglePostPage implements OnInit {
 
   categoryClick(catId, catName) {
     this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
+  }
+
+  openWithSystemBrowser(url){
+    let target = "_blank";
+    this.iab.create(url, `_blank`);
+
   }
 }

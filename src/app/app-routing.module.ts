@@ -66,6 +66,10 @@ const routes: Routes = [
 	{
 		path: 'single-category/:id/:cat',
 		loadChildren: './single-category/single-category.module#SingleCategoryPageModule'
+	},
+	{
+		path: 'signin',
+		loadChildren: './signin/signin.module#SigninPageModule'
 	}
 ];
 

@@ -16,6 +16,7 @@ export class AllPostPage implements OnInit {
   newsArray: any;
   mediaPath = config.mediaApiUrl;
   language: string;
+  loading: any;
   constructor(private firebaseDynamicLinks: FirebaseDynamicLinks, private fcm: FCM, private deeplinks: Deeplinks, private router: Router, public _newsService: NewsService) { }
 
   ngOnInit() {
@@ -57,22 +58,6 @@ export class AllPostPage implements OnInit {
 
   }
   ionViewWillEnter() {
-
-
-
-    //  Deeplinks
-    // console.log("routes", JSON.stringify(this.deeplinks, null, 2));
-    // this.deeplinks.route({
-    //   '/': {},
-    //   '/nr5y': { "post:": true },
-    //   '/post/:id': { "post:": true }
-    // }).subscribe((match) => {
-    //   console.log("match link", match.$args.id);
-    //   this.router.navigate(['single-post/' + match.$args.id]);
-    // },
-    //   (nomatch) => {
-    //     // alert("UnMatched" + nomatch);
-    //   });
     this.fcm.onNotification().subscribe(data => {
       this.router.navigate(['/single-post/' + data.newsId]);
       if (data.wasTapped) {
@@ -90,9 +75,11 @@ export class AllPostPage implements OnInit {
 
   //get all news - HOME PAGE ( FEEDS )
   getAllPost(): void {
+    this.loading = true;
     this.language = localStorage.getItem('language');
     this._newsService.getAllNews().subscribe(
       (res: any) => {
+        this.loading = false;
         console.log("all news==========>", res)
         this.newsArray = res;
       },
@@ -104,5 +91,9 @@ export class AllPostPage implements OnInit {
   singleNews(postid) {
     console.log('postid', postid);
     this.router.navigateByUrl('/single-post/' + postid);
+  }
+
+  categoryClick(catId, catName) {
+    this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
   }
 }

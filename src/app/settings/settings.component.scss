@@ -1,13 +1,14 @@
-.settings {
-  border-bottom: 1px solid lightgrey;
-  cursor: pointer;
+ion-icon {
+  color: #ce2837;
+  font-size: 20px;
+  margin-left: 10px;
 }
 
 .loginDiv {
   height: 170px;
+  border-bottom: 1px solid #ddd;
   // background: url("assets/images/brownbg.png");
 }
-
 .item-radio.item ion-label {
   color: #dd6873; //your color here
 }
@@ -17,11 +18,14 @@
   zoom: 1;
   margin-left: 9px;
   font-size: 20px;
+  margin-top: 6px;
+  color: #fff;
 }
 
 .settingsToolbar #settingTitle {
   margin-left: 10px;
   font-size: 18px;
+  line-height: 37px;
 }
 
 #signInButton {
@@ -39,7 +43,7 @@
   border-radius: 50%;
   background-color: #d9534e;
   padding: 10px 9.5px;
-  float: right;
+  margin-right: 4%;
 }
 #googleplus img {
   margin-top: 3px;
@@ -52,7 +56,6 @@
   padding: 9px 15px;
   font-weight: 950;
   font-size: 20px;
-  float: right;
 }
 
 .optionsList {
@@ -123,8 +126,9 @@
 }
 
 .signInBook {
-  font-size: 19px;
+  font-size: 15px;
   margin: 10px 0px;
+  color: #949494;
 }
 .signInCol {
   padding-left: 0;
@@ -142,6 +146,7 @@
 }
 .languageDiv {
   float: left;
+  padding-top: 15px;
 }
 
 .langColor {
@@ -175,14 +180,58 @@
   button.action-sheet-button.ion-activatable.action-sheet-cancel.sc-ion-action-sheet-md.activated {
   display: none !important;
 }
-#ratingRow{
-  margin: 20px;
+#ratingRow {
+    padding: 100px 10px 10px 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
-#ratingHead{
+#ratingRow > img {
+  position: absolute;
+  bottom: 0;
+  top:-75px;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  min-width: 100%;
+}
+.settings.settingIcon {
+  position: relative;
+  z-index: 11;
+  padding:10px;
+}
+.logo{
+  margin: auto;
+}
+#ratingRow > div{
+  position: relative;
+  z-index: 11;
+}
+#ratingHead {
   width: 100%;
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
+  font-weight: 500;
+  margin: 10px 0;
+  opacity: 0.7;
+  color: #ce2837;
 }
 #rating {
   margin: auto;
+}
+.alert-head .sc-ion-alert-md{
+  display: none!important;
+}
+ionic4-star-rating{
+  text-align: center;
+}
+.greetings{
+  font-size:11px!important;
+}
+.settingsLoggedIn{
+  padding-top: 23px;
+}
+#loginOption{
+  line-height: 3;
+  margin-right: 6%;
 }

@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
+import { SigninPageModule } from './signin/signin.module';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { IonicStorageModule } from '@ionic/storage';
@@ -35,6 +36,9 @@ import { StarRatingModule } from 'ionic4-star-rating';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
+
 
 export class HammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -48,6 +52,9 @@ export class HammerConfig extends HammerGestureConfig {
   entryComponents: [],
   imports: [StarRatingModule,CategoriesPageModule,AllPostPageModule,FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
+    NativePageTransitions,
+   
+    InAppBrowser,
     FirebaseDynamicLinks,
     FirebaseAnalytics,
     LocalNotifications,

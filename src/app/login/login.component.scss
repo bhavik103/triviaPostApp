@@ -10,12 +10,12 @@ html {
   color: white;
 }
 
-input{
+input {
   font-size: 16px;
 }
 
 input::-webkit-input-placeholder {
-    font-size:16px;
+  font-size: 16px;
 }
 
 p {
@@ -25,7 +25,18 @@ p {
 b {
   color: paleturquoise;
 }
-
+.language {
+  float: right;
+  margin-right: 10px;
+  margin-top: 30px;
+}
+#langTitle {
+  font-weight: 600;
+}
+#globeIcon {
+  font-size: 17px;
+  margin: -3px;
+}
 .pop {
   position: absolute;
   width: 50%;
@@ -40,7 +51,7 @@ b {
     position: relative;
     width: 100%;
   }
-  .modal{
+  .modal {
     z-index: 2;
     opacity: 0;
     visibility: hidden;
@@ -78,7 +89,7 @@ b {
   .checkBox {
     display: none;
   }
-  input{
+  input {
     &:checked {
       + .modal {
         opacity: 1;
@@ -185,7 +196,7 @@ b {
 }
 
 #signupHead {
-  font-family: 'FREESCPT';
+  font-family: "FREESCPT";
   text-align: center;
   font-size: 31px;
   margin: 0;
@@ -208,7 +219,7 @@ b {
   text-align: center;
   width: 100%;
   color: #fff;
-  background: #ed2424;
+  background: #2a6974;
 }
 
 .signupButton {
@@ -241,22 +252,10 @@ b {
   margin-left: 2%;
   padding-left: 2%;
 }
-
-.loginInput ion-icon {
-  margin-bottom: -9.6%;
-}
-
-// ion-content.background {
-//   --background: none;
-//   background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)),
-//     url("assets/images/Login-Background-.png");
-//   background-position: center top;
-//   background-repeat: no-repeat;
-//   background-size: cover;
-// }
-
 .header {
   text-align: center;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .loginForm {
@@ -275,59 +274,16 @@ b {
 }
 
 .otherLoginBreak {
-  display: flex;
-  flex-direction: row;
-  padding: 0;
-  margin: 0;
-  margin-top: 10px;
-}
-
-.otherLoginBreak:before,
-.otherLoginBreak:after {
-  content: "";
-  -webkit-box-flex: 1;
-  flex: 1 1;
-  border-bottom: 1px solid #9b9b9b;
-  margin: auto;
-}
-
-.otherLoginBreak span {
   margin: 0 5px;
   font-size: 21px;
+  text-align: center;
+  color: #ddd;
 }
 
 #otherLoginTitle {
   text-align: center;
   margin: 0;
   font-size: 16px;
-}
-
-.socialLogin .googleLogin,
-.facebookLogin {
-  width: 100%;
-  padding: 12px;
-  color: #fff;
-  border-radius: 10px;
-  font-size: 16px;
-}
-
-.socialLogin .googleLogin {
-  background-color: #d9534e;
-}
-
-.socialLogin .facebookLogin {
-  background-color: #3779b7;
-}
-
-.socialLogin img {
-  height: auto;
-  width: auto;
-  max-height: 16px;
-  padding-right: 4px;
-}
-
-.socialLogin {
-  padding: 0px 16px;
 }
 
 #signupLink {
@@ -339,29 +295,6 @@ b {
   text-align: center;
   font-size: 17px;
   margin: 5px 0px;
-}
-
-.signup_input {
-  position: relative;
-  margin-bottom: 15px;
-  color: #000;
-  ion-icon {
-    position: absolute;
-    color: grey;
-    left: 10px;
-    font-size: 20px;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-  }
-  input {
-    padding-left: 35px;
-    border-radius: 10px;
-    margin-bottom: 0;
-    height: 45px;
-    width: 100%;
-    border: 1px solid #ccc;
-  }
 }
 
 .signupClose {
@@ -377,7 +310,7 @@ b {
 }
 
 #signup {
-  font-family: 'FREESCPT';
+  font-family: "FREESCPT";
   text-align: center;
   font-size: 30px;
   margin: 0px 0px 10px;
@@ -387,7 +320,7 @@ b {
   width: 100%;
   padding: 12px;
   border-radius: 10px;
-  background-color: #D02535;
+  background-color: #d02535;
   color: #fff;
   font-size: 16px;
   margin-bottom: 10px;
@@ -398,7 +331,7 @@ b {
 }
 
 #welcomeHead {
-  font-family: 'FREESCPT';
+  font-family: "FREESCPT";
   margin: 0;
   font-style: italic;
   font-size: 31px;
@@ -407,10 +340,10 @@ b {
 }
 
 .componentMainDiv {
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
-.header p{
+.header p {
   margin: 0;
 }
 
@@ -449,4 +382,87 @@ input#remember + label:before {
 
 input#remember:checked + label:before {
   background-position: 20px 0px;
+}
+
+.googleLogin,
+.facebookLogin,
+.signupModalButton {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.googleLogin {
+  background-color: #5b85f1;
+}
+.facebookLogin {
+  background-color: #425dad;
+}
+.signupModalButton {
+  background-color: #2a6974;
+}
+.socialCenter {
+  line-height: 1.5;
+}
+.socialIcon {
+  float: left;
+  font-size: 26px;
+  margin-top: 3px;
+}
+.signup_input {
+  position: relative;
+  margin-bottom: 15px;
+  color: #000;
+  ion-icon {
+    position: absolute;
+    color: grey;
+    left: 10px;
+    font-size: 20px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  input {
+    padding-left: 35px;
+    border-radius: 10px;
+    margin-bottom: 0;
+    height: 45px;
+    width: 100%;
+    border: 1px solid #ccc;
+  }
+}
+.buttonInside {
+  position: relative;
+  margin: 0 22px;
+}
+#emailInput {
+  height: 48px;
+  width: 100%;
+  padding-left: 10px;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid;
+}
+#linkSignIn {
+  position: absolute;
+  right: 9px;
+  border: none;
+  height: 20px;
+  border-radius: 100%;
+  outline: none;
+  text-align: center;
+  font-weight: bold;
+  background: none;
+  line-height: 2.5;
+  color: #2a6974;
+  font-size: 17px;
+}
+#agreement{
+  color: #a4a4a4;
+  font-size: 13px;
+}
+#agreement span{
+  border-bottom: 1px solid;
 }

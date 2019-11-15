@@ -1,9 +1,14 @@
-p{
-    margin: 5px;
+p {
+  margin: 5px;
 }
 .homeBack {
   float: left;
   font-size: 20px;
+  margin-top: 12px;
+  margin-left: 10px;
+}
+ion-back-button{
+  margin: 0!important;
 }
 .postImage img {
   min-width: 100%;
@@ -15,37 +20,43 @@ p{
   letter-spacing: 0.5px;
 }
 
-.subPostTitle,.post p{
-    font-size: 15px;
-    font-weight: 300;
-    padding-left: 10px;
+.subPostTitle,
+.post p {
+  font-size: 15px;
+  font-weight: 300;
+  padding-left: 10px;
 }
-.catTitle{
-    color:#961300;
-    font-weight: 400;
+.catTitle {
+  color: #961300;
+  font-weight: 400;
 }
-.createdBy{
-    font-weight: 400;
+.createdBy {
+  font-weight: 600!important;
+  font-size: 13px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
-
-.floatShare{
+#sourceLink {
+  color: #0800ff;
+  font-weight: 500;
+  border-bottom: 1px solid;
+}
+.floatShare {
   position: fixed;
   width: 41px;
   height: 41px;
   bottom: 40px;
   left: 40px;
-  background-color: #CE2837;
-  color: #FFF;
+  background-color: #ce2837;
+  color: #fff;
   border-radius: 50px;
   text-align: center;
   box-shadow: 2px 2px 3px #999;
 }
 
-.shareImage{
+.shareImage {
   height: 20px;
   float: right;
-  padding-right: 15px;
-  margin: 14px 0px 0px 0px;
 }
 
 a.float + div.label-container {
@@ -54,45 +65,127 @@ a.float + div.label-container {
   transition: visibility 0s, opacity 0.5s ease;
 }
 
-a.float:hover + div.label-container{
+a.float:hover + div.label-container {
   visibility: visible;
   opacity: 1;
 }
 
-.floatBookmark{
+.floatBookmark {
   right: 40px;
 }
-.unbookmark{
-  color: black;
-  float: right;
+.unbookmark {
+  color: #ce2837;
+  font-size: 18px;
 }
 
-.bookmarked{
-  color: #CE2837;
+.bookmarked {
+  color: #cbc9c9;
+  font-size: 18px;
 }
 .actionButton {
   font-size: 22px;
   padding: 5px 11px;
   border-bottom: 1px solid #dcdcdc;
   display: table;
-    width: 100%
+  width: 100%;
 }
 .actionButton span {
-  font-size: 17px!important;
+  font-size: 17px !important;
 }
-.heart_icon{
+.heart_icon {
   float: left;
   padding-right: 5px;
   margin-top: 2px;
 }
-ion-title{
+ion-title {
   float: left;
   line-height: 46px;
   padding-left: 10px;
 }
-.liked{
-  color:#CE2837;
+.liked {
+  color: #ce2837;
 }
-.newsInfo{
-  font-size:12px;
+.newsInfo {
+  font-size: 12px;
+}
+.float {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #ce2837;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+}
+
+.my-float {
+  margin-top: 28%;
+  padding-right: 30%;
+}
+.unbookmarkFloat {
+  background-color: #cbc9c9;
+}
+.bookmarkFloat {
+  background-color: #ce2837;
+}
+.shareButton {
+  float: right;
+  background-color: #ce2837;
+  border-radius: 50%;
+  padding: 5px;
+}
+/*Huge thanks to @tobiasahlin at http://tobiasahlin.com/spinkit/ */
+.spinner {
+  margin: 100px auto 0;
+  width: 70px;
+  text-align: center;
+}
+
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #ce2837;
+
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% { 
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
+.imageCredit{
+  float: right;
+  margin: 10px;
+}
+.postTitle{
+  margin-top: 36px;
+}
+.source{
+  font-weight: 600;
 }

@@ -5,8 +5,6 @@
 
     <ion-back-button name="arrow-round-back" *ngIf="!backKeyBookmark && !backKeyCategory && !backKeySearch"
       class="homeBack " defaultHref="/home/all-post"></ion-back-button>
-
-
     <ion-icon name="arrow-round-back" *ngIf="backKeyBookmark" class=" homeBack" routerLink="/bookmarks">
     </ion-icon>
     <span *ngFor="let news of singlepost">
@@ -16,8 +14,6 @@
 
       <ion-back-button name="arrow-round-back" *ngIf="backKeyCategory" class=" homeBack"
         defaultHref="/single-category/{{news.newsCategoryId}}/{{news.newsCategory}}"></ion-back-button>
-
-
     </span>
     <!-- <ion-icon name="arrow-round-back" *ngIf="backKeySearch" class="homeBack" routerLink="/searchBar" float-left>
     </ion-icon> -->
@@ -28,9 +24,6 @@
     <ion-title>
       Trivia Post
     </ion-title>
-    
-    <img src="../../assets/images/Share.png" *ngFor="let news of singlepost" class="icon shareImage"
-      (click)="sharePost(news.fcmLink, news.newsTitleEnglish, news.newsImage)" />
   </ion-toolbar>
 </ion-header>
 
@@ -40,12 +33,12 @@
     <div class="postImage">
       <img src="{{mediaPath}}{{news.newsImage}}" alt="">
     </div>
+    <span class="imageCredit" *ngIf="news.picCredit"><span class="source">Source: </span> {{news.picCredit}}</span>
     <div class="postTitle">
       <p *ngIf="language == 'English'">{{news.newsTitleEnglish}}</p>
       <p *ngIf="language == 'Hindi'">{{news.newsTitleHindi}}</p>
     </div>
     <div class="subPostTitle">
-      <!-- <p class="createdBy">By {{news.createdBy.firstName | titlecase}}</p> -->
       <p class="newsInfo">{{news.createdAt | timeAgo}} | <span class="catTitle"
           (click)="categoryClick(news.newsCategoryId, news.newsCategory)">{{news.newsCategory}}</span></p>
     </div>
@@ -53,40 +46,29 @@
       <ion-icon name="heart" class="heart_icon liked" *ngIf="news.likeKey" (click)="alreadyLiked()"></ion-icon>
       <ion-icon name="heart-empty" class="heart_icon" *ngIf="!news.likeKey" (click)="likePost(news.newsId)"></ion-icon>
       <span>{{news.likesCount}}</span>
-      <a>
-        <ion-icon name="bookmark" class="unbookmark  shareImage" *ngIf="!news.bookmarkKey"
-          (click)="bookmark(news.newsId)"></ion-icon>
-        <ion-icon name="bookmark" class="bookmarked shareImage" *ngIf="news.bookmarkKey"
-          (click)="bookmark(news.newsId)"></ion-icon>
-      </a>
+      <span class="shareButton">
+        <img src="../../assets/images/Share.png" class="icon shareImage"
+          (click)="sharePost(news.fcmLink, news.newsTitleEnglish, news.newsImage)" />
+      </span>
     </div>
     <div class="post">
       <p [innerHTML]="news.newsEnglish" *ngIf="language == 'English'"></p>
       <p [innerHTML]="news.newsHindi" *ngIf="language == 'Hindi'"></p>
+      <p class="createdBy" *ngIf="news.srcLink && news.srcTitle">Source: <span
+          (click)="openWithSystemBrowser(news.srcLink)" id="sourceLink">{{news.srcTitle}}</span></p>
     </div>
+    <span class="float unbookmarkFloat" *ngIf="!news.bookmarkKey" (click)="bookmark(news.newsId)">
+      <ion-icon name="bookmark" class="my-float unbookmark shareImage"></ion-icon>
+    </span>
+    <span class="float bookmarkFloat" *ngIf="news.bookmarkKey" (click)="bookmark(news.newsId)">
+      <ion-icon name="bookmark" class="my-float bookmarked shareImage"></ion-icon>
+    </span>
   </div>
 </ion-content>
 <ion-content *ngIf="loading">
-  <div id="loader-wrapper">
-    <div id="loader">
-      <span class="logo_container">
-        <img src="../../assets/images/Logo.png" alt="logo">
-      </span>
-      <div class="ml-loader">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <p class="text-center">Loding Data...</p>
-    </div>
+  <div class="spinner">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
   </div>
 </ion-content>

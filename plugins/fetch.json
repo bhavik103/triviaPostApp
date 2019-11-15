@@ -252,5 +252,21 @@
       "APP_PATH": "/",
       "PAGE_LINK_DOMAIN": "“triviaposts.page.link”"
     }
+  },
+  "cordova-plugin-inappbrowser": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-inappbrowser@3.1.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "com.telerik.plugins.nativepagetransitions": {
+    "source": {
+      "type": "registry",
+      "id": "com.telerik.plugins.nativepagetransitions"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

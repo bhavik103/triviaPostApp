@@ -408,6 +408,23 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "merges": [
         "cordova.plugins.firebase.dynamiclinks"
       ]
+    },
+    {
+      "id": "cordova-plugin-inappbrowser.inappbrowser",
+      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+      "pluginId": "cordova-plugin-inappbrowser",
+      "clobbers": [
+        "cordova.InAppBrowser.open",
+        "window.open"
+      ]
+    },
+    {
+      "id": "com.telerik.plugins.nativepagetransitions.NativePageTransitions",
+      "file": "plugins/com.telerik.plugins.nativepagetransitions/www/NativePageTransitions.js",
+      "pluginId": "com.telerik.plugins.nativepagetransitions",
+      "clobbers": [
+        "window.plugins.nativepagetransitions"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -436,6 +453,8 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-support-android-plugin": "1.0.1",
     "cordova-support-google-services": "1.3.1",
     "cordova-plugin-firebase-analytics": "4.0.0",
-    "cordova-plugin-firebase-dynamiclinks": "4.0.1"
+    "cordova-plugin-firebase-dynamiclinks": "4.0.1",
+    "cordova-plugin-inappbrowser": "3.1.0",
+    "com.telerik.plugins.nativepagetransitions": "0.6.5"
   };
 });

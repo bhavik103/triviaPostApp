@@ -22,7 +22,8 @@
                 <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish"></span>
             </div>
         </ion-col>
-        <ion-col class="bookmarkActButton" (click)="bookmarkAction(news.newsImage,news.fcmLink,news.newsId, news.newsTitleEnglish)">
+        <ion-col class="bookmarkActButton"
+            (click)="bookmarkAction(news.newsImage,news.fcmLink,news.newsId, news.newsTitleEnglish)">
             <img src="assets/images/menu.png">
         </ion-col>
     </ion-row>
@@ -33,24 +34,18 @@
     </ion-row>
     <div id="loader-wrapper" *ngIf="loading">
         <div id="loader">
+            <span class="welcomeTo">Welcome to</span>
             <span class="logo_container">
                 <img src="../../assets/images/Logo.png" alt="logo">
             </span>
-            <div class="ml-loader">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+            <div class="welcomeTo appDesc">Interesting and</div>
+            <div class="welcomeTo appDesc">Informative reads</div>
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
             </div>
-            <p class="text-center">Loding Data...</p>
+            <p class="text-center">Loding...</p>
         </div>
     </div>
 </ion-content>

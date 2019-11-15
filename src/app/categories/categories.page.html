@@ -7,8 +7,8 @@
                 </ion-card-header>
 
                 <ion-card-content (click)="singeCategory(category.categoryId,category.categoryTitle)">
-                    <span *ngIf="language == 'English'">{{category.categoryTitle}}</span> 
-                    <span *ngIf="language == 'Hindi'">{{category.categoryTitleHn}}</span>
+                    <span *ngIf="language == 'English'">{{category.categoryTitle | slice:0:30}}</span> 
+                    <span *ngIf="language == 'Hindi'">{{category.categoryTitleHn | slice:0:30}}</span>
                 </ion-card-content>
                 <ion-row class="cardfooter">
                     <ion-col size="9">
@@ -24,4 +24,14 @@
             </ion-card>
         </ion-col>
     </ion-row>
+    <div id="loader-wrapper" *ngIf="loading">
+        <div id="loader">
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+            <p class="text-center">Loding...</p>
+        </div>
+    </div>
 </ion-content>

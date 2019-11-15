@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-      <ion-icon name="arrow-round-back" class="homeBack" routerLink="/home/categories" float-left></ion-icon>
+      <ion-icon name="arrow-round-back" class="homeBack" routerLink="/home/all-post" float-left></ion-icon>
     <ion-title>{{catName}}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,8 +14,8 @@
                 </ion-card-header>
 
                 <ion-card-content>
-                    {{news.newsTitleEnglish | slice:0:40}}
-                    <span *ngIf="news.newsTitleEnglish.length >=40">...</span>
+                    {{news.newsTitleEnglish | slice:0:30}}
+                    <span *ngIf="news.newsTitleEnglish.length >=30">...</span>
                     <!-- <p class="postTime">56 min</p> -->
                 </ion-card-content>
                 <ion-row class="cardfooter">
