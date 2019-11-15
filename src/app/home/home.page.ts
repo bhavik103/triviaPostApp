@@ -183,15 +183,7 @@ export class HomePage implements OnInit {
             if (data.wasTapped) {
                 console.log('Received in background', data.wasTapped);
             } else {
-                // this.router.navigate(['/home/leave-application'])
-                this.router.navigate([data.redirectTo]);
                 console.log('Received in foreground');
-                this.localNotifications.schedule({
-                    id: data.id,
-                    title: 'Trivia Post',
-                    text: data.body,
-                    foreground: true // Show the notification while app is open
-                });
             }
         });
     }
