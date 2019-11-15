@@ -261,22 +261,7 @@ var HomePage = /** @class */ (function () {
         });
     };
     HomePage.prototype.search = function () {
-        this.router.navigate(['searchBar']);
-    };
-    //  Do Bookmark
-    HomePage.prototype.bookmark = function (index) {
-        var _this = this;
-        if (this.network.type == 'none') {
-            this._toastService.toastFunction('No internet connection', 'danger');
-        }
-        else {
-            this._newsService.bookmarkPost(this.newsArray[index].newsId).subscribe(function (res) {
-                _this.newsArray[index].bookmarkKey = !_this.newsArray[index].bookmarkKey;
-                _this._toastService.toastFunction(res.message, 'success');
-            }, function (err) {
-                _this._toastService.toastFunction(err.error.message, 'danger');
-            });
-        }
+        this.router.navigateByUrl('/searchBar');
     };
     //  Do Share Post 
     HomePage.prototype.sharePost = function (id, newsTitle) {
@@ -300,15 +285,7 @@ var HomePage = /** @class */ (function () {
                 console.log('Received in background', data.wasTapped);
             }
             else {
-                // this.router.navigate(['/home/leave-application'])
-                _this.router.navigate([data.redirectTo]);
                 console.log('Received in foreground');
-                _this.localNotifications.schedule({
-                    id: data.id,
-                    title: 'Trivia Post',
-                    text: data.body,
-                    foreground: true // Show the notification while app is open
-                });
             }
         });
     };

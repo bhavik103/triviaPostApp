@@ -13,7 +13,7 @@
 </ion-header>
 <ion-content padding>
 	<ion-row class="searchResults" *ngFor="let searchNews of newsArray">
-		<ion-col size="3" class="newsImg" padding (click)="getSingleSearch()">
+		<ion-col size="3" class="newsImg" padding (click)="getSingleSearch(searchNews.newsId)">
 			<img src="{{mediaPath}}{{searchNews.newsImage}}" height="73px" width="100%">
 		</ion-col>
 		<ion-col size="9" (click)="getSingleSearch(searchNews.newsId)">
@@ -26,26 +26,15 @@
 			</div>
 		</ion-col>
 	</ion-row>
-	<div id="loader-wrapper" *ngIf="loading">
-        <div id="loader">
-            <span class="welcomeTo">Welcome to</span>
-            <span class="logo_container">
-                <img src="../../assets/images/Logo.png" alt="logo">
-            </span>
-            <div class="welcomeTo appDesc">Interesting and</div>
-            <div class="welcomeTo appDesc">Informative reads</div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <p class="text-center">Loding...</p>
-        </div>
-    </div>
+	<div class="spinner" *ngIf="loading">
+		<div class="bounce1"></div>
+		<div class="bounce2"></div>
+		<div class="bounce3"></div>
+	</div>
 	<div *ngIf="box" id="box">
 		<img src="assets/images/seo.png" alt="">
 	</div>
 	<div *ngIf="searchLength == 0" id="box">
-		<img src="assets/images/seo.png" alt="">
+		<img src="assets/images/noresult.png" alt="">
 	</div>
 </ion-content>

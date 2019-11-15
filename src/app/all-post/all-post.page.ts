@@ -20,8 +20,6 @@ export class AllPostPage implements OnInit {
   constructor(private firebaseDynamicLinks: FirebaseDynamicLinks, private fcm: FCM, private deeplinks: Deeplinks, private router: Router, public _newsService: NewsService) { }
 
   ngOnInit() {
-
-
     if(!config.isvisited && !config.counter){
       this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
         var postId = res.deepLink.split('?')[1].split('=')[1];

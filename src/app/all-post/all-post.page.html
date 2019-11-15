@@ -7,7 +7,7 @@
             <span class="latestNews" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish"
                 (click)="singleNews(news.newsId)"></span>
             <span class="latestNews" *ngIf="language == 'Hindi'" [innerHTML]="news.newsTitleHindi"></span>
-            <p class="latestNewsInfo">{{news.likesCount}} likes | {{news.createdAt | timeAgo}} | <span class="newsCat"
+            <p class="latestNewsInfo"><img src="assets/images/like.png" alt="" class="likeImage"> {{news.likesCount}} likes | {{news.createdAt | timeAgo}} | <span class="newsCat"
                     (click)="categoryClick(news.newsCategoryId, news.newsCategory)">{{news.newsCategory | slice:0:20}}</span>
             </p>
         </ion-col>
@@ -24,7 +24,7 @@
                 <p class="otherInfo">{{news.createdAt | timeAgo}} | <span class="newsCat"
                         (click)="categoryClick(news.newsCategoryId, news.newsCategory)">{{news.newsCategory | slice:0:20}}</span>
                 </p>
-                <p class="otherInfoSecond">{{news.likesCount}} likes</p>
+                <p class="otherInfoSecond"><img src="assets/images/like.png" alt="" class="likeImage"> {{news.likesCount}} likes</p>
             </div>
         </ion-col>
     </ion-row>

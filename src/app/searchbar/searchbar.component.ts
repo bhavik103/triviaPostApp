@@ -1,10 +1,10 @@
-import { Component, OnInit,ViewChild, Directive, Renderer, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Directive, Renderer, ElementRef } from '@angular/core';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { ActivatedRoute, Router } from '@angular/router';
-import {NewsService} from '../services/news.service';
-import {News} from '../home/news';
-import {config} from '../config';
-import {  Platform } from '@ionic/angular';
+import { NewsService } from '../services/news.service';
+import { News } from '../home/news';
+import { config } from '../config';
+import { Platform } from '@ionic/angular';
 @Component({
     selector: 'app-searchbar',
     templateUrl: './searchbar.component.html',
@@ -23,51 +23,51 @@ export class SearchbarComponent implements OnInit {
     searchLength: any;
     loading: any;
     box: any;
-	constructor(private platform: Platform,private router: Router ,public _newsService: NewsService,private renderer: Renderer, private elementRef: ElementRef, public keyboard: Keyboard) { }
-	keyValue;
-    @ViewChild('searchInput',{static: false}) searchInput;
+    constructor(private platform: Platform, private router: Router, public _newsService: NewsService, private renderer: Renderer, private elementRef: ElementRef, public keyboard: Keyboard) { }
+    keyValue;
+    @ViewChild('searchInput', { static: false }) searchInput;
     ngOnInit() {
-        this.box = true; 
+        this.box = true;
         this.platform.backButton.subscribe(async () => {
-           if(this.router.url.includes('searchBar')){
-               this.router.navigate(['allcategory']);
-           }
-       });
+            if (this.router.url.includes('searchBar')) {
+                this.router.navigate(['allcategory']);
+            }
+        });
         const element = this.elementRef.nativeElement.querySelector('ion-input');
         // to delay
-        setTimeout(() => {
-            this.renderer.invokeElementMethod(element, 'focus', []);
-            this.keyboard.show();
-        }, 500);
         this.language = localStorage.getItem('language');
     }
-    ngAfterViewChecked() {
+    ionViewWillEnter() {
         this.searchInput.setFocus()
-      }
+    }
     searchNews(key) {
+        this.loading = true;
         this.keyValue = key;
         if (this.keyValue.length == 0) {
+            this.loading = false;
             this.newsArray = [];
             this.searchLength = this.newsArray;
             this.box = true;
         } else {
             this._newsService.searchedNews(key).subscribe(
                 (res: any) => {
+                    this.loading = false;
                     this.newsArray = res;
                     this.searchLength = this.newsArray.length;
                     console.log(this.newsArray);
                     this.box = false;
                 },
                 (err) => {
+                    this.loading = false;
                     this.error = err;
                 });
         }
     }
 
-    getSingleSearch(postid){
-       this.keyboard.hide();
-       setTimeout(() => {
-           this.router.navigate(['single-post/'+ postid + '/search']);
-       }, 500);
-   }
+    getSingleSearch(postid) {
+        //    this.keyboard.hide();
+        setTimeout(() => {
+            this.router.navigate(['single-post/' + postid + '/search']);
+        }, 500);
+    }
 }
