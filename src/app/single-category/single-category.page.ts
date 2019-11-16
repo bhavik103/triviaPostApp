@@ -17,9 +17,11 @@ export class SingleCategoryPage implements OnInit {
   mediaPath =  config.mediaApiUrl;
   catName;
   noNews;
+  language;
   constructor(private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    this.language = localStorage.getItem('language');
     this.catName = this.route.snapshot.params['cat'];
     this.singleCategory();
   }

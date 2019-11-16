@@ -19,7 +19,6 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { TermsAndCondComponent } from './terms-and-cond/terms-and-cond.component';
-import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -48,7 +47,7 @@ export class HammerConfig extends HammerGestureConfig {
 
 @NgModule({
   declarations: [AppComponent, SettingsComponent, LoginComponent, FeedbackComponent, PrivacyComponent,
-    SearchbarComponent, TermsAndCondComponent, BookmarksComponent],
+    SearchbarComponent, TermsAndCondComponent],
   entryComponents: [],
   imports: [StarRatingModule,CategoriesPageModule,AllPostPageModule,FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [

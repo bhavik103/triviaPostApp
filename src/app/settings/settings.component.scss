@@ -181,15 +181,13 @@ ion-icon {
   display: none !important;
 }
 #ratingRow {
-    padding: 100px 10px 10px 10px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+  padding: 10vh 10px 10px 10px;
+  position: relative;
+  width: 100%;
 }
 #ratingRow > img {
   position: absolute;
   bottom: 0;
-  top:-75px;
   left: 0;
   right: 0;
   z-index: 0;

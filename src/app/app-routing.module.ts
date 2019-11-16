@@ -6,7 +6,6 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { TermsAndCondComponent } from './terms-and-cond/terms-and-cond.component';
-import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { AuthGuard, LoginGuard } from './guards/user.guard';
 const routes: Routes = [
 	{
@@ -44,10 +43,6 @@ const routes: Routes = [
 		component: TermsAndCondComponent
 	},
 	{
-		path: 'bookmarks',
-		component: BookmarksComponent
-	},
-	{
 		path: 'single-post/:id',
 		loadChildren: './single-post/single-post.module#SinglePostPageModule'
 	},
@@ -70,6 +65,10 @@ const routes: Routes = [
 	{
 		path: 'signin',
 		loadChildren: './signin/signin.module#SigninPageModule'
+	},
+	{
+		path: 'bookmark',
+		loadChildren: './bookmark/bookmark.module#BookmarkPageModule'
 	}
 ];
 

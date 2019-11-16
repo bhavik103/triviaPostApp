@@ -69,7 +69,7 @@
 				<ion-icon name="bookmark"></ion-icon>
 			</ion-col>
 			<ion-col size="10">
-				<div  routerLink="/bookmarks">
+				<div  routerLink="/bookmark">
 					<span class="optionsList" *ngIf="language == 'English'">Bookmarks</span>
 					<span class="optionsList" *ngIf="language == 'Hindi'">बुकमार्क</span>
 				</div>
@@ -149,7 +149,7 @@
 		<ion-row id="ratingRow">
 			<img src="assets/images/settingBackground.png" alt="">
 			<div class="logo">
-				<img src="assets/images/Logo.png" height="50px" alt="">
+				<img src="assets/images/Logo.png" height="70px" alt="">
 			</div>
 			<div id="ratingHead" *ngIf="!rating">How was the experience with us?</div>
 			<div id="ratingHead" *ngIf="rating">Excellent !</div>
@@ -161,7 +161,7 @@
 				
 				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#F18D16" defaultColor="#ddd" readonly="true" rating="{{userRating}}" fontSize="32px" *ngIf="rating">
 				</ionic4-star-rating>
-				<div id="ratingHead" class="greetings" *ngIf="rating">Thank you for loving us !</div>
+				<div id="ratingHead" class="greetings" *ngIf="rating">Thank you for rating us !</div>
 			</div>
 		</ion-row>
 	</div>

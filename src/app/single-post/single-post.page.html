@@ -5,7 +5,7 @@
 
     <ion-back-button name="arrow-round-back" *ngIf="!backKeyBookmark && !backKeyCategory && !backKeySearch"
       class="homeBack " defaultHref="/home/all-post"></ion-back-button>
-    <ion-icon name="arrow-round-back" *ngIf="backKeyBookmark" class=" homeBack" routerLink="/bookmarks">
+    <ion-icon name="arrow-round-back" *ngIf="backKeyBookmark" class=" homeBack" routerLink="/bookmark">
     </ion-icon>
     <span *ngFor="let news of singlepost">
       <!-- <ion-icon name="arrow-round-back" *ngIf="backKeyCategory" class="homeBack"

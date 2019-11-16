@@ -15,6 +15,8 @@ export class NewsService {
 	newsArray: any;
 	singleNews: any;
 	userId: any;
+	tokenLocalStorage: string;
+	loggedInUser: any;
 	private handleError(error: HttpErrorResponse) {
 		return throwError('Error! something went wrong.');
 	}
@@ -23,7 +25,7 @@ export class NewsService {
 
 	//fetch all news
 	getAllNews(): Observable<any> {
-		
+
 		if (this.network.type == 'none') {
 			return new Observable(observer => {
 				console.log(JSON.parse(localStorage.getItem("newsArray")));
@@ -50,7 +52,7 @@ export class NewsService {
 	}
 
 	allCatNews(id) {
-		console.log("Inside",id)
+		console.log("Inside", id)
 		if (this.network.type == 'none') {
 			return new Observable(observer => {
 				console.log(JSON.parse(localStorage.getItem("newsArray")));
@@ -118,27 +120,56 @@ export class NewsService {
 					});
 			});
 		}
-		// return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&keyword=' + searchKey).pipe(
-		// 	map((res) => {
-		// 		this.newsArray = res['data'];
-		// 		return this.newsArray;
-		// 	}),
-		// 	catchError(this.handleError));
 	}
 
 	getAllBookmarks() {
 		console.log("Hello");
-		return this.http.get(config.baseApiUrl + 'bookmark').pipe(
-			map((res) => {
-				this.newsArray = res['data'];
-				this.newsArray = this.newsArray.post;
-				this.newsArray.map((e) => {
-					e['bookmarkKey'] = true;
-				});
-				console.log('this.newsArraythis.newsArraythis.newsArray', this.newsArray);
-				return this.newsArray;
-			}),
-			catchError(this.handleError));
+		if (this.network.type == 'none') {
+			return new Observable(observer => {
+				console.log("fdfdfd", JSON.parse(localStorage.getItem("newsArray")));
+				console.log("regex");
+				this.newsArray = JSON.parse(localStorage.getItem("newsArray"));
+				this.tokenLocalStorage = localStorage.getItem('accessToken');
+				if (this.tokenLocalStorage) {
+					var base64Url = this.tokenLocalStorage.split('.')[1];
+					var base64 = base64Url.replace('-', '+').replace('_', '/');
+					var decodedToken = JSON.parse(window.atob(base64));
+					this.loggedInUser = decodedToken.user._id;
+				}
+				if (this.tokenLocalStorage) {
+					_.forEach(this.newsArray, (save: { [x: string]: boolean; bookMark: any; }) => {
+						_.forEach(save.bookMark, (Id: any) => {
+							if (Id == this.loggedInUser) {
+								save['bookmarkKey'] = true
+							}
+						})
+					})
+				}
+				this.newsArray = this.newsArray.filter(obj => Object.keys(obj).includes("bookmarkKey"));
+				console.log('this.newsArray',this.newsArray);
+				setTimeout(() => {
+					observer.next(this.newsArray);
+					observer.complete();
+				}, 1);
+			});
+		} else {
+			return new Observable(observer => {
+				this.http.get(config.baseApiUrl + 'bookmark').subscribe(
+					(res: object) => {
+						this.newsArray = res['data'];
+						this.newsArray = this.newsArray.post;
+						this.newsArray.map((e) => {
+							e['bookmarkKey'] = true;
+						});
+						console.log('this.newsArraythis.newsArraythis.newsArray', this.newsArray);
+						observer.next(this.newsArray);
+						observer.complete();
+					},
+					(error) => {
+						observer.error(error);
+					});
+			});
+		}
 	}
 
 	bookmarkPost(id) {
@@ -146,7 +177,7 @@ export class NewsService {
 	}
 
 	//get single news
-	getSingleNews(id){
+	getSingleNews(id) {
 		if (this.network.type == 'none') {
 			return new Observable(observer => {
 				console.log(JSON.parse(localStorage.getItem("newsArray")));
@@ -190,7 +221,7 @@ export class NewsService {
 		return this.http.put(config.baseApiUrl + 'post-views', data);
 	}
 
-	likepost(id){
-		return this.http.put(config.baseApiUrl + 'post-like',{postId: id});
+	likepost(id) {
+		return this.http.put(config.baseApiUrl + 'post-like', { postId: id });
 	}
 }

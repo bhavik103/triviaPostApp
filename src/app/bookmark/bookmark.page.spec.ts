@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BookmarksComponent } from './bookmarks.component';
+import { BookmarkPage } from './bookmark.page';
 
-describe('BookmarksComponent', () => {
-  let component: BookmarksComponent;
-  let fixture: ComponentFixture<BookmarksComponent>;
+describe('BookmarkPage', () => {
+  let component: BookmarkPage;
+  let fixture: ComponentFixture<BookmarkPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BookmarksComponent ],
+      declarations: [ BookmarkPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BookmarksComponent);
+    fixture = TestBed.createComponent(BookmarkPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
