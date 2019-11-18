@@ -11,7 +11,8 @@ import {privacyPolicy} from '../privacy/privacyPolicy';
 	providedIn: 'root'
 })
 export class GeneralService {
-	privacy: privacyPolicy[];
+	privacy: any;
+	updates: any;
 	constructor(private http: HttpClient) { }
 
 	private handleError(error: HttpErrorResponse) {
@@ -27,4 +28,15 @@ export class GeneralService {
 			}),
 			catchError(this.handleError));
 	}
+
+	// // check-for-updates
+	// getUpdateDetails(){
+	// 	return this.http.get(config.baseApiUrl + 'check-for-updates').pipe(
+	// 		map((res) => {
+	// 			this.updates = res['data'];
+	// 			console.log("UPDATE IN SERVICE", this.updates);
+	// 			return this.updates;
+	// 		})
+	// 	)
+	// }
 }

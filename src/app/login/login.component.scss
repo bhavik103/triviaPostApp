@@ -17,11 +17,12 @@ input {
 input::-webkit-input-placeholder {
   font-size: 16px;
 }
-
-p {
-  line-height: 175%;
+ion-content.background {
+  --background: none;
+  background-image: url("assets/images/signup.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
-
 b {
   color: paleturquoise;
 }
@@ -213,13 +214,13 @@ b {
 
 .signupButton button {
   border-radius: 9px;
-  padding: 10px;
+  padding: 15px;
   font-size: 17px;
   margin-top: 10px;
   text-align: center;
   width: 100%;
   color: #fff;
-  background: #2a6974;
+  background: #d02535;
 }
 
 .signupButton {
@@ -254,10 +255,10 @@ b {
 }
 .header {
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
+  color: #d02535;
 }
-
 .loginForm {
   padding: 8px 20px;
 }
@@ -388,28 +389,45 @@ input#remember:checked + label:before {
 .facebookLogin,
 .signupModalButton {
   width: 100%;
-  padding: 12px;
+  padding: 7px;
   border-radius: 6px;
   color: #fff;
-  font-size: 20px;
+  font-size: 17px;
   margin-bottom: 10px;
 }
 .googleLogin {
-  background-color: #5b85f1;
+  background-color: #fff;
+  color: #000;
+  -webkit-box-shadow: 0 8px 6px -6px black;
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 6px 8px 6px -6px #afafaf;
 }
 .facebookLogin {
-  background-color: #425dad;
+  background-color: #fff;
+  color: #000;
+  box-shadow: 6px 8px 6px -6px #afafaf;
 }
 .signupModalButton {
-  background-color: #2a6974;
+  background-color: #d02535;
+  color: #fff;
 }
+
 .socialCenter {
-  line-height: 1.5;
+  line-height: 1.9;
 }
 .socialIcon {
   float: left;
-  font-size: 26px;
+  font-size: 19px;
   margin-top: 3px;
+  background-color: #fff;
+  border-radius: 50px;
+  padding: 2px 4px;
+}
+.signupModalButton .socialIcon {
+  margin-left: 5px;
+}
+.socialIcon ion-icon {
+  color: #d02535;
 }
 .signup_input {
   position: relative;
@@ -441,9 +459,9 @@ input#remember:checked + label:before {
   height: 48px;
   width: 100%;
   padding-left: 10px;
-  border-radius: 4px;
   outline: none;
-  border: 1px solid;
+  border: none;
+  border-bottom: 1px solid;
 }
 #linkSignIn {
   position: absolute;
@@ -459,10 +477,19 @@ input#remember:checked + label:before {
   color: #2a6974;
   font-size: 17px;
 }
-#agreement{
+#linkSignIn img {
+  height: 100%;
+  width: auto;
+}
+#agreement {
   color: #a4a4a4;
   font-size: 13px;
 }
-#agreement span{
+#agreement span {
   border-bottom: 1px solid;
+  color: #d02535;
+}
+#already {
+  margin: 27px 22px;
+  font-weight: 500;
 }

@@ -7,24 +7,55 @@ ion-icon.homeBack.md.hydrated {
 .newsImg {
   margin: auto 0 !important;
   padding: 6px;
-  height: 100px;
+  height: 88px;
 }
-
+.latestPost {
+  padding: 0;
+}
+.latestPost:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+.latestpostimg {
+  height: 326px;
+  object-fit: cover;
+}
+.textBlock {
+  position: absolute;
+  top: 30%;
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  z-index: 1;
+}
+.categoryButton {
+  display: block;
+  margin-top: 4%;
+  background-color: #ce2837;
+  color: #fff;
+  padding: 5px;
+  border-radius: 8px;
+}
 .otherInfo {
+  margin: 0px auto;
   color: gray;
   bottom: 0;
-  margin: 0;
-  margin-top: 10px;
+  position: absolute;
 }
 
 .otherInfoSecond {
-  margin: 10px auto;
+  margin: 0px auto;
   color: gray;
-  bottom: 20px;
+  margin-top: 5px;
 }
 img.likeImage {
   height: 11px;
-  // margin-right: 3px;
 }
 .otherInfoSecond span {
   font-size: 14px;
@@ -32,9 +63,7 @@ img.likeImage {
 }
 .optionsList {
   margin: 0px auto;
-}
-.feeds {
-  border-bottom: 1px solid #ddd;
+  font-weight: 700;
 }
 .newsImg img {
   width: 100%;
@@ -42,11 +71,29 @@ img.likeImage {
   object-fit: cover;
   margin: auto;
   display: block;
+  border-radius: 6px;
 }
 .newsCat {
   color: #ed2424;
 }
 .latestNews {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 30px;
+  font-weight: 800;
+}
+.feeds {
+  margin-bottom: 10px;
+}
+
+.noBookmark {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.noBookmark img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
 }

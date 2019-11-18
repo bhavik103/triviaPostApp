@@ -115,6 +115,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
 /* harmony import */ var _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/local-notifications/ngx */ "./node_modules/@ionic-native/local-notifications/ngx/index.js");
 /* harmony import */ var _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic-native/firebase-dynamic-links/ngx */ "./node_modules/@ionic-native/firebase-dynamic-links/ngx/index.js");
+/* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../services/general.service */ "./src/app/services/general.service.ts");
+
 
 
 
@@ -135,7 +137,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HomePage = class HomePage {
-    constructor(firebaseDynamicLinks, localNotifications, _toastService, _userService, network, route, screenOrientation, platform, socialSharing, deeplinks, fcm, _newsService, _categoryService, router, keyboard) {
+    constructor(_generalService, firebaseDynamicLinks, localNotifications, _toastService, _userService, network, route, screenOrientation, platform, socialSharing, deeplinks, fcm, _newsService, _categoryService, router, keyboard) {
+        this._generalService = _generalService;
         this.firebaseDynamicLinks = firebaseDynamicLinks;
         this.localNotifications = localNotifications;
         this._toastService = _toastService;
@@ -167,9 +170,6 @@ let HomePage = class HomePage {
         this.loading = true;
         this.viewInitFunctions();
         this.language = localStorage.language;
-        this.route.params.subscribe((param) => {
-            this.pageContent(this.router.url, param);
-        });
     }
     ionViewDidEnter() {
         this.subscription = this.platform.backButton.subscribe(() => {
@@ -235,9 +235,6 @@ let HomePage = class HomePage {
         online.subscribe(() => {
             this.hide = true;
         });
-    }
-    pageContent(url, param) {
-        console.log("Redirected From : ", url, param);
     }
     //get all news - HOME PAGE ( FEEDS )
     getNews() {
@@ -318,6 +315,7 @@ let HomePage = class HomePage {
     }
 };
 HomePage.ctorParameters = () => [
+    { type: _services_general_service__WEBPACK_IMPORTED_MODULE_19__["GeneralService"] },
     { type: _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_18__["FirebaseDynamicLinks"] },
     { type: _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_17__["LocalNotifications"] },
     { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_16__["ToastService"] },
@@ -340,7 +338,7 @@ HomePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./home.page.html */ "./node_modules/raw-loader/index.js!./src/app/home/home.page.html"),
         styles: [__webpack_require__(/*! ./home.page.scss */ "./src/app/home/home.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_18__["FirebaseDynamicLinks"], _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_17__["LocalNotifications"], _services_toast_service__WEBPACK_IMPORTED_MODULE_16__["ToastService"], _services_user_service__WEBPACK_IMPORTED_MODULE_14__["UserService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_13__["Network"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"], _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_10__["ScreenOrientation"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_9__["SocialSharing"], _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__["Deeplinks"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__["FCM"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_11__["Keyboard"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_general_service__WEBPACK_IMPORTED_MODULE_19__["GeneralService"], _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_18__["FirebaseDynamicLinks"], _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_17__["LocalNotifications"], _services_toast_service__WEBPACK_IMPORTED_MODULE_16__["ToastService"], _services_user_service__WEBPACK_IMPORTED_MODULE_14__["UserService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_13__["Network"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"], _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_10__["ScreenOrientation"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_9__["SocialSharing"], _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__["Deeplinks"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__["FCM"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_11__["Keyboard"]])
 ], HomePage);
 
 

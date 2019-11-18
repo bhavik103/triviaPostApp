@@ -27,6 +27,7 @@ export class BookmarkPage implements OnInit {
   bookmarkLength: any;
   loading: any;
   hide;
+  noNews;
 
   constructor(private network: Network,private _toastService: ToastService, private platform: Platform, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router) { }
 
@@ -59,7 +60,10 @@ export class BookmarkPage implements OnInit {
   bookmarkedNews(): void {
     this.loading = true;
     this._newsService.getAllBookmarks().subscribe(
-      (res) => {
+      (res: any) => {
+        if(res.length === 0){
+          this.noNews = true
+        }
         this.loading = false;
         this.newsObj = res;
         this.newsArray = this.newsObj;

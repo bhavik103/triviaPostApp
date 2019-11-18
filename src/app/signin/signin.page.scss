@@ -2,7 +2,25 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100vh;
+}
+#backButton {
+  width: 21px;
+  margin: 25px;
+}
+.header {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #d02535;
+}
+ion-content.background {
+  --background: none;
+  background-image: url("assets/images/login.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+ion-icon{
+  color: #d02535;
 }
 .loginHead {
   font-size: 20px;
@@ -14,27 +32,28 @@
 }
 .buttonInside {
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 35px;
 }
 input {
   height: 48px;
   width: 100%;
   padding-left: 10px;
-  border-radius: 4px;
   outline: none;
-  border: 1px solid;
+  border: none;
+  border-bottom: 1px solid;
 }
 .submitLogin {
   width: 100%;
-  padding: 12px;
+  padding: 13px;
   border-radius: 6px;
   color: #fff;
   font-size: 20px;
   margin-bottom: 10px;
-  background-color: #2a6974;
+  background-color: #d02535,;
 }
 #forgotPassword {
   float: right;
+  margin-top: 12px;
 }
 #eye {
   position: absolute;
@@ -136,9 +155,11 @@ input {
 }
 .resetPass {
   margin-top: 10px;
-  background: #2a6974;
 }
-.signup_input{
-  color:#000;
+.signup_input {
+  color: #000;
   font-size: 16px;
+}
+.signup_input input{
+  border-radius: 6px;
 }

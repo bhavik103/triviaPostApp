@@ -196,12 +196,12 @@ ion-icon {
 .settings.settingIcon {
   position: relative;
   z-index: 11;
-  padding:10px;
+  padding: 10px;
 }
-.logo{
+.logo {
   margin: auto;
 }
-#ratingRow > div{
+#ratingRow > div {
   position: relative;
   z-index: 11;
 }
@@ -217,19 +217,26 @@ ion-icon {
 #rating {
   margin: auto;
 }
-.alert-head .sc-ion-alert-md{
-  display: none!important;
+.alert-head .sc-ion-alert-md {
+  display: none !important;
 }
-ionic4-star-rating{
+ionic4-star-rating {
   text-align: center;
 }
-.greetings{
-  font-size:11px!important;
+.greetings {
+  font-size: 11px !important;
 }
-.settingsLoggedIn{
+.settingsLoggedIn {
   padding-top: 23px;
 }
-#loginOption{
+#loginOption {
   line-height: 3;
   margin-right: 6%;
+}
+.rateButton {
+  font-size: 15px!important;
+  padding: 10px 15px!important;
+  background: #ce2837;
+  color: #fff!important;
+  border-radius: 23px;
 }

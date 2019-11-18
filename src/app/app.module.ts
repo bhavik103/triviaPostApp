@@ -37,6 +37,7 @@ import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 
 export class HammerConfig extends HammerGestureConfig {
@@ -51,6 +52,7 @@ export class HammerConfig extends HammerGestureConfig {
   entryComponents: [],
   imports: [StarRatingModule,CategoriesPageModule,AllPostPageModule,FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
+    AppVersion,
     NativePageTransitions,
    
     InAppBrowser,

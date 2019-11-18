@@ -27,6 +27,7 @@
         "@angular/platform-browser": "~8.1.2",
         "@angular/platform-browser-dynamic": "~8.1.2",
         "@angular/router": "~8.1.2",
+        "@ionic-native/app-version": "^5.16.0",
         "@ionic-native/core": "^5.0.0",
         "@ionic-native/deeplinks": "^5.14.0",
         "@ionic-native/facebook": "^5.13.0",

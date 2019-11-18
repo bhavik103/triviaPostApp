@@ -7,24 +7,21 @@
 
 <ion-content>
   <ion-list>
-    <ion-item-sliding class="feeds" *ngFor="let news of newsArray; let i = index; last as isLast" (click)="open(item)">
+    <ion-item-sliding class="feeds" *ngFor="let news of newsArray; let i = index; last as isLast">
       <ion-item>
-        <ion-col size="5" class="newsImg" padding>
-          <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%"
-            (click)="getSingleBookmark(news.newsId)">
+        <ion-col size="3" class="newsImg" padding>
+          <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%" (click)="singleNews(news.newsId)">
         </ion-col>
-        <ion-col size="7" id="content">
+        <ion-col size="9">
           <div>
-            <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish | slice:0:40"
-              (click)="getSingleBookmark(news.newsId)"></span><span *ngIf="language == 'English'">...</span>
-            <span class="optionsList" *ngIf="language == 'Hindi'"
-              [innerHTML]="news.newsTitleHindi | slice:0:40"></span><span *ngIf="language == 'Hindi'"
-              (click)="getSingleBookmark(news.newsId)">...</span>
-            <p class="otherInfoSecond"><img src="assets/images/like.png" alt="" class="likeImage"> {{news.likesCount}}
-              likes</p>
-            <p class="otherInfo">{{news.createdAt | timeAgo}} | <span class="newsCat"
-                (click)="categoryClick(news.newsCategoryId, news.newsCategory)">{{news.newsCategory | slice:0:20}}</span>
-            </p>
+            <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish"
+              (click)="singleNews(news.newsId)"></span><span *ngIf="language == 'English'"></span>
+            <span class="optionsList" *ngIf="language == 'Hindi'" [innerHTML]="news.newsTitleHindi"></span><span
+              *ngIf="language == 'Hindi'" (click)="singleNews(news.newsId)"></span>
+            <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton">{{news.newsCategory}}</button>
+            <p class="otherInfoSecond"><img src="assets/images/like.png" alt="" class="likeImage">
+              {{news.likesCount}} likes | {{news.createdAt | timeAgo}}</p>
           </div>
         </ion-col>
       </ion-item>
@@ -50,5 +47,7 @@
       <p class="text-center">Loding...</p>
     </div>
   </div>
-  <p *ngIf="noNews == true" class="noNews">No news in this category!</p>
+  <div class="noBookmark">
+    <img src="assets/images/bookmarkEmpty.png" *ngIf="noNews == true">
+  </div>
 </ion-content>

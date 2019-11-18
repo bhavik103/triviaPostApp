@@ -20,6 +20,7 @@ export class SigninPage implements OnInit {
   }
   ngOnInit() {
     this.login.userName = localStorage.getItem('email');
+    localStorage.removeItem('email');
   }
   loginForm = new FormGroup({
     userName: new FormControl('', Validators.required),

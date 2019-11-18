@@ -1,20 +1,22 @@
-<ion-content>
+<ion-content class="background">
+  <img src="assets/images/left-arrow.png" alt="" id="backButton" routerLink="/login" (click)="goBack()">
   <div class="loginDiv">
-    <div class="loginHead">
-      <span id="signIn">Sign In</span>
-      <span id="closeIcon">
-        <ion-icon name="close" routerLink="/login" (click)="goBack()"></ion-icon>
-      </span>
+    <div class="header">
+      <img src="assets/images/Logo.png" height="auto" width="30%">
+      <div>Read & Share</div>
     </div>
     <div class="loginBody">
       <form [formGroup]="loginForm" padding class="loginForm">
         <div class="buttonInside">
-          <input placeholder="Email" [(ngModel)]="login.userName" [ngModelOptions]="{standalone: true}">
+          Username:
+          <input [(ngModel)]="login.userName" [ngModelOptions]="{standalone: true}">
+          <button id="eye">
+            <ion-icon name="person"></ion-icon>
+          </button>
         </div>
         <div class="buttonInside">
-          <input placeholder="Password" [type]="passwordType" [(ngModel)]="login.password"
-            [ngModelOptions]="{standalone: true}">
-
+          Password:
+          <input [type]="passwordType" [(ngModel)]="login.password" [ngModelOptions]="{standalone: true}">
           <button id="eye">
             <ion-icon name="eye" [name]="passwordIcon" (click)='hideShowPassword()'></ion-icon>
           </button>
@@ -46,18 +48,18 @@
   </div>
   <div id="loader-wrapper" *ngIf="loading">
     <div id="loader">
-        <span class="welcomeTo">Welcome to</span>
-        <span class="logo_container">
-            <img src="../../assets/images/Logo.png" alt="logo">
-        </span>
-        <div class="welcomeTo appDesc">Interesting and</div>
-        <div class="welcomeTo appDesc">Informative reads</div>
-        <div class="spinner">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-        </div>
-        <p class="text-center">Loding...</p>
+      <span class="welcomeTo">Welcome to</span>
+      <span class="logo_container">
+        <img src="../../assets/images/Logo.png" alt="logo">
+      </span>
+      <div class="welcomeTo appDesc">Interesting and</div>
+      <div class="welcomeTo appDesc">Informative reads</div>
+      <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+      <p class="text-center">Loding...</p>
     </div>
-</div>
+  </div>
 </ion-content>

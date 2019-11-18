@@ -18,6 +18,7 @@ import 'hammerjs';
 import { ToastService } from "../services/toast.service";
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
+import { GeneralService } from '../services/general.service';
 
 @Component({
     selector: 'app-home',
@@ -53,7 +54,7 @@ export class HomePage implements OnInit {
     hide: boolean;
     resLength: number;
     subscription: any;
-    constructor(private firebaseDynamicLinks: FirebaseDynamicLinks, private localNotifications: LocalNotifications, private _toastService: ToastService, private _userService: UserService, private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
+    constructor(private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private localNotifications: LocalNotifications, private _toastService: ToastService, private _userService: UserService, private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 
     // Event Listeners
@@ -62,9 +63,6 @@ export class HomePage implements OnInit {
         this.loading = true;
         this.viewInitFunctions();
         this.language = localStorage.language;
-        this.route.params.subscribe((param: any) => {
-            this.pageContent(this.router.url, param);
-        });
     }
 
     ionViewDidEnter() {
@@ -77,7 +75,7 @@ export class HomePage implements OnInit {
     }
     viewInitFunctions() {
         console.log('this.firebaseDynamicLinks', this.firebaseDynamicLinks);
-        
+
         this.notificationTapped();
         this.notifyflag = localStorage.getItem('notification');
         this.language = localStorage.language;
@@ -136,9 +134,6 @@ export class HomePage implements OnInit {
         online.subscribe(() => {
             this.hide = true;
         });
-    }
-    pageContent(url: string, param: { catTitle: any; id: any; key: any; }) {
-        console.log("Redirected From : ", url, param)
     }
 
     //get all news - HOME PAGE ( FEEDS )

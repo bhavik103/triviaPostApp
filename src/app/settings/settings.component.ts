@@ -28,6 +28,7 @@ export class SettingsComponent implements OnInit {
 		addCancelButtonWithLabel: false,
 	};
 	userRating: string;
+	ratings: any;
 
 	constructor(private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
 	}
@@ -151,9 +152,11 @@ export class SettingsComponent implements OnInit {
 			});
 	}
 
-	logRatingChange(rating) {
-		localStorage.setItem('rating', rating);
-		this._userService.userRating(rating).subscribe();
+	logRatingChange() {
+		console.log($("ion-icon[ng-reflect-name='ios-star']").length);
+		this.ratings = $("ion-icon[ng-reflect-name='ios-star']").length;
+		localStorage.setItem('rating', this.ratings);
+		this._userService.userRating(this.ratings).subscribe();
 		this.rating = true;
 		this.userRating = localStorage.getItem('rating');
 	}

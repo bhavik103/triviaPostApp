@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { HomePage } from './home/home.page';
 import { SettingsComponent } from './settings/settings.component';
 import { FCM } from '@ionic-native/fcm/ngx';

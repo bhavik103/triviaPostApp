@@ -97,9 +97,8 @@
 			</ion-col>
 		</ion-row>
 
-
 		<ion-row class="settings settingIcon">
-			<ion-col size="2" >
+			<ion-col size="2">
 				<ion-icon name="chatboxes"></ion-icon>
 			</ion-col>
 			<ion-col size="10">
@@ -154,13 +153,12 @@
 			<div id="ratingHead" *ngIf="!rating">How was the experience with us?</div>
 			<div id="ratingHead" *ngIf="rating">Excellent !</div>
 			<div id="rating">
-				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ce2837"
-					defaultColor="#ddd" readonly="false" fontSize="32px"
-					(ratingChanged)="logRatingChange($event)" rating="0" *ngIf="!rating">
+				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#F18D16" defaultColor="#ddd" readonly="false" fontSize="32px" rating="0" *ngIf="!rating">
 				</ionic4-star-rating>
 				
 				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#F18D16" defaultColor="#ddd" readonly="true" rating="{{userRating}}" fontSize="32px" *ngIf="rating">
 				</ionic4-star-rating>
+				<button *ngIf="!rating" (click)="logRatingChange()" class="rateButton" id="ratingHead">Rate</button>
 				<div id="ratingHead" class="greetings" *ngIf="rating">Thank you for rating us !</div>
 			</div>
 		</ion-row>
