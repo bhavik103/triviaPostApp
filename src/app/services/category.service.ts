@@ -14,7 +14,7 @@ import * as _ from 'lodash';
 export class CategoryService {
 	categories: Category[];
 	loggedInUser;
-	loading:any;
+	loading: any;
 	constructor(private network: Network, private http: HttpClient) { }
 
 	private handleError(error: HttpErrorResponse) {
@@ -35,7 +35,7 @@ export class CategoryService {
 
 			this.categories = JSON.parse(localStorage.getItem("categories"))
 			this.notifyChange();
-			
+
 			observer.next(this.categories);
 			if (this.network.type == 'none') {
 				console.log(JSON.parse(localStorage.getItem("newsArray")));
@@ -44,28 +44,19 @@ export class CategoryService {
 				this.http.get(config.baseApiUrl + "category").subscribe(
 					(result: object) => {
 						this.categories = result['data'];
-						localStorage.setItem('categories', JSON.stringify(this.categories))
 						this.notifyChange();
+						localStorage.setItem('categories', JSON.stringify(this.categories))
+						console.log("CATEGORIES",this.categories);
 						observer.next(this.categories);
 					},
 					(error) => {
 						observer.error(error);
 					});
-				// setInterval(function(){
-				// 	var cats = getLocalStorageCategories();
-				// 	console.log("Next Service Data = ",cats);
-				// 	observer.next(cats);
-				// 	function getLocalStorageCategories(){
-				// 		return JSON.parse(localStorage.getItem("categories"));
-				// 	}
-
-				// },10000);
-				// observer.complete();
 			}
 		});
 	}
 
-	notifyChange(){
+	notifyChange() {
 		_.forEach(this.categories, (user) => {
 			_.forEach(user.notify, (Id) => {
 				if (Id == this.loggedInUser) {

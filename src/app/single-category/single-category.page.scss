@@ -54,6 +54,7 @@ ion-icon.homeBack.md.hydrated {
   color: gray;
   margin-top: 5px;
   position: absolute;
+  font-weight: 600;
 }
 img.likeImage {
   height: 11px;
@@ -83,4 +84,8 @@ img.likeImage {
 }
 .feeds{
   margin-bottom: 10px;
+}
+.timeAgo{
+  opacity: 0.8;
+  font-weight: normal;
 }

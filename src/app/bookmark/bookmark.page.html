@@ -20,8 +20,9 @@
               *ngIf="language == 'Hindi'" (click)="singleNews(news.newsId)"></span>
             <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
               class="categoryButton">{{news.newsCategory}}</button>
-            <p class="otherInfoSecond"><img src="assets/images/like.png" alt="" class="likeImage">
-              {{news.likesCount}} likes | {{news.createdAt | timeAgo}}</p>
+              <p class="otherInfoSecond"><img src="assets/images/like.png" alt="" class="likeImage">
+                {{news.likesCount}}
+                likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
           </div>
         </ion-col>
       </ion-item>
