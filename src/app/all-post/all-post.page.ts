@@ -6,6 +6,7 @@ import { config } from '../config';
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-all-post',
@@ -13,47 +14,33 @@ import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
   styleUrls: ['./all-post.page.scss'],
 })
 export class AllPostPage implements OnInit {
-  newsArray: any;
+  newsArray$: Observable<any>;
   mediaPath = config.mediaApiUrl;
   language: string;
   loading: any;
   constructor(private firebaseDynamicLinks: FirebaseDynamicLinks, private fcm: FCM, private deeplinks: Deeplinks, private router: Router, public _newsService: NewsService) { }
 
   ngOnInit() {
-    if(!config.isvisited && !config.counter){
+    if (!config.isvisited && !config.counter) {
       this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
         var postId = res.deepLink.split('?')[1].split('=')[1];
         console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1])
         console.log('Is Visited:------------- 1', config.isvisited);
-        
-  
+
         if (!config.isvisited && !config.counter) {
-          config.counter ++;
+          config.counter++;
           config.isvisited = true;
           console.log('Is Visited:------------- 2', config.isvisited);
-  
-        }else{
-          config.counter ++;
+        } else {
+          config.counter++;
           config.isvisited = false;
           console.log('Is Visited:------------- 3', config.isvisited);
-  
         }
-  
-        console.log('Is visited:', config.isvisited);
-  
-        // if (!config.isvisited) {
-        //   this.router.navigate(['single-post/' + postId]);
-        //   config.isvisited = true;
-        // }
-  
         this.router.navigate(['single-post/' + postId]);
       }, (error: any) => {
         console.log(error)
       });
-  
     }
-
-
   }
   ionViewWillEnter() {
     this.fcm.onNotification().subscribe(data => {
@@ -65,25 +52,21 @@ export class AllPostPage implements OnInit {
       }
     });
     this.getAllPost();
+    this.newsArray$;
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false
+    }, 300);
+  }
+
+  getAllPost() {
+    this.language = localStorage.getItem('language');
+    this.newsArray$ = this._newsService.getAllNews().pipe();
+    console.log("after", this.newsArray$);
   }
 
   goToCategories() {
     this.router.navigateByUrl('/home/categories')
-  }
-
-  //get all news - HOME PAGE ( FEEDS )
-  getAllPost(): void {
-    this.loading = true;
-    this.language = localStorage.getItem('language');
-    this._newsService.getAllNews().subscribe(
-      (res: any) => {
-        this.loading = false;
-        console.log("all news==========>", res)
-        this.newsArray = res;
-      },
-      (err) => {
-        this.newsArray = localStorage.newsArray;
-      });
   }
 
   singleNews(postid) {

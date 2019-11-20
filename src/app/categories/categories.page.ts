@@ -17,12 +17,19 @@ export class CategoriesPage implements OnInit {
   mediaPath = config.mediaApiUrl;
   language: any;
   loading: any;
-  constructor(private _toastService: ToastService ,private network: Network,private _categoryService: CategoryService, private router: Router) {
-    this.getCategories();
-    this.categories$;
+  constructor(private _toastService: ToastService, private network: Network, private _categoryService: CategoryService, private router: Router) {
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false
+    }, 1);
+    this.getCategories();
+    this.categories$;
   }
 
   goToAllPosts() {
@@ -35,7 +42,7 @@ export class CategoriesPage implements OnInit {
     console.log("after", this.categories$);
   }
 
-  singeCategory(catId, catname) {
+  singleCategory(catId, catname) {
     console.log('catId compoennt', catId)
     this.router.navigateByUrl('single-category/' + catId + '/' + catname);
   }

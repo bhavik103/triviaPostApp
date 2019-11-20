@@ -1,11 +1,12 @@
+ion-col {
+  padding: 12px;
+}
 p {
   margin: 0;
   padding: 0;
 }
 .container {
   position: relative;
-  font-family: Arial;
-  margin: 16px 8px;
 }
 .category_title {
   display: inline-block;
@@ -16,9 +17,11 @@ p {
   bottom: 13%;
   color: white;
   padding: 0 5%;
-  z-index: 1;
+  z-index: 9999;
   font-weight: 700;
   font-size: 17px;
+  left: 12px;
+  right: 12px;
 }
 .container:after {
   content: "";
@@ -30,7 +33,7 @@ p {
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 0;
 }
-img {
+.container img {
   height: 184px;
   object-fit: cover;
 }
@@ -52,7 +55,7 @@ img {
   color: #ce2837;
   padding: 4px;
   border-radius: 3px;
-  font-size: 11px;
+  font-size: 10px;
   float: left;
 }
 .notSubscribed ion-icon {

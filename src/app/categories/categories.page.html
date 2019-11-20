@@ -1,18 +1,25 @@
 <ion-content (swipeleft)="goToAllPosts()">
     <ion-row>
         <ion-col size="6" *ngFor="let category of categories$ | async">
-            <div class="container">
-                <img src="{{mediaPath}}{{category.categoryImage}}" alt="Nature" style="width:100%;" (click)="singeCategory(category.categoryId,category.categoryTitle)">
-                <div class="text-block">
+            <div class="container" (click)="singleCategory(category.categoryId,category.categoryTitle)">
+                <img src="{{mediaPath}}{{category.categoryImage}}" alt="Category Image" style="width:100%;">
+            </div>
+            <div class="text-block">
+                <div class="">
                     <div class="category_title">
-                        <p *ngIf="language == 'English'" (click)="singeCategory(category.categoryId,category.categoryTitle)">{{category.categoryTitle | slice:0:30}} <span *ngIf="category.categoryTitle.length > 30">...</span></p>
-                        <p *ngIf="language == 'Hindi'" (click)="singeCategory(category.categoryId,category.categoryTitleHn)">{{category.categoryTitleHn | slice:0:30}} <span *ngIf="category.categoryTitleHn.length > 30">...</span></p>
+                        <p *ngIf="language == 'English'"
+                            (click)="singleCategory(category.categoryId,category.categoryTitle)">
+                            {{category.categoryTitle | slice:0:30}}</p>
+                        <p *ngIf="language == 'Hindi'"
+                            (click)="singleCategory(category.categoryId,category.categoryTitleHn)">
+                            {{category.categoryTitleHn | slice:0:30}}</p>
                     </div>
                     <p class="postCount">{{category.postCount}} Posts</p>
                     <button *ngIf="!category.isNotify" class="notSubscribed" (click)="addNotify(category.categoryId)">
                         <ion-icon name="notifications-outline"></ion-icon> Subscribe
                     </button>
-                    <button *ngIf="category.isNotify" class="subscribed" (click)="addNotify(category.categoryId)">Subscribed</button>
+                    <button *ngIf="category.isNotify" class="subscribed"
+                        (click)="addNotify(category.categoryId)">Subscribed</button>
                 </div>
             </div>
         </ion-col>

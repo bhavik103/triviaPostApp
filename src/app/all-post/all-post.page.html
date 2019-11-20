@@ -1,5 +1,5 @@
 <ion-content (swiperight)="goToCategories()" ion-padding>
-    <ion-row class="feeds" *ngFor="let news of newsArray; let i = index; last as isLast">
+    <ion-row class="feeds" *ngFor="let news of newsArray$ | async; let i = index; last as isLast">
         <ion-col *ngIf="i == 0" size="12" class="latestPost">
             <img class="latestpostimg" src="{{mediaPath}}{{news.newsImage}}" height="100%" width="100%"
                 (click)="singleNews(news.newsId)">

@@ -25,30 +25,27 @@ export class NewsService {
 
 	//fetch all news
 	getAllNews(): Observable<any> {
+		return new Observable(observer => {
 
-		if (this.network.type == 'none') {
-			return new Observable(observer => {
-				console.log(JSON.parse(localStorage.getItem("newsArray")));
-				this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
-				setTimeout(() => {
-					observer.next(this.newsArray);
-					observer.complete();
-				}, 1);
-			});
-		} else {
-			return new Observable(observer => {
+			this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
+			// this.notifyChange();
+
+			observer.next(this.newsArray);
+			if (this.network.type == 'none') {
+				observer.complete();
+			} else {
 				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').subscribe(
 					(result: object) => {
 						this.newsArray = result['data'];
-						localStorage.setItem('newsArray', JSON.stringify(this.newsArray))
+						localStorage.setItem('categories', JSON.stringify(this.newsArray))
+						console.log("NEWS", this.newsArray);
 						observer.next(this.newsArray);
-						observer.complete();
 					},
 					(error) => {
 						observer.error(error);
 					});
-			});
-		}
+			}
+		});
 	}
 
 	allCatNews(id) {
@@ -146,7 +143,7 @@ export class NewsService {
 					})
 				}
 				this.newsArray = this.newsArray.filter(obj => Object.keys(obj).includes("bookmarkKey"));
-				console.log('this.newsArray',this.newsArray);
+				console.log('this.newsArray', this.newsArray);
 				setTimeout(() => {
 					observer.next(this.newsArray);
 					observer.complete();
@@ -201,7 +198,7 @@ export class NewsService {
 		} else {
 			return new Observable(observer => {
 				console.log("in ");
-				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&postId=' + id).subscribe(
+				this.http.get(config.baseApiUrl + 'single-news?postId=' + id).subscribe(
 					(result: object) => {
 						this.newsArray = result['data'];
 						console.log("in cat service", this.newsArray);

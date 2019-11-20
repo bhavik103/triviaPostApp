@@ -67,10 +67,11 @@ export class SinglePostPage implements OnInit {
     this._newsService.getSingleNews(postId).subscribe(res => {
       this.loading = false;
       const singlepostArray = [];
-      singlepostArray.push(res[0]);
+      console.log("NEWS", res)
+      singlepostArray.push(res);
       this.singlepost = singlepostArray;
       if (this.tokenLocalStorage) {
-        _.forEach(this.singlepost, (save: { [x: string]: boolean; bookMark: any; }) => {
+        _.forEach(res, (save: { [x: string]: boolean; bookMark: any; }) => {
           _.forEach(save.bookMark, (Id: any) => {
             if (Id == this.loggedInUser) {
               save['bookmarkKey'] = true
@@ -79,7 +80,7 @@ export class SinglePostPage implements OnInit {
         })
       }
       if (this.tokenLocalStorage) {
-        _.forEach(this.singlepost, (save: { [x: string]: boolean; like: any; }) => {
+        _.forEach(res, (save: { [x: string]: boolean; like: any; }) => {
           _.forEach(save.like, (Id: any) => {
             if (Id == this.loggedInUser) {
               save['likeKey'] = true
@@ -87,11 +88,11 @@ export class SinglePostPage implements OnInit {
           })
         })
       }
+      this.singlepost = res;
       // console.log("News Title", this.singlepost[0]['newsTitleEnglish'])
       this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.singlepost[0]['newsTitleEnglish'] }).then(res => {
-        console.log("Post Tracked", res)
+        console.log("Post Tracked", this.singlepost[0]['newsTitleEnglish'])
       })
-      console.log("Single newsssssss", this.singlepost);
     });
   }
 
@@ -157,5 +158,13 @@ export class SinglePostPage implements OnInit {
     let target = "_blank";
     this.iab.create(url, `_blank`);
 
+  }
+  singleNews(postid) {
+    console.log('postid', postid);
+    this.router.navigateByUrl('/single-post/' + postid);
+  }
+  singleCategory(catId, catname) {
+    console.log('catId compoennt', catId)
+    this.router.navigateByUrl('single-category/' + catId + '/' + catname);
   }
 }
