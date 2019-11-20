@@ -4,34 +4,23 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
-
-const routes: Routes = [
-  {
-    path: '',
-    component: HomePage,
-    children: [
-      {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-      },
-      {
-        path: 'categories',
-        loadChildren: '../categories/categories.module#CategoriesPageModule'
-      },
-      {
-        path: 'all-post',
-        loadChildren: '../all-post/all-post.module#AllPostPageModule'
-      }
-    ]
-  }
-]
+import { CategoriesPageModule } from '../categories/categories.module';
+import { AllPostPageModule } from '../all-post/all-post.module';
+import { SuperTabsModule } from '@ionic-super-tabs/angular';
 @NgModule({
   imports: [
+    SuperTabsModule,
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild([
+      {
+        path: '',
+        component: HomePage,
+      },
+    ]),
+    CategoriesPageModule,
+    AllPostPageModule,
   ],
   declarations: [HomePage]
 })

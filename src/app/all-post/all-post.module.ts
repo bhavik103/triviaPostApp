@@ -5,21 +5,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { AllPostPage } from './all-post.page';
 import { SharedModule } from '../shared/shared.module';
-const routes: Routes = [
-  {
-    path: '',
-    component: AllPostPage
-  }
-];
-
-@NgModule({ 
+import {LatestPostPageModule} from '../latest-post/latest-post.module'
+import {PostTilesPageModule} from '../post-tiles/post-tiles.module'
+@NgModule({
   imports: [
+    LatestPostPageModule,
     CommonModule,
     FormsModule,
     IonicModule,
     SharedModule,
-    RouterModule.forChild(routes)
+    PostTilesPageModule
   ],
-  declarations: [AllPostPage]
-})  
-export class AllPostPageModule {}
+  declarations: [AllPostPage],
+  entryComponents: [
+    AllPostPage,
+  ],
+  exports: [
+    AllPostPage,
+  ],
+})
+export class AllPostPageModule { }

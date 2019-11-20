@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
 				console.log('res==of google==============>', res);
 				this._userService.googleLogin(res.accessToken).subscribe((res: any) => {
 					this.loading = false;
-					this.router.navigate(['home/categories']);
+					this.router.navigate(['home']);
 				}, err => {
 					this.loading = false;
 					console.log('err==========>', err)
@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
 				console.log('accessToken=============,accessToken', accessToken)
 				this._userService.fbLogin(accessToken).subscribe((res: any) => {
 					this.loading = false;
-					this.router.navigate(['home/categories']);
+					this.router.navigate(['home']);
 				}, err => {
 					this.loading = false;
 					console.log('err===========>', err)
@@ -145,7 +145,7 @@ export class LoginComponent implements OnInit {
 		this._userService.customLogin(login).subscribe((res: any) => {
 			this.loading = false;
 			this._toastService.toastFunction(res.message, 'success');
-			this.router.navigate(['home/categories']);
+			this.router.navigate(['home']);
 		}, err => {
 			this.loading = false;
 			this._toastService.toastFunction(err.error.message, 'success');

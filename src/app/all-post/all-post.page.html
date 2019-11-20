@@ -1,36 +1,7 @@
-<ion-content (swiperight)="goToCategories()" ion-padding>
-    <ion-row class="feeds" *ngFor="let news of newsArray$ | async; let i = index; last as isLast">
-        <ion-col *ngIf="i == 0" size="12" class="latestPost">
-            <img class="latestpostimg" src="{{mediaPath}}{{news.newsImage}}" height="100%" width="100%"
-                (click)="singleNews(news.newsId)">
-            <div class="textBlock">
-                <span class="latestNews" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish"
-                    (click)="singleNews(news.newsId)"></span>
-                <span *ngIf="news.newsTitleEnglish.length >= 40 && language == 'English'" class="latestNews">...</span>
-                <span class="latestNews" *ngIf="language == 'Hindi'" [innerHTML]="news.newsTitleHindi | slice:0:40"
-                    (click)="singleNews(news.newsId)"></span>
-                <span class="latestNews" *ngIf="news.newsTitleHindi.length >= 40 && language == 'Hindi'">...</span>
-                <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-                    class="categoryButton">{{news.newsCategory}}</button>
-                <p class="latestNewsInfo"><img src="assets/images/like.png" alt="" class="likeImage">
-                    {{news.likesCount}}
-                    likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
-            </div>
-        </ion-col>
-        <ion-col size="3" class="newsImg" padding *ngIf="i != 0">
-            <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%" (click)="singleNews(news.newsId)">
-        </ion-col>
-        <ion-col size="9" *ngIf="i != 0" class="contentFeeds">
-            <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish | slice:0:60"
-                (click)="singleNews(news.newsId)"></span>
-            <span *ngIf="language == 'English' && news.newsTitleEnglish.length >= 60">...</span>
-            <span class="optionsList" *ngIf="language == 'Hindi'" (click)="singleNews(news.newsId)"  [innerHTML]="news.newsTitleHindi | slice:0:60"></span>
-            <span (click)="singleNews(news.newsId)" *ngIf="language == 'Hindi' && news.newsTitleHindi.length >= 60">...</span>
-            <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-                class="categoryButton">{{news.newsCategory}}</button>
-            <p class="otherInfoSecond"><img src="assets/images/like.png" alt="" class="likeImage">
-                {{news.likesCount}} likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
-        </ion-col>
+<ion-content>
+    <ion-row class="feeds">
+        <app-latest-post [news]="newsArray"></app-latest-post>
+        <app-post-tiles [newsTiles]="newsArray"></app-post-tiles>
     </ion-row>
     <div id="loader-wrapper" *ngIf="loading">
         <div id="loader">

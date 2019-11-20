@@ -4,7 +4,9 @@
   font-size: 20px;
   padding-left: 15px;
 }
-
+super-tabs-toolbar{
+  $tabs-md-tab-icon-color-active: red;
+}
 ion-label {
   font-size: 15px;
 }
@@ -155,4 +157,15 @@ img.bookmark {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
+}
+.ion-color-primary{
+  --ion-color-contrast: #ce2837 !important;
+  --ion-color-base: #fff !important;
+  --ion-color-base-rgb: var(--ion-color-primary-rgb, 56, 128, 255) !important;
+  --ion-color-contrast-rgb: var(--ion-color-primary-contrast-rgb, 255, 255, 255) !important;
+  --ion-color-shade: #fff !important;
+  --ion-color-tint: #fff !important;
+}
+.active ion-label{
+  color: #ce2837 !important;
 }

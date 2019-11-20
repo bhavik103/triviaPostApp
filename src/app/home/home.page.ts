@@ -6,7 +6,7 @@ import { NewsService } from '../services/news.service';
 import { FCM } from '@ionic-native/fcm/ngx';
 declare var $: any;
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
-import { Platform } from '@ionic/angular';
+import { Platform,NavController } from '@ionic/angular';
 import * as _ from 'lodash';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -19,7 +19,10 @@ import { ToastService } from "../services/toast.service";
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 import { GeneralService } from '../services/general.service';
-
+import { SuperTabs } from '@ionic-super-tabs/angular';
+import { SuperTabsConfig } from '@ionic-super-tabs/core';
+import { AllPostPage } from '../all-post/all-post.page';
+import { CategoriesPage } from '../categories/categories.page';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -27,6 +30,11 @@ import { GeneralService } from '../services/general.service';
 })
 
 export class HomePage implements OnInit {
+    @ViewChild(SuperTabs, { static: false }) superTabs: SuperTabs;
+    
+    categoryPage = CategoriesPage;
+    allPostPage = AllPostPage;
+
     bookmarks: any;
     tokenLocalStorage: any;
     language: string;
@@ -54,6 +62,18 @@ export class HomePage implements OnInit {
     hide: boolean;
     resLength: number;
     subscription: any;
+
+    opts = {
+        icon: false,
+        label: true,
+        toolbarPos: 'top',
+        scrollable: true,
+    };
+
+    config: SuperTabsConfig = {
+        debug: true,
+        allowElementScroll: false,
+    };
     constructor(private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private localNotifications: LocalNotifications, private _toastService: ToastService, private _userService: UserService, private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 

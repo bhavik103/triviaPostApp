@@ -77,7 +77,7 @@ export class AppComponent {
     if (!localStorage.getItem('notification')) {
       localStorage.setItem('notification', "true");
     }
-    this.router.navigateByUrl('/home/all-post');
+    // this.router.navigateByUrl('/home/all-post');
     this.initializeApp();
   }
 

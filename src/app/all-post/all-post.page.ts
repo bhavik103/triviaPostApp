@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./all-post.page.scss'],
 })
 export class AllPostPage implements OnInit {
-  newsArray$: Observable<any>;
+  newsArray: any;
   mediaPath = config.mediaApiUrl;
   language: string;
   loading: any;
@@ -52,7 +52,6 @@ export class AllPostPage implements OnInit {
       }
     });
     this.getAllPost();
-    this.newsArray$;
     this.loading = true;
     setTimeout(() => {
       this.loading = false
@@ -61,8 +60,15 @@ export class AllPostPage implements OnInit {
 
   getAllPost() {
     this.language = localStorage.getItem('language');
-    this.newsArray$ = this._newsService.getAllNews().pipe();
-    console.log("after", this.newsArray$);
+    this._newsService.getAllNews().subscribe(
+      (res: any) => {
+        this.loading = false;
+        console.log("all news==========>", res)
+        this.newsArray = res;
+      },
+      (err) => {
+        this.newsArray = localStorage.newsArray;
+      });
   }
 
   goToCategories() {

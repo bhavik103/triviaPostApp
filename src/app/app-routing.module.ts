@@ -8,14 +8,14 @@ import { SearchbarComponent } from './searchbar/searchbar.component';
 import { TermsAndCondComponent } from './terms-and-cond/terms-and-cond.component';
 import { AuthGuard, LoginGuard } from './guards/user.guard';
 const routes: Routes = [
-	{
+	{ 
 		path: '',
 		redirectTo: 'home',
-		pathMatch: 'full'
+		pathMatch: 'full' 
 	},
-	{
+	{ 
 		path: 'home',
-		loadChildren: './home/home.module#HomePageModule'
+		loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
 	},
 	{
 		path: 'settings',
@@ -69,12 +69,15 @@ const routes: Routes = [
 	{
 		path: 'bookmark',
 		loadChildren: './bookmark/bookmark.module#BookmarkPageModule'
-	}
+	},
+  { path: 'latest-post', loadChildren: './latest-post/latest-post.module#LatestPostPageModule' },
+  { path: 'post-tiles', loadChildren: './post-tiles/post-tiles.module#PostTilesPageModule' },
+  { path: 'category-tiles', loadChildren: './category-tiles/category-tiles.module#CategoryTilesPageModule' }
 ];
 
 @NgModule({
 	imports: [
-		RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+		RouterModule.forRoot(routes, { })
 	],
 	exports: [RouterModule]
 })

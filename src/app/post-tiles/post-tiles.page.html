@@ -1,0 +1,18 @@
+<ion-row *ngFor="let news of newsTiles; let i = index">
+    <ion-col size="3" class="newsImg" *ngIf="i != 0" padding>
+        <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%" (click)="singleNews(news.newsId)">
+    </ion-col>
+    <ion-col size="9" *ngIf="i != 0" class="contentFeeds">
+        <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish | slice:0:60"
+            (click)="singleNews(news.newsId)"></span>
+        <span *ngIf="language == 'English' && news.newsTitleEnglish.length >= 60">...</span>
+        <span class="optionsList" *ngIf="language == 'Hindi'" (click)="singleNews(news.newsId)"
+            [innerHTML]="news.newsTitleHindi | slice:0:60"></span>
+        <span (click)="singleNews(news.newsId)"
+            *ngIf="language == 'Hindi' && news.newsTitleHindi.length >= 60">...</span>
+        <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+            class="categoryButton">{{news.newsCategory}}</button>
+        <p class="otherInfoSecond"><img src="assets/images/like.png" alt="" class="likeImage">
+            {{news.likesCount}} likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
+    </ion-col>
+</ion-row>

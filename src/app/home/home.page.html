@@ -7,40 +7,41 @@
         </ion-title>
     </ion-toolbar>
 </ion-header>
+<super-tabs activeTabIndex="0" [config]="{ debug: false, allowElementScroll: true }">
+    <super-tabs-toolbar slot="top">
+        <super-tab-button>
+            <ion-label>Categories</ion-label>
+        </super-tab-button>
+        <super-tab-button>
+            <ion-label>All feeds</ion-label>
+        </super-tab-button>
+    </super-tabs-toolbar>
 
-<ion-content id="homepage-ion-content" *ngIf="!loading && !isTextVisible">
-    <ion-tabs>
-        <ion-tab-bar slot="top">
-            <ion-tab-button tab="categories">
-                <ion-label>Categories</ion-label>
-            </ion-tab-button>
-
-            <ion-tab-button tab="all-post">
-                <ion-label>Feeds</ion-label>
-            </ion-tab-button>
-        </ion-tab-bar>
-    </ion-tabs>
-</ion-content>
-<ion-content *ngIf="loading">
-    <div id="loader-wrapper">
-        <div id="loader">
-            <span class="welcomeTo">Welcome to</span>
-            <span class="logo_container">
-                <img src="../../assets/images/Logo.png" alt="logo">
-            </span>
-            <div class="welcomeTo appDesc">Interesting and</div>
-            <div class="welcomeTo appDesc">Informative reads</div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <p class="text-center">Loding...</p>
+    <super-tabs-container>
+        <super-tab>
+            <ion-nav [root]="categoryPage"></ion-nav>
+        </super-tab>
+        <super-tab>
+            <ion-nav [root]="allPostPage"></ion-nav>
+        </super-tab>
+    </super-tabs-container>
+</super-tabs>
+<div id="loader-wrapper" *ngIf="loading">
+    <div id="loader">
+        <span class="welcomeTo">Welcome to</span>
+        <span class="logo_container">
+            <img src="../../assets/images/Logo.png" alt="logo">
+        </span>
+        <div class="welcomeTo appDesc">Interesting and</div>
+        <div class="welcomeTo appDesc">Informative reads</div>
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
         </div>
+        <p class="text-center">Loding...</p>
     </div>
-</ion-content>
-<ion-content *ngIf="isTextVisible">
-    <div class="no-news-text">
-        <span>{{text}}</span>
-    </div>
-</ion-content>
+</div>
+<div class="no-news-text" *ngIf="isTextVisible">
+    <span>{{text}}</span>
+</div>

@@ -38,8 +38,7 @@ import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
-
-
+import { SuperTabsModule } from '@ionic-super-tabs/angular';
 export class HammerConfig extends HammerGestureConfig {
   overrides = <any>{
     'swipe': { direction: Hammer.DIRECTION_ALL }
@@ -50,11 +49,10 @@ export class HammerConfig extends HammerGestureConfig {
   declarations: [AppComponent, SettingsComponent, LoginComponent, FeedbackComponent, PrivacyComponent,
     SearchbarComponent, TermsAndCondComponent],
   entryComponents: [],
-  imports: [StarRatingModule,CategoriesPageModule,AllPostPageModule,FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [SuperTabsModule,SuperTabsModule.forRoot(),StarRatingModule,CategoriesPageModule,AllPostPageModule,FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
     AppVersion,
     NativePageTransitions,
-   
     InAppBrowser,
     FirebaseDynamicLinks,
     FirebaseAnalytics,

@@ -1,6 +1,6 @@
 <ion-header>
 	<ion-toolbar class="settingsToolbar">
-		<ion-icon name="arrow-round-back" routerLink="/home/categories"></ion-icon>
+		<ion-icon name="arrow-round-back" routerLink="/home"></ion-icon>
 		<span id="settingTitle"> Options</span>
 		<span id="profile" *ngIf="tokenLocalStorage && firstCharUser" (click)="logout()">{{firstCharUser}}</span>
 		<span id="personIcon" *ngIf="tokenLocalStorage && !firstCharUser" (click)="logout()">
