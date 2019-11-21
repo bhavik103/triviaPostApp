@@ -5,11 +5,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { AllPostPage } from './all-post.page';
 import { SharedModule } from '../shared/shared.module';
-import {LatestPostPageModule} from '../latest-post/latest-post.module'
+import {LargePostPageModule} from '../large-post/large-post.module'
 import {PostTilesPageModule} from '../post-tiles/post-tiles.module'
 @NgModule({
   imports: [
-    LatestPostPageModule,
+    LargePostPageModule,
     CommonModule,
     FormsModule,
     IonicModule,

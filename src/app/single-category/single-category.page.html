@@ -6,10 +6,10 @@
 </ion-header>
 
 <ion-content (swiperight)="goToCategories()" ion-padding>
-    <ion-row class="feeds" *ngIf="newsArray && newsArray.length">
-        <span *ngFor="let news of newsArray; let i = index">
-            <app-latest-post [news]="news" [index]="i"></app-latest-post>
-            <app-post-tiles [news]="news" [index]="i"></app-post-tiles>
+    <ion-row class="feeds" *ngIf="news && newsArray && newsArray.length">
+        <app-large-post [news]="news"></app-large-post>
+        <span *ngFor="let news of newsArray;">
+            <app-post-tiles [news]="news"></app-post-tiles>
         </span>
     </ion-row>
     <ion-row class="onePost">

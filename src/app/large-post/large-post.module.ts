@@ -5,8 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from '../shared/shared.module';
-
-import { LatestPostPage } from './latest-post.page';
+import { LargePostPage } from './large-post.page';
 
 @NgModule({
   imports: [
@@ -15,12 +14,12 @@ import { LatestPostPage } from './latest-post.page';
     IonicModule,
     SharedModule
   ],
-  declarations: [LatestPostPage],
+  declarations: [LargePostPage],
   entryComponents: [
-    LatestPostPage,
+    LargePostPage,
   ],
   exports: [
-    LatestPostPage,
+    LargePostPage,
   ],
 })
-export class LatestPostPageModule {}
+export class LargePostPageModule {}

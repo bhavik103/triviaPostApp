@@ -18,6 +18,7 @@ export class AllPostPage implements OnInit {
   mediaPath = config.mediaApiUrl;
   language: string;
   loading: any;
+  latestPost: any;
   constructor(private firebaseDynamicLinks: FirebaseDynamicLinks, private fcm: FCM, private deeplinks: Deeplinks, private router: Router, public _newsService: NewsService) { }
 
   ngOnInit() {
@@ -59,8 +60,9 @@ export class AllPostPage implements OnInit {
     this._newsService.getAllNews().subscribe(
       (res: any) => {
         this.loading = false;
-        console.log("all news==========>", res)
         this.newsArray = res;
+        this.latestPost = res[0];
+        this.newsArray.splice(0, 1);
       },
       (err) => {
         this.newsArray = localStorage.newsArray;

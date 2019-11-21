@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 export class PostTilesPage implements OnInit {
 
   @Input('news') news: string;
-  @Input('index') index: string;
   mediaPath = config.mediaApiUrl;
   language: string;
   constructor(private router: Router) {

@@ -32,9 +32,6 @@ import { CategoriesPage } from '../categories/categories.page';
 export class HomePage implements OnInit {
     @ViewChild(SuperTabs, { static: false }) superTabs: SuperTabs;
     
-    categoryPage = CategoriesPage;
-    allPostPage = AllPostPage;
-
     bookmarks: any;
     tokenLocalStorage: any;
     language: string;
@@ -74,11 +71,15 @@ export class HomePage implements OnInit {
         debug: true,
         allowElementScroll: false,
     };
+    categoryPage: typeof CategoriesPage;
+    allPostPage: typeof AllPostPage;
     constructor(private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private localNotifications: LocalNotifications, private _toastService: ToastService, private _userService: UserService, private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 
     // Event Listeners
     ngOnInit() {
+        this.categoryPage = CategoriesPage;
+        this.allPostPage = AllPostPage;
         console.warn("ngOnInit");
         this.loading = true;
         this.viewInitFunctions();

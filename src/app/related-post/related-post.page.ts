@@ -12,7 +12,6 @@ import { config } from '../config';
 export class RelatedPostPage implements OnInit {
   @Input() news: string;
   @Input() language: string;
-  @Input() index: string;
   mediaPath = config.mediaApiUrl;
   constructor(private router: Router) { }
 

@@ -8,12 +8,12 @@ import { SearchbarComponent } from './searchbar/searchbar.component';
 import { TermsAndCondComponent } from './terms-and-cond/terms-and-cond.component';
 import { AuthGuard, LoginGuard } from './guards/user.guard';
 const routes: Routes = [
-	{ 
+	{
 		path: '',
 		redirectTo: 'home',
-		pathMatch: 'full' 
+		pathMatch: 'full'
 	},
-	{ 
+	{
 		path: 'home',
 		loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
 	},
@@ -70,15 +70,27 @@ const routes: Routes = [
 		path: 'bookmark',
 		loadChildren: './bookmark/bookmark.module#BookmarkPageModule'
 	},
-  { path: 'latest-post', loadChildren: './latest-post/latest-post.module#LatestPostPageModule' },
-  { path: 'post-tiles', loadChildren: './post-tiles/post-tiles.module#PostTilesPageModule' },
-  { path: 'category-tiles', loadChildren: './category-tiles/category-tiles.module#CategoryTilesPageModule' },
-  { path: 'related-post', loadChildren: './related-post/related-post.module#RelatedPostPageModule' }
+	{
+		path: 'post-tiles',
+		loadChildren: './post-tiles/post-tiles.module#PostTilesPageModule'
+	},
+	{
+		path: 'category-tiles',
+		loadChildren: './category-tiles/category-tiles.module#CategoryTilesPageModule'
+	},
+	{
+		path: 'related-post',
+		loadChildren: './related-post/related-post.module#RelatedPostPageModule'
+	},
+	{
+		path: 'large-post',
+		loadChildren: './large-post/large-post.module#LargePostPageModule'
+	}
 ];
 
 @NgModule({
 	imports: [
-		RouterModule.forRoot(routes, { })
+		RouterModule.forRoot(routes, {})
 	],
 	exports: [RouterModule]
 })

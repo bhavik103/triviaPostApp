@@ -25,6 +25,7 @@ export class SinglePostPage implements OnInit {
   backKeyCategory: boolean;
   backKeySearch: boolean;
   loading: boolean;
+  news: any;
   constructor(private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
@@ -35,7 +36,7 @@ export class SinglePostPage implements OnInit {
   }
   ionViewWillEnter() {
     this.removeRedirectItem();
-    
+
     // Firebase Analytics 'screen_view' event tracking
     this.firebaseAnalytics.setCurrentScreen('Single Post').then(res => {
       console.log("firebase", res)
@@ -53,7 +54,7 @@ export class SinglePostPage implements OnInit {
       this.backKeySearch = true;
     }
   }
-  removeRedirectItem(){
+  removeRedirectItem() {
     localStorage.removeItem('bookmarkId');
     localStorage.removeItem('likepostId');
   }
@@ -94,6 +95,9 @@ export class SinglePostPage implements OnInit {
         })
       }
       this.singlepost = res;
+      this.news = res[0];
+      console.log('this.news=>>>>>>>>>>', this.news)
+      this.singlepost.splice(0, 1);
       // console.log("News Title", this.singlepost[0]['newsTitleEnglish'])
       this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.singlepost[0]['newsTitleEnglish'] }).then(res => {
         console.log("Post Tracked", this.singlepost[0]['newsTitleEnglish'])
@@ -125,7 +129,7 @@ export class SinglePostPage implements OnInit {
   bookmark(newsid) {
     if (!localStorage.getItem('accessToken')) {
       console.log("newsId done", newsid);
-      localStorage.setItem('bookmarkId',newsid);
+      localStorage.setItem('bookmarkId', newsid);
       this._toastService.toastFunction('You need to login first', 'danger');
       this.router.navigateByUrl('/login');
     } else {
@@ -147,7 +151,7 @@ export class SinglePostPage implements OnInit {
   likePost(postid) {
     if (!localStorage.getItem('accessToken')) {
       console.log("newsId done", postid);
-      localStorage.setItem('likepostId',postid);
+      localStorage.setItem('likepostId', postid);
       this._toastService.toastFunction('Please login first!', 'danger');
       this.router.navigateByUrl('/login');
     } else {

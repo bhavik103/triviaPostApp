@@ -1,8 +1,8 @@
 <ion-content>
-    <ion-row class="feeds" *ngIf="newsArray && newsArray.length">
-        <span *ngFor="let news of newsArray; let i = index">
-            <app-latest-post [news]="news" [index]="i"></app-latest-post>
-            <app-post-tiles [news]="news" [index]="i"></app-post-tiles>
+    <ion-row class="feeds" *ngIf="newsArray && newsArray.length && latestPost">
+        <app-large-post [news]="latestPost"></app-large-post>
+        <span *ngFor="let news of newsArray">
+            <app-post-tiles [news]="news"></app-post-tiles>
         </span>
     </ion-row>
     <div id="loader-wrapper" *ngIf="loading">

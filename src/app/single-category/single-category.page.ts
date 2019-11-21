@@ -20,6 +20,7 @@ export class SingleCategoryPage implements OnInit {
   language;
   latestPost;
   newsArrayLength;
+  news: any;
   constructor(private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -34,6 +35,8 @@ export class SingleCategoryPage implements OnInit {
     this._newsService.allCatNews(catId).subscribe(res => {
       console.log("catNews",res);
       this.newsArray = res;
+      this.news = res[0];
+      this.newsArray.splice(0,1);
       this.latestPost = JSON.parse(JSON.stringify(res[0]));
       
       console.log('this.latestPost',this.newsArray[0]);

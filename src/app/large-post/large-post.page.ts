@@ -3,13 +3,12 @@ import { config } from '../config';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-latest-post',
-  templateUrl: './latest-post.page.html',
-  styleUrls: ['./latest-post.page.scss'],
+  selector: 'app-large-post',
+  templateUrl: './large-post.page.html',
+  styleUrls: ['./large-post.page.scss'],
 })
-export class LatestPostPage implements OnInit {
+export class LargePostPage implements OnInit {
   @Input('news') news: any;
-  @Input('index') index: any;
 
   mediaPath = config.mediaApiUrl;
   language: string;
@@ -29,4 +28,5 @@ export class LatestPostPage implements OnInit {
     console.log('postid', postid);
     this.router.navigateByUrl('/single-post/' + postid);
   }
+
 }

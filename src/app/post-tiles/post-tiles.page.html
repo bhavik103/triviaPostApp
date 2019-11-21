@@ -1,6 +1,6 @@
-<ion-list *ngIf="index != 0">
+<ion-list>
     <ion-item-sliding class="feeds">
-        <ion-item *ngIf="i != 0">
+        <ion-item>
             <ion-col size="3" class="newsImg" padding>
                 <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%"
                     (click)="singleNews(news.newsId)">

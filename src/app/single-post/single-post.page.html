@@ -18,50 +18,50 @@
 
 
 <ion-content>
-  <div *ngFor="let news of singlepost; let i= index" class="singlePost">
-    <div *ngIf="i == 0">
-      <div class="container">
-        <img src="{{mediaPath}}{{news.newsImage}}" alt="" style="width:100%;">
-        <div class="text-block">
-          <div class="category_title">
-            <p *ngIf="language == 'English'" (click)="singleCategory(news.newsCategoryId,news.newsCategory)">
-              {{news.newsCategory | slice:0:30}}</p>
-          </div>
-          <p class="imgCredit" *ngIf="news.picCredit"><span>By: </span> {{news.picCredit}}</p>
+  <div *ngIf="news">
+    <div class="container">
+      <img src="{{mediaPath}}{{news.newsImage}}" alt="" style="width:100%;">
+      <div class="text-block">
+        <div class="category_title">
+          <p *ngIf="language == 'English'" (click)="singleCategory(news.newsCategoryId,news.newsCategory)">
+            {{news.newsCategory | slice:0:30}}</p>
         </div>
+        <p class="imgCredit" *ngIf="news.picCredit"><span>By: </span> {{news.picCredit}}</p>
       </div>
-      <span class="imageCredit">
-        <span class="likesSpan">
-          {{news.createdAt | timeAgo}} | <img src="../../assets/images/lightbulb_black.png" *ngIf="!news.likeKey"
-            (click)="likePost(news.newsId)" alt="">
-          <img src="../../assets/images/lightbulb_red.png" (click)="alreadyLiked()" *ngIf="news.likeKey" alt="">
-          {{news.likesCount}}
-        </span>
-      </span>
-      <div class="postTitle">
-        <p *ngIf="language == 'English'">{{news.newsTitleEnglish}}</p>
-        <p *ngIf="language == 'Hindi'">{{news.newsTitleHindi}}</p>
-      </div>
-      <div class="subPostTitle">
-        <p class="newsInfo" *ngIf="news.srcTitle && news.srcLink"><span> Source</span>: <span class="srcLink"
-            (click)="openWithSystemBrowser(news.srcLink)"> {{news.srcTitle}}</span></p>
-      </div>
-      <div class="post">
-        <p [innerHTML]="news.newsEnglish" *ngIf="language == 'English'"></p>
-        <p [innerHTML]="news.newsHindi" *ngIf="language == 'Hindi'"></p>
-      </div>
-      <span class="float unbookmarkFloat" *ngIf="!news.bookmarkKey" (click)="bookmark(news.newsId)">
-        <ion-icon name="bookmark" class="my-float unbookmark"></ion-icon>
-      </span>
-      <span class="float bookmarkFloat" *ngIf="news.bookmarkKey" (click)="bookmark(news.newsId)">
-        <ion-icon name="bookmark" class="my-float bookmarked"></ion-icon>
-      </span>
-      <span class="floatShare float" (click)="sharePost(news.fcmLink, news.newsTitleEnglish, news.newsImage)">
-        <img src="../../assets/images/Share.png" class="icon shareImage" />
-      </span>
     </div>
-    <p *ngIf="i == 0">Also Read:</p>
-    <app-related-post [news]="news" [language]="language" [index]="i"></app-related-post>
+    <span class="imageCredit">
+      <span class="likesSpan">
+        {{news.createdAt | timeAgo}} | <img src="../../assets/images/lightbulb_black.png" *ngIf="!news.likeKey"
+          (click)="likePost(news.newsId)" alt="">
+        <img src="../../assets/images/lightbulb_red.png" (click)="alreadyLiked()" *ngIf="news.likeKey" alt="">
+        {{news.likesCount}}
+      </span>
+    </span>
+    <div class="postTitle">
+      <p *ngIf="language == 'English'">{{news.newsTitleEnglish}}</p>
+      <p *ngIf="language == 'Hindi'">{{news.newsTitleHindi}}</p>
+    </div>
+    <div class="subPostTitle">
+      <p class="newsInfo" *ngIf="news.srcTitle && news.srcLink"><span> Source</span>: <span class="srcLink"
+          (click)="openWithSystemBrowser(news.srcLink)"> {{news.srcTitle}}</span></p>
+    </div>
+    <div class="post">
+      <p [innerHTML]="news.newsEnglish" *ngIf="language == 'English'"></p>
+      <p [innerHTML]="news.newsHindi" *ngIf="language == 'Hindi'"></p>
+    </div>
+    <span class="float unbookmarkFloat" *ngIf="!news.bookmarkKey" (click)="bookmark(news.newsId)">
+      <ion-icon name="bookmark" class="my-float unbookmark"></ion-icon>
+    </span>
+    <span class="float bookmarkFloat" *ngIf="news.bookmarkKey" (click)="bookmark(news.newsId)">
+      <ion-icon name="bookmark" class="my-float bookmarked"></ion-icon>
+    </span>
+    <span class="floatShare float" (click)="sharePost(news.fcmLink, news.newsTitleEnglish, news.newsImage)">
+      <img src="../../assets/images/Share.png" class="icon shareImage" />
+    </span>
+    <p *ngIf="news">Also Read:</p>
+  </div>
+  <div *ngFor="let news of singlepost" class="singlePost">
+    <app-related-post [news]="news" [language]="language"></app-related-post>
   </div>
 </ion-content>
 <ion-content *ngIf="loading">
