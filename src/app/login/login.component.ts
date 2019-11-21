@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
 	loading: any;
 	emailLogin: any;
 	email: any;
+	postId: any;
 	constructor(private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
 	ngOnInit() {
 		this.platform.backButton.subscribe(async () => {
@@ -25,7 +26,6 @@ export class LoginComponent implements OnInit {
 				this.router.navigate(['settings']);
 			}
 		});
-		this.rememberMe();
 	}
 	ionViewWillEnter() {
 		this.email = localStorage.getItem('email');
@@ -59,22 +59,6 @@ export class LoginComponent implements OnInit {
 	forgot = {
 		email: "",
 	}
-	rememberMe() {
-		if (localStorage.getItem("remembered")) {
-			var login = JSON.parse(localStorage.getItem("remembered"));
-			console.log(login);
-
-			this.login = {
-				userName: login.userName,
-				password: login.password
-			}
-		} else {
-			this.login = {
-				userName: "",
-				password: ""
-			}
-		}
-	}
 
 	goBack() {
 		this.router.navigateByUrl('/settings');
@@ -88,7 +72,15 @@ export class LoginComponent implements OnInit {
 				console.log('res==of google==============>', res);
 				this._userService.googleLogin(res.accessToken).subscribe((res: any) => {
 					this.loading = false;
-					this.router.navigate(['home']);
+					if(localStorage.getItem('bookmarkId')){
+						this.postId = localStorage.getItem('bookmarkId');
+						this.router.navigateByUrl('/single-post/' + this.postId)
+					}else if(localStorage.getItem('likepostId')){
+						this.postId = localStorage.getItem('likepostId');
+						this.router.navigateByUrl('/single-post/' + this.postId);
+					}else{
+						this.router.navigate(['home']);
+					}
 				}, err => {
 					this.loading = false;
 					console.log('err==========>', err)
@@ -110,7 +102,15 @@ export class LoginComponent implements OnInit {
 				console.log('accessToken=============,accessToken', accessToken)
 				this._userService.fbLogin(accessToken).subscribe((res: any) => {
 					this.loading = false;
-					this.router.navigate(['home']);
+					if(localStorage.getItem('bookmarkId')){
+						this.postId = localStorage.getItem('bookmarkId');
+						this.router.navigateByUrl('/single-post/' + this.postId)
+					}else if(localStorage.getItem('likepostId')){
+						this.postId = localStorage.getItem('likepostId');
+						this.router.navigateByUrl('/single-post/' + this.postId);
+					}else{
+						this.router.navigate(['home']);
+					}
 				}, err => {
 					this.loading = false;
 					console.log('err===========>', err)
@@ -145,7 +145,15 @@ export class LoginComponent implements OnInit {
 		this._userService.customLogin(login).subscribe((res: any) => {
 			this.loading = false;
 			this._toastService.toastFunction(res.message, 'success');
-			this.router.navigate(['home']);
+			if(localStorage.getItem('bookmarkId')){
+				this.postId = localStorage.getItem('bookmarkId');
+				this.router.navigateByUrl('/single-post/' + this.postId)
+			}else if(localStorage.getItem('likepostId')){
+				this.postId = localStorage.getItem('likepostId');
+				this.router.navigateByUrl('/single-post/' + this.postId);
+			}else{
+				this.router.navigate(['home']);
+			}
 		}, err => {
 			this.loading = false;
 			this._toastService.toastFunction(err.error.message, 'success');

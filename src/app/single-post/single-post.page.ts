@@ -25,7 +25,7 @@ export class SinglePostPage implements OnInit {
   backKeyCategory: boolean;
   backKeySearch: boolean;
   loading: boolean;
-  constructor(private iab: InAppBrowser,private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
+  constructor(private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
     this.singlePost();
@@ -34,7 +34,8 @@ export class SinglePostPage implements OnInit {
     });
   }
   ionViewWillEnter() {
-    console.log('ionViewDidLoad ProfilePage');
+    this.removeRedirectItem();
+    
     // Firebase Analytics 'screen_view' event tracking
     this.firebaseAnalytics.setCurrentScreen('Single Post').then(res => {
       console.log("firebase", res)
@@ -51,6 +52,10 @@ export class SinglePostPage implements OnInit {
     } else if (url.includes('search')) {
       this.backKeySearch = true;
     }
+  }
+  removeRedirectItem(){
+    localStorage.removeItem('bookmarkId');
+    localStorage.removeItem('likepostId');
   }
   singlePost() {
     this.loading = true;
@@ -118,30 +123,44 @@ export class SinglePostPage implements OnInit {
 
   //  Do Bookmark
   bookmark(newsid) {
-    if (this.network.type == 'none') {
-      this.singlePost();
-      this._toastService.toastFunction('No internet connection', 'danger');
+    if (!localStorage.getItem('accessToken')) {
+      console.log("newsId done", newsid);
+      localStorage.setItem('bookmarkId',newsid);
+      this._toastService.toastFunction('You need to login first', 'danger');
+      this.router.navigateByUrl('/login');
     } else {
-      this._newsService.bookmarkPost(newsid).subscribe((res: any) => {
-        this._toastService.toastFunction(res.message, 'success');
+      if (this.network.type == 'none') {
         this.singlePost();
-      }, err => {
-        this._toastService.toastFunction(err.error.message, 'danger');
-      })
+        this._toastService.toastFunction('No internet connection', 'danger');
+      } else {
+        this._newsService.bookmarkPost(newsid).subscribe((res: any) => {
+          this._toastService.toastFunction(res.message, 'success');
+          this.singlePost();
+        }, err => {
+          this._toastService.toastFunction(err.error.message, 'danger');
+        })
+      }
     }
   }
 
   //like post
   likePost(postid) {
-    if (this.network.type == 'none') {
-      this._toastService.toastFunction('No internet connection', 'danger');
-      this.singlePost();
+    if (!localStorage.getItem('accessToken')) {
+      console.log("newsId done", postid);
+      localStorage.setItem('likepostId',postid);
+      this._toastService.toastFunction('Please login first!', 'danger');
+      this.router.navigateByUrl('/login');
     } else {
-      this._newsService.likepost(postid).subscribe((res: any) => {
+      if (this.network.type == 'none') {
+        this._toastService.toastFunction('No internet connection', 'danger');
         this.singlePost();
-        this._toastService.toastFunction(res.message, 'success');
-      }), err => {
-        this._toastService.toastFunction(err.error.message, 'danger');
+      } else {
+        this._newsService.likepost(postid).subscribe((res: any) => {
+          this.singlePost();
+          this._toastService.toastFunction(res.message, 'success');
+        }), err => {
+          this._toastService.toastFunction(err.error.message, 'danger');
+        }
       }
     }
   }
@@ -154,7 +173,7 @@ export class SinglePostPage implements OnInit {
     this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
   }
 
-  openWithSystemBrowser(url){
+  openWithSystemBrowser(url) {
     let target = "_blank";
     this.iab.create(url, `_blank`);
 

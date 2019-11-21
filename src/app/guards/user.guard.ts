@@ -33,9 +33,11 @@ export class LoginGuard implements CanActivate {
     const currentUser = this._userService.currentUserValue;
     console.log("curruntUser in auth guard===========>", currentUser)
     if (currentUser) {
+      console.log("IN CURRENT USER")
       // authorised so return true
       return false;
     } else {
+      console.log("IN ELSE OF CURRENT USER")
       // not logged in so redirect to login page with the return url
       // this.router.navigate(['login']);
       return true;

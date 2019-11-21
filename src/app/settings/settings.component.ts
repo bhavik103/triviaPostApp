@@ -91,7 +91,7 @@ export class SettingsComponent implements OnInit {
 					this.fcm.onTokenRefresh().subscribe(token => {
 						localStorage.setItem('deviceToken', token);
 					});
-					this.router.navigate(['/home/categories']);
+					this.router.navigate(['/home']);
 					this._toastService.toastFunction('You have been logged out!', 'primary');
 				}
 			}, {
