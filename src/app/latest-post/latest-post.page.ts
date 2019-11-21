@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { config } from '../config';
 import { Router } from '@angular/router';
 
@@ -8,16 +8,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./latest-post.page.scss'],
 })
 export class LatestPostPage implements OnInit {
-  @Input() news: string;
+  @Input('news') news: any;
+
   mediaPath = config.mediaApiUrl;
   language: string;
   constructor(private router: Router) {
-    // console.log(news)
   }
-
+  
   ngOnInit() {
+    console.log('this.news', this.news)
     this.language = localStorage.getItem('language');
-    console.log('Latest Page',this.news);
   }
 
   categoryClick(catId, catName) {

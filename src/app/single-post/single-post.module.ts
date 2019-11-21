@@ -6,6 +6,7 @@ import {TimeAgoPipe} from 'time-ago-pipe';
 import { IonicModule } from '@ionic/angular';
 import { SinglePostPage } from './single-post.page';
 import { SharedModule } from '../shared/shared.module';
+import {RelatedPostPageModule} from '../related-post/related-post.module'
 const routes: Routes = [
   {
     path: '',
@@ -15,6 +16,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    RelatedPostPageModule,
     CommonModule,
     FormsModule,
     IonicModule,

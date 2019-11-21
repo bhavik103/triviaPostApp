@@ -27,6 +27,12 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+//color variable root
+// var(--main-app-color);
+:root {
+  --main-app-color: #ed2424;
+}
 ion-icon:focus,
 #feedsLink:focus {
   outline: none;
@@ -52,19 +58,19 @@ ion-spinner {
 }
 
 //page navigation animation
-ion-router-outlet > .ion-page {
-  animation: fadeIn 0.3s 1 forwards;
-}
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 5vh, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
+// ion-router-outlet > .ion-page {
+//   animation: fadeIn 0.3s 1 forwards;
+// }
+// @keyframes fadeIn {
+//   0% {
+//     opacity: 0;
+//     transform: translate3d(0, 5vh, 0);
+//   }
+//   100% {
+//     opacity: 1;
+//     transform: translate3d(0, 0, 0);
+//   }
+// }
 
 * {
   outline: none;

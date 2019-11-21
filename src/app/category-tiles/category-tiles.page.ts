@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import 'hammerjs';
 import { Router } from '@angular/router';
 import { CategoryService } from '../services/category.service';
@@ -13,35 +13,24 @@ import { ToastService } from "../services/toast.service";
 })
 export class CategoryTilesPage implements OnInit {
   @Input() categories: string;
+  @Input() language: string;
+  @Output() onSubscribe: EventEmitter<any> = new EventEmitter<any>();
+
   categories$: Observable<any>;
   mediaPath = config.mediaApiUrl;
-  language: any;
   constructor(private _toastService: ToastService, private network: Network, private _categoryService: CategoryService, private router: Router) { }
 
   ngOnInit() {
   }
-
-  ionViewWillEnter(){
-    this.getCategories();
-    this.categories$;
-  }
-
   goToAllPosts() {
     this.router.navigateByUrl('/home/all-post')
   }
 
-  getCategories() {
-    this.language = localStorage.getItem('language');
-    this.categories$ = this._categoryService.getAll().pipe();
-    console.log("after", this.categories$);
-  }
-
   singleCategory(catId, catname) {
-    console.log('catId compoennt', catId)
     this.router.navigateByUrl('single-category/' + catId + '/' + catname);
   }
 
-  addNotify(catId) {
+  addNotify(catId,isNotify) {
     if (this.network.type == 'none') {
       const message = "No internet connection";
       const color = "danger";
@@ -49,9 +38,9 @@ export class CategoryTilesPage implements OnInit {
     } else {
       this._categoryService.notifyUser(catId).subscribe((res: any) => {
         this._toastService.toastFunction(res.message, 'success');
-        this.getCategories();
+        var emitObject = {catId: catId, isNotify: isNotify}
+        this.onSubscribe.emit(emitObject);
       }, err => {
-        this.getCategories();
         this._toastService.toastFunction(err.error.message, 'danger');
       })
     }

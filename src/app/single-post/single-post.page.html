@@ -1,7 +1,7 @@
 <ion-header no-border>
   <ion-toolbar>
     <ion-back-button name="arrow-round-back" *ngIf="!backKeyBookmark && !backKeyCategory && !backKeySearch"
-      class="homeBack " defaultHref="/home/all-post"></ion-back-button>
+      class="homeBack " defaultHref="/home"></ion-back-button>
     <ion-icon name="arrow-round-back" *ngIf="backKeyBookmark" class=" homeBack" routerLink="/bookmark">
     </ion-icon>
     <span *ngFor="let news of singlepost; let i = index">
@@ -60,25 +60,8 @@
         <img src="../../assets/images/Share.png" class="icon shareImage" />
       </span>
     </div>
-    <p *ngIf="i == 0">Also Read:</p> 
-    <ion-row>
-      <ion-col size="4" class="newsImg" *ngIf="i != 0">
-        <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%" (click)="singleNews(news.newsId)">
-      </ion-col>
-      <ion-col size="8" *ngIf="i != 0" class="contentFeeds">
-        <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish | slice:0:60"
-          (click)="singleNews(news.newsId)"></span>
-        <span *ngIf="language == 'English' && news.newsTitleEnglish.length >= 60">...</span>
-        <span class="optionsList" *ngIf="language == 'Hindi'" (click)="singleNews(news.newsId)"
-          [innerHTML]="news.newsTitleHindi | slice:0:60"></span>
-        <span (click)="singleNews(news.newsId)"
-          *ngIf="language == 'Hindi' && news.newsTitleHindi.length >= 60">...</span>
-        <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-          class="categoryButton">{{news.newsCategory}}</button>
-        <p class="otherInfoSecond"><img src="assets/images/like.png" alt="" class="likeImage">
-          {{news.likesCount}} likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
-      </ion-col>
-    </ion-row>
+    <p *ngIf="i == 0">Also Read:</p>
+    <app-related-post [news]="news" [language]="language" [index]="i"></app-related-post>
   </div>
 </ion-content>
 <ion-content *ngIf="loading">

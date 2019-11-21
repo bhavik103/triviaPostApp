@@ -72,7 +72,8 @@ const routes: Routes = [
 	},
   { path: 'latest-post', loadChildren: './latest-post/latest-post.module#LatestPostPageModule' },
   { path: 'post-tiles', loadChildren: './post-tiles/post-tiles.module#PostTilesPageModule' },
-  { path: 'category-tiles', loadChildren: './category-tiles/category-tiles.module#CategoryTilesPageModule' }
+  { path: 'category-tiles', loadChildren: './category-tiles/category-tiles.module#CategoryTilesPageModule' },
+  { path: 'related-post', loadChildren: './related-post/related-post.module#RelatedPostPageModule' }
 ];
 
 @NgModule({

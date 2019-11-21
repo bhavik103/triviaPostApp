@@ -1,7 +1,7 @@
 <ion-content>
-    <ion-row class="feeds">
-        <app-latest-post [news]="newsArray"></app-latest-post>
-        <app-post-tiles [newsTiles]="newsArray"></app-post-tiles>
+    <ion-row class="feeds" *ngIf="newsArray && newsArray.length">
+        <app-latest-post [news]="newsArray[0]"></app-latest-post>
+        <app-post-tiles [news]="newsArray"></app-post-tiles>
     </ion-row>
     <div id="loader-wrapper" *ngIf="loading">
         <div id="loader">

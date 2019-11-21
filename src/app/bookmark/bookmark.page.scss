@@ -37,7 +37,7 @@ ion-icon.homeBack.md.hydrated {
 .categoryButton {
   display: block;
   margin-top: 4%;
-  background-color: #ce2837;
+  background-color: var(--main-app-color);
   color: #fff;
   padding: 5px;
   border-radius: 8px;
@@ -75,8 +75,9 @@ img.likeImage {
   border-radius: 6px;
 }
 .newsCat {
-  color: #ed2424;
+  color: var(--main-app-color);
 }
+
 .latestNews {
   font-size: 30px;
   font-weight: 800;

@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
-
+import {LatestPostPageModule} from '../latest-post/latest-post.module';
+import {PostTilesPageModule} from '../post-tiles/post-tiles.module';
 import { SingleCategoryPage } from './single-category.page';
 import { SharedModule } from '../shared/shared.module';
 const routes: Routes = [
@@ -16,6 +17,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    PostTilesPageModule,
+    LatestPostPageModule,
     SharedModule,
     CommonModule,
     FormsModule,

@@ -1,5 +1,5 @@
 <ion-row>
-  <ion-col size="6" *ngFor="let category of categories | async">
+  <ion-col size="6" *ngFor="let category of categories">
     <div class="container" (click)="singleCategory(category.categoryId,category.categoryTitle)">
       <img src="{{mediaPath}}{{category.categoryImage}}" alt="Category Image" style="width:100%;">
     </div>
@@ -12,11 +12,11 @@
             {{category.categoryTitleHn | slice:0:30}}</p>
         </div>
         <p class="postCount">{{category.postCount}} Posts</p>
-        <button *ngIf="!category.isNotify" class="notSubscribed" (click)="addNotify(category.categoryId)">
+        <button *ngIf="!category.isNotify" class="notSubscribed" (click)="addNotify(category.categoryId, category.isNotify)">
           <ion-icon name="notifications-outline"></ion-icon> Subscribe
         </button>
         <button *ngIf="category.isNotify" class="subscribed"
-          (click)="addNotify(category.categoryId)">Subscribed</button>
+          (click)="addNotify(category.categoryId, category.isNotify)">Subscribed</button>
       </div>
     </div>
   </ion-col>

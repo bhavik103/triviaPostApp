@@ -13,7 +13,7 @@ import { ToastService } from "../services/toast.service";
   styleUrls: ['./categories.page.scss'],
 })
 export class CategoriesPage implements OnInit {
-  categories$: Observable<any>;
+  categories: any;
   mediaPath = config.mediaApiUrl;
   language: any;
   loading: any;
@@ -24,42 +24,25 @@ export class CategoriesPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.loading = true;
-    setTimeout(() => {
-      this.loading = false
-    }, 1);
     this.getCategories();
-    this.categories$;
-  }
-
-  goToAllPosts() {
-    this.router.navigateByUrl('/home/all-post')
   }
 
   getCategories() {
     this.language = localStorage.getItem('language');
-    this.categories$ = this._categoryService.getAll().pipe();
-    console.log("after", this.categories$);
+    this._categoryService.getAll().subscribe((res) => {
+      this.categories = res;
+    },
+      (err) => {
+      });
+    console.log("after", this.categories);
   }
 
-  singleCategory(catId, catname) {
-    console.log('catId compoennt', catId)
-    this.router.navigateByUrl('single-category/' + catId + '/' + catname);
-  }
-
-  addNotify(catId) {
-    if (this.network.type == 'none') {
-      const message = "No internet connection";
-      const color = "danger";
-      this._toastService.toastFunction(message, color);
+  subscribedCategory(e) {
+    console.log("Event e", e);
+    if (e.isNotify == true) {
+      this.categories.find((o) => o.categoryId === e.catId).isNotify = false;
     } else {
-      this._categoryService.notifyUser(catId).subscribe((res: any) => {
-        this._toastService.toastFunction(res.message, 'success');
-        this.getCategories();
-      }, err => {
-        this.getCategories();
-        this._toastService.toastFunction(err.error.message, 'danger');
-      })
+      this.categories.find((o) => o.categoryId === e.catId).isNotify = true;
     }
   }
 }

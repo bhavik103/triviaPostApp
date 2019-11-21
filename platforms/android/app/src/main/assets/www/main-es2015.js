@@ -545,7 +545,7 @@ module.exports = "<ion-app>\n  <ion-router-outlet></ion-router-outlet>\n</ion-ap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n    <app-category-tiles [categories]=\"categories$\"></app-category-tiles>\n\n    <div id=\"loader-wrapper\" *ngIf=\"loading\">\n        <div id=\"loader\">\n            <div class=\"spinner\">\n                <div class=\"bounce1\"></div>\n                <div class=\"bounce2\"></div>\n                <div class=\"bounce3\"></div>\n            </div>\n            <p class=\"text-center\">Loding...</p>\n        </div>\n    </div>\n</ion-content>"
+module.exports = "<ion-content>\n    <app-category-tiles [categories]=\"categories$\" [language]=\"language\"></app-category-tiles>\n\n    <div id=\"loader-wrapper\" *ngIf=\"loading\">\n        <div id=\"loader\">\n            <div class=\"spinner\">\n                <div class=\"bounce1\"></div>\n                <div class=\"bounce2\"></div>\n                <div class=\"bounce3\"></div>\n            </div>\n            <p class=\"text-center\">Loding...</p>\n        </div>\n    </div>\n</ion-content>"
 
 /***/ }),
 
@@ -1494,7 +1494,6 @@ let CategoryTilesPage = class CategoryTilesPage {
         this.router.navigateByUrl('/home/all-post');
     }
     getCategories() {
-        this.language = localStorage.getItem('language');
         this.categories$ = this._categoryService.getAll().pipe();
         console.log("after", this.categories$);
     }
@@ -1529,6 +1528,10 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
 ], CategoryTilesPage.prototype, "categories", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+], CategoryTilesPage.prototype, "language", void 0);
 CategoryTilesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-category-tiles',

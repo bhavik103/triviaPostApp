@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class PostTilesPage implements OnInit {
 
-  @Input() newsTiles: string;
+  @Input() news: string;
   mediaPath = config.mediaApiUrl;
   language: string;
   constructor(private router: Router) {
@@ -17,7 +17,7 @@ export class PostTilesPage implements OnInit {
 
   ngOnInit() {
     this.language = localStorage.getItem('language');
-    console.log('this.newsArray tiles',this.newsTiles);
+    console.log('this.newsArray tiles',this.news);
   }
 
   categoryClick(catId, catName) {

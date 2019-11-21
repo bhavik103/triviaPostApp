@@ -1,5 +1,5 @@
 ion-icon {
-  color: #ce2837;
+  color: var(--main-app-color);
   font-size: 20px;
   margin-left: 10px;
 }
@@ -31,7 +31,7 @@ ion-icon {
 #signInButton {
   color: #fff;
   border-radius: 50px;
-  background-color: #ce2837;
+  background-color: var(--main-app-color);
   padding: 10.5px 36.5px;
   font-size: 17px;
 }
@@ -41,7 +41,7 @@ ion-icon {
   font-weight: 800;
   font-size: 15px;
   border-radius: 50%;
-  background-color: #d9534e;
+  background-color: var(--main-app-color);
   padding: 10px 9.5px;
   margin-right: 4%;
 }
@@ -77,7 +77,7 @@ ion-icon {
   font-size: 20px; /* 1 */
   height: 1em;
   width: 2em;
-  /*background: #CE2837;*/
+  /*background: var(--main-app-color);*/
   background-color: #c5bdbd;
   border-radius: 1em;
   float: right;
@@ -98,7 +98,7 @@ ion-icon {
   -webkit-transform: translate3d(100%, 0, 0);
   -moz-transform: translate3d(100%, 0, 0);
   transform: translate3d(100%, 0, 0);
-  background: #ce2837;
+  background: var(--main-app-color);
 }
 
 #profile {
@@ -212,7 +212,7 @@ ion-icon {
   font-weight: 500;
   margin: 10px 0;
   opacity: 0.7;
-  color: #ce2837;
+  color: var(--main-app-color);
 }
 #rating {
   margin: auto;
@@ -236,7 +236,7 @@ ionic4-star-rating {
 .rateButton {
   font-size: 15px!important;
   padding: 10px 15px!important;
-  background: #ce2837;
+  background: var(--main-app-color);
   color: #fff!important;
   border-radius: 23px;
 }

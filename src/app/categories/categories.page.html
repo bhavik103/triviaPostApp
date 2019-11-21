@@ -1,6 +1,5 @@
 <ion-content>
-    <app-category-tiles [categories]="categories$"></app-category-tiles>
-
+    <app-category-tiles [categories]="categories" (onSubscribe)="subscribedCategory($event, isNotify)" [language]="language"></app-category-tiles>
     <div id="loader-wrapper" *ngIf="loading">
         <div id="loader">
             <div class="spinner">

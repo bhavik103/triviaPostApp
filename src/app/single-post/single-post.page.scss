@@ -27,7 +27,7 @@ ion-back-button{
   padding-left: 10px;
 }
 .catTitle {
-  color: #961300;
+  color: var(--main-app-color);
   font-weight: 400;
 }
 .createdBy {
@@ -63,7 +63,7 @@ a.float:hover + div.label-container {
   right: 40px;
 }
 .unbookmark {
-  color: #ce2837;
+  color: var(--main-app-color);
   font-size: 18px;
 }
 
@@ -92,7 +92,7 @@ ion-title {
   padding-left: 10px;
 }
 .liked {
-  color: #ce2837;
+  color: var(--main-app-color);
 }
 .newsInfo {
   font-size: 12px;
@@ -103,7 +103,7 @@ ion-title {
   height: 50px;
   bottom: 3%;
   right: 40px;
-  background-color: #ce2837;
+  background-color: var(--main-app-color);
   color: #fff;
   border-radius: 50px;
   text-align: center;
@@ -121,11 +121,11 @@ ion-title {
   background-color: #cbc9c9;
 }
 .bookmarkFloat {
-  background-color: #ce2837;
+  background-color: var(--main-app-color);
 }
 .shareButton {
   float: right;
-  background-color: #ce2837;
+  background-color: var(--main-app-color);
   border-radius: 50%;
   padding: 5px;
 }
@@ -139,7 +139,7 @@ ion-title {
 .spinner > div {
   width: 18px;
   height: 18px;
-  background-color: #ce2837;
+  background-color: var(--main-app-color);
 
   border-radius: 100%;
   display: inline-block;
@@ -185,7 +185,7 @@ ion-title {
   font-weight: 700;
 }
 .srcLink{
-  color: #ce2837;
+  color: var(--main-app-color);
 }
 .container {
   position: relative;
@@ -215,7 +215,7 @@ ion-title {
   z-index: 0;
 }
 .category_title p {
-  background-color: #ce2837;
+  background-color: var(--main-app-color);
   padding: 5px;
   border-radius: 13px;
   opacity: 0.9;
@@ -227,7 +227,7 @@ ion-title {
 .categoryButton {
   display: block;
   margin-top: 4%;
-  background-color: #ce2837;
+  background-color: var(--main-app-color);
   color: #fff;
   padding: 5px;
   border-radius: 8px;
@@ -265,7 +265,7 @@ img.likeImage {
   border-radius: 6px;
 }
 .newsCat {
-  color: #ed2424;
+  color: var(--main-app-color);
 }
 .latestNews {
   font-size: 30px;
@@ -279,7 +279,7 @@ img.likeImage {
   font-weight: normal;
 }
 .imgCredit span{
-  color:#ed2424;
+  color:var(--main-app-color);
   font-weight: 600;
 }
 .imgCredit{

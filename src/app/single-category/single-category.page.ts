@@ -18,6 +18,8 @@ export class SingleCategoryPage implements OnInit {
   catName;
   noNews;
   language;
+  latestPost;
+  newsArrayLength;
   constructor(private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -32,6 +34,10 @@ export class SingleCategoryPage implements OnInit {
     this._newsService.allCatNews(catId).subscribe(res => {
       console.log("catNews",res);
       this.newsArray = res;
+      this.latestPost = JSON.parse(JSON.stringify(res[0]));
+      
+      console.log('this.latestPost',this.newsArray[0]);
+      this.newsArrayLength = this.newsArray.length; 
       if(!this.newsArray.length){
         this.noNews = true;
         console.log('this.noNews',this.noNews)

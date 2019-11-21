@@ -52,8 +52,8 @@ p {
   margin-left: 7%;
   background-color: #fff;
   opacity: 0.9;
-  border: 1px solid #ce2837;
-  color: #ce2837;
+  border: 1px solid var(--main-app-color);
+  color: var(--main-app-color);
   padding: 4px;
   border-radius: 3px;
   font-size: 10px;
@@ -65,10 +65,10 @@ p {
 
 .notSubscribed {
   background-color: #fff;
-  border: 1px solid #ce2837;
-  color: #ce2837;
+  border: 1px solid var(--main-app-color);
+  color: var(--main-app-color);
 }
 .subscribed {
   color: #fff;
-  background-color: #ce2837;
+  background-color: var(--main-app-color);
 }

@@ -109,8 +109,6 @@ b {
           height: 25px;
           width: 25px;
           transition: all 200ms ease-in-out;
-          &:hover {
-          }
         }
       }
     }
@@ -188,8 +186,6 @@ b {
           height: 24px;
           width: 24px;
           transition: all 200ms ease-in-out;
-          &:hover {
-          }
         }
       }
     }
@@ -220,7 +216,7 @@ b {
   text-align: center;
   width: 100%;
   color: #fff;
-  background: #d02535;
+  background: var(--main-app-color);
 }
 
 .signupButton {
@@ -257,7 +253,7 @@ b {
   text-align: center;
   font-size: 18px;
   font-weight: 700;
-  color: #d02535;
+  color: var(--main-app-color);
 }
 .loginForm {
   padding: 8px 20px;
@@ -270,7 +266,7 @@ b {
 
 #forgotPassword {
   float: right;
-  color: #ed2424;
+  color: var(--main-app-color);
   font-size: 15px;
 }
 
@@ -288,7 +284,7 @@ b {
 }
 
 #signupLink {
-  color: red;
+  color: var(--main-app-color);
   font-size: 16px;
 }
 
@@ -321,7 +317,7 @@ b {
   width: 100%;
   padding: 12px;
   border-radius: 10px;
-  background-color: #d02535;
+  background-color: var(--main-app-color);
   color: #fff;
   font-size: 16px;
   margin-bottom: 10px;
@@ -408,7 +404,7 @@ input#remember:checked + label:before {
   box-shadow: 6px 8px 6px -6px #afafaf;
 }
 .signupModalButton {
-  background-color: #d02535;
+  background-color: var(--main-app-color);
   color: #fff;
 }
 
@@ -427,7 +423,7 @@ input#remember:checked + label:before {
   margin-left: 5px;
 }
 .socialIcon ion-icon {
-  color: #d02535;
+  color: var(--main-app-color);
 }
 .signup_input {
   position: relative;
@@ -487,7 +483,7 @@ input#remember:checked + label:before {
 }
 #agreement span {
   border-bottom: 1px solid;
-  color: #d02535;
+  color: var(--main-app-color);
 }
 #already {
   margin: 27px 22px;

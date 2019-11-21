@@ -1,5 +1,5 @@
-<span *ngFor="let news of news; let i = index">
-  <ion-col size="12" class="latestPost" *ngIf="i == 0">
+<ion-row>
+  <ion-col size="12" class="latestPost">
     <img class="latestpostimg" src="{{mediaPath}}{{news.newsImage}}" height="100%" width="100%"
       (click)="singleNews(news.newsId)">
     <div class="textBlock">
@@ -16,4 +16,4 @@
         likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
     </div>
   </ion-col>
-</span>
+</ion-row>

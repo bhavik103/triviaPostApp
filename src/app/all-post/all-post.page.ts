@@ -52,10 +52,6 @@ export class AllPostPage implements OnInit {
       }
     });
     this.getAllPost();
-    this.loading = true;
-    setTimeout(() => {
-      this.loading = false
-    }, 300);
   }
 
   getAllPost() {
@@ -69,18 +65,5 @@ export class AllPostPage implements OnInit {
       (err) => {
         this.newsArray = localStorage.newsArray;
       });
-  }
-
-  goToCategories() {
-    this.router.navigateByUrl('/home/categories')
-  }
-
-  singleNews(postid) {
-    console.log('postid', postid);
-    this.router.navigateByUrl('/single-post/' + postid);
-  }
-
-  categoryClick(catId, catName) {
-    this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
   }
 }
