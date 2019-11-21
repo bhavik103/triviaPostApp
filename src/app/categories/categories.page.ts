@@ -31,10 +31,10 @@ export class CategoriesPage implements OnInit {
     this.language = localStorage.getItem('language');
     this._categoryService.getAll().subscribe((res) => {
       this.categories = res;
+      console.log("after", this.categories);
     },
       (err) => {
       });
-    console.log("after", this.categories);
   }
 
   subscribedCategory(e) {

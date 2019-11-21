@@ -12,15 +12,16 @@ import { ToastService } from "../services/toast.service";
   styleUrls: ['./category-tiles.page.scss'],
 })
 export class CategoryTilesPage implements OnInit {
-  @Input() categories: string;
-  @Input() language: string;
+  @Input('category') category: string;
+  @Input('language') language: string;
   @Output() onSubscribe: EventEmitter<any> = new EventEmitter<any>();
 
-  categories$: Observable<any>;
+
   mediaPath = config.mediaApiUrl;
   constructor(private _toastService: ToastService, private network: Network, private _categoryService: CategoryService, private router: Router) { }
 
   ngOnInit() {
+    console.log("this.categories in child",this.category)
   }
   goToAllPosts() {
     this.router.navigateByUrl('/home/all-post')

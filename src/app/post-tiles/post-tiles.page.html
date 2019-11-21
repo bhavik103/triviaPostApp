@@ -1,18 +1,22 @@
-<ion-row *ngFor="let news of news; let i = index">
-    <ion-col size="3" class="newsImg" padding *ngIf="i != 0">
-        <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%" (click)="singleNews(news.newsId)">
-    </ion-col>
-    <ion-col size="9" class="contentFeeds" *ngIf="i != 0">
-        <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish | slice:0:60"
-            (click)="singleNews(news.newsId)"></span>
-        <span *ngIf="language == 'English' && news.newsTitleEnglish.length >= 60">...</span>
-        <span class="optionsList" *ngIf="language == 'Hindi'" (click)="singleNews(news.newsId)"
-            [innerHTML]="news.newsTitleHindi | slice:0:60"></span>
-        <span (click)="singleNews(news.newsId)"
-            *ngIf="language == 'Hindi' && news.newsTitleHindi.length >= 60">...</span>
-        <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-            class="categoryButton">{{news.newsCategory}}</button>
-        <p class="otherInfoSecond"><img src="assets/images/like.png" alt="" class="likeImage">
-            {{news.likesCount}} likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
-    </ion-col>
-</ion-row>
+<ion-list *ngIf="index != 0">
+    <ion-item-sliding class="feeds">
+        <ion-item *ngIf="i != 0">
+            <ion-col size="3" class="newsImg" padding>
+                <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%"
+                    (click)="singleNews(news.newsId)">
+            </ion-col>
+            <ion-col size="9">
+                <div>
+                    <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish | slice:0:50"
+                        (click)="singleNews(news.newsId)"></span><span *ngIf="language == 'English'"></span>
+                    <span class="optionsList" *ngIf="language == 'Hindi'" [innerHTML]="news.newsTitleHindi | slice:0:50"></span><span
+                        *ngIf="language == 'Hindi'" (click)="singleNews(news.newsId)"></span>
+                    <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+                        class="categoryButton">{{news.newsCategory}}</button>
+                    <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
+                        {{news.likesCount}} likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
+                </div>
+            </ion-col>
+        </ion-item>
+    </ion-item-sliding>
+</ion-list>

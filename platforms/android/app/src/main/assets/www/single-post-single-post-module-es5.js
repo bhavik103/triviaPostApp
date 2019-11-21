@@ -135,7 +135,7 @@ var SinglePostPage = /** @class */ (function () {
         });
     };
     SinglePostPage.prototype.ionViewWillEnter = function () {
-        console.log('ionViewDidLoad ProfilePage');
+        this.removeRedirectItem();
         // Firebase Analytics 'screen_view' event tracking
         this.firebaseAnalytics.setCurrentScreen('Single Post').then(function (res) {
             console.log("firebase", res);
@@ -153,6 +153,10 @@ var SinglePostPage = /** @class */ (function () {
         else if (url.includes('search')) {
             this.backKeySearch = true;
         }
+    };
+    SinglePostPage.prototype.removeRedirectItem = function () {
+        localStorage.removeItem('bookmarkId');
+        localStorage.removeItem('likepostId');
     };
     SinglePostPage.prototype.singlePost = function () {
         var _this = this;
@@ -219,33 +223,49 @@ var SinglePostPage = /** @class */ (function () {
     //  Do Bookmark
     SinglePostPage.prototype.bookmark = function (newsid) {
         var _this = this;
-        if (this.network.type == 'none') {
-            this.singlePost();
-            this._toastService.toastFunction('No internet connection', 'danger');
+        if (!localStorage.getItem('accessToken')) {
+            console.log("newsId done", newsid);
+            localStorage.setItem('bookmarkId', newsid);
+            this._toastService.toastFunction('You need to login first', 'danger');
+            this.router.navigateByUrl('/login');
         }
         else {
-            this._newsService.bookmarkPost(newsid).subscribe(function (res) {
-                _this._toastService.toastFunction(res.message, 'success');
-                _this.singlePost();
-            }, function (err) {
-                _this._toastService.toastFunction(err.error.message, 'danger');
-            });
+            if (this.network.type == 'none') {
+                this.singlePost();
+                this._toastService.toastFunction('No internet connection', 'danger');
+            }
+            else {
+                this._newsService.bookmarkPost(newsid).subscribe(function (res) {
+                    _this._toastService.toastFunction(res.message, 'success');
+                    _this.singlePost();
+                }, function (err) {
+                    _this._toastService.toastFunction(err.error.message, 'danger');
+                });
+            }
         }
     };
     //like post
     SinglePostPage.prototype.likePost = function (postid) {
         var _this = this;
-        if (this.network.type == 'none') {
-            this._toastService.toastFunction('No internet connection', 'danger');
-            this.singlePost();
+        if (!localStorage.getItem('accessToken')) {
+            console.log("newsId done", postid);
+            localStorage.setItem('likepostId', postid);
+            this._toastService.toastFunction('Please login first!', 'danger');
+            this.router.navigateByUrl('/login');
         }
         else {
-            this._newsService.likepost(postid).subscribe(function (res) {
-                _this.singlePost();
-                _this._toastService.toastFunction(res.message, 'success');
-            }), function (err) {
-                _this._toastService.toastFunction(err.error.message, 'danger');
-            };
+            if (this.network.type == 'none') {
+                this._toastService.toastFunction('No internet connection', 'danger');
+                this.singlePost();
+            }
+            else {
+                this._newsService.likepost(postid).subscribe(function (res) {
+                    _this.singlePost();
+                    _this._toastService.toastFunction(res.message, 'success');
+                }), function (err) {
+                    _this._toastService.toastFunction(err.error.message, 'danger');
+                };
+            }
         }
     };
     SinglePostPage.prototype.alreadyLiked = function () {

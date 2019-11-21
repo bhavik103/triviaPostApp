@@ -7,11 +7,13 @@
 
 <ion-content (swiperight)="goToCategories()" ion-padding>
     <ion-row class="feeds" *ngIf="newsArray && newsArray.length">
-        <app-latest-post [news]="latestPost"></app-latest-post>
-        <app-post-tiles [news]="newsArray"></app-post-tiles>
+        <span *ngFor="let news of newsArray; let i = index">
+            <app-latest-post [news]="news" [index]="i"></app-latest-post>
+            <app-post-tiles [news]="news" [index]="i"></app-post-tiles>
+        </span>
     </ion-row>
     <ion-row class="onePost">
-        <ion-col size="12" *ngIf="newsArrayLength == 1">NO MORE POSTS!</ion-col>
+        <ion-col size="12" *ngIf="newsArrayLength == 1">Only 1 Post in this category!</ion-col>
     </ion-row>
     <div id="loader-wrapper" *ngIf="loading">
         <div id="loader">
@@ -20,7 +22,7 @@
                 <div class="bounce2"></div>
                 <div class="bounce3"></div>
             </div>
-            <p class="text-center">Loding...</p>
+            <p class="text-center">Loading...</p>
         </div>
     </div>
     <p *ngIf="noNews == true" class="noNews">No news in this category!</p>

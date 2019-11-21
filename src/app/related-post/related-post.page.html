@@ -12,7 +12,7 @@
       *ngIf="language == 'Hindi' && news.newsTitleHindi.length >= 60">...</span>
     <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
       class="categoryButton">{{news.newsCategory}}</button>
-    <p class="otherInfoSecond"><img src="assets/images/like.png" alt="" class="likeImage">
+    <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
       {{news.likesCount}} likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
   </ion-col>
 </ion-row>

@@ -1,4 +1,4 @@
-<ion-row>
+<ion-row *ngIf="index == 0">
   <ion-col size="12" class="latestPost">
     <img class="latestpostimg" src="{{mediaPath}}{{news.newsImage}}" height="100%" width="100%"
       (click)="singleNews(news.newsId)">
@@ -11,7 +11,7 @@
       <span class="latestNews" *ngIf="news.newsTitleHindi.length >= 40 && language == 'Hindi'">...</span>
       <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
         class="categoryButton">{{news.newsCategory}}</button>
-      <p class="latestNewsInfo"><img src="assets/images/like.png" alt="" class="likeImage">
+      <p class="latestNewsInfo"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
         {{news.likesCount}}
         likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
     </div>

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LatestPostPage implements OnInit {
   @Input('news') news: any;
+  @Input('index') index: any;
 
   mediaPath = config.mediaApiUrl;
   language: string;

@@ -14,9 +14,13 @@ export class RelatedPostPage implements OnInit {
   @Input() language: string;
   @Input() index: string;
   mediaPath = config.mediaApiUrl;
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  singleNews(postid) {
+    console.log('postid', postid);
+    this.router.navigateByUrl('/single-post/' + postid);
+  }
 }
