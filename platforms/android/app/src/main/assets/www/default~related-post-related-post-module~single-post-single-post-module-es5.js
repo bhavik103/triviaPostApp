@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-row *ngIf=\"index != 0\">\n  <ion-col size=\"4\" class=\"newsImg\">\n    <img src=\"{{mediaPath}}{{news.newsImage}}\" height=\"73px\" width=\"100%\" (click)=\"singleNews(news.newsId)\">\n  </ion-col>\n  <ion-col size=\"8\" class=\"contentFeeds\">\n    <span class=\"optionsList\" *ngIf=\"language == 'English'\" [innerHTML]=\"news.newsTitleEnglish | slice:0:60\"\n      (click)=\"singleNews(news.newsId)\"></span>\n    <span *ngIf=\"language == 'English' && news.newsTitleEnglish.length >= 60\">...</span>\n    <span class=\"optionsList\" *ngIf=\"language == 'Hindi'\" (click)=\"singleNews(news.newsId)\"\n      [innerHTML]=\"news.newsTitleHindi | slice:0:60\"></span>\n    <span (click)=\"singleNews(news.newsId)\"\n      *ngIf=\"language == 'Hindi' && news.newsTitleHindi.length >= 60\">...</span>\n    <button (click)=\"categoryClick(news.newsCategoryId, news.newsCategory)\"\n      class=\"categoryButton\">{{news.newsCategory}}</button>\n    <p class=\"otherInfoSecond\"><img src=\"assets/images/lightbulb_red.png\" alt=\"\" class=\"likeImage\">\n      {{news.likesCount}} likes <span class=\"timeAgo\"> {{news.createdAt | timeAgo}} </span></p>\n  </ion-col>\n</ion-row>"
+module.exports = "<ion-row>\n  <ion-col size=\"4\" class=\"newsImg\">\n    <img src=\"{{mediaPath}}{{news.newsImage}}\" height=\"73px\" width=\"100%\" (click)=\"singleNews(news.newsId)\">\n  </ion-col>\n  <ion-col size=\"8\" class=\"contentFeeds\">\n    <span class=\"optionsList\" *ngIf=\"language == 'English'\" [innerHTML]=\"news.newsTitleEnglish | slice:0:60\"\n      (click)=\"singleNews(news.newsId)\"></span>\n    <span *ngIf=\"language == 'English' && news.newsTitleEnglish.length >= 60\">...</span>\n    <span class=\"optionsList\" *ngIf=\"language == 'Hindi'\" (click)=\"singleNews(news.newsId)\"\n      [innerHTML]=\"news.newsTitleHindi | slice:0:60\"></span>\n    <span (click)=\"singleNews(news.newsId)\"\n      *ngIf=\"language == 'Hindi' && news.newsTitleHindi.length >= 60\">...</span>\n    <button (click)=\"categoryClick(news.newsCategoryId, news.newsCategory)\"\n      class=\"categoryButton\">{{news.newsCategory}}</button>\n    <p class=\"otherInfoSecond\"><img src=\"assets/images/lightbulb_red.png\" alt=\"\" class=\"likeImage\">\n      {{news.likesCount}} likes <span class=\"timeAgo\"> {{news.createdAt | timeAgo}} </span></p>\n  </ion-col>\n</ion-row>"
 
 /***/ }),
 
@@ -111,6 +111,9 @@ var RelatedPostPage = /** @class */ (function () {
         console.log('postid', postid);
         this.router.navigateByUrl('/single-post/' + postid);
     };
+    RelatedPostPage.prototype.categoryClick = function (catId, catName) {
+        this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
+    };
     RelatedPostPage.ctorParameters = function () { return [
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
     ]; };
@@ -122,10 +125,6 @@ var RelatedPostPage = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], RelatedPostPage.prototype, "language", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], RelatedPostPage.prototype, "index", void 0);
     RelatedPostPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-related-post',

@@ -9,15 +9,18 @@ import { Router } from '@angular/router';
 })
 export class LargePostPage implements OnInit {
   @Input('news') news: any;
-
+  @Input('language') language: string;
   mediaPath = config.mediaApiUrl;
-  language: string;
   constructor(private router: Router) {
   }
-  
+
   ngOnInit() {
     console.log('this.news', this.news)
+  }
+
+  ionViewWillEnter() {
     this.language = localStorage.getItem('language');
+    console.log('this.language',this.language)
   }
 
   categoryClick(catId, catName) {

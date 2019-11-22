@@ -23,8 +23,10 @@
       <img src="{{mediaPath}}{{news.newsImage}}" alt="" style="width:100%;">
       <div class="text-block">
         <div class="category_title">
-          <p *ngIf="language == 'English'" (click)="singleCategory(news.newsCategoryId,news.newsCategory)">
+          <p *ngIf="language == 'English' || !news.newsCategoryHn" (click)="singleCategory(news.newsCategoryId,news.newsCategory)">
             {{news.newsCategory | slice:0:30}}</p>
+          <p *ngIf="language == 'Hindi' && news.newsCategoryHn" (click)="singleCategory(news.newsCategoryId,news.newsCategory)">
+            {{news.newsCategoryHn | slice:0:30}}</p>
         </div>
         <p class="imgCredit" *ngIf="news.picCredit"><span>By: </span> {{news.picCredit}}</p>
       </div>
@@ -63,9 +65,7 @@
   <div *ngFor="let news of singlepost" class="singlePost">
     <app-related-post [news]="news" [language]="language"></app-related-post>
   </div>
-</ion-content>
-<ion-content *ngIf="loading">
-  <div class="spinner">
+  <div class="spinner" *ngIf="loading">
     <div class="bounce1"></div>
     <div class="bounce2"></div>
     <div class="bounce3"></div>

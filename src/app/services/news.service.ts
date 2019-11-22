@@ -39,7 +39,7 @@ export class NewsService {
 				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').subscribe(
 					(result: object) => {
 						this.newsArray = result['data'];
-						console.log('this.newsArray',this.newsArray)
+						console.log('this.newsArray', this.newsArray)
 						localStorage.setItem('newsArray', JSON.stringify(this.newsArray))
 						observer.next(this.newsArray);
 						observer.complete();
@@ -51,6 +51,7 @@ export class NewsService {
 		}
 	}
 
+	//all cat news
 	allCatNews(id) {
 		console.log("Inside", id)
 		if (this.network.type == 'none') {
@@ -192,7 +193,23 @@ export class NewsService {
 					}).length === filtersArray.length;
 				});
 				this.newsArray = filtered;
-				console.log("filtered", filtered);
+
+
+				//for appending lates news
+				var allNews = JSON.parse(localStorage.getItem("newsArray"))
+				var finalObject = [];
+				finalObject.push(this.newsArray[0])
+				for (let i = 0; i < 6; i++) {
+					this.newsArray[0].newsId != allNews[i].newsId ? finalObject.push(allNews[i]) : ''
+				}
+				if(finalObject.length > 6){
+					finalObject.splice(6,1);
+				}
+
+				//6 news including latest news
+				this.newsArray = finalObject;
+
+				console.log("filtered", this.newsArray);
 				setTimeout(() => {
 					observer.next(this.newsArray);
 					observer.complete();
@@ -205,7 +222,7 @@ export class NewsService {
 					(result: object) => {
 						this.newsArray = result['data'];
 						console.log("in cat service", this.newsArray);
-						// localStorage.setItem('newsArray',JSON.stringify(this.newsArray))
+						localStorage.setItem('newsArray', JSON.stringify(this.newsArray))
 						observer.next(this.newsArray);
 						observer.complete();
 					},

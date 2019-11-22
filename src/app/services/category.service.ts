@@ -22,7 +22,7 @@ export class CategoryService {
 	}
 
 	//get all cateogries
-	getAll(): Observable<Category[]> {
+	getAll(): Observable<any> {
 		const tokenLocalStorage = localStorage.getItem('accessToken');
 		if (tokenLocalStorage) {
 			var base64Url = tokenLocalStorage.split('.')[1];
@@ -31,29 +31,30 @@ export class CategoryService {
 			this.loggedInUser = decodedToken.user._id;
 			console.log("Decoded", this.loggedInUser);
 		}
-		return new Observable(observer => {
-
-			this.categories = JSON.parse(localStorage.getItem("categories"))
-			this.notifyChange();
-
-			observer.next(this.categories);
-			if (this.network.type == 'none') {
-				console.log(JSON.parse(localStorage.getItem("newsArray")));
-				observer.complete();
-			} else {
+		if (this.network.type == 'none') {
+			return new Observable(observer => {
+				console.log(JSON.parse(localStorage.getItem("categoryArray")));
+				this.categories = JSON.parse(localStorage.getItem("categoryArray"))
+				setTimeout(() => {
+					observer.next(this.categories);
+					observer.complete();
+				}, 1);
+			});
+		} else {
+			return new Observable(observer => {
 				this.http.get(config.baseApiUrl + "category").subscribe(
 					(result: object) => {
 						this.categories = result['data'];
-						this.notifyChange();
-						localStorage.setItem('categories', JSON.stringify(this.categories))
-						console.log("CATEGORIES",this.categories);
+						console.log('this.categories', this.categories)
+						localStorage.setItem('categoryArray', JSON.stringify(this.categories))
 						observer.next(this.categories);
+						observer.complete();
 					},
 					(error) => {
 						observer.error(error);
 					});
-			}
-		});
+			});
+		}
 	}
 
 	notifyChange() {
@@ -61,7 +62,7 @@ export class CategoryService {
 			_.forEach(user.notify, (Id) => {
 				if (Id == this.loggedInUser) {
 					user['isNotify'] = true;
-				}else{
+				} else {
 					user['isNotify'] = false;
 				}
 			})

@@ -90,7 +90,7 @@ const SuperTabsComponent = class {
         this.toolbar && this.toolbar.setSelectedTab(this.activeTabIndex);
         this.container.reindexTabs();
     }
-    componentDidLoad() {
+    async componentDidLoad() {
         this.debug('componentDidLoad');
         // listen to `slotchange` event to detect any changes in children
         this.el.shadowRoot.addEventListener('slotchange', this.onSlotchange.bind(this));
@@ -98,12 +98,11 @@ const SuperTabsComponent = class {
             this.container.moveContainerByIndex(this.activeTabIndex, false);
             this.toolbar && this.toolbar.setSelectedTab(this.activeTabIndex, false);
         });
-    }
-    async componentWillLoad() {
-        this.debug('componentWillLoad');
+
         if (this.config) {
             await this.setConfig(this.config);
         }
+        this.debug('componentWillLoad');
         // index children
         this.indexChildren();
         // set the selected tab so the toolbar & container are aligned and in sync
@@ -117,6 +116,28 @@ const SuperTabsComponent = class {
         this.container && this.el.addEventListener('activeTabIndexChange', this.onContainerActiveTabChange.bind(this));
         // 3. listen to tab button clicks emitted by the toolbar
         this.toolbar && this.el.addEventListener('buttonClick', this.onToolbarButtonClick.bind(this));
+
+    }
+    async componentWillLoad() {
+        // if (this.config) {
+        //     await this.setConfig(this.config);
+        // }
+        // setTimeout(async () => {
+        //     this.debug('componentWillLoad');
+        //     // index children
+        //     this.indexChildren();
+        //     // set the selected tab so the toolbar & container are aligned and in sync
+        //     // this.selectTab(this.activeTabIndex);
+        //     this.container && this.container.setActiveTabIndex(this.activeTabIndex);
+        //     this.toolbar && this.toolbar.setActiveTab(this.activeTabIndex);
+        //     // setup event listeners so we can synchronize child components
+        //     // 1. listen to selectedTabIndex changes emitted by the container.
+        //     this.container && this.el.addEventListener('selectedTabIndexChange', this.onContainerSelectedTabChange.bind(this));
+        //     // 2. listen to activeTabIndex changes emitted by the container
+        //     this.container && this.el.addEventListener('activeTabIndexChange', this.onContainerActiveTabChange.bind(this));
+        //     // 3. listen to tab button clicks emitted by the toolbar
+        //     this.toolbar && this.el.addEventListener('buttonClick', this.onToolbarButtonClick.bind(this));
+        // }, 1000);
     }
     async onContainerSelectedTabChange(ev) {
         // this.debug('onContainerSelectedTabChange called with: ', ev);
@@ -183,9 +204,11 @@ const SuperTabsComponent = class {
         return (Object(_core_7e187e4f_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_7e187e4f_js__WEBPACK_IMPORTED_MODULE_0__["H"], null, Object(_core_7e187e4f_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "top" }), Object(_core_7e187e4f_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null), Object(_core_7e187e4f_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", { name: "bottom" })));
     }
     get el() { return Object(_core_7e187e4f_js__WEBPACK_IMPORTED_MODULE_0__["g"])(this); }
-    static get watchers() { return {
-        "config": ["onConfigChange"]
-    }; }
+    static get watchers() {
+        return {
+            "config": ["onConfigChange"]
+        };
+    }
     static get style() { return ":host{height:100%;max-height:100%;display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;overflow:hidden;z-index:1;position:relative;contain:layout size style;-ms-flex-order:-1;order:-1;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-text-size-adjust:none;-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-font-smoothing:antialiased;-ms-touch-action:none;touch-action:none;-webkit-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0}"; }
 };
 
@@ -288,10 +311,10 @@ const SuperTabsContainerComponent = class {
         this.queue.read(() => {
             current.getRootScrollableEl()
                 .then(el => {
-                if (el) {
-                    Object(_utils_b0b0ce49_js__WEBPACK_IMPORTED_MODULE_1__["s"])(el, 0, 0, this.config.transitionDuration, this.queue);
-                }
-            });
+                    if (el) {
+                        Object(_utils_b0b0ce49_js__WEBPACK_IMPORTED_MODULE_1__["s"])(el, 0, 0, this.config.transitionDuration, this.queue);
+                    }
+                });
         });
     }
     updateActiveTabIndex(index, emit = true) {
@@ -428,8 +451,8 @@ const SuperTabsContainerComponent = class {
         if (this._activeTabIndex !== undefined) {
             this.moveContainerByIndex(this._activeTabIndex, false)
                 .then(() => {
-                this.ready = true;
-            });
+                    this.ready = true;
+                });
         }
     }
     calcSelectedTab() {

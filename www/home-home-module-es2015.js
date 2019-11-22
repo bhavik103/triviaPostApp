@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header no-border>\n    <ion-toolbar>\n        <ion-icon name=\"settings\" class=\"homeBack\" routerLink=\"/settings\" float-left></ion-icon>\n        <ion-icon name=\"search\" class=\"searchIcon\" float-right (click)=\"search()\"></ion-icon>\n        <ion-title class=\"ion-text-center\">\n            Trivia Post\n        </ion-title>\n    </ion-toolbar>\n</ion-header>\n<super-tabs activeTabIndex=\"0\" [config]=\"{ debug: false, allowElementScroll: true }\">\n    <super-tabs-toolbar slot=\"top\">\n        <super-tab-button>\n            <ion-label>Categories</ion-label>\n        </super-tab-button>\n        <super-tab-button>\n            <ion-label>All feeds</ion-label>\n        </super-tab-button>\n    </super-tabs-toolbar>\n\n    <super-tabs-container>\n        <super-tab>\n            <ion-nav [root]=\"categoryPage\"></ion-nav>\n        </super-tab>\n        <super-tab>\n            <ion-nav [root]=\"allPostPage\"></ion-nav>\n        </super-tab>\n    </super-tabs-container>\n</super-tabs>\n<div id=\"loader-wrapper\" *ngIf=\"loading\">\n    <div id=\"loader\">\n        <span class=\"welcomeTo\">Welcome to</span>\n        <span class=\"logo_container\">\n            <img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n        </span>\n        <div class=\"welcomeTo appDesc\">Interesting and</div>\n        <div class=\"welcomeTo appDesc\">Informative reads</div>\n        <div class=\"spinner\">\n            <div class=\"bounce1\"></div>\n            <div class=\"bounce2\"></div>\n            <div class=\"bounce3\"></div>\n        </div>\n        <p class=\"text-center\">Loding...</p>\n    </div>\n</div>\n<div class=\"no-news-text\" *ngIf=\"isTextVisible\">\n    <span>{{text}}</span>\n</div>"
+module.exports = "<ion-header no-border>\n    <ion-toolbar>\n        <ion-icon name=\"settings\" class=\"homeBack\" routerLink=\"/settings\" float-left></ion-icon>\n        <ion-icon name=\"search\" class=\"searchIcon\" float-right (click)=\"search()\"></ion-icon>\n        <ion-title class=\"ion-text-center\">\n            Trivia Post\n        </ion-title>\n    </ion-toolbar>\n</ion-header>\n<super-tabs activeTabIndex=\"0\" [config]=\"{ allowElementScroll: true }\">\n    <super-tabs-toolbar slot=\"top\">\n        <super-tab-button (click)=\"click($event)\">\n            <ion-label>Categories</ion-label>\n        </super-tab-button>\n        <super-tab-button (click)=\"click($event)\">\n            <ion-label>All feeds</ion-label>\n        </super-tab-button>\n    </super-tabs-toolbar>\n\n    <super-tabs-container>\n        <super-tab>\n            <ion-nav [root]=\"categoryPage\"></ion-nav>\n        </super-tab>\n        <super-tab>\n            <ion-nav [root]=\"allPostPage\"></ion-nav>\n        </super-tab>\n    </super-tabs-container>\n</super-tabs>\n<div id=\"loader-wrapper\" *ngIf=\"loading\">\n    <div id=\"loader\">\n        <span class=\"welcomeTo\">Welcome to</span>\n        <span class=\"logo_container\">\n            <img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n        </span>\n        <div class=\"welcomeTo appDesc\">Interesting and</div>\n        <div class=\"welcomeTo appDesc\">Informative reads</div>\n        <div class=\"spinner\">\n            <div class=\"bounce1\"></div>\n            <div class=\"bounce2\"></div>\n            <div class=\"bounce3\"></div>\n        </div>\n        <p class=\"text-center\">Loding...</p>\n    </div>\n</div>\n<div class=\"no-news-text\" *ngIf=\"isTextVisible\">\n    <span>{{text}}</span>\n</div>"
 
 /***/ }),
 
@@ -153,8 +153,6 @@ let HomePage = class HomePage {
         this._categoryService = _categoryService;
         this.router = router;
         this.keyboard = keyboard;
-        this.categoryPage = _categories_categories_page__WEBPACK_IMPORTED_MODULE_22__["CategoriesPage"];
-        this.allPostPage = _all_post_all_post_page__WEBPACK_IMPORTED_MODULE_21__["AllPostPage"];
         this.newsArray = [];
         this.horizontalSwipers = [];
         this.error = '';
@@ -177,11 +175,17 @@ let HomePage = class HomePage {
     }
     // Event Listeners
     ngOnInit() {
+        this.categoryPage = _categories_categories_page__WEBPACK_IMPORTED_MODULE_22__["CategoriesPage"];
+        this.allPostPage = _all_post_all_post_page__WEBPACK_IMPORTED_MODULE_21__["AllPostPage"];
         console.warn("ngOnInit");
         this.loading = true;
         this.viewInitFunctions();
         this.language = localStorage.language;
     }
+    // ionViewDidLoad() {
+    //     this.categoryPage = CategoriesPage;
+    //     this.allPostPage = AllPostPage;
+    // }
     ionViewDidEnter() {
         this.subscription = this.platform.backButton.subscribe(() => {
             navigator['app'].exitApp();
@@ -189,6 +193,9 @@ let HomePage = class HomePage {
     }
     ionViewWillLeave() {
         this.subscription.unsubscribe();
+    }
+    click($event) {
+        console.log($event);
     }
     viewInitFunctions() {
         console.log('this.firebaseDynamicLinks', this.firebaseDynamicLinks);
@@ -222,6 +229,7 @@ let HomePage = class HomePage {
         }
     }
     ionViewWillEnter() {
+        this.getCategories();
         this.fcm.getToken().then(token => {
             console.log("inside get fcmtoken", token);
             localStorage.setItem('deviceToken', token);
@@ -247,6 +255,14 @@ let HomePage = class HomePage {
             this.hide = true;
         });
     }
+    getCategories() {
+        this.language = localStorage.getItem('language');
+        this._categoryService.getAll().subscribe((res) => {
+            this.categories = res;
+            console.log("after", this.categories);
+        }, (err) => {
+        });
+    }
     //get all news - HOME PAGE ( FEEDS )
     getNews() {
         this.loading = true;
@@ -264,19 +280,6 @@ let HomePage = class HomePage {
     }
     search() {
         this.router.navigateByUrl('/searchBar');
-    }
-    //  Do Share Post 
-    sharePost(id, newsTitle) {
-        var message = "Check out this amazing news " + '" ' + newsTitle + ' "';
-        var subject = "Trivia Post";
-        var str = newsTitle;
-        var url = 'https://triviapost.com/post/' + id;
-        this.socialSharing.share(message, subject, null, url)
-            .then((entries) => {
-        })
-            .catch((error) => {
-            alert('error ' + JSON.stringify(error));
-        });
     }
     // Notification and utility
     notificationTapped() {

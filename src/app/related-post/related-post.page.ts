@@ -22,4 +22,7 @@ export class RelatedPostPage implements OnInit {
     console.log('postid', postid);
     this.router.navigateByUrl('/single-post/' + postid);
   }
+  categoryClick(catId, catName) {
+    this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
+  }
 }

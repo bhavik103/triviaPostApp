@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/home\" float-left></ion-icon>\n        <ion-title>{{catName}}</ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content (swiperight)=\"goToCategories()\" ion-padding>\n    <ion-row class=\"feeds\" *ngIf=\"newsArray && newsArray.length\">\n        <span *ngFor=\"let news of newsArray; let i = index\">\n            <app-latest-post [news]=\"news\" [index]=\"i\"></app-latest-post>\n            <app-post-tiles [news]=\"news\" [index]=\"i\"></app-post-tiles>\n        </span>\n    </ion-row>\n    <ion-row class=\"onePost\">\n        <ion-col size=\"12\" *ngIf=\"newsArrayLength == 1\">Only 1 Post in this category!</ion-col>\n    </ion-row>\n    <div id=\"loader-wrapper\" *ngIf=\"loading\">\n        <div id=\"loader\">\n            <div class=\"spinner\">\n                <div class=\"bounce1\"></div>\n                <div class=\"bounce2\"></div>\n                <div class=\"bounce3\"></div>\n            </div>\n            <p class=\"text-center\">Loading...</p>\n        </div>\n    </div>\n    <p *ngIf=\"noNews == true\" class=\"noNews\">No news in this category!</p>\n</ion-content>"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-icon name=\"arrow-round-back\" class=\"homeBack\" routerLink=\"/home\" float-left></ion-icon>\n        <ion-title>{{catName}}</ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content (swiperight)=\"goToCategories()\" ion-padding>\n    <ion-row class=\"feeds\" *ngIf=\"news\">\n        <app-large-post [news]=\"news\"></app-large-post>\n    </ion-row>\n    <ion-row class=\"feeds\" *ngIf=\"news && newsArray && newsArray.length\">\n        <span *ngFor=\"let news of newsArray;\">\n            <app-post-tiles [news]=\"news\"></app-post-tiles>\n        </span>\n    </ion-row>\n    <ion-row class=\"onePost\" *ngIf=\"newsArrayLength\">\n        <ion-col size=\"12\">Only one post in this category !</ion-col>\n    </ion-row>\n    <ion-row class=\"onePost\" *ngIf=\"noNews == true\">\n        <ion-col size=\"12\">No posts in this category !</ion-col>\n    </ion-row>\n    <div id=\"loader-wrapper\" *ngIf=\"loading\">\n        <div id=\"loader\">\n            <div class=\"spinner\">\n                <div class=\"bounce1\"></div>\n                <div class=\"bounce2\"></div>\n                <div class=\"bounce3\"></div>\n            </div>\n            <p class=\"text-center\">Loading...</p>\n        </div>\n    </div>\n</ion-content>"
 
 /***/ }),
 
@@ -27,7 +27,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _latest_post_latest_post_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../latest-post/latest-post.module */ "./src/app/latest-post/latest-post.module.ts");
+/* harmony import */ var _large_post_large_post_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../large-post/large-post.module */ "./src/app/large-post/large-post.module.ts");
 /* harmony import */ var _post_tiles_post_tiles_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../post-tiles/post-tiles.module */ "./src/app/post-tiles/post-tiles.module.ts");
 /* harmony import */ var _single_category_page__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./single-category.page */ "./src/app/single-category/single-category.page.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../shared/shared.module */ "./src/app/shared/shared.module.ts");
@@ -53,7 +53,7 @@ SingleCategoryPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         imports: [
             _post_tiles_post_tiles_module__WEBPACK_IMPORTED_MODULE_7__["PostTilesPageModule"],
-            _latest_post_latest_post_module__WEBPACK_IMPORTED_MODULE_6__["LatestPostPageModule"],
+            _large_post_large_post_module__WEBPACK_IMPORTED_MODULE_6__["LargePostPageModule"],
             _shared_shared_module__WEBPACK_IMPORTED_MODULE_9__["SharedModule"],
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
@@ -115,21 +115,30 @@ let SingleCategoryPage = class SingleCategoryPage {
     ngOnInit() {
         this.language = localStorage.getItem('language');
         this.catName = this.route.snapshot.params['cat'];
+    }
+    ionViewWillEnter() {
         this.singleCategory();
+        this.newsArrayLength = false;
     }
     singleCategory() {
         var catId = this.route.snapshot.params['id'];
         console.log('catId', catId);
-        this._newsService.allCatNews(catId).subscribe(res => {
+        this._newsService.allCatNews(catId).subscribe((res) => {
             console.log("catNews", res);
-            this.newsArray = res;
-            this.latestPost = JSON.parse(JSON.stringify(res[0]));
-            console.log('this.latestPost', this.newsArray[0]);
-            this.newsArrayLength = this.newsArray.length;
-            if (!this.newsArray.length) {
+            if (res.length == 1) {
+                this.newsArrayLength = true;
+                console.log("length news", res.length);
+            }
+            else if (res.length == 0) {
                 this.noNews = true;
                 console.log('this.noNews', this.noNews);
             }
+            this.newsArray = res;
+            this.news = res[0];
+            console.log('this.news large', this.news);
+            this.newsArray.splice(0, 1);
+            this.latestPost = JSON.parse(JSON.stringify(res[0]));
+            console.log('this.latestPost', this.newsArray[0]);
         }, err => {
             this._toastService.toastFunction(err.error.message, 'danger');
         });

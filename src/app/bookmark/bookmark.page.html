@@ -47,7 +47,7 @@
       <p class="text-center">Loding...</p>
     </div>
   </div>
-  <div class="noBookmark">
-    <img src="assets/images/bookmarkEmpty.png" *ngIf="noNews == true">
+  <div class="noBookmark" *ngIf="bookmarkLength == 0">
+    <img src="assets/images/bookmarkEmpty.png">
   </div>
 </ion-content>

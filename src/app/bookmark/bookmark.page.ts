@@ -37,14 +37,14 @@ export class BookmarkPage implements OnInit {
         this.router.navigate(['settings']);
       }
     });
-    this.bookmarkedNews();
     this.language = localStorage.getItem('language');
   }
-
+  
   onPress(newsImage, fcmLink, newsId, newsTitleEnglish, $event) {
     console.log('newsId=', newsId)
   }
   ionViewWillEnter() {
+    this.bookmarkedNews();
     // // Check Internet conectivity
     var offline = Observable.fromEvent(document, "offline");
     var online = Observable.fromEvent(document, "online");

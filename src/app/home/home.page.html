@@ -7,12 +7,12 @@
         </ion-title>
     </ion-toolbar>
 </ion-header>
-<super-tabs activeTabIndex="0" [config]="{ debug: false, allowElementScroll: true }">
+<super-tabs activeTabIndex="0" [config]="{ allowElementScroll: true }">
     <super-tabs-toolbar slot="top">
-        <super-tab-button>
+        <super-tab-button (click)="click($event)">
             <ion-label>Categories</ion-label>
         </super-tab-button>
-        <super-tab-button>
+        <super-tab-button (click)="click($event)">
             <ion-label>All feeds</ion-label>
         </super-tab-button>
     </super-tabs-toolbar>

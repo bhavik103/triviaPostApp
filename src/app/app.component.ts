@@ -15,6 +15,8 @@ import { config } from './config';
 
 import 'rxjs/add/observable/fromEvent';
 import { UserService } from './services/user.service';
+import { asLiteral } from '@angular/compiler/src/render3/view/util';
+import { identifierModuleUrl } from '@angular/compiler';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',

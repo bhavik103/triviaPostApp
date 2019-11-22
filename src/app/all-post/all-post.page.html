@@ -1,6 +1,6 @@
 <ion-content>
     <ion-row class="feeds" *ngIf="newsArray && newsArray.length && latestPost">
-        <app-large-post [news]="latestPost"></app-large-post>
+        <app-large-post [news]="latestPost" [language]="language"></app-large-post>
         <span *ngFor="let news of newsArray">
             <app-post-tiles [news]="news"></app-post-tiles>
         </span>

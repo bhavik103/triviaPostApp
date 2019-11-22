@@ -1,4 +1,8 @@
-<div class="container" (click)="singleCategory(category.categoryId,category.categoryTitle)">
+<div class="container" *ngIf="language == 'English'"
+  (click)="singleCategory(category.categoryId,category.categoryTitle)">
+  <img src="{{mediaPath}}{{category.categoryImage}}" alt="Category Image" style="width:100%;">
+</div>
+<div class="container" *ngIf="language == 'Hindi'" (click)="singleCategory(category.categoryId,category.categoryTitleHn)">
   <img src="{{mediaPath}}{{category.categoryImage}}" alt="Category Image" style="width:100%;">
 </div>
 <div class="text-block">
@@ -9,7 +13,7 @@
       <p *ngIf="language == 'Hindi'" (click)="singleCategory(category.categoryId,category.categoryTitleHn)">
         {{category.categoryTitleHn | slice:0:30}}</p>
     </div>
-    <p class="postCount">{{category.postCount}} Posts</p>
+    <p class="postCount">{{category.countPost}} Posts</p>
     <button *ngIf="!category.isNotify" class="notSubscribed"
       (click)="addNotify(category.categoryId, category.isNotify)">
       <ion-icon name="notifications-outline"></ion-icon> Subscribe

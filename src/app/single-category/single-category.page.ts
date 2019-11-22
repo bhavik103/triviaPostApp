@@ -19,32 +19,37 @@ export class SingleCategoryPage implements OnInit {
   noNews;
   language;
   latestPost;
-  newsArrayLength;
+  newsArrayLength: any;
   news: any;
   constructor(private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.language = localStorage.getItem('language');
     this.catName = this.route.snapshot.params['cat'];
-    this.singleCategory();
   }
-
+  ionViewWillEnter(){
+    this.singleCategory();
+    this.newsArrayLength = false;
+  }
   singleCategory(){
     var catId = this.route.snapshot.params['id'];
     console.log('catId',catId);
-    this._newsService.allCatNews(catId).subscribe(res => {
+    this._newsService.allCatNews(catId).subscribe((res: any) => {
       console.log("catNews",res);
+      if(res.length == 1){
+        this.newsArrayLength = true;
+        console.log("length news", res.length)
+      }else if(res.length == 0){
+        this.noNews = true;
+        console.log('this.noNews',this.noNews)
+      }
       this.newsArray = res;
       this.news = res[0];
+      console.log('this.news large',this.news);
       this.newsArray.splice(0,1);
       this.latestPost = JSON.parse(JSON.stringify(res[0]));
       
       console.log('this.latestPost',this.newsArray[0]);
-      this.newsArrayLength = this.newsArray.length; 
-      if(!this.newsArray.length){
-        this.noNews = true;
-        console.log('this.noNews',this.noNews)
-      }
     }, err => {
       this._toastService.toastFunction(err.error.message, 'danger');
     })

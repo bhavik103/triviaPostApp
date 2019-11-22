@@ -6,7 +6,7 @@ import { NewsService } from '../services/news.service';
 import { FCM } from '@ionic-native/fcm/ngx';
 declare var $: any;
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
-import { Platform,NavController } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import * as _ from 'lodash';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -31,7 +31,7 @@ import { CategoriesPage } from '../categories/categories.page';
 
 export class HomePage implements OnInit {
     @ViewChild(SuperTabs, { static: false }) superTabs: SuperTabs;
-    
+
     bookmarks: any;
     tokenLocalStorage: any;
     language: string;
@@ -71,8 +71,10 @@ export class HomePage implements OnInit {
         debug: true,
         allowElementScroll: false,
     };
-    categoryPage: typeof CategoriesPage;
-    allPostPage: typeof AllPostPage;
+
+    categoryPage;
+    allPostPage; 
+    categories: any;
     constructor(private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private localNotifications: LocalNotifications, private _toastService: ToastService, private _userService: UserService, private network: Network, private route: ActivatedRoute, private screenOrientation: ScreenOrientation, private platform: Platform, private socialSharing: SocialSharing, private deeplinks: Deeplinks, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 
@@ -86,6 +88,10 @@ export class HomePage implements OnInit {
         this.language = localStorage.language;
     }
 
+    // ionViewDidLoad() {
+    //     this.categoryPage = CategoriesPage;
+    //     this.allPostPage = AllPostPage;
+    // }
     ionViewDidEnter() {
         this.subscription = this.platform.backButton.subscribe(() => {
             navigator['app'].exitApp();
@@ -94,6 +100,11 @@ export class HomePage implements OnInit {
     ionViewWillLeave() {
         this.subscription.unsubscribe();
     }
+
+    click($event) {
+        console.log($event);
+    }
+
     viewInitFunctions() {
         console.log('this.firebaseDynamicLinks', this.firebaseDynamicLinks);
 
@@ -128,6 +139,7 @@ export class HomePage implements OnInit {
         }
     }
     ionViewWillEnter() {
+        this.getCategories();
         this.fcm.getToken().then(token => {
             console.log("inside get fcmtoken", token);
             localStorage.setItem('deviceToken', token);
@@ -157,6 +169,16 @@ export class HomePage implements OnInit {
         });
     }
 
+    getCategories() {
+        this.language = localStorage.getItem('language');
+        this._categoryService.getAll().subscribe((res) => {
+          this.categories = res;
+          console.log("after", this.categories);
+        },
+          (err) => {
+          });
+      }
+      
     //get all news - HOME PAGE ( FEEDS )
     getNews(): void {
         this.loading = true;
@@ -177,19 +199,6 @@ export class HomePage implements OnInit {
 
     search() {
         this.router.navigateByUrl('/searchBar');
-    }
-    //  Do Share Post 
-    sharePost(id: string, newsTitle: string) {
-        var message = "Check out this amazing news " + '" ' + newsTitle + ' "';
-        var subject = "Trivia Post";
-        var str = newsTitle;
-        var url = 'https://triviapost.com/post/' + id;
-        this.socialSharing.share(message, subject, null, url)
-            .then((entries) => {
-            })
-            .catch((error) => {
-                alert('error ' + JSON.stringify(error));
-            });
     }
 
     // Notification and utility

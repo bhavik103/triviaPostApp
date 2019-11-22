@@ -49,7 +49,7 @@ export class HammerConfig extends HammerGestureConfig {
   declarations: [AppComponent, SettingsComponent, LoginComponent, FeedbackComponent, PrivacyComponent,
     SearchbarComponent, TermsAndCondComponent],
   entryComponents: [],
-  imports: [SuperTabsModule,SuperTabsModule.forRoot(),StarRatingModule,CategoriesPageModule,AllPostPageModule,FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [SuperTabsModule.forRoot(),StarRatingModule,CategoriesPageModule,AllPostPageModule,FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
     AppVersion,
     NativePageTransitions,

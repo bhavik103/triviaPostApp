@@ -53,6 +53,7 @@ export class AllPostPage implements OnInit {
       }
     });
     this.getAllPost();
+    this.language = localStorage.getItem('language');
   }
 
   getAllPost() {

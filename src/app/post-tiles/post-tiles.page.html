@@ -2,17 +2,20 @@
     <ion-item-sliding class="feeds">
         <ion-item>
             <ion-col size="3" class="newsImg" padding>
-                <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%"
-                    (click)="singleNews(news.newsId)">
+                <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%" (click)="singleNews(news.newsId)">
             </ion-col>
             <ion-col size="9">
                 <div>
-                    <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish | slice:0:50"
-                        (click)="singleNews(news.newsId)"></span><span *ngIf="language == 'English'"></span>
-                    <span class="optionsList" *ngIf="language == 'Hindi'" [innerHTML]="news.newsTitleHindi | slice:0:50"></span><span
-                        *ngIf="language == 'Hindi'" (click)="singleNews(news.newsId)"></span>
+                    <span class="optionsList" *ngIf="language == 'English'"
+                        [innerHTML]="news.newsTitleEnglish | slice:0:50" (click)="singleNews(news.newsId)"></span><span
+                        *ngIf="language == 'English'"></span>
+                    <span class="optionsList" *ngIf="language == 'Hindi'"
+                        [innerHTML]="news.newsTitleHindi | slice:0:50"></span><span *ngIf="language == 'Hindi'"
+                        (click)="singleNews(news.newsId)"></span>
                     <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-                        class="categoryButton">{{news.newsCategory}}</button>
+                        class="categoryButton" *ngIf="language == 'English' || !news.newsCategoryHn">{{news.newsCategory}}</button>
+                    <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+                        class="categoryButton" *ngIf="language == 'Hindi' && news.newsCategoryHn">{{news.newsCategory}}</button>
                     <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
                         {{news.likesCount}} likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
                 </div>

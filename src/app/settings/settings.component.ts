@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { GeneralService } from '../services/general.service';
 import { ToastService } from "../services/toast.service";
+import 'jquery';
 @Component({
 	selector: 'app-settings',
 	templateUrl: './settings.component.html',
@@ -33,6 +34,13 @@ export class SettingsComponent implements OnInit {
 	constructor(private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
 	}
 
+	ionViewWillEnter(){
+		this.tokenLocalStorage = localStorage.getItem('accessToken');
+		if(this.tokenLocalStorage){
+			$(".optionsDiv").addClass("loggedInDiv");
+		}
+	}
+
 	ngOnInit() {
 		this.getUserRating();
 		this.getUrl();
@@ -40,7 +48,6 @@ export class SettingsComponent implements OnInit {
 			this.router.navigate(['home/categories']);
 		});
 
-		this.tokenLocalStorage = localStorage.getItem('accessToken');
 		this.notifyFlag = localStorage.getItem('notification');
 		this.annonymousNotify = localStorage.getItem('annonymousNotify');
 		console.log(this.annonymousNotify);

@@ -156,6 +156,7 @@ ion-icon {
 .langColor ion-select {
   max-width: 50%;
   float: right;
+  padding: 16px 0px 6px;
 }
 
 #personIcon ion-icon {
@@ -181,9 +182,26 @@ ion-icon {
   display: none !important;
 }
 #ratingRow {
-  padding: 10vh 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
   position: relative;
   width: 100%;
+  display: table;
+  width: 100%;
+  margin-top: auto;
+  text-align: center;
+}
+.optionsDiv {
+  display: flex;
+  -ms-flex-align: center;
+  flex-wrap: wrap;
+  min-height: calc(100vh - 170px - 56px);
+}
+
+.loggedInDiv{
+  min-height: calc(100vh - 56px);
+}
+.optionsDiv > ion-col {
+  padding: 0;
 }
 #ratingRow > img {
   position: absolute;
@@ -206,7 +224,7 @@ ion-icon {
   z-index: 11;
 }
 #ratingHead {
-  width: 100%;
+  // width: 100%;
   font-size: 16px;
   text-align: center;
   font-weight: 500;
@@ -234,9 +252,9 @@ ionic4-star-rating {
   margin-right: 6%;
 }
 .rateButton {
-  font-size: 15px!important;
-  padding: 10px 15px!important;
+  font-size: 15px !important;
+  padding: 10px 15px !important;
   background: var(--main-app-color);
-  color: #fff!important;
+  color: #fff !important;
   border-radius: 23px;
 }
