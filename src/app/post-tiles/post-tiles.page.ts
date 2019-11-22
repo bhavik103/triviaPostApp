@@ -10,13 +10,12 @@ import { Router } from '@angular/router';
 export class PostTilesPage implements OnInit {
 
   @Input('news') news: string;
+  @Input('language') language: string;
   mediaPath = config.mediaApiUrl;
-  language: string;
   constructor(private router: Router) {
   }
 
   ngOnInit() {
-    this.language = localStorage.getItem('language');
     console.log('this.newsArray tiles',this.news);
   }
 

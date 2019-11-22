@@ -30,6 +30,7 @@ export class SingleCategoryPage implements OnInit {
   ionViewWillEnter(){
     this.singleCategory();
     this.newsArrayLength = false;
+    this.language = localStorage.getItem('language');
   }
   singleCategory(){
     var catId = this.route.snapshot.params['id'];

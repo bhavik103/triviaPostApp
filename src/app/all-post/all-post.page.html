@@ -2,7 +2,7 @@
     <ion-row class="feeds" *ngIf="newsArray && newsArray.length && latestPost">
         <app-large-post [news]="latestPost" [language]="language"></app-large-post>
         <span *ngFor="let news of newsArray">
-            <app-post-tiles [news]="news"></app-post-tiles>
+            <app-post-tiles [news]="news" [language]="language"></app-post-tiles>
         </span>
     </ion-row>
     <div id="loader-wrapper" *ngIf="loading">
