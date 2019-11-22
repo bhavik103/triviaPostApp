@@ -2,7 +2,10 @@
     <ion-item-sliding class="feeds">
         <ion-item>
             <ion-col size="3" class="newsImg" padding>
-                <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%" (click)="singleNews(news.newsId)">
+                <ion-img [src]="{{mediaPath}}{{news.newsImage}}"></ion-img>
+                <ion-spinner></ion-spinner>
+                <!-- <img src="{{mediaPath}}{{news.newsImage}}" onerror="this.src='assets/images/spinner.gif'" height="73px"
+                    width="100%" (click)="singleNews(news.newsId)"> -->
             </ion-col>
             <ion-col size="9">
                 <div>
@@ -12,10 +15,10 @@
                     <span class="optionsList" *ngIf="language == 'Hindi'"
                         [innerHTML]="news.newsTitleHindi | slice:0:50"></span><span *ngIf="language == 'Hindi'"
                         (click)="singleNews(news.newsId)"></span>
-                    <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-                        class="categoryButton" *ngIf="language == 'English'">{{news.newsCategory}}</button>
-                    <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-                        class="categoryButton" *ngIf="language == 'Hindi'">{{news.newsCategoryHn}}</button>
+                    <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
+                        *ngIf="language == 'English'">{{news.newsCategory}}</button>
+                    <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
+                        *ngIf="language == 'Hindi'">{{news.newsCategoryHn}}</button>
                     <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
                         {{news.likesCount}} likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
                 </div>

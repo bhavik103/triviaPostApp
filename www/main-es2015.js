@@ -528,7 +528,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content>\n    <ion-row class=\"feeds\" *ngIf=\"newsArray && newsArray.length && latestPost\">\n        <app-large-post [news]=\"latestPost\"></app-large-post>\n        <span *ngFor=\"let news of newsArray\">\n            <app-post-tiles [news]=\"news\"></app-post-tiles>\n        </span>\n    </ion-row>\n    <div id=\"loader-wrapper\" *ngIf=\"loading\">\n        <div id=\"loader\">\n            <div class=\"spinner\">\n                <div class=\"bounce1\"></div>\n                <div class=\"bounce2\"></div>\n                <div class=\"bounce3\"></div>\n            </div>\n            <p class=\"text-center\">Loding...</p>\n        </div>\n    </div>\n</ion-content>"
+module.exports = "<ion-content>\n    <ion-row class=\"feeds\" *ngIf=\"newsArray && newsArray.length && latestPost\">\n        <app-large-post [news]=\"latestPost\" [language]=\"language\"></app-large-post>\n        <span *ngFor=\"let news of newsArray\">\n            <app-post-tiles [news]=\"news\" [language]=\"language\"></app-post-tiles>\n        </span>\n    </ion-row>\n    <div id=\"loader-wrapper\" *ngIf=\"loading\">\n        <div id=\"loader\">\n            <div class=\"spinner\">\n                <div class=\"bounce1\"></div>\n                <div class=\"bounce2\"></div>\n                <div class=\"bounce3\"></div>\n            </div>\n            <p class=\"text-center\">Loding...</p>\n        </div>\n    </div>\n</ion-content>"
 
 /***/ }),
 
@@ -561,7 +561,7 @@ module.exports = "<ion-content>\n    <ion-row *ngIf=\"categories\">\n        <io
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\" (click)=\"singleCategory(category.categoryId,category.categoryTitle)\">\n  <img src=\"{{mediaPath}}{{category.categoryImage}}\" alt=\"Category Image\" style=\"width:100%;\">\n</div>\n<div class=\"text-block\">\n  <div class=\"\">\n    <div class=\"category_title\">\n      <p *ngIf=\"language == 'English'\" (click)=\"singleCategory(category.categoryId,category.categoryTitle)\">\n        {{category.categoryTitle | slice:0:30}}</p>\n      <p *ngIf=\"language == 'Hindi'\" (click)=\"singleCategory(category.categoryId,category.categoryTitleHn)\">\n        {{category.categoryTitleHn | slice:0:30}}</p>\n    </div>\n    <p class=\"postCount\">{{category.countPost}} Posts</p>\n    <button *ngIf=\"!category.isNotify\" class=\"notSubscribed\"\n      (click)=\"addNotify(category.categoryId, category.isNotify)\">\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button *ngIf=\"category.isNotify\" class=\"subscribed\"\n      (click)=\"addNotify(category.categoryId, category.isNotify)\">Subscribed</button>\n  </div>\n</div>"
+module.exports = "<div class=\"container\" *ngIf=\"language == 'English'\"\n  (click)=\"singleCategory(category.categoryId,category.categoryTitle)\">\n  <img src=\"{{mediaPath}}{{category.categoryImage}}\" alt=\"Category Image\" style=\"width:100%;\">\n</div>\n<div class=\"container\" *ngIf=\"language == 'Hindi'\" (click)=\"singleCategory(category.categoryId,category.categoryTitleHn)\">\n  <img src=\"{{mediaPath}}{{category.categoryImage}}\" alt=\"Category Image\" style=\"width:100%;\">\n</div>\n<div class=\"text-block\">\n  <div class=\"\">\n    <div class=\"category_title\">\n      <p *ngIf=\"language == 'English'\" (click)=\"singleCategory(category.categoryId,category.categoryTitle)\">\n        {{category.categoryTitle | slice:0:30}}</p>\n      <p *ngIf=\"language == 'Hindi'\" (click)=\"singleCategory(category.categoryId,category.categoryTitleHn)\">\n        {{category.categoryTitleHn | slice:0:30}}</p>\n    </div>\n    <p class=\"postCount\">{{category.countPost}} Posts</p>\n    <button *ngIf=\"!category.isNotify\" class=\"notSubscribed\"\n      (click)=\"addNotify(category.categoryId, category.isNotify)\">\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button *ngIf=\"category.isNotify\" class=\"subscribed\"\n      (click)=\"addNotify(category.categoryId, category.isNotify)\">Subscribed</button>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -583,7 +583,7 @@ module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-icon name=\"arrow-roun
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-row>\n    <ion-col size=\"12\" class=\"latestPost\">\n      <img class=\"latestpostimg\" src=\"{{mediaPath}}{{news.newsImage}}\" height=\"100%\" width=\"100%\"\n        (click)=\"singleNews(news.newsId)\">\n      <div class=\"textBlock\">\n        <span class=\"latestNews\" *ngIf=\"language == 'English'\" [innerHTML]=\"news.newsTitleEnglish\"\n          (click)=\"singleNews(news.newsId)\"></span>\n        <span *ngIf=\"news.newsTitleEnglish.length >= 40 && language == 'English'\" class=\"latestNews\">...</span>\n        <span class=\"latestNews\" *ngIf=\"language == 'Hindi'\" [innerHTML]=\"news.newsTitleHindi | slice:0:40\"\n          (click)=\"singleNews(news.newsId)\"></span>\n        <span class=\"latestNews\" *ngIf=\"news.newsTitleHindi.length >= 40 && language == 'Hindi'\">...</span>\n        <button (click)=\"categoryClick(news.newsCategoryId, news.newsCategory)\"\n          class=\"categoryButton\">{{news.newsCategory}}</button>\n        <p class=\"latestNewsInfo\"><img src=\"assets/images/lightbulb_red.png\" alt=\"\" class=\"likeImage\">\n          {{news.likesCount}}\n          likes <span class=\"timeAgo\"> {{news.createdAt | timeAgo}} </span></p>\n      </div>\n    </ion-col>\n  </ion-row>"
+module.exports = "<ion-row>\n  <ion-col size=\"12\" class=\"latestPost\">\n    <img class=\"latestpostimg\" src=\"{{mediaPath}}{{news.newsImage}}\" height=\"100%\" width=\"100%\"\n      (click)=\"singleNews(news.newsId)\">\n    <div class=\"textBlock\">\n      <span class=\"latestNews\" *ngIf=\"language == 'English'\" [innerHTML]=\"news.newsTitleEnglish\"\n        (click)=\"singleNews(news.newsId)\"></span>\n      <span *ngIf=\"news.newsTitleEnglish.length >= 40 && language == 'English'\" class=\"latestNews\">...</span>\n      <span class=\"latestNews\" *ngIf=\"language == 'Hindi'\" [innerHTML]=\"news.newsTitleHindi | slice:0:40\"\n        (click)=\"singleNews(news.newsId)\"></span>\n      <span class=\"latestNews\" *ngIf=\"news.newsTitleHindi.length >= 40 && language == 'Hindi'\">...</span>\n      <button (click)=\"categoryClick(news.newsCategoryId, news.newsCategory)\"\n        class=\"categoryButton\" *ngIf=\"language == 'English'\">{{news.newsCategory}}</button>\n      <button (click)=\"categoryClick(news.newsCategoryId, news.newsCategory)\"\n        class=\"categoryButton\" *ngIf=\"language == 'Hindi'\">{{news.newsCategoryHn}}</button>\n      <p class=\"latestNewsInfo\"><img src=\"assets/images/lightbulb_red.png\" alt=\"\" class=\"likeImage\">\n        {{news.likesCount}}\n        likes <span class=\"timeAgo\"> {{news.createdAt | timeAgo}} </span></p>\n    </div>\n  </ion-col>\n</ion-row>"
 
 /***/ }),
 
@@ -605,7 +605,7 @@ module.exports = "<ion-content class=\"background\" (swiperight)=\"goBack()\">\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-list>\n    <ion-item-sliding class=\"feeds\">\n        <ion-item>\n            <ion-col size=\"3\" class=\"newsImg\" padding>\n                <img src=\"{{mediaPath}}{{news.newsImage}}\" height=\"73px\" width=\"100%\"\n                    (click)=\"singleNews(news.newsId)\">\n            </ion-col>\n            <ion-col size=\"9\">\n                <div>\n                    <span class=\"optionsList\" *ngIf=\"language == 'English'\" [innerHTML]=\"news.newsTitleEnglish | slice:0:50\"\n                        (click)=\"singleNews(news.newsId)\"></span><span *ngIf=\"language == 'English'\"></span>\n                    <span class=\"optionsList\" *ngIf=\"language == 'Hindi'\" [innerHTML]=\"news.newsTitleHindi | slice:0:50\"></span><span\n                        *ngIf=\"language == 'Hindi'\" (click)=\"singleNews(news.newsId)\"></span>\n                    <button (click)=\"categoryClick(news.newsCategoryId, news.newsCategory)\"\n                        class=\"categoryButton\">{{news.newsCategory}}</button>\n                    <p class=\"otherInfoSecond\"><img src=\"assets/images/lightbulb_red.png\" alt=\"\" class=\"likeImage\">\n                        {{news.likesCount}} likes <span class=\"timeAgo\"> {{news.createdAt | timeAgo}} </span></p>\n                </div>\n            </ion-col>\n        </ion-item>\n    </ion-item-sliding>\n</ion-list>"
+module.exports = "<ion-list>\n    <ion-item-sliding class=\"feeds\">\n        <ion-item>\n            <ion-col size=\"3\" class=\"newsImg\" padding>\n                <img src=\"{{mediaPath}}{{news.newsImage}}\" onerror=\"this.src='assets/images/spinner.gif'\" height=\"73px\" width=\"100%\" (click)=\"singleNews(news.newsId)\">\n            </ion-col>\n            <ion-col size=\"9\">\n                <div>\n                    <span class=\"optionsList\" *ngIf=\"language == 'English'\"\n                        [innerHTML]=\"news.newsTitleEnglish | slice:0:50\" (click)=\"singleNews(news.newsId)\"></span><span\n                        *ngIf=\"language == 'English'\"></span>\n                    <span class=\"optionsList\" *ngIf=\"language == 'Hindi'\"\n                        [innerHTML]=\"news.newsTitleHindi | slice:0:50\"></span><span *ngIf=\"language == 'Hindi'\"\n                        (click)=\"singleNews(news.newsId)\"></span>\n                    <button (click)=\"categoryClick(news.newsCategoryId, news.newsCategory)\"\n                        class=\"categoryButton\" *ngIf=\"language == 'English'\">{{news.newsCategory}}</button>\n                    <button (click)=\"categoryClick(news.newsCategoryId, news.newsCategory)\"\n                        class=\"categoryButton\" *ngIf=\"language == 'Hindi'\">{{news.newsCategoryHn}}</button>\n                    <p class=\"otherInfoSecond\"><img src=\"assets/images/lightbulb_red.png\" alt=\"\" class=\"likeImage\">\n                        {{news.likesCount}} likes <span class=\"timeAgo\"> {{news.createdAt | timeAgo}} </span></p>\n                </div>\n            </ion-col>\n        </ion-item>\n    </ion-item-sliding>\n</ion-list>"
 
 /***/ }),
 
@@ -789,6 +789,7 @@ let AllPostPage = class AllPostPage {
             }
         });
         this.getAllPost();
+        this.language = localStorage.getItem('language');
     }
     getAllPost() {
         this.language = localStorage.getItem('language');
@@ -1889,7 +1890,10 @@ let LargePostPage = class LargePostPage {
     }
     ngOnInit() {
         console.log('this.news', this.news);
+    }
+    ionViewWillEnter() {
         this.language = localStorage.getItem('language');
+        console.log('this.language', this.language);
     }
     categoryClick(catId, catName) {
         this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
@@ -1906,6 +1910,10 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('news'),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
 ], LargePostPage.prototype, "news", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('language'),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+], LargePostPage.prototype, "language", void 0);
 LargePostPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-large-post',
@@ -2232,7 +2240,6 @@ let PostTilesPage = class PostTilesPage {
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_2__["config"].mediaApiUrl;
     }
     ngOnInit() {
-        this.language = localStorage.getItem('language');
         console.log('this.newsArray tiles', this.news);
     }
     categoryClick(catId, catName) {
@@ -2250,6 +2257,10 @@ tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('news'),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
 ], PostTilesPage.prototype, "news", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('language'),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+], PostTilesPage.prototype, "language", void 0);
 PostTilesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-post-tiles',

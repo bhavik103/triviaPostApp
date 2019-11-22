@@ -1,6 +1,6 @@
 <div class="container" *ngIf="language == 'English'"
   (click)="singleCategory(category.categoryId,category.categoryTitle)">
-  <img src="{{mediaPath}}{{category.categoryImage}}" alt="Category Image" style="width:100%;">
+  <img src="{{mediaPath}}{{category.categoryImage}}" onerror="this.src='assets/images/spinner.gif'" alt="Category Image" style="width:100%;">
 </div>
 <div class="container" *ngIf="language == 'Hindi'" (click)="singleCategory(category.categoryId,category.categoryTitleHn)">
   <img src="{{mediaPath}}{{category.categoryImage}}" alt="Category Image" style="width:100%;">
