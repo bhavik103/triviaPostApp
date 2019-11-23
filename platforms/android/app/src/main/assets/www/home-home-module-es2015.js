@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header no-border>\n    <ion-toolbar>\n        <ion-icon name=\"settings\" class=\"homeBack\" routerLink=\"/settings\" float-left></ion-icon>\n        <ion-icon name=\"search\" class=\"searchIcon\" float-right (click)=\"search()\"></ion-icon>\n        <ion-title class=\"ion-text-center\">\n            Trivia Post\n        </ion-title>\n    </ion-toolbar>\n</ion-header>\n<super-tabs activeTabIndex=\"0\" [config]=\"{ allowElementScroll: true }\">\n    <super-tabs-toolbar slot=\"top\">\n        <super-tab-button (click)=\"click($event)\">\n            <ion-label>Categories</ion-label>\n        </super-tab-button>\n        <super-tab-button (click)=\"click($event)\">\n            <ion-label>All feeds</ion-label>\n        </super-tab-button>\n    </super-tabs-toolbar>\n\n    <super-tabs-container>\n        <super-tab>\n            <ion-nav [root]=\"categoryPage\"></ion-nav>\n        </super-tab>\n        <super-tab>\n            <ion-nav [root]=\"allPostPage\"></ion-nav>\n        </super-tab>\n    </super-tabs-container>\n</super-tabs>\n<div id=\"loader-wrapper\" *ngIf=\"loading\">\n    <div id=\"loader\">\n        <span class=\"welcomeTo\">Welcome to</span>\n        <span class=\"logo_container\">\n            <img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n        </span>\n        <div class=\"welcomeTo appDesc\">Interesting and</div>\n        <div class=\"welcomeTo appDesc\">Informative reads</div>\n        <div class=\"spinner\">\n            <div class=\"bounce1\"></div>\n            <div class=\"bounce2\"></div>\n            <div class=\"bounce3\"></div>\n        </div>\n        <p class=\"text-center\">Loding...</p>\n    </div>\n</div>\n<div class=\"no-news-text\" *ngIf=\"isTextVisible\">\n    <span>{{text}}</span>\n</div>"
+module.exports = "<ion-header no-border>\n    <ion-toolbar>\n        <ion-icon name=\"settings\" class=\"homeBack\" routerLink=\"/settings\" float-left></ion-icon>\n        <ion-icon name=\"search\" class=\"searchIcon\" float-right (click)=\"search()\"></ion-icon>\n        <ion-title class=\"ion-text-center\">\n            Trivia Post\n        </ion-title>\n    </ion-toolbar>\n</ion-header>\n<super-tabs activeTabIndex=\"0\" [config]=\"{ allowElementScroll: true }\" (tabSelect)=\"onTabChange($event)\">\n    <super-tabs-toolbar slot=\"top\">\n        <super-tab-button (click)=\"click($event)\">\n            <ion-label>Categories</ion-label>\n        </super-tab-button>\n        <super-tab-button (click)=\"click($event)\">\n            <ion-label>All feeds</ion-label>\n        </super-tab-button>\n    </super-tabs-toolbar>\n\n    <super-tabs-container>\n        <!-- categories tab-->\n        <super-tab>\n            <ion-row *ngIf=\"categories\">\n                <ion-col size=\"6\" *ngFor=\"let category of categories\">\n                    <app-category-tiles [category]=\"category\" (onSubscribe)=\"subscribedCategory($event, isNotify)\"\n                        [language]=\"language\"></app-category-tiles>\n                </ion-col>\n            </ion-row>\n            <!-- <ion-nav [root]=\"categoryPage\" [rootParams]=\"language\"></ion-nav> -->\n        </super-tab>\n\n        <!-- feeds tab-->\n        <super-tab>\n            <ion-row class=\"feeds\" *ngIf=\"newsArray && newsArray.length && latestPost\">\n                <app-large-post [news]=\"latestPost\" [language]=\"language\"></app-large-post>\n                <span *ngFor=\"let news of newsArray\">\n                    <app-post-tiles [news]=\"news\" [language]=\"language\"></app-post-tiles>\n                </span>\n            </ion-row>\n            <!-- <ion-nav [root]=\"allPostPage\"></ion-nav> -->\n        </super-tab>\n    </super-tabs-container>\n</super-tabs>\n\n<!-- loader -->\n<div id=\"loader-wrapper\" *ngIf=\"loading\">\n    <div id=\"loader\">\n        <span class=\"welcomeTo\">Welcome to</span>\n        <span class=\"logo_container\">\n            <img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n        </span>\n        <div class=\"welcomeTo appDesc\">Interesting and</div>\n        <div class=\"welcomeTo appDesc\">Informative reads</div>\n        <div class=\"spinner\">\n            <div class=\"bounce1\"></div>\n            <div class=\"bounce2\"></div>\n            <div class=\"bounce3\"></div>\n        </div>\n        <p class=\"text-center\">Loding...</p>\n    </div>\n</div>\n<div class=\"no-news-text\" *ngIf=\"isTextVisible\">\n    <span>{{text}}</span>\n</div>"
 
 /***/ }),
 
@@ -31,6 +31,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _categories_categories_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../categories/categories.module */ "./src/app/categories/categories.module.ts");
 /* harmony import */ var _all_post_all_post_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../all-post/all-post.module */ "./src/app/all-post/all-post.module.ts");
 /* harmony import */ var _ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-super-tabs/angular */ "./node_modules/@ionic-super-tabs/angular/fesm2015/ionic-super-tabs-angular.js");
+/* harmony import */ var _category_tiles_category_tiles_module__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../category-tiles/category-tiles.module */ "./src/app/category-tiles/category-tiles.module.ts");
+/* harmony import */ var _large_post_large_post_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../large-post/large-post.module */ "./src/app/large-post/large-post.module.ts");
+/* harmony import */ var _post_tiles_post_tiles_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../post-tiles/post-tiles.module */ "./src/app/post-tiles/post-tiles.module.ts");
+
+
+
 
 
 
@@ -46,6 +52,9 @@ let HomePageModule = class HomePageModule {
 HomePageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         imports: [
+            _category_tiles_category_tiles_module__WEBPACK_IMPORTED_MODULE_10__["CategoryTilesPageModule"],
+            _large_post_large_post_module__WEBPACK_IMPORTED_MODULE_11__["LargePostPageModule"],
+            _post_tiles_post_tiles_module__WEBPACK_IMPORTED_MODULE_12__["PostTilesPageModule"],
             _ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_9__["SuperTabsModule"],
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormsModule"],
@@ -91,33 +100,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/category.service */ "./src/app/services/category.service.ts");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/news.service */ "./src/app/services/news.service.ts");
-/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
-/* harmony import */ var _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/deeplinks/ngx */ "./node_modules/@ionic-native/deeplinks/ngx/index.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
-/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
-/* harmony import */ var _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/keyboard/ngx */ "./node_modules/@ionic-native/keyboard/ngx/index.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
-/* harmony import */ var _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/local-notifications/ngx */ "./node_modules/@ionic-native/local-notifications/ngx/index.js");
-/* harmony import */ var _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic-native/firebase-dynamic-links/ngx */ "./node_modules/@ionic-native/firebase-dynamic-links/ngx/index.js");
-/* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../services/general.service */ "./src/app/services/general.service.ts");
-/* harmony import */ var _ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ionic-super-tabs/angular */ "./node_modules/@ionic-super-tabs/angular/fesm2015/ionic-super-tabs-angular.js");
-/* harmony import */ var _all_post_all_post_page__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../all-post/all-post.page */ "./src/app/all-post/all-post.page.ts");
-/* harmony import */ var _categories_categories_page__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../categories/categories.page */ "./src/app/categories/categories.page.ts");
-
-
-
-
-
-
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/news.service */ "./src/app/services/news.service.ts");
+/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
+/* harmony import */ var _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/keyboard/ngx */ "./node_modules/@ionic-native/keyboard/ngx/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
+/* harmony import */ var _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/firebase-dynamic-links/ngx */ "./node_modules/@ionic-native/firebase-dynamic-links/ngx/index.js");
+/* harmony import */ var _ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-super-tabs/angular */ "./node_modules/@ionic-super-tabs/angular/fesm2015/ionic-super-tabs-angular.js");
+/* harmony import */ var _all_post_all_post_page__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../all-post/all-post.page */ "./src/app/all-post/all-post.page.ts");
+/* harmony import */ var _categories_categories_page__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../categories/categories.page */ "./src/app/categories/categories.page.ts");
 
 
 
@@ -136,32 +133,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HomePage = class HomePage {
-    constructor(_generalService, firebaseDynamicLinks, localNotifications, _toastService, _userService, network, route, screenOrientation, platform, socialSharing, deeplinks, fcm, _newsService, _categoryService, router, keyboard) {
-        this._generalService = _generalService;
+    constructor(firebaseDynamicLinks, _toastService, _userService, screenOrientation, platform, fcm, _newsService, _categoryService, router, keyboard) {
         this.firebaseDynamicLinks = firebaseDynamicLinks;
-        this.localNotifications = localNotifications;
         this._toastService = _toastService;
         this._userService = _userService;
-        this.network = network;
-        this.route = route;
         this.screenOrientation = screenOrientation;
         this.platform = platform;
-        this.socialSharing = socialSharing;
-        this.deeplinks = deeplinks;
         this.fcm = fcm;
         this._newsService = _newsService;
         this._categoryService = _categoryService;
         this.router = router;
         this.keyboard = keyboard;
-        this.newsArray = [];
-        this.horizontalSwipers = [];
-        this.error = '';
-        this.isVisible = false;
         this.loading = false;
-        this.isTextVisible = false;
-        this.isCalled = false;
-        this.bookMark = false;
-        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_3__["config"].mediaApiUrl;
         this.opts = {
             icon: false,
             label: true,
@@ -175,17 +158,13 @@ let HomePage = class HomePage {
     }
     // Event Listeners
     ngOnInit() {
-        this.categoryPage = _categories_categories_page__WEBPACK_IMPORTED_MODULE_22__["CategoriesPage"];
-        this.allPostPage = _all_post_all_post_page__WEBPACK_IMPORTED_MODULE_21__["AllPostPage"];
+        this.language = localStorage.language;
+        this.categoryPage = _categories_categories_page__WEBPACK_IMPORTED_MODULE_16__["CategoriesPage"];
+        this.allPostPage = _all_post_all_post_page__WEBPACK_IMPORTED_MODULE_15__["AllPostPage"];
         console.warn("ngOnInit");
         this.loading = true;
         this.viewInitFunctions();
-        this.language = localStorage.language;
     }
-    // ionViewDidLoad() {
-    //     this.categoryPage = CategoriesPage;
-    //     this.allPostPage = AllPostPage;
-    // }
     ionViewDidEnter() {
         this.subscription = this.platform.backButton.subscribe(() => {
             navigator['app'].exitApp();
@@ -193,9 +172,6 @@ let HomePage = class HomePage {
     }
     ionViewWillLeave() {
         this.subscription.unsubscribe();
-    }
-    click($event) {
-        console.log($event);
     }
     viewInitFunctions() {
         console.log('this.firebaseDynamicLinks', this.firebaseDynamicLinks);
@@ -208,18 +184,6 @@ let HomePage = class HomePage {
         }
         // Screen Orientation Lock
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-        //  Deeplinks
-        // this.deeplinks.route({
-        //     '/': {},
-        //     '/Rk22': { "post:": true },
-        //     '/post/:id': { "post:": true }
-        // }).subscribe((match) => {
-        //     console.log("match link", match.$args.id);
-        //     this.router.navigate(['single-post/' + match.$args.id]);
-        // },
-        //     (nomatch) => {
-        //         // alert("UnMatched" + nomatch);
-        //     });
         this.tokenLocalStorage = localStorage.getItem('accessToken');
         if (this.tokenLocalStorage) {
             var base64Url = this.tokenLocalStorage.split('.')[1];
@@ -230,23 +194,15 @@ let HomePage = class HomePage {
     }
     ionViewWillEnter() {
         this.getCategories();
-        this.fcm.getToken().then(token => {
-            console.log("inside get fcmtoken", token);
-            localStorage.setItem('deviceToken', token);
-        });
-        this.getNews();
+        this.getAllPost();
         this.fcmToken();
         this.loading = true;
-        setTimeout(() => {
-            $('#snackbar').show();
-        }, 3000);
         this.checkforInternet();
     }
     //check for internet
     checkforInternet() {
-        // // Check Internet conectivity
-        var offline = rxjs__WEBPACK_IMPORTED_MODULE_12__["Observable"].fromEvent(document, "offline");
-        var online = rxjs__WEBPACK_IMPORTED_MODULE_12__["Observable"].fromEvent(document, "online");
+        var offline = rxjs__WEBPACK_IMPORTED_MODULE_9__["Observable"].fromEvent(document, "offline");
+        var online = rxjs__WEBPACK_IMPORTED_MODULE_9__["Observable"].fromEvent(document, "online");
         offline.subscribe(() => {
             this.hide = false;
             this._toastService.toastFunction('No internet connection', 'danger');
@@ -255,6 +211,7 @@ let HomePage = class HomePage {
             this.hide = true;
         });
     }
+    //get categories
     getCategories() {
         this.language = localStorage.getItem('language');
         this._categoryService.getAll().subscribe((res) => {
@@ -263,21 +220,29 @@ let HomePage = class HomePage {
         }, (err) => {
         });
     }
+    //change on subscription of category
+    subscribedCategory(e) {
+        console.log("Event e", e);
+        if (e.isNotify == true) {
+            this.categories.find((o) => o.categoryId === e.catId).isNotify = false;
+        }
+        else {
+            this.categories.find((o) => o.categoryId === e.catId).isNotify = true;
+        }
+    }
     //get all news - HOME PAGE ( FEEDS )
-    getNews() {
-        this.loading = true;
-        this.language = localStorage.language;
-        this.checkForToken();
-        var userId = this.loggedInUser;
+    getAllPost() {
+        this.language = localStorage.getItem('language');
         this._newsService.getAllNews().subscribe((res) => {
-            console.log("all news==========>", res);
+            this.loading = false;
             this.newsArray = res;
-            this.loading = false;
+            this.latestPost = res[0];
+            this.newsArray.splice(0, 1);
         }, (err) => {
-            this.loading = false;
-            this.error = err;
+            this.newsArray = localStorage.newsArray;
         });
     }
+    //navigate to searchbar
     search() {
         this.router.navigateByUrl('/searchBar');
     }
@@ -293,6 +258,7 @@ let HomePage = class HomePage {
             }
         });
     }
+    //set fcm token
     fcmToken() {
         console.log("in fcmtoken function");
         this.fcm.getToken().then(token => {
@@ -318,37 +284,22 @@ let HomePage = class HomePage {
             }
         });
     }
-    checkForToken() {
-        this.tokenLocalStorage = localStorage.getItem('accessToken');
-        if (this.tokenLocalStorage) {
-            var base64Url = this.tokenLocalStorage.split('.')[1];
-            var base64 = base64Url.replace('-', '+').replace('_', '/');
-            var decodedToken = JSON.parse(window.atob(base64));
-            this.loggedInUser = decodedToken.user._id;
-        }
-    }
 };
 HomePage.ctorParameters = () => [
-    { type: _services_general_service__WEBPACK_IMPORTED_MODULE_19__["GeneralService"] },
-    { type: _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_18__["FirebaseDynamicLinks"] },
-    { type: _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_17__["LocalNotifications"] },
-    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_16__["ToastService"] },
-    { type: _services_user_service__WEBPACK_IMPORTED_MODULE_14__["UserService"] },
-    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_13__["Network"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"] },
-    { type: _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_10__["ScreenOrientation"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"] },
-    { type: _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_9__["SocialSharing"] },
-    { type: _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__["Deeplinks"] },
-    { type: _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__["FCM"] },
-    { type: _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"] },
+    { type: _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_13__["FirebaseDynamicLinks"] },
+    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_12__["ToastService"] },
+    { type: _services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"] },
+    { type: _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_7__["ScreenOrientation"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
+    { type: _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_5__["FCM"] },
+    { type: _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"] },
     { type: _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-    { type: _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_11__["Keyboard"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_8__["Keyboard"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_20__["SuperTabs"], { static: false }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_20__["SuperTabs"])
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_14__["SuperTabs"], { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_14__["SuperTabs"])
 ], HomePage.prototype, "superTabs", void 0);
 HomePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -356,7 +307,7 @@ HomePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./home.page.html */ "./node_modules/raw-loader/index.js!./src/app/home/home.page.html"),
         styles: [__webpack_require__(/*! ./home.page.scss */ "./src/app/home/home.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_general_service__WEBPACK_IMPORTED_MODULE_19__["GeneralService"], _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_18__["FirebaseDynamicLinks"], _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_17__["LocalNotifications"], _services_toast_service__WEBPACK_IMPORTED_MODULE_16__["ToastService"], _services_user_service__WEBPACK_IMPORTED_MODULE_14__["UserService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_13__["Network"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"], _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_10__["ScreenOrientation"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_9__["SocialSharing"], _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__["Deeplinks"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__["FCM"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_11__["Keyboard"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_13__["FirebaseDynamicLinks"], _services_toast_service__WEBPACK_IMPORTED_MODULE_12__["ToastService"], _services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"], _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_7__["ScreenOrientation"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_5__["FCM"], _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_8__["Keyboard"]])
 ], HomePage);
 
 

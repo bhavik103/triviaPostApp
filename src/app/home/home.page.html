@@ -7,7 +7,7 @@
         </ion-title>
     </ion-toolbar>
 </ion-header>
-<super-tabs activeTabIndex="0" [config]="{ allowElementScroll: true }">
+<super-tabs activeTabIndex="0" [config]="{ allowElementScroll: true }" (tabSelect)="onTabChange($event)">
     <super-tabs-toolbar slot="top">
         <super-tab-button (click)="click($event)">
             <ion-label>Categories</ion-label>
@@ -18,14 +18,35 @@
     </super-tabs-toolbar>
 
     <super-tabs-container>
+        <!-- categories tab-->
         <super-tab>
-            <ion-nav [root]="categoryPage"></ion-nav>
+            <ion-content>
+                <ion-row *ngIf="categories">
+                    <ion-col size="6" *ngFor="let category of categories">
+                        <app-category-tiles [category]="category" (onSubscribe)="subscribedCategory($event, isNotify)"
+                            [language]="language"></app-category-tiles>
+                    </ion-col>
+                </ion-row>
+            </ion-content>
+            <!-- <ion-nav [root]="categoryPage" [rootParams]="language"></ion-nav> -->
         </super-tab>
+
+        <!-- feeds tab-->
         <super-tab>
-            <ion-nav [root]="allPostPage"></ion-nav>
+            <ion-content>
+                <ion-row class="feeds" *ngIf="newsArray && newsArray.length && latestPost">
+                    <app-large-post [news]="latestPost" [language]="language"></app-large-post>
+                    <span *ngFor="let news of newsArray">
+                        <app-post-tiles [news]="news" [language]="language"></app-post-tiles>
+                    </span>
+                </ion-row>
+            </ion-content>
+            <!-- <ion-nav [root]="allPostPage"></ion-nav> -->
         </super-tab>
     </super-tabs-container>
 </super-tabs>
+
+<!-- loader -->
 <div id="loader-wrapper" *ngIf="loading">
     <div id="loader">
         <span class="welcomeTo">Welcome to</span>

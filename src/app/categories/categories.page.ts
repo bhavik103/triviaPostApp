@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import 'hammerjs';
+import {NavParams} from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CategoryService } from '../services/category.service';
 import { Observable } from 'rxjs';
@@ -17,21 +18,23 @@ export class CategoriesPage implements OnInit {
   mediaPath = config.mediaApiUrl;
   language: any;
   loading: any;
-  constructor(private _toastService: ToastService, private network: Network, private _categoryService: CategoryService, private router: Router) {
+  constructor(private navParams:NavParams,private _toastService: ToastService, private network: Network, private _categoryService: CategoryService, private router: Router) {
+    // console.log('this.navParams.data',navParams.data);
+    this.getCategories();
   }
-
+  
   ngOnInit() {
   }
-
+  
   ionViewWillEnter() {
-    this.getCategories();
+    this.language = this.navParams.data;
   }
 
   getCategories() {
     this.language = localStorage.getItem('language');
     this._categoryService.getAll().subscribe((res) => {
       this.categories = res;
-      console.log("after", this.categories);
+      console.log("in categories component=>>>>>>>", this.categories);
     },
       (err) => {
       });

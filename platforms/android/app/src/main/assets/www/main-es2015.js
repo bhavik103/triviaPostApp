@@ -561,7 +561,7 @@ module.exports = "<ion-content>\n    <ion-row *ngIf=\"categories\">\n        <io
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\" *ngIf=\"language == 'English'\"\n  (click)=\"singleCategory(category.categoryId,category.categoryTitle)\">\n  <img src=\"{{mediaPath}}{{category.categoryImage}}\" alt=\"Category Image\" style=\"width:100%;\">\n</div>\n<div class=\"container\" *ngIf=\"language == 'Hindi'\" (click)=\"singleCategory(category.categoryId,category.categoryTitleHn)\">\n  <img src=\"{{mediaPath}}{{category.categoryImage}}\" alt=\"Category Image\" style=\"width:100%;\">\n</div>\n<div class=\"text-block\">\n  <div class=\"\">\n    <div class=\"category_title\">\n      <p *ngIf=\"language == 'English'\" (click)=\"singleCategory(category.categoryId,category.categoryTitle)\">\n        {{category.categoryTitle | slice:0:30}}</p>\n      <p *ngIf=\"language == 'Hindi'\" (click)=\"singleCategory(category.categoryId,category.categoryTitleHn)\">\n        {{category.categoryTitleHn | slice:0:30}}</p>\n    </div>\n    <p class=\"postCount\">{{category.countPost}} Posts</p>\n    <button *ngIf=\"!category.isNotify\" class=\"notSubscribed\"\n      (click)=\"addNotify(category.categoryId, category.isNotify)\">\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button *ngIf=\"category.isNotify\" class=\"subscribed\"\n      (click)=\"addNotify(category.categoryId, category.isNotify)\">Subscribed</button>\n  </div>\n</div>"
+module.exports = "<div class=\"container\" *ngIf=\"language == 'English'\"\n  (click)=\"singleCategory(category.categoryId,category.categoryTitle)\">\n  <img src=\"{{mediaPath}}{{category.categoryImage}}\" onerror=\"this.src='assets/images/spinner.gif'\" alt=\"Category Image\" style=\"width:100%;\">\n</div>\n<div class=\"container\" *ngIf=\"language == 'Hindi'\" (click)=\"singleCategory(category.categoryId,category.categoryTitleHn)\">\n  <img src=\"{{mediaPath}}{{category.categoryImage}}\" alt=\"Category Image\" style=\"width:100%;\">\n</div>\n<div class=\"text-block\">\n  <div class=\"\">\n    <div class=\"category_title\">\n      <p *ngIf=\"language == 'English'\" (click)=\"singleCategory(category.categoryId,category.categoryTitle)\">\n        {{category.categoryTitle | slice:0:30}}</p>\n      <p *ngIf=\"language == 'Hindi'\" (click)=\"singleCategory(category.categoryId,category.categoryTitleHn)\">\n        {{category.categoryTitleHn | slice:0:30}}</p>\n    </div>\n    <p class=\"postCount\">{{category.countPost}} Posts</p>\n    <button *ngIf=\"!category.isNotify\" class=\"notSubscribed\"\n      (click)=\"addNotify(category.categoryId, category.isNotify)\">\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button *ngIf=\"category.isNotify\" class=\"subscribed\"\n      (click)=\"addNotify(category.categoryId, category.isNotify)\">Subscribed</button>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -605,7 +605,7 @@ module.exports = "<ion-content class=\"background\" (swiperight)=\"goBack()\">\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-list>\n    <ion-item-sliding class=\"feeds\">\n        <ion-item>\n            <ion-col size=\"3\" class=\"newsImg\" padding>\n                <img src=\"{{mediaPath}}{{news.newsImage}}\" onerror=\"this.src='assets/images/spinner.gif'\" height=\"73px\" width=\"100%\" (click)=\"singleNews(news.newsId)\">\n            </ion-col>\n            <ion-col size=\"9\">\n                <div>\n                    <span class=\"optionsList\" *ngIf=\"language == 'English'\"\n                        [innerHTML]=\"news.newsTitleEnglish | slice:0:50\" (click)=\"singleNews(news.newsId)\"></span><span\n                        *ngIf=\"language == 'English'\"></span>\n                    <span class=\"optionsList\" *ngIf=\"language == 'Hindi'\"\n                        [innerHTML]=\"news.newsTitleHindi | slice:0:50\"></span><span *ngIf=\"language == 'Hindi'\"\n                        (click)=\"singleNews(news.newsId)\"></span>\n                    <button (click)=\"categoryClick(news.newsCategoryId, news.newsCategory)\"\n                        class=\"categoryButton\" *ngIf=\"language == 'English'\">{{news.newsCategory}}</button>\n                    <button (click)=\"categoryClick(news.newsCategoryId, news.newsCategory)\"\n                        class=\"categoryButton\" *ngIf=\"language == 'Hindi'\">{{news.newsCategoryHn}}</button>\n                    <p class=\"otherInfoSecond\"><img src=\"assets/images/lightbulb_red.png\" alt=\"\" class=\"likeImage\">\n                        {{news.likesCount}} likes <span class=\"timeAgo\"> {{news.createdAt | timeAgo}} </span></p>\n                </div>\n            </ion-col>\n        </ion-item>\n    </ion-item-sliding>\n</ion-list>"
+module.exports = "<ion-list>\n    <ion-item-sliding class=\"feeds\">\n        <ion-item>\n            <ion-col size=\"3\" class=\"newsImg\" padding>\n                <img src=\"{{mediaPath}}{{news.newsImage}}\" data-src=\"assets/images/spinner.gif'\" onerror=\"this.src='assets/images/spinner.gif'\" height=\"73px\"\n                    width=\"100%\" (click)=\"singleNews(news.newsId)\">\n            </ion-col>\n            <ion-col size=\"9\">\n                <div>\n                    <span class=\"optionsList\" *ngIf=\"language == 'English'\"\n                        [innerHTML]=\"news.newsTitleEnglish | slice:0:50\" (click)=\"singleNews(news.newsId)\"></span><span\n                        *ngIf=\"language == 'English'\"></span>\n                    <span class=\"optionsList\" *ngIf=\"language == 'Hindi'\"\n                        [innerHTML]=\"news.newsTitleHindi | slice:0:50\" (click)=\"singleNews(news.newsId)\"></span><span *ngIf=\"language == 'Hindi'\"\n                        (click)=\"singleNews(news.newsId)\"></span>\n                    <button (click)=\"categoryClick(news.newsCategoryId, news.newsCategory)\" class=\"categoryButton\"\n                        *ngIf=\"language == 'English'\">{{news.newsCategory}}</button>\n                    <button (click)=\"categoryClick(news.newsCategoryId, news.newsCategory)\" class=\"categoryButton\"\n                        *ngIf=\"language == 'Hindi'\">{{news.newsCategoryHn}}</button>\n                    <p class=\"otherInfoSecond\"><img src=\"assets/images/lightbulb_red.png\" alt=\"\" class=\"likeImage\">\n                        {{news.likesCount}} likes <span class=\"timeAgo\"> {{news.createdAt | timeAgo}} </span></p>\n                </div>\n            </ion-col>\n        </ion-item>\n    </ion-item-sliding>\n</ion-list>"
 
 /***/ }),
 
@@ -1317,11 +1317,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
 /* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/category.service */ "./src/app/services/category.service.ts");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
-/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/category.service */ "./src/app/services/category.service.ts");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
+
 
 
 
@@ -1331,23 +1333,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let CategoriesPage = class CategoriesPage {
-    constructor(_toastService, network, _categoryService, router) {
+    constructor(navParams, _toastService, network, _categoryService, router) {
+        this.navParams = navParams;
         this._toastService = _toastService;
         this.network = network;
         this._categoryService = _categoryService;
         this.router = router;
-        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_5__["config"].mediaApiUrl;
+        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_6__["config"].mediaApiUrl;
+        // console.log('this.navParams.data',navParams.data);
+        this.getCategories();
     }
     ngOnInit() {
     }
     ionViewWillEnter() {
-        this.getCategories();
+        this.language = this.navParams.data;
     }
     getCategories() {
         this.language = localStorage.getItem('language');
         this._categoryService.getAll().subscribe((res) => {
             this.categories = res;
-            console.log("after", this.categories);
+            console.log("in categories component=>>>>>>>", this.categories);
         }, (err) => {
         });
     }
@@ -1362,10 +1367,11 @@ let CategoriesPage = class CategoriesPage {
     }
 };
 CategoriesPage.ctorParameters = () => [
-    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"] },
-    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"] },
-    { type: _services_category_service__WEBPACK_IMPORTED_MODULE_4__["CategoryService"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavParams"] },
+    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_8__["ToastService"] },
+    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_7__["Network"] },
+    { type: _services_category_service__WEBPACK_IMPORTED_MODULE_5__["CategoryService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
 ];
 CategoriesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1373,7 +1379,7 @@ CategoriesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./categories.page.html */ "./node_modules/raw-loader/index.js!./src/app/categories/categories.page.html"),
         styles: [__webpack_require__(/*! ./categories.page.scss */ "./src/app/categories/categories.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _services_category_service__WEBPACK_IMPORTED_MODULE_4__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_3__["NavParams"], _services_toast_service__WEBPACK_IMPORTED_MODULE_8__["ToastService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_7__["Network"], _services_category_service__WEBPACK_IMPORTED_MODULE_5__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
 ], CategoriesPage);
 
 
@@ -1466,6 +1472,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// import {NavParams} from '@ionic/angular';
 let CategoryTilesPage = class CategoryTilesPage {
     constructor(_toastService, network, _categoryService, router) {
         this._toastService = _toastService;
@@ -1474,6 +1481,7 @@ let CategoryTilesPage = class CategoryTilesPage {
         this.router = router;
         this.onSubscribe = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_5__["config"].mediaApiUrl;
+        // console.log('this.navParams.data',navParams.data);
     }
     ngOnInit() {
         console.log("this.categories in child", this.category);

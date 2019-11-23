@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { config } from '../config';
 import { Network } from '@ionic-native/network/ngx';
 import { ToastService } from "../services/toast.service";
+// import {NavParams} from '@ionic/angular';
+
 @Component({
   selector: 'app-category-tiles',
   templateUrl: './category-tiles.page.html',
@@ -18,7 +20,9 @@ export class CategoryTilesPage implements OnInit {
 
 
   mediaPath = config.mediaApiUrl;
-  constructor(private _toastService: ToastService, private network: Network, private _categoryService: CategoryService, private router: Router) { }
+  constructor(private _toastService: ToastService, private network: Network, private _categoryService: CategoryService, private router: Router) {
+    // console.log('this.navParams.data',navParams.data);
+  }
 
   ngOnInit() {
     console.log("this.categories in child",this.category)
