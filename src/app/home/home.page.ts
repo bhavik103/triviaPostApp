@@ -16,8 +16,6 @@ import { ToastService } from "../services/toast.service";
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 import { SuperTabs } from '@ionic-super-tabs/angular';
 import { SuperTabsConfig } from '@ionic-super-tabs/core';
-import { AllPostPage } from '../all-post/all-post.page';
-import { CategoriesPage } from '../categories/categories.page';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -47,8 +45,6 @@ export class HomePage implements OnInit {
         debug: true,
         allowElementScroll: false,
     };
-    categoryPage;
-    allPostPage;
     categories: any;
     latestPost: any;
     constructor(private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
@@ -56,9 +52,8 @@ export class HomePage implements OnInit {
 
     // Event Listeners
     ngOnInit() {
+        this.firebaseLinkRoute();
         this.language = localStorage.language;
-        this.categoryPage = CategoriesPage;
-        this.allPostPage = AllPostPage;
         console.warn("ngOnInit");
         this.loading = true;
         this.viewInitFunctions();
@@ -102,6 +97,19 @@ export class HomePage implements OnInit {
         this.checkforInternet();
     }
 
+    //go to specific post when link click
+    firebaseLinkRoute() {
+        if (!config.isvisited && !config.counter) {
+            this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
+                var postId = res.deepLink.split('?')[1].split('=')[1];
+                console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1])
+                console.log('Is Visited:------------- 1', config.isvisited);
+                this.router.navigate(['single-post/' + postId]);
+            }, (error: any) => {
+                console.log(error)
+            });
+        }
+    }
     //check for internet
     checkforInternet() {
         var offline = Observable.fromEvent(document, "offline");

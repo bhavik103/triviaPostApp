@@ -28,8 +28,6 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import * as Hammer from 'hammerjs';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { AllPostPageModule } from "./all-post/all-post.module";
-import { CategoriesPageModule } from "./categories/categories.module";
 import { all } from 'q';
 import { StarRatingModule } from 'ionic4-star-rating';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
@@ -49,7 +47,7 @@ export class HammerConfig extends HammerGestureConfig {
   declarations: [AppComponent, SettingsComponent, LoginComponent, FeedbackComponent, PrivacyComponent,
     SearchbarComponent, TermsAndCondComponent],
   entryComponents: [],
-  imports: [SuperTabsModule.forRoot(),StarRatingModule,CategoriesPageModule,AllPostPageModule,FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [SuperTabsModule.forRoot(),StarRatingModule,FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
     AppVersion,
     NativePageTransitions,

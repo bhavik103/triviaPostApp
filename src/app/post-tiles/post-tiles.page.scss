@@ -5,9 +5,14 @@ ion-icon.homeBack.md.hydrated {
   margin-left: 10px;
 }
 .newsImg {
-  margin: auto 0 !important;
-  padding: 6px;
+  padding: 0;
   height: 88px;
+  min-width: 98px;
+  background: url("assets/images/spinner.gif");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 50%;
+  background-position: center;
 }
 .latestPost {
   padding: 0;
@@ -100,7 +105,7 @@ img.likeImage {
   bottom: 0;
   margin: auto;
 }
-.timeAgo{
+.timeAgo {
   opacity: 0.8;
   font-weight: normal;
 }
