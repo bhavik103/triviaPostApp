@@ -44,6 +44,7 @@ export class HomePage implements OnInit {
     config: SuperTabsConfig = {
         debug: true,
         allowElementScroll: false,
+        transitionDuration: 100
     };
     categories: any;
     latestPost: any;
@@ -124,7 +125,6 @@ export class HomePage implements OnInit {
             this.hide = true;
         });
     }
-
     //get categories
     getCategories() {
         this.language = localStorage.getItem('language');
@@ -135,7 +135,6 @@ export class HomePage implements OnInit {
             (err) => {
             });
     }
-
     //change on subscription of category
     subscribedCategory(e) {
         console.log("Event e", e);
@@ -145,7 +144,6 @@ export class HomePage implements OnInit {
             this.categories.find((o) => o.categoryId === e.catId).isNotify = true;
         }
     }
-
     //get all news - HOME PAGE ( FEEDS )
     getAllPost() {
         this.language = localStorage.getItem('language');
@@ -160,12 +158,10 @@ export class HomePage implements OnInit {
                 this.newsArray = localStorage.newsArray;
             });
     }
-
     //navigate to searchbar
     search() {
         this.router.navigateByUrl('/searchBar');
     }
-
     // Notification and utility
     notificationTapped() {
         this.fcm.onNotification().subscribe(data => {
@@ -177,8 +173,6 @@ export class HomePage implements OnInit {
             }
         });
     }
-
-
     //set fcm token
     fcmToken() {
         console.log("in fcmtoken function");
