@@ -9,6 +9,7 @@ import { ToastService } from "../services/toast.service";
 import { Platform } from '@ionic/angular';
 import 'hammerjs';
 import * as $ from 'jquery';
+import { Keyboard } from '@ionic-native/keyboard/ngx';
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
 	emailLogin: any;
 	email: any;
 	postId: any;
-	constructor(private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
+	constructor(private keyboard: Keyboard,private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
 	ngOnInit() {
 		this.platform.backButton.subscribe(async () => {
 			if (this.router.url.includes('login')) {
@@ -120,6 +121,7 @@ export class LoginComponent implements OnInit {
 
 	signup(user) {
 		this.loading = true;
+		this.keyboard.hide();
 		this._userService.signup(user).subscribe((res: any) => {
 			this.loading = false;
 			this._toastService.toastFunction(res.message, 'success');
@@ -178,8 +180,11 @@ export class LoginComponent implements OnInit {
 	}
 
 	signInRoute() {
+		this.keyboard.hide();
 		this.emailLogin = $('#emailInput').val();
 		localStorage.setItem('email', this.emailLogin);
-		this.router.navigateByUrl('/signin')
+		setTimeout(() => {
+			this.router.navigateByUrl('/signin')
+		}, 1000);
 	}
 }

@@ -15,7 +15,7 @@
         class="categoryButton" *ngIf="language == 'Hindi' && !singleCat">{{news.newsCategoryHn}}</button>
       <p class="latestNewsInfo"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
         {{news.likesCount}}
-        likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
+        likes | <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
     </div>
   </ion-col>
 </ion-row>
