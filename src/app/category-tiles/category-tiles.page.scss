@@ -32,9 +32,10 @@ p {
   right: 0;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 0;
+  height: 160px;
 }
 .container img {
-  height: 184px;
+  height: 160px;
   object-fit: cover;
 }
 .postCount {
@@ -67,8 +68,10 @@ p {
   background-color: #fff;
   border: 1px solid var(--main-app-color);
   color: var(--main-app-color);
+  border-radius: 5px;
 }
 .subscribed {
   color: #fff;
   background-color: var(--main-app-color);
+  border-radius: 5px;
 }

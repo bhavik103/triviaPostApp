@@ -42,7 +42,6 @@ export class HomePage implements OnInit {
     };
 
     config: SuperTabsConfig = {
-        debug: true,
         allowElementScroll: false,
         transitionDuration: 100
     };
@@ -64,6 +63,7 @@ export class HomePage implements OnInit {
         this.subscription = this.platform.backButton.subscribe(() => {
             navigator['app'].exitApp();
         });
+        this.notificationTapped();
     }
     ionViewWillLeave() {
         this.subscription.unsubscribe();
@@ -72,7 +72,6 @@ export class HomePage implements OnInit {
     viewInitFunctions() {
         console.log('this.firebaseDynamicLinks', this.firebaseDynamicLinks);
 
-        this.notificationTapped();
         this.notifyflag = localStorage.getItem('notification');
         this.language = localStorage.language;
         // Notification
@@ -180,11 +179,13 @@ export class HomePage implements OnInit {
             console.log("inside get fcmtoken", token);
             localStorage.setItem('deviceToken', token);
             setTimeout(() => {
-                this._userService.firstTimeUser().subscribe((res: any) => {
-                    localStorage.setItem('annonymousNotify', 'true');
-                },
-                    (err) => {
-                    });
+                if (localStorage.getItem('annonymousNotify')) {
+                    this._userService.firstTimeUser().subscribe((res: any) => {
+                        localStorage.setItem('annonymousNotify', 'true');
+                    },
+                        (err) => {
+                        });
+                }
             }, 1000);
         });
         this.fcm.onTokenRefresh().subscribe(token => {

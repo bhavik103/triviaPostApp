@@ -7,13 +7,13 @@
         </ion-title>
     </ion-toolbar>
 </ion-header>
-<super-tabs activeTabIndex="0" [config]="config">
+<super-tabs activeTabIndex="1" [config]="config">
     <super-tabs-toolbar slot="top">
-        <super-tab-button (click)="click($event)">
+        <super-tab-button>
             <ion-label>Categories</ion-label>
         </super-tab-button>
-        <super-tab-button (click)="click($event)">
-            <ion-label>All feeds</ion-label>
+        <super-tab-button>
+            <ion-label>Feeds</ion-label>
         </super-tab-button>
     </super-tabs-toolbar>
 
@@ -22,7 +22,7 @@
         <super-tab>
             <ion-content>
                 <ion-row *ngIf="categories">
-                    <ion-col size="6" *ngFor="let category of categories">
+                    <ion-col size="6" *ngFor="let category of categories" class="categoryTiles">
                         <app-category-tiles [category]="category" (onSubscribe)="subscribedCategory($event, isNotify)"
                             [language]="language"></app-category-tiles>
                     </ion-col>

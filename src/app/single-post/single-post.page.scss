@@ -7,17 +7,27 @@ p {
   margin-top: 12px;
   margin-left: 10px;
 }
-ion-back-button{
-  margin: 0!important;
+ion-back-button {
+  margin: 0 !important;
 }
-.postImage img {
+.postImage {
+  object-fit: cover;
+  max-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   min-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
 }
 .postTitle p {
   font-size: 30px;
   font-weight: 500;
   padding-left: 10px;
   letter-spacing: 0.5px;
+  padding-top: 43px;
 }
 
 .subPostTitle,
@@ -31,7 +41,7 @@ ion-back-button{
   font-weight: 400;
 }
 .createdBy {
-  font-weight: 600!important;
+  font-weight: 600 !important;
   font-size: 13px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -43,7 +53,7 @@ ion-back-button{
 }
 
 .shareImage {
-  height: 20px;
+  height: 22px;
   float: right;
   margin: 15px;
 }
@@ -64,12 +74,12 @@ a.float:hover + div.label-container {
 }
 .unbookmark {
   color: var(--main-app-color);
-  font-size: 18px;
+  font-size: 25px;
 }
 
 .bookmarked {
   color: #cbc9c9;
-  font-size: 18px;
+  font-size: 25px;
 }
 .actionButton {
   font-size: 22px;
@@ -86,10 +96,14 @@ a.float:hover + div.label-container {
   padding-right: 5px;
   margin-top: 2px;
 }
+.singleNews {
+  border-bottom: 1px solid rgb(238, 238, 238);
+}
 ion-title {
   float: left;
   line-height: 46px;
   padding-left: 10px;
+  padding-top: 1px;
 }
 .liked {
   color: var(--main-app-color);
@@ -109,8 +123,12 @@ ion-title {
   text-align: center;
   box-shadow: 2px 2px 3px #999;
   z-index: 111;
+  opacity: 0.7;
 }
-.floatShare{
+.float img {
+  margin-top: 31%;
+}
+.floatShare {
   bottom: 11%;
   right: 40px;
 }
@@ -158,38 +176,55 @@ ion-title {
 }
 
 @-webkit-keyframes sk-bouncedelay {
-  0%, 80%, 100% { -webkit-transform: scale(0) }
-  40% { -webkit-transform: scale(1.0) }
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+  }
 }
 
 @keyframes sk-bouncedelay {
-  0%, 80%, 100% { 
+  0%,
+  80%,
+  100% {
     -webkit-transform: scale(0);
     transform: scale(0);
-  } 40% { 
-    -webkit-transform: scale(1.0);
-    transform: scale(1.0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
   }
 }
-.imageCredit{
+.imageCredit {
   float: right;
-  margin-right: 20px;
+  margin: 13px 13px 0px 13px;
 }
-.postTitle{
-  margin-top: 36px;
-}
+// .postTitle {
+//   margin-top: 35px;
+// }
 .likesSpan img {
   height: 18px;
 }
-.newsInfo span{
+.newsInfo span {
   font-weight: 700;
 }
-.srcLink{
+.srcLink {
   color: var(--main-app-color);
 }
 .container {
   position: relative;
   font-family: Arial;
+  padding-top: calc(100% * 9 / 16);
+  overflow: hidden;
+}
+
+.alsoRead {
+  font-size: 20px;
+  font-weight: bolder;
+  padding: 20px 0px 20px 10px;
 }
 .category_title {
   display: inline-block;
@@ -203,16 +238,17 @@ ion-title {
   font-weight: 700;
   font-size: 17px;
 }
-.container:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: 0;
-}
+// .container:after {
+//   content: "";
+//   position: absolute;
+//   top: 0;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
+//   background-color: rgba(0, 0, 0, 0.4);
+//   z-index: 0;
+//   height: 100%;
+// }
 .category_title p {
   background-color: var(--main-app-color);
   padding: 5px;
@@ -220,7 +256,7 @@ ion-title {
   opacity: 0.9;
   font-size: 13px;
 }
-.contentFeeds{
+.contentFeeds {
   height: 110px;
 }
 .categoryButton {
@@ -230,7 +266,7 @@ ion-title {
   color: #fff;
   padding: 5px;
   border-radius: 8px;
-  z-index:-1;
+  z-index: -1;
 }
 .otherInfo {
   margin: 0px auto;
@@ -256,6 +292,7 @@ img.likeImage {
 .optionsList {
   margin: 0px auto;
   font-weight: 700;
+  font-size: 15.5px;
 }
 .newsImg img {
   width: 100%;
@@ -273,14 +310,14 @@ img.likeImage {
 .feeds {
   margin-bottom: 10px;
 }
-.timeAgo{
+.timeAgo {
   opacity: 0.8;
   font-weight: normal;
 }
-.imgCredit span{
-  color:var(--main-app-color);
+.imgCredit span {
+  color: var(--main-app-color);
   font-weight: 600;
 }
-.imgCredit{
+.imgCredit {
   font-size: 12px;
 }

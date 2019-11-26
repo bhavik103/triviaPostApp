@@ -4,7 +4,7 @@
 }
 .latestPost {
   padding: 0;
-  height: 360px;
+  height: 250px;
   background: url("assets/images/spinner.gif");
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -20,9 +20,10 @@
   right: 0;
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 0;
+  height: 250px;
 }
 .latestpostimg {
-  height: 360px;
+  height: 250px;
   object-fit: cover;
 }
 .textBlock {
@@ -37,6 +38,7 @@
   height: 110px;
 }
 .categoryButton {
+  font-size: 11px;
   display: block;
   margin-top: 4%;
   background-color: var(--main-app-color);
@@ -82,7 +84,7 @@ img.likeImage {
   color: var(--main-app-color);
 }
 .latestNews {
-  font-size: 30px;
+  font-size: 27px;
   font-weight: 800;
 }
 .feeds {

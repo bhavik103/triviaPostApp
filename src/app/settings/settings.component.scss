@@ -59,10 +59,12 @@ ion-icon {
 }
 
 .optionsList {
-  font-size: 18px;
+  font-size: 22px;
   color: gray;
 }
-
+.languageRow{
+  margin-bottom: 14px;
+}
 .switch input {
   position: absolute;
   opacity: 0;
@@ -182,7 +184,7 @@ ion-icon {
   display: none !important;
 }
 #ratingRow {
-  padding: 10px 10px 10px 10px;
+  padding: 50px 10px 10px 10px;
   position: relative;
   width: 100%;
   display: table;
@@ -197,12 +199,14 @@ ion-icon {
   min-height: calc(100vh - 170px - 56px);
 }
 
-.loggedInDiv{
+.loggedInDiv {
   min-height: calc(100vh - 56px);
 }
 .optionsDiv > ion-col {
   padding: 0;
+  height: 30px;
 }
+
 #ratingRow > img {
   position: absolute;
   bottom: 0;
@@ -210,11 +214,12 @@ ion-icon {
   right: 0;
   z-index: 0;
   min-width: 100%;
+  height: 320px;
 }
 .settings.settingIcon {
   position: relative;
   z-index: 11;
-  padding: 10px;
+  padding: 0 7px;
 }
 .logo {
   margin: auto;

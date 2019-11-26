@@ -91,8 +91,6 @@ export class AppComponent {
           console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1])
 
           console.log('Is Visited In App Component:-------------', config.isvisited);
-
-
           // if (!config.isvisited) {
           //   this.router.navigate(['single-post/' + postId]);
           //   config.isvisited = true;

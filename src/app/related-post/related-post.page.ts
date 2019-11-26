@@ -12,10 +12,15 @@ import { config } from '../config';
 export class RelatedPostPage implements OnInit {
   @Input() news: string;
   @Input() language: string;
+  @Input() postCount: any;
   mediaPath = config.mediaApiUrl;
   constructor(private router: Router) { }
 
   ngOnInit() {
+    if(this.postCount <= 1){
+      $('.relatedPostRow').addClass('borderClass');
+      console.log("GOT 4",this.postCount);
+    }
   }
 
   singleNews(postid) {

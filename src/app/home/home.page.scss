@@ -169,3 +169,9 @@ img.bookmark {
 .active ion-label{
   color: var(--main-app-color) !important;
 }
+ion-label{
+  text-transform: none!important;
+}
+.categoryTiles{
+  padding-right: 8.5px;
+}

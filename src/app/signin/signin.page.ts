@@ -43,7 +43,7 @@ export class SigninPage implements OnInit {
     this._userService.customLogin(login).subscribe((res: any) => {
       this.loading = false;
       this._toastService.toastFunction(res.message, 'success');
-      this.router.navigate(['home/categories']);
+      this.router.navigate(['home']);
     }, err => {
       this.loading = false;
       this._toastService.toastFunction(err.error.message, 'success');

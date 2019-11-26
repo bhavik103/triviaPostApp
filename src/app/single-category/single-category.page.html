@@ -7,11 +7,11 @@
 
 <ion-content (swiperight)="goToCategories()" ion-padding>
     <ion-row class="feeds" *ngIf="news">
-        <app-large-post [news]="news" [language]="language"></app-large-post>
+        <app-large-post [news]="news" [language]="language" [singleCat]="true"></app-large-post>
     </ion-row>
     <ion-row class="feeds" *ngIf="news && newsArray && newsArray.length">
         <span *ngFor="let news of newsArray;">
-            <app-post-tiles [news]="news" [language]="language"></app-post-tiles>
+            <app-post-tiles [news]="news" [language]="language" [singleCat]="true"></app-post-tiles>
         </span>
     </ion-row>
     <ion-row class="onePost" *ngIf="newsArrayLength">

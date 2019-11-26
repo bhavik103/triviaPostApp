@@ -30,7 +30,7 @@
 	</div>
 
 	<div class="optionsDiv">
-		<ion-col size="12">
+		<ion-col size="12" class="languageRow">
 			<ion-row>
 				<ion-col size="2" class="langColTwo">
 					<span>Aa</span>
@@ -155,11 +155,11 @@
 
 		<ion-row id="ratingRow">
 			<img src="assets/images/settingBackground.png" alt="">
-			<div class="logo">
+			<!-- <div class="logo">
 				<img src="assets/images/Logo.png" height="70px" alt="">
-			</div>
+			</div> -->
 			<div id="ratingHead" *ngIf="!rating">How was the experience with us?</div>
-			<div id="ratingHead" *ngIf="rating">Excellent !</div>
+			<div id="ratingHead" *ngIf="rating">Thank You!</div>
 			<div id="rating">
 				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline"
 					activeColor="#F18D16" defaultColor="#ddd" readonly="false" fontSize="32px" rating="0"

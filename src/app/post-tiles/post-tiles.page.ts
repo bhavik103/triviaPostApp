@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./post-tiles.page.scss'],
 })
 export class PostTilesPage implements OnInit {
-
+  @Input('singleCat') singleCat: any;
   @Input('news') news: string;
   @Input('language') language: string;
   mediaPath = config.mediaApiUrl;

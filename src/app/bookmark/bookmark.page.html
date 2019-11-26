@@ -14,9 +14,9 @@
         </ion-col>
         <ion-col size="9">
           <div>
-            <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish"
-              (click)="getSingleBookmark(news.newsId)"></span><span *ngIf="language == 'English'"></span>
-            <span class="optionsList" *ngIf="language == 'Hindi'" [innerHTML]="news.newsTitleHindi"></span><span
+            <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish | slice:0:55"
+              (click)="getSingleBookmark(news.newsId)"></span><span *ngIf="news.newsTitleEnglish.length >= 55 && language == 'English'">...</span><span *ngIf="language == 'English'"></span>
+            <span class="optionsList" *ngIf="language == 'Hindi'" [innerHTML]="news.newsTitleHindi | slice:0:55"></span><span *ngIf="news.newsTitleHindi.length >= 55 && language == 'Hindi'">...</span><span
               *ngIf="language == 'Hindi'" (click)="getSingleBookmark(news.newsId)"></span>
             <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
               class="categoryButton">{{news.newsCategory}}</button>

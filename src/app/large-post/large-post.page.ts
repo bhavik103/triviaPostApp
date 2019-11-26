@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LargePostPage implements OnInit {
   @Input('news') news: any;
+  @Input('singleCat') singleCat: any;
   @Input('language') language: string;
   mediaPath = config.mediaApiUrl;
   constructor(private router: Router) {

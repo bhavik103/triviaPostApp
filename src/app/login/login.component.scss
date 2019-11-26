@@ -410,6 +410,7 @@ input#remember:checked + label:before {
 
 .socialCenter {
   line-height: 1.9;
+  margin-right: 10%;
 }
 .socialIcon {
   float: left;
@@ -452,7 +453,7 @@ input#remember:checked + label:before {
   margin: 0 22px;
 }
 #emailInput {
-  height: 48px;
+  height: 35px;
   width: 100%;
   padding-left: 10px;
   outline: none;

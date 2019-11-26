@@ -10,6 +10,20 @@
 */
 
 /* Core CSS required for Ionic components to work properly */
+//page navigation animation
+// ion-router-outlet > .ion-page {
+//   animation: fadeIn 0.3s 1 forwards;
+// }
+// @keyframes fadeIn {
+//   0% {
+//     opacity: 0;
+//     transform: translate3d(0, 5vh, 0);
+//   }
+//   100% {
+//     opacity: 1;
+//     transform: translate3d(0, 0, 0);
+//   }
+// }
 
 @import "~@ionic/angular/css/core.css";
 
@@ -31,19 +45,14 @@
 //color variable root
 // var(--main-app-color);
 :root {
-  --main-app-color: #ed2424;
+  --main-app-color: #E41212;
+  --main-tool-color: #FB3C4A;
 }
 ion-icon:focus,
 #feedsLink:focus {
   outline: none;
 }
 
-// @font-face {
-//     font-family: 'Arial';
-//     src: url('./assets/fonts/OldNewspaperTypes.ttf');
-//     font-weight: 200;
-//     font-style: normal;
-// }
 * {
   font-family: "Arial";
 }
@@ -57,27 +66,13 @@ ion-spinner {
   margin: auto;
 }
 
-//page navigation animation
-// ion-router-outlet > .ion-page {
-//   animation: fadeIn 0.3s 1 forwards;
-// }
-// @keyframes fadeIn {
-//   0% {
-//     opacity: 0;
-//     transform: translate3d(0, 5vh, 0);
-//   }
-//   100% {
-//     opacity: 1;
-//     transform: translate3d(0, 0, 0);
-//   }
-// }
 
 * {
   outline: none;
 }
 
 ion-header ion-toolbar:first-child {
-  --background: #ce2837 !important;
+  --background: #E41212 !important;
 }
 
 ion-toolbar {
@@ -116,6 +111,11 @@ ion-toolbar {
   display: block;
   width: 100%;
   text-align: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 
 #loader-wrapper {

@@ -1,4 +1,4 @@
-<ion-list>
+<ion-list lines="none">
     <ion-item-sliding class="feeds">
         <ion-item>
             <ion-col size="3" class="newsImg" padding>
@@ -14,9 +14,9 @@
                         [innerHTML]="news.newsTitleHindi | slice:0:50" (click)="singleNews(news.newsId)"></span><span *ngIf="language == 'Hindi'"
                         (click)="singleNews(news.newsId)"></span>
                     <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
-                        *ngIf="language == 'English'">{{news.newsCategory}}</button>
+                        *ngIf="language == 'English' && !singleCat">{{news.newsCategory}}</button>
                     <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
-                        *ngIf="language == 'Hindi'">{{news.newsCategoryHn}}</button>
+                        *ngIf="language == 'Hindi' && !singleCat">{{news.newsCategoryHn}}</button>
                     <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
                         {{news.likesCount}} likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
                 </div>

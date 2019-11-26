@@ -24,7 +24,6 @@ export class SettingsComponent implements OnInit {
 	privacyPolicy: any;
 	annonymousNotify: any;
 	rating: any;
-
 	customActionSheetOptions: any = {
 		addCancelButtonWithLabel: false,
 	};
@@ -34,28 +33,35 @@ export class SettingsComponent implements OnInit {
 	constructor(private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
 	}
 
-	ionViewWillEnter(){
-		this.tokenLocalStorage = localStorage.getItem('accessToken');
-		if(this.tokenLocalStorage){
+	ionViewWillEnter() {
+		this.displayFirstChar();
+		if (this.tokenLocalStorage) {
 			$(".optionsDiv").addClass("loggedInDiv");
+		} else {
+			$(".optionsDiv").removeClass("loggedInDiv");
+		}
+		if (this.tokenLocalStorage) {
+			this.getUserDetail();
 		}
 	}
 
 	ngOnInit() {
 		this.getUserRating();
 		this.getUrl();
-		this.platform.backButton.subscribe(async () => {
-			this.router.navigate(['home/categories']);
-		});
-
 		this.notifyFlag = localStorage.getItem('notification');
 		this.annonymousNotify = localStorage.getItem('annonymousNotify');
 		console.log(this.annonymousNotify);
-		if(this.tokenLocalStorage){
-			console.log("token");
-			$('.settings').css('padding-top','23px');
+		this.language = localStorage.getItem('language');
+	}
 
-		}
+	//remove cancel button for language 
+	removeCancelButton() {
+		(document.querySelector('.action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-md') as HTMLElement).style.display = 'none';
+	}
+
+	//for displaying first character
+	displayFirstChar() {
+		this.tokenLocalStorage = localStorage.getItem('accessToken');
 		if (this.tokenLocalStorage) {
 			var base64Url = this.tokenLocalStorage.split('.')[1];
 			var base64 = base64Url.replace('-', '+').replace('_', '/');
@@ -64,16 +70,9 @@ export class SettingsComponent implements OnInit {
 				this.firstCharUser = decodedToken.user.email.charAt(0).toUpperCase();
 			}
 		}
-		this.language = localStorage.getItem('language');
-
-		if (this.tokenLocalStorage) {
-			this.getUserDetail();
-		}
 	}
 
-	removeCancelButton() {
-		(document.querySelector('.action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-md') as HTMLElement).style.display = 'none';
-	}
+	//for getting app link for sharing app
 	getUrl() {
 		this._generalService.getPolicy().subscribe(
 			(res: any) => {
@@ -83,6 +82,8 @@ export class SettingsComponent implements OnInit {
 				this.error = err;
 			});
 	}
+
+	//forlogout action sheet
 	async logout() {
 		const actionSheet = await this.actionSheetController.create({
 			buttons: [{
@@ -111,6 +112,7 @@ export class SettingsComponent implements OnInit {
 		await actionSheet.present();
 	}
 
+	//share app
 	sendShare() {
 		var message = "An awesome news app that is only you need!";
 		var subject = "Install Trivia Post";
@@ -125,16 +127,14 @@ export class SettingsComponent implements OnInit {
 			});
 	}
 
+	//changing language
 	languageChange($event) {
 		var language = $event.target.value;
 		localStorage.setItem('language', language);
-		this.changeLanOnClick();
-	}
-
-	changeLanOnClick() {
 		this.language = localStorage.getItem('language');
 	}
 
+	//notify toggle function
 	notificationSwitch(e) {
 		localStorage.setItem('notification', e.target.checked);
 		localStorage.setItem('annonymousNotify', e.target.checked);
@@ -149,6 +149,7 @@ export class SettingsComponent implements OnInit {
 		})
 	}
 
+	//user detail for notification switch
 	getUserDetail(): void {
 		this._userService.getUserDetail().subscribe(
 			(res: any) => {
@@ -159,6 +160,7 @@ export class SettingsComponent implements OnInit {
 			});
 	}
 
+	//rate change on submit
 	logRatingChange() {
 		console.log($("ion-icon[ng-reflect-name='ios-star']").length);
 		this.ratings = $("ion-icon[ng-reflect-name='ios-star']").length;
@@ -168,6 +170,7 @@ export class SettingsComponent implements OnInit {
 		this.userRating = localStorage.getItem('rating');
 	}
 
+	//getting user ratings
 	getUserRating() {
 		if (localStorage.getItem('rating')) {
 			this.rating = true;

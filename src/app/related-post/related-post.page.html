@@ -1,4 +1,4 @@
-<ion-row>
+<ion-row class="relatedPostRow{{postCount}}">
   <ion-col size="4" class="newsImg">
     <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%" (click)="singleNews(news.newsId)">
   </ion-col>
@@ -8,12 +8,11 @@
     <span *ngIf="language == 'English' && news.newsTitleEnglish.length >= 60">...</span>
     <span class="optionsList" *ngIf="language == 'Hindi'" (click)="singleNews(news.newsId)"
       [innerHTML]="news.newsTitleHindi | slice:0:60"></span>
-    <span (click)="singleNews(news.newsId)"
-      *ngIf="language == 'Hindi' && news.newsTitleHindi.length >= 60">...</span>
-    <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-      class="categoryButton" *ngIf="language == 'English' || !news.newsCategoryHn">{{news.newsCategory}}</button>
-      <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-      class="categoryButton" *ngIf="language == 'Hindi' && news.newsCategoryHn">{{news.newsCategoryHn}}</button>
+    <span (click)="singleNews(news.newsId)" *ngIf="language == 'Hindi' && news.newsTitleHindi.length >= 60">...</span>
+    <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
+      *ngIf="language == 'English' || !news.newsCategoryHn">{{news.newsCategory}}</button>
+    <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
+      *ngIf="language == 'Hindi' && news.newsCategoryHn">{{news.newsCategoryHn}}</button>
     <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
       {{news.likesCount}} likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
   </ion-col>
