@@ -26,6 +26,7 @@ export class SinglePostPage implements OnInit {
   backKeySearch: boolean;
   loading: boolean;
   news: any;
+  singleNewsLoading: any;
   constructor(private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
@@ -71,7 +72,6 @@ export class SinglePostPage implements OnInit {
       this.loggedInUser = decodedToken.user._id;
     }
     this._newsService.getSingleNews(postId).subscribe(res => {
-      this.loading = false;
       const singlepostArray = [];
       console.log("NEWS", res)
       singlepostArray.push(res);
@@ -98,18 +98,32 @@ export class SinglePostPage implements OnInit {
       this.news = res[0];
       console.log('this.news=>>>>>>>>>>', this.news)
       this.singlepost.splice(0, 1);
-      // console.log("News Title", this.singlepost[0]['newsTitleEnglish'])
+      console.log("News single", this.news.newsEnglish);
+
+      //condition for youtube icon
+      if (!this.news.newsEnglish.includes("https://img.icons8.com/color/96/000000/youtube-play.png")) {
+        this.loading = false;
+        this.singleNewsLoading = false;
+      }else{
+        this.singleNewsLoading = true;
+        setTimeout(() => {
+          $('.singleNews').css('visibility','hidden');
+        }, 0.1);
+      }
+
       this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.singlepost[0]['newsTitleEnglish'] }).then(res => {
         console.log("Post Tracked", this.singlepost[0]['newsTitleEnglish'])
       })
+
+      //for youtube play icon
+      setTimeout(() => {
+        $("[src='https://img.icons8.com/color/96/000000/youtube-play.png']").css({ "position": "absolute", "margin-top": "22%", "margin-left": "33%", "pointer-events": "none" });
+        $('.singleNews').css('visibility','visible');
+        this.loading = false;
+        this.singleNewsLoading = false;
+      }, 1000);
     });
   }
-
-  titleCaseWord(word: string) {
-    if (!word) return word;
-    return word[0].toUpperCase() + word.substr(1).toLowerCase();
-  }
-
   //  Do Share Post 
   sharePost(link: string, newsTitle: string, newsImage) {
     var message = "Check out this amazing news " + '"' + newsTitle + '" ';
@@ -180,7 +194,6 @@ export class SinglePostPage implements OnInit {
   openWithSystemBrowser(url) {
     let target = "_blank";
     this.iab.create(url, `_blank`);
-
   }
   singleNews(postid) {
     console.log('postid', postid);

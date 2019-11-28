@@ -137,10 +137,10 @@ export class HomePage implements OnInit {
     //change on subscription of category
     subscribedCategory(e) {
         console.log("Event e", e);
-        if (e.isNotify == true) {
-            this.categories.find((o) => o.categoryId === e.catId).isNotify = false;
-        } else {
+        if (e.statusCode == 1) {
             this.categories.find((o) => o.categoryId === e.catId).isNotify = true;
+        } else if(e.statusCode == 0){
+            this.categories.find((o) => o.categoryId === e.catId).isNotify = false;
         }
     }
     //get all news - HOME PAGE ( FEEDS )

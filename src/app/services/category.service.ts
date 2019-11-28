@@ -45,6 +45,7 @@ export class CategoryService {
 				this.http.get(config.baseApiUrl + "category").subscribe(
 					(result: object) => {
 						this.categories = result['data'];
+						this.notifyChange();
 						console.log('this.categories', this.categories)
 						localStorage.setItem('categoryArray', JSON.stringify(this.categories))
 						observer.next(this.categories);
@@ -57,6 +58,7 @@ export class CategoryService {
 		}
 	}
 
+	//append notification key
 	notifyChange() {
 		_.forEach(this.categories, (user) => {
 			_.forEach(user.notify, (Id) => {
@@ -69,6 +71,7 @@ export class CategoryService {
 		})
 	}
 
+	//subcribing category
 	notifyUser(catId) {
 		console.log(catId);
 		return this.http.put(config.baseApiUrl + "category-notify", { categoryId: catId });

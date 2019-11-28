@@ -36,6 +36,7 @@ export class CategoryTilesPage implements OnInit {
   }
 
   addNotify(catId,isNotify) {
+    console.log('isNotify',isNotify)
     if (this.network.type == 'none') {
       const message = "No internet connection";
       const color = "danger";
@@ -43,7 +44,7 @@ export class CategoryTilesPage implements OnInit {
     } else {
       this._categoryService.notifyUser(catId).subscribe((res: any) => {
         this._toastService.toastFunction(res.message, 'success');
-        var emitObject = {catId: catId, isNotify: isNotify}
+        var emitObject = {catId: catId, statusCode: res.statusCode}
         this.onSubscribe.emit(emitObject);
       }, err => {
         this._toastService.toastFunction(err.error.message, 'danger');
