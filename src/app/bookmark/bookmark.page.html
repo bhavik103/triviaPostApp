@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-icon name="arrow-round-back" class="homeBack" routerLink="/settings" float-left></ion-icon>
-    <ion-title>Bookmark</ion-title>
+    <ion-title>Bookmarks</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,11 +15,15 @@
         <ion-col size="9">
           <div>
             <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish | slice:0:55"
-              (click)="getSingleBookmark(news.newsId)"></span><span *ngIf="news.newsTitleEnglish.length >= 55 && language == 'English'">...</span><span *ngIf="language == 'English'"></span>
+              (click)="getSingleBookmark(news.newsId)"></span>
+              
+              <span *ngIf="news.newsTitleEnglish.length >= 55 && language == 'English'">...</span><span *ngIf="language == 'English'"></span>
             <span class="optionsList" *ngIf="language == 'Hindi'" [innerHTML]="news.newsTitleHindi | slice:0:55"></span><span *ngIf="news.newsTitleHindi.length >= 55 && language == 'Hindi'">...</span><span
               *ngIf="language == 'Hindi'" (click)="getSingleBookmark(news.newsId)"></span>
-            <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-              class="categoryButton">{{news.newsCategory}}</button>
+            <span (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton" *ngIf="language == 'English'">{{news.newsCategory}}</span>
+              <span (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton" *ngIf="language == 'Hindi'">{{news.newsCategoryHn}}</span>
               <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
                 {{news.likesCount}} likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
           </div>

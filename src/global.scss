@@ -44,6 +44,12 @@
 
 //color variable root
 // var(--main-app-color);
+
+@font-face {
+  font-family: Rubik;
+  src: url('assets/fonts/Rubik-Regular.ttf');
+}
+
 :root {
   --main-app-color: #E41212;
   --main-tool-color: #FB3C4A;
@@ -54,7 +60,7 @@ ion-icon:focus,
 }
 
 * {
-  font-family: "Arial";
+  font-family: Rubik!important;
 }
 
 ion-spinner {

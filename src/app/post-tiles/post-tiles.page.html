@@ -5,7 +5,7 @@
                 <img src="{{mediaPath}}{{news.newsImage}}" data-src="assets/images/spinner.gif'" onerror="this.src='assets/images/spinner.gif'" height="73px"
                     width="100%" (click)="singleNews(news.newsId)" class="loading">
             </ion-col>
-            <ion-col size="9">
+            <ion-col size="9" class="postDescription">
                 <div>
                     <span class="optionsList" *ngIf="language == 'English'"
                         [innerHTML]="news.newsTitleEnglish | slice:0:50" (click)="singleNews(news.newsId)"></span><span
@@ -13,10 +13,10 @@
                     <span class="optionsList" *ngIf="language == 'Hindi'"
                         [innerHTML]="news.newsTitleHindi | slice:0:50" (click)="singleNews(news.newsId)"></span><span *ngIf="language == 'Hindi'"
                         (click)="singleNews(news.newsId)"></span>
-                    <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
-                        *ngIf="language == 'English' && !singleCat">{{news.newsCategory}}</button>
-                    <button (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
-                        *ngIf="language == 'Hindi' && !singleCat">{{news.newsCategoryHn}}</button>
+                    <span (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
+                        *ngIf="language == 'English' && !singleCat">{{news.newsCategory}}</span>
+                    <span (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
+                        *ngIf="language == 'Hindi' && !singleCat">{{news.newsCategoryHn}}</span>
                     <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
                         {{news.likesCount}} likes |<span class="timeAgo">{{news.createdAt | timeAgo}} </span></p>
                 </div>

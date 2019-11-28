@@ -1,9 +1,11 @@
 ion-icon {
   color: var(--main-app-color);
-  font-size: 20px;
+  font-size: 26px;
   margin-left: 10px;
 }
-
+ion-col div{
+  padding-top: 2px;
+}
 .loginDiv {
   height: 170px;
   border-bottom: 1px solid #ddd;
@@ -59,11 +61,8 @@ ion-icon {
 }
 
 .optionsList {
-  font-size: 22px;
+  font-size: 16px;
   color: gray;
-}
-.languageRow{
-  margin-bottom: 14px;
 }
 .switch input {
   position: absolute;
@@ -76,10 +75,9 @@ ion-icon {
 
 .switch {
   display: inline-block;
-  font-size: 20px; /* 1 */
+  font-size: 20px;
   height: 1em;
   width: 2em;
-  /*background: var(--main-app-color);*/
   background-color: #c5bdbd;
   border-radius: 1em;
   float: right;
@@ -139,6 +137,7 @@ ion-icon {
   margin: auto;
   font-size: 29px;
   text-align: center;
+  color: var(--main-app-color);
 }
 
 .langColTwo span {
@@ -148,7 +147,7 @@ ion-icon {
 }
 .languageDiv {
   float: left;
-  padding-top: 15px;
+  padding-top: 16px;
 }
 
 .langColor {
@@ -204,7 +203,7 @@ ion-icon {
 }
 .optionsDiv > ion-col {
   padding: 0;
-  height: 30px;
+  height: 3px;
 }
 
 #ratingRow > img {
@@ -220,6 +219,7 @@ ion-icon {
   position: relative;
   z-index: 11;
   padding: 0 7px;
+  margin-top: 15px;
 }
 .logo {
   margin: auto;

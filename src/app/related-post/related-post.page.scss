@@ -2,12 +2,16 @@ p {
   margin: 5px;
 }
 
-.relatedPostRow0,.relatedPostRow1,.relatedPostRow2,.relatedPostRow3,.relatedPostRow4 {
+.relatedPostRow0,
+.relatedPostRow1,
+.relatedPostRow2,
+.relatedPostRow3,
+.relatedPostRow4 {
   margin-left: 10px;
   margin-bottom: 6px;
   border-bottom: 1px solid #eaeaea;
 }
-.relatedPostRow4{
+.relatedPostRow4 {
   border: none;
 }
 .homeBack {
@@ -243,13 +247,12 @@ ion-title {
   height: 110px;
 }
 .categoryButton {
+  font-size: 13px;
   display: block;
-  margin-top: 4%;
-  background-color: var(--main-app-color);
-  color: #fff;
+  margin-top: 2%;
+  color: var(--main-app-color);
   padding: 5px;
   border-radius: 8px;
-  z-index: -1;
 }
 .otherInfo {
   margin: 0px auto;

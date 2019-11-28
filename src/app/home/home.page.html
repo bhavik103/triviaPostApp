@@ -35,7 +35,7 @@
             <ion-content>
                 <ion-row class="feeds" *ngIf="newsArray && newsArray.length && latestPost">
                     <app-large-post [news]="latestPost" [language]="language"></app-large-post>
-                    <span *ngFor="let news of newsArray">
+                    <span *ngFor="let news of newsArray" class="newsTiles">
                         <app-post-tiles [news]="news" [language]="language"></app-post-tiles>
                     </span>
                 </ion-row>

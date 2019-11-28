@@ -42,7 +42,6 @@ b {
   position: absolute;
   width: 50%;
   margin: auto;
-  padding-bottom: 20px;
   height: 50%;
   top: 0;
   left: 0;
@@ -487,6 +486,6 @@ input#remember:checked + label:before {
   color: var(--main-app-color);
 }
 #already {
-  margin: 27px 22px;
+  margin: 10px 22px 27px;
   font-weight: 500;
 }

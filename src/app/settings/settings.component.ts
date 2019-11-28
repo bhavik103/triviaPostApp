@@ -143,7 +143,7 @@ export class SettingsComponent implements OnInit {
 			if (accessToken) {
 				this.getUserDetail();
 			}
-			this._toastService.toastFunction(res.message, 'success');
+			this._toastService.toastFunction(res.message, 'danger');
 		}, err => {
 			this._toastService.toastFunction(err.error.message, 'danger');
 		})
@@ -164,10 +164,14 @@ export class SettingsComponent implements OnInit {
 	logRatingChange() {
 		console.log($("ion-icon[ng-reflect-name='ios-star']").length);
 		this.ratings = $("ion-icon[ng-reflect-name='ios-star']").length;
-		localStorage.setItem('rating', this.ratings);
-		this._userService.userRating(this.ratings).subscribe();
-		this.rating = true;
-		this.userRating = localStorage.getItem('rating');
+		if (this.ratings != 0) {
+			localStorage.setItem('rating', this.ratings);
+			this._userService.userRating(this.ratings).subscribe();
+			this.rating = true;
+			this.userRating = localStorage.getItem('rating');
+		}else{
+			this._toastService.toastFunction('Please input your rating!', 'danger');
+		}
 	}
 
 	//getting user ratings

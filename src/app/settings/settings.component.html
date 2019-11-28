@@ -86,7 +86,7 @@
 				<ion-col size="10">
 					<div>
 						<span class="optionsList" *ngIf="language == 'English'">Notification</span>
-						<span class="optionsList" *ngIf="language == 'Hindi'">नोटफ़केशन</span>
+						<span class="optionsList" *ngIf="language == 'Hindi'">अधिसूचना</span>
 						<!-- <span *ngIf="annonymous === 'true'">Hello</span> -->
 						<label class="switch" *ngIf="notifyFlag === 'true' || annonymousNotify === 'true'">
 							<input type="checkbox" (change)="notificationSwitch($event)" checked="checked">
@@ -108,7 +108,7 @@
 				<ion-col size="10">
 					<div routerLink="/feedback">
 						<span class="optionsList" *ngIf="language == 'English'">Feedback</span>
-						<span class="optionsList" *ngIf="language == 'Hindi'">फ़ीड्बैक्</span>
+						<span class="optionsList" *ngIf="language == 'Hindi'">प्रतिक्रिया</span>
 					</div>
 				</ion-col>
 			</ion-row>
@@ -121,7 +121,7 @@
 				<ion-col size="10">
 					<div routerLink="/privacy">
 						<span class="optionsList" *ngIf="language == 'English'">Privacy Policy</span>
-						<span class="optionsList" *ngIf="language == 'Hindi'">प्राइवेसी पालिसी</span>
+						<span class="optionsList" *ngIf="language == 'Hindi'">गोपनीयता नीति</span>
 					</div>
 				</ion-col>
 			</ion-row>
@@ -133,8 +133,8 @@
 				</ion-col>
 				<ion-col size="10">
 					<div routerLink="/terms">
-						<span class="optionsList" *ngIf="language == 'English'">Terms & condition</span>
-						<span class="optionsList" *ngIf="language == 'Hindi'">टर्म्स एंड कंडीशन</span>
+						<span class="optionsList" *ngIf="language == 'English'">Terms & Conditions</span>
+						<span class="optionsList" *ngIf="language == 'Hindi'">नियम और शर्तें</span>
 					</div>
 				</ion-col>
 			</ion-row>
@@ -147,7 +147,8 @@
 				<ion-col size="10">
 					<div (click)="sendShare()">
 						<span class="optionsList" *ngIf="language == 'English'">Share this app</span>
-						<span class="optionsList" *ngIf="language == 'Hindi'">शेयर थिस अप्प</span>
+						<span class="optionsList" *ngIf="language == 'Hindi'">एप को शेयर कीजिए
+						</span>
 					</div>
 				</ion-col>
 			</ion-row>
@@ -158,8 +159,10 @@
 			<!-- <div class="logo">
 				<img src="assets/images/Logo.png" height="70px" alt="">
 			</div> -->
-			<div id="ratingHead" *ngIf="!rating">How was the experience with us?</div>
-			<div id="ratingHead" *ngIf="rating">Thank You!</div>
+			<div id="ratingHead" *ngIf="!rating && language == 'English'">How was the experience with us?</div>
+			<div id="ratingHead" *ngIf="!rating && language == 'Hindi'">हमारे साथ कैसा अनुभव रहा?</div>
+			<div id="ratingHead" *ngIf="rating && language == 'English'">Thank You!</div>
+			<div id="ratingHead" *ngIf="rating && language == 'Hindi'">धन्यवाद!</div>
 			<div id="rating">
 				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline"
 					activeColor="#F18D16" defaultColor="#ddd" readonly="false" fontSize="32px" rating="0"
@@ -170,8 +173,10 @@
 					activeColor="#F18D16" defaultColor="#ddd" readonly="true" rating="{{userRating}}"
 					fontSize="32px" *ngIf="rating">
 				</ionic4-star-rating>
-				<button *ngIf="!rating" (click)="logRatingChange()" class="rateButton" id="ratingHead">Rate</button>
-				<div id="ratingHead" class="greetings" *ngIf="rating">Thank you for rating us !</div>
+				<button *ngIf="!rating && language == 'English'" (click)="logRatingChange()" class="rateButton" id="ratingHead">Rate</button>
+				<button *ngIf="!rating && language == 'Hindi'" (click)="logRatingChange()" class="rateButton" id="ratingHead">मूल्यांकन करें</button>
+				<div id="ratingHead" class="greetings" *ngIf="rating && language == 'English'">Thank you for rating us !</div>
+				<div id="ratingHead" class="greetings" *ngIf="rating && language == 'Hindi'">हमें रेटिंग देने के लिए धन्यवाद!</div>
 			</div>
 		</ion-row>
 	</div>
