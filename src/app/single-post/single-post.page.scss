@@ -8,6 +8,12 @@ p {
     margin-top: 12px;
     margin-left: 10px;
 }
+.title{
+    margin-left: 10px;
+    font-size: 18px;
+    line-height: 35px;
+   
+}
 
 ion-back-button {
     margin: 0 !important;
@@ -120,11 +126,16 @@ a.float:hover+div.label-container {
     padding-right: 10px;
 }
 
-ion-title {
+ion-title.md {
     float: left;
     line-height: 46px;
     padding-left: 10px;
     padding-top: 1px;
+}
+ion-title.ios{
+    
+    padding-left: 60px;
+  
 }
 
 .liked {

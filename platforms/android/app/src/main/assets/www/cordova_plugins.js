@@ -335,14 +335,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-x-socialsharing.SocialSharing",
-      "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
-      "pluginId": "cordova-plugin-x-socialsharing",
-      "clobbers": [
-        "window.plugins.socialsharing"
-      ]
-    },
-    {
       "id": "cordova-sqlite-storage.SQLitePlugin",
       "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
       "pluginId": "cordova-sqlite-storage",
@@ -427,11 +419,11 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-app-version.AppVersionPlugin",
-      "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
-      "pluginId": "cordova-plugin-app-version",
+      "id": "cordova-plugin-x-socialsharing.SocialSharing",
+      "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+      "pluginId": "cordova-plugin-x-socialsharing",
       "clobbers": [
-        "cordova.getAppVersion"
+        "window.plugins.socialsharing"
       ]
     }
   ];
@@ -451,7 +443,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-splashscreen": "5.0.3",
     "cordova-plugin-statusbar": "2.4.3",
     "cordova-plugin-whitelist": "1.3.4",
-    "cordova-plugin-x-socialsharing": "5.6.0",
     "cordova-sqlite-storage": "3.3.0",
     "ionic-plugin-deeplinks": "1.0.20",
     "cordova-plugin-badge": "0.8.8",
@@ -464,6 +455,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-firebase-dynamiclinks": "4.0.1",
     "cordova-plugin-inappbrowser": "3.1.0",
     "com.telerik.plugins.nativepagetransitions": "0.6.5",
-    "cordova-plugin-app-version": "0.1.9"
+    "cordova-plugin-x-socialsharing": "5.6.2"
   };
 });

@@ -8,7 +8,7 @@ ion-icon.homeBack.md.hydrated {
   padding: 0;
   height: 98px;
   min-width: 98px;
-  background: url("assets/images/spinner.gif");
+  // background: url("assets/images/spinner.gif");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 50%;
@@ -52,10 +52,19 @@ ion-icon.homeBack.md.hydrated {
   padding-top: 0;
   padding-left: 13px;
 }
+// .postDescription.ios.hydrated{
+//   padding-top:10px;
+// }
 ion-list{
   min-height: 117px;
   max-height: 117px;
 }
+.list-ios {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: -1px;
+  margin-bottom: 0px !important;
+  }
 .otherInfo {
   margin: 0px auto;
   color: gray;
@@ -117,5 +126,12 @@ img.likeImage {
   font-weight: normal;
 }
 ion-list {
-  border: 1px solid #f7f7f7;
+  border: 2px solid #f7f7f7;
+}
+// ion-list.ios{
+//   padding-top: 9px;
+// }
+.post_cards.ios{
+  padding-top:7px;
+  padding-bottom:1px;
 }

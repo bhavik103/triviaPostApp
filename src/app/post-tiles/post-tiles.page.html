@@ -1,14 +1,14 @@
 <ion-list lines="none">
     <ion-item-sliding class="feeds">
-        <ion-item>
+        <ion-item class="post_cards">
             <ion-col size="3" class="newsImg" padding>
-                <img src="{{mediaPath}}{{news.newsImage}}" data-src="assets/images/spinner.gif'" onerror="this.src='assets/images/spinner.gif'" height="73px"
+                <img src="{{mediaPath}}{{news.newsImage}}"  height="73px"
                     width="100%" (click)="singleNews(news.newsId)" class="loading">
             </ion-col>
             <ion-col size="9" class="postDescription">
                 <div>
                     <span class="optionsList" *ngIf="language == 'English'"
-                        [innerHTML]="news.newsTitleEnglish | slice:0:50" (click)="singleNews(news.newsId)"></span><span
+                        [innerHTML]="news.newsTitleEnglish | slice:0:50" (click)="singleNews(news.newsId)" ></span><span
                         *ngIf="language == 'English'"></span>
                     <span class="optionsList" *ngIf="language == 'Hindi'"
                         [innerHTML]="news.newsTitleHindi | slice:0:50" (click)="singleNews(news.newsId)"></span><span *ngIf="language == 'Hindi'"

@@ -5,12 +5,15 @@
 .latestPost {
   padding: 0;
   height: 250px;
-  background: url("assets/images/spinner.gif");
+  // background: url("assets/images/spinner.gif");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 50%;
   background-position: center;
 }
+// .latestPost.ios{
+//   margin-bottom: 0px
+// }
 .latestPost:after {
   content: "";
   position: absolute;
@@ -21,6 +24,7 @@
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 0;
   height: 250px;
+ 
 }
 .latestpostimg {
   height: 250px;

@@ -1,7 +1,11 @@
 <ion-header>
 	<ion-toolbar class="settingsToolbar">
-		<ion-icon name="arrow-round-back" routerLink="/home"></ion-icon>
-		<span id="settingTitle"> Options</span>
+		
+			<ion-back-button name="arrow-round-back"  class=" homeBack" >
+				</ion-back-button>
+		<!-- <ion-icon name="arrow-round-back" routerLink="/home"></ion-icon> -->
+		<!-- <span id="settingTitle"> Options</span> -->
+		<ion-title > Options</ion-title>
 		<span id="profile" *ngIf="tokenLocalStorage && firstCharUser" (click)="logout()">{{firstCharUser}}</span>
 		<span id="personIcon" *ngIf="tokenLocalStorage && !firstCharUser" (click)="logout()">
 			<ion-icon name="person"></ion-icon>
@@ -23,7 +27,7 @@
 				<span id="loginOption">or using</span>
 				<button id="googleplus" routerLink="/login"><img src="assets/images/GooglePlus.png"
 						height="16px;"></button>
-				<button id="facebookLogin" routerLink="/login"><img src="assets/images/Facebook.png"
+				<button id="facebookLogin" routerLink="/login"><img src="assets/images/facebook-logo-1.png"
 						height="19px;"></button>
 			</ion-col>
 		</ion-row>

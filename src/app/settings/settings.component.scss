@@ -6,6 +6,12 @@ ion-icon {
 ion-col div{
   padding-top: 2px;
 }
+ion-back-button.homeBack.ios.hydrated {
+  float: left !important;
+  /* margin: 4px; */
+  font-size: 24px;
+  margin-left: 10px;
+}
 .loginDiv {
   height: 170px;
   border-bottom: 1px solid #ddd;
@@ -28,6 +34,9 @@ ion-col div{
   margin-left: 10px;
   font-size: 18px;
   line-height: 37px;
+}
+.settingsToolbar.ios #settingTitle{
+  margin-left: 60px;
 }
 
 #signInButton {

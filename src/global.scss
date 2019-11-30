@@ -185,3 +185,7 @@ ion-toolbar {
     transform: scale(1);
   }
 }
+
+.ios ion-content {
+  pointer-events: auto;
+}
