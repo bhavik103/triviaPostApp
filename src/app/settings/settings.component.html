@@ -1,6 +1,7 @@
 <ion-header>
 	<ion-toolbar class="settingsToolbar">
-		<ion-icon name="arrow-round-back" routerLink="/home"></ion-icon>
+		<ion-back-button name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/home">
+		</ion-back-button>
 		<span id="settingTitle"> Options</span>
 		<span id="profile" *ngIf="tokenLocalStorage && firstCharUser" (click)="logout()">{{firstCharUser}}</span>
 		<span id="personIcon" *ngIf="tokenLocalStorage && !firstCharUser" (click)="logout()">
@@ -164,19 +165,21 @@
 			<div id="ratingHead" *ngIf="rating && language == 'English'">Thank You!</div>
 			<div id="ratingHead" *ngIf="rating && language == 'Hindi'">धन्यवाद!</div>
 			<div id="rating">
-				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline"
-					activeColor="#F18D16" defaultColor="#ddd" readonly="false" fontSize="32px" rating="0"
-					*ngIf="!rating">
+				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#F18D16"
+					defaultColor="#ddd" readonly="false" fontSize="32px" rating="0" *ngIf="!rating">
 				</ionic4-star-rating>
 
-				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline"
-					activeColor="#F18D16" defaultColor="#ddd" readonly="true" rating="{{userRating}}"
-					fontSize="32px" *ngIf="rating">
+				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#F18D16"
+					defaultColor="#ddd" readonly="true" rating="{{userRating}}" fontSize="32px" *ngIf="rating">
 				</ionic4-star-rating>
-				<button *ngIf="!rating && language == 'English'" (click)="logRatingChange()" class="rateButton" id="ratingHead">Rate</button>
-				<button *ngIf="!rating && language == 'Hindi'" (click)="logRatingChange()" class="rateButton" id="ratingHead">मूल्यांकन करें</button>
-				<div id="ratingHead" class="greetings" *ngIf="rating && language == 'English'">Thank you for rating us !</div>
-				<div id="ratingHead" class="greetings" *ngIf="rating && language == 'Hindi'">हमें रेटिंग देने के लिए धन्यवाद!</div>
+				<button *ngIf="!rating && language == 'English'" (click)="logRatingChange()" class="rateButton"
+					id="ratingHead">Rate</button>
+				<button *ngIf="!rating && language == 'Hindi'" (click)="logRatingChange()" class="rateButton"
+					id="ratingHead">मूल्यांकन करें</button>
+				<div id="ratingHead" class="greetings" *ngIf="rating && language == 'English'">Thank you for rating us !
+				</div>
+				<div id="ratingHead" class="greetings" *ngIf="rating && language == 'Hindi'">हमें रेटिंग देने के लिए
+					धन्यवाद!</div>
 			</div>
 		</ion-row>
 	</div>
