@@ -40,7 +40,7 @@ export class NewsService {
 					(result: object) => {
 						this.newsArray = result['data'];
 						console.log('this.newsArray', this.newsArray)
-						localStorage.setItem('newsArray', JSON.stringify(this.newsArray))
+						localStorage.setItem('newsArray', JSON.stringify(this.newsArray.slice(0,10)))
 						observer.next(this.newsArray);
 						observer.complete();
 					},

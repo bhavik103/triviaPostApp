@@ -299,29 +299,14 @@ dependencies {
     implementation(project(path: ":CordovaLib"))
     implementation "com.squareup.okhttp3:okhttp-urlconnection:3.10.0"
     implementation "com.facebook.android:facebook-android-sdk:5.2.0"
-    implementation "com.google.firebase:firebase-core:16.0.9"
-    implementation "com.google.firebase:firebase-messaging:18.0.0"
-    implementation "com.google.android.gms:play-services-auth:15.0.1"
-    implementation "com.google.android.gms:play-services-identity:15.0.1"
-    implementation "androidx.annotation:annotation:1.0.0"
+    implementation "com.google.firebase:firebase-core:17.2.2"
+    implementation "com.google.firebase:firebase-messaging:20.1.0"
+    implementation "com.google.firebase:firebase-analytics:17.2.2"
+    implementation "com.google.firebase:firebase-dynamic-links:19.0.0"
+    implementation "com.google.android.gms:play-services-auth:17.0.0"
+    implementation "com.google.android.gms:play-services-identity:17.0.0"
+    implementation "androidx.annotation:annotation:1.1.0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
-    implementation "com.google.firebase:firebase-analytics:17.2.+"
-    implementation "com.google.firebase:firebase-dynamic-links:19.0.+"
-    // SUB-PROJECT DEPENDENCIES END
-
-    implementation(project(path: ":CordovaLib"))
-    implementation "com.squareup.okhttp3:okhttp-urlconnection:3.10.0"
-    implementation "com.facebook.android:facebook-android-sdk:5.2.0"
-    implementation "androidx.annotation:annotation:1.0.0"
-    implementation "androidx.legacy:legacy-support-v4:1.0.0"
-
-
-    implementation "com.google.firebase:firebase-analytics:17.2.1"
-    implementation 'com.google.firebase:firebase-messaging:20.0.0'
-    implementation'com.google.firebase:firebase-auth:17.0.0'
-    implementation "com.google.firebase:firebase-core:17.0.0"
-    implementation "com.google.android.gms:play-services-auth:15.0.1"
-    implementation "com.google.android.gms:play-services-identity:15.0.1"
 }
 
 def promptForReleaseKeyPassword() {
