@@ -34,17 +34,18 @@ export class SinglePostPage implements OnInit {
     this.route.params.subscribe((param: any) => {
       this.configureBack(this.router.url, param);
     });
+    this.increaseViews();
   }
   ionViewWillEnter() {
     this.removeRedirectItem();
-
+    
     // Firebase Analytics 'screen_view' event tracking
     this.firebaseAnalytics.setCurrentScreen('Single Post').then(res => {
       console.log("firebase", res)
     })
     var postId = this.route.snapshot.params['id'];
   }
-
+  
   configureBack(url, param) {
     console.log("url, param", url, param);
     if (url.includes('bookmark')) {
@@ -54,6 +55,13 @@ export class SinglePostPage implements OnInit {
     } else if (url.includes('search')) {
       this.backKeySearch = true;
     }
+  }
+  increaseViews() {
+    var postId = this.route.snapshot.params['id'];
+
+    this._newsService.increaseView(postId).subscribe((res: any) => {
+      console.log("GOT RESPONSE FROM INCREASE VIEW API CALL", res)
+    })
   }
   removeRedirectItem() {
     localStorage.removeItem('bookmarkId');
@@ -81,15 +89,6 @@ export class SinglePostPage implements OnInit {
           _.forEach(save.bookMark, (Id: any) => {
             if (Id == this.loggedInUser) {
               save['bookmarkKey'] = true
-            }
-          })
-        })
-      }
-      if (this.tokenLocalStorage) {
-        _.forEach(res, (save: { [x: string]: boolean; like: any; }) => {
-          _.forEach(save.like, (Id: any) => {
-            if (Id == this.loggedInUser) {
-              save['likeKey'] = true
             }
           })
         })
@@ -161,27 +160,27 @@ export class SinglePostPage implements OnInit {
     }
   }
 
-  //like post
-  likePost(postid) {
-    if (!localStorage.getItem('accessToken')) {
-      console.log("newsId done", postid);
-      localStorage.setItem('likepostId', postid);
-      this._toastService.toastFunction('Please login first!', 'danger');
-      this.router.navigateByUrl('/login');
-    } else {
-      if (this.network.type == 'none') {
-        this._toastService.toastFunction('No internet connection', 'danger');
-        this.singlePost();
-      } else {
-        this._newsService.likepost(postid).subscribe((res: any) => {
-          this.singlePost();
-          this._toastService.toastFunction(res.message, 'success');
-        }), err => {
-          this._toastService.toastFunction(err.error.message, 'danger');
-        }
-      }
-    }
-  }
+  // //like post
+  // likePost(postid) {
+  //   if (!localStorage.getItem('accessToken')) {
+  //     console.log("newsId done", postid);
+  //     localStorage.setItem('likepostId', postid);
+  //     this._toastService.toastFunction('Please login first!', 'danger');
+  //     this.router.navigateByUrl('/login');
+  //   } else {
+  //     if (this.network.type == 'none') {
+  //       this._toastService.toastFunction('No internet connection', 'danger');
+  //       this.singlePost();
+  //     } else {
+  //       this._newsService.likepost(postid).subscribe((res: any) => {
+  //         this.singlePost();
+  //         this._toastService.toastFunction(res.message, 'success');
+  //       }), err => {
+  //         this._toastService.toastFunction(err.error.message, 'danger');
+  //       }
+  //     }
+  //   }
+  // }
 
   alreadyLiked() {
     this._toastService.toastFunction('You have already liked!', 'danger');

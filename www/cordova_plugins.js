@@ -425,14 +425,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "window.plugins.nativepagetransitions"
       ]
-    },
-    {
-      "id": "cordova-plugin-app-version.AppVersionPlugin",
-      "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
-      "pluginId": "cordova-plugin-app-version",
-      "clobbers": [
-        "cordova.getAppVersion"
-      ]
     }
   ];
   module.exports.metadata = {
@@ -463,7 +455,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-firebase-analytics": "4.0.0",
     "cordova-plugin-firebase-dynamiclinks": "4.0.1",
     "cordova-plugin-inappbrowser": "3.1.0",
-    "com.telerik.plugins.nativepagetransitions": "0.6.5",
-    "cordova-plugin-app-version": "0.1.9"
+    "com.telerik.plugins.nativepagetransitions": "0.6.5"
   };
 });

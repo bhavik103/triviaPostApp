@@ -7,18 +7,18 @@
             </ion-col>
             <ion-col size="9" class="postDescription">
                 <div>
-                    <span class="optionsList" *ngIf="language == 'English'"
+                    <span class="optionsList" *ngIf="language == 'en'"
                         [innerHTML]="news.newsTitleEnglish | slice:0:50" (click)="singleNews(news.newsId)"></span><span
-                        *ngIf="language == 'English'"></span>
+                        *ngIf="language == 'en'"></span>
                     <span class="optionsList" *ngIf="language == 'Hindi'"
                         [innerHTML]="news.newsTitleHindi | slice:0:50" (click)="singleNews(news.newsId)"></span><span *ngIf="language == 'Hindi'"
                         (click)="singleNews(news.newsId)"></span>
                     <span (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
-                        *ngIf="language == 'English' && !singleCat">{{news.newsCategory}}</span>
+                        *ngIf="language == 'en' && !singleCat">{{news.newsCategory}}</span>
                     <span (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
                         *ngIf="language == 'Hindi' && !singleCat">{{news.newsCategoryHn}}</span>
-                    <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
-                        {{news.likesCount}} likes |<span class="timeAgo">{{news.createdAt | timeAgo}} </span></p>
+                    <!-- <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
+                        {{news.likesCount}} likes |<span class="timeAgo">{{news.createdAt | timeAgo}} </span></p> -->
                 </div>
             </ion-col>
         </ion-item>

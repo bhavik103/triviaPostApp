@@ -63,9 +63,8 @@ export class CategoryService {
 		_.forEach(this.categories, (user) => {
 			_.forEach(user.notify, (Id) => {
 				if (Id == this.loggedInUser) {
+					console.log("NOTIFIED CATEGORY",Id)
 					user['isNotify'] = true;
-				} else {
-					user['isNotify'] = false;
 				}
 			})
 		})

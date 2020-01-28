@@ -1,7 +1,7 @@
-const baseUrl = "https://admin.triviapost.in:5000/api/";
-const mediaUrl = "https://admin.triviapost.in/server/";
-// const baseUrl = "http://192.168.1.83:7010/api/"; 
-// const mediaUrl = "http://192.168.1.83/TriviaPost/Trivia-BackEnd/";
+//const baseUrl = "https://admin.triviapost.in:5000/api/";
+//const mediaUrl = "https://admin.triviapost.in/server/";
+const baseUrl = "http://192.168.1.58:3000/api/"; 
+const mediaUrl = "http://192.168.1.58/Bhavik/triviaBackend/";
 export const config = {
 	baseApiUrl: baseUrl,
 	mediaApiUrl: mediaUrl,

@@ -11,12 +11,14 @@ import { Observable } from 'rxjs/Observable';
 import { ToastController, } from '@ionic/angular';
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 import { config } from './config';
-
-
+import { Events } from '@ionic/angular';
 import 'rxjs/add/observable/fromEvent';
 import { UserService } from './services/user.service';
-import { asLiteral } from '@angular/compiler/src/render3/view/util';
-import { identifierModuleUrl } from '@angular/compiler';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastService } from "./services/toast.service";
+import { Keyboard } from '@ionic-native/keyboard/ngx';
+declare var $: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -25,7 +27,27 @@ import { identifierModuleUrl } from '@angular/compiler';
 export class AppComponent {
   hide: boolean = true;
   toast: any;
+  static myapp;
+  hidden: boolean;
+  loginModalFlag = false;
+  signupForm = new FormGroup({
+    userName: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    mobile: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+  });
+
+  user = {
+    userName: "",
+    email: "",
+    mobile: "",
+    password: "",
+  }
+  loading: boolean;
+
   constructor(
+    private keyboard: Keyboard,
+    private _toastService: ToastService,
     private firebaseDynamicLinks: FirebaseDynamicLinks,
     private _userService: UserService,
     public toastController: ToastController,
@@ -35,7 +57,20 @@ export class AppComponent {
     private fcm: FCM,
     private router: Router,
     protected deeplinks: Deeplinks,
+    public events: Events
   ) {
+
+    this._userService.currentData.subscribe(value => {
+      if (this.loginModalFlag != true) {
+        //generates random time for opennig modal between 25 and 40 seconds
+        let randomNum = Math.floor(Math.random() * (10 - 8 + 1)) + 8;
+        setTimeout(() => {
+          $('#fadeDiv').addClass('opened');
+          this.hidden = true;
+          this.loginModalFlag = true;
+        }, randomNum * 1000);
+      }
+    });
     this.deeplinks.route({
       '/': {},
       '/nr5y': { "post:": true },
@@ -45,9 +80,7 @@ export class AppComponent {
       this.router.navigate(['single-post/' + match.$args.id]);
     },
       (nomatch) => {
-        // alert("UnMatched" + nomatch);
       });
-    // // Check Internet conectivity
     var offline = Observable.fromEvent(document, "offline");
     var online = Observable.fromEvent(document, "online");
 
@@ -72,14 +105,9 @@ export class AppComponent {
       this.hide = true;
     });
 
-    if (!localStorage.getItem('language')) {
-      localStorage.setItem('language', "English");
-    }
-
     if (!localStorage.getItem('notification')) {
       localStorage.setItem('notification', "true");
     }
-    // this.router.navigateByUrl('/home/all-post');
     this.initializeApp();
   }
 
@@ -88,19 +116,8 @@ export class AppComponent {
       this.platform.ready().then(() => {
         this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
           var postId = res.deepLink.split('?')[1].split('=')[1];
-          console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1])
-
-          console.log('Is Visited In App Component:-------------', config.isvisited);
-          // if (!config.isvisited) {
-          //   this.router.navigate(['single-post/' + postId]);
-          //   config.isvisited = true;
-          //   console.log('Is Visited Inside If:-------------', config.isvisited);
-          // }
-
           this.router.navigate(['single-post/' + postId]);
           config.isvisited = true;
-
-
         }, (error: any) => {
           console.log(error)
         });
@@ -108,5 +125,28 @@ export class AppComponent {
         this.statusBar.backgroundColorByHexString('#000000');
       });
     }
+  }
+
+  signup(user) {
+    user.language = localStorage.getItem('language');
+    console.log("SIGNED UP USER", user)
+    this.loading = true;
+    
+    this.keyboard.hide();
+    this._userService.signup(user).subscribe((res: any) => {
+      this.loading = false;
+      this._toastService.toastFunction(res.message, 'success');
+      this.signupForm.reset();
+      this.router.navigate(['settings']);
+      this.router.navigate(['login']);
+    },
+      err => {
+        this.loading = false;
+        this._toastService.toastFunction(err.error.message, 'danger');
+      })
+  }
+  
+  signUpClose() {
+    this.hidden = false;
   }
 }

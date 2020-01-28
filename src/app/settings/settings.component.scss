@@ -3,7 +3,7 @@ ion-icon {
   font-size: 26px;
   margin-left: 10px;
 }
-ion-col div{
+ion-col div {
   padding-top: 2px;
 }
 .loginDiv {
@@ -14,11 +14,11 @@ ion-col div{
 .item-radio.item ion-label {
   color: #dd6873; //your color here
 }
-ion-title{
+ion-title {
   margin-top: 3%;
   padding: 0;
 }
-ion-back-button{
+ion-back-button {
   float: left;
 }
 .settingsToolbar ion-icon {
@@ -159,6 +159,8 @@ ion-back-button{
 
 .langColor {
   color: #dd6d77;
+  float: right;
+  padding-top: 16px;
 }
 
 .langColor ion-select {
@@ -206,7 +208,7 @@ ion-back-button{
 }
 
 .loggedInDiv {
-  min-height: calc(100vh - 56px);
+  min-height: calc(100vh - 146px);
 }
 .optionsDiv > ion-col {
   padding: 0;
@@ -226,7 +228,6 @@ ion-back-button{
   position: relative;
   z-index: 11;
   padding: 0 7px;
-  margin-top: 15px;
 }
 .logo {
   margin: auto;
@@ -269,4 +270,12 @@ ionic4-star-rating {
   background: var(--main-app-color);
   color: #fff !important;
   border-radius: 23px;
+}
+.selectIcon {
+  float: right;
+  padding-top: 11px;
+  padding-right: 9px;
+}
+.selectIcon ion-icon {
+  margin: 0;
 }

@@ -1,3 +1,60 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
+  <div class="modal signUp" *ngIf="hidden">
+    <div class="modal__inner">
+      <label for="signupModal">
+        <ion-icon
+          name="close"
+          class="signupClose"
+          (click)="signUpClose()"
+        ></ion-icon>
+      </label>
+      <p style="text-align: center;"><i id="signupHead">Sign Up</i></p>
+      <form [formGroup]="signupForm">
+        <div class="signup_input">
+          <ion-icon name="person"></ion-icon>
+          <input
+            type="text"
+            name=""
+            placeholder="Username"
+            formControlName="userName"
+            [(ngModel)]="user.userName"
+          />
+        </div>
+        <div class="signup_input">
+          <ion-icon name="mail"></ion-icon>
+          <input
+            type="text"
+            name=""
+            placeholder="Email Address"
+            formControlName="email"
+            [(ngModel)]="user.email"
+          />
+        </div>
+        <div class="signup_input">
+          <ion-icon name="call"></ion-icon>
+          <input
+            type="text"
+            name=""
+            placeholder="Phone Number"
+            formControlName="mobile"
+            [(ngModel)]="user.mobile"
+          />
+        </div>
+        <div class="signup_input">
+          <ion-icon name="lock"></ion-icon>
+          <input
+            type="password"
+            name=""
+            placeholder="Password"
+            formControlName="password"
+            [(ngModel)]="user.password"
+          />
+        </div>
+        <div class="signupButton">
+          <button (click)="signup(user)">Signup</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </ion-app>

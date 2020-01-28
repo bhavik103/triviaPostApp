@@ -12,6 +12,9 @@
     },
     "cordova-plugin-androidx-adapter": {
       "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
     }
   },
   "dependent_plugins": {

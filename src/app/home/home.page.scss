@@ -4,7 +4,7 @@
   font-size: 20px;
   padding-left: 15px;
 }
-super-tabs-toolbar{
+super-tabs-toolbar {
   $tabs-md-tab-icon-color-active: var(--main-app-color);
 }
 ion-label {
@@ -157,20 +157,37 @@ img.bookmark {
     transform: scale(1);
   }
 }
-.ion-color-primary{
+.ion-color-primary {
   --ion-color-contrast: var(--main-app-color) !important;
   --ion-color-base: #fff !important;
   --ion-color-base-rgb: var(--ion-color-primary-rgb, 56, 128, 255) !important;
-  --ion-color-contrast-rgb: var(--ion-color-primary-contrast-rgb, 255, 255, 255) !important;
+  --ion-color-contrast-rgb: var(
+    --ion-color-primary-contrast-rgb,
+    255,
+    255,
+    255
+  ) !important;
   --ion-color-shade: #fff !important;
   --ion-color-tint: #fff !important;
 }
-.active ion-label{
+.active ion-label {
   color: var(--main-app-color) !important;
 }
-ion-label{
-  text-transform: none!important;
+ion-label {
+  text-transform: none !important;
 }
-.categoryTiles{
+.categoryTiles {
   padding-bottom: 0px;
+}
+select {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.langSubmit{
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

@@ -1,13 +1,38 @@
 <ion-header no-border>
-    <ion-toolbar>
-        <ion-icon name="settings" class="homeBack" routerLink="/settings" float-left></ion-icon>
-        <ion-icon name="search" class="searchIcon" float-right (click)="search()"></ion-icon>
-        <ion-title class="ion-text-center">
-            Trivia Post
-        </ion-title>
-    </ion-toolbar>
+  <ion-toolbar *ngIf="language">
+    <ion-icon
+      name="settings"
+      class="homeBack"
+      routerLink="/settings"
+      float-left
+    ></ion-icon>
+    <ion-icon
+      name="search"
+      class="searchIcon"
+      float-right
+      (click)="search()"
+    ></ion-icon>
+    <ion-title class="ion-text-center">
+      Trivia Post
+    </ion-title>
+  </ion-toolbar>
 </ion-header>
-<super-tabs activeTabIndex="1" [config]="config">
+<ion-content *ngIf="!language">
+<select name="" id="languageSelect">
+  <option value="en">English</option>
+  <option value="hn">Hindi</option>
+  <option value="l3">L3</option>
+  <option value="l4">L4</option>
+  <option value="l5">L5</option>
+  <option value="l6">L6</option>
+  <option value="l7">L7</option>
+  <option value="l8">L8</option>
+  <option value="l9">L9</option>
+  <option value="l10">L10</option>
+</select>
+<button class="langSubmit" (click)="selectLang()">SUBMIT</button>
+</ion-content>
+<!-- <super-tabs activeTabIndex="1" [config]="config">
     <super-tabs-toolbar slot="top">
         <super-tab-button>
             <ion-label>Categories</ion-label>
@@ -15,11 +40,11 @@
         <super-tab-button>
             <ion-label>Feeds</ion-label>
         </super-tab-button>
-    </super-tabs-toolbar>
+    </super-tabs-toolbar> -->
 
-    <super-tabs-container>
-        <!-- categories tab-->
-        <super-tab>
+<!-- <super-tabs-container> -->
+<!-- categories tab-->
+<!-- <super-tab>
             <ion-content>
                 <ion-row *ngIf="categories">
                     <ion-col size="6" *ngFor="let category of categories" class="categoryTiles">
@@ -28,38 +53,41 @@
                     </ion-col>
                 </ion-row>
             </ion-content>
-        </super-tab>
-        <!-- feeds tab-->
-        <super-tab>
-            <ion-content>
-                <ion-row class="feeds" *ngIf="newsArray && newsArray.length && latestPost">
-                    <app-large-post [news]="latestPost" [language]="language"></app-large-post>
-                    <span *ngFor="let news of newsArray" class="newsTiles">
-                        <app-post-tiles [news]="news" [language]="language"></app-post-tiles>
-                    </span>
-                </ion-row>
-            </ion-content>
-        </super-tab>
-    </super-tabs-container>
-</super-tabs>
+        </super-tab> -->
+<!-- feeds tab-->
+<!-- <super-tab> -->
+<ion-content *ngIf="newsArray && newsArray.length && latestPost && language">
+  <ion-row
+    class="feeds"
+    
+  >
+    <app-large-post [news]="latestPost" *ngIf="latestPost" [language]="language"></app-large-post>
+    <span *ngFor="let news of newsArray" class="newsTiles">
+      <app-post-tiles [news]="news" [language]="language"></app-post-tiles>
+    </span>
+  </ion-row>
+</ion-content>
+<!-- </super-tab> -->
+<!-- </super-tabs-container> -->
+<!-- </super-tabs> -->
 
 <!-- loader -->
 <div id="loader-wrapper" *ngIf="loading">
-    <div id="loader">
-        <span class="welcomeTo">Welcome to</span>
-        <span class="logo_container">
-            <img src="../../assets/images/Logo.png" alt="logo">
-        </span>
-        <div class="welcomeTo appDesc">Interesting and</div>
-        <div class="welcomeTo appDesc">Informative reads</div>
-        <div class="spinner">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-        </div>
-        <p class="text-center">Loading...</p>
+  <div id="loader">
+    <span class="welcomeTo">Welcome to</span>
+    <span class="logo_container">
+      <img src="../../assets/images/Logo.png" alt="logo" />
+    </span>
+    <div class="welcomeTo appDesc">Interesting and</div>
+    <div class="welcomeTo appDesc">Informative reads</div>
+    <div class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
     </div>
+    <p class="text-center">Loading...</p>
+  </div>
 </div>
 <div class="no-news-text" *ngIf="isTextVisible">
-    <span>{{text}}</span>
+  <span>{{text}}</span>
 </div>

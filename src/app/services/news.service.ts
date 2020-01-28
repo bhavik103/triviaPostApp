@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subject } from 'rxjs';
 import { map, catchError, filter } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { from as observableFrom } from 'rxjs';
@@ -7,6 +7,8 @@ import { config } from '../config';
 import { News } from '../home/news';
 import { Network } from '@ionic-native/network/ngx';
 import * as _ from 'lodash';
+import { AppComponent } from '../app.component';
+import {UserService} from './user.service'
 @Injectable({
 	providedIn: 'root'
 })
@@ -17,11 +19,13 @@ export class NewsService {
 	userId: any;
 	tokenLocalStorage: string;
 	loggedInUser: any;
+	private myObservable = new Subject<string>();
+	currentData = this.myObservable.asObservable();
 	private handleError(error: HttpErrorResponse) {
 		return throwError('Error! something went wrong.');
 	}
 
-	constructor(private network: Network, private http: HttpClient) { }
+	constructor(public _userService: UserService,private network: Network, private http: HttpClient) { }
 
 	//fetch all news
 	getAllNews(): Observable<any> {
@@ -238,7 +242,7 @@ export class NewsService {
 		return this.http.put(config.baseApiUrl + 'post-views', data);
 	}
 
-	likepost(id) {
-		return this.http.put(config.baseApiUrl + 'post-like', { postId: id });
+	increaseView(id) {
+		return this.http.put(config.baseApiUrl + 'post-views', { postId: id });
 	}
 }

@@ -47,7 +47,7 @@
 
 @font-face {
   font-family: Rubik;
-  src: url('assets/fonts/Rubik-Regular.ttf');
+  src: url('assets/fonts/century_gothic.ttf');
 }
 
 :root {
@@ -184,4 +184,7 @@ ion-toolbar {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
+}
+.myActionSheetBtnStyle {
+  color: red!important;
 }

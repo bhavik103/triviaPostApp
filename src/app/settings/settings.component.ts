@@ -29,6 +29,69 @@ export class SettingsComponent implements OnInit {
 	};
 	userRating: string;
 	ratings: any;
+	languageActionSheet = [
+		{
+			text: 'English', shortForm: 'en', role: 'destructive', handler: () => {
+				localStorage.setItem('language', 'en');
+				this.language = localStorage.getItem('language');
+				this._userService.changeLanguage('en');
+			}
+		},
+		{
+			text: 'Hindi', shortForm: 'hn', role: 'destructive', handler: () => {
+				localStorage.setItem('language', 'hn');
+				this.language = localStorage.getItem('language');
+			}
+		},
+		{
+			text: 'Language 3', shortForm: 'l3', role: 'destructive', handler: () => {
+				localStorage.setItem('language', 'l3');
+				this.language = localStorage.getItem('language');
+			}
+		},
+		{
+			text: 'Language 4', shortForm: 'l4', role: 'destructive', handler: () => {
+				localStorage.setItem('language', 'l4')
+				this.language = localStorage.getItem('language');
+			}
+		},
+		{
+			text: 'Language 5', shortForm: 'l5', role: 'destructive', handler: () => {
+				localStorage.setItem('language', 'l5');
+				this.language = localStorage.getItem('language');
+			}
+		},
+		{
+			text: 'Language 6', shortForm: 'l6', role: 'destructive', handler: () => {
+				localStorage.setItem('language', 'l6');
+				this.language = localStorage.getItem('language');
+			}
+		},
+		{
+			text: 'Language 7', shortForm: 'l7', role: 'destructive', handler: () => {
+				localStorage.setItem('language', 'l7');
+				this.language = localStorage.getItem('language');
+			}
+		},
+		{
+			text: 'Language 8', shortForm: 'l8', role: 'destructive', handler: () => {
+				localStorage.setItem('language', 'l8');
+				this.language = localStorage.getItem('language');
+			}
+		},
+		{
+			text: 'Language 9', shortForm: 'l9', role: 'destructive', handler: () => {
+				localStorage.setItem('language', 'l9');
+				this.language = localStorage.getItem('language');
+			}
+		},
+		{
+			text: 'Language 10', shortForm: 'l10', role: 'destructive', handler: () => {
+				localStorage.setItem('language', 'l10');
+				this.language = localStorage.getItem('language');
+			}
+		},
+	];
 
 	constructor(private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
 	}
@@ -169,7 +232,7 @@ export class SettingsComponent implements OnInit {
 			this._userService.userRating(this.ratings).subscribe();
 			this.rating = true;
 			this.userRating = localStorage.getItem('rating');
-		}else{
+		} else {
 			this._toastService.toastFunction('Please input your rating!', 'danger');
 		}
 	}
@@ -180,5 +243,26 @@ export class SettingsComponent implements OnInit {
 			this.rating = true;
 			this.userRating = localStorage.getItem('rating');
 		}
+	}
+
+	//open select language alert
+	async changeLang(lang) {
+		console.log("LANG", lang);
+
+		for (var i = 0; i < this.languageActionSheet.length; i++) {
+			// look for the entry with a matching `language` value
+			if (this.languageActionSheet[i].shortForm == lang) {
+				this.languageActionSheet[i]['cssClass'] = 'myActionSheetBtnStyle';
+			}else{
+				this.languageActionSheet[i]['cssClass'] = '';
+			}
+		}
+
+		const actionSheet = await this.actionSheetController.create({
+			header: 'Select Language',
+			cssClass: 'myPage',
+			buttons: this.languageActionSheet
+		});
+		await actionSheet.present();
 	}
 }

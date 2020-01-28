@@ -14,18 +14,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_router", function() { return Router; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_router_link", function() { return RouterLink; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm-es5/core-ca0488fc.js");
-/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm-es5/config-3c7f3790.js");
-/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/@ionic/core/dist/esm-es5/helpers-46f4a262.js");
-/* harmony import */ var _theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./theme-18cbe2cc.js */ "./node_modules/@ionic/core/dist/esm-es5/theme-18cbe2cc.js");
+/* harmony import */ var _core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core-5ba38749.js */ "./node_modules/@ionic/core/dist/esm-es5/core-5ba38749.js");
+/* harmony import */ var _config_6ccf652f_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config-6ccf652f.js */ "./node_modules/@ionic/core/dist/esm-es5/config-6ccf652f.js");
+/* harmony import */ var _theme_353a032e_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./theme-353a032e.js */ "./node_modules/@ionic/core/dist/esm-es5/theme-353a032e.js");
+/* harmony import */ var _helpers_c90aaa66_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helpers-c90aaa66.js */ "./node_modules/@ionic/core/dist/esm-es5/helpers-c90aaa66.js");
+var _this = undefined;
 
 
 
 
 
 var Route = /** @class */ (function () {
-    function Route(hostRef) {
-        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
+    function class_1(hostRef) {
+        Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
         /**
          * Relative path that needs to match in order for this route to apply.
          *
@@ -33,12 +34,12 @@ var Route = /** @class */ (function () {
          * in the url /foo/:bar where bar would be available in incoming props.
          */
         this.url = '';
-        this.ionRouteDataChanged = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionRouteDataChanged", 7);
+        this.ionRouteDataChanged = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionRouteDataChanged", 7);
     }
-    Route.prototype.onUpdate = function (newValue) {
+    class_1.prototype.onUpdate = function (newValue) {
         this.ionRouteDataChanged.emit(newValue);
     };
-    Route.prototype.onComponentProps = function (newValue, oldValue) {
+    class_1.prototype.onComponentProps = function (newValue, oldValue) {
         if (newValue === oldValue) {
             return;
         }
@@ -56,10 +57,10 @@ var Route = /** @class */ (function () {
             }
         }
     };
-    Route.prototype.connectedCallback = function () {
+    class_1.prototype.connectedCallback = function () {
         this.ionRouteDataChanged.emit();
     };
-    Object.defineProperty(Route, "watchers", {
+    Object.defineProperty(class_1, "watchers", {
         get: function () {
             return {
                 "url": ["onUpdate"],
@@ -70,20 +71,20 @@ var Route = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    return Route;
+    return class_1;
 }());
 var RouteRedirect = /** @class */ (function () {
-    function RouteRedirect(hostRef) {
-        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
-        this.ionRouteRedirectChanged = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionRouteRedirectChanged", 7);
+    function class_2(hostRef) {
+        Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
+        this.ionRouteRedirectChanged = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionRouteRedirectChanged", 7);
     }
-    RouteRedirect.prototype.propDidChange = function () {
+    class_2.prototype.propDidChange = function () {
         this.ionRouteRedirectChanged.emit();
     };
-    RouteRedirect.prototype.connectedCallback = function () {
+    class_2.prototype.connectedCallback = function () {
         this.ionRouteRedirectChanged.emit();
     };
-    Object.defineProperty(RouteRedirect, "watchers", {
+    Object.defineProperty(class_2, "watchers", {
         get: function () {
             return {
                 "from": ["propDidChange"],
@@ -93,7 +94,7 @@ var RouteRedirect = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    return RouteRedirect;
+    return class_2;
 }());
 var ROUTER_INTENT_NONE = 'root';
 var ROUTER_INTENT_FORWARD = 'forward';
@@ -125,7 +126,7 @@ var chainToPath = function (chain) {
     return path;
 };
 var writePath = function (history, root, useHash, path, direction, state) {
-    var url = generatePath(Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__spreadArrays"])(parsePath(root), path));
+    var url = generatePath(parsePath(root).concat(path));
     if (useHash) {
         url = '#' + url;
     }
@@ -205,9 +206,9 @@ var printRedirects = function (redirects) {
 };
 var writeNavState = function (root, chain, direction, index, changed) {
     if (changed === void 0) { changed = false; }
-    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
+    return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
         var outlet, route, result, e_1;
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 6, , 7]);
@@ -248,9 +249,9 @@ var writeNavState = function (root, chain, direction, index, changed) {
         });
     });
 };
-var readNavState = function (root) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
+var readNavState = function (root) { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
     var ids, outlet, node, id;
-    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
+    return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
         switch (_a.label) {
             case 0:
                 ids = [];
@@ -381,7 +382,7 @@ var mergeParams = function (a, b) {
         return a;
     }
     else if (a && b) {
-        return Object.assign(Object.assign({}, a), b);
+        return Object.assign({}, a, b);
     }
     return undefined;
 };
@@ -517,8 +518,8 @@ var flattenNode = function (chain, routes, node) {
     }
 };
 var Router = /** @class */ (function () {
-    function class_1(hostRef) {
-        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
+    function class_3(hostRef) {
+        Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
         this.previousPath = null;
         this.busy = false;
         this.state = 0;
@@ -544,12 +545,12 @@ var Router = /** @class */ (function () {
          * By default, this property is `true`, change to `false` to allow hash-less URLs.
          */
         this.useHash = true;
-        this.ionRouteWillChange = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionRouteWillChange", 7);
-        this.ionRouteDidChange = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionRouteDidChange", 7);
+        this.ionRouteWillChange = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionRouteWillChange", 7);
+        this.ionRouteDidChange = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionRouteDidChange", 7);
     }
-    class_1.prototype.componentWillLoad = function () {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
+    class_3.prototype.componentWillLoad = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         console.debug('[ion-router] router will load');
@@ -565,17 +566,17 @@ var Router = /** @class */ (function () {
             });
         });
     };
-    class_1.prototype.componentDidLoad = function () {
-        window.addEventListener('ionRouteRedirectChanged', Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__["e"])(this.onRedirectChanged.bind(this), 10));
-        window.addEventListener('ionRouteDataChanged', Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__["e"])(this.onRoutesChanged.bind(this), 100));
+    class_3.prototype.componentDidLoad = function () {
+        window.addEventListener('ionRouteRedirectChanged', Object(_helpers_c90aaa66_js__WEBPACK_IMPORTED_MODULE_4__["e"])(this.onRedirectChanged.bind(this), 10));
+        window.addEventListener('ionRouteDataChanged', Object(_helpers_c90aaa66_js__WEBPACK_IMPORTED_MODULE_4__["e"])(this.onRoutesChanged.bind(this), 100));
     };
-    class_1.prototype.onPopState = function () {
+    class_3.prototype.onPopState = function () {
         var direction = this.historyDirection();
         var path = this.getPath();
         console.debug('[ion-router] URL changed -> update nav', path, direction);
         return this.writeNavStateRoot(path, direction);
     };
-    class_1.prototype.onBackButton = function (ev) {
+    class_3.prototype.onBackButton = function (ev) {
         var _this = this;
         ev.detail.register(0, function () { return _this.back(); });
     };
@@ -585,7 +586,7 @@ var Router = /** @class */ (function () {
      * @param url The url to navigate to.
      * @param direction The direction of the animation. Defaults to `"forward"`.
      */
-    class_1.prototype.push = function (url, direction) {
+    class_3.prototype.push = function (url, direction) {
         if (direction === void 0) { direction = 'forward'; }
         if (url.startsWith('.')) {
             url = (new URL(url, window.location.href)).pathname;
@@ -598,14 +599,14 @@ var Router = /** @class */ (function () {
     /**
      * Go back to previous page in the window.history.
      */
-    class_1.prototype.back = function () {
+    class_3.prototype.back = function () {
         window.history.back();
         return Promise.resolve(this.waitPromise);
     };
     /** @internal */
-    class_1.prototype.printDebug = function () {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
+    class_3.prototype.printDebug = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 console.debug('CURRENT PATH', this.getPath());
                 console.debug('PREVIOUS PATH', this.previousPath);
                 printRoutes(readRoutes(this.el));
@@ -615,10 +616,10 @@ var Router = /** @class */ (function () {
         });
     };
     /** @internal */
-    class_1.prototype.navChanged = function (direction) {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
+    class_3.prototype.navChanged = function (direction) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var _a, ids, outlet, routes, chain, path;
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_b) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         if (this.busy) {
@@ -649,16 +650,16 @@ var Router = /** @class */ (function () {
             });
         });
     };
-    class_1.prototype.onRedirectChanged = function () {
+    class_3.prototype.onRedirectChanged = function () {
         var path = this.getPath();
         if (path && routeRedirect(path, readRedirects(this.el))) {
             this.writeNavStateRoot(path, ROUTER_INTENT_NONE);
         }
     };
-    class_1.prototype.onRoutesChanged = function () {
+    class_3.prototype.onRoutesChanged = function () {
         return this.writeNavStateRoot(this.getPath(), ROUTER_INTENT_NONE);
     };
-    class_1.prototype.historyDirection = function () {
+    class_3.prototype.historyDirection = function () {
         var win = window;
         if (win.history.state === null) {
             this.state++;
@@ -677,10 +678,10 @@ var Router = /** @class */ (function () {
             return ROUTER_INTENT_NONE;
         }
     };
-    class_1.prototype.writeNavStateRoot = function (path, direction) {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
+    class_3.prototype.writeNavStateRoot = function (path, direction) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var redirects, redirect, redirectFrom, routes, chain;
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 if (!path) {
                     console.error('[ion-router] URL is not part of the routing set');
                     return [2 /*return*/, false];
@@ -704,11 +705,11 @@ var Router = /** @class */ (function () {
             });
         });
     };
-    class_1.prototype.safeWriteNavState = function (node, chain, direction, path, redirectFrom, index) {
+    class_3.prototype.safeWriteNavState = function (node, chain, direction, path, redirectFrom, index) {
         if (index === void 0) { index = 0; }
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var unlock, changed, e_2;
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.lock()];
                     case 1:
@@ -732,10 +733,10 @@ var Router = /** @class */ (function () {
             });
         });
     };
-    class_1.prototype.lock = function () {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
+    class_3.prototype.lock = function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var p, resolve;
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         p = this.waitPromise;
@@ -750,11 +751,11 @@ var Router = /** @class */ (function () {
             });
         });
     };
-    class_1.prototype.writeNavState = function (node, chain, direction, path, redirectFrom, index) {
+    class_3.prototype.writeNavState = function (node, chain, direction, path, redirectFrom, index) {
         if (index === void 0) { index = 0; }
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var routeEvent, changed;
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         if (this.busy) {
@@ -782,14 +783,14 @@ var Router = /** @class */ (function () {
             });
         });
     };
-    class_1.prototype.setPath = function (path, direction) {
+    class_3.prototype.setPath = function (path, direction) {
         this.state++;
         writePath(window.history, this.root, this.useHash, path, direction, this.state);
     };
-    class_1.prototype.getPath = function () {
+    class_3.prototype.getPath = function () {
         return readPath(window.location, this.root, this.useHash);
     };
-    class_1.prototype.routeChangeEvent = function (path, redirectFromPath) {
+    class_3.prototype.routeChangeEvent = function (path, redirectFromPath) {
         var from = this.previousPath;
         var to = generatePath(path);
         this.previousPath = to;
@@ -803,42 +804,42 @@ var Router = /** @class */ (function () {
             to: to,
         };
     };
-    Object.defineProperty(class_1.prototype, "el", {
-        get: function () { return Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["e"])(this); },
+    Object.defineProperty(class_3.prototype, "el", {
+        get: function () { return Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["e"])(this); },
         enumerable: true,
         configurable: true
     });
-    return class_1;
+    return class_3;
 }());
 var RouterLink = /** @class */ (function () {
-    function RouterLink(hostRef) {
+    function class_4(hostRef) {
         var _this = this;
-        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
+        Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
         /**
          * When using a router, it specifies the transition direction when navigating to
          * another page using `href`.
          */
         this.routerDirection = 'forward';
         this.onClick = function (ev) {
-            Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_4__["o"])(_this.href, ev, _this.routerDirection);
+            Object(_theme_353a032e_js__WEBPACK_IMPORTED_MODULE_3__["o"])(_this.href, ev, _this.routerDirection);
         };
     }
-    RouterLink.prototype.render = function () {
+    class_4.prototype.render = function () {
         var _a;
-        var mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this);
+        var mode = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this);
         var attrs = {
             href: this.href,
             rel: this.rel,
             target: this.target
         };
-        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["H"], { onClick: this.onClick, class: Object.assign(Object.assign({}, Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_4__["c"])(this.color)), (_a = {}, _a[mode] = true, _a['ion-activatable'] = true, _a)) }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("a", Object.assign({}, attrs), Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("slot", null))));
+        return (Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["H"], { onClick: this.onClick, class: Object.assign({}, Object(_theme_353a032e_js__WEBPACK_IMPORTED_MODULE_3__["c"])(this.color), (_a = {}, _a[mode] = true, _a['ion-activatable'] = true, _a)) }, Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["h"])("a", Object.assign({}, attrs), Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_1__["h"])("slot", null))));
     };
-    Object.defineProperty(RouterLink, "style", {
+    Object.defineProperty(class_4, "style", {
         get: function () { return ":host{--background:transparent;--color:var(--ion-color-primary,#3880ff);background:var(--background);color:var(--color)}:host(.ion-color){color:var(--ion-color-base)}a{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit}"; },
         enumerable: true,
         configurable: true
     });
-    return RouterLink;
+    return class_4;
 }());
 
 

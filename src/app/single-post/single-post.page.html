@@ -46,8 +46,8 @@
                 </span>
             </div>
             <div class="postTitle">
-                <p *ngIf="language == 'English'">{{news.newsTitleEnglish}}</p>
-                <p *ngIf="language == 'Hindi'">{{news.newsTitleHindi}}</p>
+                <p *ngIf="language == 'en'">{{news.newsTitleEnglish}}</p>
+                <p *ngIf="language == 'hn'">{{news.newsTitleHindi}}</p>
             </div>
             <div class="subPostTitle">
                 <p class="newsInfo" *ngIf="news.srcTitle && news.srcLink"><span> Source</span>: <span class="srcLink" (click)="openWithSystemBrowser(news.srcLink)"> {{news.srcTitle}}</span></p>
@@ -55,8 +55,8 @@
             {{news.picCredit}}</span></p>
             </div>
             <div class="post">
-                <p [innerHTML]="news.newsEnglish" *ngIf="language == 'English'"></p>
-                <p [innerHTML]="news.newsHindi" *ngIf="language == 'Hindi'"></p>
+                <p [innerHTML]="news.newsEnglish" *ngIf="language == 'en'"></p>
+                <p [innerHTML]="news.newsHindi" *ngIf="language == 'hn'"></p>
             </div>
             <span class="float unbookmarkFloat" *ngIf="!news.bookmarkKey" (click)="bookmark(news.newsId)">
         <img src="assets/images/bookmarkWhite.png" height="52%" alt="">

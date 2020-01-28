@@ -4,7 +4,7 @@ import { config } from '../config';
 // import * as CryptoJS from 'crypto-js';
 import { Storage } from '@ionic/storage';
 import { map, catchError } from 'rxjs/operators';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError, Subject } from 'rxjs';
 import { Platform } from '@ionic/angular';
 import { Category } from '../home/category';
 @Injectable({
@@ -13,11 +13,18 @@ import { Category } from '../home/category';
 export class UserService {
 	private currentUserSubject: BehaviorSubject<any>;
 	public currentUser: Observable<any>;
+	private myObservable = new Subject<string>();
+	currentData = this.myObservable.asObservable();
 	categories: Category[];
 	singleUser: any;
+	tokenLocalStorage: string;
 	constructor(private http: HttpClient, private storage: Storage, private plt: Platform) {
 		this.currentUserSubject = new BehaviorSubject<any>(localStorage.getItem('accessToken'));
 		this.currentUser = this.currentUserSubject.asObservable();
+	}
+
+	serviceFunction() {
+		this.myObservable.next("randomFunction");
 	}
 
 	private handleError(error: HttpErrorResponse) {
@@ -29,16 +36,36 @@ export class UserService {
 	}
 
 	//annonymous user
-	firstTimeUser() {
+	firstTimeUser(lang) {
 		var deviceToken = localStorage.getItem('deviceToken');
 		const annonymousUser = {
 			deviceToken: deviceToken,
-			notification: true
+			notification: true,
+			language: lang
 		}
 		console.log("annonymous user", annonymousUser);
 		return this.http.post(config.baseApiUrl + "register-token", annonymousUser);
 	}
 
+	//changeLanguage
+	changeLanguage(lang){
+		this.tokenLocalStorage = localStorage.getItem('accessToken');
+		if (this.tokenLocalStorage) {
+			var base64Url = this.tokenLocalStorage.split('.')[1];
+			var base64 = base64Url.replace('-', '+').replace('_', '/');
+			var decodedToken = JSON.parse(window.atob(base64));
+			console.log("DECODED TOKEN",decodedToken)
+		}else{
+			console.log("NOT LOGGED IN")
+		}
+
+		// const language = {
+		// 	language: lang,
+		// 	userId: 
+		// }
+		// return this.http.put(config.baseApiUrl + "change-language", lang)
+
+	}
 	googleLogin(token) {
 		var deviceToken = localStorage.getItem('deviceToken');
 		const accessToken = {
@@ -125,7 +152,7 @@ export class UserService {
 			return this.http.put(config.baseApiUrl + "allow-notify", { notification: notify });
 		} else {
 			console.log("Not Log in apii notify");
-			return this.http.put(config.baseApiUrl + "allow-notify-nologin",nologinNotify);
+			return this.http.put(config.baseApiUrl + "allow-notify-nologin", nologinNotify);
 		}
 	}
 
@@ -141,7 +168,7 @@ export class UserService {
 	passwordReset(email) {
 		return this.http.post(config.baseApiUrl + "forgotpassword", email);
 	}
-	userRating(rating){
-		return this.http.post(config.baseApiUrl + 'ratings',{ratingValue:rating});
+	userRating(rating) {
+		return this.http.post(config.baseApiUrl + 'ratings', { ratingValue: rating });
 	}
 }
