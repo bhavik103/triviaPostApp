@@ -1,0 +1,59 @@
+{
+  "_from": "cordova-wheel-selector-plugin",
+  "_id": "cordova-wheel-selector-plugin@1.1.4",
+  "_inBundle": false,
+  "_integrity": "sha512-BdWzQb05gysfpqNWuMNe71jGqo67nlDRI/96K2bpodfL1C7gU+fY8gvnr+WvGLD0WVhw1hVL3rdkM5oux5ALTg==",
+  "_location": "/cordova-wheel-selector-plugin",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-wheel-selector-plugin",
+    "name": "cordova-wheel-selector-plugin",
+    "escapedName": "cordova-wheel-selector-plugin",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-wheel-selector-plugin/-/cordova-wheel-selector-plugin-1.1.4.tgz",
+  "_shasum": "49fdc23814b44140677e30c6269472f97be5e31c",
+  "_spec": "cordova-wheel-selector-plugin",
+  "_where": "/var/www/html/Bhavik/triviaPostApp",
+  "author": {
+    "name": "Jason Amy"
+  },
+  "bugs": {
+    "url": "https://github.com/jasonmamy/cordova-wheel-selector-plugin/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-wheel-selector-plugin",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "A native Android/iOS wheel selector plugin for Cordova or Ionic projects (pick numbers, strings, etc)",
+  "homepage": "https://github.com/jasonmamy/cordova-wheel-selector-plugin#readme",
+  "keywords": [
+    "picker",
+    "numberpicker",
+    "stringpicker",
+    "wheelpicker",
+    "ios",
+    "android",
+    "wheelselector"
+  ],
+  "license": "MIT",
+  "name": "cordova-wheel-selector-plugin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasonmamy/cordova-wheel-selector-plugin.git"
+  },
+  "version": "1.1.4"
+}

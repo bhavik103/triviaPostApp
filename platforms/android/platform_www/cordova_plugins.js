@@ -425,6 +425,15 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "navigator.splashscreen"
       ]
+    },
+    {
+      "id": "cordova-wheel-selector-plugin.plugin",
+      "file": "plugins/cordova-wheel-selector-plugin/www/selectorplugin.js",
+      "pluginId": "cordova-wheel-selector-plugin",
+      "clobbers": [
+        "SelectorCordovaPlugin"
+      ],
+      "runs": true
     }
   ];
   module.exports.metadata = {
@@ -455,6 +464,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-firebase-dynamiclinks": "4.0.1",
     "cordova-plugin-inappbrowser": "3.1.0",
     "com.telerik.plugins.nativepagetransitions": "0.6.5",
-    "cordova-plugin-splashscreen": "5.0.3"
+    "cordova-plugin-splashscreen": "5.0.3",
+    "cordova-wheel-selector-plugin": "1.0.0"
   };
 });

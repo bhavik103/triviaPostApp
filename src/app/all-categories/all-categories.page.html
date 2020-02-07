@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar class="settingsToolbar">
+    <ion-back-button
+      name="arrow-round-back"
+      class="homeBack"
+      class="homeBack"
+      defaultHref="/settings"
+    >
+    </ion-back-button>
+    <span id="settingTitle"> Categories</span>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="language">
+  <ion-row *ngIf="categories">
+    <ion-col size="6" *ngFor="let category of categories" class="categoryTiles">
+      <app-category-tiles
+        [category]="category"
+        (onSubscribe)="subscribedCategory($event, isNotify)"
+        [language]="language"
+      ></app-category-tiles>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<!-- https://youtu.be/Zcj-KwcXDoY -->

@@ -9,46 +9,44 @@
     />
     <div class="textBlock">
       <span
-        class="latestNews"
-        *ngIf="language == 'en'"
-        [innerHTML]="news.newsTitleEnglish"
+        class="latestNews blink"
+        *ngIf="!firstLargePostClick && language != 'as'"
+        [innerHTML]="news[language].title"
         (click)="singleNews(news.newsId)"
       ></span>
       <span
-        *ngIf="news.newsTitleEnglish.length >= 40 && language == 'en'"
-        class="latestNews"
-        >...</span
-      >
-      <span
-        class="latestNews"
-        *ngIf="language == 'Hindi'"
-        [innerHTML]="news.newsTitleHindi | slice:0:40"
+        class="latestNews blink assameseFont"
+        *ngIf="!firstLargePostClick && language == 'as'"
+        [innerHTML]="news[language].title"
         (click)="singleNews(news.newsId)"
       ></span>
       <span
+        class="latestNews" *ngIf="firstLargePostClick === '1' && language != 'as'"
+        [innerHTML]="news[language].title"
+        (click)="singleNews(news.newsId)"
+      ></span>
+      <span
+        class="latestNews assameseFont" *ngIf="firstLargePostClick === '1' && language == 'as'"
+        [innerHTML]="news[language].title"
+        (click)="singleNews(news.newsId)"
+      ></span>
+      <span
+        *ngIf="news[language].title.length >= 40 && language == 'en'"
         class="latestNews"
-        *ngIf="news.newsTitleHindi.length >= 40 && language == 'Hindi'"
         >...</span
       >
       <button
-        (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-        class="categoryButton"
-        *ngIf="language == 'en' && !singleCat"
+        (click)="categoryClick(news.newsCategoryId, news.newsCategory[language])"
+        class="categoryButton" *ngIf="language != 'as'"
       >
-        {{news.newsCategory}}
+        {{news.newsCategory[language]}}
       </button>
       <button
-        (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-        class="categoryButton"
-        *ngIf="language == 'Hindi' && !singleCat"
+        (click)="categoryClick(news.newsCategoryId, news.newsCategory[language])"
+        class="categoryButton assameseFont" *ngIf="language == 'as'"
       >
-        {{news.newsCategoryHn}}
+        {{news.newsCategory[language]}}
       </button>
-      <!-- <p class="latestNewsInfo">
-        <img src="assets/images/lightbulb_red.png" alt="" class="likeImage" />
-        {{news.likesCount}} likes |
-        <span class="timeAgo"> {{news.createdAt | timeAgo}} </span>
-      </p> -->
     </div>
   </ion-col>
 </ion-row>

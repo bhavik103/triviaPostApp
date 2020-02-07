@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-back-button name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/home"></ion-back-button>
+        <ion-back-button (click)="setExtras('single-cat')" name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/home"></ion-back-button>
         <ion-title>{{catName}}</ion-title>
     </ion-toolbar>
 </ion-header>

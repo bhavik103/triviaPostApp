@@ -1,19 +1,37 @@
 <ion-row class="relatedPostRow{{postCount}}">
   <ion-col size="4" class="newsImg">
-    <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%" (click)="singleNews(news.newsId)">
+    <img
+      src="{{mediaPath}}{{news.newsImage}}"
+      height="73px"
+      width="100%"
+      (click)="singleNews(news.newsId)"
+    />
   </ion-col>
   <ion-col size="8" class="contentFeeds">
-    <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish | slice:0:60"
-      (click)="singleNews(news.newsId)"></span>
-    <span *ngIf="language == 'English' && news.newsTitleEnglish.length >= 60">...</span>
-    <span class="optionsList" *ngIf="language == 'Hindi'" (click)="singleNews(news.newsId)"
-      [innerHTML]="news.newsTitleHindi | slice:0:60"></span>
-    <span (click)="singleNews(news.newsId)" *ngIf="language == 'Hindi' && news.newsTitleHindi.length >= 60">...</span>
-    <span (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
-      *ngIf="language == 'English' || !news.newsCategoryHn">{{news.newsCategory}}</span>
-    <span (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
-      *ngIf="language == 'Hindi' && news.newsCategoryHn">{{news.newsCategoryHn}}</span>
-    <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
-      {{news.likesCount}} likes |<span class="timeAgo">{{news.createdAt | timeAgo}} </span></p>
+    <span
+      class="optionsList"
+      *ngIf="language != 'as'"
+      [innerHTML]="news[language].title | slice:0:60"
+      (click)="singleNews(news.newsId)"
+    ></span>
+    <span
+      *ngIf="language == 'as'"
+      class="optionsList assameseFont"
+      [innerHTML]="news[language].title | slice:0:60"
+      (click)="singleNews(news.newsId)"
+    ></span>
+    <span *ngIf="news[language].title.length >= 60">...</span>
+    <span
+      (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+      class="categoryButton"
+      *ngIf="news.newsCategory && language != 'as'"
+      >{{news.newsCategory[language]}}</span
+    >
+    <span
+      (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+      class="categoryButton assameseFont"
+      *ngIf="news.newsCategory && language == 'as'"
+      >{{news.newsCategory[language]}}</span
+    >
   </ion-col>
 </ion-row>

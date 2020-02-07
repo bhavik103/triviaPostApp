@@ -142,6 +142,10 @@
             {
               "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"SelectorCordovaPlugin\"><param name=\"android-package\" value=\"com.wellseek.cordova.SelectorCordovaPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -450,6 +454,9 @@
       "PACKAGE_NAME": "io.ionic.triviapost"
     },
     "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-wheel-selector-plugin": {
       "PACKAGE_NAME": "io.ionic.triviapost"
     }
   },
@@ -880,6 +887,15 @@
       "clobbers": [
         "navigator.splashscreen"
       ]
+    },
+    {
+      "id": "cordova-wheel-selector-plugin.plugin",
+      "file": "plugins/cordova-wheel-selector-plugin/www/selectorplugin.js",
+      "pluginId": "cordova-wheel-selector-plugin",
+      "clobbers": [
+        "SelectorCordovaPlugin"
+      ],
+      "runs": true
     }
   ],
   "plugin_metadata": {
@@ -910,6 +926,7 @@
     "cordova-plugin-firebase-dynamiclinks": "4.0.1",
     "cordova-plugin-inappbrowser": "3.1.0",
     "com.telerik.plugins.nativepagetransitions": "0.6.5",
-    "cordova-plugin-splashscreen": "5.0.3"
+    "cordova-plugin-splashscreen": "5.0.3",
+    "cordova-wheel-selector-plugin": "1.0.0"
   }
 }

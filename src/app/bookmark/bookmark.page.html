@@ -1,42 +1,219 @@
 <ion-header>
   <ion-toolbar>
-    <ion-icon name="arrow-round-back" class="homeBack" routerLink="/settings" float-left></ion-icon>
+    <ion-icon
+      name="arrow-round-back"
+      class="homeBack"
+      routerLink="/settings"
+      float-left
+    ></ion-icon>
     <ion-title>Bookmarks</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item-sliding class="feeds" *ngFor="let news of newsArray; let i = index; last as isLast">
+    <ion-item-sliding
+      class="feeds"
+      *ngFor="let news of newsArray; let i = index; last as isLast"
+    >
       <ion-item>
         <ion-col size="3" class="newsImg" padding>
-          <img src="{{mediaPath}}{{news.newsImage}}" height="73px" width="100%" (click)="getSingleBookmark(news.newsId)">
+          <img
+            src="{{mediaPath}}{{news.newsImage}}"
+            height="73px"
+            width="100%"
+            (click)="getSingleBookmark(news.newsId)"
+          />
         </ion-col>
         <ion-col size="9">
           <div>
-            <span class="optionsList" *ngIf="language == 'English'" [innerHTML]="news.newsTitleEnglish | slice:0:55"
-              (click)="getSingleBookmark(news.newsId)"></span>
-              
-              <span *ngIf="news.newsTitleEnglish.length >= 55 && language == 'English'">...</span><span *ngIf="language == 'English'"></span>
-            <span class="optionsList" *ngIf="language == 'Hindi'" [innerHTML]="news.newsTitleHindi | slice:0:55"></span><span *ngIf="news.newsTitleHindi.length >= 55 && language == 'Hindi'">...</span><span
-              *ngIf="language == 'Hindi'" (click)="getSingleBookmark(news.newsId)"></span>
-            <span (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-              class="categoryButton" *ngIf="language == 'English'">{{news.newsCategory}}</span>
-              <span (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
-              class="categoryButton" *ngIf="language == 'Hindi'">{{news.newsCategoryHn}}</span>
-              <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
-                {{news.likesCount}} likes <span class="timeAgo"> {{news.createdAt | timeAgo}} </span></p>
+            <span
+              class="optionsList"
+              *ngIf="language == 'en'"
+              [innerHTML]="news.newsTitleEnglish | slice:0:55"
+              (click)="getSingleBookmark(news.newsId)"
+            ></span>
+            <span *ngIf="news.newsTitleEnglish.length >= 55 && language == 'en'"
+              >...</span
+            ><span *ngIf="language == 'en'"></span>
+            <span
+              class="optionsList"
+              *ngIf="language == 'hn'"
+              [innerHTML]="news.newsTitleHindi | slice:0:55"
+            ></span
+            ><span *ngIf="news.newsTitleHindi.length >= 55 && language == 'hn'"
+              >...</span
+            ><span
+              *ngIf="language == 'hn'"
+              (click)="getSingleBookmark(news.newsId)"
+            ></span>
+            <span
+              class="optionsList"
+              *ngIf="language == 'l3'"
+              [innerHTML]="news.newsTitlel3 | slice:0:55"
+            ></span
+            ><span *ngIf="news.newsTitlel3.length >= 55 && language == 'l3'"
+              >...</span
+            ><span
+              *ngIf="language == 'l3'"
+              (click)="getSingleBookmark(news.newsId)"
+            ></span>
+            <span
+              class="optionsList"
+              *ngIf="language == 'l4'"
+              [innerHTML]="news.newsTitlel4 | slice:0:55"
+            ></span
+            ><span *ngIf="news.newsTitlel4.length >= 55 && language == 'l4'"
+              >...</span
+            ><span
+              *ngIf="language == 'l4'"
+              (click)="getSingleBookmark(news.newsId)"
+            ></span>
+            <span
+              class="optionsList"
+              *ngIf="language == 'l5'"
+              [innerHTML]="news.newsTitlel5 | slice:0:55"
+            ></span
+            ><span *ngIf="news.newsTitlel5.length >= 55 && language == 'l5'"
+              >...</span
+            ><span
+              *ngIf="language == 'l5'"
+              (click)="getSingleBookmark(news.newsId)"
+            ></span>
+            <span
+              class="optionsList"
+              *ngIf="language == 'l6'"
+              [innerHTML]="news.newsTitlel6 | slice:0:55"
+            ></span
+            ><span *ngIf="news.newsTitlel6.length >= 55 && language == 'l6'"
+              >...</span
+            ><span
+              *ngIf="language == 'l6'"
+              (click)="getSingleBookmark(news.newsId)"
+            ></span>
+            <span
+              class="optionsList"
+              *ngIf="language == 'l7'"
+              [innerHTML]="news.newsTitlel7 | slice:0:55"
+            ></span
+            ><span *ngIf="news.newsTitlel7.length >= 55 && language == 'l7'"
+              >...</span
+            ><span
+              *ngIf="language == 'l7'"
+              (click)="getSingleBookmark(news.newsId)"
+            ></span>
+            <span
+              class="optionsList"
+              *ngIf="language == 'l8'"
+              [innerHTML]="news.newsTitlel8 | slice:0:55"
+            ></span
+            ><span *ngIf="news.newsTitlel8.length >= 55 && language == 'l8'"
+              >...</span
+            ><span
+              *ngIf="language == 'l8'"
+              (click)="getSingleBookmark(news.newsId)"
+            ></span>
+            <span
+              class="optionsList"
+              *ngIf="language == 'l9'"
+              [innerHTML]="news.newsTitlel9 | slice:0:55"
+            ></span
+            ><span *ngIf="news.newsTitlel9.length >= 55 && language == 'l9'"
+              >...</span
+            ><span
+              *ngIf="language == 'l9'"
+              (click)="getSingleBookmark(news.newsId)"
+            ></span>
+            <span
+              class="optionsList"
+              *ngIf="language == 'l10'"
+              [innerHTML]="news.newsTitlel10 | slice:0:55"
+            ></span
+            ><span *ngIf="news.newsTitlel10.length >= 55 && language == 'l10'"
+              >...</span
+            ><span
+              *ngIf="language == 'l10'"
+              (click)="getSingleBookmark(news.newsId)"
+            ></span>
+
+            <span
+              (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton"
+              *ngIf="language == 'en'"
+              >{{news.newsCategory}}</span
+            >
+            <span
+              (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton"
+              *ngIf="language == 'hn'"
+              >{{news.newsCategoryHn}}</span
+            >
+            <span
+              (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton"
+              *ngIf="language == 'l3'"
+              >{{news.newsCategoryl3}}</span
+            >
+            <span
+              (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton"
+              *ngIf="language == 'l4'"
+              >{{news.newsCategoryl4}}</span
+            >
+            <span
+              (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton"
+              *ngIf="language == 'l5'"
+              >{{news.newsCategoryl5}}</span
+            >
+            <span
+              (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton"
+              *ngIf="language == 'l6'"
+              >{{news.newsCategoryl6}}</span
+            >
+            <span
+              (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton"
+              *ngIf="language == 'l7'"
+              >{{news.newsCategoryl7}}</span
+            >
+            <span
+              (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton"
+              *ngIf="language == 'l8'"
+              >{{news.newsCategoryl8}}</span
+            >
+            <span
+              (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton"
+              *ngIf="language == 'l9'"
+              >{{news.newsCategoryl9}}</span
+            >
+            <span
+              (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+              class="categoryButton"
+              *ngIf="language == 'l10'"
+              >{{news.newsCategoryl10}}</span
+            >
           </div>
         </ion-col>
       </ion-item>
 
       <ion-item-options side="end">
         <ion-item-option color="danger">
-          <ion-icon slot="icon-only" name="trash" (click)="deleteBookmarked(news.newsId)"></ion-icon>
+          <ion-icon
+            slot="icon-only"
+            name="trash"
+            (click)="deleteBookmarked(news.newsId)"
+          ></ion-icon>
         </ion-item-option>
         <ion-item-option>
-          <ion-icon slot="icon-only" name="share"
-            (click)="shareBookmarked(news.newsImage,news.fcmLink, news.newsTitleEnglish)"></ion-icon>
+          <ion-icon
+            slot="icon-only"
+            name="share"
+            (click)="shareBookmarked(news.newsImage,news.fcmLink, news.newsTitleEnglish)"
+          ></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
@@ -52,6 +229,6 @@
     </div>
   </div>
   <div class="noBookmark" *ngIf="bookmarkLength == 0">
-    <img src="assets/images/bookmarkEmpty.png">
+    <img src="assets/images/bookmarkEmpty.png" />
   </div>
 </ion-content>

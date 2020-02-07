@@ -1,5 +1,5 @@
 <ion-header no-border>
-  <ion-toolbar *ngIf="language">
+  <ion-toolbar *ngIf="language && catSelect == '1'">
     <ion-icon
       name="settings"
       class="homeBack"
@@ -17,59 +17,63 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-header no-border>
+  <ion-toolbar *ngIf="!language">
+    <ion-title>
+      Language
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-header no-border>
+  <ion-toolbar *ngIf="language && catSelect == 0">
+    <ion-title>
+      Category
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content *ngIf="!language">
-<select name="" id="languageSelect">
-  <option value="en">English</option>
-  <option value="hn">Hindi</option>
-  <option value="l3">L3</option>
-  <option value="l4">L4</option>
-  <option value="l5">L5</option>
-  <option value="l6">L6</option>
-  <option value="l7">L7</option>
-  <option value="l8">L8</option>
-  <option value="l9">L9</option>
-  <option value="l10">L10</option>
-</select>
-<button class="langSubmit" (click)="selectLang()">SUBMIT</button>
-</ion-content>
-<!-- <super-tabs activeTabIndex="1" [config]="config">
-    <super-tabs-toolbar slot="top">
-        <super-tab-button>
-            <ion-label>Categories</ion-label>
-        </super-tab-button>
-        <super-tab-button>
-            <ion-label>Feeds</ion-label>
-        </super-tab-button>
-    </super-tabs-toolbar> -->
-
-<!-- <super-tabs-container> -->
-<!-- categories tab-->
-<!-- <super-tab>
-            <ion-content>
-                <ion-row *ngIf="categories">
-                    <ion-col size="6" *ngFor="let category of categories" class="categoryTiles">
-                        <app-category-tiles [category]="category" (onSubscribe)="subscribedCategory($event, isNotify)"
-                            [language]="language"></app-category-tiles>
-                    </ion-col>
-                </ion-row>
-            </ion-content>
-        </super-tab> -->
-<!-- feeds tab-->
-<!-- <super-tab> -->
-<ion-content *ngIf="newsArray && newsArray.length && latestPost && language">
-  <ion-row
-    class="feeds"
-    
+  <div
+    class="languageSelect"
+    style="height: 100%;background-image: url('../../assets/images/settingBackground.png');background-repeat: no-repeat;background-size: cover;"
   >
-    <app-large-post [news]="latestPost" *ngIf="latestPost" [language]="language"></app-large-post>
+    <div class="langHead">
+      <img src="../../assets/images/subject.png" height="30px" width="30px" />
+      <p>Choose your preferred language</p>
+    </div>
+    <ion-row>
+      <ion-col size="4" *ngFor="let lang of languageList;let i = index">
+        <ion-card tabindex="{{i}}" [style.background]="selected==lang.slug?'red':'white'" [style.color]="selected==lang.slug?'white':'black'" class="divs" (click)="selected=lang.slug">
+          {{lang.lang}}
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <button class="contButton" (click)="selectLang()">Continue</button>
+  </div>
+</ion-content>
+<ion-content *ngIf="language && catSelect == '0'">
+  <ion-row *ngIf="categories">
+    <ion-col size="6" *ngFor="let category of categories" class="categoryTiles">
+      <app-category-tiles
+        [category]="category"
+        (onSubscribe)="subscribedCategory($event, isNotify)"
+        [language]="language"
+        [firstTime]="true"
+      ></app-category-tiles>
+    </ion-col>
+  </ion-row>
+</ion-content>
+<ion-content *ngIf="latestPost && language && catSelect == 1">
+  <ion-row class="feeds">
+    <app-large-post
+      [news]="latestPost"
+      *ngIf="latestPost"
+      [language]="language"
+    ></app-large-post>
     <span *ngFor="let news of newsArray" class="newsTiles">
       <app-post-tiles [news]="news" [language]="language"></app-post-tiles>
     </span>
   </ion-row>
 </ion-content>
-<!-- </super-tab> -->
-<!-- </super-tabs-container> -->
-<!-- </super-tabs> -->
 
 <!-- loader -->
 <div id="loader-wrapper" *ngIf="loading">

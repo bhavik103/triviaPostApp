@@ -26,20 +26,16 @@
 
 <ion-content>
   <div class="settings loginDiv" padding *ngIf="!tokenLocalStorage">
-    <h1 class="savePref" *ngIf="language == 'en'">Save your preferences</h1>
-    <h1 class="savePref" *ngIf="language == 'Hindi'">सेव योर परेफरेंस</h1>
-    <h4 class="signInBook" *ngIf="language == 'English'">
-      Sign In to save your Bookmarks.
-    </h4>
-    <h4 class="signInBook" *ngIf="language == 'Hindi'">
-      अपने बुकमार्क को सेव करने के लिए साइन इन करें।
+    <h1 class="savePref">{{savePref[language]}}</h1>
+    <h4 class="signInBook">
+      {{signInText[language]}}
     </h4>
     <ion-row>
       <ion-col size="5" class="signInCol">
-        <button id="signInButton" routerLink="/login">Sign In</button>
+        <button id="signInButton" routerLink="/login">{{signIn[language]}}</button>
       </ion-col>
       <ion-col size="7">
-        <span id="loginOption">or using</span>
+        <span id="loginOption">{{orUsing[language]}}</span>
         <button id="googleplus" routerLink="/login">
           <img src="assets/images/GooglePlus.png" height="16px;" />
         </button>
@@ -60,23 +56,13 @@
         <ion-col size="10">
           <div>
             <ion-col size="5" class="languageDiv">
-              <span class="optionsList" *ngIf="language == 'en'">Language</span>
-              <span class="optionsList" *ngIf="language == 'hn'">भाषा</span>
+              <span class="optionsList" *ngIf="language">{{languageText[language]}}</span>
             </ion-col>
-            <ion-col size="7">
+            <ion-col size="7" (click)="changeLang(language)">
               <span class="selectIcon">
                 <ion-icon name="arrow-dropdown"></ion-icon>
               </span>
-              <span *ngIf="language == 'en'" class="langColor" (click)="changeLang('en')">English</span>
-              <span *ngIf="language == 'hn'" class="langColor" (click)="changeLang('hn')">Hindi</span>
-              <span *ngIf="language == 'l3'" class="langColor" (click)="changeLang('l3')">L3</span>
-              <span *ngIf="language == 'l4'" class="langColor" (click)="changeLang('l4')">L4</span>
-              <span *ngIf="language == 'l5'" class="langColor" (click)="changeLang('l5')">L5</span>
-              <span *ngIf="language == 'l6'" class="langColor" (click)="changeLang('l6')">L6</span>
-              <span *ngIf="language == 'l7'" class="langColor" (click)="changeLang('l7')">L7</span>
-              <span *ngIf="language == 'l8'" class="langColor" (click)="changeLang('l8')">L8</span>
-              <span *ngIf="language == 'l9'" class="langColor" (click)="changeLang('l9')">L9</span>
-              <span *ngIf="language == 'l10'" class="langColor" (click)="changeLang('l10')">L10</span>
+              <span class="langColor" *ngIf="language">{{langSelectText[language]}}</span>
             </ion-col>
           </div>
         </ion-col>
@@ -89,10 +75,19 @@
         </ion-col>
         <ion-col size="10">
           <div routerLink="/bookmark">
-            <span class="optionsList" *ngIf="language == 'en'">Bookmarks</span>
-            <span class="optionsList" *ngIf="language == 'Hindi'"
-              >बुकमार्क</span
-            >
+            <span class="optionsList" *ngIf="language">{{bookmark[language]}}</span>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+    <ion-col size="12">
+      <ion-row class="settings settingIcon">
+        <ion-col size="2" class="settingIconCol">
+          <ion-icon name="apps"></ion-icon>
+        </ion-col>
+        <ion-col size="10">
+          <div routerLink="/all-categories">
+            <span class="optionsList" *ngIf="language">{{category[language]}}</span>
           </div>
         </ion-col>
       </ion-row>
@@ -104,13 +99,9 @@
         </ion-col>
         <ion-col size="10">
           <div>
-            <span class="optionsList" *ngIf="language == 'en'"
-              >Notification</span
+            <span class="optionsList" *ngIf="language"
+              >{{notification[language]}}</span
             >
-            <span class="optionsList" *ngIf="language == 'Hindi'"
-              >अधिसूचना</span
-            >
-            <!-- <span *ngIf="annonymous === 'true'">Hello</span> -->
             <label
               class="switch"
               *ngIf="notifyFlag === 'true' || annonymousNotify === 'true'"
@@ -140,10 +131,7 @@
         </ion-col>
         <ion-col size="10">
           <div routerLink="/feedback">
-            <span class="optionsList" *ngIf="language == 'en'">Feedback</span>
-            <span class="optionsList" *ngIf="language == 'Hindi'"
-              >प्रतिक्रिया</span
-            >
+            <span class="optionsList" *ngIf="language">{{feedback[language]}}</span>
           </div>
         </ion-col>
       </ion-row>
@@ -155,11 +143,8 @@
         </ion-col>
         <ion-col size="10">
           <div routerLink="/privacy">
-            <span class="optionsList" *ngIf="language == 'en'"
-              >Privacy Policy</span
-            >
-            <span class="optionsList" *ngIf="language == 'Hindi'"
-              >गोपनीयता नीति</span
+            <span class="optionsList" *ngIf="language"
+              >{{privacy[language]}}</span
             >
           </div>
         </ion-col>
@@ -172,11 +157,8 @@
         </ion-col>
         <ion-col size="10">
           <div routerLink="/terms">
-            <span class="optionsList" *ngIf="language == 'en'"
-              >Terms & Conditions</span
-            >
-            <span class="optionsList" *ngIf="language == 'Hindi'"
-              >नियम और शर्तें</span
+            <span class="optionsList" *ngIf="language"
+              >{{terms[language]}}</span
             >
           </div>
         </ion-col>
@@ -189,44 +171,13 @@
         </ion-col>
         <ion-col size="10">
           <div (click)="sendShare()">
-            <span class="optionsList" *ngIf="language == 'en'"
-              >Share this app</span
+            <span class="optionsList" *ngIf="language"
+              >{{shareApp[language]}}</span
             >
-            <span class="optionsList" *ngIf="language == 'Hindi'"
-              >एप को शेयर कीजिए
-            </span>
           </div>
         </ion-col>
       </ion-row>
     </ion-col>
-
-    <!-- <ion-row id="ratingRow">
-			<img src="assets/images/settingBackground.png" alt=""> -->
-    <!-- <div class="logo">
-				<img src="assets/images/Logo.png" height="70px" alt="">
-			</div> -->
-    <!-- <div id="ratingHead" *ngIf="!rating && language == 'English'">How was the experience with us?</div>
-			<div id="ratingHead" *ngIf="!rating && language == 'Hindi'">हमारे साथ कैसा अनुभव रहा?</div>
-			<div id="ratingHead" *ngIf="rating && language == 'English'">Thank You!</div>
-			<div id="ratingHead" *ngIf="rating && language == 'Hindi'">धन्यवाद!</div> -->
-    <!-- <div id="rating">
-				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#F18D16"
-					defaultColor="#ddd" readonly="false" fontSize="32px" rating="0" *ngIf="!rating">
-				</ionic4-star-rating>
-
-				<ionic4-star-rating #rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#F18D16"
-					defaultColor="#ddd" readonly="true" rating="{{userRating}}" fontSize="32px" *ngIf="rating">
-				</ionic4-star-rating>
-				<button *ngIf="!rating && language == 'English'" (click)="logRatingChange()" class="rateButton"
-					id="ratingHead">Rate</button>
-				<button *ngIf="!rating && language == 'Hindi'" (click)="logRatingChange()" class="rateButton"
-					id="ratingHead">मूल्यांकन करें</button>
-				<div id="ratingHead" class="greetings" *ngIf="rating && language == 'English'">Thank you for rating us !
-				</div>
-				<div id="ratingHead" class="greetings" *ngIf="rating && language == 'Hindi'">हमें रेटिंग देने के लिए
-					धन्यवाद!</div>
-			</div> -->
-    <!-- </ion-row> -->
   </div>
 </ion-content>
 

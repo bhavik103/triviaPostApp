@@ -1,26 +1,45 @@
 <ion-list lines="none">
-    <ion-item-sliding class="feeds">
-        <ion-item>
-            <ion-col size="3" class="newsImg" padding>
-                <img src="{{mediaPath}}{{news.newsImage}}" data-src="assets/images/spinner.gif'" onerror="this.src='assets/images/spinner.gif'" height="73px"
-                    width="100%" (click)="singleNews(news.newsId)" class="loading">
-            </ion-col>
-            <ion-col size="9" class="postDescription">
-                <div>
-                    <span class="optionsList" *ngIf="language == 'en'"
-                        [innerHTML]="news.newsTitleEnglish | slice:0:50" (click)="singleNews(news.newsId)"></span><span
-                        *ngIf="language == 'en'"></span>
-                    <span class="optionsList" *ngIf="language == 'Hindi'"
-                        [innerHTML]="news.newsTitleHindi | slice:0:50" (click)="singleNews(news.newsId)"></span><span *ngIf="language == 'Hindi'"
-                        (click)="singleNews(news.newsId)"></span>
-                    <span (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
-                        *ngIf="language == 'en' && !singleCat">{{news.newsCategory}}</span>
-                    <span (click)="categoryClick(news.newsCategoryId, news.newsCategory)" class="categoryButton"
-                        *ngIf="language == 'Hindi' && !singleCat">{{news.newsCategoryHn}}</span>
-                    <!-- <p class="otherInfoSecond"><img src="assets/images/lightbulb_red.png" alt="" class="likeImage">
-                        {{news.likesCount}} likes |<span class="timeAgo">{{news.createdAt | timeAgo}} </span></p> -->
-                </div>
-            </ion-col>
-        </ion-item>
-    </ion-item-sliding>
+  <ion-item-sliding class="feeds">
+    <ion-item>
+      <ion-col size="3" class="newsImg" padding>
+        <img
+          src="{{mediaPath}}{{news.newsImage}}"
+          data-src="assets/images/spinner.gif'"
+          onerror="this.src='assets/images/spinner.gif'"
+          height="73px"
+          width="100%"
+          (click)="singleNews(news.newsId)"
+          class="loading"
+        />
+      </ion-col>
+      <ion-col size="9" class="postDescription">
+        <div>
+          <span
+            class="optionsList"
+            *ngIf="language != 'as'"
+            [innerHTML]="news[language].title | slice:0:50"
+            (click)="singleNews(news.newsId)"
+          ></span
+          >
+          <span
+            class="optionsList assameseFont"
+            *ngIf="language == 'as'"
+            [innerHTML]="news[language].title | slice:0:50"
+            (click)="singleNews(news.newsId)"
+          ></span
+          >
+          <span
+            (click)="categoryClick(news.newsCategoryId, news.newsCategory[language])"
+            class="categoryButton" *ngIf="language != 'as'"
+            >{{news.newsCategory[language]}}</span
+          >
+          <span
+            (click)="categoryClick(news.newsCategoryId, news.newsCategory[language])"
+            class="categoryButton assameseFont" *ngIf="language == 'as'"
+            >{{news.newsCategory[language]}}</span
+          >
+        </div>
+      </ion-col>
+    </ion-item>
+  </ion-item-sliding>
 </ion-list>

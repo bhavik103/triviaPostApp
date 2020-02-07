@@ -17,9 +17,10 @@ export class RelatedPostPage implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    if(this.postCount <= 1){
+    console.log("RELATED POST", this.news)
+    if (this.postCount <= 1) {
       $('.relatedPostRow').addClass('borderClass');
-      console.log("GOT 4",this.postCount);
+      console.log("GOT 4", this.postCount);
     }
   }
 

@@ -85,6 +85,10 @@ const routes: Routes = [
 	{
 		path: 'large-post',
 		loadChildren: './large-post/large-post.module#LargePostPageModule'
+	},
+	{
+		path: 'all-categories',
+		loadChildren: './all-categories/all-categories.module#AllCategoriesPageModule'
 	}
 ];
 

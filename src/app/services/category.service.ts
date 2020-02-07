@@ -47,7 +47,7 @@ export class CategoryService {
 						this.categories = result['data'];
 						this.notifyChange();
 						console.log('this.categories', this.categories)
-						localStorage.setItem('categoryArray', JSON.stringify(this.categories))
+						// localStorage.setItem('categoryArray', JSON.stringify(this.categories))
 						observer.next(this.categories);
 						observer.complete();
 					},

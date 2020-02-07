@@ -47,20 +47,25 @@
 
 @font-face {
   font-family: Rubik;
-  src: url('assets/fonts/century_gothic.ttf');
+  src: url("assets/fonts/century_gothic.ttf");
+}
+@font-face {
+  font-family: Assamese;
+  src: url("assets/fonts/AS-TTEkushey.ttf");
 }
 
 :root {
-  --main-app-color: #E41212;
-  --main-tool-color: #FB3C4A;
+  --main-app-color: #e41212;
+  --main-tool-color: #fb3c4a;
 }
 ion-icon:focus,
 #feedsLink:focus {
   outline: none;
 }
 
-* {
-  font-family: Rubik!important;
+.assameseFont {
+  font-family: Assamese !important;
+  font-size: 20px;
 }
 
 ion-spinner {
@@ -72,13 +77,12 @@ ion-spinner {
   margin: auto;
 }
 
-
 * {
   outline: none;
 }
 
 ion-header ion-toolbar:first-child {
-  --background: #E41212 !important;
+  --background: #e41212 !important;
 }
 
 ion-toolbar {
@@ -186,5 +190,5 @@ ion-toolbar {
   }
 }
 .myActionSheetBtnStyle {
-  color: red!important;
+  color: red !important;
 }

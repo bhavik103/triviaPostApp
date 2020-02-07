@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { config } from '../config';
 import { Router } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class PostTilesPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log('this.newsArray tiles',this.news);
+    console.log('this.newsArray tiles', this.news);
   }
 
   categoryClick(catId, catName) {

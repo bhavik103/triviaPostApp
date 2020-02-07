@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router, Route } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NewsService } from "../services/news.service";
 import { config } from '../config';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ToastService } from '../services/toast.service';
 import { Network } from '@ionic-native/network/ngx';
 import * as _ from 'lodash';
-import { ActionSheetController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-single-post',
@@ -27,25 +28,30 @@ export class SinglePostPage implements OnInit {
   loading: boolean;
   news: any;
   singleNewsLoading: any;
-  constructor(private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
+  shareBlink: string;
+  byPassedNews: any;
+  constructor(private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
     this.singlePost();
     this.route.params.subscribe((param: any) => {
       this.configureBack(this.router.url, param);
     });
-    this.increaseViews();
   }
   ionViewWillEnter() {
+    this.shareBlink = localStorage.getItem('shareBlink');
+    this.increaseViews();
     this.removeRedirectItem();
-    
-    // Firebase Analytics 'screen_view' event tracking
-    this.firebaseAnalytics.setCurrentScreen('Single Post').then(res => {
-      console.log("firebase", res)
-    })
+
+    if (this.platform.is('cordova')) {
+      // Firebase Analytics 'screen_view' event tracking
+      this.firebaseAnalytics.setCurrentScreen('Single Post').then(res => {
+        console.log("firebase", res)
+      })
+    }
     var postId = this.route.snapshot.params['id'];
   }
-  
+
   configureBack(url, param) {
     console.log("url, param", url, param);
     if (url.includes('bookmark')) {
@@ -81,7 +87,6 @@ export class SinglePostPage implements OnInit {
     }
     this._newsService.getSingleNews(postId).subscribe(res => {
       const singlepostArray = [];
-      console.log("NEWS", res)
       singlepostArray.push(res);
       this.singlepost = singlepostArray;
       if (this.tokenLocalStorage) {
@@ -95,36 +100,23 @@ export class SinglePostPage implements OnInit {
       }
       this.singlepost = res;
       this.news = res[0];
-      console.log('this.news=>>>>>>>>>>', this.news)
       this.singlepost.splice(0, 1);
-      console.log("News single", this.news.newsEnglish);
-
-      //condition for youtube icon
-      if (!this.news.newsEnglish.includes("https://img.icons8.com/color/96/000000/youtube-play.png")) {
-        this.loading = false;
-        this.singleNewsLoading = false;
-      }else{
-        this.singleNewsLoading = true;
-        setTimeout(() => {
-          $('.singleNews').css('visibility','hidden');
-        }, 0.1);
+      this.loading = false;
+      this.singleNewsLoading = false;
+      console.log("SINGLE POST", this.news)
+      this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news[this.language].content);
+      this.byPassedNews = this.byPassedNews.changingThisBreaksApplicationSecurity;
+      if (this.platform.is('cordova')) {
+        this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.news[this.language].title }).then(res => {
+          // console.log("Post Tracked", this.news[this.language].title)
+        })
       }
-
-      this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.singlepost[0]['newsTitleEnglish'] }).then(res => {
-        console.log("Post Tracked", this.singlepost[0]['newsTitleEnglish'])
-      })
-
-      //for youtube play icon
-      setTimeout(() => {
-        $("[src='https://img.icons8.com/color/96/000000/youtube-play.png']").css({ "position": "absolute", "margin-top": "22%", "margin-left": "33%", "pointer-events": "none" });
-        $('.singleNews').css('visibility','visible');
-        this.loading = false;
-        this.singleNewsLoading = false;
-      }, 1000);
     });
   }
   //  Do Share Post 
   sharePost(link: string, newsTitle: string, newsImage) {
+    this.shareBlink = '1';
+    localStorage.setItem('shareBlink', '1')
     var message = "Check out this amazing news " + '"' + newsTitle + '" ';
     var subject = "Trivia Post";
     var str = newsTitle;
@@ -146,9 +138,11 @@ export class SinglePostPage implements OnInit {
       this._toastService.toastFunction('You need to login first', 'danger');
       this.router.navigateByUrl('/login');
     } else {
-      if (this.network.type == 'none') {
-        this.singlePost();
-        this._toastService.toastFunction('No internet connection', 'danger');
+      if (this.platform.is('cordova')) {
+        if (this.network.type == 'none') {
+          this.singlePost();
+          this._toastService.toastFunction('No internet connection', 'danger');
+        }
       } else {
         this._newsService.bookmarkPost(newsid).subscribe((res: any) => {
           this._toastService.toastFunction(res.message, 'success');
@@ -159,28 +153,6 @@ export class SinglePostPage implements OnInit {
       }
     }
   }
-
-  // //like post
-  // likePost(postid) {
-  //   if (!localStorage.getItem('accessToken')) {
-  //     console.log("newsId done", postid);
-  //     localStorage.setItem('likepostId', postid);
-  //     this._toastService.toastFunction('Please login first!', 'danger');
-  //     this.router.navigateByUrl('/login');
-  //   } else {
-  //     if (this.network.type == 'none') {
-  //       this._toastService.toastFunction('No internet connection', 'danger');
-  //       this.singlePost();
-  //     } else {
-  //       this._newsService.likepost(postid).subscribe((res: any) => {
-  //         this.singlePost();
-  //         this._toastService.toastFunction(res.message, 'success');
-  //       }), err => {
-  //         this._toastService.toastFunction(err.error.message, 'danger');
-  //       }
-  //     }
-  //   }
-  // }
 
   alreadyLiked() {
     this._toastService.toastFunction('You have already liked!', 'danger');

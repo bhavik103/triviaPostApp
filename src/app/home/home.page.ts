@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { config } from '../config';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { NewsService } from '../services/news.service';
 import { FCM } from '@ionic-native/fcm/ngx';
 declare var $: any;
@@ -16,6 +16,8 @@ import { ToastService } from "../services/toast.service";
 import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 import { SuperTabs } from '@ionic-super-tabs/angular';
 import { SuperTabsConfig } from '@ionic-super-tabs/core';
+import { GeneralService } from '../services/general.service'
+import { langList } from '../changeLang';
 
 @Component({
     selector: 'app-home',
@@ -25,7 +27,7 @@ import { SuperTabsConfig } from '@ionic-super-tabs/core';
 
 export class HomePage implements OnInit {
     @ViewChild(SuperTabs, { static: false }) superTabs: SuperTabs;
-
+    selected;
     tokenLocalStorage: any;
     language: string;
     loggedInUser: any;
@@ -47,7 +49,12 @@ export class HomePage implements OnInit {
     };
     categories: any;
     latestPost: any;
-    constructor(private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
+    navExtras: any;
+    catSelect: any;
+    languageList = langList;
+    currentLangSelected: any;
+
+    constructor(private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
     }
 
     // Event Listeners
@@ -56,9 +63,10 @@ export class HomePage implements OnInit {
         this.language = localStorage.language;
         this.viewInitFunctions();
     }
-    
+
     ionViewDidEnter() {
-        this.checkForLogin();
+        this.catSelect = localStorage.getItem('catSelect');
+        this.language = localStorage.getItem('language')
         this.subscription = this.platform.backButton.subscribe(() => {
             navigator['app'].exitApp();
         });
@@ -87,23 +95,32 @@ export class HomePage implements OnInit {
         }
     }
     ionViewWillEnter() {
-        if (localStorage.getItem('language')) {
-            // this.getCategories();
+        this.getCategories();
+        this.navExtras = this._generalService.getExtras();
+        if (localStorage.getItem('language') && localStorage.getItem('catSelect') == "1") {
+            this.language = localStorage.getItem('language')
+            this.catSelect = localStorage.getItem('catSelect')
             this.getAllPost();
         }
         this.fcmToken();
         this.checkforInternet();
     }
-    
+
     //get all news - HOME PAGE ( FEEDS )
     getAllPost() {
-        this.loading = true;
+        if (!this.navExtras) {
+            // this.loading = true;
+        } else {
+            this.loading = false;
+        }
         this.language = localStorage.getItem('language');
         this._newsService.getAllNews().subscribe(
             (res: any) => {
+                console.log('res anyyyyyy', res.data)
                 this.loading = false;
                 this.newsArray = res;
                 this.latestPost = res[0];
+                console.log('this.latestPost', this.latestPost)
                 this.newsArray.splice(0, 1);
             },
             (err) => {
@@ -111,14 +128,6 @@ export class HomePage implements OnInit {
             });
     }
 
-    //checks if user is logged in
-    checkForLogin(){
-        console.log("Hello from check for login")
-        if(this.language && !localStorage.getItem('accessToken')){
-            this._userService.serviceFunction();
-        }
-    }
-    
     //go to specific post when link click
     firebaseLinkRoute() {
         if (!config.isvisited && !config.counter) {
@@ -147,22 +156,29 @@ export class HomePage implements OnInit {
         });
     }
     //get categories
-    // getCategories() {
-    //     this.language = localStorage.getItem('language');
-    //     this._categoryService.getAll().subscribe((res) => {
-    //         this.categories = res;
-    //         console.log("after", this.categories);
-    //     },
-    //         (err) => {
-    //         });
-    // }
+    getCategories() {
+        this.language = localStorage.getItem('language');
+        this._categoryService.getAll().subscribe((res) => {
+            this.categories = res;
+            console.log("after", this.categories);
+        },
+            (err) => {
+            });
+    }
     //change on subscription of category
     subscribedCategory(e) {
         console.log("Event e", e);
-        if (e.statusCode == 1) {
-            this.categories.find((o) => o.categoryId === e.catId).isNotify = true;
-        } else if (e.statusCode == 0) {
-            this.categories.find((o) => o.categoryId === e.catId).isNotify = false;
+        if (e.cat === 1) {
+            localStorage.setItem('catSelect', '1');
+            localStorage.setItem('language', this.language);
+            this.catSelect = '1';
+            this.getAllPost();
+        } else {
+            if (e.statusCode == 1) {
+                this.categories.find((o) => o.categoryId === e.catId).isNotify = true;
+            } else if (e.statusCode == 0) {
+                this.categories.find((o) => o.categoryId === e.catId).isNotify = false;
+            }
         }
     }
     //navigate to searchbar
@@ -183,28 +199,36 @@ export class HomePage implements OnInit {
 
     //select lang on first time app opens
     selectLang() {
-        let lang = $("select#languageSelect option").filter(":selected").val();
-        localStorage.setItem('language', lang);
-        this.fcm.getToken().then(token => {
-            localStorage.setItem('deviceToken', token);
-            setTimeout(() => {
-                if (localStorage.getItem('annonymousNotify')) {
-                    this._userService.firstTimeUser(lang).subscribe((res: any) => {
-                        // this.getCategories();
-                        this.getAllPost();
-                        this._userService.serviceFunction();
-                        localStorage.setItem('annonymousNotify', 'true');
-                        this.language = localStorage.getItem('language')
-                    },
-                        (err) => {
-                        });
-                }
-            }, 1000);
-        });
-        this.fcm.onTokenRefresh().subscribe(token => {
-            localStorage.setItem('deviceToken', token);
-        });
+        if (this.selected) {
+            this.catSelect = '0';
+            localStorage.setItem('catSelect','0')
+            let lang = this.selected;
+            console.log("LANGGGGGGGGGGGGGGGG", lang)
+            localStorage.setItem('language', lang);
+            this.language = lang;
+            console.log(this.language)
+            if (this.platform.is('cordova')) {
+                this.fcm.getToken().then(token => {
+                    localStorage.setItem('deviceToken', token);
+                    setTimeout(() => {
+                        if (localStorage.getItem('annonymousNotify')) {
+                            this._userService.firstTimeUser(lang).subscribe((res: any) => {
+                                // this.getCategories();
+                                this._userService.serviceFunction();
+                                localStorage.setItem('annonymousNotify', 'true');
+                            },
+                                (err) => {
+                                });
+                        }
+                    }, 1000);
+                });
+                this.fcm.onTokenRefresh().subscribe(token => {
+                    localStorage.setItem('deviceToken', token);
+                });
+            }
+        }
     }
+
     //set fcm token
     fcmToken() {
         this.fcm.onNotification().subscribe(data => {

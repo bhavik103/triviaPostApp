@@ -17,7 +17,7 @@ p {
   bottom: 13%;
   color: white;
   padding: 0 5%;
-  z-index: 9999;
+  z-index: 1;
   font-weight: 700;
   font-size: 17px;
   left: 12px;
@@ -50,7 +50,7 @@ p {
 .notSubscribed,
 .subscribed {
   margin-top: 7%;
-  margin-left: 7%;
+  // margin-left: 7%;
   background-color: #fff;
   opacity: 0.9;
   border: 1px solid var(--main-app-color);
@@ -74,4 +74,138 @@ p {
   color: #fff;
   background-color: var(--main-app-color);
   border-radius: 5px;
+}
+
+//modal css
+.modal-window {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.6);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  pointer-events: all;
+  transition: all 0.3s;
+  &:target {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  & > div {
+    width: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    background: #ffffff;
+    height: 60%;
+  }
+  header {
+    font-weight: bold;
+  }
+  h1 {
+    font-size: 150%;
+    margin: 0 0 15px;
+  }
+}
+
+.modal-close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  pointer-events: all;
+  text-decoration: none;
+  &:hover {
+    color: black;
+  }
+}
+
+/* Demo Styles */
+
+a {
+  color: inherit;
+}
+
+.modal-window div:not(:last-of-type) {
+  margin-bottom: 15px;
+}
+
+small {
+  color: #aaa;
+}
+
+.btn {
+  background-color: #fff;
+  padding: 1em 1.5em;
+  border-radius: 3px;
+  text-decoration: none;
+  i {
+    padding-right: 0.3em;
+  }
+}
+button.signupButton {
+  width: 100%;
+  background-color: #CF2736;
+  color: #fff;
+  padding: 8px;
+  border-radius: 36px;
+  margin-right: 11px;
+  pointer-events: all;
+}
+button.cancelButton {
+  background-color: #fff;
+  color: #CF2736;
+  border: 1px solid #CF2736;
+  padding: 8px;
+  border-radius: 36px;
+  margin-right: 11px;
+  pointer-events: all;
+  width: 100%;
+  margin-top: 21px;
+}
+.firstTimeButton,
+.signupButton {
+  border: 5px red solid;
+
+  animation: blink 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  50% {
+    border-color: #fff;
+  }
+}
+ion-slide {
+  display: block;
+}
+.swiper-container {
+  height: 60% !important;
+}
+ion-slide img {
+  height: 40px !important;
+}
+.img_border {
+  position: absolute;
+  border: 1px solid #fff;
+  background-color: #fff;
+  border-radius: 50%;
+  margin: auto;
+  width: 70px;
+  height: 70px;
+  padding: 10px;
+  top: -10%;
+  left: 0;
+  right: 0;
+  box-shadow: 2px 2px 3px 0 #ddd;
+}
+ion-slide h3{
+  padding: 22px;
 }

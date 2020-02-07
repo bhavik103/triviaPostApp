@@ -1,24 +1,69 @@
-<div class="container" *ngIf="language == 'English'"
-  (click)="singleCategory(category.categoryId,category.categoryTitle)">
-  <img src="{{mediaPath}}{{category.categoryImage}}" onerror="this.src='assets/images/spinner.gif'" alt="Category Image" style="width:100%;">
-</div>
-<div class="container" *ngIf="language == 'Hindi'" (click)="singleCategory(category.categoryId,category.categoryTitleHn)">
-  <img src="{{mediaPath}}{{category.categoryImage}}" alt="Category Image" style="width:100%;">
+<div
+  class="container"
+  (click)="singleCategory(category.categoryId,category.category[language])"
+>
+  <img
+    src="{{mediaPath}}{{category.categoryImage}}"
+    alt="Category Image"
+    style="width:100%;"
+  />
 </div>
 <div class="text-block">
   <div class="">
     <div class="category_title">
-      <p *ngIf="language == 'English'" (click)="singleCategory(category.categoryId,category.categoryTitle)">
-        {{category.categoryTitle | slice:0:30}}</p>
-      <p *ngIf="language == 'Hindi'" (click)="singleCategory(category.categoryId,category.categoryTitleHn)">
-        {{category.categoryTitleHn | slice:0:30}}</p>
+      <p
+        (click)="singleCategory(category.categoryId,category.category[language])"
+      >
+        {{category.category[language] | slice:0:30}}
+      </p>
     </div>
-    <p class="postCount">{{category.countPost}} Posts</p>
-    <button *ngIf="!category.isNotify" class="notSubscribed"
-      (click)="addNotify(category.categoryId, category.isNotify)">
+    <!-- <p class="postCount">{{category.countPost}} Posts</p> -->
+    <button
+      *ngIf="!category.isNotify && !firstTime"
+      class="notSubscribed"
+      (click)="addNotify(category.categoryId, category.isNotify,firstTime)"
+    >
       <ion-icon name="notifications-outline"></ion-icon> Subscribe
     </button>
-    <button *ngIf="category.isNotify" class="subscribed"
-      (click)="addNotify(category.categoryId, category.isNotify)">Subscribed</button>
+    <button
+      *ngIf="!category.isNotify && firstTime"
+      class="notSubscribed firstTimeButton"
+      (click)="addNotify(category.categoryId, category.isNotify,firstTime)"
+    >
+      <ion-icon name="notifications-outline"></ion-icon> Subscribe
+    </button>
+    <button
+      *ngIf="category.isNotify"
+      class="subscribed"
+      (click)="addNotify(category.categoryId, category.isNotify,firstTime)"
+    >
+      Subscribed
+    </button>
+  </div>
+</div>
+
+<div id="open-modal" class="modal-window" *ngIf="modal">
+  <div>
+    <div class="img_border">
+      <img src="../../assets/images/bookmarkNew.png" alt="" *ngIf="sliderIndex == 0 || !sliderIndex"/>
+      <img src="../../assets/images/notificationNew.png" alt="" *ngIf="sliderIndex == 1" />
+    </div>
+    <ion-slides pager (ionSlideWillChange)="slideDidChange()">
+      <ion-slide>
+        <h3>Bookmark Posts</h3>
+        <p>So you don't loose your favourite reading blogs</p>
+      </ion-slide>
+
+      <ion-slide>
+        <div>
+        </div>
+        <h3>Get Notifications</h3>
+        <p>So you get instant notifications from your subscribed blogs</p>
+      </ion-slide>
+    </ion-slides>
+    <div>
+      <button class="signupButton" (click)="redirectToSignup()">Signup</button>
+      <button class="cancelButton" (click)="closeModal()">Skip</button>
+    </div>
   </div>
 </div>

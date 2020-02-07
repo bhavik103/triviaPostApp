@@ -37,6 +37,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { SuperTabsModule } from '@ionic-super-tabs/angular';
+
 export class HammerConfig extends HammerGestureConfig {
   overrides = <any>{
     'swipe': { direction: Hammer.DIRECTION_ALL }

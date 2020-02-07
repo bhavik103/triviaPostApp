@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { GeneralService } from '../services/general.service';
 import { ToastService } from "../services/toast.service";
+import { savePref,category,signInText, signIn, orUsing, langSelectText, shareApp, terms, privacy, feedback, notification, bookmark, language } from '../changeLang';
 import 'jquery';
 @Component({
 	selector: 'app-settings',
@@ -29,66 +30,100 @@ export class SettingsComponent implements OnInit {
 	};
 	userRating: string;
 	ratings: any;
+
+	//static variables based on language starts********
+	langSelectText = langSelectText;
+	shareApp = shareApp;
+	terms = terms;
+	privacy = privacy;
+	category = category;
+	savePref = savePref;
+	signInText = signInText;
+	feedback = feedback;
+	bookmark = bookmark;
+	signIn = signIn;
+	languageText = language;
+	orUsing = orUsing;
+	notification = notification;
+	//********static variables based on language ends
+	
 	languageActionSheet = [
 		{
 			text: 'English', shortForm: 'en', role: 'destructive', handler: () => {
+				this.language = 'en';
 				localStorage.setItem('language', 'en');
-				this.language = localStorage.getItem('language');
 				this._userService.changeLanguage('en');
 			}
 		},
 		{
-			text: 'Hindi', shortForm: 'hn', role: 'destructive', handler: () => {
+			text: 'हिंदी', shortForm: 'hn', role: 'destructive', handler: () => {
+				this.language = 'hn';
 				localStorage.setItem('language', 'hn');
 				this.language = localStorage.getItem('language');
+				this._userService.changeLanguage('hn');
 			}
 		},
 		{
-			text: 'Language 3', shortForm: 'l3', role: 'destructive', handler: () => {
-				localStorage.setItem('language', 'l3');
-				this.language = localStorage.getItem('language');
+			text: 'অসমীয়া', shortForm: 'as', role: 'destructive', handler: () => {
+				this.language = 'as';
+				localStorage.setItem('language', 'as');
+				this._userService.changeLanguage('as');
 			}
 		},
 		{
-			text: 'Language 4', shortForm: 'l4', role: 'destructive', handler: () => {
-				localStorage.setItem('language', 'l4')
-				this.language = localStorage.getItem('language');
+			text: 'বাংলা', shortForm: 'bn', role: 'destructive', handler: () => {
+				this.language = 'bn';
+				localStorage.setItem('language', 'bn')
+				this._userService.changeLanguage('bn');
 			}
 		},
 		{
-			text: 'Language 5', shortForm: 'l5', role: 'destructive', handler: () => {
-				localStorage.setItem('language', 'l5');
-				this.language = localStorage.getItem('language');
+			text: 'ગુજરાતી', shortForm: 'gu', role: 'destructive', handler: () => {
+				this.language = 'gu';
+				localStorage.setItem('language', 'gu');
+				this._userService.changeLanguage('gu');
 			}
 		},
 		{
-			text: 'Language 6', shortForm: 'l6', role: 'destructive', handler: () => {
-				localStorage.setItem('language', 'l6');
-				this.language = localStorage.getItem('language');
+			text: 'ಕನ್ನಡ', shortForm: 'kn', role: 'destructive', handler: () => {
+				this.language = 'kn';
+				localStorage.setItem('language', 'kn');
+				this._userService.changeLanguage('kn');
 			}
 		},
 		{
-			text: 'Language 7', shortForm: 'l7', role: 'destructive', handler: () => {
-				localStorage.setItem('language', 'l7');
-				this.language = localStorage.getItem('language');
+			text: 'മലയാളം', shortForm: 'ml', role: 'destructive', handler: () => {
+				this.language = 'ml';
+				localStorage.setItem('language', 'ml');
+				this._userService.changeLanguage('ml');
 			}
 		},
 		{
-			text: 'Language 8', shortForm: 'l8', role: 'destructive', handler: () => {
-				localStorage.setItem('language', 'l8');
-				this.language = localStorage.getItem('language');
+			text: 'मराठी', shortForm: 'mr', role: 'destructive', handler: () => {
+				this.language = 'mr';
+				localStorage.setItem('language', 'mr');
+				this._userService.changeLanguage('mr');
 			}
 		},
 		{
-			text: 'Language 9', shortForm: 'l9', role: 'destructive', handler: () => {
-				localStorage.setItem('language', 'l9');
-				this.language = localStorage.getItem('language');
+			text: 'ਪੰਜਾਬੀ', shortForm: 'pa', role: 'destructive', handler: () => {
+				this.language = 'pa';
+				localStorage.setItem('language', 'pa');
+				this._userService.changeLanguage('pa');
 			}
 		},
 		{
-			text: 'Language 10', shortForm: 'l10', role: 'destructive', handler: () => {
-				localStorage.setItem('language', 'l10');
-				this.language = localStorage.getItem('language');
+			text: 'தமிழ்', shortForm: 'ta', role: 'destructive', handler: () => {
+				this.language = 'ta';
+				localStorage.setItem('language', 'ta');
+				this._userService.changeLanguage('ta');
+			}
+		},
+		{
+			text: 'తెలుగు', shortForm: 'te', role: 'destructive', handler: () => {
+				this.language = 'te';
+				localStorage.setItem('language', 'te');
+				this._userService.changeLanguage('te');
 			}
 		},
 	];
@@ -106,20 +141,15 @@ export class SettingsComponent implements OnInit {
 		if (this.tokenLocalStorage) {
 			this.getUserDetail();
 		}
+		this.language = localStorage.getItem('language');
+		console.log("langSelectText", this.langSelectText[this.language])
 	}
 
 	ngOnInit() {
-		this.getUserRating();
 		this.getUrl();
 		this.notifyFlag = localStorage.getItem('notification');
 		this.annonymousNotify = localStorage.getItem('annonymousNotify');
 		console.log(this.annonymousNotify);
-		this.language = localStorage.getItem('language');
-	}
-
-	//remove cancel button for language 
-	removeCancelButton() {
-		(document.querySelector('.action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-md') as HTMLElement).style.display = 'none';
 	}
 
 	//for displaying first character
@@ -190,13 +220,6 @@ export class SettingsComponent implements OnInit {
 			});
 	}
 
-	//changing language
-	languageChange($event) {
-		var language = $event.target.value;
-		localStorage.setItem('language', language);
-		this.language = localStorage.getItem('language');
-	}
-
 	//notify toggle function
 	notificationSwitch(e) {
 		localStorage.setItem('notification', e.target.checked);
@@ -223,28 +246,6 @@ export class SettingsComponent implements OnInit {
 			});
 	}
 
-	//rate change on submit
-	logRatingChange() {
-		console.log($("ion-icon[ng-reflect-name='ios-star']").length);
-		this.ratings = $("ion-icon[ng-reflect-name='ios-star']").length;
-		if (this.ratings != 0) {
-			localStorage.setItem('rating', this.ratings);
-			this._userService.userRating(this.ratings).subscribe();
-			this.rating = true;
-			this.userRating = localStorage.getItem('rating');
-		} else {
-			this._toastService.toastFunction('Please input your rating!', 'danger');
-		}
-	}
-
-	//getting user ratings
-	getUserRating() {
-		if (localStorage.getItem('rating')) {
-			this.rating = true;
-			this.userRating = localStorage.getItem('rating');
-		}
-	}
-
 	//open select language alert
 	async changeLang(lang) {
 		console.log("LANG", lang);
@@ -253,7 +254,7 @@ export class SettingsComponent implements OnInit {
 			// look for the entry with a matching `language` value
 			if (this.languageActionSheet[i].shortForm == lang) {
 				this.languageActionSheet[i]['cssClass'] = 'myActionSheetBtnStyle';
-			}else{
+			} else {
 				this.languageActionSheet[i]['cssClass'] = '';
 			}
 		}

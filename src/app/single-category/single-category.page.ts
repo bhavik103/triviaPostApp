@@ -5,8 +5,7 @@ import { config } from '../config';
 import { ToastService } from '../services/toast.service';
 import { Network } from '@ionic-native/network/ngx';
 import * as _ from 'lodash';
-import {SharedModule} from '../shared/shared.module'
-import { Config } from '@ionic/angular';
+import {GeneralService} from '../services/general.service'
 @Component({
   selector: 'app-single-category',
   templateUrl: './single-category.page.html',
@@ -21,7 +20,7 @@ export class SingleCategoryPage implements OnInit {
   latestPost;
   newsArrayLength: any;
   news: any;
-  constructor(private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private _generalService: GeneralService ,private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.language = localStorage.getItem('language');
@@ -61,5 +60,8 @@ export class SingleCategoryPage implements OnInit {
   }
   singleNews(id){
     this.router.navigateByUrl('/single-post/'+id + '/category')
+  }
+  setExtras(page){
+    this._generalService.setExtras(page);
   }
 }

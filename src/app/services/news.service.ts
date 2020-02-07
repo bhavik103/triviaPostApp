@@ -8,7 +8,10 @@ import { News } from '../home/news';
 import { Network } from '@ionic-native/network/ngx';
 import * as _ from 'lodash';
 import { AppComponent } from '../app.component';
-import {UserService} from './user.service'
+import { UserService } from './user.service'
+import { language } from 'app/changeLang';
+import { SimplePlaceholderMapper } from '@angular/compiler/src/i18n/serializers/serializer';
+import { CompileTemplateMetadata } from '@angular/compiler';
 @Injectable({
 	providedIn: 'root'
 })
@@ -25,33 +28,22 @@ export class NewsService {
 		return throwError('Error! something went wrong.');
 	}
 
-	constructor(public _userService: UserService,private network: Network, private http: HttpClient) { }
+	constructor(public _userService: UserService, private network: Network, private http: HttpClient) { }
 
 	//fetch all news
-	getAllNews(): Observable<any> {
+	getAllNews() {
 		if (this.network.type == 'none') {
-			return new Observable(observer => {
-				console.log(JSON.parse(localStorage.getItem("newsArray")));
-				this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
-				setTimeout(() => {
-					observer.next(this.newsArray);
-					observer.complete();
-				}, 1);
-			});
+			this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
+			setTimeout(() => {
+				return this.newsArray;
+			}, 1);
 		} else {
-			return new Observable(observer => {
-				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').subscribe(
-					(result: object) => {
-						this.newsArray = result['data'];
-						console.log('this.newsArray', this.newsArray)
-						localStorage.setItem('newsArray', JSON.stringify(this.newsArray.slice(0,10)))
-						observer.next(this.newsArray);
-						observer.complete();
-					},
-					(error) => {
-						observer.error(error);
-					});
-			});
+			return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').pipe(
+				map((res: any) => {
+					console.log('res =========', res.data)
+					return res.data
+				})
+			);
 		}
 	}
 
@@ -184,56 +176,47 @@ export class NewsService {
 	//get single news
 	getSingleNews(id) {
 		if (this.network.type == 'none') {
-			return new Observable(observer => {
-				console.log(JSON.parse(localStorage.getItem("newsArray")));
-				this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
-				var filtersArray = [id];
+			console.log(JSON.parse(localStorage.getItem("newsArray")));
+			this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
+			var filtersArray = [id];
 
-				var filtered = this.newsArray.filter(function (element) {
-					var news = element.newsId.split(' ');
+			var filtered = this.newsArray.filter(function (element) {
+				var news = element.newsId.split(' ');
 
-					return news.filter(function (post) {
-						return filtersArray.indexOf(post) > -1;
-					}).length === filtersArray.length;
-				});
-				this.newsArray = filtered;
-
-
-				//for appending lates news
-				var allNews = JSON.parse(localStorage.getItem("newsArray"))
-				var finalObject = [];
-				finalObject.push(this.newsArray[0])
-				for (let i = 0; i < 6; i++) {
-					this.newsArray[0].newsId != allNews[i].newsId ? finalObject.push(allNews[i]) : ''
-				}
-				if(finalObject.length > 6){
-					finalObject.splice(6,1);
-				}
-
-				//6 news including latest news
-				this.newsArray = finalObject;
-
-				console.log("filtered", this.newsArray);
-				setTimeout(() => {
-					observer.next(this.newsArray);
-					observer.complete();
-				}, 1);
+				return news.filter(function (post) {
+					return filtersArray.indexOf(post) > -1;
+				}).length === filtersArray.length;
 			});
+			this.newsArray = filtered;
+
+
+			//for appending lates news
+			var allNews = JSON.parse(localStorage.getItem("newsArray"))
+			var finalObject = [];
+			finalObject.push(this.newsArray[0])
+			for (let i = 0; i < 6; i++) {
+				this.newsArray[0].newsId != allNews[i].newsId ? finalObject.push(allNews[i]) : ''
+			}
+			if (finalObject.length > 6) {
+				finalObject.splice(6, 1);
+			}
+
+			//6 news including latest news
+			this.newsArray = finalObject;
+
+			console.log("filtered", this.newsArray);
+			setTimeout(() => {
+				return this.newsArray
+			}, 1);
 		} else {
-			return new Observable(observer => {
-				console.log("in ");
-				this.http.get(config.baseApiUrl + 'single-news?postId=' + id).subscribe(
-					(result: object) => {
-						this.newsArray = result['data'];
-						console.log("in cat service", this.newsArray);
-						localStorage.setItem('newsArray', JSON.stringify(this.newsArray))
-						observer.next(this.newsArray);
-						observer.complete();
-					},
+			return this.http.get(config.baseApiUrl + 'single-news?postId=' + id).pipe(
+				map((result: any) => {
+					this.singleNews = JSON.parse(JSON.stringify(result.data));
+					return JSON.parse(JSON.stringify(this.singleNews));
+				},
 					(error) => {
-						observer.error(error);
-					});
-			});
+						console.log("ERROR")
+					}));
 		}
 	}
 
@@ -243,6 +226,12 @@ export class NewsService {
 	}
 
 	increaseView(id) {
-		return this.http.put(config.baseApiUrl + 'post-views', { postId: id });
+		const postType = localStorage.getItem('language');
+		if (localStorage.getItem('accessToken')) {
+			return this.http.put(config.baseApiUrl + 'post-view-loggedin', { postId: id, postType: postType });
+		} else {
+			return this.http.put(config.baseApiUrl + 'post-view-without-login', { postId: id, postType: postType });
+		}
 	}
 }
+

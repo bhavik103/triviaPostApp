@@ -51,20 +51,11 @@ export class UserService {
 	changeLanguage(lang){
 		this.tokenLocalStorage = localStorage.getItem('accessToken');
 		if (this.tokenLocalStorage) {
-			var base64Url = this.tokenLocalStorage.split('.')[1];
-			var base64 = base64Url.replace('-', '+').replace('_', '/');
-			var decodedToken = JSON.parse(window.atob(base64));
-			console.log("DECODED TOKEN",decodedToken)
-		}else{
-			console.log("NOT LOGGED IN")
+			const language = {
+				language: lang,
+			}
+			return this.http.put(config.baseApiUrl + "change-language", language)
 		}
-
-		// const language = {
-		// 	language: lang,
-		// 	userId: 
-		// }
-		// return this.http.put(config.baseApiUrl + "change-language", lang)
-
 	}
 	googleLogin(token) {
 		var deviceToken = localStorage.getItem('deviceToken');

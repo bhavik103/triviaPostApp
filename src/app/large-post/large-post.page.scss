@@ -94,3 +94,11 @@ img.likeImage {
   opacity: 0.8;
   font-weight: normal;
 }
+.blink {
+  border-bottom: 5px red solid;
+  
+  animation: blink 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink { 50% { border-color:#fff ; }  }

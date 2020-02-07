@@ -63,7 +63,7 @@ export class AppComponent {
     this._userService.currentData.subscribe(value => {
       if (this.loginModalFlag != true) {
         //generates random time for opennig modal between 25 and 40 seconds
-        let randomNum = Math.floor(Math.random() * (10 - 8 + 1)) + 8;
+        let randomNum = Math.floor(Math.random() * (30 - 14 + 1)) + 14;
         setTimeout(() => {
           $('#fadeDiv').addClass('opened');
           this.hidden = true;

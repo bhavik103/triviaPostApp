@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 import { map, catchError } from 'rxjs/operators';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { Platform } from '@ionic/angular';
-import {privacyPolicy} from '../privacy/privacyPolicy';
+import { privacyPolicy } from '../privacy/privacyPolicy';
 
 @Injectable({
 	providedIn: 'root'
@@ -13,6 +13,7 @@ import {privacyPolicy} from '../privacy/privacyPolicy';
 export class GeneralService {
 	privacy: any;
 	updates: any;
+	extras: any;
 	constructor(private http: HttpClient) { }
 
 	private handleError(error: HttpErrorResponse) {
@@ -28,6 +29,17 @@ export class GeneralService {
 			}),
 			catchError(this.handleError));
 	}
+
+	//set and get navigation
+	public setExtras(data) {
+		console.log("SET EXTRAS",data)
+		this.extras = data;
+	}
+
+	public getExtras() {
+		return this.extras;
+	}
+
 
 	// // check-for-updates
 	// getUpdateDetails(){

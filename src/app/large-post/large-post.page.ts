@@ -12,16 +12,22 @@ export class LargePostPage implements OnInit {
   @Input('singleCat') singleCat: any;
   @Input('language') language: string;
   mediaPath = config.mediaApiUrl;
+  firstLargePostClick: string;
   constructor(private router: Router) {
   }
 
   ngOnInit() {
+    console.log("news[language].title", this.news[this.language].title)
     console.log('this.news', this.news)
+    this.firstLargePostClick = localStorage.getItem('firstLargePostClick')
   }
-
+  
   ionViewWillEnter() {
+    if (!localStorage.getItem('firstLargePostClick')) {
+      console.log("firstLargePostClick")
+    }
     this.language = localStorage.getItem('language');
-    console.log('this.language',this.language)
+    console.log('this.language', this.language)
   }
 
   categoryClick(catId, catName) {
@@ -30,6 +36,8 @@ export class LargePostPage implements OnInit {
 
   singleNews(postid) {
     console.log('postid', postid);
+    localStorage.setItem('firstLargePostClick','1')
+    this.firstLargePostClick = '1';
     this.router.navigateByUrl('/single-post/' + postid);
   }
 

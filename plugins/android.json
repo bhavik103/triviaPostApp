@@ -15,6 +15,9 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-wheel-selector-plugin": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
     }
   },
   "dependent_plugins": {
