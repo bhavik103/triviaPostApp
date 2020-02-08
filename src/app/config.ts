@@ -1,17 +1,22 @@
-//const baseUrl = "https://admin.triviapost.in:5000/api/";
-const mediaUrl = "https://admin.triviapost.in/server/";
-const baseUrl = "http://192.168.1.58:3000/api/";
-// const mediaUrl = "http://192.168.1.58/Bhavik/triviaBackend/";
-export const config = {
-	baseApiUrl: baseUrl,
-	mediaApiUrl: mediaUrl,
+let envs = [];
+let env = "test";
+
+envs['production'] = {
+	baseApiUrl: 'https://admin.triviapost.in:5000/api/',
+	mediaApiUrl: 'https://admin.triviapost.in/server/',
 	isvisited: false,
 	counter: 0
 }
-// Commands for signed APK
-
-// 1) keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
-// 2) jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk alias_name
-// 3) zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk triviapost.apk
-//Google analytics error soln
-// ionic cordova plugin add cordova-android-play-services-gradle-release
+envs['development'] = {
+	baseApiUrl: 'http://192.168.1.58:3000/api/',
+	mediaApiUrl: 'http://192.168.1.58/Bhavik/triviaBackend/',
+	isvisited: false,
+	counter: 0
+}
+envs['test'] = {
+	baseApiUrl: 'https://testing.triviapost.in:3000/api/',
+	mediaApiUrl: 'https://testing.triviapost.in/server/',
+	isvisited: false,
+	counter: 0
+}
+export const config = envs[env];

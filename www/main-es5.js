@@ -8,14 +8,18 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./all-categories/all-categories.module": [
+		"./src/app/all-categories/all-categories.module.ts",
+		"default~all-categories-all-categories-module~category-tiles-category-tiles-module~home-home-module",
+		"all-categories-all-categories-module"
+	],
 	"./bookmark/bookmark.module": [
 		"./src/app/bookmark/bookmark.module.ts",
 		"bookmark-bookmark-module"
 	],
 	"./category-tiles/category-tiles.module": [
 		"./src/app/category-tiles/category-tiles.module.ts",
-		"default~category-tiles-category-tiles-module~home-home-module",
-		"category-tiles-category-tiles-module"
+		"default~all-categories-all-categories-module~category-tiles-category-tiles-module~home-home-module"
 	],
 	"./large-post/large-post.module": [
 		"./src/app/large-post/large-post.module.ts",
@@ -24,7 +28,8 @@ var map = {
 	],
 	"./post-tiles/post-tiles.module": [
 		"./src/app/post-tiles/post-tiles.module.ts",
-		"default~home-home-module~post-tiles-post-tiles-module~single-category-single-category-module"
+		"default~home-home-module~post-tiles-post-tiles-module~single-category-single-category-module",
+		"post-tiles-post-tiles-module"
 	],
 	"./related-post/related-post.module": [
 		"./src/app/related-post/related-post.module.ts",
@@ -36,8 +41,8 @@ var map = {
 	],
 	"./single-category/single-category.module": [
 		"./src/app/single-category/single-category.module.ts",
-		"default~home-home-module~post-tiles-post-tiles-module~single-category-single-category-module",
 		"default~home-home-module~large-post-large-post-module~single-category-single-category-module",
+		"default~home-home-module~post-tiles-post-tiles-module~single-category-single-category-module",
 		"single-category-single-category-module"
 	],
 	"./single-post/single-post.module": [
@@ -180,12 +185,10 @@ var map = {
 	],
 	"./ion-backdrop-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-backdrop-ios.entry.js",
-		"common",
 		16
 	],
 	"./ion-backdrop-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-backdrop-md.entry.js",
-		"common",
 		17
 	],
 	"./ion-button_2-ios.entry.js": [
@@ -437,12 +440,10 @@ var map = {
 	],
 	"./ion-slide_2-ios.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-slide_2-ios.entry.js",
-		"common",
 		67
 	],
 	"./ion-slide_2-md.entry.js": [
 		"./node_modules/@ionic/core/dist/esm-es5/ion-slide_2-md.entry.js",
-		"common",
 		68
 	],
 	"./ion-spinner.entry.js": [
@@ -541,7 +542,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-app>\n  <ion-router-outlet></ion-router-outlet>\n</ion-app>\n"
+module.exports = "<ion-app>\n  <ion-router-outlet></ion-router-outlet>\n  <div class=\"skipTour\" *ngIf=\"!skip && lang\" (click)=\"skipTour()\">\n    <p>Skip Tour</p>\n  </div>\n</ion-app>\n"
 
 /***/ }),
 
@@ -596,7 +597,7 @@ module.exports = "<ion-header>\n\t<ion-toolbar>\n\t\t<ion-row>\n\t\t\t<ion-col s
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n\t<ion-toolbar class=\"settingsToolbar\">\n\t\t<ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/home\">\n\t\t</ion-back-button>\n\t\t<span id=\"settingTitle\"> Options</span>\n\t\t<span id=\"profile\" *ngIf=\"tokenLocalStorage && firstCharUser\" (click)=\"logout()\">{{firstCharUser}}</span>\n\t\t<span id=\"personIcon\" *ngIf=\"tokenLocalStorage && !firstCharUser\" (click)=\"logout()\">\n\t\t\t<ion-icon name=\"person\"></ion-icon>\n\t\t</span>\n\t</ion-toolbar>\n</ion-header>\n\n<ion-content>\n\t<div class=\"settings loginDiv\" padding *ngIf=\"!tokenLocalStorage\">\n\t\t<h1 class=\"savePref\" *ngIf=\"language == 'English'\">Save your preferences</h1>\n\t\t<h1 class=\"savePref\" *ngIf=\"language == 'Hindi'\">सेव योर परेफरेंस</h1>\n\t\t<h4 class=\"signInBook\" *ngIf=\"language == 'English'\">Sign In to save your Bookmarks.</h4>\n\t\t<h4 class=\"signInBook\" *ngIf=\"language == 'Hindi'\">अपने बुकमार्क को सेव करने के लिए साइन इन करें।</h4>\n\t\t<ion-row>\n\t\t\t<ion-col size=\"5\" class=\"signInCol\">\n\t\t\t\t<button id=\"signInButton\" routerLink=\"/login\">Sign In</button>\n\t\t\t</ion-col>\n\t\t\t<ion-col size=\"7\">\n\t\t\t\t<span id=\"loginOption\">or using</span>\n\t\t\t\t<button id=\"googleplus\" routerLink=\"/login\"><img src=\"assets/images/GooglePlus.png\"\n\t\t\t\t\t\theight=\"16px;\"></button>\n\t\t\t\t<button id=\"facebookLogin\" routerLink=\"/login\"><img src=\"assets/images/Facebook.png\"\n\t\t\t\t\t\theight=\"19px;\"></button>\n\t\t\t</ion-col>\n\t\t</ion-row>\n\t</div>\n\n\t<div class=\"optionsDiv\">\n\t\t<ion-col size=\"12\" class=\"languageRow\">\n\t\t\t<ion-row>\n\t\t\t\t<ion-col size=\"2\" class=\"langColTwo\">\n\t\t\t\t\t<span>Aa</span>\n\t\t\t\t</ion-col>\n\t\t\t\t<ion-col size=\"10\">\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<ion-col size=\"5\" class=\"languageDiv\">\n\t\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Language</span>\n\t\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">भाषा</span>\n\t\t\t\t\t\t</ion-col>\n\t\t\t\t\t\t<ion-col size=\"7\">\n\t\t\t\t\t\t\t<span *ngIf=\"language == 'Hindi'\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\" selected=\"true\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t\t\t<ion-select-option value=\"English\">English</ion-select-option>\n\t\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t<span *ngIf=\"language == 'English'\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t\t<ion-select-option value=\"English\" selected=\"true\">English</ion-select-option>\n\t\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t\t<span *ngIf=\"!language\" class=\"langColor\" (click)=\"removeCancelButton()\">\n\t\t\t\t\t\t\t\t<ion-select (ionChange)=\"languageChange($event)\">\n\t\t\t\t\t\t\t\t\t<ion-select-option value=\"English\" selected=\"true\">English</ion-select-option>\n\t\t\t\t\t\t\t\t\t<ion-select-option value=\"Hindi\">Hindi</ion-select-option>\n\t\t\t\t\t\t\t\t</ion-select>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</ion-col>\n\t\t\t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t</ion-row>\n\t\t</ion-col>\n\t\t<ion-col size=\"12\">\n\t\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t\t<ion-col size=\"2\" class=\"settingIconCol\">\n\t\t\t\t\t<ion-icon name=\"bookmark\"></ion-icon>\n\t\t\t\t</ion-col>\n\t\t\t\t<ion-col size=\"10\">\n\t\t\t\t\t<div routerLink=\"/bookmark\">\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Bookmarks</span>\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">बुकमार्क</span>\n\t\t\t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t</ion-row>\n\t\t</ion-col>\n\t\t<ion-col size=\"12\">\n\t\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t\t<ion-col size=\"2\" class=\"settingIconCol\">\n\t\t\t\t\t<ion-icon name=\"notifications-outline\"></ion-icon>\n\t\t\t\t</ion-col>\n\t\t\t\t<ion-col size=\"10\">\n\t\t\t\t\t<div>\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Notification</span>\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">अधिसूचना</span>\n\t\t\t\t\t\t<!-- <span *ngIf=\"annonymous === 'true'\">Hello</span> -->\n\t\t\t\t\t\t<label class=\"switch\" *ngIf=\"notifyFlag === 'true' || annonymousNotify === 'true'\">\n\t\t\t\t\t\t\t<input type=\"checkbox\" (change)=\"notificationSwitch($event)\" checked=\"checked\">\n\t\t\t\t\t\t\t<div></div>\n\t\t\t\t\t\t</label>\n\t\t\t\t\t\t<label class=\"switch\" *ngIf=\"notifyFlag === 'false' || annonymousNotify === 'false'\">\n\t\t\t\t\t\t\t<input type=\"checkbox\" (change)=\"notificationSwitch($event)\">\n\t\t\t\t\t\t\t<div></div>\n\t\t\t\t\t\t</label>\n\t\t\t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t</ion-row>\n\t\t</ion-col>\n\t\t<ion-col size=\"12\">\n\t\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t\t<ion-col size=\"2\">\n\t\t\t\t\t<ion-icon name=\"chatboxes\"></ion-icon>\n\t\t\t\t</ion-col>\n\t\t\t\t<ion-col size=\"10\">\n\t\t\t\t\t<div routerLink=\"/feedback\">\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Feedback</span>\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">प्रतिक्रिया</span>\n\t\t\t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t</ion-row>\n\t\t</ion-col>\n\t\t<ion-col size=\"12\">\n\t\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t\t<ion-col size=\"2\">\n\t\t\t\t\t<ion-icon name=\"lock\"></ion-icon>\n\t\t\t\t</ion-col>\n\t\t\t\t<ion-col size=\"10\">\n\t\t\t\t\t<div routerLink=\"/privacy\">\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Privacy Policy</span>\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">गोपनीयता नीति</span>\n\t\t\t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t</ion-row>\n\t\t</ion-col>\n\t\t<ion-col size=\"12\">\n\t\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t\t<ion-col size=\"2\">\n\t\t\t\t\t<ion-icon name=\"paper\"></ion-icon>\n\t\t\t\t</ion-col>\n\t\t\t\t<ion-col size=\"10\">\n\t\t\t\t\t<div routerLink=\"/terms\">\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Terms & Conditions</span>\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">नियम और शर्तें</span>\n\t\t\t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t</ion-row>\n\t\t</ion-col>\n\t\t<ion-col size=\"12\">\n\t\t\t<ion-row class=\"settings settingIcon\">\n\t\t\t\t<ion-col size=\"2\" class=\"settingIconCol\">\n\t\t\t\t\t<ion-icon name=\"share\"></ion-icon>\n\t\t\t\t</ion-col>\n\t\t\t\t<ion-col size=\"10\">\n\t\t\t\t\t<div (click)=\"sendShare()\">\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'English'\">Share this app</span>\n\t\t\t\t\t\t<span class=\"optionsList\" *ngIf=\"language == 'Hindi'\">एप को शेयर कीजिए\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</div>\n\t\t\t\t</ion-col>\n\t\t\t</ion-row>\n\t\t</ion-col>\n\n\t\t<ion-row id=\"ratingRow\">\n\t\t\t<img src=\"assets/images/settingBackground.png\" alt=\"\">\n\t\t\t<!-- <div class=\"logo\">\n\t\t\t\t<img src=\"assets/images/Logo.png\" height=\"70px\" alt=\"\">\n\t\t\t</div> -->\n\t\t\t<div id=\"ratingHead\" *ngIf=\"!rating && language == 'English'\">How was the experience with us?</div>\n\t\t\t<div id=\"ratingHead\" *ngIf=\"!rating && language == 'Hindi'\">हमारे साथ कैसा अनुभव रहा?</div>\n\t\t\t<div id=\"ratingHead\" *ngIf=\"rating && language == 'English'\">Thank You!</div>\n\t\t\t<div id=\"ratingHead\" *ngIf=\"rating && language == 'Hindi'\">धन्यवाद!</div>\n\t\t\t<div id=\"rating\">\n\t\t\t\t<ionic4-star-rating #rating activeIcon=\"ios-star\" defaultIcon=\"ios-star-outline\" activeColor=\"#F18D16\"\n\t\t\t\t\tdefaultColor=\"#ddd\" readonly=\"false\" fontSize=\"32px\" rating=\"0\" *ngIf=\"!rating\">\n\t\t\t\t</ionic4-star-rating>\n\n\t\t\t\t<ionic4-star-rating #rating activeIcon=\"ios-star\" defaultIcon=\"ios-star-outline\" activeColor=\"#F18D16\"\n\t\t\t\t\tdefaultColor=\"#ddd\" readonly=\"true\" rating=\"{{userRating}}\" fontSize=\"32px\" *ngIf=\"rating\">\n\t\t\t\t</ionic4-star-rating>\n\t\t\t\t<button *ngIf=\"!rating && language == 'English'\" (click)=\"logRatingChange()\" class=\"rateButton\"\n\t\t\t\t\tid=\"ratingHead\">Rate</button>\n\t\t\t\t<button *ngIf=\"!rating && language == 'Hindi'\" (click)=\"logRatingChange()\" class=\"rateButton\"\n\t\t\t\t\tid=\"ratingHead\">मूल्यांकन करें</button>\n\t\t\t\t<div id=\"ratingHead\" class=\"greetings\" *ngIf=\"rating && language == 'English'\">Thank you for rating us !\n\t\t\t\t</div>\n\t\t\t\t<div id=\"ratingHead\" class=\"greetings\" *ngIf=\"rating && language == 'Hindi'\">हमें रेटिंग देने के लिए\n\t\t\t\t\tधन्यवाद!</div>\n\t\t\t</div>\n\t\t</ion-row>\n\t</div>\n</ion-content>"
+module.exports = "<ion-header>\n  <ion-toolbar class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/home\"\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\"> Options</span>\n    <span\n      id=\"profile\"\n      *ngIf=\"tokenLocalStorage && firstCharUser\"\n      (click)=\"logout()\"\n      >{{ firstCharUser }}</span\n    >\n    <span\n      id=\"personIcon\"\n      *ngIf=\"tokenLocalStorage && !firstCharUser\"\n      (click)=\"logout()\"\n    >\n      <ion-icon name=\"person\"></ion-icon>\n    </span>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <div class=\"settings loginDiv\" padding *ngIf=\"!tokenLocalStorage\">\n    <h1 class=\"savePref\">{{savePref[language]}}</h1>\n    <h4 class=\"signInBook\">\n      {{signInText[language]}}\n    </h4>\n    <ion-row>\n      <ion-col size=\"5\" class=\"signInCol\">\n        <button id=\"signInButton\" routerLink=\"/login\">{{signIn[language]}}</button>\n      </ion-col>\n      <ion-col size=\"7\">\n        <span id=\"loginOption\">{{orUsing[language]}}</span>\n        <button id=\"googleplus\" routerLink=\"/login\">\n          <img src=\"assets/images/GooglePlus.png\" height=\"16px;\" />\n        </button>\n\n        <button id=\"facebookLogin\" routerLink=\"/login\">\n          <img src=\"assets/images/Facebook.png\" height=\"19px;\" />\n        </button>\n      </ion-col>\n    </ion-row>\n  </div>\n\n  <div class=\"optionsDiv\">\n    <ion-col size=\"12\" class=\"languageRow\">\n      <ion-row>\n        <ion-col size=\"2\" class=\"langColTwo\">\n          <span>Aa</span>\n        </ion-col>\n        <ion-col size=\"10\">\n          <div>\n            <ion-col size=\"5\" class=\"languageDiv\">\n              <span class=\"optionsList\" *ngIf=\"language\">{{languageText[language]}}</span>\n            </ion-col>\n            <ion-col size=\"7\" (click)=\"changeLang(language)\">\n              <span class=\"selectIcon\">\n                <ion-icon name=\"arrow-dropdown\"></ion-icon>\n              </span>\n              <span class=\"langColor\" *ngIf=\"language\">{{langSelectText[language]}}</span>\n            </ion-col>\n          </div>\n        </ion-col>\n      </ion-row>\n    </ion-col>\n    <ion-col size=\"12\">\n      <ion-row class=\"settings settingIcon\">\n        <ion-col size=\"2\" class=\"settingIconCol\">\n          <ion-icon name=\"bookmark\"></ion-icon>\n        </ion-col>\n        <ion-col size=\"10\">\n          <div routerLink=\"/bookmark\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{bookmark[language]}}</span>\n          </div>\n        </ion-col>\n      </ion-row>\n    </ion-col>\n    <ion-col size=\"12\">\n      <ion-row class=\"settings settingIcon\">\n        <ion-col size=\"2\" class=\"settingIconCol\">\n          <ion-icon name=\"apps\"></ion-icon>\n        </ion-col>\n        <ion-col size=\"10\">\n          <div routerLink=\"/all-categories\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{category[language]}}</span>\n          </div>\n        </ion-col>\n      </ion-row>\n    </ion-col>\n    <ion-col size=\"12\">\n      <ion-row class=\"settings settingIcon\">\n        <ion-col size=\"2\" class=\"settingIconCol\">\n          <ion-icon name=\"notifications-outline\"></ion-icon>\n        </ion-col>\n        <ion-col size=\"10\">\n          <div>\n            <span class=\"optionsList\" *ngIf=\"language\"\n              >{{notification[language]}}</span\n            >\n            <label\n              class=\"switch\"\n              *ngIf=\"notifyFlag === 'true' || annonymousNotify === 'true'\"\n            >\n              <input\n                type=\"checkbox\"\n                (change)=\"notificationSwitch($event)\"\n                checked=\"checked\"\n              />\n              <div></div>\n            </label>\n            <label\n              class=\"switch\"\n              *ngIf=\"notifyFlag === 'false' || annonymousNotify === 'false'\"\n            >\n              <input type=\"checkbox\" (change)=\"notificationSwitch($event)\" />\n              <div></div>\n            </label>\n          </div>\n        </ion-col>\n      </ion-row>\n    </ion-col>\n    <ion-col size=\"12\">\n      <ion-row class=\"settings settingIcon\">\n        <ion-col size=\"2\">\n          <ion-icon name=\"chatboxes\"></ion-icon>\n        </ion-col>\n        <ion-col size=\"10\">\n          <div routerLink=\"/feedback\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{feedback[language]}}</span>\n          </div>\n        </ion-col>\n      </ion-row>\n    </ion-col>\n    <ion-col size=\"12\">\n      <ion-row class=\"settings settingIcon\">\n        <ion-col size=\"2\">\n          <ion-icon name=\"lock\"></ion-icon>\n        </ion-col>\n        <ion-col size=\"10\">\n          <div routerLink=\"/privacy\">\n            <span class=\"optionsList\" *ngIf=\"language\"\n              >{{privacy[language]}}</span\n            >\n          </div>\n        </ion-col>\n      </ion-row>\n    </ion-col>\n    <ion-col size=\"12\">\n      <ion-row class=\"settings settingIcon\">\n        <ion-col size=\"2\">\n          <ion-icon name=\"paper\"></ion-icon>\n        </ion-col>\n        <ion-col size=\"10\">\n          <div routerLink=\"/terms\">\n            <span class=\"optionsList\" *ngIf=\"language\"\n              >{{terms[language]}}</span\n            >\n          </div>\n        </ion-col>\n      </ion-row>\n    </ion-col>\n    <ion-col size=\"12\">\n      <ion-row class=\"settings settingIcon\">\n        <ion-col size=\"2\" class=\"settingIconCol\">\n          <ion-icon name=\"share\"></ion-icon>\n        </ion-col>\n        <ion-col size=\"10\">\n          <div (click)=\"sendShare()\">\n            <span class=\"optionsList\" *ngIf=\"language\"\n              >{{shareApp[language]}}</span\n            >\n          </div>\n        </ion-col>\n      </ion-row>\n    </ion-col>\n    <img src=\"../../assets/images/settingBag.png\" class=\"loginBg\">\n  </div>\n</ion-content>\n\n"
 
 /***/ }),
 
@@ -649,7 +650,7 @@ var routes = [
     },
     {
         path: 'home',
-        loadChildren: function () { return Promise.all(/*! import() | home-home-module */[__webpack_require__.e("default~home-home-module~post-tiles-post-tiles-module~single-category-single-category-module"), __webpack_require__.e("default~home-home-module~large-post-large-post-module~single-category-single-category-module"), __webpack_require__.e("default~category-tiles-category-tiles-module~home-home-module"), __webpack_require__.e("home-home-module")]).then(__webpack_require__.bind(null, /*! ./home/home.module */ "./src/app/home/home.module.ts")).then(function (m) { return m.HomePageModule; }); }
+        loadChildren: function () { return Promise.all(/*! import() | home-home-module */[__webpack_require__.e("default~all-categories-all-categories-module~category-tiles-category-tiles-module~home-home-module"), __webpack_require__.e("default~home-home-module~large-post-large-post-module~single-category-single-category-module"), __webpack_require__.e("default~home-home-module~post-tiles-post-tiles-module~single-category-single-category-module"), __webpack_require__.e("home-home-module")]).then(__webpack_require__.bind(null, /*! ./home/home.module */ "./src/app/home/home.module.ts")).then(function (m) { return m.HomePageModule; }); }
     },
     {
         path: 'settings',
@@ -719,6 +720,10 @@ var routes = [
     {
         path: 'large-post',
         loadChildren: './large-post/large-post.module#LargePostPageModule'
+    },
+    {
+        path: 'all-categories',
+        loadChildren: './all-categories/all-categories.module#AllCategoriesPageModule'
     }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -746,7 +751,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".toast-container {\n  background: yellow;\n}\n\n.toast-md .toast-message {\n  color: red;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvQmhhdmlrL3RyaXZpYVBvc3RBcHAvc3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFBO0FDQ0o7O0FERUE7RUFDSSxVQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIudG9hc3QtY29udGFpbmVye1xuICAgIGJhY2tncm91bmQ6eWVsbG93O1xufVxuXG4udG9hc3QtbWQgLnRvYXN0LW1lc3NhZ2V7XG4gICAgY29sb3I6IHJlZDtcbn0iLCIudG9hc3QtY29udGFpbmVyIHtcbiAgYmFja2dyb3VuZDogeWVsbG93O1xufVxuXG4udG9hc3QtbWQgLnRvYXN0LW1lc3NhZ2Uge1xuICBjb2xvcjogcmVkO1xufSJdfQ== */"
+module.exports = ".toast-container {\n  background: yellow;\n}\n\n.toast-md .toast-message {\n  color: red;\n}\n\nbody {\n  background: url(https://subtlepatterns.com/patterns/crossword.png);\n  font-family: sans-serif;\n  color: #333;\n  text-align: center;\n}\n\nh1 {\n  margin: 80px 0;\n}\n\n.btn {\n  background: #428bca;\n  border: #357ebd solid 0px;\n  border-radius: 3px;\n  color: #fff;\n  display: inline-block;\n  font-size: 14px;\n  padding: 8px 15px;\n  text-decoration: none;\n  text-align: center;\n  min-width: 60px;\n  position: relative;\n  -webkit-transition: color 0.1s ease;\n  transition: color 0.1s ease;\n}\n\n.btn:hover {\n  background: #357ebd;\n}\n\n.btn.btn-big {\n  font-size: 18px;\n  padding: 15px 20px;\n  min-width: 100px;\n}\n\n.btn-close {\n  color: #aaaaaa;\n  font-size: 20px;\n  text-decoration: none;\n  padding: 10px;\n  position: absolute;\n  right: 7px;\n  top: 0;\n}\n\n.btn-close:hover {\n  color: #919191;\n}\n\n.modale:before {\n  content: \"\";\n  display: none;\n  background: rgba(0, 0, 0, 0.6);\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 10;\n}\n\n.opened:before {\n  display: block;\n}\n\n.opened .modal-dialog {\n  -webkit-transform: translate(0, 0);\n  transform: translate(0, 0);\n  top: 20%;\n}\n\n.modal-dialog {\n  background: #fefefe;\n  border: #333333 solid 0px;\n  border-radius: 5px;\n  margin-left: -200px;\n  text-align: center;\n  position: fixed;\n  left: 50%;\n  top: -100%;\n  z-index: 11;\n  width: 360px;\n  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);\n  -webkit-transform: translate(0, -500%);\n  transform: translate(0, -500%);\n  -webkit-transition: -webkit-transform 0.3s ease-out;\n  transition: -webkit-transform 0.3s ease-out;\n  transition: transform 0.3s ease-out;\n  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;\n}\n\n.modal-body {\n  padding: 20px;\n}\n\n.modal-body input {\n  width: 200px;\n  padding: 8px;\n  border: 1px solid #ddd;\n  color: #888;\n  outline: 0;\n  font-size: 14px;\n  font-weight: bold;\n}\n\n.modal-header,\n.modal-footer {\n  padding: 10px 20px;\n}\n\n.modal-header {\n  border-bottom: #eeeeee solid 1px;\n}\n\n.modal-header h2 {\n  font-size: 20px;\n}\n\n.modal {\n  z-index: 2;\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background: rgba(0, 0, 0, 0.9);\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  -webkit-transition: opacity 500ms ease-in-out;\n  transition: opacity 500ms ease-in-out;\n}\n\n.modal__inner {\n  -webkit-transform: translate(-50%, -50%) scale(0.75);\n          transform: translate(-50%, -50%) scale(0.75);\n  top: 50%;\n  color: #fff;\n  font-size: 24px;\n  left: 50%;\n  width: 50%;\n  padding: 30px;\n  position: absolute;\n}\n\n@media (max-width: 640px) {\n  .modal__inner {\n    width: 100%;\n  }\n}\n\nlabel {\n  float: right;\n  cursor: pointer;\n}\n\nlabel.open {\n  -webkit-transition: color 200ms ease-in-out;\n  transition: color 200ms ease-in-out;\n}\n\n.checkBox {\n  display: none;\n}\n\ninput:checked + .modal {\n  opacity: 1;\n  visibility: visible;\n}\n\ninput:checked + .modal .modal__inner {\n  -webkit-transform: translate(-50%, -50%) scale(1);\n          transform: translate(-50%, -50%) scale(1);\n  -webkit-transition: all 200ms ease-in-out;\n  transition: all 200ms ease-in-out;\n}\n\ninput:checked + .modal .modal__inner p {\n  font-size: 1.25rem;\n  line-height: 125%;\n}\n\ninput:checked + .modal label {\n  position: absolute;\n  top: 0px;\n  right: 25px;\n  height: 24px;\n  width: 24px;\n  -webkit-transition: all 200ms ease-in-out;\n  transition: all 200ms ease-in-out;\n}\n\n#signupHead {\n  font-family: \"FREESCPT\";\n  text-align: center;\n  font-size: 31px;\n  margin: 0;\n}\n\n.signup_input input {\n  color: #000;\n  border-radius: 11px;\n  width: 100%;\n  font-size: 21px;\n  padding-left: 20%;\n  height: 53px;\n}\n\n.signupButton button {\n  border-radius: 9px;\n  padding: 17px;\n  font-size: 17px;\n  margin-top: 10px;\n  text-align: center;\n  width: 100%;\n  color: #fff;\n  background: var(--main-app-color);\n}\n\n.signupButton {\n  margin-top: 10px;\n}\n\n::-webkit-input-placeholder {\n  /* Chrome/Opera/Safari */\n  font-size: 20px;\n}\n\n::-moz-placeholder {\n  /* Firefox 19+ */\n  font-size: 20px;\n}\n\n:-ms-input-placeholder {\n  /* IE 10+ */\n  font-size: 20px;\n}\n\n:-moz-placeholder {\n  /* Firefox 18- */\n  font-size: 20px;\n}\n\n.signup_input ion-icon {\n  color: grey;\n  margin-bottom: -13%;\n  margin-left: 2%;\n  padding-left: 2%;\n}\n\n.skipTour {\n  z-index: 111;\n  position: absolute;\n  top: 0;\n  width: 100%;\n}\n\n.skipTour p {\n  background-color: #000000;\n  color: #fff;\n  padding: 8px;\n  float: right;\n  margin-right: 10px;\n  border-radius: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvQmhhdmlrL3RyaXZpYVBvc3RBcHAvc3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFBO0FDQ0Y7O0FERUE7RUFDRSxVQUFBO0FDQ0Y7O0FEQ0E7RUFDRSxrRUFBQTtFQUNBLHVCQUFBO0VBQ0EsV0FBQTtFQUNBLGtCQUFBO0FDRUY7O0FEQUE7RUFDRSxjQUFBO0FDR0Y7O0FEREE7RUFDRSxtQkFBQTtFQUNBLHlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxXQUFBO0VBQ0EscUJBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxxQkFBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0VBQ0EsbUNBQUE7RUFBQSwyQkFBQTtBQ0lGOztBREZBO0VBQ0UsbUJBQUE7QUNLRjs7QURIQTtFQUNFLGVBQUE7RUFDQSxrQkFBQTtFQUNBLGdCQUFBO0FDTUY7O0FESkE7RUFDRSxjQUFBO0VBQ0EsZUFBQTtFQUNBLHFCQUFBO0VBQ0EsYUFBQTtFQUNBLGtCQUFBO0VBQ0EsVUFBQTtFQUNBLE1BQUE7QUNPRjs7QURMQTtFQUNFLGNBQUE7QUNRRjs7QUROQTtFQUNFLFdBQUE7RUFDQSxhQUFBO0VBQ0EsOEJBQUE7RUFDQSxlQUFBO0VBQ0EsTUFBQTtFQUNBLE9BQUE7RUFDQSxRQUFBO0VBQ0EsU0FBQTtFQUNBLFdBQUE7QUNTRjs7QURQQTtFQUNFLGNBQUE7QUNVRjs7QURSQTtFQUNFLGtDQUFBO0VBRUEsMEJBQUE7RUFDQSxRQUFBO0FDV0Y7O0FEVEE7RUFDRSxtQkFBQTtFQUNBLHlCQUFBO0VBQ0Esa0JBQUE7RUFDQSxtQkFBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLFNBQUE7RUFDQSxVQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSx5Q0FBQTtFQUNBLHNDQUFBO0VBRUEsOEJBQUE7RUFDQSxtREFBQTtFQUdBLDJDQUFBO0VBQUEsbUNBQUE7RUFBQSxvRUFBQTtBQ1lGOztBRFZBO0VBQ0UsYUFBQTtBQ2FGOztBRFhBO0VBQ0UsWUFBQTtFQUNBLFlBQUE7RUFDQSxzQkFBQTtFQUNBLFdBQUE7RUFDQSxVQUFBO0VBQ0EsZUFBQTtFQUNBLGlCQUFBO0FDY0Y7O0FEWkE7O0VBRUUsa0JBQUE7QUNlRjs7QURiQTtFQUNFLGdDQUFBO0FDZ0JGOztBRGRBO0VBQ0UsZUFBQTtBQ2lCRjs7QURkQTtFQUNFLFVBQUE7RUFDQSxlQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSw4QkFBQTtFQUNBLE1BQUE7RUFDQSxPQUFBO0VBQ0EsUUFBQTtFQUNBLFNBQUE7RUFDQSw2Q0FBQTtFQUFBLHFDQUFBO0FDaUJGOztBRGhCRTtFQUNFLG9EQUFBO1VBQUEsNENBQUE7RUFDQSxRQUFBO0VBQ0EsV0FBQTtFQUNBLGVBQUE7RUFDQSxTQUFBO0VBQ0EsVUFBQTtFQUNBLGFBQUE7RUFDQSxrQkFBQTtBQ2tCSjs7QURqQkk7RUFURjtJQVVJLFdBQUE7RUNvQko7QUFDRjs7QURqQkE7RUFDRSxZQUFBO0VBQ0EsZUFBQTtBQ29CRjs7QURuQkU7RUFDRSwyQ0FBQTtFQUFBLG1DQUFBO0FDcUJKOztBRGxCQTtFQUNFLGFBQUE7QUNxQkY7O0FEakJJO0VBQ0UsVUFBQTtFQUNBLG1CQUFBO0FDb0JOOztBRG5CTTtFQUNFLGlEQUFBO1VBQUEseUNBQUE7RUFDQSx5Q0FBQTtFQUFBLGlDQUFBO0FDcUJSOztBRHBCUTtFQUNFLGtCQUFBO0VBQ0EsaUJBQUE7QUNzQlY7O0FEbkJNO0VBQ0Usa0JBQUE7RUFDQSxRQUFBO0VBQ0EsV0FBQTtFQUNBLFlBQUE7RUFDQSxXQUFBO0VBQ0EseUNBQUE7RUFBQSxpQ0FBQTtBQ3FCUjs7QURmQTtFQUNFLHVCQUFBO0VBQ0Esa0JBQUE7RUFDQSxlQUFBO0VBQ0EsU0FBQTtBQ2tCRjs7QURmQTtFQUNFLFdBQUE7RUFDQSxtQkFBQTtFQUNBLFdBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7RUFDQSxZQUFBO0FDa0JGOztBRGZBO0VBQ0Usa0JBQUE7RUFDQSxhQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7RUFDQSxXQUFBO0VBQ0EsV0FBQTtFQUNBLGlDQUFBO0FDa0JGOztBRGZBO0VBQ0UsZ0JBQUE7QUNrQkY7O0FEZkE7RUFDRSx3QkFBQTtFQUNBLGVBQUE7QUNrQkY7O0FEZkE7RUFDRSxnQkFBQTtFQUNBLGVBQUE7QUNrQkY7O0FEZkE7RUFDRSxXQUFBO0VBQ0EsZUFBQTtBQ2tCRjs7QURmQTtFQUNFLGdCQUFBO0VBQ0EsZUFBQTtBQ2tCRjs7QURmQTtFQUNFLFdBQUE7RUFDQSxtQkFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtBQ2tCRjs7QURiQTtFQUNFLFlBQUE7RUFDQSxrQkFBQTtFQUNBLE1BQUE7RUFDQSxXQUFBO0FDZ0JGOztBRGRBO0VBQ0UseUJBQUE7RUFDQSxXQUFBO0VBQ0EsWUFBQTtFQUNBLFlBQUE7RUFDQSxrQkFBQTtFQUNBLG1CQUFBO0FDaUJGIiwiZmlsZSI6InNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRvYXN0LWNvbnRhaW5lciB7XG4gIGJhY2tncm91bmQ6IHllbGxvdztcbn1cblxuLnRvYXN0LW1kIC50b2FzdC1tZXNzYWdlIHtcbiAgY29sb3I6IHJlZDtcbn1cbmJvZHkge1xuICBiYWNrZ3JvdW5kOiB1cmwoaHR0cHM6Ly9zdWJ0bGVwYXR0ZXJucy5jb20vcGF0dGVybnMvY3Jvc3N3b3JkLnBuZyk7XG4gIGZvbnQtZmFtaWx5OiBzYW5zLXNlcmlmO1xuICBjb2xvcjogIzMzMztcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuaDEge1xuICBtYXJnaW46IDgwcHggMDtcbn1cbi5idG4ge1xuICBiYWNrZ3JvdW5kOiAjNDI4YmNhO1xuICBib3JkZXI6ICMzNTdlYmQgc29saWQgMHB4O1xuICBib3JkZXItcmFkaXVzOiAzcHg7XG4gIGNvbG9yOiAjZmZmO1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgcGFkZGluZzogOHB4IDE1cHg7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtaW4td2lkdGg6IDYwcHg7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgdHJhbnNpdGlvbjogY29sb3IgMC4xcyBlYXNlO1xufVxuLmJ0bjpob3ZlciB7XG4gIGJhY2tncm91bmQ6ICMzNTdlYmQ7XG59XG4uYnRuLmJ0bi1iaWcge1xuICBmb250LXNpemU6IDE4cHg7XG4gIHBhZGRpbmc6IDE1cHggMjBweDtcbiAgbWluLXdpZHRoOiAxMDBweDtcbn1cbi5idG4tY2xvc2Uge1xuICBjb2xvcjogI2FhYWFhYTtcbiAgZm9udC1zaXplOiAyMHB4O1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG4gIHBhZGRpbmc6IDEwcHg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcmlnaHQ6IDdweDtcbiAgdG9wOiAwO1xufVxuLmJ0bi1jbG9zZTpob3ZlciB7XG4gIGNvbG9yOiAjOTE5MTkxO1xufVxuLm1vZGFsZTpiZWZvcmUge1xuICBjb250ZW50OiBcIlwiO1xuICBkaXNwbGF5OiBub25lO1xuICBiYWNrZ3JvdW5kOiByZ2JhKDAsIDAsIDAsIDAuNik7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgdG9wOiAwO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgYm90dG9tOiAwO1xuICB6LWluZGV4OiAxMDtcbn1cbi5vcGVuZWQ6YmVmb3JlIHtcbiAgZGlzcGxheTogYmxvY2s7XG59XG4ub3BlbmVkIC5tb2RhbC1kaWFsb2cge1xuICAtd2Via2l0LXRyYW5zZm9ybTogdHJhbnNsYXRlKDAsIDApO1xuICAtbXMtdHJhbnNmb3JtOiB0cmFuc2xhdGUoMCwgMCk7XG4gIHRyYW5zZm9ybTogdHJhbnNsYXRlKDAsIDApO1xuICB0b3A6IDIwJTtcbn1cbi5tb2RhbC1kaWFsb2cge1xuICBiYWNrZ3JvdW5kOiAjZmVmZWZlO1xuICBib3JkZXI6ICMzMzMzMzMgc29saWQgMHB4O1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIG1hcmdpbi1sZWZ0OiAtMjAwcHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgcG9zaXRpb246IGZpeGVkO1xuICBsZWZ0OiA1MCU7XG4gIHRvcDogLTEwMCU7XG4gIHotaW5kZXg6IDExO1xuICB3aWR0aDogMzYwcHg7XG4gIGJveC1zaGFkb3c6IDAgNXB4IDEwcHggcmdiYSgwLCAwLCAwLCAwLjMpO1xuICAtd2Via2l0LXRyYW5zZm9ybTogdHJhbnNsYXRlKDAsIC01MDAlKTtcbiAgLW1zLXRyYW5zZm9ybTogdHJhbnNsYXRlKDAsIC01MDAlKTtcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMCwgLTUwMCUpO1xuICAtd2Via2l0LXRyYW5zaXRpb246IC13ZWJraXQtdHJhbnNmb3JtIDAuM3MgZWFzZS1vdXQ7XG4gIC1tb3otdHJhbnNpdGlvbjogLW1vei10cmFuc2Zvcm0gMC4zcyBlYXNlLW91dDtcbiAgLW8tdHJhbnNpdGlvbjogLW8tdHJhbnNmb3JtIDAuM3MgZWFzZS1vdXQ7XG4gIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjNzIGVhc2Utb3V0O1xufVxuLm1vZGFsLWJvZHkge1xuICBwYWRkaW5nOiAyMHB4O1xufVxuLm1vZGFsLWJvZHkgaW5wdXQge1xuICB3aWR0aDogMjAwcHg7XG4gIHBhZGRpbmc6IDhweDtcbiAgYm9yZGVyOiAxcHggc29saWQgI2RkZDtcbiAgY29sb3I6ICM4ODg7XG4gIG91dGxpbmU6IDA7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG4ubW9kYWwtaGVhZGVyLFxuLm1vZGFsLWZvb3RlciB7XG4gIHBhZGRpbmc6IDEwcHggMjBweDtcbn1cbi5tb2RhbC1oZWFkZXIge1xuICBib3JkZXItYm90dG9tOiAjZWVlZWVlIHNvbGlkIDFweDtcbn1cbi5tb2RhbC1oZWFkZXIgaDIge1xuICBmb250LXNpemU6IDIwcHg7XG59XG5cbi5tb2RhbCB7XG4gIHotaW5kZXg6IDI7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgd2lkdGg6IDEwMCU7XG4gIGhlaWdodDogMTAwJTtcbiAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAwLjkpO1xuICB0b3A6IDA7XG4gIGxlZnQ6IDA7XG4gIHJpZ2h0OiAwO1xuICBib3R0b206IDA7XG4gIHRyYW5zaXRpb246IG9wYWNpdHkgNTAwbXMgZWFzZS1pbi1vdXQ7XG4gICZfX2lubmVyIHtcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKSBzY2FsZSgwLjc1KTtcbiAgICB0b3A6IDUwJTtcbiAgICBjb2xvcjogI2ZmZjtcbiAgICBmb250LXNpemU6IDI0cHg7XG4gICAgbGVmdDogNTAlO1xuICAgIHdpZHRoOiA1MCU7XG4gICAgcGFkZGluZzogMzBweDtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgQG1lZGlhIChtYXgtd2lkdGg6IDY0MHB4KSB7XG4gICAgICB3aWR0aDogMTAwJTtcbiAgICB9XG4gIH1cbn1cbmxhYmVsIHtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gICYub3BlbiB7XG4gICAgdHJhbnNpdGlvbjogY29sb3IgMjAwbXMgZWFzZS1pbi1vdXQ7XG4gIH1cbn1cbi5jaGVja0JveCB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG5pbnB1dCB7XG4gICY6Y2hlY2tlZCB7XG4gICAgKyAubW9kYWwge1xuICAgICAgb3BhY2l0eTogMTtcbiAgICAgIHZpc2liaWxpdHk6IHZpc2libGU7XG4gICAgICAubW9kYWxfX2lubmVyIHtcbiAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSkgc2NhbGUoMSk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAyMDBtcyBlYXNlLWluLW91dDtcbiAgICAgICAgcCB7XG4gICAgICAgICAgZm9udC1zaXplOiAxLjI1cmVtO1xuICAgICAgICAgIGxpbmUtaGVpZ2h0OiAxMjUlO1xuICAgICAgICB9XG4gICAgICB9XG4gICAgICBsYWJlbCB7XG4gICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICAgICAgdG9wOiAwcHg7XG4gICAgICAgIHJpZ2h0OiAyNXB4O1xuICAgICAgICBoZWlnaHQ6IDI0cHg7XG4gICAgICAgIHdpZHRoOiAyNHB4O1xuICAgICAgICB0cmFuc2l0aW9uOiBhbGwgMjAwbXMgZWFzZS1pbi1vdXQ7XG4gICAgICB9XG4gICAgfVxuICB9XG59XG5cbiNzaWdudXBIZWFkIHtcbiAgZm9udC1mYW1pbHk6IFwiRlJFRVNDUFRcIjtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBmb250LXNpemU6IDMxcHg7XG4gIG1hcmdpbjogMDtcbn1cblxuLnNpZ251cF9pbnB1dCBpbnB1dCB7XG4gIGNvbG9yOiAjMDAwO1xuICBib3JkZXItcmFkaXVzOiAxMXB4O1xuICB3aWR0aDogMTAwJTtcbiAgZm9udC1zaXplOiAyMXB4O1xuICBwYWRkaW5nLWxlZnQ6IDIwJTtcbiAgaGVpZ2h0OiA1M3B4O1xufVxuXG4uc2lnbnVwQnV0dG9uIGJ1dHRvbiB7XG4gIGJvcmRlci1yYWRpdXM6IDlweDtcbiAgcGFkZGluZzogMTdweDtcbiAgZm9udC1zaXplOiAxN3B4O1xuICBtYXJnaW4tdG9wOiAxMHB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHdpZHRoOiAxMDAlO1xuICBjb2xvcjogI2ZmZjtcbiAgYmFja2dyb3VuZDogdmFyKC0tbWFpbi1hcHAtY29sb3IpO1xufVxuXG4uc2lnbnVwQnV0dG9uIHtcbiAgbWFyZ2luLXRvcDogMTBweDtcbn1cblxuOjotd2Via2l0LWlucHV0LXBsYWNlaG9sZGVyIHtcbiAgLyogQ2hyb21lL09wZXJhL1NhZmFyaSAqL1xuICBmb250LXNpemU6IDIwcHg7XG59XG5cbjo6LW1vei1wbGFjZWhvbGRlciB7XG4gIC8qIEZpcmVmb3ggMTkrICovXG4gIGZvbnQtc2l6ZTogMjBweDtcbn1cblxuOi1tcy1pbnB1dC1wbGFjZWhvbGRlciB7XG4gIC8qIElFIDEwKyAqL1xuICBmb250LXNpemU6IDIwcHg7XG59XG5cbjotbW96LXBsYWNlaG9sZGVyIHtcbiAgLyogRmlyZWZveCAxOC0gKi9cbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4uc2lnbnVwX2lucHV0IGlvbi1pY29uIHtcbiAgY29sb3I6IGdyZXk7XG4gIG1hcmdpbi1ib3R0b206IC0xMyU7XG4gIG1hcmdpbi1sZWZ0OiAyJTtcbiAgcGFkZGluZy1sZWZ0OiAyJTtcbn1cblxuLy9za2lwIHRvdXIgY3NzICoqKioqKioqKioqKipcblxuLnNraXBUb3VyIHtcbiAgei1pbmRleDogMTExO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDEwMCU7XG59XG4uc2tpcFRvdXIgcCB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwMDAwMDA7XG4gIGNvbG9yOiAjZmZmO1xuICBwYWRkaW5nOiA4cHg7XG4gIGZsb2F0OiByaWdodDtcbiAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xuICBib3JkZXItcmFkaXVzOiAxMHB4O1xufVxuIiwiLnRvYXN0LWNvbnRhaW5lciB7XG4gIGJhY2tncm91bmQ6IHllbGxvdztcbn1cblxuLnRvYXN0LW1kIC50b2FzdC1tZXNzYWdlIHtcbiAgY29sb3I6IHJlZDtcbn1cblxuYm9keSB7XG4gIGJhY2tncm91bmQ6IHVybChodHRwczovL3N1YnRsZXBhdHRlcm5zLmNvbS9wYXR0ZXJucy9jcm9zc3dvcmQucG5nKTtcbiAgZm9udC1mYW1pbHk6IHNhbnMtc2VyaWY7XG4gIGNvbG9yOiAjMzMzO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbmgxIHtcbiAgbWFyZ2luOiA4MHB4IDA7XG59XG5cbi5idG4ge1xuICBiYWNrZ3JvdW5kOiAjNDI4YmNhO1xuICBib3JkZXI6ICMzNTdlYmQgc29saWQgMHB4O1xuICBib3JkZXItcmFkaXVzOiAzcHg7XG4gIGNvbG9yOiAjZmZmO1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIGZvbnQtc2l6ZTogMTRweDtcbiAgcGFkZGluZzogOHB4IDE1cHg7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtaW4td2lkdGg6IDYwcHg7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgdHJhbnNpdGlvbjogY29sb3IgMC4xcyBlYXNlO1xufVxuXG4uYnRuOmhvdmVyIHtcbiAgYmFja2dyb3VuZDogIzM1N2ViZDtcbn1cblxuLmJ0bi5idG4tYmlnIHtcbiAgZm9udC1zaXplOiAxOHB4O1xuICBwYWRkaW5nOiAxNXB4IDIwcHg7XG4gIG1pbi13aWR0aDogMTAwcHg7XG59XG5cbi5idG4tY2xvc2Uge1xuICBjb2xvcjogI2FhYWFhYTtcbiAgZm9udC1zaXplOiAyMHB4O1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG4gIHBhZGRpbmc6IDEwcHg7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgcmlnaHQ6IDdweDtcbiAgdG9wOiAwO1xufVxuXG4uYnRuLWNsb3NlOmhvdmVyIHtcbiAgY29sb3I6ICM5MTkxOTE7XG59XG5cbi5tb2RhbGU6YmVmb3JlIHtcbiAgY29udGVudDogXCJcIjtcbiAgZGlzcGxheTogbm9uZTtcbiAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAwLjYpO1xuICBwb3NpdGlvbjogZml4ZWQ7XG4gIHRvcDogMDtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG4gIGJvdHRvbTogMDtcbiAgei1pbmRleDogMTA7XG59XG5cbi5vcGVuZWQ6YmVmb3JlIHtcbiAgZGlzcGxheTogYmxvY2s7XG59XG5cbi5vcGVuZWQgLm1vZGFsLWRpYWxvZyB7XG4gIC13ZWJraXQtdHJhbnNmb3JtOiB0cmFuc2xhdGUoMCwgMCk7XG4gIC1tcy10cmFuc2Zvcm06IHRyYW5zbGF0ZSgwLCAwKTtcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMCwgMCk7XG4gIHRvcDogMjAlO1xufVxuXG4ubW9kYWwtZGlhbG9nIHtcbiAgYmFja2dyb3VuZDogI2ZlZmVmZTtcbiAgYm9yZGVyOiAjMzMzMzMzIHNvbGlkIDBweDtcbiAgYm9yZGVyLXJhZGl1czogNXB4O1xuICBtYXJnaW4tbGVmdDogLTIwMHB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgbGVmdDogNTAlO1xuICB0b3A6IC0xMDAlO1xuICB6LWluZGV4OiAxMTtcbiAgd2lkdGg6IDM2MHB4O1xuICBib3gtc2hhZG93OiAwIDVweCAxMHB4IHJnYmEoMCwgMCwgMCwgMC4zKTtcbiAgLXdlYmtpdC10cmFuc2Zvcm06IHRyYW5zbGF0ZSgwLCAtNTAwJSk7XG4gIC1tcy10cmFuc2Zvcm06IHRyYW5zbGF0ZSgwLCAtNTAwJSk7XG4gIHRyYW5zZm9ybTogdHJhbnNsYXRlKDAsIC01MDAlKTtcbiAgLXdlYmtpdC10cmFuc2l0aW9uOiAtd2Via2l0LXRyYW5zZm9ybSAwLjNzIGVhc2Utb3V0O1xuICAtbW96LXRyYW5zaXRpb246IC1tb3otdHJhbnNmb3JtIDAuM3MgZWFzZS1vdXQ7XG4gIC1vLXRyYW5zaXRpb246IC1vLXRyYW5zZm9ybSAwLjNzIGVhc2Utb3V0O1xuICB0cmFuc2l0aW9uOiB0cmFuc2Zvcm0gMC4zcyBlYXNlLW91dDtcbn1cblxuLm1vZGFsLWJvZHkge1xuICBwYWRkaW5nOiAyMHB4O1xufVxuXG4ubW9kYWwtYm9keSBpbnB1dCB7XG4gIHdpZHRoOiAyMDBweDtcbiAgcGFkZGluZzogOHB4O1xuICBib3JkZXI6IDFweCBzb2xpZCAjZGRkO1xuICBjb2xvcjogIzg4ODtcbiAgb3V0bGluZTogMDtcbiAgZm9udC1zaXplOiAxNHB4O1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cblxuLm1vZGFsLWhlYWRlcixcbi5tb2RhbC1mb290ZXIge1xuICBwYWRkaW5nOiAxMHB4IDIwcHg7XG59XG5cbi5tb2RhbC1oZWFkZXIge1xuICBib3JkZXItYm90dG9tOiAjZWVlZWVlIHNvbGlkIDFweDtcbn1cblxuLm1vZGFsLWhlYWRlciBoMiB7XG4gIGZvbnQtc2l6ZTogMjBweDtcbn1cblxuLm1vZGFsIHtcbiAgei1pbmRleDogMjtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xuICBiYWNrZ3JvdW5kOiByZ2JhKDAsIDAsIDAsIDAuOSk7XG4gIHRvcDogMDtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG4gIGJvdHRvbTogMDtcbiAgdHJhbnNpdGlvbjogb3BhY2l0eSA1MDBtcyBlYXNlLWluLW91dDtcbn1cbi5tb2RhbF9faW5uZXIge1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKSBzY2FsZSgwLjc1KTtcbiAgdG9wOiA1MCU7XG4gIGNvbG9yOiAjZmZmO1xuICBmb250LXNpemU6IDI0cHg7XG4gIGxlZnQ6IDUwJTtcbiAgd2lkdGg6IDUwJTtcbiAgcGFkZGluZzogMzBweDtcbiAgcG9zaXRpb246IGFic29sdXRlO1xufVxuQG1lZGlhIChtYXgtd2lkdGg6IDY0MHB4KSB7XG4gIC5tb2RhbF9faW5uZXIge1xuICAgIHdpZHRoOiAxMDAlO1xuICB9XG59XG5cbmxhYmVsIHtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBjdXJzb3I6IHBvaW50ZXI7XG59XG5sYWJlbC5vcGVuIHtcbiAgdHJhbnNpdGlvbjogY29sb3IgMjAwbXMgZWFzZS1pbi1vdXQ7XG59XG5cbi5jaGVja0JveCB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG5cbmlucHV0OmNoZWNrZWQgKyAubW9kYWwge1xuICBvcGFjaXR5OiAxO1xuICB2aXNpYmlsaXR5OiB2aXNpYmxlO1xufVxuaW5wdXQ6Y2hlY2tlZCArIC5tb2RhbCAubW9kYWxfX2lubmVyIHtcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoLTUwJSwgLTUwJSkgc2NhbGUoMSk7XG4gIHRyYW5zaXRpb246IGFsbCAyMDBtcyBlYXNlLWluLW91dDtcbn1cbmlucHV0OmNoZWNrZWQgKyAubW9kYWwgLm1vZGFsX19pbm5lciBwIHtcbiAgZm9udC1zaXplOiAxLjI1cmVtO1xuICBsaW5lLWhlaWdodDogMTI1JTtcbn1cbmlucHV0OmNoZWNrZWQgKyAubW9kYWwgbGFiZWwge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHRvcDogMHB4O1xuICByaWdodDogMjVweDtcbiAgaGVpZ2h0OiAyNHB4O1xuICB3aWR0aDogMjRweDtcbiAgdHJhbnNpdGlvbjogYWxsIDIwMG1zIGVhc2UtaW4tb3V0O1xufVxuXG4jc2lnbnVwSGVhZCB7XG4gIGZvbnQtZmFtaWx5OiBcIkZSRUVTQ1BUXCI7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC1zaXplOiAzMXB4O1xuICBtYXJnaW46IDA7XG59XG5cbi5zaWdudXBfaW5wdXQgaW5wdXQge1xuICBjb2xvcjogIzAwMDtcbiAgYm9yZGVyLXJhZGl1czogMTFweDtcbiAgd2lkdGg6IDEwMCU7XG4gIGZvbnQtc2l6ZTogMjFweDtcbiAgcGFkZGluZy1sZWZ0OiAyMCU7XG4gIGhlaWdodDogNTNweDtcbn1cblxuLnNpZ251cEJ1dHRvbiBidXR0b24ge1xuICBib3JkZXItcmFkaXVzOiA5cHg7XG4gIHBhZGRpbmc6IDE3cHg7XG4gIGZvbnQtc2l6ZTogMTdweDtcbiAgbWFyZ2luLXRvcDogMTBweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICB3aWR0aDogMTAwJTtcbiAgY29sb3I6ICNmZmY7XG4gIGJhY2tncm91bmQ6IHZhcigtLW1haW4tYXBwLWNvbG9yKTtcbn1cblxuLnNpZ251cEJ1dHRvbiB7XG4gIG1hcmdpbi10b3A6IDEwcHg7XG59XG5cbjo6LXdlYmtpdC1pbnB1dC1wbGFjZWhvbGRlciB7XG4gIC8qIENocm9tZS9PcGVyYS9TYWZhcmkgKi9cbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG46Oi1tb3otcGxhY2Vob2xkZXIge1xuICAvKiBGaXJlZm94IDE5KyAqL1xuICBmb250LXNpemU6IDIwcHg7XG59XG5cbjotbXMtaW5wdXQtcGxhY2Vob2xkZXIge1xuICAvKiBJRSAxMCsgKi9cbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG46LW1vei1wbGFjZWhvbGRlciB7XG4gIC8qIEZpcmVmb3ggMTgtICovXG4gIGZvbnQtc2l6ZTogMjBweDtcbn1cblxuLnNpZ251cF9pbnB1dCBpb24taWNvbiB7XG4gIGNvbG9yOiBncmV5O1xuICBtYXJnaW4tYm90dG9tOiAtMTMlO1xuICBtYXJnaW4tbGVmdDogMiU7XG4gIHBhZGRpbmctbGVmdDogMiU7XG59XG5cbi5za2lwVG91ciB7XG4gIHotaW5kZXg6IDExMTtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB0b3A6IDA7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG4uc2tpcFRvdXIgcCB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwMDAwMDA7XG4gIGNvbG9yOiAjZmZmO1xuICBwYWRkaW5nOiA4cHg7XG4gIGZsb2F0OiByaWdodDtcbiAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xuICBib3JkZXItcmFkaXVzOiAxMHB4O1xufSJdfQ== */"
 
 /***/ }),
 
@@ -773,6 +778,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./config */ "./src/app/config.ts");
 /* harmony import */ var rxjs_add_observable_fromEvent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! rxjs/add/observable/fromEvent */ "./node_modules/rxjs-compat/_esm5/add/observable/fromEvent.js");
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/toast.service */ "./src/app/services/toast.service.ts");
+/* harmony import */ var _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/keyboard/ngx */ "./node_modules/@ionic-native/keyboard/ngx/index.js");
+/* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/general.service */ "./src/app/services/general.service.ts");
+
+
+
+
+
 
 
 
@@ -788,8 +802,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(firebaseDynamicLinks, _userService, toastController, platform, splashScreen, statusBar, fcm, router, deeplinks) {
+    function AppComponent(_generalService, keyboard, _toastService, firebaseDynamicLinks, _userService, toastController, platform, splashScreen, statusBar, fcm, router, deeplinks, events) {
         var _this = this;
+        this._generalService = _generalService;
+        this.keyboard = keyboard;
+        this._toastService = _toastService;
         this.firebaseDynamicLinks = firebaseDynamicLinks;
         this._userService = _userService;
         this.toastController = toastController;
@@ -799,7 +816,32 @@ var AppComponent = /** @class */ (function () {
         this.fcm = fcm;
         this.router = router;
         this.deeplinks = deeplinks;
+        this.events = events;
         this.hide = true;
+        this.loginModalFlag = false;
+        this.signupForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormGroup"]({
+            userName: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required),
+            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].email]),
+            mobile: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required),
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_13__["Validators"].required),
+        });
+        this.user = {
+            userName: "",
+            email: "",
+            mobile: "",
+            password: "",
+        };
+        this._userService.currentData.subscribe(function (value) {
+            if (_this.loginModalFlag != true) {
+                //generates random time for opennig modal between 25 and 40 seconds
+                var randomNum = Math.floor(Math.random() * (30 - 14 + 1)) + 14;
+                setTimeout(function () {
+                    $('#fadeDiv').addClass('opened');
+                    _this.hidden = true;
+                    _this.loginModalFlag = true;
+                }, randomNum * 1000);
+            }
+        });
         this.deeplinks.route({
             '/': {},
             '/nr5y': { "post:": true },
@@ -808,9 +850,7 @@ var AppComponent = /** @class */ (function () {
             console.log("match link", match.$args.id);
             _this.router.navigate(['single-post/' + match.$args.id]);
         }, function (nomatch) {
-            // alert("UnMatched" + nomatch);
         });
-        // // Check Internet conectivity
         var offline = rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__["Observable"].fromEvent(document, "offline");
         var online = rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__["Observable"].fromEvent(document, "online");
         offline.subscribe(function () {
@@ -832,13 +872,9 @@ var AppComponent = /** @class */ (function () {
             _this.toastController.dismiss();
             _this.hide = true;
         });
-        if (!localStorage.getItem('language')) {
-            localStorage.setItem('language', "English");
-        }
         if (!localStorage.getItem('notification')) {
             localStorage.setItem('notification', "true");
         }
-        // this.router.navigateByUrl('/home/all-post');
         this.initializeApp();
     }
     AppComponent.prototype.initializeApp = function () {
@@ -847,13 +883,6 @@ var AppComponent = /** @class */ (function () {
             _this.platform.ready().then(function () {
                 _this.firebaseDynamicLinks.onDynamicLink().subscribe(function (res) {
                     var postId = res.deepLink.split('?')[1].split('=')[1];
-                    console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1]);
-                    console.log('Is Visited In App Component:-------------', _config__WEBPACK_IMPORTED_MODULE_10__["config"].isvisited);
-                    // if (!config.isvisited) {
-                    //   this.router.navigate(['single-post/' + postId]);
-                    //   config.isvisited = true;
-                    //   console.log('Is Visited Inside If:-------------', config.isvisited);
-                    // }
                     _this.router.navigate(['single-post/' + postId]);
                     _config__WEBPACK_IMPORTED_MODULE_10__["config"].isvisited = true;
                 }, function (error) {
@@ -864,7 +893,18 @@ var AppComponent = /** @class */ (function () {
             });
         };
     };
+    AppComponent.prototype.skipTour = function () {
+        localStorage.setItem('skip', 'true');
+        localStorage.setItem('catSelect', '1');
+        localStorage.setItem('firstLargePostClick', '1');
+        localStorage.setItem('shareBlink', '1');
+        this.skip = localStorage.getItem('skip');
+        this.router.navigateByUrl('all-categories');
+    };
     AppComponent.ctorParameters = function () { return [
+        { type: _services_general_service__WEBPACK_IMPORTED_MODULE_16__["GeneralService"] },
+        { type: _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_15__["Keyboard"] },
+        { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_14__["ToastService"] },
         { type: _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_9__["FirebaseDynamicLinks"] },
         { type: _services_user_service__WEBPACK_IMPORTED_MODULE_12__["UserService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
@@ -873,7 +913,8 @@ var AppComponent = /** @class */ (function () {
         { type: _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"] },
         { type: _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_5__["FCM"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] },
-        { type: _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__["Deeplinks"] }
+        { type: _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__["Deeplinks"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] }
     ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -881,7 +922,10 @@ var AppComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_9__["FirebaseDynamicLinks"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_general_service__WEBPACK_IMPORTED_MODULE_16__["GeneralService"],
+            _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_15__["Keyboard"],
+            _services_toast_service__WEBPACK_IMPORTED_MODULE_14__["ToastService"],
+            _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_9__["FirebaseDynamicLinks"],
             _services_user_service__WEBPACK_IMPORTED_MODULE_12__["UserService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
@@ -889,7 +933,8 @@ var AppComponent = /** @class */ (function () {
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__["StatusBar"],
             _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_5__["FCM"],
             _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
-            _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__["Deeplinks"]])
+            _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__["Deeplinks"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1041,6 +1086,203 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/changeLang.ts":
+/*!*******************************!*\
+  !*** ./src/app/changeLang.ts ***!
+  \*******************************/
+/*! exports provided: langList, langSelectText, shareApp, terms, privacy, feedback, notification, bookmark, language, orUsing, signIn, signInText, savePref, category */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "langList", function() { return langList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "langSelectText", function() { return langSelectText; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shareApp", function() { return shareApp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "terms", function() { return terms; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "privacy", function() { return privacy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "feedback", function() { return feedback; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "notification", function() { return notification; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bookmark", function() { return bookmark; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "language", function() { return language; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orUsing", function() { return orUsing; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signIn", function() { return signIn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signInText", function() { return signInText; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "savePref", function() { return savePref; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "category", function() { return category; });
+var langList = [{ lang: 'English', slug: 'en' }, { lang: 'हिंदी', slug: 'hn' }, { lang: 'অসমীয়া', slug: 'as' }, { lang: 'বাংলা', slug: 'bn' }, { lang: 'ગુજરાતી', slug: 'gu' }, { lang: 'ಕನ್ನಡ', slug: 'kn' }, { lang: 'മലയാളം', slug: 'ml' }, { lang: 'मराठी', slug: 'mr' }, { lang: 'ਪੰਜਾਬੀ', slug: 'pa' }, { lang: 'தமிழ்', slug: 'ta' }, { lang: 'తెలుగు', slug: 'te' }];
+var langSelectText = {
+    en: 'English',
+    hn: 'हिंदी',
+    as: 'অসমীয়া',
+    bn: 'বাংলা',
+    gu: 'ગુજરાતી',
+    kn: 'ಕನ್ನಡ',
+    ml: 'മലയാളം',
+    mr: 'मराठी',
+    pa: 'ਪੰਜਾਬੀ',
+    ta: 'தமிழ்',
+    te: 'తెలుగు'
+};
+var shareApp = {
+    en: 'Share this app',
+    hn: 'एप को शेयर कीजिए',
+    as: 'শেয়ার  ঠিক  আপা ',
+    bn: 'এই অ্যাপ্লিকেশন ভাগ করুন',
+    gu: 'એપ્લિકેશન શેર કરો',
+    kn: 'ಈ ಅಪ್ಲಿಕೇಶನ್ ಹಂಚಿಕೊಳ್ಳಿ',
+    ml: 'ഈ അപ്ലിക്കേഷൻ പങ്കിടുക',
+    mr: 'हा अ‍ॅप सामायिक करा',
+    pa: 'ਇਸ ਐਪ ਨੂੰ ਸਾਂਝਾ ਕਰੋ',
+    ta: 'இந்த பயன்பாட்டைப் பகிரவும்',
+    te: 'ఈ అనువర్తనాన్ని భాగస్వామ్యం చేయండి',
+};
+var terms = {
+    en: 'Terms & Conditions',
+    hn: 'नियम और शर्तें',
+    as: 'টার্মস এন্ড কন্ডিশনস ',
+    bn: 'শর্তাবলী',
+    gu: 'શરતો અને નિયમો',
+    kn: 'ನಿಯಮ ಮತ್ತು ಶರತ್ತುಗಳು',
+    ml: 'നിബന്ധനകളും വ്യവസ്ഥകളും',
+    mr: 'अटी व शर्ती',
+    pa: 'ਨਿਯਮ ਅਤੇ ਸ਼ਰਤਾਂ',
+    ta: 'விதிமுறைகளும் நிபந்தனைகளும்',
+    te: 'నిబంధనలు'
+};
+var privacy = {
+    en: 'Privacy Policy',
+    hn: 'गोपनीयता नीति',
+    as: 'প্রাইভেসী পলিসি ',
+    bn: 'গোপনীয়তা নীতি',
+    gu: 'ગોપનીયતા નીતિ',
+    kn: 'ಗೌಪ್ಯತಾ ನೀತಿ',
+    ml: 'സ്വകാര്യതാനയം',
+    mr: 'गोपनीयता धोरण',
+    pa: 'ਪਰਾਈਵੇਟ ਨੀਤੀ',
+    ta: 'தனியுரிமைக் கொள்கை',
+    te: 'గోప్యతా'
+};
+var feedback = {
+    en: 'Feedback',
+    hn: 'प्रतिक्रिया',
+    as: 'ফিডব্যাক',
+    bn: 'প্রতিক্রিয়া',
+    gu: 'પ્રતિસાદ',
+    kn: 'ಪ್ರತಿಕ್ರಿಯೆ',
+    ml: 'ഫീഡ്‌ബാക്ക്',
+    mr: 'अभिप्राय',
+    pa: 'ਸੁਝਾਅ',
+    ta: 'பின்னூட்டம்',
+    te: 'అభిప్రాయం'
+};
+var notification = {
+    en: 'Notification',
+    hn: 'अधिसूचना',
+    as: 'নোটিফিকেশন',
+    bn: 'প্রজ্ঞাপন',
+    gu: 'સૂચના',
+    kn: 'ಅಧಿಸೂಚನೆ',
+    ml: 'അറിയിപ്പ്',
+    mr: 'सूचना',
+    pa: 'ਸੂਚਨਾ',
+    ta: 'அறிவித்தல்',
+    te: 'నోటిఫికేషన్'
+};
+var bookmark = {
+    en: 'Bookmarks',
+    hn: 'बुकमार्क',
+    as: 'বুকমার্কস',
+    bn: 'বুকমার্ক',
+    gu: 'બુકમાર્ક્સ',
+    kn: 'ಬುಕ್‌ಮಾರ್ಕ್‌ಗಳು',
+    ml: 'ബുക്ക്മാർക്കുകൾ',
+    mr: 'बुकमार्क',
+    pa: 'ਬੁੱਕਮਾਰਕ',
+    ta: 'புக்மார்க்ஸ்',
+    te: 'బుక్ మార్క్స్'
+};
+var language = {
+    en: 'Language',
+    hn: 'भाषा',
+    as: 'ল্যাঙ্গুয়েজে',
+    bn: 'ভাষা',
+    gu: 'ભાષા',
+    kn: 'ಭಾಷೆ',
+    ml: 'ഭാഷ',
+    mr: 'इंग्रजी',
+    pa: 'ਭਾਸ਼ਾ',
+    ta: 'மொழி',
+    te: 'భాషా'
+};
+var orUsing = {
+    en: 'or using',
+    hn: 'या',
+    as: 'ওর উসিং',
+    bn: 'বা ব্যবহার',
+    gu: 'અથવા',
+    kn: 'లేదా',
+    ml: 'അഥവാ',
+    mr: 'किंवा',
+    pa: 'ਜਾਂ ਵਰਤਣਾ',
+    ta: 'அல்லது',
+    te: 'లేదా'
+};
+var signIn = {
+    en: 'Sign In',
+    hn: 'साइन इन',
+    as: 'সিগণ ইন',
+    bn: 'সাইন ইন করুন',
+    gu: 'સાઇન ઇન',
+    kn: 'ಸೈನ್ ಇನ್ ಮಾಡಿ',
+    ml: 'സൈൻ ഇൻ',
+    mr: 'साइन इन करा',
+    pa: 'ਸਾਈਨ - ਇਨ',
+    ta: 'உள்நுழைக',
+    te: 'సైన్ ఇన్ చేయండి'
+};
+var signInText = {
+    en: 'Sign In to save your Bookmarks',
+    hn: 'अपने बुकमार्क्स को बचाने के लिए साइन इन करें',
+    as: 'সিগণ ইন তো সেভ ইওর বুকমার্কস',
+    bn: 'আপনার বুকমার্কগুলি সংরক্ষণ করতে সাইন ইন করুন',
+    gu: 'તમારા બુકમાર્ક્સને સાચવવા માટે સાઇન ઇન કરો',
+    kn: 'ನಿಮ್ಮ ಬುಕ್‌ಮಾರ್ಕ್‌ಗಳನ್ನು ಉಳಿಸಲು ಸೈನ್ ಇನ್ ಮಾಡಿ',
+    ml: 'നിങ്ങളുടെ ബുക്ക്മാർക്കുകൾ സംരക്ഷിക്കുന്നതിന് പ്രവേശിക്കുക',
+    mr: 'आपले बुकमार्क जतन करण्यासाठी साइन इन करा',
+    pa: 'ਆਪਣੇ ਬੁੱਕਮਾਰਕਸ ਨੂੰ ਬਚਾਉਣ ਲਈ ਸਾਈਨ ਇਨ ਕਰੋ',
+    ta: 'உங்கள் புக்மார்க்குகளைச் சேமிக்க உள்நுழைக',
+    te: 'మీ బుక్‌మార్క్‌లను సేవ్ చేయడానికి సైన్ ఇన్ చేయండి'
+};
+var savePref = {
+    en: 'Save your preferences',
+    hn: 'अपनी प्राथमिकताएं सहेजें',
+    as: 'সেভ ইওর প্রেফারেন্সেস ',
+    bn: 'আপনার পছন্দগুলি সংরক্ষণ করুন',
+    gu: 'તમારી પસંદગીઓ સાચવો',
+    kn: 'ನಿಮ್ಮ ಆದ್ಯತೆಗಳನ್ನು ಉಳಿಸಿ',
+    ml: 'നിങ്ങളുടെ മുൻ‌ഗണനകൾ സംരക്ഷിക്കുക',
+    mr: 'आपली प्राधान्ये जतन करा',
+    pa: 'ਆਪਣੀ ਪਸੰਦ ਨੂੰ ਸੰਭਾਲੋ',
+    ta: 'உங்கள் விருப்பங்களை சேமிக்கவும்',
+    te: 'మీ ప్రాధాన్యతలను సేవ్ చేయండి'
+};
+var category = {
+    en: 'Categories',
+    hn: 'श्रेणियाँ',
+    as: 'ক্যাটেগরীজ',
+    bn: 'ধরন',
+    gu: 'શ્રેણીઓ',
+    kn: 'ವರ್ಗಗಳು',
+    ml: 'വിഭാഗങ്ങൾ',
+    mr: 'कॅटेगरीज',
+    pa: 'ਵਰਗ',
+    ta: 'வகைகள்',
+    te: 'కేటగిరీలు'
+};
+
+
+/***/ }),
+
 /***/ "./src/app/config.ts":
 /*!***************************!*\
   !*** ./src/app/config.ts ***!
@@ -1051,22 +1293,27 @@ var AppModule = /** @class */ (function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "config", function() { return config; });
-var baseUrl = "https://admin.triviapost.in:5000/api/";
-var mediaUrl = "https://admin.triviapost.in/server/";
-// const baseUrl = "http://192.168.1.83:7010/api/"; 
-// const mediaUrl = "http://192.168.1.83/TriviaPost/Trivia-BackEnd/";
-var config = {
-    baseApiUrl: baseUrl,
-    mediaApiUrl: mediaUrl,
+var envs = [];
+var env = "test";
+envs['production'] = {
+    baseApiUrl: 'https://admin.triviapost.in:5000/api/',
+    mediaApiUrl: 'https://admin.triviapost.in/server/',
     isvisited: false,
     counter: 0
 };
-// Commands for signed APK
-// 1) keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000
-// 2) jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk alias_name
-// 3) zipalign -v 4 platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk triviapost.apk
-//Google analytics error soln
-// ionic cordova plugin add cordova-android-play-services-gradle-release
+envs['development'] = {
+    baseApiUrl: 'http://192.168.1.58:3000/api/',
+    mediaApiUrl: 'http://192.168.1.58/Bhavik/triviaBackend/',
+    isvisited: false,
+    counter: 0
+};
+envs['test'] = {
+    baseApiUrl: 'https://testing.triviapost.in:3000/api/',
+    mediaApiUrl: 'https://testing.triviapost.in/server/',
+    isvisited: false,
+    counter: 0
+};
+var config = envs[env];
 
 
 /***/ }),
@@ -1821,6 +2068,14 @@ var GeneralService = /** @class */ (function () {
             return _this.privacy;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
     };
+    //set and get navigation
+    GeneralService.prototype.setExtras = function (data) {
+        console.log("SET EXTRAS", data);
+        this.extras = data;
+    };
+    GeneralService.prototype.getExtras = function () {
+        return this.extras;
+    };
     GeneralService.ctorParameters = function () { return [
         { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
     ]; };
@@ -1850,11 +2105,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./user.service */ "./src/app/services/user.service.ts");
+
+
 
 
 
@@ -1863,10 +2122,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var NewsService = /** @class */ (function () {
-    function NewsService(network, http) {
+    function NewsService(_userService, network, http) {
+        this._userService = _userService;
         this.network = network;
         this.http = http;
         this.authorization = localStorage.getItem('accessToken');
+        this.myObservable = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+        this.currentData = this.myObservable.asObservable();
     }
     NewsService.prototype.handleError = function (error) {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])('Error! something went wrong.');
@@ -1875,27 +2137,16 @@ var NewsService = /** @class */ (function () {
     NewsService.prototype.getAllNews = function () {
         var _this = this;
         if (this.network.type == 'none') {
-            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                console.log(JSON.parse(localStorage.getItem("newsArray")));
-                _this.newsArray = JSON.parse(localStorage.getItem("newsArray"));
-                setTimeout(function () {
-                    observer.next(_this.newsArray);
-                    observer.complete();
-                }, 1);
-            });
+            this.newsArray = JSON.parse(localStorage.getItem("newsArray"));
+            setTimeout(function () {
+                return _this.newsArray;
+            }, 1);
         }
         else {
-            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                _this.http.get(_config__WEBPACK_IMPORTED_MODULE_4__["config"].baseApiUrl + 'news?isApproved=APPROVED').subscribe(function (result) {
-                    _this.newsArray = result['data'];
-                    console.log('this.newsArray', _this.newsArray);
-                    localStorage.setItem('newsArray', JSON.stringify(_this.newsArray.slice(0, 10)));
-                    observer.next(_this.newsArray);
-                    observer.complete();
-                }, function (error) {
-                    observer.error(error);
-                });
-            });
+            return this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (res) {
+                console.log('res =========', res.data);
+                return res.data;
+            }));
         }
     };
     //all cat news
@@ -1924,7 +2175,7 @@ var NewsService = /** @class */ (function () {
         else {
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
                 console.log("in ");
-                _this.http.get(_config__WEBPACK_IMPORTED_MODULE_4__["config"].baseApiUrl + 'news?isApproved=APPROVED&categoryId=' + id).subscribe(function (result) {
+                _this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&categoryId=' + id).subscribe(function (result) {
                     _this.newsArray = result['data'];
                     console.log("in cat service", _this.newsArray);
                     // localStorage.setItem('newsArray',JSON.stringify(this.newsArray))
@@ -1954,7 +2205,7 @@ var NewsService = /** @class */ (function () {
         }
         else {
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                _this.http.get(_config__WEBPACK_IMPORTED_MODULE_4__["config"].baseApiUrl + 'news?isApproved=APPROVED&keyword=' + searchKey).subscribe(function (result) {
+                _this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&keyword=' + searchKey).subscribe(function (result) {
                     _this.newsArray = result['data'];
                     console.log("in cat service", _this.newsArray);
                     // localStorage.setItem('newsArray',JSON.stringify(this.newsArray))
@@ -1982,8 +2233,8 @@ var NewsService = /** @class */ (function () {
                     _this.loggedInUser = decodedToken.user._id;
                 }
                 if (_this.tokenLocalStorage) {
-                    lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](_this.newsArray, function (save) {
-                        lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](save.bookMark, function (Id) {
+                    lodash__WEBPACK_IMPORTED_MODULE_7__["forEach"](_this.newsArray, function (save) {
+                        lodash__WEBPACK_IMPORTED_MODULE_7__["forEach"](save.bookMark, function (Id) {
                             if (Id == _this.loggedInUser) {
                                 save['bookmarkKey'] = true;
                             }
@@ -2000,7 +2251,7 @@ var NewsService = /** @class */ (function () {
         }
         else {
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                _this.http.get(_config__WEBPACK_IMPORTED_MODULE_4__["config"].baseApiUrl + 'bookmark').subscribe(function (res) {
+                _this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'bookmark').subscribe(function (res) {
                     _this.newsArray = res['data'];
                     _this.newsArray = _this.newsArray.post;
                     _this.newsArray.map(function (e) {
@@ -2016,73 +2267,71 @@ var NewsService = /** @class */ (function () {
         }
     };
     NewsService.prototype.bookmarkPost = function (id) {
-        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_4__["config"].baseApiUrl + "bookmark", { postId: id });
+        return this.http.post(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + "bookmark", { postId: id });
     };
     //get single news
     NewsService.prototype.getSingleNews = function (id) {
         var _this = this;
         if (this.network.type == 'none') {
-            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                console.log(JSON.parse(localStorage.getItem("newsArray")));
-                _this.newsArray = JSON.parse(localStorage.getItem("newsArray"));
-                var filtersArray = [id];
-                var filtered = _this.newsArray.filter(function (element) {
-                    var news = element.newsId.split(' ');
-                    return news.filter(function (post) {
-                        return filtersArray.indexOf(post) > -1;
-                    }).length === filtersArray.length;
-                });
-                _this.newsArray = filtered;
-                //for appending lates news
-                var allNews = JSON.parse(localStorage.getItem("newsArray"));
-                var finalObject = [];
-                finalObject.push(_this.newsArray[0]);
-                for (var i = 0; i < 6; i++) {
-                    _this.newsArray[0].newsId != allNews[i].newsId ? finalObject.push(allNews[i]) : '';
-                }
-                if (finalObject.length > 6) {
-                    finalObject.splice(6, 1);
-                }
-                //6 news including latest news
-                _this.newsArray = finalObject;
-                console.log("filtered", _this.newsArray);
-                setTimeout(function () {
-                    observer.next(_this.newsArray);
-                    observer.complete();
-                }, 1);
+            console.log(JSON.parse(localStorage.getItem("newsArray")));
+            this.newsArray = JSON.parse(localStorage.getItem("newsArray"));
+            var filtersArray = [id];
+            var filtered = this.newsArray.filter(function (element) {
+                var news = element.newsId.split(' ');
+                return news.filter(function (post) {
+                    return filtersArray.indexOf(post) > -1;
+                }).length === filtersArray.length;
             });
+            this.newsArray = filtered;
+            //for appending lates news
+            var allNews = JSON.parse(localStorage.getItem("newsArray"));
+            var finalObject = [];
+            finalObject.push(this.newsArray[0]);
+            for (var i = 0; i < 6; i++) {
+                this.newsArray[0].newsId != allNews[i].newsId ? finalObject.push(allNews[i]) : '';
+            }
+            if (finalObject.length > 6) {
+                finalObject.splice(6, 1);
+            }
+            //6 news including latest news
+            this.newsArray = finalObject;
+            console.log("filtered", this.newsArray);
+            setTimeout(function () {
+                return _this.newsArray;
+            }, 1);
         }
         else {
-            return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                console.log("in ");
-                _this.http.get(_config__WEBPACK_IMPORTED_MODULE_4__["config"].baseApiUrl + 'single-news?postId=' + id).subscribe(function (result) {
-                    _this.newsArray = result['data'];
-                    console.log("in cat service", _this.newsArray);
-                    localStorage.setItem('newsArray', JSON.stringify(_this.newsArray));
-                    observer.next(_this.newsArray);
-                    observer.complete();
-                }, function (error) {
-                    observer.error(error);
-                });
-            });
+            return this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'single-news?postId=' + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (result) {
+                _this.singleNews = JSON.parse(JSON.stringify(result.data));
+                return JSON.parse(JSON.stringify(_this.singleNews));
+            }, function (error) {
+                console.log("ERROR");
+            }));
         }
     };
     NewsService.prototype.newsCount = function (data) {
         console.log("post data", data);
-        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_4__["config"].baseApiUrl + 'post-views', data);
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'post-views', data);
     };
-    NewsService.prototype.likepost = function (id) {
-        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_4__["config"].baseApiUrl + 'post-like', { postId: id });
+    NewsService.prototype.increaseView = function (id) {
+        var postType = localStorage.getItem('language');
+        if (localStorage.getItem('accessToken')) {
+            return this.http.put(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'post-view-loggedin', { postId: id, postType: postType });
+        }
+        else {
+            return this.http.put(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'post-view-without-login', { postId: id, postType: postType });
+        }
     };
     NewsService.ctorParameters = function () { return [
-        { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"] },
-        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }
+        { type: _user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"] },
+        { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"] },
+        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"] }
     ]; };
     NewsService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]])
     ], NewsService);
     return NewsService;
 }());
@@ -2169,9 +2418,14 @@ var UserService = /** @class */ (function () {
         this.http = http;
         this.storage = storage;
         this.plt = plt;
+        this.myObservable = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
+        this.currentData = this.myObservable.asObservable();
         this.currentUserSubject = new rxjs__WEBPACK_IMPORTED_MODULE_6__["BehaviorSubject"](localStorage.getItem('accessToken'));
         this.currentUser = this.currentUserSubject.asObservable();
     }
+    UserService.prototype.serviceFunction = function () {
+        this.myObservable.next("randomFunction");
+    };
     UserService.prototype.handleError = function (error) {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_6__["throwError"])('Error! something went wrong.');
     };
@@ -2183,14 +2437,25 @@ var UserService = /** @class */ (function () {
         configurable: true
     });
     //annonymous user
-    UserService.prototype.firstTimeUser = function () {
+    UserService.prototype.firstTimeUser = function (lang) {
         var deviceToken = localStorage.getItem('deviceToken');
         var annonymousUser = {
             deviceToken: deviceToken,
-            notification: true
+            notification: true,
+            language: lang
         };
         console.log("annonymous user", annonymousUser);
         return this.http.post(_config__WEBPACK_IMPORTED_MODULE_3__["config"].baseApiUrl + "register-token", annonymousUser);
+    };
+    //changeLanguage
+    UserService.prototype.changeLanguage = function (lang) {
+        this.tokenLocalStorage = localStorage.getItem('accessToken');
+        if (this.tokenLocalStorage) {
+            var language = {
+                language: lang,
+            };
+            return this.http.put(_config__WEBPACK_IMPORTED_MODULE_3__["config"].baseApiUrl + "change-language", language);
+        }
     };
     UserService.prototype.googleLogin = function (token) {
         var _this = this;
@@ -2317,7 +2582,7 @@ var UserService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-icon {\n  color: var(--main-app-color);\n  font-size: 26px;\n  margin-left: 10px;\n}\n\nion-col div {\n  padding-top: 2px;\n}\n\n.loginDiv {\n  height: 170px;\n  border-bottom: 1px solid #ddd;\n}\n\n.item-radio.item ion-label {\n  color: #dd6873;\n}\n\nion-title {\n  margin-top: 3%;\n  padding: 0;\n}\n\nion-back-button {\n  float: left;\n}\n\n.settingsToolbar ion-icon {\n  float: left;\n  zoom: 1;\n  margin-left: 9px;\n  font-size: 20px;\n  margin-top: 6px;\n  color: #fff;\n}\n\n.settingsToolbar #settingTitle {\n  margin-left: 10px;\n  font-size: 18px;\n  line-height: 49px;\n}\n\n#signInButton {\n  color: #fff;\n  border-radius: 50px;\n  background-color: var(--main-app-color);\n  padding: 10.5px 36.5px;\n  font-size: 17px;\n}\n\n#googleplus {\n  color: #fff;\n  font-weight: 800;\n  font-size: 15px;\n  border-radius: 50%;\n  background-color: var(--main-app-color);\n  padding: 10px 9.5px;\n  margin-right: 4%;\n}\n\n#googleplus img {\n  margin-top: 3px;\n}\n\n#facebookLogin {\n  color: #fff;\n  border-radius: 50%;\n  margin-right: 4px;\n  background-color: #3779b7;\n  padding: 9px 15px;\n  font-weight: 950;\n  font-size: 20px;\n}\n\n.optionsList {\n  font-size: 16px;\n  color: gray;\n}\n\n.switch input {\n  position: absolute;\n  opacity: 0;\n}\n\n/**\n* 1. Adjust this to size\n*/\n\n.switch {\n  display: inline-block;\n  font-size: 20px;\n  height: 1em;\n  width: 2em;\n  background-color: #c5bdbd;\n  border-radius: 1em;\n  float: right;\n}\n\n.switch div {\n  height: 1em;\n  width: 1em;\n  border-radius: 1em;\n  background: white;\n  box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.3);\n  -webkit-transition: all 300ms;\n  transition: all 300ms;\n}\n\n.switch input:checked + div {\n  -webkit-transform: translate3d(100%, 0, 0);\n  transform: translate3d(100%, 0, 0);\n  background: var(--main-app-color);\n}\n\n#profile {\n  border-radius: 50%;\n  padding: 8px 12px;\n  float: right;\n  background-color: red;\n  color: #fff;\n  margin-right: 5px;\n  margin-top: 2%;\n}\n\n.settingIcon img {\n  width: 17px;\n  height: 19px;\n  margin-top: 6px;\n  margin-left: 13px;\n}\n\n.settingIconCol {\n  margin: auto;\n}\n\n.savePref {\n  font-size: 31px;\n  margin: 10px 0px;\n}\n\n.signInBook {\n  font-size: 15px;\n  margin: 10px 0px;\n  color: #949494;\n}\n\n.signInCol {\n  padding-left: 0;\n}\n\n.langColTwo {\n  margin: auto;\n  font-size: 29px;\n  text-align: center;\n  color: var(--main-app-color);\n}\n\n.langColTwo span {\n  margin-left: 5px;\n  margin-top: 5px;\n  font-size: 17px;\n}\n\n.languageDiv {\n  float: left;\n  padding-top: 16px;\n}\n\n.langColor {\n  color: #dd6d77;\n}\n\n.langColor ion-select {\n  max-width: 50%;\n  float: right;\n  padding: 16px 0px 6px;\n}\n\n#personIcon ion-icon {\n  zoom: 1.1;\n}\n\n#personIcon {\n  border-radius: 50%;\n  padding: 5px 7px;\n  float: right;\n  background-color: red;\n  color: #fff;\n  margin-right: 5px;\n  margin-left: 0px;\n}\n\n#personIcon ion-icon {\n  margin-left: 0px;\n}\n\n.action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-md button.action-sheet-button.ion-activatable.action-sheet-cancel.sc-ion-action-sheet-md.activated {\n  display: none !important;\n}\n\n#ratingRow {\n  padding: 50px 10px 10px 10px;\n  position: relative;\n  width: 100%;\n  display: table;\n  width: 100%;\n  margin-top: auto;\n  text-align: center;\n}\n\n.optionsDiv {\n  display: -webkit-box;\n  display: flex;\n  -ms-flex-align: center;\n  flex-wrap: wrap;\n  min-height: calc(100vh - 170px - 56px);\n}\n\n.loggedInDiv {\n  min-height: calc(100vh - 56px);\n}\n\n.optionsDiv > ion-col {\n  padding: 0;\n  height: 3px;\n}\n\n#ratingRow > img {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  z-index: 0;\n  min-width: 100%;\n  height: 320px;\n}\n\n.settings.settingIcon {\n  position: relative;\n  z-index: 11;\n  padding: 0 7px;\n  margin-top: 15px;\n}\n\n.logo {\n  margin: auto;\n}\n\n#ratingRow > div {\n  position: relative;\n  z-index: 11;\n}\n\n#ratingHead {\n  font-size: 16px;\n  text-align: center;\n  font-weight: 500;\n  margin: 10px 0;\n  opacity: 0.7;\n  color: var(--main-app-color);\n}\n\n#rating {\n  margin: auto;\n}\n\n.alert-head .sc-ion-alert-md {\n  display: none !important;\n}\n\nionic4-star-rating {\n  text-align: center;\n}\n\n.greetings {\n  font-size: 11px !important;\n}\n\n.settingsLoggedIn {\n  padding-top: 23px;\n}\n\n#loginOption {\n  line-height: 3;\n  margin-right: 6%;\n}\n\n.rateButton {\n  font-size: 15px !important;\n  padding: 10px 15px !important;\n  background: var(--main-app-color);\n  color: #fff !important;\n  border-radius: 23px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvQmhhdmlrL3RyaXZpYVBvc3RBcHAvc3JjL2FwcC9zZXR0aW5ncy9zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvc2V0dGluZ3Mvc2V0dGluZ3MuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSw0QkFBQTtFQUNBLGVBQUE7RUFDQSxpQkFBQTtBQ0NGOztBRENBO0VBQ0UsZ0JBQUE7QUNFRjs7QURBQTtFQUNFLGFBQUE7RUFDQSw2QkFBQTtBQ0dGOztBREFBO0VBQ0UsY0FBQTtBQ0dGOztBRERBO0VBQ0UsY0FBQTtFQUNBLFVBQUE7QUNJRjs7QURGQTtFQUNFLFdBQUE7QUNLRjs7QURIQTtFQUNFLFdBQUE7RUFDQSxPQUFBO0VBQ0EsZ0JBQUE7RUFDQSxlQUFBO0VBQ0EsZUFBQTtFQUNBLFdBQUE7QUNNRjs7QURIQTtFQUNFLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLGlCQUFBO0FDTUY7O0FESEE7RUFDRSxXQUFBO0VBQ0EsbUJBQUE7RUFDQSx1Q0FBQTtFQUNBLHNCQUFBO0VBQ0EsZUFBQTtBQ01GOztBREhBO0VBQ0UsV0FBQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0VBQ0EsdUNBQUE7RUFDQSxtQkFBQTtFQUNBLGdCQUFBO0FDTUY7O0FESkE7RUFDRSxlQUFBO0FDT0Y7O0FETEE7RUFDRSxXQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLHlCQUFBO0VBQ0EsaUJBQUE7RUFDQSxnQkFBQTtFQUNBLGVBQUE7QUNRRjs7QURMQTtFQUNFLGVBQUE7RUFDQSxXQUFBO0FDUUY7O0FETkE7RUFDRSxrQkFBQTtFQUNBLFVBQUE7QUNTRjs7QUROQTs7Q0FBQTs7QUFJQTtFQUNFLHFCQUFBO0VBQ0EsZUFBQTtFQUNBLFdBQUE7RUFDQSxVQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQTtFQUNBLFlBQUE7QUNRRjs7QURMQTtFQUNFLFdBQUE7RUFDQSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLDRDQUFBO0VBQ0EsNkJBQUE7RUFFQSxxQkFBQTtBQ1FGOztBRExBO0VBQ0UsMENBQUE7RUFFQSxrQ0FBQTtFQUNBLGlDQUFBO0FDUUY7O0FETEE7RUFDRSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0EsWUFBQTtFQUNBLHFCQUFBO0VBQ0EsV0FBQTtFQUNBLGlCQUFBO0VBQ0EsY0FBQTtBQ1FGOztBRE5BO0VBQ0UsV0FBQTtFQUNBLFlBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7QUNTRjs7QUROQTtFQUNFLFlBQUE7QUNTRjs7QUROQTtFQUNFLGVBQUE7RUFDQSxnQkFBQTtBQ1NGOztBRE5BO0VBQ0UsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsY0FBQTtBQ1NGOztBRFBBO0VBQ0UsZUFBQTtBQ1VGOztBRFJBO0VBQ0UsWUFBQTtFQUNBLGVBQUE7RUFDQSxrQkFBQTtFQUNBLDRCQUFBO0FDV0Y7O0FEUkE7RUFDRSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxlQUFBO0FDV0Y7O0FEVEE7RUFDRSxXQUFBO0VBQ0EsaUJBQUE7QUNZRjs7QURUQTtFQUNFLGNBQUE7QUNZRjs7QURUQTtFQUNFLGNBQUE7RUFDQSxZQUFBO0VBQ0EscUJBQUE7QUNZRjs7QURUQTtFQUNFLFNBQUE7QUNZRjs7QURUQTtFQUNFLGtCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0VBQ0EscUJBQUE7RUFDQSxXQUFBO0VBQ0EsaUJBQUE7RUFDQSxnQkFBQTtBQ1lGOztBRFRBO0VBQ0UsZ0JBQUE7QUNZRjs7QURUQTtFQUVFLHdCQUFBO0FDV0Y7O0FEVEE7RUFDRSw0QkFBQTtFQUNBLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLGNBQUE7RUFDQSxXQUFBO0VBQ0EsZ0JBQUE7RUFDQSxrQkFBQTtBQ1lGOztBRFZBO0VBQ0Usb0JBQUE7RUFBQSxhQUFBO0VBQ0Esc0JBQUE7RUFDQSxlQUFBO0VBQ0Esc0NBQUE7QUNhRjs7QURWQTtFQUNFLDhCQUFBO0FDYUY7O0FEWEE7RUFDRSxVQUFBO0VBQ0EsV0FBQTtBQ2NGOztBRFhBO0VBQ0Usa0JBQUE7RUFDQSxTQUFBO0VBQ0EsT0FBQTtFQUNBLFFBQUE7RUFDQSxVQUFBO0VBQ0EsZUFBQTtFQUNBLGFBQUE7QUNjRjs7QURaQTtFQUNFLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLGNBQUE7RUFDQSxnQkFBQTtBQ2VGOztBRGJBO0VBQ0UsWUFBQTtBQ2dCRjs7QURkQTtFQUNFLGtCQUFBO0VBQ0EsV0FBQTtBQ2lCRjs7QURmQTtFQUVFLGVBQUE7RUFDQSxrQkFBQTtFQUNBLGdCQUFBO0VBQ0EsY0FBQTtFQUNBLFlBQUE7RUFDQSw0QkFBQTtBQ2lCRjs7QURmQTtFQUNFLFlBQUE7QUNrQkY7O0FEaEJBO0VBQ0Usd0JBQUE7QUNtQkY7O0FEakJBO0VBQ0Usa0JBQUE7QUNvQkY7O0FEbEJBO0VBQ0UsMEJBQUE7QUNxQkY7O0FEbkJBO0VBQ0UsaUJBQUE7QUNzQkY7O0FEcEJBO0VBQ0UsY0FBQTtFQUNBLGdCQUFBO0FDdUJGOztBRHJCQTtFQUNFLDBCQUFBO0VBQ0EsNkJBQUE7RUFDQSxpQ0FBQTtFQUNBLHNCQUFBO0VBQ0EsbUJBQUE7QUN3QkYiLCJmaWxlIjoic3JjL2FwcC9zZXR0aW5ncy9zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1pY29uIHtcbiAgY29sb3I6IHZhcigtLW1haW4tYXBwLWNvbG9yKTtcbiAgZm9udC1zaXplOiAyNnB4O1xuICBtYXJnaW4tbGVmdDogMTBweDtcbn1cbmlvbi1jb2wgZGl2e1xuICBwYWRkaW5nLXRvcDogMnB4O1xufVxuLmxvZ2luRGl2IHtcbiAgaGVpZ2h0OiAxNzBweDtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICNkZGQ7XG4gIC8vIGJhY2tncm91bmQ6IHVybChcImFzc2V0cy9pbWFnZXMvYnJvd25iZy5wbmdcIik7XG59XG4uaXRlbS1yYWRpby5pdGVtIGlvbi1sYWJlbCB7XG4gIGNvbG9yOiAjZGQ2ODczOyAvL3lvdXIgY29sb3IgaGVyZVxufVxuaW9uLXRpdGxle1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgcGFkZGluZzogMDtcbn1cbmlvbi1iYWNrLWJ1dHRvbntcbiAgZmxvYXQ6IGxlZnQ7XG59XG4uc2V0dGluZ3NUb29sYmFyIGlvbi1pY29uIHtcbiAgZmxvYXQ6IGxlZnQ7XG4gIHpvb206IDE7XG4gIG1hcmdpbi1sZWZ0OiA5cHg7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgbWFyZ2luLXRvcDogNnB4O1xuICBjb2xvcjogI2ZmZjtcbn1cblxuLnNldHRpbmdzVG9vbGJhciAjc2V0dGluZ1RpdGxlIHtcbiAgbWFyZ2luLWxlZnQ6IDEwcHg7XG4gIGZvbnQtc2l6ZTogMThweDtcbiAgbGluZS1oZWlnaHQ6IDQ5cHg7XG59XG5cbiNzaWduSW5CdXR0b24ge1xuICBjb2xvcjogI2ZmZjtcbiAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbWFpbi1hcHAtY29sb3IpO1xuICBwYWRkaW5nOiAxMC41cHggMzYuNXB4O1xuICBmb250LXNpemU6IDE3cHg7XG59XG5cbiNnb29nbGVwbHVzIHtcbiAgY29sb3I6ICNmZmY7XG4gIGZvbnQtd2VpZ2h0OiA4MDA7XG4gIGZvbnQtc2l6ZTogMTVweDtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWFwcC1jb2xvcik7XG4gIHBhZGRpbmc6IDEwcHggOS41cHg7XG4gIG1hcmdpbi1yaWdodDogNCU7XG59XG4jZ29vZ2xlcGx1cyBpbWcge1xuICBtYXJnaW4tdG9wOiAzcHg7XG59XG4jZmFjZWJvb2tMb2dpbiB7XG4gIGNvbG9yOiAjZmZmO1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIG1hcmdpbi1yaWdodDogNHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMzc3OWI3O1xuICBwYWRkaW5nOiA5cHggMTVweDtcbiAgZm9udC13ZWlnaHQ6IDk1MDtcbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4ub3B0aW9uc0xpc3Qge1xuICBmb250LXNpemU6IDE2cHg7XG4gIGNvbG9yOiBncmF5O1xufVxuLnN3aXRjaCBpbnB1dCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgb3BhY2l0eTogMDtcbn1cblxuLyoqXG4qIDEuIEFkanVzdCB0aGlzIHRvIHNpemVcbiovXG5cbi5zd2l0Y2gge1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgaGVpZ2h0OiAxZW07XG4gIHdpZHRoOiAyZW07XG4gIGJhY2tncm91bmQtY29sb3I6ICNjNWJkYmQ7XG4gIGJvcmRlci1yYWRpdXM6IDFlbTtcbiAgZmxvYXQ6IHJpZ2h0O1xufVxuXG4uc3dpdGNoIGRpdiB7XG4gIGhlaWdodDogMWVtO1xuICB3aWR0aDogMWVtO1xuICBib3JkZXItcmFkaXVzOiAxZW07XG4gIGJhY2tncm91bmQ6IHdoaXRlO1xuICBib3gtc2hhZG93OiAwIDAuMWVtIDAuM2VtIHJnYmEoMCwgMCwgMCwgMC4zKTtcbiAgLXdlYmtpdC10cmFuc2l0aW9uOiBhbGwgMzAwbXM7XG4gIC1tb3otdHJhbnNpdGlvbjogYWxsIDMwMG1zO1xuICB0cmFuc2l0aW9uOiBhbGwgMzAwbXM7XG59XG5cbi5zd2l0Y2ggaW5wdXQ6Y2hlY2tlZCArIGRpdiB7XG4gIC13ZWJraXQtdHJhbnNmb3JtOiB0cmFuc2xhdGUzZCgxMDAlLCAwLCAwKTtcbiAgLW1vei10cmFuc2Zvcm06IHRyYW5zbGF0ZTNkKDEwMCUsIDAsIDApO1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZTNkKDEwMCUsIDAsIDApO1xuICBiYWNrZ3JvdW5kOiB2YXIoLS1tYWluLWFwcC1jb2xvcik7XG59XG5cbiNwcm9maWxlIHtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBwYWRkaW5nOiA4cHggMTJweDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XG4gIGNvbG9yOiAjZmZmO1xuICBtYXJnaW4tcmlnaHQ6IDVweDtcbiAgbWFyZ2luLXRvcDogMiU7XG59XG4uc2V0dGluZ0ljb24gaW1nIHtcbiAgd2lkdGg6IDE3cHg7XG4gIGhlaWdodDogMTlweDtcbiAgbWFyZ2luLXRvcDogNnB4O1xuICBtYXJnaW4tbGVmdDogMTNweDtcbn1cblxuLnNldHRpbmdJY29uQ29sIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4uc2F2ZVByZWYge1xuICBmb250LXNpemU6IDMxcHg7XG4gIG1hcmdpbjogMTBweCAwcHg7XG59XG5cbi5zaWduSW5Cb29rIHtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBtYXJnaW46IDEwcHggMHB4O1xuICBjb2xvcjogIzk0OTQ5NDtcbn1cbi5zaWduSW5Db2wge1xuICBwYWRkaW5nLWxlZnQ6IDA7XG59XG4ubGFuZ0NvbFR3byB7XG4gIG1hcmdpbjogYXV0bztcbiAgZm9udC1zaXplOiAyOXB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGNvbG9yOiB2YXIoLS1tYWluLWFwcC1jb2xvcik7XG59XG5cbi5sYW5nQ29sVHdvIHNwYW4ge1xuICBtYXJnaW4tbGVmdDogNXB4O1xuICBtYXJnaW4tdG9wOiA1cHg7XG4gIGZvbnQtc2l6ZTogMTdweDtcbn1cbi5sYW5ndWFnZURpdiB7XG4gIGZsb2F0OiBsZWZ0O1xuICBwYWRkaW5nLXRvcDogMTZweDtcbn1cblxuLmxhbmdDb2xvciB7XG4gIGNvbG9yOiAjZGQ2ZDc3O1xufVxuXG4ubGFuZ0NvbG9yIGlvbi1zZWxlY3Qge1xuICBtYXgtd2lkdGg6IDUwJTtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nOiAxNnB4IDBweCA2cHg7XG59XG5cbiNwZXJzb25JY29uIGlvbi1pY29uIHtcbiAgem9vbTogMS4xO1xufVxuXG4jcGVyc29uSWNvbiB7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgcGFkZGluZzogNXB4IDdweDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XG4gIGNvbG9yOiAjZmZmO1xuICBtYXJnaW4tcmlnaHQ6IDVweDtcbiAgbWFyZ2luLWxlZnQ6IDBweDtcbn1cblxuI3BlcnNvbkljb24gaW9uLWljb24ge1xuICBtYXJnaW4tbGVmdDogMHB4O1xufVxuXG4uYWN0aW9uLXNoZWV0LWdyb3VwLmFjdGlvbi1zaGVldC1ncm91cC1jYW5jZWwuc2MtaW9uLWFjdGlvbi1zaGVldC1tZFxuICBidXR0b24uYWN0aW9uLXNoZWV0LWJ1dHRvbi5pb24tYWN0aXZhdGFibGUuYWN0aW9uLXNoZWV0LWNhbmNlbC5zYy1pb24tYWN0aW9uLXNoZWV0LW1kLmFjdGl2YXRlZCB7XG4gIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDtcbn1cbiNyYXRpbmdSb3cge1xuICBwYWRkaW5nOiA1MHB4IDEwcHggMTBweCAxMHB4O1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHdpZHRoOiAxMDAlO1xuICBkaXNwbGF5OiB0YWJsZTtcbiAgd2lkdGg6IDEwMCU7XG4gIG1hcmdpbi10b3A6IGF1dG87XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbi5vcHRpb25zRGl2IHtcbiAgZGlzcGxheTogZmxleDtcbiAgLW1zLWZsZXgtYWxpZ246IGNlbnRlcjtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBtaW4taGVpZ2h0OiBjYWxjKDEwMHZoIC0gMTcwcHggLSA1NnB4KTtcbn1cblxuLmxvZ2dlZEluRGl2IHtcbiAgbWluLWhlaWdodDogY2FsYygxMDB2aCAtIDU2cHgpO1xufVxuLm9wdGlvbnNEaXYgPiBpb24tY29sIHtcbiAgcGFkZGluZzogMDtcbiAgaGVpZ2h0OiAzcHg7XG59XG5cbiNyYXRpbmdSb3cgPiBpbWcge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvdHRvbTogMDtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG4gIHotaW5kZXg6IDA7XG4gIG1pbi13aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAzMjBweDtcbn1cbi5zZXR0aW5ncy5zZXR0aW5nSWNvbiB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgei1pbmRleDogMTE7XG4gIHBhZGRpbmc6IDAgN3B4O1xuICBtYXJnaW4tdG9wOiAxNXB4O1xufVxuLmxvZ28ge1xuICBtYXJnaW46IGF1dG87XG59XG4jcmF0aW5nUm93ID4gZGl2IHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB6LWluZGV4OiAxMTtcbn1cbiNyYXRpbmdIZWFkIHtcbiAgLy8gd2lkdGg6IDEwMCU7XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBmb250LXdlaWdodDogNTAwO1xuICBtYXJnaW46IDEwcHggMDtcbiAgb3BhY2l0eTogMC43O1xuICBjb2xvcjogdmFyKC0tbWFpbi1hcHAtY29sb3IpO1xufVxuI3JhdGluZyB7XG4gIG1hcmdpbjogYXV0bztcbn1cbi5hbGVydC1oZWFkIC5zYy1pb24tYWxlcnQtbWQge1xuICBkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7XG59XG5pb25pYzQtc3Rhci1yYXRpbmcge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG4uZ3JlZXRpbmdzIHtcbiAgZm9udC1zaXplOiAxMXB4ICFpbXBvcnRhbnQ7XG59XG4uc2V0dGluZ3NMb2dnZWRJbiB7XG4gIHBhZGRpbmctdG9wOiAyM3B4O1xufVxuI2xvZ2luT3B0aW9uIHtcbiAgbGluZS1oZWlnaHQ6IDM7XG4gIG1hcmdpbi1yaWdodDogNiU7XG59XG4ucmF0ZUJ1dHRvbiB7XG4gIGZvbnQtc2l6ZTogMTVweCAhaW1wb3J0YW50O1xuICBwYWRkaW5nOiAxMHB4IDE1cHggIWltcG9ydGFudDtcbiAgYmFja2dyb3VuZDogdmFyKC0tbWFpbi1hcHAtY29sb3IpO1xuICBjb2xvcjogI2ZmZiAhaW1wb3J0YW50O1xuICBib3JkZXItcmFkaXVzOiAyM3B4O1xufVxuIiwiaW9uLWljb24ge1xuICBjb2xvcjogdmFyKC0tbWFpbi1hcHAtY29sb3IpO1xuICBmb250LXNpemU6IDI2cHg7XG4gIG1hcmdpbi1sZWZ0OiAxMHB4O1xufVxuXG5pb24tY29sIGRpdiB7XG4gIHBhZGRpbmctdG9wOiAycHg7XG59XG5cbi5sb2dpbkRpdiB7XG4gIGhlaWdodDogMTcwcHg7XG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjZGRkO1xufVxuXG4uaXRlbS1yYWRpby5pdGVtIGlvbi1sYWJlbCB7XG4gIGNvbG9yOiAjZGQ2ODczO1xufVxuXG5pb24tdGl0bGUge1xuICBtYXJnaW4tdG9wOiAzJTtcbiAgcGFkZGluZzogMDtcbn1cblxuaW9uLWJhY2stYnV0dG9uIHtcbiAgZmxvYXQ6IGxlZnQ7XG59XG5cbi5zZXR0aW5nc1Rvb2xiYXIgaW9uLWljb24ge1xuICBmbG9hdDogbGVmdDtcbiAgem9vbTogMTtcbiAgbWFyZ2luLWxlZnQ6IDlweDtcbiAgZm9udC1zaXplOiAyMHB4O1xuICBtYXJnaW4tdG9wOiA2cHg7XG4gIGNvbG9yOiAjZmZmO1xufVxuXG4uc2V0dGluZ3NUb29sYmFyICNzZXR0aW5nVGl0bGUge1xuICBtYXJnaW4tbGVmdDogMTBweDtcbiAgZm9udC1zaXplOiAxOHB4O1xuICBsaW5lLWhlaWdodDogNDlweDtcbn1cblxuI3NpZ25JbkJ1dHRvbiB7XG4gIGNvbG9yOiAjZmZmO1xuICBib3JkZXItcmFkaXVzOiA1MHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWFwcC1jb2xvcik7XG4gIHBhZGRpbmc6IDEwLjVweCAzNi41cHg7XG4gIGZvbnQtc2l6ZTogMTdweDtcbn1cblxuI2dvb2dsZXBsdXMge1xuICBjb2xvcjogI2ZmZjtcbiAgZm9udC13ZWlnaHQ6IDgwMDtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLW1haW4tYXBwLWNvbG9yKTtcbiAgcGFkZGluZzogMTBweCA5LjVweDtcbiAgbWFyZ2luLXJpZ2h0OiA0JTtcbn1cblxuI2dvb2dsZXBsdXMgaW1nIHtcbiAgbWFyZ2luLXRvcDogM3B4O1xufVxuXG4jZmFjZWJvb2tMb2dpbiB7XG4gIGNvbG9yOiAjZmZmO1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIG1hcmdpbi1yaWdodDogNHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMzc3OWI3O1xuICBwYWRkaW5nOiA5cHggMTVweDtcbiAgZm9udC13ZWlnaHQ6IDk1MDtcbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4ub3B0aW9uc0xpc3Qge1xuICBmb250LXNpemU6IDE2cHg7XG4gIGNvbG9yOiBncmF5O1xufVxuXG4uc3dpdGNoIGlucHV0IHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBvcGFjaXR5OiAwO1xufVxuXG4vKipcbiogMS4gQWRqdXN0IHRoaXMgdG8gc2l6ZVxuKi9cbi5zd2l0Y2gge1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgaGVpZ2h0OiAxZW07XG4gIHdpZHRoOiAyZW07XG4gIGJhY2tncm91bmQtY29sb3I6ICNjNWJkYmQ7XG4gIGJvcmRlci1yYWRpdXM6IDFlbTtcbiAgZmxvYXQ6IHJpZ2h0O1xufVxuXG4uc3dpdGNoIGRpdiB7XG4gIGhlaWdodDogMWVtO1xuICB3aWR0aDogMWVtO1xuICBib3JkZXItcmFkaXVzOiAxZW07XG4gIGJhY2tncm91bmQ6IHdoaXRlO1xuICBib3gtc2hhZG93OiAwIDAuMWVtIDAuM2VtIHJnYmEoMCwgMCwgMCwgMC4zKTtcbiAgLXdlYmtpdC10cmFuc2l0aW9uOiBhbGwgMzAwbXM7XG4gIC1tb3otdHJhbnNpdGlvbjogYWxsIDMwMG1zO1xuICB0cmFuc2l0aW9uOiBhbGwgMzAwbXM7XG59XG5cbi5zd2l0Y2ggaW5wdXQ6Y2hlY2tlZCArIGRpdiB7XG4gIC13ZWJraXQtdHJhbnNmb3JtOiB0cmFuc2xhdGUzZCgxMDAlLCAwLCAwKTtcbiAgLW1vei10cmFuc2Zvcm06IHRyYW5zbGF0ZTNkKDEwMCUsIDAsIDApO1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZTNkKDEwMCUsIDAsIDApO1xuICBiYWNrZ3JvdW5kOiB2YXIoLS1tYWluLWFwcC1jb2xvcik7XG59XG5cbiNwcm9maWxlIHtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBwYWRkaW5nOiA4cHggMTJweDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XG4gIGNvbG9yOiAjZmZmO1xuICBtYXJnaW4tcmlnaHQ6IDVweDtcbiAgbWFyZ2luLXRvcDogMiU7XG59XG5cbi5zZXR0aW5nSWNvbiBpbWcge1xuICB3aWR0aDogMTdweDtcbiAgaGVpZ2h0OiAxOXB4O1xuICBtYXJnaW4tdG9wOiA2cHg7XG4gIG1hcmdpbi1sZWZ0OiAxM3B4O1xufVxuXG4uc2V0dGluZ0ljb25Db2wge1xuICBtYXJnaW46IGF1dG87XG59XG5cbi5zYXZlUHJlZiB7XG4gIGZvbnQtc2l6ZTogMzFweDtcbiAgbWFyZ2luOiAxMHB4IDBweDtcbn1cblxuLnNpZ25JbkJvb2sge1xuICBmb250LXNpemU6IDE1cHg7XG4gIG1hcmdpbjogMTBweCAwcHg7XG4gIGNvbG9yOiAjOTQ5NDk0O1xufVxuXG4uc2lnbkluQ29sIHtcbiAgcGFkZGluZy1sZWZ0OiAwO1xufVxuXG4ubGFuZ0NvbFR3byB7XG4gIG1hcmdpbjogYXV0bztcbiAgZm9udC1zaXplOiAyOXB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGNvbG9yOiB2YXIoLS1tYWluLWFwcC1jb2xvcik7XG59XG5cbi5sYW5nQ29sVHdvIHNwYW4ge1xuICBtYXJnaW4tbGVmdDogNXB4O1xuICBtYXJnaW4tdG9wOiA1cHg7XG4gIGZvbnQtc2l6ZTogMTdweDtcbn1cblxuLmxhbmd1YWdlRGl2IHtcbiAgZmxvYXQ6IGxlZnQ7XG4gIHBhZGRpbmctdG9wOiAxNnB4O1xufVxuXG4ubGFuZ0NvbG9yIHtcbiAgY29sb3I6ICNkZDZkNzc7XG59XG5cbi5sYW5nQ29sb3IgaW9uLXNlbGVjdCB7XG4gIG1heC13aWR0aDogNTAlO1xuICBmbG9hdDogcmlnaHQ7XG4gIHBhZGRpbmc6IDE2cHggMHB4IDZweDtcbn1cblxuI3BlcnNvbkljb24gaW9uLWljb24ge1xuICB6b29tOiAxLjE7XG59XG5cbiNwZXJzb25JY29uIHtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBwYWRkaW5nOiA1cHggN3B4O1xuICBmbG9hdDogcmlnaHQ7XG4gIGJhY2tncm91bmQtY29sb3I6IHJlZDtcbiAgY29sb3I6ICNmZmY7XG4gIG1hcmdpbi1yaWdodDogNXB4O1xuICBtYXJnaW4tbGVmdDogMHB4O1xufVxuXG4jcGVyc29uSWNvbiBpb24taWNvbiB7XG4gIG1hcmdpbi1sZWZ0OiAwcHg7XG59XG5cbi5hY3Rpb24tc2hlZXQtZ3JvdXAuYWN0aW9uLXNoZWV0LWdyb3VwLWNhbmNlbC5zYy1pb24tYWN0aW9uLXNoZWV0LW1kIGJ1dHRvbi5hY3Rpb24tc2hlZXQtYnV0dG9uLmlvbi1hY3RpdmF0YWJsZS5hY3Rpb24tc2hlZXQtY2FuY2VsLnNjLWlvbi1hY3Rpb24tc2hlZXQtbWQuYWN0aXZhdGVkIHtcbiAgZGlzcGxheTogbm9uZSAhaW1wb3J0YW50O1xufVxuXG4jcmF0aW5nUm93IHtcbiAgcGFkZGluZzogNTBweCAxMHB4IDEwcHggMTBweDtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB3aWR0aDogMTAwJTtcbiAgZGlzcGxheTogdGFibGU7XG4gIHdpZHRoOiAxMDAlO1xuICBtYXJnaW4tdG9wOiBhdXRvO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5vcHRpb25zRGl2IHtcbiAgZGlzcGxheTogZmxleDtcbiAgLW1zLWZsZXgtYWxpZ246IGNlbnRlcjtcbiAgZmxleC13cmFwOiB3cmFwO1xuICBtaW4taGVpZ2h0OiBjYWxjKDEwMHZoIC0gMTcwcHggLSA1NnB4KTtcbn1cblxuLmxvZ2dlZEluRGl2IHtcbiAgbWluLWhlaWdodDogY2FsYygxMDB2aCAtIDU2cHgpO1xufVxuXG4ub3B0aW9uc0RpdiA+IGlvbi1jb2wge1xuICBwYWRkaW5nOiAwO1xuICBoZWlnaHQ6IDNweDtcbn1cblxuI3JhdGluZ1JvdyA+IGltZyB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm90dG9tOiAwO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgei1pbmRleDogMDtcbiAgbWluLXdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDMyMHB4O1xufVxuXG4uc2V0dGluZ3Muc2V0dGluZ0ljb24ge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHotaW5kZXg6IDExO1xuICBwYWRkaW5nOiAwIDdweDtcbiAgbWFyZ2luLXRvcDogMTVweDtcbn1cblxuLmxvZ28ge1xuICBtYXJnaW46IGF1dG87XG59XG5cbiNyYXRpbmdSb3cgPiBkaXYge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHotaW5kZXg6IDExO1xufVxuXG4jcmF0aW5nSGVhZCB7XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBmb250LXdlaWdodDogNTAwO1xuICBtYXJnaW46IDEwcHggMDtcbiAgb3BhY2l0eTogMC43O1xuICBjb2xvcjogdmFyKC0tbWFpbi1hcHAtY29sb3IpO1xufVxuXG4jcmF0aW5nIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4uYWxlcnQtaGVhZCAuc2MtaW9uLWFsZXJ0LW1kIHtcbiAgZGlzcGxheTogbm9uZSAhaW1wb3J0YW50O1xufVxuXG5pb25pYzQtc3Rhci1yYXRpbmcge1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG5cbi5ncmVldGluZ3Mge1xuICBmb250LXNpemU6IDExcHggIWltcG9ydGFudDtcbn1cblxuLnNldHRpbmdzTG9nZ2VkSW4ge1xuICBwYWRkaW5nLXRvcDogMjNweDtcbn1cblxuI2xvZ2luT3B0aW9uIHtcbiAgbGluZS1oZWlnaHQ6IDM7XG4gIG1hcmdpbi1yaWdodDogNiU7XG59XG5cbi5yYXRlQnV0dG9uIHtcbiAgZm9udC1zaXplOiAxNXB4ICFpbXBvcnRhbnQ7XG4gIHBhZGRpbmc6IDEwcHggMTVweCAhaW1wb3J0YW50O1xuICBiYWNrZ3JvdW5kOiB2YXIoLS1tYWluLWFwcC1jb2xvcik7XG4gIGNvbG9yOiAjZmZmICFpbXBvcnRhbnQ7XG4gIGJvcmRlci1yYWRpdXM6IDIzcHg7XG59Il19 */"
+module.exports = "ion-icon {\n  color: var(--main-app-color);\n  font-size: 26px;\n  margin-left: 10px;\n}\n\nion-col div {\n  padding-top: 2px;\n}\n\nion-row {\n  margin-bottom: 10px;\n}\n\n.loginBg {\n  float: right;\n  width: 100%;\n  position: absolute;\n  bottom: -32%;\n  height: 50%;\n}\n\n.loginDiv {\n  height: 170px;\n  border-bottom: 1px solid #ddd;\n}\n\n.item-radio.item ion-label {\n  color: #dd6873;\n}\n\nion-title {\n  margin-top: 3%;\n  padding: 0;\n}\n\nion-back-button {\n  float: left;\n}\n\n.settingsToolbar ion-icon {\n  float: left;\n  zoom: 1;\n  margin-left: 9px;\n  font-size: 20px;\n  margin-top: 6px;\n  color: #fff;\n}\n\n.settingsToolbar #settingTitle {\n  margin-left: 10px;\n  font-size: 18px;\n  line-height: 49px;\n}\n\n#signInButton {\n  color: #fff;\n  border-radius: 50px;\n  background-color: var(--main-app-color);\n  padding: 10.5px 36.5px;\n  font-size: 13px;\n}\n\n#googleplus {\n  color: #fff;\n  font-weight: 800;\n  font-size: 15px;\n  border-radius: 50%;\n  background-color: var(--main-app-color);\n  padding: 10px 9.5px;\n  margin-right: 4%;\n}\n\n#googleplus img {\n  margin-top: 3px;\n}\n\n#facebookLogin {\n  color: #fff;\n  border-radius: 50%;\n  margin-right: 4px;\n  background-color: #3779b7;\n  padding: 9px 15px;\n  font-weight: 950;\n  font-size: 20px;\n}\n\n.optionsList {\n  font-size: 16px;\n  color: gray;\n}\n\n.switch input {\n  position: absolute;\n  opacity: 0;\n}\n\n/**\n* 1. Adjust this to size\n*/\n\n.switch {\n  display: inline-block;\n  font-size: 20px;\n  height: 1em;\n  width: 2em;\n  background-color: #c5bdbd;\n  border-radius: 1em;\n  float: right;\n}\n\n.switch div {\n  height: 1em;\n  width: 1em;\n  border-radius: 1em;\n  background: white;\n  box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.3);\n  -webkit-transition: all 300ms;\n  transition: all 300ms;\n}\n\n.switch input:checked + div {\n  -webkit-transform: translate3d(100%, 0, 0);\n  transform: translate3d(100%, 0, 0);\n  background: var(--main-app-color);\n}\n\n#profile {\n  border-radius: 50%;\n  padding: 8px 12px;\n  float: right;\n  background-color: red;\n  color: #fff;\n  margin-right: 5px;\n  margin-top: 2%;\n}\n\n.settingIcon img {\n  width: 17px;\n  height: 19px;\n  margin-top: 6px;\n  margin-left: 13px;\n}\n\n.settingIconCol {\n  margin: auto;\n}\n\n.savePref {\n  font-size: 21px;\n  margin: 10px 0px;\n}\n\n.signInBook {\n  font-size: 15px;\n  margin: 10px 0px;\n  color: #949494;\n}\n\n.signInCol {\n  padding-left: 0;\n}\n\n.langColTwo {\n  margin: auto;\n  font-size: 29px;\n  text-align: center;\n  color: var(--main-app-color);\n}\n\n.langColTwo span {\n  margin-left: 5px;\n  margin-top: 5px;\n  font-size: 17px;\n}\n\n.languageDiv {\n  float: left;\n  padding-top: 16px;\n}\n\n.langColor {\n  color: #dd6d77;\n  float: right;\n  padding-top: 16px;\n}\n\n.langColor ion-select {\n  max-width: 50%;\n  float: right;\n  padding: 16px 0px 6px;\n}\n\n#personIcon ion-icon {\n  zoom: 1.1;\n}\n\n#personIcon {\n  border-radius: 50%;\n  padding: 5px 7px;\n  float: right;\n  background-color: red;\n  color: #fff;\n  margin-right: 5px;\n  margin-left: 0px;\n}\n\n#personIcon ion-icon {\n  margin-left: 0px;\n}\n\n.action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-md button.action-sheet-button.ion-activatable.action-sheet-cancel.sc-ion-action-sheet-md.activated {\n  display: none !important;\n}\n\n#ratingRow {\n  padding: 50px 10px 10px 10px;\n  position: relative;\n  width: 100%;\n  display: table;\n  width: 100%;\n  margin-top: auto;\n  text-align: center;\n}\n\n.loggedInDiv {\n  min-height: calc(100vh - 146px);\n}\n\n.optionsDiv > ion-col {\n  padding: 0;\n  height: 3px;\n}\n\n#ratingRow > img {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  z-index: 0;\n  min-width: 100%;\n  height: 320px;\n}\n\n.settings.settingIcon {\n  position: relative;\n  z-index: 11;\n  padding: 0 7px;\n}\n\n.logo {\n  margin: auto;\n}\n\n#ratingRow > div {\n  position: relative;\n  z-index: 11;\n}\n\n#ratingHead {\n  font-size: 16px;\n  text-align: center;\n  font-weight: 500;\n  margin: 10px 0;\n  opacity: 0.7;\n  color: var(--main-app-color);\n}\n\n#rating {\n  margin: auto;\n}\n\n.alert-head .sc-ion-alert-md {\n  display: none !important;\n}\n\nionic4-star-rating {\n  text-align: center;\n}\n\n.greetings {\n  font-size: 11px !important;\n}\n\n.settingsLoggedIn {\n  padding-top: 23px;\n}\n\n#loginOption {\n  line-height: 3;\n  margin-right: 6%;\n}\n\n.rateButton {\n  font-size: 15px !important;\n  padding: 10px 15px !important;\n  background: var(--main-app-color);\n  color: #fff !important;\n  border-radius: 23px;\n}\n\n.selectIcon {\n  float: right;\n  padding-top: 11px;\n  padding-right: 9px;\n}\n\n.selectIcon ion-icon {\n  margin: 0;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvQmhhdmlrL3RyaXZpYVBvc3RBcHAvc3JjL2FwcC9zZXR0aW5ncy9zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvc2V0dGluZ3Mvc2V0dGluZ3MuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBTUE7RUFDRSw0QkFBQTtFQUNBLGVBQUE7RUFDQSxpQkFBQTtBQ0xGOztBRE9BO0VBQ0UsZ0JBQUE7QUNKRjs7QURNQTtFQUNFLG1CQUFBO0FDSEY7O0FES0E7RUFDRSxZQUFBO0VBQ0EsV0FBQTtFQUNBLGtCQUFBO0VBQ0EsWUFBQTtFQUNBLFdBQUE7QUNGRjs7QURJQTtFQUNFLGFBQUE7RUFDQSw2QkFBQTtBQ0RGOztBRElBO0VBQ0UsY0FBQTtBQ0RGOztBREdBO0VBQ0UsY0FBQTtFQUNBLFVBQUE7QUNBRjs7QURFQTtFQUNFLFdBQUE7QUNDRjs7QURDQTtFQUNFLFdBQUE7RUFDQSxPQUFBO0VBQ0EsZ0JBQUE7RUFDQSxlQUFBO0VBQ0EsZUFBQTtFQUNBLFdBQUE7QUNFRjs7QURDQTtFQUNFLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLGlCQUFBO0FDRUY7O0FEQ0E7RUFDRSxXQUFBO0VBQ0EsbUJBQUE7RUFDQSx1Q0FBQTtFQUNBLHNCQUFBO0VBQ0EsZUFBQTtBQ0VGOztBRENBO0VBQ0UsV0FBQTtFQUNBLGdCQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0VBQ0EsdUNBQUE7RUFDQSxtQkFBQTtFQUNBLGdCQUFBO0FDRUY7O0FEQUE7RUFDRSxlQUFBO0FDR0Y7O0FEREE7RUFDRSxXQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLHlCQUFBO0VBQ0EsaUJBQUE7RUFDQSxnQkFBQTtFQUNBLGVBQUE7QUNJRjs7QUREQTtFQUNFLGVBQUE7RUFDQSxXQUFBO0FDSUY7O0FERkE7RUFDRSxrQkFBQTtFQUNBLFVBQUE7QUNLRjs7QURGQTs7Q0FBQTs7QUFJQTtFQUNFLHFCQUFBO0VBQ0EsZUFBQTtFQUNBLFdBQUE7RUFDQSxVQUFBO0VBQ0EseUJBQUE7RUFDQSxrQkFBQTtFQUNBLFlBQUE7QUNJRjs7QUREQTtFQUNFLFdBQUE7RUFDQSxVQUFBO0VBQ0Esa0JBQUE7RUFDQSxpQkFBQTtFQUNBLDRDQUFBO0VBQ0EsNkJBQUE7RUFFQSxxQkFBQTtBQ0lGOztBRERBO0VBQ0UsMENBQUE7RUFFQSxrQ0FBQTtFQUNBLGlDQUFBO0FDSUY7O0FEREE7RUFDRSxrQkFBQTtFQUNBLGlCQUFBO0VBQ0EsWUFBQTtFQUNBLHFCQUFBO0VBQ0EsV0FBQTtFQUNBLGlCQUFBO0VBQ0EsY0FBQTtBQ0lGOztBREZBO0VBQ0UsV0FBQTtFQUNBLFlBQUE7RUFDQSxlQUFBO0VBQ0EsaUJBQUE7QUNLRjs7QURGQTtFQUNFLFlBQUE7QUNLRjs7QURGQTtFQUNFLGVBQUE7RUFDQSxnQkFBQTtBQ0tGOztBREZBO0VBQ0UsZUFBQTtFQUNBLGdCQUFBO0VBQ0EsY0FBQTtBQ0tGOztBREhBO0VBQ0UsZUFBQTtBQ01GOztBREpBO0VBQ0UsWUFBQTtFQUNBLGVBQUE7RUFDQSxrQkFBQTtFQUNBLDRCQUFBO0FDT0Y7O0FESkE7RUFDRSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxlQUFBO0FDT0Y7O0FETEE7RUFDRSxXQUFBO0VBQ0EsaUJBQUE7QUNRRjs7QURMQTtFQUNFLGNBQUE7RUFDQSxZQUFBO0VBQ0EsaUJBQUE7QUNRRjs7QURMQTtFQUNFLGNBQUE7RUFDQSxZQUFBO0VBQ0EscUJBQUE7QUNRRjs7QURMQTtFQUNFLFNBQUE7QUNRRjs7QURMQTtFQUNFLGtCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0VBQ0EscUJBQUE7RUFDQSxXQUFBO0VBQ0EsaUJBQUE7RUFDQSxnQkFBQTtBQ1FGOztBRExBO0VBQ0UsZ0JBQUE7QUNRRjs7QURMQTtFQUVFLHdCQUFBO0FDT0Y7O0FETEE7RUFDRSw0QkFBQTtFQUNBLGtCQUFBO0VBQ0EsV0FBQTtFQUNBLGNBQUE7RUFDQSxXQUFBO0VBQ0EsZ0JBQUE7RUFDQSxrQkFBQTtBQ1FGOztBREtBO0VBQ0UsK0JBQUE7QUNGRjs7QURJQTtFQUNFLFVBQUE7RUFDQSxXQUFBO0FDREY7O0FESUE7RUFDRSxrQkFBQTtFQUNBLFNBQUE7RUFDQSxPQUFBO0VBQ0EsUUFBQTtFQUNBLFVBQUE7RUFDQSxlQUFBO0VBQ0EsYUFBQTtBQ0RGOztBREdBO0VBQ0Usa0JBQUE7RUFDQSxXQUFBO0VBQ0EsY0FBQTtBQ0FGOztBREVBO0VBQ0UsWUFBQTtBQ0NGOztBRENBO0VBQ0Usa0JBQUE7RUFDQSxXQUFBO0FDRUY7O0FEQUE7RUFFRSxlQUFBO0VBQ0Esa0JBQUE7RUFDQSxnQkFBQTtFQUNBLGNBQUE7RUFDQSxZQUFBO0VBQ0EsNEJBQUE7QUNFRjs7QURBQTtFQUNFLFlBQUE7QUNHRjs7QUREQTtFQUNFLHdCQUFBO0FDSUY7O0FERkE7RUFDRSxrQkFBQTtBQ0tGOztBREhBO0VBQ0UsMEJBQUE7QUNNRjs7QURKQTtFQUNFLGlCQUFBO0FDT0Y7O0FETEE7RUFDRSxjQUFBO0VBQ0EsZ0JBQUE7QUNRRjs7QUROQTtFQUNFLDBCQUFBO0VBQ0EsNkJBQUE7RUFDQSxpQ0FBQTtFQUNBLHNCQUFBO0VBQ0EsbUJBQUE7QUNTRjs7QURQQTtFQUNFLFlBQUE7RUFDQSxpQkFBQTtFQUNBLGtCQUFBO0FDVUY7O0FEUkE7RUFDRSxTQUFBO0FDV0YiLCJmaWxlIjoic3JjL2FwcC9zZXR0aW5ncy9zZXR0aW5ncy5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1jb250ZW50IHtcbiAgLy8gLS1iYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcbiAgLy8gYmFja2dyb3VuZC1pbWFnZTogdXJsKCcuLi8uLi9hc3NldHMvaW1hZ2VzL3NldHRpbmdCYWcucG5nJykgIWltcG9ydGFudDtcbiAgLy8gYmFja2dyb3VuZC1zaXplOiAxMDAlIGF1dG87XG4gIC8vIGJhY2tncm91bmQtcG9zaXRpb246IGNlbnRlcjtcbn1cbmlvbi1pY29uIHtcbiAgY29sb3I6IHZhcigtLW1haW4tYXBwLWNvbG9yKTtcbiAgZm9udC1zaXplOiAyNnB4O1xuICBtYXJnaW4tbGVmdDogMTBweDtcbn1cbmlvbi1jb2wgZGl2IHtcbiAgcGFkZGluZy10b3A6IDJweDtcbn1cbmlvbi1yb3d7XG4gIG1hcmdpbi1ib3R0b206IDEwcHg7XG59XG4ubG9naW5CZyB7XG4gIGZsb2F0OiByaWdodDtcbiAgd2lkdGg6IDEwMCU7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm90dG9tOiAtMzIlO1xuICBoZWlnaHQ6IDUwJTtcbn1cbi5sb2dpbkRpdiB7XG4gIGhlaWdodDogMTcwcHg7XG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjZGRkO1xuICAvLyBiYWNrZ3JvdW5kOiB1cmwoXCJhc3NldHMvaW1hZ2VzL2Jyb3duYmcucG5nXCIpO1xufVxuLml0ZW0tcmFkaW8uaXRlbSBpb24tbGFiZWwge1xuICBjb2xvcjogI2RkNjg3MzsgLy95b3VyIGNvbG9yIGhlcmVcbn1cbmlvbi10aXRsZSB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBwYWRkaW5nOiAwO1xufVxuaW9uLWJhY2stYnV0dG9uIHtcbiAgZmxvYXQ6IGxlZnQ7XG59XG4uc2V0dGluZ3NUb29sYmFyIGlvbi1pY29uIHtcbiAgZmxvYXQ6IGxlZnQ7XG4gIHpvb206IDE7XG4gIG1hcmdpbi1sZWZ0OiA5cHg7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgbWFyZ2luLXRvcDogNnB4O1xuICBjb2xvcjogI2ZmZjtcbn1cblxuLnNldHRpbmdzVG9vbGJhciAjc2V0dGluZ1RpdGxlIHtcbiAgbWFyZ2luLWxlZnQ6IDEwcHg7XG4gIGZvbnQtc2l6ZTogMThweDtcbiAgbGluZS1oZWlnaHQ6IDQ5cHg7XG59XG5cbiNzaWduSW5CdXR0b24ge1xuICBjb2xvcjogI2ZmZjtcbiAgYm9yZGVyLXJhZGl1czogNTBweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbWFpbi1hcHAtY29sb3IpO1xuICBwYWRkaW5nOiAxMC41cHggMzYuNXB4O1xuICBmb250LXNpemU6IDEzcHg7XG59XG5cbiNnb29nbGVwbHVzIHtcbiAgY29sb3I6ICNmZmY7XG4gIGZvbnQtd2VpZ2h0OiA4MDA7XG4gIGZvbnQtc2l6ZTogMTVweDtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1tYWluLWFwcC1jb2xvcik7XG4gIHBhZGRpbmc6IDEwcHggOS41cHg7XG4gIG1hcmdpbi1yaWdodDogNCU7XG59XG4jZ29vZ2xlcGx1cyBpbWcge1xuICBtYXJnaW4tdG9wOiAzcHg7XG59XG4jZmFjZWJvb2tMb2dpbiB7XG4gIGNvbG9yOiAjZmZmO1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIG1hcmdpbi1yaWdodDogNHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMzc3OWI3O1xuICBwYWRkaW5nOiA5cHggMTVweDtcbiAgZm9udC13ZWlnaHQ6IDk1MDtcbiAgZm9udC1zaXplOiAyMHB4O1xufVxuXG4ub3B0aW9uc0xpc3Qge1xuICBmb250LXNpemU6IDE2cHg7XG4gIGNvbG9yOiBncmF5O1xufVxuLnN3aXRjaCBpbnB1dCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgb3BhY2l0eTogMDtcbn1cblxuLyoqXG4qIDEuIEFkanVzdCB0aGlzIHRvIHNpemVcbiovXG5cbi5zd2l0Y2gge1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgaGVpZ2h0OiAxZW07XG4gIHdpZHRoOiAyZW07XG4gIGJhY2tncm91bmQtY29sb3I6ICNjNWJkYmQ7XG4gIGJvcmRlci1yYWRpdXM6IDFlbTtcbiAgZmxvYXQ6IHJpZ2h0O1xufVxuXG4uc3dpdGNoIGRpdiB7XG4gIGhlaWdodDogMWVtO1xuICB3aWR0aDogMWVtO1xuICBib3JkZXItcmFkaXVzOiAxZW07XG4gIGJhY2tncm91bmQ6IHdoaXRlO1xuICBib3gtc2hhZG93OiAwIDAuMWVtIDAuM2VtIHJnYmEoMCwgMCwgMCwgMC4zKTtcbiAgLXdlYmtpdC10cmFuc2l0aW9uOiBhbGwgMzAwbXM7XG4gIC1tb3otdHJhbnNpdGlvbjogYWxsIDMwMG1zO1xuICB0cmFuc2l0aW9uOiBhbGwgMzAwbXM7XG59XG5cbi5zd2l0Y2ggaW5wdXQ6Y2hlY2tlZCArIGRpdiB7XG4gIC13ZWJraXQtdHJhbnNmb3JtOiB0cmFuc2xhdGUzZCgxMDAlLCAwLCAwKTtcbiAgLW1vei10cmFuc2Zvcm06IHRyYW5zbGF0ZTNkKDEwMCUsIDAsIDApO1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZTNkKDEwMCUsIDAsIDApO1xuICBiYWNrZ3JvdW5kOiB2YXIoLS1tYWluLWFwcC1jb2xvcik7XG59XG5cbiNwcm9maWxlIHtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBwYWRkaW5nOiA4cHggMTJweDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XG4gIGNvbG9yOiAjZmZmO1xuICBtYXJnaW4tcmlnaHQ6IDVweDtcbiAgbWFyZ2luLXRvcDogMiU7XG59XG4uc2V0dGluZ0ljb24gaW1nIHtcbiAgd2lkdGg6IDE3cHg7XG4gIGhlaWdodDogMTlweDtcbiAgbWFyZ2luLXRvcDogNnB4O1xuICBtYXJnaW4tbGVmdDogMTNweDtcbn1cblxuLnNldHRpbmdJY29uQ29sIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4uc2F2ZVByZWYge1xuICBmb250LXNpemU6IDIxcHg7XG4gIG1hcmdpbjogMTBweCAwcHg7XG59XG5cbi5zaWduSW5Cb29rIHtcbiAgZm9udC1zaXplOiAxNXB4O1xuICBtYXJnaW46IDEwcHggMHB4O1xuICBjb2xvcjogIzk0OTQ5NDtcbn1cbi5zaWduSW5Db2wge1xuICBwYWRkaW5nLWxlZnQ6IDA7XG59XG4ubGFuZ0NvbFR3byB7XG4gIG1hcmdpbjogYXV0bztcbiAgZm9udC1zaXplOiAyOXB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGNvbG9yOiB2YXIoLS1tYWluLWFwcC1jb2xvcik7XG59XG5cbi5sYW5nQ29sVHdvIHNwYW4ge1xuICBtYXJnaW4tbGVmdDogNXB4O1xuICBtYXJnaW4tdG9wOiA1cHg7XG4gIGZvbnQtc2l6ZTogMTdweDtcbn1cbi5sYW5ndWFnZURpdiB7XG4gIGZsb2F0OiBsZWZ0O1xuICBwYWRkaW5nLXRvcDogMTZweDtcbn1cblxuLmxhbmdDb2xvciB7XG4gIGNvbG9yOiAjZGQ2ZDc3O1xuICBmbG9hdDogcmlnaHQ7XG4gIHBhZGRpbmctdG9wOiAxNnB4O1xufVxuXG4ubGFuZ0NvbG9yIGlvbi1zZWxlY3Qge1xuICBtYXgtd2lkdGg6IDUwJTtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nOiAxNnB4IDBweCA2cHg7XG59XG5cbiNwZXJzb25JY29uIGlvbi1pY29uIHtcbiAgem9vbTogMS4xO1xufVxuXG4jcGVyc29uSWNvbiB7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgcGFkZGluZzogNXB4IDdweDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XG4gIGNvbG9yOiAjZmZmO1xuICBtYXJnaW4tcmlnaHQ6IDVweDtcbiAgbWFyZ2luLWxlZnQ6IDBweDtcbn1cblxuI3BlcnNvbkljb24gaW9uLWljb24ge1xuICBtYXJnaW4tbGVmdDogMHB4O1xufVxuXG4uYWN0aW9uLXNoZWV0LWdyb3VwLmFjdGlvbi1zaGVldC1ncm91cC1jYW5jZWwuc2MtaW9uLWFjdGlvbi1zaGVldC1tZFxuICBidXR0b24uYWN0aW9uLXNoZWV0LWJ1dHRvbi5pb24tYWN0aXZhdGFibGUuYWN0aW9uLXNoZWV0LWNhbmNlbC5zYy1pb24tYWN0aW9uLXNoZWV0LW1kLmFjdGl2YXRlZCB7XG4gIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDtcbn1cbiNyYXRpbmdSb3cge1xuICBwYWRkaW5nOiA1MHB4IDEwcHggMTBweCAxMHB4O1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHdpZHRoOiAxMDAlO1xuICBkaXNwbGF5OiB0YWJsZTtcbiAgd2lkdGg6IDEwMCU7XG4gIG1hcmdpbi10b3A6IGF1dG87XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbi5vcHRpb25zRGl2IHtcbiAgLy8gZGlzcGxheTogZmxleDtcbiAgLy8gLW1zLWZsZXgtYWxpZ246IGNlbnRlcjtcbiAgLy8gZmxleC13cmFwOiB3cmFwO1xuICAvLyBtaW4taGVpZ2h0OiBjYWxjKDEwMHZoIC0gMTcwcHggLSA1NnB4KTtcbiAgLy8gLy8gaGVpZ2h0OiAxMDAlO1xuICAvLyBiYWNrZ3JvdW5kOiB1cmwoXCIuLi8uLi9hc3NldHMvaW1hZ2VzL3NldHRpbmdCYWcucG5nXCIpICFpbXBvcnRhbnQ7XG4gIC8vIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG4gIC8vIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XG59XG5cbi5sb2dnZWRJbkRpdiB7XG4gIG1pbi1oZWlnaHQ6IGNhbGMoMTAwdmggLSAxNDZweCk7XG59XG4ub3B0aW9uc0RpdiA+IGlvbi1jb2wge1xuICBwYWRkaW5nOiAwO1xuICBoZWlnaHQ6IDNweDtcbn1cblxuI3JhdGluZ1JvdyA+IGltZyB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm90dG9tOiAwO1xuICBsZWZ0OiAwO1xuICByaWdodDogMDtcbiAgei1pbmRleDogMDtcbiAgbWluLXdpZHRoOiAxMDAlO1xuICBoZWlnaHQ6IDMyMHB4O1xufVxuLnNldHRpbmdzLnNldHRpbmdJY29uIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB6LWluZGV4OiAxMTtcbiAgcGFkZGluZzogMCA3cHg7XG59XG4ubG9nbyB7XG4gIG1hcmdpbjogYXV0bztcbn1cbiNyYXRpbmdSb3cgPiBkaXYge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHotaW5kZXg6IDExO1xufVxuI3JhdGluZ0hlYWQge1xuICAvLyB3aWR0aDogMTAwJTtcbiAgZm9udC1zaXplOiAxNnB4O1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGZvbnQtd2VpZ2h0OiA1MDA7XG4gIG1hcmdpbjogMTBweCAwO1xuICBvcGFjaXR5OiAwLjc7XG4gIGNvbG9yOiB2YXIoLS1tYWluLWFwcC1jb2xvcik7XG59XG4jcmF0aW5nIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuLmFsZXJ0LWhlYWQgLnNjLWlvbi1hbGVydC1tZCB7XG4gIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDtcbn1cbmlvbmljNC1zdGFyLXJhdGluZyB7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cbi5ncmVldGluZ3Mge1xuICBmb250LXNpemU6IDExcHggIWltcG9ydGFudDtcbn1cbi5zZXR0aW5nc0xvZ2dlZEluIHtcbiAgcGFkZGluZy10b3A6IDIzcHg7XG59XG4jbG9naW5PcHRpb24ge1xuICBsaW5lLWhlaWdodDogMztcbiAgbWFyZ2luLXJpZ2h0OiA2JTtcbn1cbi5yYXRlQnV0dG9uIHtcbiAgZm9udC1zaXplOiAxNXB4ICFpbXBvcnRhbnQ7XG4gIHBhZGRpbmc6IDEwcHggMTVweCAhaW1wb3J0YW50O1xuICBiYWNrZ3JvdW5kOiB2YXIoLS1tYWluLWFwcC1jb2xvcik7XG4gIGNvbG9yOiAjZmZmICFpbXBvcnRhbnQ7XG4gIGJvcmRlci1yYWRpdXM6IDIzcHg7XG59XG4uc2VsZWN0SWNvbiB7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZy10b3A6IDExcHg7XG4gIHBhZGRpbmctcmlnaHQ6IDlweDtcbn1cbi5zZWxlY3RJY29uIGlvbi1pY29uIHtcbiAgbWFyZ2luOiAwO1xufVxuIiwiaW9uLWljb24ge1xuICBjb2xvcjogdmFyKC0tbWFpbi1hcHAtY29sb3IpO1xuICBmb250LXNpemU6IDI2cHg7XG4gIG1hcmdpbi1sZWZ0OiAxMHB4O1xufVxuXG5pb24tY29sIGRpdiB7XG4gIHBhZGRpbmctdG9wOiAycHg7XG59XG5cbmlvbi1yb3cge1xuICBtYXJnaW4tYm90dG9tOiAxMHB4O1xufVxuXG4ubG9naW5CZyB7XG4gIGZsb2F0OiByaWdodDtcbiAgd2lkdGg6IDEwMCU7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgYm90dG9tOiAtMzIlO1xuICBoZWlnaHQ6IDUwJTtcbn1cblxuLmxvZ2luRGl2IHtcbiAgaGVpZ2h0OiAxNzBweDtcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICNkZGQ7XG59XG5cbi5pdGVtLXJhZGlvLml0ZW0gaW9uLWxhYmVsIHtcbiAgY29sb3I6ICNkZDY4NzM7XG59XG5cbmlvbi10aXRsZSB7XG4gIG1hcmdpbi10b3A6IDMlO1xuICBwYWRkaW5nOiAwO1xufVxuXG5pb24tYmFjay1idXR0b24ge1xuICBmbG9hdDogbGVmdDtcbn1cblxuLnNldHRpbmdzVG9vbGJhciBpb24taWNvbiB7XG4gIGZsb2F0OiBsZWZ0O1xuICB6b29tOiAxO1xuICBtYXJnaW4tbGVmdDogOXB4O1xuICBmb250LXNpemU6IDIwcHg7XG4gIG1hcmdpbi10b3A6IDZweDtcbiAgY29sb3I6ICNmZmY7XG59XG5cbi5zZXR0aW5nc1Rvb2xiYXIgI3NldHRpbmdUaXRsZSB7XG4gIG1hcmdpbi1sZWZ0OiAxMHB4O1xuICBmb250LXNpemU6IDE4cHg7XG4gIGxpbmUtaGVpZ2h0OiA0OXB4O1xufVxuXG4jc2lnbkluQnV0dG9uIHtcbiAgY29sb3I6ICNmZmY7XG4gIGJvcmRlci1yYWRpdXM6IDUwcHg7XG4gIGJhY2tncm91bmQtY29sb3I6IHZhcigtLW1haW4tYXBwLWNvbG9yKTtcbiAgcGFkZGluZzogMTAuNXB4IDM2LjVweDtcbiAgZm9udC1zaXplOiAxM3B4O1xufVxuXG4jZ29vZ2xlcGx1cyB7XG4gIGNvbG9yOiAjZmZmO1xuICBmb250LXdlaWdodDogODAwO1xuICBmb250LXNpemU6IDE1cHg7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbWFpbi1hcHAtY29sb3IpO1xuICBwYWRkaW5nOiAxMHB4IDkuNXB4O1xuICBtYXJnaW4tcmlnaHQ6IDQlO1xufVxuXG4jZ29vZ2xlcGx1cyBpbWcge1xuICBtYXJnaW4tdG9wOiAzcHg7XG59XG5cbiNmYWNlYm9va0xvZ2luIHtcbiAgY29sb3I6ICNmZmY7XG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcbiAgbWFyZ2luLXJpZ2h0OiA0cHg7XG4gIGJhY2tncm91bmQtY29sb3I6ICMzNzc5Yjc7XG4gIHBhZGRpbmc6IDlweCAxNXB4O1xuICBmb250LXdlaWdodDogOTUwO1xuICBmb250LXNpemU6IDIwcHg7XG59XG5cbi5vcHRpb25zTGlzdCB7XG4gIGZvbnQtc2l6ZTogMTZweDtcbiAgY29sb3I6IGdyYXk7XG59XG5cbi5zd2l0Y2ggaW5wdXQge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIG9wYWNpdHk6IDA7XG59XG5cbi8qKlxuKiAxLiBBZGp1c3QgdGhpcyB0byBzaXplXG4qL1xuLnN3aXRjaCB7XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgZm9udC1zaXplOiAyMHB4O1xuICBoZWlnaHQ6IDFlbTtcbiAgd2lkdGg6IDJlbTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2M1YmRiZDtcbiAgYm9yZGVyLXJhZGl1czogMWVtO1xuICBmbG9hdDogcmlnaHQ7XG59XG5cbi5zd2l0Y2ggZGl2IHtcbiAgaGVpZ2h0OiAxZW07XG4gIHdpZHRoOiAxZW07XG4gIGJvcmRlci1yYWRpdXM6IDFlbTtcbiAgYmFja2dyb3VuZDogd2hpdGU7XG4gIGJveC1zaGFkb3c6IDAgMC4xZW0gMC4zZW0gcmdiYSgwLCAwLCAwLCAwLjMpO1xuICAtd2Via2l0LXRyYW5zaXRpb246IGFsbCAzMDBtcztcbiAgLW1vei10cmFuc2l0aW9uOiBhbGwgMzAwbXM7XG4gIHRyYW5zaXRpb246IGFsbCAzMDBtcztcbn1cblxuLnN3aXRjaCBpbnB1dDpjaGVja2VkICsgZGl2IHtcbiAgLXdlYmtpdC10cmFuc2Zvcm06IHRyYW5zbGF0ZTNkKDEwMCUsIDAsIDApO1xuICAtbW96LXRyYW5zZm9ybTogdHJhbnNsYXRlM2QoMTAwJSwgMCwgMCk7XG4gIHRyYW5zZm9ybTogdHJhbnNsYXRlM2QoMTAwJSwgMCwgMCk7XG4gIGJhY2tncm91bmQ6IHZhcigtLW1haW4tYXBwLWNvbG9yKTtcbn1cblxuI3Byb2ZpbGUge1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIHBhZGRpbmc6IDhweCAxMnB4O1xuICBmbG9hdDogcmlnaHQ7XG4gIGJhY2tncm91bmQtY29sb3I6IHJlZDtcbiAgY29sb3I6ICNmZmY7XG4gIG1hcmdpbi1yaWdodDogNXB4O1xuICBtYXJnaW4tdG9wOiAyJTtcbn1cblxuLnNldHRpbmdJY29uIGltZyB7XG4gIHdpZHRoOiAxN3B4O1xuICBoZWlnaHQ6IDE5cHg7XG4gIG1hcmdpbi10b3A6IDZweDtcbiAgbWFyZ2luLWxlZnQ6IDEzcHg7XG59XG5cbi5zZXR0aW5nSWNvbkNvbCB7XG4gIG1hcmdpbjogYXV0bztcbn1cblxuLnNhdmVQcmVmIHtcbiAgZm9udC1zaXplOiAyMXB4O1xuICBtYXJnaW46IDEwcHggMHB4O1xufVxuXG4uc2lnbkluQm9vayB7XG4gIGZvbnQtc2l6ZTogMTVweDtcbiAgbWFyZ2luOiAxMHB4IDBweDtcbiAgY29sb3I6ICM5NDk0OTQ7XG59XG5cbi5zaWduSW5Db2wge1xuICBwYWRkaW5nLWxlZnQ6IDA7XG59XG5cbi5sYW5nQ29sVHdvIHtcbiAgbWFyZ2luOiBhdXRvO1xuICBmb250LXNpemU6IDI5cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgY29sb3I6IHZhcigtLW1haW4tYXBwLWNvbG9yKTtcbn1cblxuLmxhbmdDb2xUd28gc3BhbiB7XG4gIG1hcmdpbi1sZWZ0OiA1cHg7XG4gIG1hcmdpbi10b3A6IDVweDtcbiAgZm9udC1zaXplOiAxN3B4O1xufVxuXG4ubGFuZ3VhZ2VEaXYge1xuICBmbG9hdDogbGVmdDtcbiAgcGFkZGluZy10b3A6IDE2cHg7XG59XG5cbi5sYW5nQ29sb3Ige1xuICBjb2xvcjogI2RkNmQ3NztcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nLXRvcDogMTZweDtcbn1cblxuLmxhbmdDb2xvciBpb24tc2VsZWN0IHtcbiAgbWF4LXdpZHRoOiA1MCU7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZzogMTZweCAwcHggNnB4O1xufVxuXG4jcGVyc29uSWNvbiBpb24taWNvbiB7XG4gIHpvb206IDEuMTtcbn1cblxuI3BlcnNvbkljb24ge1xuICBib3JkZXItcmFkaXVzOiA1MCU7XG4gIHBhZGRpbmc6IDVweCA3cHg7XG4gIGZsb2F0OiByaWdodDtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmVkO1xuICBjb2xvcjogI2ZmZjtcbiAgbWFyZ2luLXJpZ2h0OiA1cHg7XG4gIG1hcmdpbi1sZWZ0OiAwcHg7XG59XG5cbiNwZXJzb25JY29uIGlvbi1pY29uIHtcbiAgbWFyZ2luLWxlZnQ6IDBweDtcbn1cblxuLmFjdGlvbi1zaGVldC1ncm91cC5hY3Rpb24tc2hlZXQtZ3JvdXAtY2FuY2VsLnNjLWlvbi1hY3Rpb24tc2hlZXQtbWQgYnV0dG9uLmFjdGlvbi1zaGVldC1idXR0b24uaW9uLWFjdGl2YXRhYmxlLmFjdGlvbi1zaGVldC1jYW5jZWwuc2MtaW9uLWFjdGlvbi1zaGVldC1tZC5hY3RpdmF0ZWQge1xuICBkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7XG59XG5cbiNyYXRpbmdSb3cge1xuICBwYWRkaW5nOiA1MHB4IDEwcHggMTBweCAxMHB4O1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHdpZHRoOiAxMDAlO1xuICBkaXNwbGF5OiB0YWJsZTtcbiAgd2lkdGg6IDEwMCU7XG4gIG1hcmdpbi10b3A6IGF1dG87XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbn1cblxuLmxvZ2dlZEluRGl2IHtcbiAgbWluLWhlaWdodDogY2FsYygxMDB2aCAtIDE0NnB4KTtcbn1cblxuLm9wdGlvbnNEaXYgPiBpb24tY29sIHtcbiAgcGFkZGluZzogMDtcbiAgaGVpZ2h0OiAzcHg7XG59XG5cbiNyYXRpbmdSb3cgPiBpbWcge1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIGJvdHRvbTogMDtcbiAgbGVmdDogMDtcbiAgcmlnaHQ6IDA7XG4gIHotaW5kZXg6IDA7XG4gIG1pbi13aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAzMjBweDtcbn1cblxuLnNldHRpbmdzLnNldHRpbmdJY29uIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB6LWluZGV4OiAxMTtcbiAgcGFkZGluZzogMCA3cHg7XG59XG5cbi5sb2dvIHtcbiAgbWFyZ2luOiBhdXRvO1xufVxuXG4jcmF0aW5nUm93ID4gZGl2IHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB6LWluZGV4OiAxMTtcbn1cblxuI3JhdGluZ0hlYWQge1xuICBmb250LXNpemU6IDE2cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgZm9udC13ZWlnaHQ6IDUwMDtcbiAgbWFyZ2luOiAxMHB4IDA7XG4gIG9wYWNpdHk6IDAuNztcbiAgY29sb3I6IHZhcigtLW1haW4tYXBwLWNvbG9yKTtcbn1cblxuI3JhdGluZyB7XG4gIG1hcmdpbjogYXV0bztcbn1cblxuLmFsZXJ0LWhlYWQgLnNjLWlvbi1hbGVydC1tZCB7XG4gIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDtcbn1cblxuaW9uaWM0LXN0YXItcmF0aW5nIHtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xufVxuXG4uZ3JlZXRpbmdzIHtcbiAgZm9udC1zaXplOiAxMXB4ICFpbXBvcnRhbnQ7XG59XG5cbi5zZXR0aW5nc0xvZ2dlZEluIHtcbiAgcGFkZGluZy10b3A6IDIzcHg7XG59XG5cbiNsb2dpbk9wdGlvbiB7XG4gIGxpbmUtaGVpZ2h0OiAzO1xuICBtYXJnaW4tcmlnaHQ6IDYlO1xufVxuXG4ucmF0ZUJ1dHRvbiB7XG4gIGZvbnQtc2l6ZTogMTVweCAhaW1wb3J0YW50O1xuICBwYWRkaW5nOiAxMHB4IDE1cHggIWltcG9ydGFudDtcbiAgYmFja2dyb3VuZDogdmFyKC0tbWFpbi1hcHAtY29sb3IpO1xuICBjb2xvcjogI2ZmZiAhaW1wb3J0YW50O1xuICBib3JkZXItcmFkaXVzOiAyM3B4O1xufVxuXG4uc2VsZWN0SWNvbiB7XG4gIGZsb2F0OiByaWdodDtcbiAgcGFkZGluZy10b3A6IDExcHg7XG4gIHBhZGRpbmctcmlnaHQ6IDlweDtcbn1cblxuLnNlbGVjdEljb24gaW9uLWljb24ge1xuICBtYXJnaW46IDA7XG59Il19 */"
 
 /***/ }),
 
@@ -2341,8 +2606,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
 /* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/general.service */ "./src/app/services/general.service.ts");
 /* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../changeLang */ "./src/app/changeLang.ts");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_11__);
+
 
 
 
@@ -2356,6 +2623,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var SettingsComponent = /** @class */ (function () {
     function SettingsComponent(_toastService, cd, _generalService, platform, fcm, storage, socialSharing, actionSheetController, _userService, router) {
+        var _this = this;
         this._toastService = _toastService;
         this.cd = cd;
         this._generalService = _generalService;
@@ -2369,6 +2637,101 @@ var SettingsComponent = /** @class */ (function () {
         this.customActionSheetOptions = {
             addCancelButtonWithLabel: false,
         };
+        //static variables based on language starts********
+        this.langSelectText = _changeLang__WEBPACK_IMPORTED_MODULE_10__["langSelectText"];
+        this.shareApp = _changeLang__WEBPACK_IMPORTED_MODULE_10__["shareApp"];
+        this.terms = _changeLang__WEBPACK_IMPORTED_MODULE_10__["terms"];
+        this.privacy = _changeLang__WEBPACK_IMPORTED_MODULE_10__["privacy"];
+        this.category = _changeLang__WEBPACK_IMPORTED_MODULE_10__["category"];
+        this.savePref = _changeLang__WEBPACK_IMPORTED_MODULE_10__["savePref"];
+        this.signInText = _changeLang__WEBPACK_IMPORTED_MODULE_10__["signInText"];
+        this.feedback = _changeLang__WEBPACK_IMPORTED_MODULE_10__["feedback"];
+        this.bookmark = _changeLang__WEBPACK_IMPORTED_MODULE_10__["bookmark"];
+        this.signIn = _changeLang__WEBPACK_IMPORTED_MODULE_10__["signIn"];
+        this.languageText = _changeLang__WEBPACK_IMPORTED_MODULE_10__["language"];
+        this.orUsing = _changeLang__WEBPACK_IMPORTED_MODULE_10__["orUsing"];
+        this.notification = _changeLang__WEBPACK_IMPORTED_MODULE_10__["notification"];
+        //********static variables based on language ends
+        this.languageActionSheet = [
+            {
+                text: 'English', shortForm: 'en', role: 'destructive', handler: function () {
+                    _this.language = 'en';
+                    localStorage.setItem('language', 'en');
+                    _this._userService.changeLanguage('en');
+                }
+            },
+            {
+                text: 'हिंदी', shortForm: 'hn', role: 'destructive', handler: function () {
+                    _this.language = 'hn';
+                    localStorage.setItem('language', 'hn');
+                    _this.language = localStorage.getItem('language');
+                    _this._userService.changeLanguage('hn');
+                }
+            },
+            {
+                text: 'অসমীয়া', shortForm: 'as', role: 'destructive', handler: function () {
+                    _this.language = 'as';
+                    localStorage.setItem('language', 'as');
+                    _this._userService.changeLanguage('as');
+                }
+            },
+            {
+                text: 'বাংলা', shortForm: 'bn', role: 'destructive', handler: function () {
+                    _this.language = 'bn';
+                    localStorage.setItem('language', 'bn');
+                    _this._userService.changeLanguage('bn');
+                }
+            },
+            {
+                text: 'ગુજરાતી', shortForm: 'gu', role: 'destructive', handler: function () {
+                    _this.language = 'gu';
+                    localStorage.setItem('language', 'gu');
+                    _this._userService.changeLanguage('gu');
+                }
+            },
+            {
+                text: 'ಕನ್ನಡ', shortForm: 'kn', role: 'destructive', handler: function () {
+                    _this.language = 'kn';
+                    localStorage.setItem('language', 'kn');
+                    _this._userService.changeLanguage('kn');
+                }
+            },
+            {
+                text: 'മലയാളം', shortForm: 'ml', role: 'destructive', handler: function () {
+                    _this.language = 'ml';
+                    localStorage.setItem('language', 'ml');
+                    _this._userService.changeLanguage('ml');
+                }
+            },
+            {
+                text: 'मराठी', shortForm: 'mr', role: 'destructive', handler: function () {
+                    _this.language = 'mr';
+                    localStorage.setItem('language', 'mr');
+                    _this._userService.changeLanguage('mr');
+                }
+            },
+            {
+                text: 'ਪੰਜਾਬੀ', shortForm: 'pa', role: 'destructive', handler: function () {
+                    _this.language = 'pa';
+                    localStorage.setItem('language', 'pa');
+                    _this._userService.changeLanguage('pa');
+                }
+            },
+            {
+                text: 'தமிழ்', shortForm: 'ta', role: 'destructive', handler: function () {
+                    _this.language = 'ta';
+                    localStorage.setItem('language', 'ta');
+                    _this._userService.changeLanguage('ta');
+                }
+            },
+            {
+                text: 'తెలుగు', shortForm: 'te', role: 'destructive', handler: function () {
+                    _this.language = 'te';
+                    localStorage.setItem('language', 'te');
+                    _this._userService.changeLanguage('te');
+                }
+            },
+        ];
     }
     SettingsComponent.prototype.ionViewWillEnter = function () {
         this.displayFirstChar();
@@ -2381,18 +2744,14 @@ var SettingsComponent = /** @class */ (function () {
         if (this.tokenLocalStorage) {
             this.getUserDetail();
         }
+        this.language = localStorage.getItem('language');
+        console.log("langSelectText", this.langSelectText[this.language]);
     };
     SettingsComponent.prototype.ngOnInit = function () {
-        this.getUserRating();
         this.getUrl();
         this.notifyFlag = localStorage.getItem('notification');
         this.annonymousNotify = localStorage.getItem('annonymousNotify');
         console.log(this.annonymousNotify);
-        this.language = localStorage.getItem('language');
-    };
-    //remove cancel button for language 
-    SettingsComponent.prototype.removeCancelButton = function () {
-        document.querySelector('.action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-md').style.display = 'none';
     };
     //for displaying first character
     SettingsComponent.prototype.displayFirstChar = function () {
@@ -2469,12 +2828,6 @@ var SettingsComponent = /** @class */ (function () {
             alert('error ' + JSON.stringify(error));
         });
     };
-    //changing language
-    SettingsComponent.prototype.languageChange = function ($event) {
-        var language = $event.target.value;
-        localStorage.setItem('language', language);
-        this.language = localStorage.getItem('language');
-    };
     //notify toggle function
     SettingsComponent.prototype.notificationSwitch = function (e) {
         var _this = this;
@@ -2499,26 +2852,37 @@ var SettingsComponent = /** @class */ (function () {
             _this.error = err;
         });
     };
-    //rate change on submit
-    SettingsComponent.prototype.logRatingChange = function () {
-        console.log($("ion-icon[ng-reflect-name='ios-star']").length);
-        this.ratings = $("ion-icon[ng-reflect-name='ios-star']").length;
-        if (this.ratings != 0) {
-            localStorage.setItem('rating', this.ratings);
-            this._userService.userRating(this.ratings).subscribe();
-            this.rating = true;
-            this.userRating = localStorage.getItem('rating');
-        }
-        else {
-            this._toastService.toastFunction('Please input your rating!', 'danger');
-        }
-    };
-    //getting user ratings
-    SettingsComponent.prototype.getUserRating = function () {
-        if (localStorage.getItem('rating')) {
-            this.rating = true;
-            this.userRating = localStorage.getItem('rating');
-        }
+    //open select language alert
+    SettingsComponent.prototype.changeLang = function (lang) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var i, actionSheet;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log("LANG", lang);
+                        for (i = 0; i < this.languageActionSheet.length; i++) {
+                            // look for the entry with a matching `language` value
+                            if (this.languageActionSheet[i].shortForm == lang) {
+                                this.languageActionSheet[i]['cssClass'] = 'myActionSheetBtnStyle';
+                            }
+                            else {
+                                this.languageActionSheet[i]['cssClass'] = '';
+                            }
+                        }
+                        return [4 /*yield*/, this.actionSheetController.create({
+                                header: 'Select Language',
+                                cssClass: 'myPage',
+                                buttons: this.languageActionSheet
+                            })];
+                    case 1:
+                        actionSheet = _a.sent();
+                        return [4 /*yield*/, actionSheet.present()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     SettingsComponent.ctorParameters = function () { return [
         { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"] },

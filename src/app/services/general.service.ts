@@ -40,7 +40,7 @@ export class GeneralService {
 		return this.extras;
 	}
 
-
+	
 	// // check-for-updates
 	// getUpdateDetails(){
 	// 	return this.http.get(config.baseApiUrl + 'check-for-updates').pipe(

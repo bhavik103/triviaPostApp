@@ -28,7 +28,7 @@
 }
 .textBlock {
   position: absolute;
-  bottom: 10%;
+  bottom: 35%;
   color: white;
   padding-left: 20px;
   padding-right: 20px;
@@ -40,12 +40,14 @@
 .categoryButton {
   font-size: 13px;
   display: block;
-  margin-top: 4%;
+  margin-top: -15%;
   background-color: var(--main-app-color);
   color: #fff;
   padding: 5px;
   border-radius: 8px;
-  z-index: -1;
+  z-index: 1;
+  position: absolute;
+  margin-left: 5%;
 }
 .otherInfo {
   margin: 0px auto;
@@ -84,7 +86,7 @@ img.likeImage {
   color: var(--main-app-color);
 }
 .latestNews {
-  font-size: 27px;
+  font-size: 22px;
   font-weight: 800;
 }
 .feeds {
@@ -95,10 +97,19 @@ img.likeImage {
   font-weight: normal;
 }
 .blink {
-  border-bottom: 5px red solid;
-  
+  border: 5px red solid;
+
   animation: blink 1s;
   animation-iteration-count: infinite;
 }
+.blinkCat {
+  border: 5px rgb(24, 23, 23) solid;
 
-@keyframes blink { 50% { border-color:#fff ; }  }
+  animation: blink 1s;
+  animation-iteration-count: infinite;
+}
+@keyframes blink {
+  50% {
+    border-color: #fff;
+  }
+}

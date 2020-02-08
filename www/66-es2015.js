@@ -11,20 +11,18 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_slide", function() { return Slide; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_slides", function() { return Slides; });
-/* harmony import */ var _core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-5ba38749.js */ "./node_modules/@ionic/core/dist/esm/core-5ba38749.js");
-/* harmony import */ var _config_6ccf652f_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-6ccf652f.js */ "./node_modules/@ionic/core/dist/esm/config-6ccf652f.js");
-/* harmony import */ var _helpers_c90aaa66_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-c90aaa66.js */ "./node_modules/@ionic/core/dist/esm/helpers-c90aaa66.js");
-
+/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm/core-ca0488fc.js");
+/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm/config-3c7f3790.js");
 
 
 
 const Slide = class {
     constructor(hostRef) {
-        Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
     }
     render() {
-        const mode = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this);
-        return (Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: {
+        const mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this);
+        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: {
                 [mode]: true,
                 'swiper-slide': true,
                 'swiper-zoom-container': true
@@ -35,7 +33,7 @@ const Slide = class {
 
 const Slides = class {
     constructor(hostRef) {
-        Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
         this.swiperReady = false;
         this.swiper = new Promise(resolve => { this.readySwiper = resolve; });
         /**
@@ -51,22 +49,22 @@ const Slides = class {
          * If `true`, show the scrollbar.
          */
         this.scrollbar = false;
-        this.ionSlidesDidLoad = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlidesDidLoad", 7);
-        this.ionSlideTap = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideTap", 7);
-        this.ionSlideDoubleTap = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideDoubleTap", 7);
-        this.ionSlideWillChange = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideWillChange", 7);
-        this.ionSlideDidChange = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideDidChange", 7);
-        this.ionSlideNextStart = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideNextStart", 7);
-        this.ionSlidePrevStart = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlidePrevStart", 7);
-        this.ionSlideNextEnd = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideNextEnd", 7);
-        this.ionSlidePrevEnd = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlidePrevEnd", 7);
-        this.ionSlideTransitionStart = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideTransitionStart", 7);
-        this.ionSlideTransitionEnd = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideTransitionEnd", 7);
-        this.ionSlideDrag = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideDrag", 7);
-        this.ionSlideReachStart = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideReachStart", 7);
-        this.ionSlideReachEnd = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideReachEnd", 7);
-        this.ionSlideTouchStart = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideTouchStart", 7);
-        this.ionSlideTouchEnd = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideTouchEnd", 7);
+        this.ionSlidesDidLoad = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlidesDidLoad", 7);
+        this.ionSlideTap = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideTap", 7);
+        this.ionSlideDoubleTap = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideDoubleTap", 7);
+        this.ionSlideWillChange = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideWillChange", 7);
+        this.ionSlideDidChange = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideDidChange", 7);
+        this.ionSlideNextStart = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideNextStart", 7);
+        this.ionSlidePrevStart = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlidePrevStart", 7);
+        this.ionSlideNextEnd = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideNextEnd", 7);
+        this.ionSlidePrevEnd = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlidePrevEnd", 7);
+        this.ionSlideTransitionStart = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideTransitionStart", 7);
+        this.ionSlideTransitionEnd = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideTransitionEnd", 7);
+        this.ionSlideDrag = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideDrag", 7);
+        this.ionSlideReachStart = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideReachStart", 7);
+        this.ionSlideReachEnd = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideReachEnd", 7);
+        this.ionSlideTouchStart = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideTouchStart", 7);
+        this.ionSlideTouchEnd = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionSlideTouchEnd", 7);
     }
     async optionsChanged() {
         if (this.swiperReady) {
@@ -85,7 +83,7 @@ const Slides = class {
             childList: true,
             subtree: true
         });
-        Object(_helpers_c90aaa66_js__WEBPACK_IMPORTED_MODULE_2__["a"])(() => this.initSwiper());
+        this.el.componentOnReady().then(() => this.initSwiper());
     }
     async disconnectedCallback() {
         if (this.mutationO) {
@@ -243,7 +241,7 @@ const Slides = class {
         const finalOptions = this.normalizeOptions();
         // init swiper core
         // @ts-ignore
-        const { Swiper } = await __webpack_require__.e(/*! import() | swiper-bundle-8d61f7c5-js */ "swiper-bundle-8d61f7c5-js").then(__webpack_require__.bind(null, /*! ./swiper.bundle-8d61f7c5.js */ "./node_modules/@ionic/core/dist/esm/swiper.bundle-8d61f7c5.js"));
+        const { Swiper } = await __webpack_require__.e(/*! import() | swiper-bundle-ccdaac54-js */ "swiper-bundle-ccdaac54-js").then(__webpack_require__.bind(null, /*! ./swiper.bundle-ccdaac54.js */ "./node_modules/@ionic/core/dist/esm/swiper.bundle-ccdaac54.js"));
         await waitForSlides(this.el);
         const swiper = new Swiper(this.el, finalOptions);
         this.swiperReady = true;
@@ -377,21 +375,21 @@ const Slides = class {
         };
         const customEvents = (!!this.options && !!this.options.on) ? this.options.on : {};
         // merge "on" event listeners, while giving our event listeners priority
-        const mergedEventOptions = { on: Object.assign({}, customEvents, eventOptions.on) };
+        const mergedEventOptions = { on: Object.assign(Object.assign({}, customEvents), eventOptions.on) };
         // Merge the base, user options, and events together then pas to swiper
-        return Object.assign({}, swiperOptions, this.options, mergedEventOptions);
+        return Object.assign(Object.assign(Object.assign({}, swiperOptions), this.options), mergedEventOptions);
     }
     render() {
-        const mode = Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this);
-        return (Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: {
+        const mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this);
+        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: {
                 [`${mode}`]: true,
                 // Used internally for styling
                 [`slides-${mode}`]: true,
                 'swiper-container': true
-            } }, Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "swiper-wrapper" }, Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null)), this.pager && Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "swiper-pagination", ref: el => this.paginationEl = el }), this.scrollbar && Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "swiper-scrollbar", ref: el => this.scrollbarEl = el })));
+            } }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "swiper-wrapper" }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null)), this.pager && Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "swiper-pagination", ref: el => this.paginationEl = el }), this.scrollbar && Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "swiper-scrollbar", ref: el => this.scrollbarEl = el })));
     }
     static get assetsDirs() { return ["swiper"]; }
-    get el() { return Object(_core_5ba38749_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
+    get el() { return Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this); }
     static get watchers() { return {
         "options": ["optionsChanged"]
     }; }

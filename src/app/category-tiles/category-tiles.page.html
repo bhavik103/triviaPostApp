@@ -19,14 +19,14 @@
     </div>
     <!-- <p class="postCount">{{category.countPost}} Posts</p> -->
     <button
-      *ngIf="!category.isNotify && !firstTime"
+      *ngIf="!category.isNotify && (!firstTime || skip)"
       class="notSubscribed"
       (click)="addNotify(category.categoryId, category.isNotify,firstTime)"
     >
       <ion-icon name="notifications-outline"></ion-icon> Subscribe
     </button>
     <button
-      *ngIf="!category.isNotify && firstTime"
+      *ngIf="!category.isNotify && (firstTime && !skip)"
       class="notSubscribed firstTimeButton"
       (click)="addNotify(category.categoryId, category.isNotify,firstTime)"
     >

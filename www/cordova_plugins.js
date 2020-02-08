@@ -319,14 +319,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-splashscreen.SplashScreen",
-      "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
-      "pluginId": "cordova-plugin-splashscreen",
-      "clobbers": [
-        "navigator.splashscreen"
-      ]
-    },
-    {
       "id": "cordova-plugin-statusbar.statusbar",
       "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
       "pluginId": "cordova-plugin-statusbar",
@@ -425,6 +417,23 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "window.plugins.nativepagetransitions"
       ]
+    },
+    {
+      "id": "cordova-plugin-splashscreen.SplashScreen",
+      "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+      "pluginId": "cordova-plugin-splashscreen",
+      "clobbers": [
+        "navigator.splashscreen"
+      ]
+    },
+    {
+      "id": "cordova-wheel-selector-plugin.plugin",
+      "file": "plugins/cordova-wheel-selector-plugin/www/selectorplugin.js",
+      "pluginId": "cordova-wheel-selector-plugin",
+      "clobbers": [
+        "SelectorCordovaPlugin"
+      ],
+      "runs": true
     }
   ];
   module.exports.metadata = {
@@ -440,7 +449,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-network-information": "2.0.2",
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-screen-orientation": "3.0.2",
-    "cordova-plugin-splashscreen": "5.0.3",
     "cordova-plugin-statusbar": "2.4.3",
     "cordova-plugin-whitelist": "1.3.4",
     "cordova-plugin-x-socialsharing": "5.6.0",
@@ -455,6 +463,8 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-firebase-analytics": "4.0.0",
     "cordova-plugin-firebase-dynamiclinks": "4.0.1",
     "cordova-plugin-inappbrowser": "3.1.0",
-    "com.telerik.plugins.nativepagetransitions": "0.6.5"
+    "com.telerik.plugins.nativepagetransitions": "0.6.5",
+    "cordova-plugin-splashscreen": "5.0.3",
+    "cordova-wheel-selector-plugin": "1.0.0"
   };
 });

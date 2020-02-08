@@ -74,7 +74,7 @@
           {{news.newsCategory[language] | slice:0:30}}
         </span>
       </div>
-      <div class="post" class="assameseFont">
+      <div class="post">
         <p [innerHTML]="byPassedNews" *ngIf="language != 'as'"></p>
         <p
           [innerHTML]="byPassedNews"

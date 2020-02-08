@@ -17,6 +17,7 @@ import { UserService } from './services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastService } from "./services/toast.service";
 import { Keyboard } from '@ionic-native/keyboard/ngx';
+import { GeneralService } from './services/general.service';
 declare var $: any;
 
 @Component({
@@ -27,7 +28,8 @@ declare var $: any;
 export class AppComponent {
   hide: boolean = true;
   toast: any;
-  static myapp;
+  skip: any;
+  
   hidden: boolean;
   loginModalFlag = false;
   signupForm = new FormGroup({
@@ -44,8 +46,10 @@ export class AppComponent {
     password: "",
   }
   loading: boolean;
+  lang: string;
 
   constructor(
+    private _generalService: GeneralService,
     private keyboard: Keyboard,
     private _toastService: ToastService,
     private firebaseDynamicLinks: FirebaseDynamicLinks,
@@ -59,7 +63,6 @@ export class AppComponent {
     protected deeplinks: Deeplinks,
     public events: Events
   ) {
-
     this._userService.currentData.subscribe(value => {
       if (this.loginModalFlag != true) {
         //generates random time for opennig modal between 25 and 40 seconds
@@ -126,27 +129,12 @@ export class AppComponent {
       });
     }
   }
-
-  signup(user) {
-    user.language = localStorage.getItem('language');
-    console.log("SIGNED UP USER", user)
-    this.loading = true;
-    
-    this.keyboard.hide();
-    this._userService.signup(user).subscribe((res: any) => {
-      this.loading = false;
-      this._toastService.toastFunction(res.message, 'success');
-      this.signupForm.reset();
-      this.router.navigate(['settings']);
-      this.router.navigate(['login']);
-    },
-      err => {
-        this.loading = false;
-        this._toastService.toastFunction(err.error.message, 'danger');
-      })
-  }
-  
-  signUpClose() {
-    this.hidden = false;
+  skipTour() {
+    localStorage.setItem('skip', 'true');
+    localStorage.setItem('catSelect', '1');
+    localStorage.setItem('firstLargePostClick', '1');
+    localStorage.setItem('shareBlink', '1');
+    this.skip = localStorage.getItem('skip');
+    this.router.navigateByUrl('all-categories');
   }
 }

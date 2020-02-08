@@ -23,12 +23,16 @@ export class CategoryTilesPage implements OnInit {
   @Output() onSubscribe: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(IonSlides, {static:false}) protected slider: IonSlides;
 
+  skip : any
   mediaPath = config.mediaApiUrl;
   modal: boolean;
   sliderIndex: number;
   constructor(private _toastService: ToastService, private network: Network, private _categoryService: CategoryService, private router: Router) {
   }
 
+  ionViewWillEnter(){
+    this.skip = localStorage.getItem('skip');
+  }
   ngOnInit() {
     console.log("this.categories in child", this.category)
     console.log("this.categories in child", this.language)

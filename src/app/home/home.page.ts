@@ -96,11 +96,11 @@ export class HomePage implements OnInit {
     }
     ionViewWillEnter() {
         this.getCategories();
+        this.getAllPost();
         this.navExtras = this._generalService.getExtras();
         if (localStorage.getItem('language') && localStorage.getItem('catSelect') == "1") {
             this.language = localStorage.getItem('language')
             this.catSelect = localStorage.getItem('catSelect')
-            this.getAllPost();
         }
         this.fcmToken();
         this.checkforInternet();
@@ -203,8 +203,8 @@ export class HomePage implements OnInit {
             this.catSelect = '0';
             localStorage.setItem('catSelect','0')
             let lang = this.selected;
-            console.log("LANGGGGGGGGGGGGGGGG", lang)
             localStorage.setItem('language', lang);
+            this._generalService.setExtras(lang);
             this.language = lang;
             console.log(this.language)
             if (this.platform.is('cordova')) {
