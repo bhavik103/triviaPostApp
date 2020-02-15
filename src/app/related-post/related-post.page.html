@@ -17,18 +17,18 @@
     <span
       *ngIf="language == 'as'"
       class="optionsList assameseFont"
-      [innerHTML]="news[language].title | slice:0:60"
+      [innerHTML]="news[language].title | slice:0:30"
       (click)="singleNews(news.newsId)"
     ></span>
     <span *ngIf="news[language].title.length >= 60">...</span>
     <span
-      (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+      (click)="categoryClick(news.newsCategoryId, news.newsCategory[language])"
       class="categoryButton"
       *ngIf="news.newsCategory && language != 'as'"
       >{{news.newsCategory[language]}}</span
     >
     <span
-      (click)="categoryClick(news.newsCategoryId, news.newsCategory)"
+      (click)="categoryClick(news.newsCategoryId, news.newsCategory[language])"
       class="categoryButton assameseFont"
       *ngIf="news.newsCategory && language == 'as'"
       >{{news.newsCategory[language]}}</span

@@ -229,19 +229,4 @@ input {
   padding-left: 2%;
 }
 
-//skip tour css *************
 
-.skipTour {
-  z-index: 111;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-.skipTour p {
-  background-color: #000000;
-  color: #fff;
-  padding: 8px;
-  float: right;
-  margin-right: 10px;
-  border-radius: 10px;
-}

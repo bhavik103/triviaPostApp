@@ -1,45 +1,22 @@
-<ion-header no-border>
-  <ion-toolbar>
+<div>
+  <div class="settingsToolbar">
     <ion-back-button
       name="arrow-round-back"
-      *ngIf="!backKeyBookmark && !backKeyCategory && !backKeySearch"
-      class="homeBack "
-      defaultHref="/home"
-    ></ion-back-button>
-    <ion-icon
-      name="arrow-round-back"
-      *ngIf="backKeyBookmark"
-      class=" homeBack"
-      routerLink="/bookmark"
-    >
-    </ion-icon>
-    <span *ngFor="let news of singlepost; let i = index">
-      <ion-back-button
-        name="arrow-round-back"
-        *ngIf="backKeyCategory && i==0"
-        class="homeBack"
-        defaultHref="/single-category/{{news.newsCategoryId}}/{{news.newsCategory}}"
-      ></ion-back-button>
-    </span>
-    <ion-back-button
-      name="arrow-round-back"
-      *ngIf="backKeySearch"
       class="homeBack"
-      defaultHref="/searchBar"
+      class="homeBack"
+      defaultHref="/home"
+      float-left
+      (click)="backClick()"
     >
     </ion-back-button>
-    <ion-title>
-      Trivia Post
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <div class="spinner" *ngIf="singleNewsLoading">
-    <div class="bounce1"></div>
-    <div class="bounce2"></div>
-    <div class="bounce3"></div>
+    <span id="settingTitle">Trivia Post</span>
+    <button float-right routerLink="/home">
+      <ion-icon name="home"></ion-icon>
+    </button>
   </div>
+</div>
+
+<ion-content *ngIf="!loading">
   <div *ngIf="news" class="singleNews">
     <div class="container">
       <img src="{{mediaPath}}{{news.newsImage}}" alt="" class="postImage" />
@@ -48,7 +25,7 @@
 
     <div class="subPostTitle">
       <p class="newsInfo" *ngIf="news.picCredit">
-        <span>Picture: </span><span class="picCredit"> {{news.picCredit}}</span>
+        <span>PC : </span><span class="picCredit"> {{news.picCredit}}</span>
       </p>
     </div>
     <div class="newsContent">
@@ -59,7 +36,6 @@
         </p>
       </div>
       <div class="category_title">
-        Category:
         <span
           (click)="singleCategory(news.newsCategoryId,news.newsCategory[language])"
           *ngIf="language != 'as'"
@@ -78,13 +54,13 @@
         <p [innerHTML]="byPassedNews" *ngIf="language != 'as'"></p>
         <p
           [innerHTML]="byPassedNews"
-          class="assameseFont"
+          class="assameseFont assameseFontContent"
           *ngIf="language == 'as'"
         ></p>
       </div>
       <span
         class="float unbookmarkFloat"
-        *ngIf="!news.bookmarkKey"
+        *ngIf="!news.bookmarkKey && skip == 1"
         (click)="bookmark(news.newsId)"
       >
         <img src="assets/images/bookmarkWhite.png" height="52%" alt="" />
@@ -92,25 +68,44 @@
       </span>
       <span
         class="float bookmarkFloat"
-        *ngIf="news.bookmarkKey"
+        *ngIf="(news.bookmarkKey || loginBookmark) && skip == 1"
         (click)="bookmark(news.newsId)"
       >
         <img src="assets/images/bookmarkWhite.png" height="52%" alt="" />
       </span>
       <span
+        class="float unbookmarkFloat"
+        *ngIf="!news.bookmarkKey && skip != 1"
+        (click)="bookmark(news.newsId)"
+      >
+        <div class="ripple_effect"></div>
+        <img src="assets/images/bookmarkWhite.png" height="52%" alt="" />
+      </span>
+      <span
         class="float floatShare"
-        [ngClass]="{'blink': shareBlink !='1'}"
-        (click)="sharePost(news.fcmLink, news.newsTitleEnglish, news.newsImage)"
+        *ngIf="shareBlink !='1' && skip != '1'"
+        (click)="sharePost(news.fcmLink, news[language].title, news.newsImage)"
+      >
+        <div class="ripple_effect"></div>
+        <img src="../../assets/images/Share.png" class="icon shareImage" />
+      </span>
+      <span
+        class="float floatShare"
+        *ngIf="shareBlink =='1' || skip == '1'"
+        (click)="sharePost(news.fcmLink, news[language].title, news.newsImage)"
       >
         <img src="../../assets/images/Share.png" class="icon shareImage" />
       </span>
     </div>
-    <p class="newsInfo srctitle" *ngIf="news.srcTitle && news.srcLink">
-      <span> Source</span>:
-      <span class="srcLink" (click)="openWithSystemBrowser(news.srcLink)">
-        {{news.srcTitle}}</span
-      >
-    </p>
+    <div class="subPostTitle postSource">
+      <p class="newsInfo" *ngIf="news.picCredit">
+        <span>Source: </span
+        ><span class="picCredit" (click)="openWithSystemBrowser(news.srcLink)">
+          {{news.srcTitle}}</span
+        >
+      </p>
+      <p class="newsInfo" *ngIf="!news.picCredit"></p>
+    </div>
   </div>
   <p *ngIf="news" class="alsoRead">Also Read:</p>
   <div *ngFor="let news of singlepost; let i = index" class="singlePost">
@@ -120,9 +115,9 @@
       [postCount]="i"
     ></app-related-post>
   </div>
-  <div class="spinner" *ngIf="loading">
-    <div class="bounce1"></div>
-    <div class="bounce2"></div>
-    <div class="bounce3"></div>
+  <div class="skipTour" *ngIf="!skip" (click)="skipTour()">
+    <div class="ripple_effect"></div>
+    <span>Skip Tour > ></span>
   </div>
 </ion-content>
+<ion-content *ngIf="loading" class="loadingContent"> </ion-content>

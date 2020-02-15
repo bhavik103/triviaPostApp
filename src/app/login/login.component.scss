@@ -23,6 +23,12 @@ ion-content.background {
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
+span.loginSpinner {
+  float: right;
+  font-size: 19px;
+  background-color: #fff;
+  border-radius: 50px;
+}
 b {
   color: paleturquoise;
 }

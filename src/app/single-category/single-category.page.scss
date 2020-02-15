@@ -1,18 +1,6 @@
-ion-icon.homeBack.md.hydrated {
-  float: left !important;
-  font-size: 24px;
-  margin-left: 10px;
-}
 .newsImg {
   padding: 6px;
   height: 88px;
-}
-ion-title{
-  margin-top: 3%;
-  padding: 0;
-}
-ion-back-button{
-  float: left;
 }
 .latestPost {
   padding: 0;
@@ -98,4 +86,11 @@ img.likeImage {
   text-align: center;
   font-weight: 600;
   font-size: 15px;
+}
+
+.loadingContent {
+  --background: none;
+  background: url('../../assets/images/newLoader.gif');
+  background-size: cover;
+  background-position: center;
 }

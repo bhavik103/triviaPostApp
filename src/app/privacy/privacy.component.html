@@ -1,31 +1,22 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-icon name="arrow-round-back" class="privacyBack" routerLink="/settings"></ion-icon>
-		
-		<ion-title class="ion-text-center">
-			Privacy Policy
-		</ion-title>
-	</ion-toolbar>
-</ion-header>
-<ion-content padding>
-
-	<div *ngFor="let policy of privacyPolicy">
-		<div [innerHTML]="policy.policy"></div>	
-	</div>
-	<div id="loader-wrapper" *ngIf="loading">
-        <div id="loader">
-            <span class="welcomeTo">Welcome to</span>
-            <span class="logo_container">
-                <img src="../../assets/images/Logo.png" alt="logo">
-            </span>
-            <div class="welcomeTo appDesc">Interesting and</div>
-            <div class="welcomeTo appDesc">Informative reads</div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <p class="text-center">Loding...</p>
-        </div>
-    </div>
+<div>
+  <div class="settingsToolbar">
+    <ion-back-button
+      name="arrow-round-back"
+      class="homeBack"
+      class="homeBack"
+      defaultHref="/settings"
+      float-left
+    >
+    </ion-back-button>
+    <span id="settingTitle">Privacy Policy</span>
+    <button float-right routerLink="/home">
+      <ion-icon name="home"></ion-icon>
+    </button>
+  </div>
+</div>
+<ion-content padding *ngIf="!loading">
+  <div *ngFor="let policy of privacyPolicy">
+    <div [innerHTML]="policy.policy"></div>
+  </div>
 </ion-content>
+<ion-content class="loadingContent" *ngIf="loading"></ion-content>

@@ -1,36 +1,46 @@
-<ion-header no-border>
-  <ion-toolbar *ngIf="language && catSelect == '1'">
-    <ion-icon
-      name="settings"
-      class="homeBack"
-      routerLink="/settings"
-      float-left
-    ></ion-icon>
-    <ion-icon
-      name="search"
-      class="searchIcon"
-      float-right
-      (click)="search()"
-    ></ion-icon>
-    <ion-title class="ion-text-center">
+<div no-border>
+  <div
+    class="settingsToolbar"
+    *ngIf="(language && catSelect == '1') || (language && skip == '1')"
+  >
+    <button float-left>
+      <ion-icon
+        name="settings"
+        class="homeBack"
+        routerLink="/settings"
+        (click)="setFlagTrue()"
+      ></ion-icon>
+    </button>
+    <span id="settingTitle">
       Trivia Post
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-header no-border>
-  <ion-toolbar *ngIf="!language">
-    <ion-title>
+    </span>
+    <button float-right>
+      <ion-icon
+        name="search"
+        class="searchIcon"
+        (click)="search()"
+      ></ion-icon>
+    </button>
+  </div>
+</div>
+<div no-border>
+  <div *ngIf="!language" class="settingsToolbar">
+    <span id="settingTitle" style="margin:0;width: 100%;">
       Language
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-header no-border>
-  <ion-toolbar *ngIf="language && catSelect == 0">
-    <ion-title>
-      Category
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+    </span>
+  </div>
+</div>
+<div no-border>
+  <div
+    *ngIf="language && catSelect == 0 && skip != '1'"
+    class="settingsToolbar"
+  >
+    <span id="settingTitle" style="margin:0;width: 100%;">
+      Categories
+    </span>
+  </div>
+</div>
+
 <ion-content *ngIf="!language">
   <div
     class="languageSelect"
@@ -41,8 +51,18 @@
       <p>Choose your preferred language</p>
     </div>
     <ion-row>
-      <ion-col size="4" *ngFor="let lang of languageList;let i = index">
-        <ion-card tabindex="{{i}}" [style.background]="selected==lang.slug?'red':'white'" [style.color]="selected==lang.slug?'white':'black'" class="divs" (click)="selected=lang.slug">
+      <ion-col
+        size="4"
+        *ngFor="let lang of languageList;let i = index"
+        class="langCol"
+      >
+        <ion-card
+          tabindex="{{i}}"
+          [style.background]="selected==lang.slug?'red':'white'"
+          [style.color]="selected==lang.slug?'white':'black'"
+          class="divs"
+          (click)="selected=lang.slug"
+        >
           {{lang.lang}}
         </ion-card>
       </ion-col>
@@ -50,48 +70,54 @@
     <button class="contButton" (click)="selectLang()">Continue</button>
   </div>
 </ion-content>
-<ion-content *ngIf="language && catSelect == '0'">
+<ion-content
+  *ngIf="language && catSelect == '0' && skip != '1'"
+  style="position: absolute;z-index: 11;top: 56px;"
+>
   <ion-row *ngIf="categories">
-    <ion-col size="6" *ngFor="let category of categories" class="categoryTiles">
+    <ion-col
+      size="6"
+      *ngFor="let category of categories; let i = index"
+      class="categoryTiles"
+    >
       <app-category-tiles
         [category]="category"
         (onSubscribe)="subscribedCategory($event, isNotify)"
         [language]="language"
         [firstTime]="true"
+        [index]="i"
       ></app-category-tiles>
     </ion-col>
   </ion-row>
+  <div class="skipTour" *ngIf="!skip" (click)="skipTour()">
+    <div class="ripple_effect"></div>
+    <span>Skip Tour > ></span>
+  </div>
 </ion-content>
-<ion-content *ngIf="latestPost && language && catSelect == 1">
-  <ion-row class="feeds">
+<ion-content
+  *ngIf="[(latestPost && language && catSelect == 1) || (language && latestPost && skip == '1') || skip == '1'] && !loading && language"
+>
+  <div class="skipTour" *ngIf="!skip" (click)="skipTour()">
+    <div class="ripple_effect"></div>
+    <span>Skip Tour > ></span>
+  </div>
+  <ion-row class="feeds" *ngIf="latestPost && !loading">
     <app-large-post
       [news]="latestPost"
-      *ngIf="latestPost"
+      *ngIf="latestPost && !loading"
       [language]="language"
+      [skip]="skip"
     ></app-large-post>
     <span *ngFor="let news of newsArray" class="newsTiles">
-      <app-post-tiles [news]="news" [language]="language"></app-post-tiles>
+      <app-post-tiles
+        [news]="news"
+        [language]="language"
+        *ngIf="newsArray && !loading"
+      ></app-post-tiles>
     </span>
   </ion-row>
 </ion-content>
-
-<!-- loader -->
-<div id="loader-wrapper" *ngIf="loading">
-  <div id="loader">
-    <span class="welcomeTo">Welcome to</span>
-    <span class="logo_container">
-      <img src="../../assets/images/Logo.png" alt="logo" />
-    </span>
-    <div class="welcomeTo appDesc">Interesting and</div>
-    <div class="welcomeTo appDesc">Informative reads</div>
-    <div class="spinner">
-      <div class="bounce1"></div>
-      <div class="bounce2"></div>
-      <div class="bounce3"></div>
-    </div>
-    <p class="text-center">Loading...</p>
-  </div>
-</div>
 <div class="no-news-text" *ngIf="isTextVisible">
   <span>{{text}}</span>
 </div>
+<ion-content *ngIf="loading" class="loadingContent"> </ion-content>

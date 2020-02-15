@@ -70,4 +70,8 @@ export class SearchbarComponent implements OnInit {
             this.router.navigate(['single-post/' + postid + '/search']);
         }, 500);
     }
+
+    categoryClick(catId, catName) {
+        this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
+    }
 }

@@ -10,19 +10,21 @@
             <div>Read & Share</div>
         </div>
         <form [formGroup]="loginForm" padding class="loginForm">
-            <button class="googleLogin" (click)="doGoogleLogin()">
+            <button class="googleLogin" (click)="doGoogleLogin()" [disabled]="isDisabled">
                 <span class="socialIcon">
                     <img src="assets/images/google.png" alt="" height="26px">
                 </span>
                 <span class="socialCenter">Sign in with Google</span>
+                <span class="loginSpinner" *ngIf="googleSpinner"><img src="../../assets/images/loginSpinner.gif" width="32px" alt=""></span>
             </button>
-            <button class="facebookLogin" (click)="doFbLogin()">
+            <button class="facebookLogin" (click)="doFbLogin()" [disabled]="isDisabled">
                 <span class="socialIcon">
                         <img src="assets/images/facebook.png" alt="" height="26px">
                 </span>
                 <span class="socialCenter">Sign in with Facebook</span>
+                <span class="loginSpinner" *ngIf="facebookSpinner"><img src="../../assets/images/loginSpinner.gif" width="32px" alt=""></span>
             </button>
-            <button class="signupModalButton">
+            <button class="signupModalButton" [disabled]="isDisabled">
                 <span class="socialIcon">
                     <ion-icon name="person"></ion-icon>
                 </span>
@@ -72,24 +74,6 @@
             <input id="emailInput" [(ngModel)]="email">
             <button id="linkSignIn" (click)="signInRoute()"><img src="assets/images/right-arrow.png" alt=""></button>
             <p id="agreement">By Sign in you agree to <span routerLink="/terms">"Terms of Use"</span> and <span routerLink="/privacy">"Privacy Policy"</span></p>
-        </div>
-    </div>
-</ion-content>
-<ion-content *ngIf="loading">
-    <div id="loader-wrapper">
-        <div id="loader">
-            <span class="welcomeTo">Welcome to</span>
-            <span class="logo_container">
-                <img src="../../assets/images/Logo.png" alt="logo">
-            </span>
-            <div class="welcomeTo appDesc">Interesting and</div>
-            <div class="welcomeTo appDesc">Informative reads</div>
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-            <p class="text-center">Loding...</p>
         </div>
     </div>
 </ion-content>

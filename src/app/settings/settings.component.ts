@@ -201,7 +201,6 @@ export class SettingsComponent implements OnInit {
 				}
 			}]
 		});
-		localStorage.setItem('language', 'English');
 		await actionSheet.present();
 	}
 

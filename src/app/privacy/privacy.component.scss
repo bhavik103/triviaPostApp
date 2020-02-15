@@ -1,5 +1,6 @@
-.privacyBack{
-	float: left;
-	font-size: 20px;
-	padding-left: 15px;
+.loadingContent {
+  --background: none;
+  background: url("../../assets/images/newLoader.gif");
+  background-size: cover;
+  background-position: center;
 }

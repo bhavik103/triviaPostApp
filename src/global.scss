@@ -53,21 +53,32 @@
   font-family: Assamese;
   src: url("assets/fonts/AS-TTEkushey.ttf");
 }
-
 :root {
-  --main-app-color: #CF2736;
-  --main-tool-color: #CF2736;
+  --main-app-color: #cf2736;
+  --main-tool-color: #cf2736;
 }
 ion-icon:focus,
 #feedsLink:focus {
   outline: none;
 }
-
+ion-toolbar {
+  top: 0;
+  left: 0;
+  /* padding: 0 90px 1px; */
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
 .assameseFont {
   font-family: Assamese !important;
-  font-size: 20px;
+  font-size: 19px !important;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  font-weight: bold !important;
 }
-
+.assameseFontContent{
+  font-weight: normal!important;
+}
 ion-spinner {
   top: 0;
   bottom: 0;
@@ -83,6 +94,7 @@ ion-spinner {
 
 ion-header ion-toolbar:first-child {
   --background: #e41212 !important;
+  position: relative;
 }
 
 ion-toolbar {
@@ -98,7 +110,6 @@ ion-toolbar {
   width: 100vw;
   height: 100vh;
   z-index: 9999;
-  background-image: url("assets/images/Brown-Background.png");
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -191,4 +202,176 @@ ion-toolbar {
 }
 .myActionSheetBtnStyle {
   color: red !important;
+}
+
+.ripple_effect {
+  position: absolute;
+  display: block;
+  height: 15px;
+  width: 15px;
+  border-radius: 100%;
+  background-color: #fff !important;
+  top: -5px;
+  left: 5px;
+  border: 1px solid rgb(228, 35, 16);
+  z-index: 1;
+}
+.ripple_effect:after {
+  opacity: 0;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  border: 5px solid rgb(228, 35, 16);
+  border-radius: 100%;
+  -webkit-animation-name: ripple;
+  animation-name: ripple;
+  -webkit-animation-duration: 1.5s;
+  animation-duration: 1.5s;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: cubic-bezier(0.325, 0, 0.17, 1);
+  animation-timing-function: cubic-bezier(0.325, 0, 0.17, 1);
+  z-index: -1;
+}
+.ripple_effect:before {
+  opacity: 0;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  border: 5px solid rgb(228, 35, 16);
+  border-radius: 100%;
+  -webkit-animation-name: ripple;
+  animation-name: ripple;
+  -webkit-animation-duration: 1.5s;
+  animation-duration: 1.5s;
+  -webkit-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: cubic-bezier(0.325, 0, 0.17, 1);
+  animation-timing-function: cubic-bezier(0.325, 0, 0.17, 1);
+  z-index: -1;
+}
+@-webkit-keyframes ripple {
+  from {
+    opacity: 1;
+    -webkit-transform: scale3d(0.75, 0.75, 1);
+    transform: scale3d(0.75, 0.75, 1);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(2.5, 2.5, 1);
+    transform: scale3d(2.5, 2.5, 1);
+  }
+}
+
+@keyframes ripple {
+  from {
+    opacity: 1;
+    -webkit-transform: scale3d(0.75, 0.75, 1);
+    transform: scale3d(0.75, 0.75, 1);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(2.5, 2.5, 1);
+    transform: scale3d(2.5, 2.5, 1);
+  }
+}
+
+.alertCustomCss {
+  --background: #cf2736 !important;
+  color: white;
+  .alert-message,
+  .alert-sub-title.sc-ion-alert-md,
+  .alert-title.sc-ion-alert-md {
+    color: white !important;
+    margin-bottom: 10px;
+  }
+  .alert-button-group button {
+    color: #fff;
+    font-size: 13px;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 5px 10px !important;
+  }
+  .alert-wrapper {
+    min-width: 90%;
+  }
+}
+
+.settingsToolbar {
+  background-color: #e41212 !important;
+  display: table;
+  width: 100%;
+  padding: 5px;
+  color: #fff;
+}
+.settingsToolbar ion-back-button {
+  float: left;
+  height: 45px !important;
+  width: 45px !important;
+  min-width: auto !important;
+}
+.settingsToolbar #settingTitle {
+  float: left;
+  text-align: center;
+  width: calc(100% - 110px);
+  padding: 14px 0px;
+  margin: 0px 10px;
+  color: #fff;
+  font-weight: 900;
+  font-size: 18px;
+  display: block;
+  line-height: 16px;
+}
+
+.settingsToolbar ion-input {
+  float: left;
+  width: calc(100% - 110px);
+  padding: 0;
+  margin: 0px 10px;
+  color: #fff;
+  font-size: 18px;
+}
+.settingsToolbar ion-input input {
+  padding: 0 !important;
+  height: 45px !important;
+}
+
+.settingsToolbar button {
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  height: 45px;
+  width: 45px;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
 }

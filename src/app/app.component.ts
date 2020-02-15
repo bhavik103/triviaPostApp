@@ -63,6 +63,9 @@ export class AppComponent {
     protected deeplinks: Deeplinks,
     public events: Events
   ) {
+    if(localStorage.getItem('catSelect')){
+      localStorage.setItem('skip','1')
+    }
     this._userService.currentData.subscribe(value => {
       if (this.loginModalFlag != true) {
         //generates random time for opennig modal between 25 and 40 seconds
@@ -128,13 +131,5 @@ export class AppComponent {
         this.statusBar.backgroundColorByHexString('#000000');
       });
     }
-  }
-  skipTour() {
-    localStorage.setItem('skip', 'true');
-    localStorage.setItem('catSelect', '1');
-    localStorage.setItem('firstLargePostClick', '1');
-    localStorage.setItem('shareBlink', '1');
-    this.skip = localStorage.getItem('skip');
-    this.router.navigateByUrl('all-categories');
   }
 }

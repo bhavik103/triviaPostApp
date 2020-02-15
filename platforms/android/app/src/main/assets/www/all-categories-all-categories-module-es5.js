@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/settings\"\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\"> Categories</span>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"language\">\n  <ion-row *ngIf=\"categories\">\n    <ion-col size=\"6\" *ngFor=\"let category of categories\" class=\"categoryTiles\">\n      <app-category-tiles\n        [category]=\"category\"\n        (onSubscribe)=\"subscribedCategory($event, isNotify)\"\n        [language]=\"language\"\n      ></app-category-tiles>\n    </ion-col>\n  </ion-row>\n</ion-content>\n\n<!-- https://youtu.be/Zcj-KwcXDoY -->"
+module.exports = "<div>\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/settings\"\n      float-left\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\"> Categories</span>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n\n<ion-content *ngIf=\"language && !loading\">\n  <ion-row *ngIf=\"categories\">\n    <ion-col size=\"6\" *ngFor=\"let category of categories\" class=\"categoryTiles\">\n      <app-category-tiles\n        [category]=\"category\"\n        (onSubscribe)=\"subscribedCategory($event, isNotify)\"\n        [language]=\"language\"\n      ></app-category-tiles>\n    </ion-col>\n  </ion-row>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>"
 
 /***/ }),
 
@@ -72,7 +72,7 @@ var AllCategoriesPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".settingsToolbar ion-back-button {\n  float: left;\n  zoom: 1;\n  margin-left: 9px;\n  font-size: 20px;\n  margin-top: 6px;\n  color: #fff;\n}\n\n.settingsToolbar #settingTitle {\n  margin-left: 10px;\n  font-size: 18px;\n  line-height: 58px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvQmhhdmlrL3RyaXZpYVBvc3RBcHAvc3JjL2FwcC9hbGwtY2F0ZWdvcmllcy9hbGwtY2F0ZWdvcmllcy5wYWdlLnNjc3MiLCJzcmMvYXBwL2FsbC1jYXRlZ29yaWVzL2FsbC1jYXRlZ29yaWVzLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFdBQUE7RUFDQSxPQUFBO0VBQ0EsZ0JBQUE7RUFDQSxlQUFBO0VBQ0EsZUFBQTtFQUNBLFdBQUE7QUNDSjs7QURFRTtFQUNFLGlCQUFBO0VBQ0EsZUFBQTtFQUNBLGlCQUFBO0FDQ0oiLCJmaWxlIjoic3JjL2FwcC9hbGwtY2F0ZWdvcmllcy9hbGwtY2F0ZWdvcmllcy5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuc2V0dGluZ3NUb29sYmFyIGlvbi1iYWNrLWJ1dHRvbntcbiAgICBmbG9hdDogbGVmdDtcbiAgICB6b29tOiAxO1xuICAgIG1hcmdpbi1sZWZ0OiA5cHg7XG4gICAgZm9udC1zaXplOiAyMHB4O1xuICAgIG1hcmdpbi10b3A6IDZweDtcbiAgICBjb2xvcjogI2ZmZjtcbiAgfVxuICBcbiAgLnNldHRpbmdzVG9vbGJhciAjc2V0dGluZ1RpdGxlIHtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbiAgICBmb250LXNpemU6IDE4cHg7XG4gICAgbGluZS1oZWlnaHQ6IDU4cHg7XG4gIH0iLCIuc2V0dGluZ3NUb29sYmFyIGlvbi1iYWNrLWJ1dHRvbiB7XG4gIGZsb2F0OiBsZWZ0O1xuICB6b29tOiAxO1xuICBtYXJnaW4tbGVmdDogOXB4O1xuICBmb250LXNpemU6IDIwcHg7XG4gIG1hcmdpbi10b3A6IDZweDtcbiAgY29sb3I6ICNmZmY7XG59XG5cbi5zZXR0aW5nc1Rvb2xiYXIgI3NldHRpbmdUaXRsZSB7XG4gIG1hcmdpbi1sZWZ0OiAxMHB4O1xuICBmb250LXNpemU6IDE4cHg7XG4gIGxpbmUtaGVpZ2h0OiA1OHB4O1xufSJdfQ== */"
+module.exports = ".loadingContent {\n  --background: none;\n  background: url('newLoader.gif');\n  background-size: cover;\n  background-position: center;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi92YXIvd3d3L2h0bWwvQmhhdmlrL3RyaXZpYVBvc3RBcHAvc3JjL2FwcC9hbGwtY2F0ZWdvcmllcy9hbGwtY2F0ZWdvcmllcy5wYWdlLnNjc3MiLCJzcmMvYXBwL2FsbC1jYXRlZ29yaWVzL2FsbC1jYXRlZ29yaWVzLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFBO0VBQ0EsZ0NBQUE7RUFDQSxzQkFBQTtFQUNBLDJCQUFBO0FDQ0YiLCJmaWxlIjoic3JjL2FwcC9hbGwtY2F0ZWdvcmllcy9hbGwtY2F0ZWdvcmllcy5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubG9hZGluZ0NvbnRlbnQge1xuICAtLWJhY2tncm91bmQ6IG5vbmU7XG4gIGJhY2tncm91bmQ6IHVybCgnLi4vLi4vYXNzZXRzL2ltYWdlcy9uZXdMb2FkZXIuZ2lmJyk7XG4gIGJhY2tncm91bmQtc2l6ZTogY292ZXI7XG4gIGJhY2tncm91bmQtcG9zaXRpb246IGNlbnRlcjtcbn0iLCIubG9hZGluZ0NvbnRlbnQge1xuICAtLWJhY2tncm91bmQ6IG5vbmU7XG4gIGJhY2tncm91bmQ6IHVybChcIi4uLy4uL2Fzc2V0cy9pbWFnZXMvbmV3TG9hZGVyLmdpZlwiKTtcbiAgYmFja2dyb3VuZC1zaXplOiBjb3ZlcjtcbiAgYmFja2dyb3VuZC1wb3NpdGlvbjogY2VudGVyO1xufSJdfQ== */"
 
 /***/ }),
 
@@ -97,18 +97,55 @@ var AllCategoriesPage = /** @class */ (function () {
         this._categoryService = _categoryService;
     }
     AllCategoriesPage.prototype.ngOnInit = function () {
+        var alertOnlineStatus = function () {
+        };
+        window.addEventListener('online', alertOnlineStatus);
+        window.addEventListener('offline', alertOnlineStatus);
     };
     AllCategoriesPage.prototype.ionViewWillEnter = function () {
+        if (localStorage.getItem('skip')) {
+            localStorage.setItem('skip', '1');
+            localStorage.setItem('shareBlink', '1');
+            localStorage.setItem('catSelect', '1');
+            localStorage.setItem('firstLargePostClick', '1');
+        }
+        this.loading = false;
         this.getCategories();
     };
     AllCategoriesPage.prototype.getCategories = function () {
         var _this = this;
+        this.loading = true;
         this.language = localStorage.getItem('language');
-        this._categoryService.getAll().subscribe(function (res) {
-            _this.categories = res;
-            console.log("after", _this.categories);
-        }, function (err) {
-        });
+        if (navigator.onLine) {
+            this._categoryService.getAll().subscribe(function (res) {
+                _this.categories = res;
+                _this.loading = false;
+                console.log("after", _this.categories);
+            }, function (err) {
+                _this.loading = false;
+            });
+        }
+        else {
+            console.log("OFFFFFFFFF");
+            this.categories = JSON.parse(localStorage.getItem('categoryArray'));
+        }
+    };
+    //change on subscription of category
+    AllCategoriesPage.prototype.subscribedCategory = function (e, isNotify) {
+        console.log("Event e", e);
+        if (e.cat === 1) {
+            localStorage.setItem('catSelect', '1');
+            localStorage.setItem('language', this.language);
+            this.catSelect = '1';
+        }
+        else {
+            if (e.statusCode == 1) {
+                this.categories.find(function (o) { return o.categoryId === e.catId; }).isNotify = true;
+            }
+            else if (e.statusCode == 0) {
+                this.categories.find(function (o) { return o.categoryId === e.catId; }).isNotify = false;
+            }
+        }
     };
     AllCategoriesPage.ctorParameters = function () { return [
         { type: _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"] }

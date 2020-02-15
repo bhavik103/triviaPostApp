@@ -1,40 +1,69 @@
-<ion-header>
-	<ion-toolbar>
-		<ion-row>
-			<ion-col size="2" class="searchBack">
-				<ion-icon name="arrow-round-back" routerLink="/home"></ion-icon>
-			</ion-col>
-			<ion-col size="10" class="inputColumn">
-				<ion-input set-focuser #searchInput type="text" placeholder="Search here.."
-					(input)="searchNews($event.target.value)"></ion-input>
-			</ion-col>
-		</ion-row>
-	</ion-toolbar>
-</ion-header>
+<div>
+  <div class="settingsToolbar">
+    <ion-back-button
+      name="arrow-round-back"
+      class="homeBack"
+      class="homeBack"
+      defaultHref="/home"
+      float-left
+    >
+    </ion-back-button>
+    <ion-input
+      set-focuser
+      #searchInput
+      type="text"
+      placeholder="Search here.."
+      (input)="searchNews($event.target.value)"
+    ></ion-input>
+    <button float-right routerLink="/home">
+      <ion-icon name="home"></ion-icon>
+    </button>
+  </div>
+</div>
 <ion-content padding>
-	<ion-row class="searchResults" *ngFor="let searchNews of newsArray">
-		<ion-col size="3" class="newsImg" padding (click)="getSingleSearch(searchNews.newsId)">
-			<img src="{{mediaPath}}{{searchNews.newsImage}}" height="73px" width="100%">
-		</ion-col>
-		<ion-col size="9" (click)="getSingleSearch(searchNews.newsId)">
-			<div padding>
-				<p class="newsCat" *ngIf="language == 'English'">{{searchNews.newsCategory}}</p>
-				<p class="newsCat" *ngIf="language == 'Hindi'">{{searchNews.newsCategoryHn}}</p>
-				<span class="optionsList" *ngIf="language == 'English'"
-					[innerHTML]="searchNews.newsTitleEnglish | slice:0:70"></span>
-				<span class="optionsList" *ngIf="language == 'Hindi'" [innerHTML]="searchNews.newsTitleHindi"></span>
-			</div>
-		</ion-col>
-	</ion-row>
-	<div class="spinner" *ngIf="loading">
-		<div class="bounce1"></div>
-		<div class="bounce2"></div>
-		<div class="bounce3"></div>
-	</div>
-	<div *ngIf="box" id="box">
-		<img src="assets/images/seo.png" alt="">
-	</div>
-	<div *ngIf="searchLength == 0" id="box">
-		<img src="assets/images/noresult.png" alt="">
-	</div>
+  <ion-row class="searchResults" *ngFor="let searchNews of newsArray">
+    <ion-col
+      size="3"
+      class="newsImg"
+      padding
+      (click)="getSingleSearch(searchNews.newsId)"
+    >
+      <img
+        src="{{ mediaPath }}{{ searchNews.newsImage }}"
+        height="73px"
+        width="100%"
+      />
+    </ion-col>
+    <ion-col size="9">
+      <div padding>
+        <span
+          class="optionsList"
+          (click)="getSingleSearch(searchNews.newsId)"
+          [innerHTML]="searchNews[language].title | slice: 0:70"
+        ></span>
+        <p
+          class="newsCat"
+          (click)="
+            categoryClick(
+              searchNews.newsCategoryId,
+              searchNews.newsCategory[language]
+            )
+          "
+        >
+          {{ searchNews.newsCategory[language] }}
+        </p>
+      </div>
+    </ion-col>
+  </ion-row>
+  <div class="spinner" *ngIf="loading">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+  </div>
+  <div *ngIf="box && !searchLength" id="box">
+    <img src="assets/images/seo.png" alt="" />
+  </div>
+  <div *ngIf="searchLength == 0" id="box">
+    <img src="assets/images/noresult.png" alt="" />
+  </div>
 </ion-content>

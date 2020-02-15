@@ -1,17 +1,8 @@
-.homeBack,
-.searchIcon {
-  float: left;
-  font-size: 20px;
-  padding-left: 15px;
-}
 super-tabs-toolbar {
   $tabs-md-tab-icon-color-active: var(--main-app-color);
 }
 ion-label {
   font-size: 18.5px;
-}
-.searchIcon {
-  padding-right: 15px;
 }
 
 .tab-selected {
@@ -226,12 +217,9 @@ select {
 }
 ion-card {
   pointer-events: all;
-  background-color: #fff;
   border-radius: 10px;
+  padding: 36px 0;
   text-align: center;
-  vertical-align: middle;
-  line-height: 87px;
-  height: 87px;
 }
 ion-card:focus {
   background-color: #e41212 !important;
@@ -247,4 +235,35 @@ ion-card:focus {
 }
 .active {
   background-color: red;
+}
+
+.skipTour {
+  background-color: #e42310;
+  color: #fff;
+  padding: 8px 25px;
+  border-radius: 5px;
+  position: fixed;
+  bottom: 10px;
+  z-index: 1;
+  font-weight: 700;
+  left: 10px;
+}
+.skipTour button {
+  padding: 10px;
+  background-color: #e41212 !important;
+  color: #fff;
+}
+.ripple_effect {
+  background-color: rgb(228, 35, 16) !important;
+  border-color: #fff;
+}
+.ripple_effect:before,
+.ripple_effect:after {
+  border-color: #fff;
+}
+.loadingContent {
+  --background: none;
+  background: url("../../assets/images/newLoader.gif");
+  background-size: cover;
+  background-position: center;
 }

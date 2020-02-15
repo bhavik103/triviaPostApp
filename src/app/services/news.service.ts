@@ -12,6 +12,7 @@ import { UserService } from './user.service'
 import { language } from 'app/changeLang';
 import { SimplePlaceholderMapper } from '@angular/compiler/src/i18n/serializers/serializer';
 import { CompileTemplateMetadata } from '@angular/compiler';
+import { resolve } from 'url';
 @Injectable({
 	providedIn: 'root'
 })
@@ -32,20 +33,25 @@ export class NewsService {
 
 	//fetch all news
 	getAllNews() {
-		if (this.network.type == 'none') {
-			this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
-			setTimeout(() => {
-				return this.newsArray;
-			}, 1);
-		} else {
-			return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').pipe(
-				map((res: any) => {
-					console.log('res =========', res.data)
-					return res.data
-				})
-			);
-		}
+		return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').pipe(
+			map((res: any) => {
+				var prop = ['newsId', 'newsCategoryId', 'en', 'hn', 'as', 'bn', 'gu', 'kn', 'ml', 'mr', 'pa', 'ta', 'te', 'newsCategory'];
+				let offlineArray = JSON.parse(JSON.stringify(res.data));
+				offlineArray.forEach(element => {
+					for (var k in element) {
+						if (prop.indexOf(k) < 0) {
+							delete element[k];
+						}
+					}
+				});
+				localStorage.removeItem('newsArray')
+				localStorage.setItem('newsArray', JSON.stringify(offlineArray))
+				console.log("FINAL OBJECT", offlineArray)
+				return res.data
+			})
+		);
 	}
+
 
 	//all cat news
 	allCatNews(id) {
@@ -175,49 +181,18 @@ export class NewsService {
 
 	//get single news
 	getSingleNews(id) {
-		if (this.network.type == 'none') {
-			console.log(JSON.parse(localStorage.getItem("newsArray")));
-			this.newsArray = JSON.parse(localStorage.getItem("newsArray"))
-			var filtersArray = [id];
+		const language = localStorage.getItem('language');
+		console.log("LANGUAGE", id)
+		return this.http.get(config.baseApiUrl + 'single-news?postId=' + id + '&language=' + language).pipe(
+			map((result: any) => {
+				console.log('result', JSON.parse(JSON.stringify(result.data)))
+				this.singleNews = JSON.parse(JSON.stringify(result.data));
+				return JSON.parse(JSON.stringify(this.singleNews));
+			},
+				(error) => {
+					console.log("ERROR")
+				}));
 
-			var filtered = this.newsArray.filter(function (element) {
-				var news = element.newsId.split(' ');
-
-				return news.filter(function (post) {
-					return filtersArray.indexOf(post) > -1;
-				}).length === filtersArray.length;
-			});
-			this.newsArray = filtered;
-
-
-			//for appending lates news
-			var allNews = JSON.parse(localStorage.getItem("newsArray"))
-			var finalObject = [];
-			finalObject.push(this.newsArray[0])
-			for (let i = 0; i < 6; i++) {
-				this.newsArray[0].newsId != allNews[i].newsId ? finalObject.push(allNews[i]) : ''
-			}
-			if (finalObject.length > 6) {
-				finalObject.splice(6, 1);
-			}
-
-			//6 news including latest news
-			this.newsArray = finalObject;
-
-			console.log("filtered", this.newsArray);
-			setTimeout(() => {
-				return this.newsArray
-			}, 1);
-		} else {
-			return this.http.get(config.baseApiUrl + 'single-news?postId=' + id).pipe(
-				map((result: any) => {
-					this.singleNews = JSON.parse(JSON.stringify(result.data));
-					return JSON.parse(JSON.stringify(this.singleNews));
-				},
-					(error) => {
-						console.log("ERROR")
-					}));
-		}
 	}
 
 	newsCount(data) {

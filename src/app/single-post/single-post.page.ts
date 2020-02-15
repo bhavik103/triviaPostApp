@@ -10,6 +10,7 @@ import { Platform } from '@ionic/angular';
 import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-single-post',
@@ -30,36 +31,45 @@ export class SinglePostPage implements OnInit {
   singleNewsLoading: any;
   shareBlink: string;
   byPassedNews: any;
-  constructor(private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
+  skip: string;
+  loginBookmark: any;
+  constructor(private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
-    this.singlePost();
+    // this.singlePost();
     this.route.params.subscribe((param: any) => {
       this.configureBack(this.router.url, param);
     });
   }
   ionViewWillEnter() {
+    if (localStorage.getItem('bookmarkId')) {
+      this.bookmark(localStorage.getItem('bookmarkId'));
+    }
     this.shareBlink = localStorage.getItem('shareBlink');
+    this.skip = localStorage.getItem('skip');
     this.increaseViews();
     this.removeRedirectItem();
-
+    var postId = this.route.snapshot.params['id'];
     if (this.platform.is('cordova')) {
       // Firebase Analytics 'screen_view' event tracking
       this.firebaseAnalytics.setCurrentScreen('Single Post').then(res => {
         console.log("firebase", res)
       })
     }
-    var postId = this.route.snapshot.params['id'];
+    this.singlePost();
   }
 
   configureBack(url, param) {
     console.log("url, param", url, param);
     if (url.includes('bookmark')) {
+      this.singlePost();
       this.backKeyBookmark = true;
     } else if (url.includes('category')) {
       this.backKeyCategory = true;
     } else if (url.includes('search')) {
       this.backKeySearch = true;
+    } else {
+      this.singlePost();
     }
   }
   increaseViews() {
@@ -85,27 +95,35 @@ export class SinglePostPage implements OnInit {
       var decodedToken = JSON.parse(window.atob(base64));
       this.loggedInUser = decodedToken.user._id;
     }
-    this._newsService.getSingleNews(postId).subscribe(res => {
+    this.singlePostfun(postId);
+  }
+
+  singlePostfun(postid) {
+    // this.singlepost = [];
+    // this.news = [];
+    // this.byPassedNews = [];
+    this._newsService.getSingleNews(postid).subscribe(res => {
       const singlepostArray = [];
-      singlepostArray.push(res);
-      this.singlepost = singlepostArray;
+      singlepostArray.push(JSON.parse(JSON.stringify(res)));
+      this.singlepost = JSON.parse(JSON.stringify(singlepostArray));
       if (this.tokenLocalStorage) {
         _.forEach(res, (save: { [x: string]: boolean; bookMark: any; }) => {
           _.forEach(save.bookMark, (Id: any) => {
-            if (Id == this.loggedInUser) {
+            if (Id.toString() == this.loggedInUser) {
+              console.log("ID =====", Id);
               save['bookmarkKey'] = true
             }
           })
         })
       }
-      this.singlepost = res;
-      this.news = res[0];
+      this.singlepost = JSON.parse(JSON.stringify(res));
+      this.news = JSON.parse(JSON.stringify(res[0]));
       this.singlepost.splice(0, 1);
       this.loading = false;
-      this.singleNewsLoading = false;
       console.log("SINGLE POST", this.news)
       this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news[this.language].content);
       this.byPassedNews = this.byPassedNews.changingThisBreaksApplicationSecurity;
+      console.log('this.byPassedNews', res)
       if (this.platform.is('cordova')) {
         this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.news[this.language].title }).then(res => {
           // console.log("Post Tracked", this.news[this.language].title)
@@ -114,9 +132,12 @@ export class SinglePostPage implements OnInit {
     });
   }
   //  Do Share Post 
-  sharePost(link: string, newsTitle: string, newsImage) {
+  sharePost(link, newsTitle, newsImage) {
+    console.log(link, newsTitle, newsImage)
     this.shareBlink = '1';
+    this.skip = '1'
     localStorage.setItem('shareBlink', '1')
+    localStorage.setItem('skip', '1')
     var message = "Check out this amazing news " + '"' + newsTitle + '" ';
     var subject = "Trivia Post";
     var str = newsTitle;
@@ -132,21 +153,29 @@ export class SinglePostPage implements OnInit {
 
   //  Do Bookmark
   bookmark(newsid) {
+    this.shareBlink = '1';
+    this.skip = '1'
+    localStorage.setItem('shareBlink', '1')
+    localStorage.setItem('skip', '1')
     if (!localStorage.getItem('accessToken')) {
       console.log("newsId done", newsid);
       localStorage.setItem('bookmarkId', newsid);
       this._toastService.toastFunction('You need to login first', 'danger');
       this.router.navigateByUrl('/login');
     } else {
-      if (this.platform.is('cordova')) {
-        if (this.network.type == 'none') {
-          this.singlePost();
-          this._toastService.toastFunction('No internet connection', 'danger');
-        }
+      if (this.network.type == 'none') {
+        this.singlePostfun(newsid);
+        this._toastService.toastFunction('No internet connection', 'danger');
       } else {
+        console.log("BOOKMARK")
         this._newsService.bookmarkPost(newsid).subscribe((res: any) => {
           this._toastService.toastFunction(res.message, 'success');
-          this.singlePost();
+          this.singlePostfun(newsid);
+
+          if (localStorage.getItem('bookmarkId')) {
+            localStorage.removeItem('bookmarkId')
+            this.loginBookmark = true;
+          }
         }, err => {
           this._toastService.toastFunction(err.error.message, 'danger');
         })
@@ -158,20 +187,64 @@ export class SinglePostPage implements OnInit {
     this._toastService.toastFunction('You have already liked!', 'danger');
   }
 
-  categoryClick(catId, catName) {
-    this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
-  }
-
   openWithSystemBrowser(url) {
     let target = "_blank";
     this.iab.create(url, `_blank`);
   }
   singleNews(postid) {
+    localStorage.setItem('skip', '1')
+    localStorage.setItem('skip', 'true');
+    localStorage.setItem('shareBlink', '1');
+    localStorage.setItem('catSelect', '1');
+    localStorage.setItem('firstLargePostClick', '1');
+    this.skip = localStorage.getItem('skip');
     console.log('postid', postid);
     this.router.navigateByUrl('/single-post/' + postid);
   }
   singleCategory(catId, catname) {
+    localStorage.setItem('skip', '1')
+    localStorage.setItem('skip', 'true');
+    localStorage.setItem('shareBlink', '1');
+    localStorage.setItem('catSelect', '1');
+    localStorage.setItem('firstLargePostClick', '1');
+    this.skip = localStorage.getItem('skip');
+    localStorage.setItem('skip', '1')
     console.log('catId compoennt', catId)
     this.router.navigateByUrl('single-category/' + catId + '/' + catname);
+  }
+  backClick() {
+    // localStorage.setItem('skip', '1')
+  }
+  async skipTour() {
+    if (!localStorage.getItem('skip') && localStorage.getItem('firstLargePostClick')) {
+
+      const alert = await this.alertController.create({
+        header: 'Confirm!',
+        message: 'Are you sure you want to skip the <strong>tour</strong>?',
+        cssClass: 'alertCustomCss',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+
+            handler: (blah) => {
+            }
+          }, {
+            text: 'Skip',
+
+            handler: () => {
+              localStorage.setItem('skip', '1')
+              localStorage.setItem('skip', 'true');
+              localStorage.setItem('shareBlink', '1');
+              localStorage.setItem('catSelect', '1');
+              localStorage.setItem('firstLargePostClick', '1');
+              this.skip = localStorage.getItem('skip');
+              this.router.navigateByUrl('all-categories');
+            }
+          }
+        ]
+      });
+      await alert.present();
+    }
   }
 }

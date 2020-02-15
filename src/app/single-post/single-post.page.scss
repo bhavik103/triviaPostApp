@@ -2,17 +2,6 @@ p {
   margin: 5px;
 }
 
-.homeBack {
-  float: left;
-  font-size: 20px;
-  margin-top: 12px;
-  margin-left: 10px;
-}
-
-ion-back-button {
-  margin: 0 !important;
-}
-
 .postImage {
   object-fit: cover;
   max-width: 100%;
@@ -80,10 +69,6 @@ a.float:hover + div.label-container {
   right: 40px;
 }
 
-.picCredit {
-  font-weight: normal !important;
-}
-
 .unbookmark {
   color: var(--main-app-color);
   font-size: 25px;
@@ -121,8 +106,7 @@ a.float:hover + div.label-container {
 }
 
 ion-title {
-  float: left;
-  line-height: 46px;
+  line-height: 2.5;
   padding-left: 10px;
   padding-top: 1px;
 }
@@ -135,7 +119,10 @@ ion-title {
   font-size: 12px;
   margin-top: 10px;
 }
-.srctitle{
+.postSource{
+  margin-bottom: 20px;
+}
+.srctitle {
   margin-left: 16px;
 }
 .float {
@@ -144,13 +131,13 @@ ion-title {
   height: 50px;
   bottom: 3%;
   right: 40px;
-  background-color: var(--main-app-color);
+  background-color: grey;
   color: #fff;
   border-radius: 50px;
   text-align: center;
   box-shadow: 2px 2px 3px #999;
   z-index: 111;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .float img {
@@ -166,9 +153,9 @@ ion-title {
   margin-top: 28%;
 }
 
-.unbookmarkFloat {
-  background-color: #cbc9c9;
-}
+// .unbookmarkFloat {
+//   background-color: #cbc9c9;
+// }
 
 .bookmarkFloat {
   background-color: var(--main-app-color);
@@ -183,35 +170,11 @@ ion-title {
 
 /*Huge thanks to @tobiasahlin at http://tobiasahlin.com/spinkit/ */
 
-.spinner {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 100px;
-  height: 100px;
-}
-
-.spinner > div {
-  width: 18px;
-  height: 18px;
-  background-color: var(--main-app-color);
-  border-radius: 100%;
-  display: inline-block;
-  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-}
-
-.spinner .bounce1 {
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
-
-.spinner .bounce2 {
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
+.loadingContent {
+  --background: none;
+  background: url('../../assets/images/newLoader.gif');
+  background-size: cover;
+  background-position: center;
 }
 
 @-webkit-keyframes sk-bouncedelay {
@@ -250,9 +213,6 @@ ion-title {
   height: 18px;
 }
 
-.newsInfo span {
-  font-weight: 700;
-}
 
 .srcLink {
   color: var(--main-app-color);
@@ -268,16 +228,16 @@ ion-title {
 .alsoRead {
   font-size: 20px;
   font-weight: bolder;
-  padding: 20px 0px 20px 10px;
+  padding: 10px 0px 6px 10px;
 }
 
 .category_title {
   display: inline-block;
   font-weight: bold;
-  margin: 10px 0px 6px 13px;
+  margin: 10px 0px 6px 18px;
 }
-.category_title span{
-    color: red;
+.category_title span {
+  color: red;
 }
 .text-block {
   position: absolute;
@@ -392,4 +352,32 @@ img.likeImage {
   animation-iteration-count: infinite;
 }
 
-@keyframes blink { 50% { background-color: #0800ff ; }  }
+@keyframes blink {
+  50% {
+    background-color: #0800ff;
+  }
+}
+.skipTour {
+  background-color: #e42310;
+  color: #fff;
+  padding: 8px 25px;
+  border-radius: 5px;
+  position: fixed;
+  bottom: 10px;
+  z-index: 1;
+  font-weight: 700;
+  left: 10px;
+}
+.skipTour button {
+  padding: 10px;
+  background-color: #e41212 !important;
+  color: #fff;
+}
+.ripple_effect {
+  background-color: rgb(228, 35, 16) !important;
+  border-color: #fff;
+}
+.ripple_effect:before,
+.ripple_effect:after {
+  border-color: #fff;
+}

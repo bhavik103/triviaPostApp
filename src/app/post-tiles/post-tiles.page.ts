@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { config } from '../config';
 import { Router } from '@angular/router';
+import { ToastService } from '../services/toast.service'
 
 @Component({
   selector: 'app-post-tiles',
@@ -12,11 +13,33 @@ export class PostTilesPage implements OnInit {
   @Input('news') news: string;
   @Input('language') language: string;
   mediaPath = config.mediaApiUrl;
-  constructor(private router: Router) {
+  wrongStatus = false
+  firstLargePostClick: string;
+  skip: string;
+  constructor(private _toastService: ToastService,private router: Router) {
   }
 
+  ionViewWillEnter() {
+    const alertOnlineStatus = () => {
+    }
+
+    window.addEventListener('online', alertOnlineStatus)
+    window.addEventListener('offline', alertOnlineStatus)
+    if (!localStorage.getItem('firstLargePostClick')) {
+      console.log("firstLargePostClick")
+    }
+    console.log('this.language', this.language)
+  }
+  
   ngOnInit() {
-    console.log('this.newsArray tiles', this.news);
+    const alertOnlineStatus = () => {
+    }
+    
+    this.firstLargePostClick = localStorage.getItem('firstLargePostClick')
+    this.skip = localStorage.getItem('skip');
+    this.language = localStorage.getItem('language');
+    window.addEventListener('online', alertOnlineStatus)
+    window.addEventListener('offline', alertOnlineStatus)
   }
 
   categoryClick(catId, catName) {
@@ -24,7 +47,19 @@ export class PostTilesPage implements OnInit {
   }
 
   singleNews(postid) {
-    console.log('postid', postid);
-    this.router.navigateByUrl('/single-post/' + postid);
+    if (navigator.onLine) {
+      if (this.wrongStatus) {
+        this.wrongStatus = false
+      }
+      else {
+        localStorage.setItem('firstLargePostClick', '1')
+        // localStorage.setItem('skip', '1')
+        console.log('postid', postid);
+        this.router.navigateByUrl('/single-post/' + postid);
+
+      }
+    } else {
+      this._toastService.toastFunction('No internet connnection', 'danger');
+    }
   }
 }

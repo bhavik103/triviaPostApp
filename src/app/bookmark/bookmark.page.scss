@@ -1,9 +1,4 @@
-ion-icon.homeBack.md.hydrated {
-  float: left !important;
-  /* margin: 4px; */
-  font-size: 24px;
-  margin-left: 10px;
-}
+
 .newsImg {
   margin: auto 0 !important;
   height: 98px;
@@ -104,4 +99,10 @@ img.likeImage {
 .timeAgo {
   opacity: 0.8;
   font-weight: normal;
+}
+.loadingContent {
+  --background: none;
+  background: url("../../assets/images/newLoader.gif");
+  background-size: cover;
+  background-position: center;
 }

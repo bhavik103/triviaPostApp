@@ -26,9 +26,11 @@ export class RelatedPostPage implements OnInit {
 
   singleNews(postid) {
     console.log('postid', postid);
+    localStorage.setItem('skip','1')
     this.router.navigateByUrl('/single-post/' + postid);
   }
   categoryClick(catId, catName) {
+    localStorage.setItem('skip','1')
     this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
   }
 }

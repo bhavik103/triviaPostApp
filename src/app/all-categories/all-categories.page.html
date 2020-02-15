@@ -1,17 +1,21 @@
-<ion-header>
-  <ion-toolbar class="settingsToolbar">
+<div>
+  <div class="settingsToolbar">
     <ion-back-button
       name="arrow-round-back"
       class="homeBack"
       class="homeBack"
       defaultHref="/settings"
+      float-left
     >
     </ion-back-button>
     <span id="settingTitle"> Categories</span>
-  </ion-toolbar>
-</ion-header>
+    <button float-right routerLink="/home">
+      <ion-icon name="home"></ion-icon>
+    </button>
+  </div>
+</div>
 
-<ion-content *ngIf="language">
+<ion-content *ngIf="language && !loading">
   <ion-row *ngIf="categories">
     <ion-col size="6" *ngFor="let category of categories" class="categoryTiles">
       <app-category-tiles
@@ -22,5 +26,4 @@
     </ion-col>
   </ion-row>
 </ion-content>
-
-<!-- https://youtu.be/Zcj-KwcXDoY -->
+<ion-content *ngIf="loading" class="loadingContent"> </ion-content>

@@ -8,7 +8,7 @@ ion-icon.homeBack.md.hydrated {
   padding: 0;
   height: 57px;
   min-width: 98px;
-  background: url("assets/images/spinner.gif");
+  background: url("../../assets/images/placeholder.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 50%;
@@ -41,12 +41,12 @@ ion-icon.homeBack.md.hydrated {
 }
 .categoryButton {
   font-size: 13px;
-  display: block;
   margin-top: 2%;
-  // background-color: var(--main-app-color);
   color: var(--main-app-color);
-  padding: 5px;
+  padding: 10px 16px;
   border-radius: 8px;
+  z-index: 3333;
+  display: inline-block;
 }
 .postDescription{
   padding-top: 0;
@@ -81,6 +81,7 @@ img.likeImage {
   margin: 0px auto;
   font-weight: 700;
   font-size: 15.5px;
+  display: block;
 }
 
 .newsImg img {

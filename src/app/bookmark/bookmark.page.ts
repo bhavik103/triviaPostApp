@@ -67,6 +67,7 @@ export class BookmarkPage implements OnInit {
         this.loading = false;
         this.newsObj = res;
         this.newsArray = this.newsObj;
+        console.log(" BOOKMARKED NEWS",this.newsArray)
         this.bookmarkLength = this.newsArray.length;
       },
       (err) => {
@@ -104,6 +105,7 @@ export class BookmarkPage implements OnInit {
   }
 
   getSingleBookmark(id) {
+    console.log("bookmark id",id)
     this.router.navigate(['single-post/' + id + '/bookmark']);
   }
   categoryClick(catId, catName) {

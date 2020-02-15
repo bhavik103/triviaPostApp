@@ -20,6 +20,7 @@ export class CategoryTilesPage implements OnInit {
   @Input('category') category: string;
   @Input('language') language: string;
   @Input('firstTime') firstTime: any;
+  @Input('index') index: any;
   @Output() onSubscribe: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(IonSlides, {static:false}) protected slider: IonSlides;
 
@@ -34,6 +35,11 @@ export class CategoryTilesPage implements OnInit {
     this.skip = localStorage.getItem('skip');
   }
   ngOnInit() {
+    const alertOnlineStatus = () => {
+    }
+
+    window.addEventListener('online', alertOnlineStatus)
+    window.addEventListener('offline', alertOnlineStatus)
     console.log("this.categories in child", this.category)
     console.log("this.categories in child", this.language)
   }
@@ -60,6 +66,7 @@ export class CategoryTilesPage implements OnInit {
         this._categoryService.notifyUser(catId).subscribe((res: any) => {
           this._toastService.toastFunction(res.message, 'success');
           var emitObject = { catId: catId, statusCode: res.statusCode }
+          console.log("EMIT OBJECT",emitObject)
           this.onSubscribe.emit(emitObject);
         }, err => {
           this._toastService.toastFunction(err.error.message, 'danger');

@@ -1,5 +1,5 @@
-<ion-header>
-  <ion-toolbar class="settingsToolbar">
+<div>
+  <div class="settingsToolbar">
     <ion-back-button
       name="arrow-round-back"
       class="homeBack"
@@ -8,100 +8,110 @@
     >
     </ion-back-button>
     <span id="settingTitle"> Options</span>
-    <span
+    <button
       id="profile"
       *ngIf="tokenLocalStorage && firstCharUser"
       (click)="logout()"
-      >{{ firstCharUser }}</span
     >
-    <span
+      {{ firstCharUser }}
+    </button>
+    <button
       id="personIcon"
-      *ngIf="tokenLocalStorage && !firstCharUser"
       (click)="logout()"
+      *ngIf="tokenLocalStorage && !firstCharUser"
     >
-      <ion-icon name="person"></ion-icon>
-    </span>
-  </ion-toolbar>
-</ion-header>
+      <ion-icon
+        name="person"
+        style="vertical-align: text-bottom; font-size: 24px;"
+      ></ion-icon>
+    </button>
+    <button float-right *ngIf="!tokenLocalStorage" routerLink="/home">
+      <ion-icon name="home"></ion-icon>
+    </button>
+  </div>
+</div>
 
 <ion-content>
   <div class="settings loginDiv" padding *ngIf="!tokenLocalStorage">
-    <h1 class="savePref">{{savePref[language]}}</h1>
+    <h1 class="savePref">{{ savePref[language] }}</h1>
     <h4 class="signInBook">
-      {{signInText[language]}}
+      {{ signInText[language] }}
     </h4>
     <ion-row>
       <ion-col size="5" class="signInCol">
-        <button id="signInButton" routerLink="/login">{{signIn[language]}}</button>
+        <button id="signInButton" routerLink="/login">
+          {{ signIn[language] }}
+        </button>
       </ion-col>
       <ion-col size="7">
-        <span id="loginOption">{{orUsing[language]}}</span>
-        <button id="googleplus" routerLink="/login">
-          <img src="assets/images/GooglePlus.png" height="16px;" />
-        </button>
+        <span id="loginOption">{{ orUsing[language] }}</span>
 
         <button id="facebookLogin" routerLink="/login">
           <img src="assets/images/Facebook.png" height="19px;" />
         </button>
+        <button id="googleplus" routerLink="/login">
+          <img src="assets/images/GooglePlus.png" height="16px;" />
+        </button>
       </ion-col>
     </ion-row>
   </div>
-
   <div class="optionsDiv">
-    <ion-col size="12" class="languageRow">
-      <ion-row>
-        <ion-col size="2" class="langColTwo">
+    <ul class="option_list">
+      <li>
+        <div class="icon_box">
           <span>Aa</span>
-        </ion-col>
-        <ion-col size="10">
-          <div>
-            <ion-col size="5" class="languageDiv">
-              <span class="optionsList" *ngIf="language">{{languageText[language]}}</span>
-            </ion-col>
-            <ion-col size="7" (click)="changeLang(language)">
-              <span class="selectIcon">
-                <ion-icon name="arrow-dropdown"></ion-icon>
-              </span>
-              <span class="langColor" *ngIf="language">{{langSelectText[language]}}</span>
-            </ion-col>
+        </div>
+        <div class="menu_link">
+          <div class="menu_link_text">
+            <span class="optionsList" *ngIf="language">{{
+              languageText[language]
+            }}</span>
           </div>
-        </ion-col>
-      </ion-row>
-    </ion-col>
-    <ion-col size="12">
-      <ion-row class="settings settingIcon">
-        <ion-col size="2" class="settingIconCol">
-          <ion-icon name="bookmark"></ion-icon>
-        </ion-col>
-        <ion-col size="10">
-          <div routerLink="/bookmark">
-            <span class="optionsList" *ngIf="language">{{bookmark[language]}}</span>
+          <div class="lang_selector" (click)="changeLang(language)">
+            <span class="selectIcon">
+              <ion-icon name="arrow-dropdown"></ion-icon>
+            </span>
+            <span class="langColor" *ngIf="language">{{
+              langSelectText[language]
+            }}</span>
           </div>
-        </ion-col>
-      </ion-row>
-    </ion-col>
-    <ion-col size="12">
-      <ion-row class="settings settingIcon">
-        <ion-col size="2" class="settingIconCol">
-          <ion-icon name="apps"></ion-icon>
-        </ion-col>
-        <ion-col size="10">
-          <div routerLink="/all-categories">
-            <span class="optionsList" *ngIf="language">{{category[language]}}</span>
+        </div>
+      </li>
+      <li routerLink="/bookmark">
+        <div class="icon_box">
+          <span><ion-icon name="bookmark"></ion-icon></span>
+        </div>
+        <div class="menu_link">
+          <div class="menu_link_text">
+            <span class="optionsList" *ngIf="language">{{
+              bookmark[language]
+            }}</span>
           </div>
-        </ion-col>
-      </ion-row>
-    </ion-col>
-    <ion-col size="12">
-      <ion-row class="settings settingIcon">
-        <ion-col size="2" class="settingIconCol">
-          <ion-icon name="notifications-outline"></ion-icon>
-        </ion-col>
-        <ion-col size="10">
-          <div>
-            <span class="optionsList" *ngIf="language"
-              >{{notification[language]}}</span
-            >
+        </div>
+      </li>
+      <li routerLink="/all-categories">
+        <div class="icon_box">
+          <span><ion-icon name="apps"></ion-icon></span>
+        </div>
+        <div class="menu_link">
+          <div class="menu_link_text">
+            <span class="optionsList" *ngIf="language">{{
+              category[language]
+            }}</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="icon_box">
+          <span><ion-icon name="notifications-outline"></ion-icon></span>
+        </div>
+        <div class="menu_link">
+          <div class="menu_link_text">
+            <span class="optionsList" *ngIf="language">{{
+              notification[language]
+            }}</span>
+          </div>
+          <div class="lang_selector">
             <label
               class="switch"
               *ngIf="notifyFlag === 'true' || annonymousNotify === 'true'"
@@ -121,64 +131,57 @@
               <div></div>
             </label>
           </div>
-        </ion-col>
-      </ion-row>
-    </ion-col>
-    <ion-col size="12">
-      <ion-row class="settings settingIcon">
-        <ion-col size="2">
-          <ion-icon name="chatboxes"></ion-icon>
-        </ion-col>
-        <ion-col size="10">
-          <div routerLink="/feedback">
-            <span class="optionsList" *ngIf="language">{{feedback[language]}}</span>
+        </div>
+      </li>
+      <li routerLink="/feedback">
+        <div class="icon_box">
+          <span><ion-icon name="chatboxes"></ion-icon></span>
+        </div>
+        <div class="menu_link">
+          <div class="menu_link_text">
+            <span class="optionsList" *ngIf="language">{{
+              feedback[language]
+            }}</span>
           </div>
-        </ion-col>
-      </ion-row>
-    </ion-col>
-    <ion-col size="12">
-      <ion-row class="settings settingIcon">
-        <ion-col size="2">
-          <ion-icon name="lock"></ion-icon>
-        </ion-col>
-        <ion-col size="10">
-          <div routerLink="/privacy">
-            <span class="optionsList" *ngIf="language"
-              >{{privacy[language]}}</span
-            >
+        </div>
+      </li>
+      <li routerLink="/privacy">
+        <div class="icon_box">
+          <span><ion-icon name="lock"></ion-icon></span>
+        </div>
+        <div class="menu_link">
+          <div class="menu_link_text">
+            <span class="optionsList" *ngIf="language">{{
+              privacy[language]
+            }}</span>
           </div>
-        </ion-col>
-      </ion-row>
-    </ion-col>
-    <ion-col size="12">
-      <ion-row class="settings settingIcon">
-        <ion-col size="2">
-          <ion-icon name="paper"></ion-icon>
-        </ion-col>
-        <ion-col size="10">
-          <div routerLink="/terms">
-            <span class="optionsList" *ngIf="language"
-              >{{terms[language]}}</span
-            >
+        </div>
+      </li>
+      <li routerLink="/terms">
+        <div class="icon_box">
+          <span><ion-icon name="paper"></ion-icon></span>
+        </div>
+        <div class="menu_link">
+          <div class="menu_link_text">
+            <span class="optionsList" *ngIf="language">{{
+              terms[language]
+            }}</span>
           </div>
-        </ion-col>
-      </ion-row>
-    </ion-col>
-    <ion-col size="12">
-      <ion-row class="settings settingIcon">
-        <ion-col size="2" class="settingIconCol">
-          <ion-icon name="share"></ion-icon>
-        </ion-col>
-        <ion-col size="10">
-          <div (click)="sendShare()">
-            <span class="optionsList" *ngIf="language"
-              >{{shareApp[language]}}</span
-            >
+        </div>
+      </li>
+      <li (click)="sendShare()">
+        <div class="icon_box">
+          <span><ion-icon name="share"></ion-icon></span>
+        </div>
+        <div class="menu_link">
+          <div class="menu_link_text">
+            <span class="optionsList" *ngIf="language">{{
+              shareApp[language]
+            }}</span>
           </div>
-        </ion-col>
-      </ion-row>
-    </ion-col>
-    <img src="../../assets/images/settingBag.png" class="loginBg">
+        </div>
+      </li>
+    </ul>
   </div>
+  <ion-row id="ratingRow"> </ion-row>
 </ion-content>
-
