@@ -16,7 +16,7 @@
         class="postDescription"
         (click)="singleNews(news.newsId)"
       >
-        <div>
+        <div [ngClass]="{'isVisited':isPresent}">
           <span
             class="optionsList"
             *ngIf="language != 'as'"

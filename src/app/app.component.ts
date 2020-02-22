@@ -65,6 +65,10 @@ export class AppComponent {
     if(localStorage.getItem('catSelect')){
       localStorage.setItem('skip','1')
     }
+    if(!localStorage.getItem('isVisited')){
+      let isVisited = [];
+      localStorage.setItem('isVisited',JSON.stringify(isVisited))
+    }
     localStorage.removeItem('firstTimeLoaded');
     this._userService.currentData.subscribe(value => {
       if (this.loginModalFlag != true) {

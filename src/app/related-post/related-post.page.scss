@@ -88,10 +88,13 @@ img.likeImage {
   bottom: 0;
   margin: auto;
 }
-.timeAgo {
+.timeAgo{
   opacity: 0.8;
   font-weight: normal;
 }
 .borderBottom{
   border-bottom: 1px solid #777777;
+}
+.isVisited{
+  color: #609
 }

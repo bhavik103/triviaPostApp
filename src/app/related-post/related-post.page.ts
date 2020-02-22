@@ -10,20 +10,27 @@ import {ToastService} from '../services/toast.service';
   styleUrls: ['./related-post.page.scss'],
 })
 export class RelatedPostPage implements OnInit {
-  @Input() news: string;
+  @Input() news: any;
   @Input() language: string;
   @Input() postCount: any;
   mediaPath = config.mediaApiUrl;
   wrongStatus: boolean;
+  visitedArray: any;
+  isPresent: any;
   constructor(private router: Router, private _toastService: ToastService) { }
 
   ngOnInit() {
+    this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
+    this.isPresent = this.visitedArray.includes(this.news.newsId);
     console.log("RELATED POST", this.news)
     $('.relatedPostRow').addClass('borderClass');
     console.log("GOT 4", this.postCount);
   }
 
   singleNews(postid) {
+    this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
+    this.visitedArray.push(postid);
+    localStorage.setItem('isVisited',JSON.stringify(this.visitedArray))
     if (localStorage.getItem('skip')) {
       if (navigator.onLine) {
         if (this.wrongStatus) {

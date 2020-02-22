@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, LOCALE_ID } from '@angular/core';
 import { config } from '../config';
 import { Router } from '@angular/router';
 import { ToastService } from '../services/toast.service'
+import { visitAll } from '@angular/compiler';
 
 @Component({
   selector: 'app-post-tiles',
@@ -10,13 +11,15 @@ import { ToastService } from '../services/toast.service'
 })
 export class PostTilesPage implements OnInit {
   @Input('singleCat') singleCat: any;
-  @Input('news') news: string;
-  @Input('language') language: string;
+  @Input('news') news: any;
+  @Input('language') language: any;
   mediaPath = config.mediaApiUrl;
   wrongStatus = false
   firstLargePostClick: string;
   skip: string;
   firstTimeBlur = false;
+  visitedArray: any;
+  isPresent: any;
   constructor(private _toastService: ToastService, private router: Router) {
   }
 
@@ -33,6 +36,10 @@ export class PostTilesPage implements OnInit {
   }
 
   ngOnInit() {
+    this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
+    this.isPresent = this.visitedArray.includes(this.news.newsId);
+
+    // console.log("NEWS IN TILES",this.news.newsId)
     const alertOnlineStatus = () => {
     }
 
@@ -53,21 +60,18 @@ export class PostTilesPage implements OnInit {
   }
 
   singleNews(postid) {
-    if (localStorage.getItem('skip')) {
-      if (navigator.onLine) {
-        if (this.wrongStatus) {
-          this.wrongStatus = false
-        }
-        else {
-          localStorage.setItem('firstLargePostClick', '1')
-          // localStorage.setItem('skip', '1')
-          console.log('postid', postid);
-          this.router.navigateByUrl('/single-post/' + postid);
-
-        }
-      } else {
-        this._toastService.toastFunction('No internet connnection', 'danger');
+    this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
+    this.visitedArray.push(postid);
+    localStorage.setItem('isVisited',JSON.stringify(this.visitedArray))
+    if (navigator.onLine) {
+      if (this.wrongStatus) {
+        this.wrongStatus = false
       }
+      else {
+        this.router.navigateByUrl('/single-post/' + postid);
+      }
+    } else {
+      this._toastService.toastFunction('No internet connnection', 'danger');
     }
   }
 }

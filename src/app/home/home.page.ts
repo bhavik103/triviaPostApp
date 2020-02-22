@@ -57,6 +57,8 @@ export class HomePage implements OnInit {
     offline: boolean;
     catLoading: boolean;
     firstTimeLoad: boolean;
+    skipTheTour: boolean;
+    startTour: boolean;
 
     constructor(public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
         if (!localStorage.getItem('skip')) {
@@ -77,7 +79,10 @@ export class HomePage implements OnInit {
     }
 
     ionViewDidEnter() {
-        console.log('this.firstTimeLoad',this.firstTimeLoad)
+        if (!localStorage.getItem('language')) {
+            this.askForTour();
+        }
+        console.log('this.firstTimeLoad', this.firstTimeLoad)
         this.skip = localStorage.getItem('skip');
         this.catSelect = localStorage.getItem('catSelect');
         this.language = localStorage.getItem('language')
@@ -111,7 +116,7 @@ export class HomePage implements OnInit {
     }
     ionViewWillEnter() {
         this.loading = false
-        if(localStorage.getItem('language')){
+        if (localStorage.getItem('language')) {
             this.getAllPost()
         }
         if (localStorage.getItem('skip')) {
@@ -127,6 +132,35 @@ export class HomePage implements OnInit {
         this.checkforInternet();
     }
 
+    async askForTour() {
+        this.loading = true;
+        const alert = await this.alertController.create({
+            header: 'Confirm!',
+            message: 'Would you like to start the tour?',
+            cssClass: 'alertCustomCss',
+            buttons: [
+                {
+                    text: 'Skip',
+                    role: 'cancel',
+
+                    handler: (blah) => {
+                        this.loading = false;
+                        this.skipTheTour = true;
+                        localStorage.setItem('skip', '1')
+                    }
+                }, {
+                    text: 'Start',
+
+                    handler: () => {
+                        this.loading = false;
+                        this.startTour = true;
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
+    }
     async skipTour() {
         const alert = await this.alertController.create({
             header: 'Confirm!',
@@ -154,46 +188,18 @@ export class HomePage implements OnInit {
                 }
             ]
         });
-        
+
         await alert.present();
     }
-    
+
     //get all news - HOME PAGE ( FEEDS )
     async getAllPost() {
         this.newsArray = []
         this.latestPost = [];
-        localStorage.setItem('firstTimeLoaded','true');
+        localStorage.setItem('firstTimeLoaded', 'true');
         this.loading = true;
         this.language = localStorage.getItem('language');
-        if (!localStorage.getItem('skip') && localStorage.getItem('firstLargePostClick')) {
-            
-            const alert = await this.alertController.create({
-                header: 'Confirm!',
-                message: 'Are you sure you want to skip the <strong>tour</strong>?',
-                cssClass: 'alertCustomCss',
-                buttons: [
-                    {
-                        text: 'Continue',
-                        role: 'cancel',
-                        
-                        handler: (blah) => {
-                            this.router.navigateByUrl('/single-post/' + this.latestPost.newsId);
-                        }
-                    }, {
-                        text: 'Skip',
-                        
-                        handler: () => {
-                            localStorage.setItem('skip', '1');
-                            localStorage.setItem('shareBlink', '1');
-                            localStorage.setItem('catSelect', '1');
-                            localStorage.setItem('firstLargePostClick', '1');
-                            this.skip = localStorage.getItem('skip');
-                            this.router.navigateByUrl('all-categories');
-                        }
-                    }
-                ]
-            });
-            await alert.present();
+        if (navigator.onLine) {
             this._newsService.getAllNews().subscribe(
                 (res: any) => {
                     this.firstTimeLoad = true;
@@ -203,47 +209,30 @@ export class HomePage implements OnInit {
                     this.newsArray.splice(0, 1);
                     if (!localStorage.getItem('skip')) {
                     }
-                    // this.loading = false;
+                    this.loading = false;
                 },
                 (err) => {
                     this.newsArray = localStorage.newsArray;
                 });
-            } else {
-                if (navigator.onLine) {
-                    this._newsService.getAllNews().subscribe(
-                        (res: any) => {
-                            this.firstTimeLoad = true;
-                            this.newsArray = res;
-                            this.latestPost = res[0];
-                            console.log('this.latestPost', this.latestPost)
-                            this.newsArray.splice(0, 1);
-                            if (!localStorage.getItem('skip')) {
-                            }
-                            this.loading = false;
-                        },
-                        (err) => {
-                            this.newsArray = localStorage.newsArray;
-                        });
-                    } else {
-                        this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
-                        this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
-                        this.newsArray.splice(0, 1)
-                    }
-                }
-            }
-            
-            //go to specific post when link click
-            firebaseLinkRoute() {
-                if (!config.isvisited && !config.counter) {
-                    this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
-                        var postId = res.deepLink.split('?')[1].split('=')[1];
-                        console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1])
-                        console.log('Is Visited:------------- 1', config.isvisited);
-                        this.router.navigate(['single-post/' + postId]);
-                    }, (error: any) => {
-                        console.log(error)
-                    });
-                }
+        } else {
+            this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
+            this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
+            this.newsArray.splice(0, 1)
+        }
+    }
+
+    //go to specific post when link click
+    firebaseLinkRoute() {
+        if (!config.isvisited && !config.counter) {
+            this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
+                var postId = res.deepLink.split('?')[1].split('=')[1];
+                console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1])
+                console.log('Is Visited:------------- 1', config.isvisited);
+                this.router.navigate(['single-post/' + postId]);
+            }, (error: any) => {
+                console.log(error)
+            });
+        }
     }
     //check for internet
     checkforInternet() {
@@ -284,6 +273,7 @@ export class HomePage implements OnInit {
         console.log("Event e", e);
         if (e.cat === 1) {
             localStorage.setItem('catSelect', '1');
+            localStorage.setItem('skip', '1');
             localStorage.setItem('language', this.language);
             this.catSelect = '1';
             this.getAllPost();
@@ -320,37 +310,40 @@ export class HomePage implements OnInit {
     async selectLang() {
         if (this.selected) {
             this.getCategories();
-            const alert = await this.alertController.create({
-                header: 'Confirm!',
-                message: 'Would you like to start the tour?',
-                cssClass: 'alertCustomCss',
-                buttons: [
-                    {
-                        text: 'Skip',
-                        role: 'cancel',
+            this.catSelect = '0';
+            localStorage.setItem('catSelect', '0')
+            let lang = this.selected;
+            localStorage.setItem('language', lang);
+            this._generalService.setExtras(lang);
+            this.language = lang;
 
-                        handler: (blah) => {
-                            let language = this.selected;
-                            localStorage.setItem('language', language);
-                            localStorage.setItem('skip', '1')
-                            this.router.navigateByUrl('all-categories');
-                        }
-                    }, {
-                        text: 'Start',
-
-                        handler: () => {
-                            this.catSelect = '0';
-                            localStorage.setItem('catSelect', '0')
-                            let lang = this.selected;
-                            localStorage.setItem('language', lang);
-                            this._generalService.setExtras(lang);
-                            this.language = lang;
-                        }
+            this._generalService.setExtras(this.language);
+            this.fcm.getToken().then(token => {
+                localStorage.setItem('deviceToken', token);
+                setTimeout(() => {
+                    if (localStorage.getItem('annonymousNotify')) {
+                        this._userService.firstTimeUser(this.selected).subscribe((res: any) => {
+                            // this.getCategories();
+                            this._userService.serviceFunction();
+                            localStorage.setItem('annonymousNotify', 'true');
+                        },
+                            (err) => {
+                            });
                     }
-                ]
+                }, 1000);
             });
-
-            await alert.present();
+            this.fcm.onTokenRefresh().subscribe(token => {
+                localStorage.setItem('deviceToken', token);
+            });
+        }
+    }
+    //select lang on first time app opens
+    async selectLangSkip() {
+        if (this.selected) {
+            this.getCategories();
+            localStorage.setItem('language', this.selected);
+            localStorage.setItem('skip', '1')
+            this.router.navigateByUrl('all-categories');
 
             this._generalService.setExtras(this.language);
             this.fcm.getToken().then(token => {

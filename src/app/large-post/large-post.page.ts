@@ -16,10 +16,14 @@ export class LargePostPage implements OnInit {
   firstLargePostClick: string;
   wrongStatus = false;
   noConnection: boolean
+  visitedArray: any;
+  isPresent: any;
   constructor(private _toastService: ToastService, private router: Router) {
   }
 
   ngOnInit() {
+    this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
+    this.isPresent = this.visitedArray.includes(this.news.newsId);
     console.log("news[language].title", this.news[this.language].title)
     console.log('this.news', this.news)
     this.firstLargePostClick = localStorage.getItem('firstLargePostClick')
@@ -48,6 +52,9 @@ export class LargePostPage implements OnInit {
   }
 
   singleNews(postid) {
+    this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
+    this.visitedArray.push(postid);
+    localStorage.setItem('isVisited',JSON.stringify(this.visitedArray))
     if (navigator.onLine) {
       if (this.wrongStatus) {
         this.wrongStatus = false
