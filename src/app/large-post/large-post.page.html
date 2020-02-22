@@ -1,7 +1,7 @@
 <ion-row>
   <ion-col size="12" class="latestPost" (click)="singleNews(news.newsId)">
     <img
-      class="latestpostimg"
+      class="latestpostimg firstTimeBlur"
       src="{{mediaPath}}{{news.newsImage}}"
       height="100%"
       data-src="../../assets/images/placeholder.png'"
@@ -11,7 +11,6 @@
       (click)="singleNews(news.newsId)"
     />
     <img
-      class=""
       src="{{mediaPath}}{{news.newsImage}}"
       height="100%"
       data-src="../../assets/images/placeholder.png'"
@@ -21,7 +20,6 @@
       (click)="singleNews(news.newsId)"
     />
     <img
-      class=""
       data-src="../../assets/images/placeholder.png'"
       onerror="this.src='../../assets/images/placeholder.png'"
       height="100%"
@@ -29,38 +27,43 @@
       *ngIf="(firstLargePostClick === '1' || skip == 1) && noConnection"
       (click)="singleNews(news.newsId)"
     />
+    <div
+      *ngIf="!firstLargePostClick && !skip == '1'"
+      class="tourText tourTextTitle"
+    >
+      Click here to read this post!
+    </div>
     <div class="textBlock">
-      
       <span
         class="latestNews"
         *ngIf="!firstLargePostClick && language != 'as' && !skip == '1'"
         (click)="singleNews(news.newsId)"
       >
-      {{news[language].title}}
-      <div class="ripple_effect"></div>
-    </span>
+        {{news[language].title}}
+        <div class="ripple_effect"></div>
+      </span>
       <span
         class="latestNews assameseFont"
         *ngIf="!firstLargePostClick && language == 'as' && !skip == '1'"
         (click)="singleNews(news.newsId)"
       >
-      news[language].title
-      <div class="ripple_effect"></div>
-    </span>
+        news[language].title
+        <div class="ripple_effect"></div>
+      </span>
       <span
         class="latestNews"
         *ngIf="(skip == '1' || firstLargePostClick === '1') && language != 'as'"
         [innerHTML]="news[language].title"
         (click)="singleNews(news.newsId)"
       >
-    </span>
+      </span>
       <span
         class="latestNews assameseFont"
         *ngIf="(skip == '1' || firstLargePostClick === '1') && language == 'as'"
         [innerHTML]="news[language].title"
         (click)="singleNews(news.newsId)"
       >
-    </span>
+      </span>
       <span
         *ngIf="news[language].title.length >= 40 && language == 'en'"
         class="latestNews"
@@ -97,5 +100,8 @@
     >
       {{news.newsCategory[language]}}
     </button>
+    <div *ngIf="!firstLargePostClick && !skip == '1'" class="tourText">
+      Click here to read posts of this category!
+    </div>
   </ion-col>
 </ion-row>

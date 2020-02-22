@@ -1,4 +1,5 @@
 <div
+  [ngClass]="{'tourBlur': ifTourCompleted && !skip}"
   class="container"
   (click)="singleCategory(category.categoryId,category.category[language])"
 >
@@ -11,8 +12,17 @@
   />
 </div>
 <div class="text-block">
+  <div
+    *ngIf="!category.isNotify && (firstTime && !skip) && index == 0"
+    class="tourText"
+  >
+    Click here to subscribe category to get notifications of that particular category news!
+  </div>
   <div class="">
-    <div class="category_title">
+    <div
+      class="category_title"
+      [ngClass]="{'tourBlur': ifTourCompleted && !skip}"
+    >
       <p
         *ngIf="language != 'as'"
         (click)="singleCategory(category.categoryId,category.category[language])"
@@ -31,6 +41,7 @@
     <button
       *ngIf="!category.isNotify && (!firstTime || skip)"
       class="notSubscribed"
+      [ngClass]="{'tourBlur': ifTourCompleted && !skip}"
       (click)="addNotify(category.categoryId, category.isNotify,firstTime)"
     >
       <ion-icon name="notifications-outline"></ion-icon> Subscribe
@@ -45,7 +56,8 @@
     </button>
     <button
       *ngIf="!category.isNotify && (firstTime && !skip) && index != 0"
-      class="notSubscribed"
+      class="notSubscribed notFirstTime"
+      [ngClass]="{'tourBlur': ifTourCompleted && !skip}"
       (click)="addNotify(category.categoryId, category.isNotify,firstTime)"
     >
       <ion-icon name="notifications-outline"></ion-icon> Subscribe
@@ -53,6 +65,7 @@
     <button
       *ngIf="category.isNotify"
       class="subscribed"
+      [ngClass]="{'tourBlur': ifTourCompleted && !skip}"
       (click)="addNotify(category.categoryId, category.isNotify,firstTime)"
     >
       Subscribed
@@ -92,6 +105,9 @@
         <div class="ripple_effect"></div>
         Skip
       </button>
+      <div class="tourText tourTextModal">
+        Click here to proceed!
+      </div>
     </div>
   </div>
 </div>

@@ -47,12 +47,93 @@ export class SettingsComponent implements OnInit {
 	notification = notification;
 	//********static variables based on language ends
 	
+	// languageActionSheet = [
+	// 	{
+	// 		text: 'English', shortForm: 'en', role: 'destructive', handler: () => {
+	// 			this.language = 'en';
+	// 			localStorage.setItem('language', 'en');
+	// 			this._userService.changeLanguage('en').subscribe();
+	// 		}
+	// 	},
+	// 	{
+	// 		text: 'हिंदी', shortForm: 'hn', role: 'destructive', handler: () => {
+	// 			this.language = 'hn';
+	// 			localStorage.setItem('language', 'hn');
+	// 			this.language = localStorage.getItem('language');
+	// 			this._userService.changeLanguage('hn').subscribe();
+	// 		}
+	// 	},
+	// 	{
+	// 		text: 'অসমীয়া', shortForm: 'as', role: 'destructive', handler: () => {
+	// 			this.language = 'as';
+	// 			localStorage.setItem('language', 'as');
+	// 			this._userService.changeLanguage('as').subscribe();
+	// 		}
+	// 	},
+	// 	{
+	// 		text: 'বাংলা', shortForm: 'bn', role: 'destructive', handler: () => {
+	// 			this.language = 'bn';
+	// 			localStorage.setItem('language', 'bn')
+	// 			this._userService.changeLanguage('bn').subscribe();
+	// 		}
+	// 	},
+	// 	{
+	// 		text: 'ગુજરાતી', shortForm: 'gu', role: 'destructive', handler: () => {
+	// 			this.language = 'gu';
+	// 			localStorage.setItem('language', 'gu');
+	// 			this._userService.changeLanguage('gu').subscribe();
+	// 		}
+	// 	},
+	// 	{
+	// 		text: 'ಕನ್ನಡ', shortForm: 'kn', role: 'destructive', handler: () => {
+	// 			this.language = 'kn';
+	// 			localStorage.setItem('language', 'kn');
+	// 			this._userService.changeLanguage('kn').subscribe();
+	// 		}
+	// 	},
+	// 	{
+	// 		text: 'മലയാളം', shortForm: 'ml', role: 'destructive', handler: () => {
+	// 			this.language = 'ml';
+	// 			localStorage.setItem('language', 'ml');
+	// 			this._userService.changeLanguage('ml').subscribe();
+	// 		}
+	// 	},
+	// 	{
+	// 		text: 'मराठी', shortForm: 'mr', role: 'destructive', handler: () => {
+	// 			this.language = 'mr';
+	// 			localStorage.setItem('language', 'mr');
+	// 			this._userService.changeLanguage('mr').subscribe();
+	// 		}
+	// 	},
+	// 	{
+	// 		text: 'ਪੰਜਾਬੀ', shortForm: 'pa', role: 'destructive', handler: () => {
+	// 			this.language = 'pa';
+	// 			localStorage.setItem('language', 'pa');
+	// 			this._userService.changeLanguage('pa').subscribe();
+	// 		}
+	// 	},
+	// 	{
+	// 		text: 'தமிழ்', shortForm: 'ta', role: 'destructive', handler: () => {
+	// 			this.language = 'ta';
+	// 			localStorage.setItem('language', 'ta');
+	// 			this._userService.changeLanguage('ta').subscribe();
+	// 		}
+	// 	},
+	// 	{
+	// 		text: 'తెలుగు', shortForm: 'te', role: 'destructive', handler: () => {
+	// 			this.language = 'te';
+	// 			localStorage.setItem('language', 'te');
+	// 			this._userService.changeLanguage('te').subscribe();
+	// 		}
+	// 	},
+	// ];
+
 	languageActionSheet = [
 		{
 			text: 'English', shortForm: 'en', role: 'destructive', handler: () => {
 				this.language = 'en';
 				localStorage.setItem('language', 'en');
-				this._userService.changeLanguage('en');
+				this._userService.changeLanguage('en').subscribe();
 			}
 		},
 		{
@@ -60,74 +141,24 @@ export class SettingsComponent implements OnInit {
 				this.language = 'hn';
 				localStorage.setItem('language', 'hn');
 				this.language = localStorage.getItem('language');
-				this._userService.changeLanguage('hn');
+				this._userService.changeLanguage('hn').subscribe();
 			}
 		},
 		{
 			text: 'অসমীয়া', shortForm: 'as', role: 'destructive', handler: () => {
 				this.language = 'as';
 				localStorage.setItem('language', 'as');
-				this._userService.changeLanguage('as');
+				this._userService.changeLanguage('as').subscribe();
 			}
 		},
 		{
 			text: 'বাংলা', shortForm: 'bn', role: 'destructive', handler: () => {
 				this.language = 'bn';
 				localStorage.setItem('language', 'bn')
-				this._userService.changeLanguage('bn');
+				this._userService.changeLanguage('bn').subscribe();
 			}
-		},
-		{
-			text: 'ગુજરાતી', shortForm: 'gu', role: 'destructive', handler: () => {
-				this.language = 'gu';
-				localStorage.setItem('language', 'gu');
-				this._userService.changeLanguage('gu');
-			}
-		},
-		{
-			text: 'ಕನ್ನಡ', shortForm: 'kn', role: 'destructive', handler: () => {
-				this.language = 'kn';
-				localStorage.setItem('language', 'kn');
-				this._userService.changeLanguage('kn');
-			}
-		},
-		{
-			text: 'മലയാളം', shortForm: 'ml', role: 'destructive', handler: () => {
-				this.language = 'ml';
-				localStorage.setItem('language', 'ml');
-				this._userService.changeLanguage('ml');
-			}
-		},
-		{
-			text: 'मराठी', shortForm: 'mr', role: 'destructive', handler: () => {
-				this.language = 'mr';
-				localStorage.setItem('language', 'mr');
-				this._userService.changeLanguage('mr');
-			}
-		},
-		{
-			text: 'ਪੰਜਾਬੀ', shortForm: 'pa', role: 'destructive', handler: () => {
-				this.language = 'pa';
-				localStorage.setItem('language', 'pa');
-				this._userService.changeLanguage('pa');
-			}
-		},
-		{
-			text: 'தமிழ்', shortForm: 'ta', role: 'destructive', handler: () => {
-				this.language = 'ta';
-				localStorage.setItem('language', 'ta');
-				this._userService.changeLanguage('ta');
-			}
-		},
-		{
-			text: 'తెలుగు', shortForm: 'te', role: 'destructive', handler: () => {
-				this.language = 'te';
-				localStorage.setItem('language', 'te');
-				this._userService.changeLanguage('te');
-			}
-		},
+		}
 	];
-
 	constructor(private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
 	}
 
@@ -210,7 +241,7 @@ export class SettingsComponent implements OnInit {
 		var subject = "Install Trivia Post";
 		console.log("Share", this.privacyPolicy)
 		var url = this.privacyPolicy[0].applink;
-		this.socialSharing.share("Check out Trivia Post App. I found it best for reading news", "Trivia Post App", null, url)
+		this.socialSharing.share("Read these interesting facts on Trivia Post. Download App", "Trivia Post App", null, url)
 			.then((entries) => {
 				console.log('success ' + JSON.stringify(entries));
 			})

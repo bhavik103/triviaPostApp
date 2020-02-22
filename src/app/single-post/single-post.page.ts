@@ -33,6 +33,7 @@ export class SinglePostPage implements OnInit {
   byPassedNews: any;
   skip: string;
   loginBookmark: any;
+  firstTimeBlur = false;
   constructor(private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
@@ -42,6 +43,7 @@ export class SinglePostPage implements OnInit {
     });
   }
   ionViewWillEnter() {
+    this.firstTimeBlur = false;
     if (localStorage.getItem('bookmarkId')) {
       this.bookmark(localStorage.getItem('bookmarkId'));
     }
@@ -49,6 +51,9 @@ export class SinglePostPage implements OnInit {
     this.skip = localStorage.getItem('skip');
     this.increaseViews();
     this.removeRedirectItem();
+    if (!this.skip) {
+      this.firstTimeBlur = true;
+    }
     var postId = this.route.snapshot.params['id'];
     if (this.platform.is('cordova')) {
       // Firebase Analytics 'screen_view' event tracking
@@ -99,9 +104,6 @@ export class SinglePostPage implements OnInit {
   }
 
   singlePostfun(postid) {
-    // this.singlepost = [];
-    // this.news = [];
-    // this.byPassedNews = [];
     this._newsService.getSingleNews(postid).subscribe(res => {
       const singlepostArray = [];
       singlepostArray.push(JSON.parse(JSON.stringify(res)));
@@ -135,7 +137,8 @@ export class SinglePostPage implements OnInit {
   sharePost(link, newsTitle, newsImage) {
     console.log(link, newsTitle, newsImage)
     this.shareBlink = '1';
-    this.skip = '1'
+    this.skip = '1';
+    this.firstTimeBlur = false;
     localStorage.setItem('shareBlink', '1')
     localStorage.setItem('skip', '1')
     var message = "Check out this amazing news " + '"' + newsTitle + '" ';
@@ -153,6 +156,7 @@ export class SinglePostPage implements OnInit {
 
   //  Do Bookmark
   bookmark(newsid) {
+    this.firstTimeBlur = false;
     this.shareBlink = '1';
     this.skip = '1'
     localStorage.setItem('shareBlink', '1')
@@ -188,10 +192,13 @@ export class SinglePostPage implements OnInit {
   }
 
   openWithSystemBrowser(url) {
-    let target = "_blank";
-    this.iab.create(url, `_blank`);
+    if (localStorage.getItem('skip')) {
+      let target = "_blank";
+      this.iab.create(url, `_blank`);
+    }
   }
   singleNews(postid) {
+    this.firstTimeBlur = false;
     localStorage.setItem('skip', '1')
     localStorage.setItem('skip', 'true');
     localStorage.setItem('shareBlink', '1');
@@ -202,15 +209,18 @@ export class SinglePostPage implements OnInit {
     this.router.navigateByUrl('/single-post/' + postid);
   }
   singleCategory(catId, catname) {
-    localStorage.setItem('skip', '1')
-    localStorage.setItem('skip', 'true');
-    localStorage.setItem('shareBlink', '1');
-    localStorage.setItem('catSelect', '1');
-    localStorage.setItem('firstLargePostClick', '1');
-    this.skip = localStorage.getItem('skip');
-    localStorage.setItem('skip', '1')
-    console.log('catId compoennt', catId)
-    this.router.navigateByUrl('single-category/' + catId + '/' + catname);
+    if (localStorage.getItem('skip')) {
+      this.firstTimeBlur = false
+      localStorage.setItem('skip', '1')
+      localStorage.setItem('skip', 'true');
+      localStorage.setItem('shareBlink', '1');
+      localStorage.setItem('catSelect', '1');
+      localStorage.setItem('firstLargePostClick', '1');
+      this.skip = localStorage.getItem('skip');
+      localStorage.setItem('skip', '1')
+      console.log('catId compoennt', catId)
+      this.router.navigateByUrl('single-category/' + catId + '/' + catname);
+    }
   }
   backClick() {
     // localStorage.setItem('skip', '1')
@@ -246,5 +256,9 @@ export class SinglePostPage implements OnInit {
       });
       await alert.present();
     }
+  }
+
+  homeClick() {
+    localStorage.setItem('skip', '1')
   }
 }

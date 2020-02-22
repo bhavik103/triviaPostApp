@@ -1,37 +1,48 @@
-<ion-row class="relatedPostRow{{postCount}}">
-  <ion-col size="4" class="newsImg">
-    <img
-      src="{{mediaPath}}{{news.newsImage}}"
-      height="73px"
-      width="100%"
-      (click)="singleNews(news.newsId)"
-    />
-  </ion-col>
-  <ion-col size="8" class="contentFeeds">
-    <span
-      class="optionsList"
-      *ngIf="language != 'as'"
-      [innerHTML]="news[language].title | slice:0:60"
-      (click)="singleNews(news.newsId)"
-    ></span>
-    <span
-      *ngIf="language == 'as'"
-      class="optionsList assameseFont"
-      [innerHTML]="news[language].title | slice:0:30"
-      (click)="singleNews(news.newsId)"
-    ></span>
-    <span *ngIf="news[language].title.length >= 60">...</span>
-    <span
-      (click)="categoryClick(news.newsCategoryId, news.newsCategory[language])"
-      class="categoryButton"
-      *ngIf="news.newsCategory && language != 'as'"
-      >{{news.newsCategory[language]}}</span
-    >
-    <span
-      (click)="categoryClick(news.newsCategoryId, news.newsCategory[language])"
-      class="categoryButton assameseFont"
-      *ngIf="news.newsCategory && language == 'as'"
-      >{{news.newsCategory[language]}}</span
-    >
-  </ion-col>
-</ion-row>
+<ion-list lines="none" [ngClass]="{'borderBottom': postCount < 4}">
+  <ion-item-sliding class="feeds">
+    <ion-item>
+      <ion-col size="3" class="newsImg" padding>
+        <img
+          src="{{mediaPath}}{{news.newsImage}}"
+          data-src="../../assets/images/placeholder.png'"
+          onerror="this.src='../../assets/images/placeholder.png'"
+          width="100%"
+          (click)="singleNews(news.newsId)"
+          class="loading"
+        />
+      </ion-col>
+      <ion-col
+        size="9"
+        class="postDescription"
+        (click)="singleNews(news.newsId)"
+      >
+        <div>
+          <span
+            class="optionsList"
+            *ngIf="language != 'as'"
+            [innerHTML]="news[language].title"
+            (click)="singleNews(news.newsId)"
+          ></span>
+          <span
+            class="optionsList assameseFont"
+            *ngIf="language == 'as'"
+            [innerHTML]="news[language].title"
+            (click)="singleNews(news.newsId)"
+          ></span>
+          <span
+            (click)="categoryClick(news.newsCategoryId, news.newsCategory[language]);wrongStatus = true"
+            class="categoryButton"
+            *ngIf="news.newsCategory && language != 'as'"
+            >{{news.newsCategory[language]}}</span
+          >
+          <span
+            (click)="categoryClick(news.newsCategoryId, news.newsCategory[language]);wrongStatus = true"
+            class="categoryButton assameseFont"
+            *ngIf="news.newsCategory && language == 'as'"
+            >{{news.newsCategory[language]}}</span
+          >
+        </div>
+      </ion-col>
+    </ion-item>
+  </ion-item-sliding>
+</ion-list>

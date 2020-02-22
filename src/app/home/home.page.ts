@@ -55,6 +55,8 @@ export class HomePage implements OnInit {
     currentLangSelected: any;
     skip: string;
     offline: boolean;
+    catLoading: boolean;
+    firstTimeLoad: boolean;
 
     constructor(public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
         if (!localStorage.getItem('skip')) {
@@ -75,6 +77,7 @@ export class HomePage implements OnInit {
     }
 
     ionViewDidEnter() {
+        console.log('this.firstTimeLoad',this.firstTimeLoad)
         this.skip = localStorage.getItem('skip');
         this.catSelect = localStorage.getItem('catSelect');
         this.language = localStorage.getItem('language')
@@ -108,7 +111,9 @@ export class HomePage implements OnInit {
     }
     ionViewWillEnter() {
         this.loading = false
-        this.getAllPost()
+        if(localStorage.getItem('language')){
+            this.getAllPost()
+        }
         if (localStorage.getItem('skip')) {
             this.skip = '1';
         }
@@ -149,18 +154,19 @@ export class HomePage implements OnInit {
                 }
             ]
         });
-
+        
         await alert.present();
     }
-
+    
     //get all news - HOME PAGE ( FEEDS )
     async getAllPost() {
         this.newsArray = []
-        this.latestPost = []
+        this.latestPost = [];
+        localStorage.setItem('firstTimeLoaded','true');
         this.loading = true;
         this.language = localStorage.getItem('language');
         if (!localStorage.getItem('skip') && localStorage.getItem('firstLargePostClick')) {
-
+            
             const alert = await this.alertController.create({
                 header: 'Confirm!',
                 message: 'Are you sure you want to skip the <strong>tour</strong>?',
@@ -169,13 +175,13 @@ export class HomePage implements OnInit {
                     {
                         text: 'Continue',
                         role: 'cancel',
-
+                        
                         handler: (blah) => {
                             this.router.navigateByUrl('/single-post/' + this.latestPost.newsId);
                         }
                     }, {
                         text: 'Skip',
-
+                        
                         handler: () => {
                             localStorage.setItem('skip', '1');
                             localStorage.setItem('shareBlink', '1');
@@ -190,6 +196,7 @@ export class HomePage implements OnInit {
             await alert.present();
             this._newsService.getAllNews().subscribe(
                 (res: any) => {
+                    this.firstTimeLoad = true;
                     this.newsArray = res;
                     this.latestPost = res[0];
                     console.log('this.latestPost', this.latestPost)
@@ -201,41 +208,42 @@ export class HomePage implements OnInit {
                 (err) => {
                     this.newsArray = localStorage.newsArray;
                 });
-        } else {
-            if (navigator.onLine) {
-                this._newsService.getAllNews().subscribe(
-                    (res: any) => {
-                        this.newsArray = res;
-                        this.latestPost = res[0];
-                        console.log('this.latestPost', this.latestPost)
-                        this.newsArray.splice(0, 1);
-                        if (!localStorage.getItem('skip')) {
-                        }
-                        this.loading = false;
-                    },
-                    (err) => {
-                        this.newsArray = localStorage.newsArray;
-                    });
             } else {
-                this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
-                this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
-                this.newsArray.splice(0, 1)
+                if (navigator.onLine) {
+                    this._newsService.getAllNews().subscribe(
+                        (res: any) => {
+                            this.firstTimeLoad = true;
+                            this.newsArray = res;
+                            this.latestPost = res[0];
+                            console.log('this.latestPost', this.latestPost)
+                            this.newsArray.splice(0, 1);
+                            if (!localStorage.getItem('skip')) {
+                            }
+                            this.loading = false;
+                        },
+                        (err) => {
+                            this.newsArray = localStorage.newsArray;
+                        });
+                    } else {
+                        this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
+                        this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
+                        this.newsArray.splice(0, 1)
+                    }
+                }
             }
-        }
-    }
-
-    //go to specific post when link click
-    firebaseLinkRoute() {
-        if (!config.isvisited && !config.counter) {
-            this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
-                var postId = res.deepLink.split('?')[1].split('=')[1];
-                console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1])
-                console.log('Is Visited:------------- 1', config.isvisited);
-                this.router.navigate(['single-post/' + postId]);
-            }, (error: any) => {
-                console.log(error)
-            });
-        }
+            
+            //go to specific post when link click
+            firebaseLinkRoute() {
+                if (!config.isvisited && !config.counter) {
+                    this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
+                        var postId = res.deepLink.split('?')[1].split('=')[1];
+                        console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1])
+                        console.log('Is Visited:------------- 1', config.isvisited);
+                        this.router.navigate(['single-post/' + postId]);
+                    }, (error: any) => {
+                        console.log(error)
+                    });
+                }
     }
     //check for internet
     checkforInternet() {
@@ -255,12 +263,15 @@ export class HomePage implements OnInit {
     }
     //get categories
     getCategories() {
+        // this.catLoading = true;
         this.language = localStorage.getItem('language');
         if (navigator.onLine) {
             this._categoryService.getAll().subscribe((res) => {
+                this.catLoading = false;
                 this.categories = res;
                 console.log("after", this.categories);
             }, (err) => {
+                this.catLoading = false;
                 this._toastService.toastFunction('Something went wrong while fetching category', 'danger')
             });
 
@@ -311,7 +322,7 @@ export class HomePage implements OnInit {
             this.getCategories();
             const alert = await this.alertController.create({
                 header: 'Confirm!',
-                message: 'Would you like to continue with <strong>Trivia Post tour</strong>?',
+                message: 'Would you like to start the tour?',
                 cssClass: 'alertCustomCss',
                 buttons: [
                     {

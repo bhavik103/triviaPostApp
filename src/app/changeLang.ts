@@ -1,4 +1,5 @@
-export const langList = [{ lang: 'English', slug: 'en' }, { lang: 'हिंदी', slug: 'hn' }, { lang: 'অসমীয়া', slug: 'as' }, { lang: 'বাংলা', slug: 'bn' }, { lang: 'ગુજરાતી', slug: 'gu' }, { lang: 'ಕನ್ನಡ', slug: 'kn' }, { lang: 'മലയാളം', slug: 'ml' }, { lang: 'मराठी', slug: 'mr' }, { lang: 'ਪੰਜਾਬੀ', slug: 'pa' }, { lang: 'தமிழ்', slug: 'ta' }, { lang: 'తెలుగు', slug: 'te' }];
+// export const langList = [{ lang: 'English', slug: 'en' }, { lang: 'हिंदी', slug: 'hn' }, { lang: 'অসমীয়া', slug: 'as' }, { lang: 'বাংলা', slug: 'bn' }, { lang: 'ગુજરાતી', slug: 'gu' }, { lang: 'ಕನ್ನಡ', slug: 'kn' }, { lang: 'മലയാളം', slug: 'ml' }, { lang: 'मराठी', slug: 'mr' }, { lang: 'ਪੰਜਾਬੀ', slug: 'pa' }, { lang: 'தமிழ்', slug: 'ta' }, { lang: 'తెలుగు', slug: 'te' }];
+export const langList = [{ lang: 'English', slug: 'en' }, { lang: 'हिंदी', slug: 'hn' }, { lang: 'অসমীয়া', slug: 'as' }, { lang: 'বাংলা', slug: 'bn' }];
 
 export const langSelectText = {
 	en: 'English',
@@ -16,8 +17,8 @@ export const langSelectText = {
 export const shareApp = {
 	en: 'Share this app',
 	hn: 'एप को शेयर कीजिए',
-	as: 'শেয়ার  ঠিক  আপা ',
-	bn: 'এই অ্যাপ্লিকেশন ভাগ করুন',
+	as: 'এই অ্যাপ্লিকেশন শেয়াৰ কৰক',
+	bn: 'এই অ্যাপ্লিকেশন শেয়াৰ কৰক',
 	gu: 'એપ્લિકેશન શેર કરો',
 	kn: 'ಈ ಅಪ್ಲಿಕೇಶನ್ ಹಂಚಿಕೊಳ್ಳಿ',
 	ml: 'ഈ അപ്ലിക്കേഷൻ പങ്കിടുക',
@@ -30,7 +31,7 @@ export const shareApp = {
 export const terms = {
 	en: 'Terms & Conditions',
 	hn: 'नियम और शर्तें',
-	as: 'টার্মস এন্ড কন্ডিশনস ',
+	as: 'শর্তাবলী',
 	bn: 'শর্তাবলী',
 	gu: 'શરતો અને નિયમો',
 	kn: 'ನಿಯಮ ಮತ್ತು ಶರತ್ತುಗಳು',
@@ -45,7 +46,7 @@ export const terms = {
 export const privacy = {
 	en: 'Privacy Policy',
 	hn: 'गोपनीयता नीति',
-	as: 'প্রাইভেসী পলিসি ',
+	as: 'গোপনীয়তা নীতি',
 	bn: 'গোপনীয়তা নীতি',
 	gu: 'ગોપનીયતા નીતિ',
 	kn: 'ಗೌಪ್ಯತಾ ನೀತಿ',
@@ -59,8 +60,8 @@ export const privacy = {
 export const feedback = {
 	en: 'Feedback',
 	hn: 'प्रतिक्रिया',
-	as: 'ফিডব্যাক',
-	bn: 'প্রতিক্রিয়া',
+	as: 'মতামত',
+	bn: 'মতামত',
 	gu: 'પ્રતિસાદ',
 	kn: 'ಪ್ರತಿಕ್ರಿಯೆ',
 	ml: 'ഫീഡ്‌ബാക്ക്',
@@ -75,7 +76,7 @@ export const notification = {
 	en: 'Notification',
 	hn: 'अधिसूचना',
 	as: 'নোটিফিকেশন',
-	bn: 'প্রজ্ঞাপন',
+	bn: 'নোটিফিকেশন',
 	gu: 'સૂચના',
 	kn: 'ಅಧಿಸೂಚನೆ',
 	ml: 'അറിയിപ്പ്',
@@ -89,7 +90,7 @@ export const notification = {
 export const bookmark = {
 	en: 'Bookmarks',
 	hn: 'बुकमार्क',
-	as: 'বুকমার্কস',
+	as: 'বুকমার্ক',
 	bn: 'বুকমার্ক',
 	gu: 'બુકમાર્ક્સ',
 	kn: 'ಬುಕ್‌ಮಾರ್ಕ್‌ಗಳು',
@@ -103,7 +104,7 @@ export const bookmark = {
 export const language = {
 	en: 'Language',
 	hn: 'भाषा',
-	as: 'ল্যাঙ্গুয়েজে',
+	as: 'ভাষা',
 	bn: 'ভাষা',
 	gu: 'ભાષા',
 	kn: 'ಭಾಷೆ',
@@ -114,10 +115,10 @@ export const language = {
 	te: 'భాషా'
 }
 export const orUsing = {
-	en: 'or using',
+	en: 'by using',
 	hn: 'या',
-	as: 'ওর উসিং',
-	bn: 'বা ব্যবহার',
+	as: 'অন্যভাবে',
+	bn: 'অন্যভাবে',
 	gu: 'અથવા',
 	kn: 'లేదా',
 	ml: 'അഥവാ',
@@ -142,8 +143,8 @@ export const signIn = {
 export const signInText = {
 	en: 'Sign In to save your Bookmarks',
 	hn: 'अपने बुकमार्क्स को बचाने के लिए साइन इन करें',
-	as: 'সিগণ ইন তো সেভ ইওর বুকমার্কস',
-	bn: 'আপনার বুকমার্কগুলি সংরক্ষণ করতে সাইন ইন করুন',
+	as: 'আপোনাৰ বুকমার্ক  সংৰক্ষণ কৰিবলৈ সাইনইন কৰক',
+	bn: 'আপনার বুকমার্কগুলি সংরক্ষণ করতে সাইনইন করুন',
 	gu: 'તમારા બુકમાર્ક્સને સાચવવા માટે સાઇન ઇન કરો',
 	kn: 'ನಿಮ್ಮ ಬುಕ್‌ಮಾರ್ಕ್‌ಗಳನ್ನು ಉಳಿಸಲು ಸೈನ್ ಇನ್ ಮಾಡಿ',
 	ml: 'നിങ്ങളുടെ ബുക്ക്മാർക്കുകൾ സംരക്ഷിക്കുന്നതിന് പ്രവേശിക്കുക',
@@ -155,8 +156,8 @@ export const signInText = {
 export const savePref = {
 	en: 'Save your preferences',
 	hn: 'अपनी प्राथमिकताएं सहेजें',
-	as: 'সেভ ইওর প্রেফারেন্সেস ',
-	bn: 'আপনার পছন্দগুলি সংরক্ষণ করুন',
+	as: 'আপোনাৰ পছন্দ সংৰক্ষণ কৰক',
+	bn: 'আপনার পছন্দ সংরক্ষণ করুন',
 	gu: 'તમારી પસંદગીઓ સાચવો',
 	kn: 'ನಿಮ್ಮ ಆದ್ಯತೆಗಳನ್ನು ಉಳಿಸಿ',
 	ml: 'നിങ്ങളുടെ മുൻ‌ഗണനകൾ സംരക്ഷിക്കുക',
@@ -168,8 +169,8 @@ export const savePref = {
 export const category = {
 	en: 'Categories',
 	hn: 'श्रेणियाँ',
-	as: 'ক্যাটেগরীজ',
-	bn: 'ধরন',
+	as: 'শিতানহমূহ',
+	bn: 'শিতানহমূহ',
 	gu: 'શ્રેણીઓ',
 	kn: 'ವರ್ಗಗಳು',
 	ml: 'വിഭാഗങ്ങൾ',

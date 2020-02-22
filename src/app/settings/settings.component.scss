@@ -55,7 +55,8 @@
   transform: translate3d(100%, 0, 0);
   background: var(--main-app-color);
 }
-#profile, #personIcon {
+#profile,
+#personIcon {
   display: table;
   text-align: center;
   background-color: red;
@@ -85,7 +86,8 @@
 .langColor {
   color: #525252;
   float: right;
-  padding: 5px 0px 7px;
+  display: block;
+  line-height: 30px;
 }
 .action-sheet-group.action-sheet-group-cancel.sc-ion-action-sheet-md
   button.action-sheet-button.ion-activatable.action-sheet-cancel.sc-ion-action-sheet-md.activated {
@@ -94,7 +96,7 @@
 #ratingRow {
   margin: 0;
   --background: none;
-  background-image: url('../../assets/images/settingBag.png');
+  background-image: url("../../assets/images/settingBag.png");
   position: absolute;
   bottom: 0;
   padding-top: 310px;
@@ -117,11 +119,16 @@
 }
 .selectIcon {
   float: right;
-  display: inline-block;
-  vertical-align: middle;
+  padding-left: 24px;
+  height: 30px;
+  position: relative;
 }
-.selectIcon ion-icon {
-  margin: 0;
+.selectIcon img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 4px;
+  margin: auto;
 }
 .optionsDiv {
   display: flex;
@@ -132,7 +139,7 @@
   color: #525252;
   font-size: 24px;
 }
-.loginDiv { 
+.loginDiv {
   height: 170px;
   border-bottom: 1px solid #ddd;
 }
@@ -143,8 +150,6 @@
   font-size: 16px;
   color: gray;
 }
-
-
 
 ul.option_list {
   position: relative;

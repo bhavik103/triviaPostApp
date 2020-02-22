@@ -54,8 +54,8 @@
   src: url("assets/fonts/AS-TTEkushey.ttf");
 }
 :root {
-  --main-app-color: #cf2736;
-  --main-tool-color: #cf2736;
+  --main-app-color: #e41212;
+  --main-tool-color: #e41212;
 }
 ion-icon:focus,
 #feedsLink:focus {
@@ -374,4 +374,49 @@ ion-toolbar {
   text-align: center;
   color: #fff;
   font-size: 20px;
+}
+
+
+.catOverlay {
+  --background: none;
+  background: rgba(0,0,0,0.1); 
+}
+
+.introjs-overlay{
+  background: rgba(0,0,0,0.1);
+}
+.introjs-helperLayer {
+  background: transparent;
+  width: 106px!important;
+}
+
+.introjs-overlay {
+  opacity: 0 !important;
+}
+
+.introjs-helperLayer:before {
+  opacity: 0;
+  content: '';
+  position: fixed;
+  width: inherit;
+  height: inherit;
+  // border-radius: 0.5em;
+  box-shadow: 0 0 0 1000em rgba(0,0,0, .9);
+  opacity: 1;
+}
+
+.introjs-helperLayer:after {
+  content: '';
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 1000;
+}
+.introjs-bullets{
+  display: none;
+}
+.introjs-helperNumberLayer{
+  display: none;
 }

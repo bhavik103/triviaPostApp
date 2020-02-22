@@ -1104,7 +1104,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signInText", function() { return signInText; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "savePref", function() { return savePref; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "category", function() { return category; });
-var langList = [{ lang: 'English', slug: 'en' }, { lang: 'हिंदी', slug: 'hn' }, { lang: 'অসমীয়া', slug: 'as' }, { lang: 'বাংলা', slug: 'bn' }, { lang: 'ગુજરાતી', slug: 'gu' }, { lang: 'ಕನ್ನಡ', slug: 'kn' }, { lang: 'മലയാളം', slug: 'ml' }, { lang: 'मराठी', slug: 'mr' }, { lang: 'ਪੰਜਾਬੀ', slug: 'pa' }, { lang: 'தமிழ்', slug: 'ta' }, { lang: 'తెలుగు', slug: 'te' }];
+// export const langList = [{ lang: 'English', slug: 'en' }, { lang: 'हिंदी', slug: 'hn' }, { lang: 'অসমীয়া', slug: 'as' }, { lang: 'বাংলা', slug: 'bn' }, { lang: 'ગુજરાતી', slug: 'gu' }, { lang: 'ಕನ್ನಡ', slug: 'kn' }, { lang: 'മലയാളം', slug: 'ml' }, { lang: 'मराठी', slug: 'mr' }, { lang: 'ਪੰਜਾਬੀ', slug: 'pa' }, { lang: 'தமிழ்', slug: 'ta' }, { lang: 'తెలుగు', slug: 'te' }];
+var langList = [{ lang: 'English', slug: 'en' }, { lang: 'हिंदी', slug: 'hn' }, { lang: 'অসমীয়া', slug: 'as' }, { lang: 'বাংলা', slug: 'bn' }];
 var langSelectText = {
     en: 'English',
     hn: 'हिंदी',
@@ -2651,12 +2652,92 @@ var SettingsComponent = /** @class */ (function () {
         this.orUsing = _changeLang__WEBPACK_IMPORTED_MODULE_10__["orUsing"];
         this.notification = _changeLang__WEBPACK_IMPORTED_MODULE_10__["notification"];
         //********static variables based on language ends
+        // languageActionSheet = [
+        // 	{
+        // 		text: 'English', shortForm: 'en', role: 'destructive', handler: () => {
+        // 			this.language = 'en';
+        // 			localStorage.setItem('language', 'en');
+        // 			this._userService.changeLanguage('en').subscribe();
+        // 		}
+        // 	},
+        // 	{
+        // 		text: 'हिंदी', shortForm: 'hn', role: 'destructive', handler: () => {
+        // 			this.language = 'hn';
+        // 			localStorage.setItem('language', 'hn');
+        // 			this.language = localStorage.getItem('language');
+        // 			this._userService.changeLanguage('hn').subscribe();
+        // 		}
+        // 	},
+        // 	{
+        // 		text: 'অসমীয়া', shortForm: 'as', role: 'destructive', handler: () => {
+        // 			this.language = 'as';
+        // 			localStorage.setItem('language', 'as');
+        // 			this._userService.changeLanguage('as').subscribe();
+        // 		}
+        // 	},
+        // 	{
+        // 		text: 'বাংলা', shortForm: 'bn', role: 'destructive', handler: () => {
+        // 			this.language = 'bn';
+        // 			localStorage.setItem('language', 'bn')
+        // 			this._userService.changeLanguage('bn').subscribe();
+        // 		}
+        // 	},
+        // 	{
+        // 		text: 'ગુજરાતી', shortForm: 'gu', role: 'destructive', handler: () => {
+        // 			this.language = 'gu';
+        // 			localStorage.setItem('language', 'gu');
+        // 			this._userService.changeLanguage('gu').subscribe();
+        // 		}
+        // 	},
+        // 	{
+        // 		text: 'ಕನ್ನಡ', shortForm: 'kn', role: 'destructive', handler: () => {
+        // 			this.language = 'kn';
+        // 			localStorage.setItem('language', 'kn');
+        // 			this._userService.changeLanguage('kn').subscribe();
+        // 		}
+        // 	},
+        // 	{
+        // 		text: 'മലയാളം', shortForm: 'ml', role: 'destructive', handler: () => {
+        // 			this.language = 'ml';
+        // 			localStorage.setItem('language', 'ml');
+        // 			this._userService.changeLanguage('ml').subscribe();
+        // 		}
+        // 	},
+        // 	{
+        // 		text: 'मराठी', shortForm: 'mr', role: 'destructive', handler: () => {
+        // 			this.language = 'mr';
+        // 			localStorage.setItem('language', 'mr');
+        // 			this._userService.changeLanguage('mr').subscribe();
+        // 		}
+        // 	},
+        // 	{
+        // 		text: 'ਪੰਜਾਬੀ', shortForm: 'pa', role: 'destructive', handler: () => {
+        // 			this.language = 'pa';
+        // 			localStorage.setItem('language', 'pa');
+        // 			this._userService.changeLanguage('pa').subscribe();
+        // 		}
+        // 	},
+        // 	{
+        // 		text: 'தமிழ்', shortForm: 'ta', role: 'destructive', handler: () => {
+        // 			this.language = 'ta';
+        // 			localStorage.setItem('language', 'ta');
+        // 			this._userService.changeLanguage('ta').subscribe();
+        // 		}
+        // 	},
+        // 	{
+        // 		text: 'తెలుగు', shortForm: 'te', role: 'destructive', handler: () => {
+        // 			this.language = 'te';
+        // 			localStorage.setItem('language', 'te');
+        // 			this._userService.changeLanguage('te').subscribe();
+        // 		}
+        // 	},
+        // ];
         this.languageActionSheet = [
             {
                 text: 'English', shortForm: 'en', role: 'destructive', handler: function () {
                     _this.language = 'en';
                     localStorage.setItem('language', 'en');
-                    _this._userService.changeLanguage('en');
+                    _this._userService.changeLanguage('en').subscribe();
                 }
             },
             {
@@ -2664,72 +2745,23 @@ var SettingsComponent = /** @class */ (function () {
                     _this.language = 'hn';
                     localStorage.setItem('language', 'hn');
                     _this.language = localStorage.getItem('language');
-                    _this._userService.changeLanguage('hn');
+                    _this._userService.changeLanguage('hn').subscribe();
                 }
             },
             {
                 text: 'অসমীয়া', shortForm: 'as', role: 'destructive', handler: function () {
                     _this.language = 'as';
                     localStorage.setItem('language', 'as');
-                    _this._userService.changeLanguage('as');
+                    _this._userService.changeLanguage('as').subscribe();
                 }
             },
             {
                 text: 'বাংলা', shortForm: 'bn', role: 'destructive', handler: function () {
                     _this.language = 'bn';
                     localStorage.setItem('language', 'bn');
-                    _this._userService.changeLanguage('bn');
+                    _this._userService.changeLanguage('bn').subscribe();
                 }
-            },
-            {
-                text: 'ગુજરાતી', shortForm: 'gu', role: 'destructive', handler: function () {
-                    _this.language = 'gu';
-                    localStorage.setItem('language', 'gu');
-                    _this._userService.changeLanguage('gu');
-                }
-            },
-            {
-                text: 'ಕನ್ನಡ', shortForm: 'kn', role: 'destructive', handler: function () {
-                    _this.language = 'kn';
-                    localStorage.setItem('language', 'kn');
-                    _this._userService.changeLanguage('kn');
-                }
-            },
-            {
-                text: 'മലയാളം', shortForm: 'ml', role: 'destructive', handler: function () {
-                    _this.language = 'ml';
-                    localStorage.setItem('language', 'ml');
-                    _this._userService.changeLanguage('ml');
-                }
-            },
-            {
-                text: 'मराठी', shortForm: 'mr', role: 'destructive', handler: function () {
-                    _this.language = 'mr';
-                    localStorage.setItem('language', 'mr');
-                    _this._userService.changeLanguage('mr');
-                }
-            },
-            {
-                text: 'ਪੰਜਾਬੀ', shortForm: 'pa', role: 'destructive', handler: function () {
-                    _this.language = 'pa';
-                    localStorage.setItem('language', 'pa');
-                    _this._userService.changeLanguage('pa');
-                }
-            },
-            {
-                text: 'தமிழ்', shortForm: 'ta', role: 'destructive', handler: function () {
-                    _this.language = 'ta';
-                    localStorage.setItem('language', 'ta');
-                    _this._userService.changeLanguage('ta');
-                }
-            },
-            {
-                text: 'తెలుగు', shortForm: 'te', role: 'destructive', handler: function () {
-                    _this.language = 'te';
-                    localStorage.setItem('language', 'te');
-                    _this._userService.changeLanguage('te');
-                }
-            },
+            }
         ];
     }
     SettingsComponent.prototype.ionViewWillEnter = function () {

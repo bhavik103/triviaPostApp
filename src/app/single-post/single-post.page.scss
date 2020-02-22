@@ -119,7 +119,7 @@ ion-title {
   font-size: 12px;
   margin-top: 10px;
 }
-.postSource{
+.postSource {
   margin-bottom: 20px;
 }
 .srctitle {
@@ -137,7 +137,6 @@ ion-title {
   text-align: center;
   box-shadow: 2px 2px 3px #999;
   z-index: 111;
-  opacity: 0.8;
 }
 
 .float img {
@@ -172,7 +171,7 @@ ion-title {
 
 .loadingContent {
   --background: none;
-  background: url('../../assets/images/newLoader.gif');
+  background: url("../../assets/images/simpleLoader.gif");
   background-size: cover;
   background-position: center;
 }
@@ -212,7 +211,6 @@ ion-title {
 .likesSpan img {
   height: 18px;
 }
-
 
 .srcLink {
   color: var(--main-app-color);
@@ -358,20 +356,15 @@ img.likeImage {
   }
 }
 .skipTour {
-  background-color: #e42310;
-  color: #fff;
-  padding: 8px 25px;
-  border-radius: 5px;
   position: fixed;
   bottom: 10px;
+  left: 15px;
   z-index: 1;
-  font-weight: 700;
-  left: 10px;
+  background-color: #fff;
+  border-radius: 50%;
 }
-.skipTour button {
-  padding: 10px;
-  background-color: #e41212 !important;
-  color: #fff;
+.skipTour img {
+  float: left;
 }
 .ripple_effect {
   background-color: rgb(228, 35, 16) !important;
@@ -382,5 +375,75 @@ img.likeImage {
   border-color: #fff;
 }
 p.assameseFont.assameseFontTitle {
-  font-size: 30px!important;
+  font-size: 30px !important;
+}
+.firstTimeBlur {
+  border: 1px solid #f7f7f7;
+  filter: blur(7px) grayscale(1) brightness(0.5);
+}
+.tourText {
+  position: absolute;
+  z-index: 9999;
+  text-align: center;
+  background-color: #e41212 !important;
+  font-weight: 900;
+  padding: 10px;
+  border-radius: 10px;
+  bottom: 120%;
+  font-size: 12px;
+  color: #fff;
+  width: 50vw;
+}
+.tourText:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 10%;
+  border-top: 7px solid #e42310;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+}
+.tourTextShare {
+  right: 0;
+  opacity: 1;
+}
+.tourTextShare:before {
+  content: "";
+  border-top: 7px solid #e42310;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  left: 85%;
+}
+.tourTextHome {
+  top: 61px;
+  right: 4px;
+  display: table;
+}
+.tourTextHome:before {
+  content: "";
+  border-bottom: 7px solid #e42310;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  left: 85%;
+  top: -13px;
+  bottom: 100%;
+  border-top: 0;
+}
+.tourText.tourTextBookmark {
+  bottom: 0;
+  right: 18vw;
+  font-size: 11px;
+}
+.tourText.tourTextBookmark:before {
+  content: "";
+  top: calc(50% - 7px);
+  margin: auto;
+  left: 100%;
+  border-right: 7px solid transparent;
+  border-left: 7px solid #e42310;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+.tourClick {
+  --overflow: hidden;
 }

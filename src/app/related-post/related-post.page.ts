@@ -3,7 +3,7 @@ import 'hammerjs';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { config } from '../config';
-
+import {ToastService} from '../services/toast.service';
 @Component({
   selector: 'app-related-post',
   templateUrl: './related-post.page.html',
@@ -14,23 +14,35 @@ export class RelatedPostPage implements OnInit {
   @Input() language: string;
   @Input() postCount: any;
   mediaPath = config.mediaApiUrl;
-  constructor(private router: Router) { }
+  wrongStatus: boolean;
+  constructor(private router: Router, private _toastService: ToastService) { }
 
   ngOnInit() {
     console.log("RELATED POST", this.news)
-    if (this.postCount <= 1) {
-      $('.relatedPostRow').addClass('borderClass');
-      console.log("GOT 4", this.postCount);
-    }
+    $('.relatedPostRow').addClass('borderClass');
+    console.log("GOT 4", this.postCount);
   }
 
   singleNews(postid) {
-    console.log('postid', postid);
-    localStorage.setItem('skip','1')
-    this.router.navigateByUrl('/single-post/' + postid);
+    if (localStorage.getItem('skip')) {
+      if (navigator.onLine) {
+        if (this.wrongStatus) {
+          this.wrongStatus = false
+        }
+        else {
+          localStorage.setItem('firstLargePostClick', '1')
+          // localStorage.setItem('skip', '1')
+          console.log('postid', postid);
+          this.router.navigateByUrl('/single-post/' + postid);
+
+        }
+      } else {
+        this._toastService.toastFunction('No internet connnection', 'danger');
+      }
+    }
   }
   categoryClick(catId, catName) {
-    localStorage.setItem('skip','1')
+    localStorage.setItem('skip', '1')
     this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
   }
 }

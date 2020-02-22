@@ -8,8 +8,8 @@ import { Network } from '@ionic-native/network/ngx';
 import { ToastService } from "../services/toast.service";
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { language } from 'app/changeLang';
-// import {NavParams} from '@ionic/angular';
 import { IonSlides } from '@ionic/angular';
+import * as introJs from 'intro.js/intro.js';
 
 @Component({
   selector: 'app-category-tiles',
@@ -22,19 +22,26 @@ export class CategoryTilesPage implements OnInit {
   @Input('firstTime') firstTime: any;
   @Input('index') index: any;
   @Output() onSubscribe: EventEmitter<any> = new EventEmitter<any>();
-  @ViewChild(IonSlides, {static:false}) protected slider: IonSlides;
+  @ViewChild(IonSlides, { static: false }) protected slider: IonSlides;
 
-  skip : any
+  skip: any
   mediaPath = config.mediaApiUrl;
   modal: boolean;
   sliderIndex: number;
+  ifTourCompleted: any;
+  introJS = introJs();
   constructor(private _toastService: ToastService, private network: Network, private _categoryService: CategoryService, private router: Router) {
   }
 
-  ionViewWillEnter(){
-    this.skip = localStorage.getItem('skip');
-  }
   ngOnInit() {
+    $('.introjs-helperLayer').click();
+    console.log(" Yash check it true ")
+    if (localStorage.getItem('catSelect') == '0') {
+      // introJs().start();
+      this.ifTourCompleted = 1;
+      console.log('this.ifTourCompleted', this.ifTourCompleted)
+    }
+    this.skip = localStorage.getItem('skip');
     const alertOnlineStatus = () => {
     }
 
@@ -66,7 +73,7 @@ export class CategoryTilesPage implements OnInit {
         this._categoryService.notifyUser(catId).subscribe((res: any) => {
           this._toastService.toastFunction(res.message, 'success');
           var emitObject = { catId: catId, statusCode: res.statusCode }
-          console.log("EMIT OBJECT",emitObject)
+          console.log("EMIT OBJECT", emitObject)
           this.onSubscribe.emit(emitObject);
         }, err => {
           this._toastService.toastFunction(err.error.message, 'danger');
@@ -88,6 +95,6 @@ export class CategoryTilesPage implements OnInit {
 
   protected async slideDidChange(): Promise<void> {
     this.sliderIndex = await this.slider.getActiveIndex();
-    console.log("ACTIVE INDEX",this.sliderIndex)
+    console.log("ACTIVE INDEX", this.sliderIndex)
   }
 }

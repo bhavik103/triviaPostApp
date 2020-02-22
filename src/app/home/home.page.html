@@ -15,11 +15,7 @@
       Trivia Post
     </span>
     <button float-right>
-      <ion-icon
-        name="search"
-        class="searchIcon"
-        (click)="search()"
-      ></ion-icon>
+      <ion-icon name="search" class="searchIcon" (click)="search()"></ion-icon>
     </button>
   </div>
 </div>
@@ -44,7 +40,7 @@
 <ion-content *ngIf="!language">
   <div
     class="languageSelect"
-    style="height: 100%;background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;"
+    style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;"
   >
     <div class="langHead">
       <img src="../../assets/images/subject.png" height="30px" width="30px" />
@@ -52,7 +48,7 @@
     </div>
     <ion-row>
       <ion-col
-        size="4"
+        size="6"
         *ngFor="let lang of languageList;let i = index"
         class="langCol"
       >
@@ -72,9 +68,10 @@
 </ion-content>
 <ion-content
   *ngIf="language && catSelect == '0' && skip != '1'"
-  style="position: absolute;z-index: 11;top: 56px;"
+  style="position: absolute;z-index: 11;top: 56px;--overflow: hidden"
+  class="tourCat"
 >
-  <ion-row *ngIf="categories">
+  <ion-row *ngIf="categories" class="catOverl">
     <ion-col
       size="6"
       *ngFor="let category of categories; let i = index"
@@ -90,16 +87,23 @@
     </ion-col>
   </ion-row>
   <div class="skipTour" *ngIf="!skip" (click)="skipTour()">
+    <div class="tourText">
+      Click here to skip tour!
+    </div>
     <div class="ripple_effect"></div>
-    <span>Skip Tour > ></span>
+    <img src="../../assets/images/skip.png" alt="" height="48px" />
   </div>
 </ion-content>
 <ion-content
   *ngIf="[(latestPost && language && catSelect == 1) || (language && latestPost && skip == '1') || skip == '1'] && !loading && language"
->
+  [ngClass]="{'disableScroll': !skip}"
+  >
   <div class="skipTour" *ngIf="!skip" (click)="skipTour()">
+    <div class="tourText tourTextModal">
+      Click here to skip tour!
+    </div>
     <div class="ripple_effect"></div>
-    <span>Skip Tour > ></span>
+    <span><img src="../../assets/images/skip.png" alt="" height="48px"/></span>
   </div>
   <ion-row class="feeds" *ngIf="latestPost && !loading">
     <app-large-post
@@ -120,4 +124,6 @@
 <div class="no-news-text" *ngIf="isTextVisible">
   <span>{{text}}</span>
 </div>
-<ion-content *ngIf="loading" class="loadingContent"> </ion-content>
+<ion-content *ngIf="loading && firstTimeLoad != true" class="loadingContent"></ion-content>
+<ion-content *ngIf="loading && firstTimeLoad == true" class="simpleLoader"></ion-content>
+<ion-content *ngIf="language && catSelect == '0' && skip != '1' && catLoading" class="loadingContent"> </ion-content>

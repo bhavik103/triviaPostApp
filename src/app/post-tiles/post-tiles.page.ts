@@ -16,7 +16,8 @@ export class PostTilesPage implements OnInit {
   wrongStatus = false
   firstLargePostClick: string;
   skip: string;
-  constructor(private _toastService: ToastService,private router: Router) {
+  firstTimeBlur = false;
+  constructor(private _toastService: ToastService, private router: Router) {
   }
 
   ionViewWillEnter() {
@@ -30,36 +31,43 @@ export class PostTilesPage implements OnInit {
     }
     console.log('this.language', this.language)
   }
-  
+
   ngOnInit() {
     const alertOnlineStatus = () => {
     }
-    
+
     this.firstLargePostClick = localStorage.getItem('firstLargePostClick')
     this.skip = localStorage.getItem('skip');
+    if (!this.firstLargePostClick && !this.skip) {
+      this.firstTimeBlur = true;
+    }
     this.language = localStorage.getItem('language');
     window.addEventListener('online', alertOnlineStatus)
     window.addEventListener('offline', alertOnlineStatus)
   }
 
   categoryClick(catId, catName) {
-    this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
+    if (localStorage.getItem('skip')) {
+      this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
+    }
   }
 
   singleNews(postid) {
-    if (navigator.onLine) {
-      if (this.wrongStatus) {
-        this.wrongStatus = false
-      }
-      else {
-        localStorage.setItem('firstLargePostClick', '1')
-        // localStorage.setItem('skip', '1')
-        console.log('postid', postid);
-        this.router.navigateByUrl('/single-post/' + postid);
+    if (localStorage.getItem('skip')) {
+      if (navigator.onLine) {
+        if (this.wrongStatus) {
+          this.wrongStatus = false
+        }
+        else {
+          localStorage.setItem('firstLargePostClick', '1')
+          // localStorage.setItem('skip', '1')
+          console.log('postid', postid);
+          this.router.navigateByUrl('/single-post/' + postid);
 
+        }
+      } else {
+        this._toastService.toastFunction('No internet connnection', 'danger');
       }
-    } else {
-      this._toastService.toastFunction('No internet connnection', 'danger');
     }
   }
 }

@@ -10,32 +10,44 @@
     >
     </ion-back-button>
     <span id="settingTitle">Trivia Post</span>
-    <button float-right routerLink="/home">
+    <button float-right routerLink="/home" (click)="homeClick()">
       <ion-icon name="home"></ion-icon>
     </button>
+    <div class="tourText tourTextHome" *ngIf="shareBlink !='1' && skip != '1' && !loading">
+      Click here to go back to home!
+    </div>
   </div>
 </div>
 
-<ion-content *ngIf="!loading">
+<ion-content *ngIf="!loading" [ngClass]="{'tourClick': !skip}">
   <div *ngIf="news" class="singleNews">
     <div class="container">
-      <img src="{{mediaPath}}{{news.newsImage}}" alt="" class="postImage" />
+      <img
+        src="{{mediaPath}}{{news.newsImage}}"
+        alt=""
+        class="postImage"
+        [ngClass]="{'firstTimeBlur': firstTimeBlur}"
+      />
       <div class="text-block"></div>
     </div>
 
-    <div class="subPostTitle">
+    <div class="subPostTitle" [ngClass]="{'firstTimeBlur': firstTimeBlur}">
       <p class="newsInfo" *ngIf="news.picCredit">
         <span>PC : </span><span class="picCredit"> {{news.picCredit}}</span>
       </p>
     </div>
     <div class="newsContent">
-      <div class="postTitle" *ngIf="news[language].title">
+      <div
+        class="postTitle"
+        *ngIf="news[language].title"
+        [ngClass]="{'firstTimeBlur': firstTimeBlur}"
+      >
         <p *ngIf="language != 'as'">{{news[language].title}}</p>
         <p class="assameseFont assameseFontTitle" *ngIf="language == 'as'">
           {{news[language].title}}
         </p>
       </div>
-      <div class="category_title">
+      <div class="category_title" [ngClass]="{'firstTimeBlur': firstTimeBlur}">
         <span
           (click)="singleCategory(news.newsCategoryId,news.newsCategory[language])"
           *ngIf="language != 'as'"
@@ -50,7 +62,7 @@
           {{news.newsCategory[language] | slice:0:30}}
         </span>
       </div>
-      <div class="post">
+      <div class="post" [ngClass]="{'firstTimeBlur': firstTimeBlur}">
         <p [innerHTML]="byPassedNews" *ngIf="language != 'as'"></p>
         <p
           [innerHTML]="byPassedNews"
@@ -78,6 +90,9 @@
         *ngIf="!news.bookmarkKey && skip != 1"
         (click)="bookmark(news.newsId)"
       >
+        <div class="tourText tourTextBookmark">
+          Click here to bookmark this post!
+        </div>
         <div class="ripple_effect"></div>
         <img src="assets/images/bookmarkWhite.png" height="52%" alt="" />
       </span>
@@ -86,6 +101,9 @@
         *ngIf="shareBlink !='1' && skip != '1'"
         (click)="sharePost(news.fcmLink, news[language].title, news.newsImage)"
       >
+        <div class="tourText tourTextShare">
+          Click here to share this post!
+        </div>
         <div class="ripple_effect"></div>
         <img src="../../assets/images/Share.png" class="icon shareImage" />
       </span>
@@ -97,7 +115,10 @@
         <img src="../../assets/images/Share.png" class="icon shareImage" />
       </span>
     </div>
-    <div class="subPostTitle postSource">
+    <div
+      class="subPostTitle postSource"
+      [ngClass]="{'firstTimeBlur': firstTimeBlur}"
+    >
       <p class="newsInfo" *ngIf="news.picCredit">
         <span>Source: </span
         ><span class="picCredit" (click)="openWithSystemBrowser(news.srcLink)">
@@ -107,8 +128,14 @@
       <p class="newsInfo" *ngIf="!news.picCredit"></p>
     </div>
   </div>
-  <p *ngIf="news" class="alsoRead">Also Read:</p>
-  <div *ngFor="let news of singlepost; let i = index" class="singlePost">
+  <p *ngIf="news" class="alsoRead" [ngClass]="{'firstTimeBlur': firstTimeBlur}">
+    Also Read:
+  </p>
+  <div
+    *ngFor="let news of singlepost; let i = index"
+    class="singlePost"
+    [ngClass]="{'firstTimeBlur': firstTimeBlur}"
+  >
     <app-related-post
       [news]="news"
       [language]="language"
@@ -116,8 +143,11 @@
     ></app-related-post>
   </div>
   <div class="skipTour" *ngIf="!skip" (click)="skipTour()">
+    <div class="tourText">
+      Click here to skip tour!
+    </div>
     <div class="ripple_effect"></div>
-    <span>Skip Tour > ></span>
+    <img src="../../assets/images/skip.png" alt="" height="48px" />
   </div>
 </ion-content>
 <ion-content *ngIf="loading" class="loadingContent"> </ion-content>

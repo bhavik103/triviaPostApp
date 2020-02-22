@@ -29,7 +29,6 @@ export class AppComponent {
   hide: boolean = true;
   toast: any;
   skip: any;
-  
   hidden: boolean;
   loginModalFlag = false;
   signupForm = new FormGroup({
@@ -66,6 +65,7 @@ export class AppComponent {
     if(localStorage.getItem('catSelect')){
       localStorage.setItem('skip','1')
     }
+    localStorage.removeItem('firstTimeLoaded');
     this._userService.currentData.subscribe(value => {
       if (this.loginModalFlag != true) {
         //generates random time for opennig modal between 25 and 40 seconds

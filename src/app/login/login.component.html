@@ -1,13 +1,8 @@
 <ion-content class="background" (swiperight)="goBack()">
-    <!-- <div class="languageDiv">
-        <div class="language">
-            <span id="langTitle">Language : </span> English <ion-icon name="globe" id="globeIcon"></ion-icon>
-        </div>
-    </div> -->
     <div class="componentMainDiv">
         <div class="header">
             <img src="assets/images/Logo.png" height="auto" width="30%">
-            <div>Read & Share</div>
+            <div>Just Read & Share</div>
         </div>
         <form [formGroup]="loginForm" padding class="loginForm">
             <button class="googleLogin" (click)="doGoogleLogin()" [disabled]="isDisabled">

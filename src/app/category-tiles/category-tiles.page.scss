@@ -7,7 +7,7 @@ p {
 }
 .container {
   position: relative;
-  background: url("../../assets/images/placeholder.png");
+  // background: url("../../assets/images/placeholder.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 50%;
@@ -62,13 +62,14 @@ p {
   color: var(--main-app-color);
   padding: 7px 15px;
   border-radius: 3px;
-  font-size: 11px;
+  font-size: 11.5px;
   float: left;
 }
 .notSubscribed ion-icon {
   float: left;
   font-size: 11px;
   padding-right: 3px;
+  margin-top: -2px;
 }
 
 .notSubscribed {
@@ -183,7 +184,8 @@ button.cancelButton {
   margin-top: 21px;
 }
 
-.firstTimeButton,.cancelButton{
+.firstTimeButton,
+.cancelButton {
   position: relative;
 }
 ion-slide {
@@ -211,4 +213,41 @@ ion-slide img {
 }
 ion-slide h3 {
   padding: 22px;
+}
+.tourBlur {
+  filter: blur(5px) grayscale(1);
+  background-color: rgba(1, 1, 1, 0.01);
+}
+// .category_title,
+// .notFirstTime {
+//   filter: blur(5px);
+//   background-color: rgba(1, 1, 1, 0.01);
+// }
+.tourText {
+  position: absolute;
+  z-index: 9999;
+  text-align: center;
+  background-color: #e41212 !important;
+  font-weight: 900;
+  padding: 10px;
+  border-radius: 10px;
+  top: 120%;
+  font-size: 12px;
+  width: 50vw;
+}
+.tourText:before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 10%;
+  border-bottom: 7px solid #e42310;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+} 
+
+.tourTextModal{
+  position: relative;
+  top: 2vw;
+  left: 25vw;
+  color: #fff;
 }

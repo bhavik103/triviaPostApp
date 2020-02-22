@@ -1,4 +1,4 @@
-<ion-list lines="none">
+<ion-list [ngClass]="{'firstTimeBlur': firstTimeBlur}" lines="none">
   <ion-item-sliding class="feeds">
     <ion-item>
       <ion-col size="3" class="newsImg" padding>
@@ -6,7 +6,6 @@
           src="{{mediaPath}}{{news.newsImage}}"
           data-src="../../assets/images/placeholder.png'"
           onerror="this.src='../../assets/images/placeholder.png'"
-          height="73px"
           width="100%"
           (click)="singleNews(news.newsId)"
           class="loading"
@@ -17,35 +16,35 @@
           <span
             class="optionsList"
             *ngIf="language != 'as'"
-            [innerHTML]="news[language].title | slice:0:50"
+            [innerHTML]="news[language].title"
             (click)="singleNews(news.newsId)"
           ></span
           >
           <span
             class="optionsList assameseFont"
             *ngIf="language == 'as'"
-            [innerHTML]="news[language].title | slice:0:50"
+            [innerHTML]="news[language].title"
             (click)="singleNews(news.newsId)"
           ></span
           >
           <span
             (click)="categoryClick(news.newsCategoryId, news.newsCategory[language]);wrongStatus = true"
-            class="categoryButton" *ngIf="language != 'as' && firstLargePostClick && skip == '1'"
+            class="categoryButton" *ngIf="language != 'as' && (firstLargePostClick || skip)"
             >{{news.newsCategory[language]}}</span
           >
           <span
-            (click)="categoryClick(news.newsCategoryId, news.newsCategory[language])"
-            class="categoryButton assameseFont" *ngIf="language == 'as' && firstLargePostClick && skip == '1'"
-            >{{news.newsCategory[language]}}</span
-          >
-          <span
-            (click)="singleNews(news.newsId)"
-            class="categoryButton assameseFont" *ngIf="language == 'as' && !firstLargePostClick && !skip == '1'"
+            (click)="categoryClick(news.newsCategoryId, news.newsCategory[language]);wrongStatus = true"
+            class="categoryButton assameseFont" *ngIf="language == 'as' && (firstLargePostClick || skip)"
             >{{news.newsCategory[language]}}</span
           >
           <span
             (click)="singleNews(news.newsId)"
-            class="categoryButton" *ngIf="language != 'as' && !firstLargePostClick && !skip == '1'"
+            class="categoryButton assameseFont" *ngIf="language == 'as' && !firstLargePostClick && !skip"
+            >{{news.newsCategory[language]}}</span
+          >
+          <span
+            (click)="singleNews(news.newsId)"
+            class="categoryButton" *ngIf="language != 'as' && !firstLargePostClick && !skip"
             >{{news.newsCategory[language]}}</span
           >
         </div>
