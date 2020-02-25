@@ -3,6 +3,7 @@ import { config } from '../config';
 import { Router } from '@angular/router';
 import { ToastService } from '../services/toast.service'
 import { visitAll } from '@angular/compiler';
+import { decode } from 'punycode';
 
 @Component({
   selector: 'app-post-tiles',
@@ -20,6 +21,7 @@ export class PostTilesPage implements OnInit {
   firstTimeBlur = false;
   visitedArray: any;
   isPresent: any;
+  tokenLocalStorage: string;
   constructor(private _toastService: ToastService, private router: Router) {
   }
 
@@ -36,8 +38,21 @@ export class PostTilesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
-    this.isPresent = this.visitedArray.includes(this.news.newsId);
+    if (!localStorage.getItem('accessToken')) {
+      this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
+      this.isPresent = this.visitedArray.includes(this.news.newsId);
+    } else {
+      this.tokenLocalStorage = localStorage.getItem('accessToken');
+      if (this.tokenLocalStorage) {
+        var base64Url = this.tokenLocalStorage.split('.')[1];
+        var base64 = base64Url.replace('-', '+').replace('_', '/');
+        var decodedToken = JSON.parse(window.atob(base64));
+        if (this.news[this.language].userViewed.includes(decodedToken.user._id)) {
+          this.isPresent = true;
+          console.log("IS PRESENT", this.isPresent)
+        }
+      }
+    }
 
     // console.log("NEWS IN TILES",this.news.newsId)
     const alertOnlineStatus = () => {
@@ -60,18 +75,24 @@ export class PostTilesPage implements OnInit {
   }
 
   singleNews(postid) {
-    this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
-    this.visitedArray.push(postid);
-    localStorage.setItem('isVisited',JSON.stringify(this.visitedArray))
-    if (navigator.onLine) {
-      if (this.wrongStatus) {
-        this.wrongStatus = false
+    if (localStorage.getItem('skip')) {
+      if (navigator.onLine) {
+        if (this.wrongStatus) {
+          this.wrongStatus = false
+        }
+        else {
+          this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
+          this.visitedArray.push(postid);
+          localStorage.setItem('isVisited', JSON.stringify(this.visitedArray))
+          localStorage.setItem('firstLargePostClick', '1')
+          // localStorage.setItem('skip', '1')
+          console.log('postid', postid);
+          this.router.navigateByUrl('/single-post/' + postid);
+
+        }
+      } else {
+        this._toastService.toastFunction('No internet connnection', 'danger');
       }
-      else {
-        this.router.navigateByUrl('/single-post/' + postid);
-      }
-    } else {
-      this._toastService.toastFunction('No internet connnection', 'danger');
     }
   }
 }

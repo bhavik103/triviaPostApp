@@ -7,7 +7,7 @@
       defaultHref="/home"
     >
     </ion-back-button>
-    <span id="settingTitle"> Options</span>
+    <span id="settingTitle">{{ options[language] }}</span>
     <button
       id="profile"
       *ngIf="tokenLocalStorage && firstCharUser"
@@ -37,7 +37,19 @@
     <h4 class="signInBook">
       {{ signInText[language] }}
     </h4>
-    <ion-row>
+    <div class="customLoginDiv">
+      <button class="signInButton" routerLink="/login"s>
+        {{ signIn[language] }}
+      </button>
+      <span>{{ orUsing[language] }}</span>
+      <button id="facebookLogin" routerLink="/login">
+        <img src="assets/images/Facebook.png" height="19px;" />
+      </button>
+      <button id="googleplus" routerLink="/login">
+        <img src="assets/images/GooglePlus.png" height="16px;" />
+      </button>
+    </div>
+    <!-- <ion-row>
       <ion-col size="5" class="signInCol">
         <button id="signInButton" routerLink="/login">
           {{ signIn[language] }}
@@ -53,7 +65,7 @@
           <img src="assets/images/GooglePlus.png" height="16px;" />
         </button>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
   </div>
   <div class="optionsDiv">
     <ul class="option_list">
@@ -69,7 +81,11 @@
           </div>
           <div class="lang_selector" (click)="changeLang(language)">
             <span class="selectIcon">
-             <img src="../../assets/images/downarrow.png" alt="" height="15px">
+              <img
+                src="../../assets/images/downarrow.png"
+                alt=""
+                height="15px"
+              />
             </span>
             <span class="langColor" *ngIf="language">{{
               langSelectText[language]
@@ -183,5 +199,5 @@
       </li>
     </ul>
   </div>
-  <ion-row id="ratingRow"> </ion-row>
+  <ion-row id="ratingRow"></ion-row>
 </ion-content>

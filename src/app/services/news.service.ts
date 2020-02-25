@@ -94,7 +94,7 @@ export class NewsService {
 		}
 	}
 
-	searchedNews(searchKey) {
+	searchedNews(searchKey,lang) {
 		if (this.network.type == 'none') {
 			return new Observable(observer => {
 				console.log("fdfdfd", JSON.parse(localStorage.getItem("newsArray")));
@@ -110,7 +110,7 @@ export class NewsService {
 			});
 		} else {
 			return new Observable(observer => {
-				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&keyword=' + searchKey).subscribe(
+				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&language&keyword=' + searchKey).subscribe(
 					(result: object) => {
 						this.newsArray = result['data'];
 						console.log("in cat service", this.newsArray);

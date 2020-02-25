@@ -10,7 +10,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Observable } from 'rxjs/Observable';
 import { ToastService } from '../services/toast.service';
 import { Network } from '@ionic-native/network/ngx';
-
+import {bookmark} from '../changeLang'
 @Component({
   selector: 'app-bookmark',
   templateUrl: './bookmark.page.html',
@@ -28,6 +28,7 @@ export class BookmarkPage implements OnInit {
   loading: any;
   hide;
   noNews;
+  bookmarkTitle = bookmark;
 
   constructor(private network: Network,private _toastService: ToastService, private platform: Platform, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router) { }
 

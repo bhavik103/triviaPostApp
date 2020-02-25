@@ -17,7 +17,9 @@
   padding: 9px 10px;
   outline: none;
 }
-
+#feedbackForm textarea{
+  height: 100%;
+}
 #feedbackForm textarea {
   resize: none;
 }

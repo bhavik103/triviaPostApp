@@ -115,7 +115,7 @@ export const language = {
 	te: 'భాషా'
 }
 export const orUsing = {
-	en: 'by using',
+	en: 'or using',
 	hn: 'या',
 	as: 'অন্যভাবে',
 	bn: 'অন্যভাবে',
@@ -141,7 +141,7 @@ export const signIn = {
 	te: 'సైన్ ఇన్ చేయండి'
 }
 export const signInText = {
-	en: 'Sign In to save your Bookmarks',
+	en: 'To save bookmark you must Signin',
 	hn: 'अपने बुकमार्क्स को बचाने के लिए साइन इन करें',
 	as: 'আপোনাৰ বুকমার্ক  সংৰক্ষণ কৰিবলৈ সাইনইন কৰক',
 	bn: 'আপনার বুকমার্কগুলি সংরক্ষণ করতে সাইনইন করুন',
@@ -178,4 +178,112 @@ export const category = {
 	pa: 'ਵਰਗ',
 	ta: 'வகைகள்',
 	te: 'కేటగిరీలు'
+}
+export const tourCategory = {
+	en: 'Click here to subscribe category to get notifications of that particular category news! ',
+	hn: 'उस विशेष श्रेणी के समाचार की सूचनाएं प्राप्त करने के लिए श्रेणी की सदस्यता के लिए यहां क्लिक करें!',
+	as: 'নির্দিষ্ট বিভাগের সংবাদগুলির বিজ্ঞপ্তি পেতে বিভাগটি সাবস্ক্রাইব করতে এখানে ক্লিক করুন!',
+	bn: 'নির্দিষ্ট বিভাগের সংবাদগুলির বিজ্ঞপ্তি পেতে বিভাগটি সাবস্ক্রাইব করতে এখানে ক্লিক করুন!',
+}
+export const tourSkip = {
+	en: 'Click here to skip tour!',
+	hn: 'टूर स्किप करने के लिए यहां क्लिक करें!',
+	as: 'ভ্রমণ এড়ানোর জন্য এখানে ক্লিক করুন!',
+	bn: 'ভ্রমণ এড়ানোর জন্য এখানে ক্লিক করুন!'
+}
+export const modalBookmarkTitle = {
+	en: 'Bookmark Posts!',
+	hn: 'बुकमार्क पोस्ट',
+	as: 'বুকমার্ক পোস্ট',
+	bn: 'বুকমার্ক পোস্ট'
+}
+export const modalBookmarkText = {
+	en: "So you don't loose your favourite reading blogs",
+	hn: 'टूर स्किप करने के लिए यहां क्लिक करें!',
+	as: 'সুতরাং আপনি আপনার প্রিয় পড়া ব্লগ আলগা না',
+	bn: 'সুতরাং আপনি আপনার প্রিয় পড়া ব্লগ আলগা না'
+}
+export const modalNotificationTitle = {
+	en: 'Get Notifications',
+	hn: 'सूचनाएं प्राप्त करें',
+	as: 'বিজ্ঞপ্তি পেতে',
+	bn: 'বিজ্ঞপ্তি পেতে'
+}
+export const modalNotificationText = {
+	en: 'So you get instant notifications from your subscribed blogs',
+	hn: 'तो आपको अपने सब्स्क्राइब्ड ब्लॉग्स से तुरंत सूचना मिल जाती है',
+	as: 'সুতরাং আপনি আপনার সাবস্ক্রাইব করা ব্লগ থেকে তাত্ক্ষণিক বিজ্ঞপ্তিগুলি পান',
+	bn: 'সুতরাং আপনি আপনার সাবস্ক্রাইব করা ব্লগ থেকে তাত্ক্ষণিক বিজ্ঞপ্তিগুলি পান'
+}
+export const proceedTour = {
+	en: 'Click here to skip!',
+	hn: 'आगे बढ़ने के लिए यहां क्लिक करें!',
+	as: 'এগিয়ে যেতে এখানে ক্লিক করুন!',
+	bn: 'এগিয়ে যেতে এখানে ক্লিক করুন!'
+}
+export const rateTitle = {
+	en: 'Enjoy Our App',
+	hn: 'हमारे एप्लिकेशन का आनंद लें',
+	as: 'আমাদের অ্যাপ্লিকেশন উপভোগ করুন',
+	bn: 'আমাদের অ্যাপ্লিকেশন উপভোগ করুন'
+}
+export const rateText = {
+	en: ' If you enjoy our app would you mind rating us on the App Store? ',
+	hn: 'यदि आप हमारे ऐप का आनंद लेते हैं, तो क्या आप हमें ऐप स्टोर पर रेटिंग देंगे?',
+	as: 'আপনি যদি আমাদের অ্যাপটি উপভোগ করেন তবে আপনি কি অ্যাপ স্টোরের উপর আমাদের রেটিং দিতে কিছু মনে করবেন?',
+	bn: 'আপনি যদি আমাদের অ্যাপটি উপভোগ করেন তবে আপনি কি অ্যাপ স্টোরের উপর আমাদের রেটিং দিতে কিছু মনে করবেন?'
+}
+export const catTitle = {
+	en: 'Categories',
+	hn: 'श्रेणियाँ',
+	as: 'ধরন',
+	bn: 'ধরন'
+}
+export const optionsTitle = {
+	en: 'Options',
+	hn: 'विकल्प',
+	as: 'বিকল্প',
+	bn: 'বিকল্প'
+}
+export const termsTitle = {
+	en: 'Terms & Condition',
+	hn: 'नियम व शर्त',
+	as: 'বিধি - নিষেধ এবং শর্তাবলী',
+	bn: 'বিধি - নিষেধ এবং শর্তাবলী'
+}
+export const privacyTitle = {
+	en: 'Privacy Policy',
+	hn: 'गोपनीयता नीति',
+	as: 'গোপনীয়তা নীতি',
+	bn: 'গোপনীয়তা নীতি'
+}
+export const modalSignupButton = {
+	en: 'Sign Up',
+	hn: 'साइन अप',
+	as: 'নিবন্ধন করুন',
+	bn: 'নিবন্ধন করুন'
+}
+export const modalSkipButton = {
+	en: 'Skip',
+	hn: 'छोड़ें',
+	as: 'এড়িয়ে',
+	bn: 'এড়িয়ে'
+}
+export const rateNowButton = {
+	en: 'RATE NOW',
+	hn: 'मूल्यांकन करें',
+	as: 'হার',
+	bn: 'হার'
+}
+export const rateRemindButton = {
+	en: 'REMIND ME LATER',
+	hn: 'बाद में',
+	as: 'পরে',
+	bn: 'পরে'
+}
+export const rateNoThanksButton = {
+	en: 'NO, THANKS',
+	hn: 'नहीं, धन्यवाद',
+	as: 'না ধন্যবাদ',
+	bn: 'না ধন্যবাদ'
 }

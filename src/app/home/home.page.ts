@@ -16,9 +16,10 @@ import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 import { SuperTabs } from '@ionic-super-tabs/angular';
 import { SuperTabsConfig } from '@ionic-super-tabs/core';
 import { GeneralService } from '../services/general.service'
-import { langList } from '../changeLang';
+import { langList,tourSkip } from '../changeLang';
 import { AlertController } from '@ionic/angular';
-
+import { Market } from '@ionic-native/market/ngx';
+import {rateTitle,rateText,catTitle,rateNowButton,rateNoThanksButton,rateRemindButton} from '../changeLang';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -52,6 +53,7 @@ export class HomePage implements OnInit {
     navExtras: any;
     catSelect: any;
     languageList = langList;
+    tourSkip = tourSkip;
     currentLangSelected: any;
     skip: string;
     offline: boolean;
@@ -59,8 +61,14 @@ export class HomePage implements OnInit {
     firstTimeLoad: boolean;
     skipTheTour: boolean;
     startTour: boolean;
-
-    constructor(public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
+    showRateModal: boolean;
+    rateTitle = rateTitle;
+    rateText = rateText;
+    catTitle = catTitle;
+    rateNow = rateNowButton;
+    rateLater = rateRemindButton;
+    rateNoThanks = rateNoThanksButton;
+    constructor(private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
         if (!localStorage.getItem('skip')) {
             $('body').addClass('tourBackDrop')
         } else {
@@ -194,6 +202,7 @@ export class HomePage implements OnInit {
 
     //get all news - HOME PAGE ( FEEDS )
     async getAllPost() {
+
         this.newsArray = []
         this.latestPost = [];
         localStorage.setItem('firstTimeLoaded', 'true');
@@ -210,6 +219,7 @@ export class HomePage implements OnInit {
                     if (!localStorage.getItem('skip')) {
                     }
                     this.loading = false;
+                    this.checkForRating();
                 },
                 (err) => {
                     this.newsArray = localStorage.newsArray;
@@ -221,6 +231,13 @@ export class HomePage implements OnInit {
         }
     }
 
+    checkForRating() {
+        if (localStorage.getItem('isRated') != 'true' || localStorage.getItem('isRated') == 'pending') {
+            this.showRateModal = true;
+        }else{
+            this.showRateModal = false;
+        }
+    }
     //go to specific post when link click
     firebaseLinkRoute() {
         if (!config.isvisited && !config.counter) {
@@ -309,9 +326,7 @@ export class HomePage implements OnInit {
     //select lang on first time app opens
     async selectLang() {
         if (this.selected) {
-            this.getCategories();
-            this.catSelect = '0';
-            localStorage.setItem('catSelect', '0')
+            this.getAllPost();
             let lang = this.selected;
             localStorage.setItem('language', lang);
             this._generalService.setExtras(lang);
@@ -374,5 +389,20 @@ export class HomePage implements OnInit {
             } else {
             }
         });
+    }
+
+    //rate dialog
+    rate() {
+        localStorage.setItem('isRated','true')
+        this.showRateModal = false
+        this.market.open('io.ionic.triviapost');
+    }
+    dismiss() {
+        localStorage.setItem('isRated','true')
+        this.showRateModal = false  
+    }
+    remindLater() {
+        localStorage.setItem('isRated','pending')
+        this.showRateModal = false  
     }
 }

@@ -19,6 +19,9 @@ import { ToastService } from "./services/toast.service";
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { GeneralService } from './services/general.service';
 declare var $: any;
+import { rateTitle, rateText, rateNowButton, rateNoThanksButton, rateRemindButton } from './changeLang';
+import { Market } from '@ionic-native/market/ngx';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -37,7 +40,11 @@ export class AppComponent {
     mobile: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
-
+  rateTitle = rateTitle;
+  rateText = rateText;
+  rateNow = rateNowButton;
+  rateLater = rateRemindButton;
+  rateNoThanks = rateNoThanksButton;
   user = {
     userName: "",
     email: "",
@@ -46,8 +53,11 @@ export class AppComponent {
   }
   loading: boolean;
   lang: string;
+  language: string;
+  showRateModal: boolean;
 
   constructor(
+    private market: Market,
     private _generalService: GeneralService,
     private keyboard: Keyboard,
     private _toastService: ToastService,
@@ -62,13 +72,52 @@ export class AppComponent {
     protected deeplinks: Deeplinks,
     public events: Events
   ) {
-    if(localStorage.getItem('catSelect')){
-      localStorage.setItem('skip','1')
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const firstDate: any = new Date();
+    const secondDate: any = JSON.parse(localStorage.getItem('ratingModalDate'))
+    const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+    if (diffDays >= 1) {
+      setTimeout(() => {
+        if (localStorage.getItem('isRated') != 'true' || localStorage.getItem('isRated') == 'pending' || !localStorage.getItem('isRated')) {
+          if (!localStorage.getItem('language')) {
+            this.language = 'en';
+            console.log("THIS.LANGUAGE", this.language)
+          } else {
+            this.language = localStorage.getItem('language')
+            console.log("THIS.LANGUAGE", this.language)
+          }
+          this.showRateModal = true;
+          localStorage.setItem('ratingModalDate', JSON.stringify(new Date()))
+        } else {
+          this.showRateModal = false;
+        }
+      }, 15 * 60 * 1000);
     }
-    if(!localStorage.getItem('isVisited')){
+    if (localStorage.getItem('skip') != '1') {
+      localStorage.setItem('ratingModalDate', JSON.stringify(new Date()))
+      setTimeout(() => {
+        if (localStorage.getItem('isRated') != 'true' || localStorage.getItem('isRated') == 'pending') {
+          if (!localStorage.getItem('language')) {
+            this.language = 'en';
+            console.log("THIS.LANGUAGE", this.language)
+          } else {
+            this.language = localStorage.getItem('language')
+            console.log("THIS.LANGUAGE", this.language)
+          }
+          this.showRateModal = true;
+        } else {
+          this.showRateModal = false;
+        }
+      }, 15 * 60 * 1000);
+    }
+    if (localStorage.getItem('language')) {
+      localStorage.setItem('skip', '1')
+    }
+    if (!localStorage.getItem('isVisited')) {
       let isVisited = [];
-      localStorage.setItem('isVisited',JSON.stringify(isVisited))
+      localStorage.setItem('isVisited', JSON.stringify(isVisited))
     }
+    // this.language = localStorage.getItem('language');
     localStorage.removeItem('firstTimeLoaded');
     this._userService.currentData.subscribe(value => {
       if (this.loginModalFlag != true) {
@@ -135,5 +184,19 @@ export class AppComponent {
         this.statusBar.backgroundColorByHexString('#000000');
       });
     }
+  }
+  //rate dialog
+  rate() {
+    localStorage.setItem('isRated', 'true')
+    this.showRateModal = false
+    this.market.open('io.ionic.triviapost');
+  }
+  dismiss() {
+    localStorage.setItem('isRated', 'true')
+    this.showRateModal = false
+  }
+  remindLater() {
+    localStorage.setItem('isRated', 'pending')
+    this.showRateModal = false
   }
 }

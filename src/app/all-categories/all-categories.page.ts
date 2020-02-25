@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
-
+import {catTitle} from '../changeLang'
 @Component({
   selector: 'app-all-categories',
   templateUrl: './all-categories.page.html',
@@ -11,10 +11,11 @@ export class AllCategoriesPage implements OnInit {
   categories: any;
   loading: boolean;
   catSelect: string;
-
+  catTitle = catTitle;
   constructor(private _categoryService: CategoryService) { }
 
   ngOnInit() {
+    this.language = localStorage.getItem('language')
     const alertOnlineStatus = () => {
     }
 

@@ -18,6 +18,12 @@
     },
     "cordova-wheel-selector-plugin": {
       "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-market": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
     }
   },
   "dependent_plugins": {

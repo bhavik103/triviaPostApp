@@ -49,7 +49,7 @@ export class SearchbarComponent implements OnInit {
             this.searchLength = this.newsArray;
             this.box = true;
         } else {
-            this._newsService.searchedNews(key).subscribe(
+            this._newsService.searchedNews(key,this.language).subscribe(
                 (res: any) => {
                     this.loading = false;
                     this.newsArray = res;
@@ -65,7 +65,6 @@ export class SearchbarComponent implements OnInit {
     }
 
     getSingleSearch(postid) {
-        //    this.keyboard.hide();
         setTimeout(() => {
             this.router.navigate(['single-post/' + postid + '/search']);
         }, 500);

@@ -434,6 +434,30 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
         "SelectorCordovaPlugin"
       ],
       "runs": true
+    },
+    {
+      "id": "cordova-plugin-dialogs.notification",
+      "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+      "pluginId": "cordova-plugin-dialogs",
+      "merges": [
+        "navigator.notification"
+      ]
+    },
+    {
+      "id": "cordova-plugin-dialogs.notification_android",
+      "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
+      "pluginId": "cordova-plugin-dialogs",
+      "merges": [
+        "navigator.notification"
+      ]
+    },
+    {
+      "id": "cordova-plugin-market.Market",
+      "file": "plugins/cordova-plugin-market/www/market.js",
+      "pluginId": "cordova-plugin-market",
+      "clobbers": [
+        "cordova.plugins.market"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -465,6 +489,8 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-inappbrowser": "3.1.0",
     "com.telerik.plugins.nativepagetransitions": "0.6.5",
     "cordova-plugin-splashscreen": "5.0.3",
-    "cordova-wheel-selector-plugin": "1.0.0"
+    "cordova-wheel-selector-plugin": "1.0.0",
+    "cordova-plugin-dialogs": "2.0.2",
+    "cordova-plugin-market": "1.2.0"
   };
 });

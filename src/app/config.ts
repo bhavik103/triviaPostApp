@@ -8,7 +8,7 @@ envs['production'] = {
 	counter: 0
 }
 envs['development'] = {
-	baseApiUrl: 'http://192.168.1.58:3000/api/',
+	baseApiUrl: 'http://192.168.1.116:3000/api/',
 	//mediaApiUrl: 'http://192.168.1.58/Bhavik/triviaBackend/',
 	mediaApiUrl: 'https://testing.triviapost.in:3000/',
 	isvisited: false,

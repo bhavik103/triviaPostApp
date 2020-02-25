@@ -97,57 +97,7 @@ img.bookmark {
 .appDesc {
   font-size: 25px;
 }
-/*Huge thanks to @tobiasahlin at http://tobiasahlin.com/spinkit/ */
-.spinner {
-  margin: 30px auto 0;
-  width: 70px;
-  text-align: center;
-}
 
-.spinner > div {
-  width: 18px;
-  height: 18px;
-  background-color: var(--main-app-color);
-
-  border-radius: 100%;
-  display: inline-block;
-  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-}
-
-.spinner .bounce1 {
-  -webkit-animation-delay: -0.32s;
-  animation-delay: -0.32s;
-}
-
-.spinner .bounce2 {
-  -webkit-animation-delay: -0.16s;
-  animation-delay: -0.16s;
-}
-
-@-webkit-keyframes sk-bouncedelay {
-  0%,
-  80%,
-  100% {
-    -webkit-transform: scale(0);
-  }
-  40% {
-    -webkit-transform: scale(1);
-  }
-}
-
-@keyframes sk-bouncedelay {
-  0%,
-  80%,
-  100% {
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  }
-  40% {
-    -webkit-transform: scale(1);
-    transform: scale(1);
-  }
-}
 .ion-color-primary {
   --ion-color-contrast: var(--main-app-color) !important;
   --ion-color-base: #fff !important;
@@ -248,7 +198,7 @@ ion-card:focus {
   background-color: #fff;
   border-radius: 50%;
 }
-.skipTour img{
+.skipTour img {
   float: left;
 }
 .skipTour button {
@@ -270,11 +220,11 @@ ion-card:focus {
   background-size: cover;
   background-position: center;
 }
-.simpleLoader{
+.simpleLoader {
   --background: none;
+  background: url("../../assets/images/simpleLoader.gif") no-repeat left center;;
   background-size: cover;
   background-position: center;
-  background: url("../../assets/images/simpleLoader.gif");
 }
 
 .tourText {
@@ -286,7 +236,7 @@ ion-card:focus {
   padding: 10px;
   border-radius: 10px;
   bottom: 120%;
-  font-size: 12px;
+  font-size: 17px;
   color: #fff;
   width: 50vw;
 }
@@ -298,6 +248,117 @@ ion-card:focus {
   border-top: 7px solid #e42310;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
+}
+.disableScroll {
+  --overflow: hidden;
+}
+
+//modal popup
+.instructions {
+  text-align: center;
+  font-size: 20px;
+  margin: 15vh;
+}
+
+/* //////////////////////////////////////////////////////////////////////////////////////////////
+	//   Default Modal Styles   //
+////////////////////////////////////////////////////////////////////////////////////////////// */
+/*   This is the background overlay   */
+.backgroundOverlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #000000;
+  opacity: 0.85;
+  filter: alpha(opacity=85);
+  -moz-opacity: 0.85;
+  z-index: 101;
+}
+/*   This is the Popup Window   */
+.delayedPopupWindow {
+  position: fixed;
+  width: 80%;
+  background-color: #efefef;
+  border: 2px solid #333;
+  z-index: 102;
+  padding: 10px 20px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border-radius: 11px;
+}
+.img_border {
+  position: absolute;
+  border: 1px solid #fff;
+  background-color: #fff;
+  border-radius: 50%;
+  margin: auto;
+  width: 77px;
+  height: 77px;
+  padding: 13px;
+  top: -10%;
+  left: 0;
+  right: 0;
+  box-shadow: 2px 2px 3px 0 #ddd;
+  padding-top: 5px;
+}
+.rateButtons {
+  float: right;
+}
+.delayedPopupWindow h5 {
+  margin-top: 50px;
+  text-align: center;
+  font-weight: bolder;
+  color: #e41212;
+}
+.delayedPopupWindow p{
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 38px;
+  padding: 0px 20px;
+}
+.delayedPopupWindow .ratingBack{
+  height: 248px;
+  right: 0;
+  float: right;
+  position: absolute;
+  bottom: 0;
+}
+#rateButton {
+  background: #e41212;
+  color: #fff;
+  padding: 7px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.rateButton {
+  text-align: center;
+  position: relative;
+  z-index: 11;
+  padding: 0 17px;
+}
+button#remindLater,button#noThanks {
+  background: none;
+  padding: 7px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  font-size: 10px;
+  border: 1px solid #e41212;
+  color: #e41212;
+}
+button#noThanks{
+  border: none;
 }
 .disableScroll{
   --overflow: hidden;

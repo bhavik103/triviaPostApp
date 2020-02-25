@@ -8,8 +8,11 @@ import { Storage } from '@ionic/storage';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { GeneralService } from '../services/general.service';
 import { ToastService } from "../services/toast.service";
-import { savePref,category,signInText, signIn, orUsing, langSelectText, shareApp, terms, privacy, feedback, notification, bookmark, language } from '../changeLang';
+import { optionsTitle,savePref, category, signInText, signIn, orUsing, langSelectText, shareApp, terms, privacy, feedback, notification, bookmark, language } from '../changeLang';
 import 'jquery';
+// import { AppRate } from '@ionic-native/app-rate/ngx';
+import { Dialogs } from '@ionic-native/dialogs/ngx';
+
 @Component({
 	selector: 'app-settings',
 	templateUrl: './settings.component.html',
@@ -44,9 +47,10 @@ export class SettingsComponent implements OnInit {
 	signIn = signIn;
 	languageText = language;
 	orUsing = orUsing;
+	options = optionsTitle;
 	notification = notification;
 	//********static variables based on language ends
-	
+
 	// languageActionSheet = [
 	// 	{
 	// 		text: 'English', shortForm: 'en', role: 'destructive', handler: () => {
@@ -159,7 +163,7 @@ export class SettingsComponent implements OnInit {
 			}
 		}
 	];
-	constructor(private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
+	constructor(private dialogs: Dialogs, private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
 	}
 
 	ionViewWillEnter() {
@@ -296,4 +300,12 @@ export class SettingsComponent implements OnInit {
 		});
 		await actionSheet.present();
 	}
+
+	//rate app
+	rateApp() {
+		this.dialogs.alert('Hello world')
+			.then(() => console.log('Dialog dismissed'))
+			.catch(e => console.log('Error displaying dialog', e));
+	}
+
 }

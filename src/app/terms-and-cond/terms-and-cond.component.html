@@ -8,7 +8,7 @@
       float-left
     >
     </ion-back-button>
-    <span id="settingTitle">Terms & Condition</span>
+    <span id="settingTitle">{{termsTitle[language]}}</span>
     <button float-right routerLink="/home">
       <ion-icon name="home"></ion-icon>
     </button>
@@ -16,7 +16,7 @@
 </div>
 <ion-content padding *ngIf="!loading">
   <div *ngFor="let policy of privacyPolicy">
-    <div [innerHTML]="policy.terms"></div>
+    <div [innerHTML]="policy.terms" id="termsAndCondotion"></div>
   </div>
 </ion-content>
 <ion-content *ngIf="loading" class="loadingContent"> </ion-content>

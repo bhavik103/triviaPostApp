@@ -30,6 +30,7 @@
         "@ionic-native/app-version": "^5.20.0",
         "@ionic-native/core": "^5.20.0",
         "@ionic-native/deeplinks": "^5.20.0",
+        "@ionic-native/dialogs": "^5.21.6",
         "@ionic-native/facebook": "^5.20.0",
         "@ionic-native/fcm": "^5.20.0",
         "@ionic-native/file": "^5.20.0",
@@ -40,6 +41,7 @@
         "@ionic-native/ionic-webview": "^5.20.0",
         "@ionic-native/keyboard": "^5.20.0",
         "@ionic-native/local-notifications": "^5.20.0",
+        "@ionic-native/market": "^5.21.6",
         "@ionic-native/native-page-transitions": "^5.20.0",
         "@ionic-native/network": "^5.20.0",
         "@ionic-native/screen-orientation": "^5.20.0",
@@ -60,6 +62,7 @@
         "cordova-plugin-androidx-adapter": "^1.1.0",
         "cordova-plugin-badge": "^0.8.8",
         "cordova-plugin-customurlscheme": "^4.4.0",
+        "cordova-plugin-dialogs": "^2.0.2",
         "cordova-plugin-facebook4": "^6.2.0",
         "cordova-plugin-fcm-with-dependecy-updated": "^3.2.0",
         "cordova-plugin-file": "^6.0.2",
@@ -69,6 +72,7 @@
         "cordova-plugin-inappbrowser": "^3.2.0",
         "cordova-plugin-ionic-webview": "^4.0.0",
         "cordova-plugin-local-notification": "^0.9.0-beta.2",
+        "cordova-plugin-market": "^1.2.0",
         "cordova-plugin-network-information": "^2.0.2",
         "cordova-plugin-screen-orientation": "^3.0.2",
         "cordova-plugin-splashscreen": "^5.0.3",
@@ -184,7 +188,9 @@
             "cordova-plugin-inappbrowser": {},
             "com.telerik.plugins.nativepagetransitions": {},
             "cordova-plugin-splashscreen": {},
-            "cordova-wheel-selector-plugin": {}
+            "cordova-wheel-selector-plugin": {},
+            "cordova-plugin-dialogs": {},
+            "cordova-plugin-market": {}
         },
         "platforms": [
             "ios",

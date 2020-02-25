@@ -16,7 +16,7 @@
     *ngIf="!category.isNotify && (firstTime && !skip) && index == 0"
     class="tourText"
   >
-    Click here to subscribe category to get notifications of that particular category news!
+    {{tourCategory[language]}}
   </div>
   <div class="">
     <div
@@ -89,25 +89,25 @@
     </div>
     <ion-slides pager (ionSlideWillChange)="slideDidChange()">
       <ion-slide>
-        <h3>Bookmark Posts</h3>
-        <p>So you don't loose your favourite reading blogs</p>
+        <h3>{{modalBookmarkTitle[language]}}</h3>
+        <p>{{modalBookmarkText[language]}}</p>
       </ion-slide>
 
       <ion-slide>
         <div></div>
-        <h3>Get Notifications</h3>
-        <p>So you get instant notifications from your subscribed blogs</p>
+        <h3>{{modalNotificationTitle[language]}}</h3>
+        <p>{{modalNotificationText[language]}}</p>
       </ion-slide>
     </ion-slides>
     <div>
       <button class="signupButton" (click)="redirectToSignup()">Signup</button>
       <button class="cancelButton" (click)="closeModal()">
-        <div class="ripple_effect"></div>
+        <!-- <div class="ripple_effect"></div> -->
         Skip
       </button>
-      <div class="tourText tourTextModal">
-        Click here to proceed!
-      </div>
+      <!-- <div class="tourText tourTextModal">
+        {{proceedTour[language]}}
+      </div> -->
     </div>
   </div>
 </div>

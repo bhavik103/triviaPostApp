@@ -7,10 +7,9 @@ import { config } from '../config';
 import { Network } from '@ionic-native/network/ngx';
 import { ToastService } from "../services/toast.service";
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { language } from 'app/changeLang';
+import { language, tourCategory, modalBookmarkText,modalBookmarkTitle,modalNotificationText,modalNotificationTitle,proceedTour} from 'app/changeLang';
 import { IonSlides } from '@ionic/angular';
 import * as introJs from 'intro.js/intro.js';
-
 @Component({
   selector: 'app-category-tiles',
   templateUrl: './category-tiles.page.html',
@@ -23,7 +22,12 @@ export class CategoryTilesPage implements OnInit {
   @Input('index') index: any;
   @Output() onSubscribe: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(IonSlides, { static: false }) protected slider: IonSlides;
-
+  tourCategory = tourCategory;
+  modalBookmarkTitle = modalBookmarkTitle
+  modalBookmarkText = modalBookmarkText
+  modalNotificationTitle = modalNotificationTitle
+  modalNotificationText = modalNotificationText
+  proceedTour = proceedTour
   skip: any
   mediaPath = config.mediaApiUrl;
   modal: boolean;
@@ -62,9 +66,10 @@ export class CategoryTilesPage implements OnInit {
 
   addNotify(catId, isNotify) {
     console.log('isNotify', isNotify)
-    if (this.firstTime) {
+    if (!localStorage.getItem('catModal')) {
       this.modal = true
     } else {
+      localStorage.setItem('catModal','1')
       if (this.network.type == 'none') {
         const message = "No internet connection";
         const color = "danger";
@@ -83,13 +88,12 @@ export class CategoryTilesPage implements OnInit {
   }
 
   closeModal() {
-    this.modal = false
-    this.onSubscribe.emit({ cat: 1 });
+    localStorage.setItem('catModal','1')
+    this.modal = false;
   }
 
   redirectToSignup() {
-    localStorage.setItem('language', this.language)
-    localStorage.setItem('catSelect', '0')
+    localStorage.setItem('catModal','1')
     this.router.navigateByUrl('/login')
   }
 

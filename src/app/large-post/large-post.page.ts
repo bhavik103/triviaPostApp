@@ -52,6 +52,9 @@ export class LargePostPage implements OnInit {
   }
 
   singleNews(postid) {
+    if(!localStorage.getItem('skip')){
+      localStorage.setItem('skip','1')
+    }
     this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
     this.visitedArray.push(postid);
     localStorage.setItem('isVisited',JSON.stringify(this.visitedArray))

@@ -37,6 +37,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { SuperTabsModule } from '@ionic-super-tabs/angular';
+import { Dialogs } from '@ionic-native/dialogs/ngx';
+import { Market } from '@ionic-native/market/ngx';
 
 export class HammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -60,6 +62,8 @@ export class HammerConfig extends HammerGestureConfig {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: HammerConfig
     },
+    Market,
+    Dialogs,
     Network,
     SocialSharing,
     StatusBar,

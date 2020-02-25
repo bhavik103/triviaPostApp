@@ -1,4 +1,9 @@
-
+ion-icon.homeBack.md.hydrated {
+  float: left !important;
+  /* margin: 4px; */
+  font-size: 24px;
+  margin-left: 10px;
+}
 .newsImg {
   padding: 0;
   height: 100%;
@@ -8,6 +13,23 @@
   background-attachment: fixed;
   background-size: 50%;
   background-position: center;
+}
+.latestPost {
+  padding: 0;
+}
+.latestPost:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+.latestpostimg {
+  height: 326px;
+  object-fit: cover;
 }
 .textBlock {
   position: absolute;
@@ -21,6 +43,8 @@
   font-size: 13px;
   padding-top: 2%;
   color: var(--main-app-color);
+  border-radius: 8px;
+  z-index: 3333;
   display: inline-block;
 }
 .postDescription{
@@ -88,13 +112,18 @@ img.likeImage {
   bottom: 0;
   margin: auto;
 }
-.timeAgo{
+.timeAgo {
   opacity: 0.8;
   font-weight: normal;
 }
-.borderBottom{
-  border-bottom: 1px solid #777777;
+.firstTimeBlur{
+  border: 1px solid #f7f7f7;
+  filter: blur(7px) grayscale(1);
+}
+ion-list{
+  border-bottom: 1px solid #cacaca;
 }
 .isVisited{
-  color: #609
+  --background: none;
+  background: #ddd;
 }

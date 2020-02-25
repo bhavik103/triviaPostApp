@@ -30,7 +30,7 @@
     >
       <img
         src="{{ mediaPath }}{{ searchNews.newsImage }}"
-        height="73px"
+        height="100%"
         width="100%"
       />
     </ion-col>
@@ -38,11 +38,31 @@
       <div padding>
         <span
           class="optionsList"
+          *ngIf="language != 'as'"
           (click)="getSingleSearch(searchNews.newsId)"
           [innerHTML]="searchNews[language].title | slice: 0:70"
         ></span>
         <p
           class="newsCat"
+          *ngIf="language != 'as'"
+          (click)="
+            categoryClick(
+              searchNews.newsCategoryId,
+              searchNews.newsCategory[language]
+            )
+          "
+        >
+          {{ searchNews.newsCategory[language] }}
+        </p>
+        <span
+          class="optionsList assameseFont"
+          *ngIf="language == 'as'"
+          (click)="getSingleSearch(searchNews.newsId)"
+          [innerHTML]="searchNews[language].title | slice: 0:70"
+        ></span>
+        <p
+          class="newsCat assameseFont"
+          *ngIf="language == 'as'"
           (click)="
             categoryClick(
               searchNews.newsCategoryId,

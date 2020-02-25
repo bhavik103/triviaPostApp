@@ -255,5 +255,29 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-dialogs": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-dialogs"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-nativestorage": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-nativestorage"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-market": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-market"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

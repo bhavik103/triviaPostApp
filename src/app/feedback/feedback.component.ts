@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import { ToastService } from "../services/toast.service";
+import {feedback} from '../changeLang'
 @Component({
 	selector: 'app-feedback',
 	templateUrl: './feedback.component.html',
@@ -13,9 +14,12 @@ import { ToastService } from "../services/toast.service";
 })
 export class FeedbackComponent implements OnInit {
 	loading: any;
+	feedbackTitle = feedback;
+	language: string;
 	constructor(public platform: Platform, public _toastService: ToastService, public _userService: UserService, private router: Router) { }
 
 	ngOnInit() {
+		this.language = localStorage.getItem('language')
 		this.platform.backButton.subscribe(async () => {
 			if (this.router.url.includes('feedback')) {
 				this.router.navigate(['settings']);

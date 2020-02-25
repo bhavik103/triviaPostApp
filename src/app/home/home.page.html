@@ -1,8 +1,5 @@
 <div no-border>
-  <div
-    class="settingsToolbar"
-    *ngIf="(language && catSelect == '1') || (language && skip == '1')"
-  >
+  <div class="settingsToolbar" *ngIf="language || (language && skip == '1')">
     <button float-left>
       <ion-icon
         name="settings"
@@ -23,16 +20,6 @@
   <div *ngIf="!language" class="settingsToolbar">
     <span id="settingTitle" style="margin:0;width: 100%;">
       Language
-    </span>
-  </div>
-</div>
-<div no-border>
-  <div
-    *ngIf="language && catSelect == 0 && skip != '1'"
-    class="settingsToolbar"
-  >
-    <span id="settingTitle" style="margin:0;width: 100%;">
-      Categories
     </span>
   </div>
 </div>
@@ -66,6 +53,9 @@
         >
           {{lang.lang}}
         </ion-card>
+        <div class="tourText tourTextModal" *ngIf="i == 0" style="bottom: 96%;">
+          Select language
+        </div>
       </ion-col>
     </ion-row>
     <button class="contButton" (click)="selectLang()">Continue</button>
@@ -101,36 +91,16 @@
   </div>
 </ion-content>
 <ion-content
-  *ngIf="language && catSelect == '0' && skip != '1'"
-  style="position: absolute;z-index: 11;top: 56px;--overflow: hidden"
-  class="tourCat"
+  *ngIf="[(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && !loading && language"
+  [ngClass]="{'disableScroll': !skip}"
 >
-  <ion-row *ngIf="categories" class="catOverl">
-    <ion-col
-      size="6"
-      *ngFor="let category of categories; let i = index"
-      class="categoryTiles"
-    >
-      <app-category-tiles
-        [category]="category"
-        (onSubscribe)="subscribedCategory($event, isNotify)"
-        [language]="language"
-        [firstTime]="true"
-        [index]="i"
-      ></app-category-tiles>
-    </ion-col>
-  </ion-row>
   <div class="skipTour" *ngIf="!skip" (click)="skipTour()">
-    <div class="tourText">
+    <div class="tourText tourTextModal">
       Click here to skip tour!
     </div>
     <div class="ripple_effect"></div>
-    <img src="../../assets/images/skip.png" alt="" height="48px" />
+    <span><img src="../../assets/images/skip.png" alt="" height="48px"/></span>
   </div>
-</ion-content>
-<ion-content
-  *ngIf="[(latestPost && language && catSelect == 1) || (language && latestPost && skip == '1') || skip == '1'] && !loading && language"
->
   <ion-row class="feeds" *ngIf="latestPost && !loading">
     <app-large-post
       [news]="latestPost"
