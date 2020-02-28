@@ -11,6 +11,7 @@ import { FirebaseAnalytics } from '@ionic-native/firebase-analytics/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
+import { AppComponent } from '../app.component'
 
 @Component({
   selector: 'app-single-post',
@@ -34,13 +35,19 @@ export class SinglePostPage implements OnInit {
   skip: string;
   loginBookmark: any;
   firstTimeBlur = false;
-  constructor(private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
+  showRateModal: boolean;
+  constructor(public appcomponent: AppComponent,private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
-    // this.singlePost();
+    this.platform.backButton.subscribe(async () => {
+      this.appcomponent.openRatingModal();
+    });
     this.route.params.subscribe((param: any) => {
       this.configureBack(this.router.url, param);
     });
+  }
+  ionViewWillLeave() {
+    this.showRateModal = true;
   }
   ionViewWillEnter() {
     this.firstTimeBlur = false;
@@ -223,6 +230,7 @@ export class SinglePostPage implements OnInit {
     }
   }
   backClick() {
+    this.appcomponent.openRatingModal();
     // localStorage.setItem('skip', '1')
   }
   async skipTour() {

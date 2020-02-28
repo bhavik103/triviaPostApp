@@ -5,6 +5,8 @@ import { NewsService } from '../services/news.service';
 import { News } from '../home/news';
 import { config } from '../config';
 import { Platform } from '@ionic/angular';
+import { AppComponent } from '../app.component'
+
 @Component({
     selector: 'app-searchbar',
     templateUrl: './searchbar.component.html',
@@ -23,12 +25,13 @@ export class SearchbarComponent implements OnInit {
     searchLength: any;
     loading: any;
     box: any;
-    constructor(private platform: Platform, private router: Router, public _newsService: NewsService, private renderer: Renderer, private elementRef: ElementRef, public keyboard: Keyboard) { }
+    constructor(public appcomponent: AppComponent,private platform: Platform, private router: Router, public _newsService: NewsService, private renderer: Renderer, private elementRef: ElementRef, public keyboard: Keyboard) { }
     keyValue;
     @ViewChild('searchInput', { static: false }) searchInput;
     ngOnInit() {
         this.box = true;
         this.platform.backButton.subscribe(async () => {
+            this.appcomponent.openRatingModal();
             if (this.router.url.includes('searchBar')) {
                 this.router.navigate(['allcategory']);
             }
@@ -73,4 +76,7 @@ export class SearchbarComponent implements OnInit {
     categoryClick(catId, catName) {
         this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
     }
+    backButton() {
+		this.appcomponent.openRatingModal();
+	}
 }

@@ -11,6 +11,7 @@ import { Category } from '../home/category';
 	providedIn: 'root'
 })
 export class UserService {
+	private _listners = new Subject<any>();
 	private currentUserSubject: BehaviorSubject<any>;
 	public currentUser: Observable<any>;
 	private myObservable = new Subject<string>();
@@ -18,6 +19,8 @@ export class UserService {
 	categories: Category[];
 	singleUser: any;
 	tokenLocalStorage: string;
+	private customSubject = new Subject<any>();
+	customObservable = this.customSubject.asObservable();
 	constructor(private http: HttpClient, private storage: Storage, private plt: Platform) {
 		this.currentUserSubject = new BehaviorSubject<any>(localStorage.getItem('accessToken'));
 		this.currentUser = this.currentUserSubject.asObservable();
@@ -25,6 +28,11 @@ export class UserService {
 
 	serviceFunction() {
 		this.myObservable.next("randomFunction");
+	}
+
+	// Service message commands
+	callComponentMethod(value: any) {
+		this.customSubject.next(value);
 	}
 
 	private handleError(error: HttpErrorResponse) {
@@ -48,7 +56,7 @@ export class UserService {
 	}
 
 	//changeLanguage
-	changeLanguage(lang){
+	changeLanguage(lang) {
 		this.tokenLocalStorage = localStorage.getItem('accessToken');
 		if (this.tokenLocalStorage) {
 			const language = {

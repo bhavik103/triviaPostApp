@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { CategoryService } from '../services/category.service';
-import {catTitle} from '../changeLang'
+import { catTitle } from '../changeLang';
+import { UserService } from '../services/user.service';
+import { AppComponent } from '../app.component'
+import { Platform } from '@ionic/angular';
 @Component({
   selector: 'app-all-categories',
   templateUrl: './all-categories.page.html',
@@ -12,9 +15,14 @@ export class AllCategoriesPage implements OnInit {
   loading: boolean;
   catSelect: string;
   catTitle = catTitle;
-  constructor(private _categoryService: CategoryService) { }
+  openRatingModal: any;
+  constructor(private platform: Platform, private appcomponent: AppComponent, private _userService: UserService, private _categoryService: CategoryService) { }
 
   ngOnInit() {
+    this.platform.backButton.subscribe(() => {
+      console.log("GOT IT");
+      this.appcomponent.openRatingModal();
+    });
     this.language = localStorage.getItem('language')
     const alertOnlineStatus = () => {
     }
@@ -22,7 +30,6 @@ export class AllCategoriesPage implements OnInit {
     window.addEventListener('online', alertOnlineStatus)
     window.addEventListener('offline', alertOnlineStatus)
   }
-
   ionViewWillEnter() {
     if (localStorage.getItem('skip')) {
       localStorage.setItem('skip', '1');
@@ -35,6 +42,10 @@ export class AllCategoriesPage implements OnInit {
     this.getCategories();
   }
 
+  handlingBackButton() {
+    this._userService.callComponentMethod('1');
+    console.log("this.openRatingModal", this.appcomponent)
+  }
   getCategories() {
     this.loading = true;
     this.language = localStorage.getItem('language');
@@ -66,5 +77,8 @@ export class AllCategoriesPage implements OnInit {
         this.categories.find((o) => o.categoryId === e.catId).isNotify = false;
       }
     }
+  }
+  backButton(){
+    this.appcomponent.openRatingModal();
   }
 }

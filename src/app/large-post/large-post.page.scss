@@ -139,7 +139,7 @@ img.likeImage {
 .tourText.tourTextTitle {
   left: 5px;
   font-size: 12px;
-  top: 22px;
+  top: 35px;
 }
 .tourText.tourTextTitle:before {
   top: 100%;
@@ -148,4 +148,170 @@ img.likeImage {
 }
 .isVisited{
   color: #609
+}
+.modal-window {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.6);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  pointer-events: all;
+  transition: all 0.3s;
+  &:target {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+  & > div {
+    width: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    background: #ffffff;
+    height: 60%;
+  }
+  header {
+    font-weight: bold;
+  }
+  h1 {
+    font-size: 150%;
+    margin: 0 0 15px;
+  }
+}
+
+.modal-close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  pointer-events: all;
+  text-decoration: none;
+  &:hover {
+    color: black;
+  }
+}
+
+/* Demo Styles */
+
+a {
+  color: inherit;
+}
+
+.modal-window div:not(:last-of-type) {
+  margin-bottom: 15px;
+}
+
+small {
+  color: #aaa;
+}
+
+.btn {
+  background-color: #fff;
+  padding: 1em 1.5em;
+  border-radius: 3px;
+  text-decoration: none;
+  i {
+    padding-right: 0.3em;
+  }
+}
+button.signupButton {
+  width: 61%;
+  background-color: #cf2736;
+  color: #fff;
+  padding: 8px;
+  border-radius: 36px;
+  margin-right: 11px;
+  pointer-events: all;
+  margin: 0 auto;
+  display: block;
+  padding: 12px;
+}
+button.cancelButton {
+  width: 61%;
+  background-color: #fff;
+  color: #cf2736;
+  border: 1px solid #cf2736;
+  padding: 8px;
+  border-radius: 36px;
+  margin-right: 11px;
+  pointer-events: all;
+  margin: 0 auto;
+  display: block;
+  margin-top: 21px;
+}
+
+.firstTimeButton,
+.cancelButton {
+  position: relative;
+}
+ion-slide {
+  display: block;
+}
+.swiper-container {
+  height: 60% !important;
+}
+ion-slide img {
+  height: 40px !important;
+}
+.img_border {
+  position: absolute;
+  border: 1px solid #fff;
+  background-color: #fff;
+  border-radius: 50%;
+  margin: auto;
+  width: 70px;
+  height: 70px;
+  padding: 10px;
+  top: -10%;
+  left: 0;
+  right: 0;
+  box-shadow: 2px 2px 3px 0 #ddd;
+}
+ion-slide h3 {
+  padding: 22px;
+}
+.tourBlur {
+  filter: blur(5px) grayscale(1);
+  background-color: rgba(1, 1, 1, 0.01);
+}
+// .category_title,
+// .notFirstTime {
+//   filter: blur(5px);
+//   background-color: rgba(1, 1, 1, 0.01);
+// }
+.tourText {
+  position: absolute;
+  z-index: 111;
+  text-align: center;
+  background-color: #e41212 !important;
+  font-weight: 900;
+  padding: 10px;
+  border-radius: 10px;
+  // top: 120%;
+  font-size: 12px;
+  width: 50vw;
+}
+.tourText:before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 10%;
+  border-bottom: 7px solid #e42310;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+} 
+
+.tourTextModal{
+  position: relative;
+  top: 2vw;
+  left: 25vw;
+  color: #fff;
 }

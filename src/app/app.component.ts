@@ -1,9 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
-import { Platform, NavController } from '@ionic/angular';
+import { Component } from '@angular/core';
+import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { HomePage } from './home/home.page';
-import { SettingsComponent } from './settings/settings.component';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { Router } from '@angular/router';
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
@@ -21,7 +19,6 @@ import { GeneralService } from './services/general.service';
 declare var $: any;
 import { rateTitle, rateText, rateNowButton, rateNoThanksButton, rateRemindButton } from './changeLang';
 import { Market } from '@ionic-native/market/ngx';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -55,7 +52,7 @@ export class AppComponent {
   lang: string;
   language: string;
   showRateModal: boolean;
-
+  navLinksArray = [];
   constructor(
     private market: Market,
     private _generalService: GeneralService,
@@ -72,6 +69,10 @@ export class AppComponent {
     protected deeplinks: Deeplinks,
     public events: Events
   ) {
+    this._userService.customObservable.subscribe((res) => {
+      console.log("FINALLY GOT IT", res)
+    }
+    );
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     const firstDate: any = new Date();
     const secondDate: any = JSON.parse(localStorage.getItem('ratingModalDate'))
@@ -91,7 +92,7 @@ export class AppComponent {
         } else {
           this.showRateModal = false;
         }
-      }, 15 * 60 * 1000);
+      }, 5 * 60 * 1000);
     }
     if (localStorage.getItem('skip') != '1') {
       localStorage.setItem('ratingModalDate', JSON.stringify(new Date()))
@@ -108,7 +109,7 @@ export class AppComponent {
         } else {
           this.showRateModal = false;
         }
-      }, 15 * 60 * 1000);
+      }, 5 * 60 * 1000);
     }
     if (localStorage.getItem('language')) {
       localStorage.setItem('skip', '1')
@@ -119,7 +120,9 @@ export class AppComponent {
     }
     // this.language = localStorage.getItem('language');
     localStorage.removeItem('firstTimeLoaded');
+
     this._userService.currentData.subscribe(value => {
+      console.log("VALUEEEE", value)
       if (this.loginModalFlag != true) {
         //generates random time for opennig modal between 25 and 40 seconds
         let randomNum = Math.floor(Math.random() * (30 - 14 + 1)) + 14;
@@ -198,5 +201,16 @@ export class AppComponent {
   remindLater() {
     localStorage.setItem('isRated', 'pending')
     this.showRateModal = false
+  }
+
+  openRatingModal() {
+    console.log("INSIDE APP COMPONENT");
+    if (!localStorage.getItem('rateModalFirst')) {
+      this.language = localStorage.getItem('language')
+      this.showRateModal = true;
+    }
+    if (this.showRateModal == true) {
+      localStorage.setItem('rateModalFirst', '1')
+    }
   }
 }

@@ -6,7 +6,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import { ToastService } from "../services/toast.service";
-import {feedback} from '../changeLang'
+import { feedback } from '../changeLang';
+import { AppComponent } from '../app.component'
 @Component({
 	selector: 'app-feedback',
 	templateUrl: './feedback.component.html',
@@ -16,11 +17,12 @@ export class FeedbackComponent implements OnInit {
 	loading: any;
 	feedbackTitle = feedback;
 	language: string;
-	constructor(public platform: Platform, public _toastService: ToastService, public _userService: UserService, private router: Router) { }
+	constructor(public appcomponent: AppComponent, public platform: Platform, public _toastService: ToastService, public _userService: UserService, private router: Router) { }
 
 	ngOnInit() {
 		this.language = localStorage.getItem('language')
 		this.platform.backButton.subscribe(async () => {
+			this.appcomponent.openRatingModal();
 			if (this.router.url.includes('feedback')) {
 				this.router.navigate(['settings']);
 			}
@@ -51,5 +53,8 @@ export class FeedbackComponent implements OnInit {
 			this.loading = false;
 			this._toastService.toastFunction(err.error.message, 'danger');
 		})
+	}
+	backButton() {
+		this.appcomponent.openRatingModal();
 	}
 }

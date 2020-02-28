@@ -19,7 +19,7 @@ import { GeneralService } from '../services/general.service'
 import { langList,tourSkip } from '../changeLang';
 import { AlertController } from '@ionic/angular';
 import { Market } from '@ionic-native/market/ngx';
-import {rateTitle,rateText,catTitle,rateNowButton,rateNoThanksButton,rateRemindButton} from '../changeLang';
+import {rateTitle,modalBookmarkText,modalBookmarkTitle,modalNotificationText,modalNotificationTitle,proceedTour,tourReadPost,rateText,catTitle,rateNowButton,rateNoThanksButton,rateRemindButton} from '../changeLang';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -68,6 +68,13 @@ export class HomePage implements OnInit {
     rateNow = rateNowButton;
     rateLater = rateRemindButton;
     rateNoThanks = rateNoThanksButton;
+    tourReadPost = tourReadPost;
+    modalBookmarkTitle = modalBookmarkTitle
+    modalBookmarkText = modalBookmarkText
+    modalNotificationTitle = modalNotificationTitle
+    modalNotificationText = modalNotificationText
+    proceedTour = proceedTour
+    isTermsAndCond: any;
     constructor(private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
         if (!localStorage.getItem('skip')) {
             $('body').addClass('tourBackDrop')
@@ -304,12 +311,12 @@ export class HomePage implements OnInit {
     }
     //navigate to searchbar
     search() {
-        localStorage.setItem('firstLargePostClick', '1');
+        localStorage.setItem('skip', '1');
         this.router.navigateByUrl('/searchBar');
     }
 
     setFlagTrue() {
-        localStorage.setItem('firstLargePostClick', '1');
+        localStorage.setItem('skip', '1');
     }
     // Notification and utility
     notificationTapped() {
@@ -323,9 +330,13 @@ export class HomePage implements OnInit {
         });
     }
 
+    //check event for terms and cond.
+    isChecked(e){
+        this.isTermsAndCond = e.target.checked;
+    }
     //select lang on first time app opens
     async selectLang() {
-        if (this.selected) {
+        if (this.selected && this.isTermsAndCond) {
             this.getAllPost();
             let lang = this.selected;
             localStorage.setItem('language', lang);
@@ -350,6 +361,12 @@ export class HomePage implements OnInit {
             this.fcm.onTokenRefresh().subscribe(token => {
                 localStorage.setItem('deviceToken', token);
             });
+        }else{
+            if(!this.selected){
+                this._toastService.toastFunction('Please Select Language','')
+            }else{
+                this._toastService.toastFunction('Please accept T&C and Privacy Policy','')
+            }
         }
     }
     //select lang on first time app opens

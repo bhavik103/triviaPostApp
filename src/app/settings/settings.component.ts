@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '../services/user.service'
 import { Router } from '@angular/router';
 import { ActionSheetController, Platform } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Storage } from '@ionic/storage';
 import { FCM } from '@ionic-native/fcm/ngx';
@@ -10,8 +9,8 @@ import { GeneralService } from '../services/general.service';
 import { ToastService } from "../services/toast.service";
 import { optionsTitle,savePref, category, signInText, signIn, orUsing, langSelectText, shareApp, terms, privacy, feedback, notification, bookmark, language } from '../changeLang';
 import 'jquery';
-// import { AppRate } from '@ionic-native/app-rate/ngx';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
+import { AppComponent } from '../app.component'
 
 @Component({
 	selector: 'app-settings',
@@ -163,7 +162,7 @@ export class SettingsComponent implements OnInit {
 			}
 		}
 	];
-	constructor(private dialogs: Dialogs, private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
+	constructor(public appcomponent: AppComponent,private dialogs: Dialogs, private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
 	}
 
 	ionViewWillEnter() {
@@ -181,6 +180,9 @@ export class SettingsComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.platform.backButton.subscribe(async () => {
+            this.appcomponent.openRatingModal();
+        });
 		this.getUrl();
 		this.notifyFlag = localStorage.getItem('notification');
 		this.annonymousNotify = localStorage.getItem('annonymousNotify');
@@ -308,4 +310,7 @@ export class SettingsComponent implements OnInit {
 			.catch(e => console.log('Error displaying dialog', e));
 	}
 
+	backButton() {
+		this.appcomponent.openRatingModal();
+	}
 }

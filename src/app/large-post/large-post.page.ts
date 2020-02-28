@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { config } from '../config';
 import { Router } from '@angular/router';
 import { ToastService } from '../services/toast.service'
+import { tourReadPost, tourCatPost, tourSkip } from '../changeLang';
 @Component({
   selector: 'app-large-post',
   templateUrl: './large-post.page.html',
@@ -18,6 +19,10 @@ export class LargePostPage implements OnInit {
   noConnection: boolean
   visitedArray: any;
   isPresent: any;
+  tourReadPost = tourReadPost;
+  tourCatPost = tourCatPost;
+  tourSkip = tourSkip;
+  modal: boolean;
   constructor(private _toastService: ToastService, private router: Router) {
   }
 
@@ -52,23 +57,34 @@ export class LargePostPage implements OnInit {
   }
 
   singleNews(postid) {
-    if(!localStorage.getItem('skip')){
-      localStorage.setItem('skip','1')
-    }
-    this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
-    this.visitedArray.push(postid);
-    localStorage.setItem('isVisited',JSON.stringify(this.visitedArray))
-    if (navigator.onLine) {
-      if (this.wrongStatus) {
-        this.wrongStatus = false
-      }
-      else {
-        localStorage.setItem('firstLargePostClick', '1')
-        this.firstLargePostClick = '1';
-        this.router.navigateByUrl('/single-post/' + postid);
-      }
+    if (!localStorage.getItem('skip')) {
+      this.modal = true;
     } else {
-      this._toastService.toastFunction('No internet connnection', 'danger');
+      localStorage.setItem('skip', '1')
+      this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
+      this.visitedArray.push(postid);
+      localStorage.setItem('isVisited', JSON.stringify(this.visitedArray))
+      if (navigator.onLine) {
+        if (this.wrongStatus) {
+          this.wrongStatus = false
+        }
+        else {
+          localStorage.setItem('firstLargePostClick', '1')
+          this.firstLargePostClick = '1';
+          this.router.navigateByUrl('/single-post/' + postid);
+        }
+      } else {
+        this._toastService.toastFunction('No internet connnection', 'danger');
+      }
     }
+  }
+
+  closeModal(){
+    localStorage.setItem('skip','1')
+    this.router.navigateByUrl('/all-categories')
+  }
+  redirectToSignup(){
+    localStorage.setItem('skip','1')
+    this.router.navigateByUrl('/login')
   }
 }

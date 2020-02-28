@@ -10,7 +10,9 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Observable } from 'rxjs/Observable';
 import { ToastService } from '../services/toast.service';
 import { Network } from '@ionic-native/network/ngx';
-import {bookmark} from '../changeLang'
+import { bookmark } from '../changeLang';
+import { AppComponent } from '../app.component'
+
 @Component({
   selector: 'app-bookmark',
   templateUrl: './bookmark.page.html',
@@ -30,17 +32,18 @@ export class BookmarkPage implements OnInit {
   noNews;
   bookmarkTitle = bookmark;
 
-  constructor(private network: Network,private _toastService: ToastService, private platform: Platform, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router) { }
+  constructor(private appcomponent: AppComponent, private network: Network, private _toastService: ToastService, private platform: Platform, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router) { }
 
   ngOnInit() {
     this.platform.backButton.subscribe(async () => {
+      this.appcomponent.openRatingModal();
       if (this.router.url.includes('bookmarks')) {
         this.router.navigate(['settings']);
       }
     });
     this.language = localStorage.getItem('language');
   }
-  
+
   onPress(newsImage, fcmLink, newsId, newsTitleEnglish, $event) {
     console.log('newsId=', newsId)
   }
@@ -62,13 +65,13 @@ export class BookmarkPage implements OnInit {
     this.loading = true;
     this._newsService.getAllBookmarks().subscribe(
       (res: any) => {
-        if(res.length === 0){
+        if (res.length === 0) {
           this.noNews = true
         }
         this.loading = false;
         this.newsObj = res;
         this.newsArray = this.newsObj;
-        console.log(" BOOKMARKED NEWS",this.newsArray)
+        console.log(" BOOKMARKED NEWS", this.newsArray)
         this.bookmarkLength = this.newsArray.length;
       },
       (err) => {
@@ -106,10 +109,13 @@ export class BookmarkPage implements OnInit {
   }
 
   getSingleBookmark(id) {
-    console.log("bookmark id",id)
+    console.log("bookmark id", id)
     this.router.navigate(['single-post/' + id + '/bookmark']);
   }
   categoryClick(catId, catName) {
     this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
+  }
+  backButton() {
+    this.appcomponent.openRatingModal();
   }
 }

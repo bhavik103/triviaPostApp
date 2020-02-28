@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 import { GeneralService } from '../services/general.service'
 import { Platform } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { AppComponent } from '../app.component'
 
 @Component({
   selector: 'app-single-category',
@@ -27,10 +28,13 @@ export class SingleCategoryPage implements OnInit {
   subscription: any;
   skip: string;
   firstLargePostClick: string;
-  constructor(public alertController: AlertController, private ngzone: NgZone, private platform: Platform, private _generalService: GeneralService, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) {
+  constructor(public appcomponent: AppComponent,public alertController: AlertController, private ngzone: NgZone, private platform: Platform, private _generalService: GeneralService, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
+    this.platform.backButton.subscribe(async () => {
+      this.appcomponent.openRatingModal();
+    });
     this.language = localStorage.getItem('language');
     this.catName = this.route.snapshot.params['cat'];
   }
@@ -68,36 +72,6 @@ export class SingleCategoryPage implements OnInit {
     }, err => {
       this._toastService.toastFunction(err.error.message, 'danger');
     })
-    // if (!localStorage.getItem('skip')) {
-
-    //   const alert = await this.alertController.create({
-    //     header: 'Confirm!',
-    //     message: 'Are you sure you want to skip the <strong>tour</strong>?',
-    //     cssClass: 'alertCustomCss',
-    //     buttons: [
-    //       {
-    //         text: 'Continue',
-    //         role: 'cancel',
-
-    //         handler: (blah) => {
-    //           this.router.navigateByUrl('/single-post/' + this.latestPost.newsId);
-    //         }
-    //       }, {
-    //         text: 'Skip',
-
-    //         handler: () => {
-    //           localStorage.setItem('skip', '1');
-    //           localStorage.setItem('shareBlink', '1');
-    //           localStorage.setItem('catSelect', '1');
-    //           localStorage.setItem('firstLargePostClick', '1');
-    //           // this.skip = localStorage.getItem('skip');
-    //           this.router.navigateByUrl('all-categories');
-    //         }
-    //       }
-    //     ]
-    //   });
-    //   await alert.present();
-    // }
   }
 
   goToCategories() {
@@ -110,4 +84,7 @@ export class SingleCategoryPage implements OnInit {
     localStorage.setItem('skip', '1')
     this._generalService.setExtras(page);
   }
+  backButton() {
+		this.appcomponent.openRatingModal();
+	}
 }

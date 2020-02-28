@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/home\"\n      float-left\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\">{{catName}}</span>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n<ion-content (swiperight)=\"goToCategories()\" ion-padding *ngIf=\"!loading\">\n  <ion-row class=\"feeds\" *ngIf=\"news\">\n    <app-large-post\n      [news]=\"news\"\n      [language]=\"language\"\n      [singleCat]=\"true\"\n      [skip]=\"skip\"\n    ></app-large-post>\n  </ion-row>\n  <ion-row class=\"feeds\" *ngIf=\"news && newsArray && newsArray.length\">\n    <span *ngFor=\"let news of newsArray;\">\n      <app-post-tiles\n        [news]=\"news\"\n        [language]=\"language\"\n        [singleCat]=\"true\"\n      ></app-post-tiles>\n    </span>\n  </ion-row>\n  <ion-row class=\"onePost\" *ngIf=\"newsArrayLength\">\n    <ion-col size=\"12\">Only one post in this category !</ion-col>\n  </ion-row>\n  <ion-row class=\"onePost\" *ngIf=\"noNews == true\">\n    <ion-col size=\"12\">No posts in this category !</ion-col>\n  </ion-row>\n  <div id=\"loader-wrapper\" *ngIf=\"loading\">\n    <div id=\"loader\">\n      <div class=\"spinner\">\n        <div class=\"bounce1\"></div>\n        <div class=\"bounce2\"></div>\n        <div class=\"bounce3\"></div>\n      </div>\n      <p class=\"text-center\">Loading...</p>\n    </div>\n  </div>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>\n"
+module.exports = "<div>\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/home\"\n      float-left\n      (click)=\"backButton()\"\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\">{{catName}}</span>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n<ion-content (swiperight)=\"goToCategories()\" ion-padding *ngIf=\"!loading\">\n  <ion-row class=\"feeds\" *ngIf=\"news\">\n    <app-large-post\n      [news]=\"news\"\n      [language]=\"language\"\n      [singleCat]=\"true\"\n      [skip]=\"skip\"\n    ></app-large-post>\n  </ion-row>\n  <ion-row class=\"feeds\" *ngIf=\"news && newsArray && newsArray.length\">\n    <span *ngFor=\"let news of newsArray;\">\n      <app-post-tiles\n        [news]=\"news\"\n        [language]=\"language\"\n        [singleCat]=\"true\"\n      ></app-post-tiles>\n    </span>\n  </ion-row>\n  <ion-row class=\"onePost\" *ngIf=\"newsArrayLength\">\n    <ion-col size=\"12\">Only one post in this category !</ion-col>\n  </ion-row>\n  <ion-row class=\"onePost\" *ngIf=\"noNews == true\">\n    <ion-col size=\"12\">No posts in this category !</ion-col>\n  </ion-row>\n  <div id=\"loader-wrapper\" *ngIf=\"loading\">\n    <div id=\"loader\">\n      <div class=\"spinner\">\n        <div class=\"bounce1\"></div>\n        <div class=\"bounce2\"></div>\n        <div class=\"bounce3\"></div>\n      </div>\n      <p class=\"text-center\">Loading...</p>\n    </div>\n  </div>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>\n"
 
 /***/ }),
 
@@ -291,6 +291,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
 /* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/general.service */ "./src/app/services/general.service.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+
 
 
 
@@ -302,7 +304,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SingleCategoryPage = /** @class */ (function () {
-    function SingleCategoryPage(alertController, ngzone, platform, _generalService, network, _toastService, _newsService, route, router) {
+    function SingleCategoryPage(appcomponent, alertController, ngzone, platform, _generalService, network, _toastService, _newsService, route, router) {
+        this.appcomponent = appcomponent;
         this.alertController = alertController;
         this.ngzone = ngzone;
         this.platform = platform;
@@ -315,6 +318,13 @@ var SingleCategoryPage = /** @class */ (function () {
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_4__["config"].mediaApiUrl;
     }
     SingleCategoryPage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.platform.backButton.subscribe(function () { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.appcomponent.openRatingModal();
+                return [2 /*return*/];
+            });
+        }); });
         this.language = localStorage.getItem('language');
         this.catName = this.route.snapshot.params['cat'];
     };
@@ -369,7 +379,11 @@ var SingleCategoryPage = /** @class */ (function () {
         localStorage.setItem('skip', '1');
         this._generalService.setExtras(page);
     };
+    SingleCategoryPage.prototype.backButton = function () {
+        this.appcomponent.openRatingModal();
+    };
     SingleCategoryPage.ctorParameters = function () { return [
+        { type: _app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["AlertController"] },
         { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"] },
@@ -386,7 +400,7 @@ var SingleCategoryPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./single-category.page.html */ "./node_modules/raw-loader/index.js!./src/app/single-category/single-category.page.html"),
             styles: [__webpack_require__(/*! ./single-category.page.scss */ "./src/app/single-category/single-category.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_8__["AlertController"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _services_general_service__WEBPACK_IMPORTED_MODULE_7__["GeneralService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"], _services_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["AlertController"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _services_general_service__WEBPACK_IMPORTED_MODULE_7__["GeneralService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"], _services_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], SingleCategoryPage);
     return SingleCategoryPage;
 }());

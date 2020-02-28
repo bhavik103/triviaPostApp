@@ -186,7 +186,7 @@ export const tourCategory = {
 	bn: 'নির্দিষ্ট বিভাগের সংবাদগুলির বিজ্ঞপ্তি পেতে বিভাগটি সাবস্ক্রাইব করতে এখানে ক্লিক করুন!',
 }
 export const tourSkip = {
-	en: 'Click here to skip tour!',
+	en: 'Click here to skip the tour!',
 	hn: 'टूर स्किप करने के लिए यहां क्लिक करें!',
 	as: 'ভ্রমণ এড়ানোর জন্য এখানে ক্লিক করুন!',
 	bn: 'ভ্রমণ এড়ানোর জন্য এখানে ক্লিক করুন!'
@@ -281,9 +281,28 @@ export const rateRemindButton = {
 	as: 'পরে',
 	bn: 'পরে'
 }
+export const tourCategoryClick = {
+	en: 'NO, THANKS',
+	hn: 'नहीं, धन्यवाद',
+	as: 'না ধন্যবাদ',
+	bn: 'না ধন্যবাদ'
+}
 export const rateNoThanksButton = {
 	en: 'NO, THANKS',
 	hn: 'नहीं, धन्यवाद',
 	as: 'না ধন্যবাদ',
 	bn: 'না ধন্যবাদ'
 }
+export const tourReadPost = {
+	en: 'Click here to read this post!',
+	hn: 'इस पोस्ट को पढ़ने के लिए यहाँ क्लिक करें!',
+	as: 'এই পোস্টটি পড়তে এখানে ক্লিক করুন!',
+	bn: 'এই পোস্টটি পড়তে এখানে ক্লিক করুন!'
+}
+export const tourCatPost = {
+	en: 'Click here to read from this specific category!',
+	hn: 'इस विशिष्ट श्रेणी से पढ़ने के लिए यहां क्लिक करें!',
+	as: 'এই নির্দিষ্ট বিভাগ থেকে পড়তে এখানে ক্লিক করুন!',
+	bn: 'এই নির্দিষ্ট বিভাগ থেকে পড়তে এখানে ক্লিক করুন!'
+}
+

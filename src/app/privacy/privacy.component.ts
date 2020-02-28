@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { GeneralService} from '../services/general.service';
-import {config} from '../config';
-import {Router} from '@angular/router';
-import {privacyTitle} from '../changeLang'
-import {Platform } from '@ionic/angular';
+import { GeneralService } from '../services/general.service';
+import { config } from '../config';
+import { Router } from '@angular/router';
+import { privacyTitle } from '../changeLang'
+import { Platform } from '@ionic/angular';
+import { AppComponent } from '../app.component'
+
 @Component({
 	selector: 'app-privacy',
 	templateUrl: './privacy.component.html',
@@ -15,20 +17,21 @@ export class PrivacyComponent implements OnInit {
 	loading: any;
 	privacyTitle = privacyTitle;
 	language: any;
-	constructor(private platform:Platform, public _generalService: GeneralService, private router:Router) {
+	constructor(public appcomponent: AppComponent, private platform: Platform, public _generalService: GeneralService, private router: Router) {
 	}
 
 	ngOnInit() {
 		this.language = localStorage.getItem('language')
 		this.platform.backButton.subscribe(async () => {
-            if(this.router.url.includes('privacy')){
-                this.router.navigate(['settings']);
-            }
-        });
+			this.appcomponent.openRatingModal();
+			if (this.router.url.includes('privacy')) {
+				this.router.navigate(['settings']);
+			}
+		});
 		this.getPrivacyPolicy();
 	}
 
-	getPrivacyPolicy(): void{
+	getPrivacyPolicy(): void {
 		this.loading = true;
 		this._generalService.getPolicy().subscribe(
 			(res: any) => {
@@ -40,5 +43,8 @@ export class PrivacyComponent implements OnInit {
 				this.loading = false;
 				this.error = err;
 			});
+	}
+	backButton() {
+		this.appcomponent.openRatingModal();
 	}
 }

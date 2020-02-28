@@ -31,9 +31,9 @@
   >
     <div class="langHead">
       <img src="../../assets/images/subject.png" height="30px" width="30px" />
-      <p>Choose your preferred language</p>
+      <p>Choose any language of your preference to continue</p>
     </div>
-    <ion-row>
+    <ion-row style="margin-top: 40%;">
       <ion-col
         size="6"
         *ngFor="let lang of languageList;let i = index"
@@ -54,9 +54,16 @@
           {{lang.lang}}
         </ion-card>
         <div class="tourText tourTextModal" *ngIf="i == 0" style="bottom: 96%;">
-          Select language
+          Choose any language of your preference!
         </div>
       </ion-col>
+      <div class="container">
+        <input type="checkbox" id="someID" (change)="isChecked($event)" />
+        <label for="someID" class="checkbox-1">
+          By continuing, you accept the <span class="redLink"> "Terms of Use"</span> and
+          <span class="redLink"> "Privacy Policy" </span>
+        </label>
+      </div>
     </ion-row>
     <button class="contButton" (click)="selectLang()">Continue</button>
   </div>
@@ -68,7 +75,7 @@
   >
     <div class="langHead">
       <img src="../../assets/images/subject.png" height="30px" width="30px" />
-      <p>Choose your preferred language</p>
+      <p>Choose any language of your preference to continue</p>
     </div>
     <ion-row>
       <ion-col
@@ -86,6 +93,13 @@
           {{lang.lang}}
         </ion-card>
       </ion-col>
+      <div class="container">
+        <input type="checkbox" id="someID" (change)="isChecked($event)" />
+        <label for="someID" class="checkbox-1">
+          By continuing, you accept the <span class="redLink"> "Terms of Use"</span> and
+          <span class="redLink"> "Privacy Policy" </span>
+        </label>
+      </div>
     </ion-row>
     <button class="contButton" (click)="selectLangSkip()">Continue</button>
   </div>
@@ -96,7 +110,7 @@
 >
   <div class="skipTour" *ngIf="!skip" (click)="skipTour()">
     <div class="tourText tourTextModal">
-      Click here to skip tour!
+      {{tourSkip[language]}}
     </div>
     <div class="ripple_effect"></div>
     <span><img src="../../assets/images/skip.png" alt="" height="48px"/></span>

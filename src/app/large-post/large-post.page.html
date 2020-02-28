@@ -31,7 +31,7 @@
       *ngIf="!firstLargePostClick && !skip == '1'"
       class="tourText tourTextTitle"
     >
-      Click here to read this post!
+      {{tourReadPost[language]}}
     </div>
     <div class="textBlock">
       <span
@@ -101,7 +101,45 @@
       {{news.newsCategory[language]}}
     </button>
     <div *ngIf="!firstLargePostClick && !skip == '1'" class="tourText">
-      Click here to read posts of this category!
+      {{tourCatPost[language]}}
     </div>
   </ion-col>
 </ion-row>
+<div id="open-modal" class="modal-window" *ngIf="modal">
+  <div>
+    <div class="img_border">
+      <img
+        src="../../assets/images/bookmarkNew.png"
+        alt=""
+        *ngIf="sliderIndex == 0 || !sliderIndex"
+      />
+      <img
+        src="../../assets/images/notificationNew.png"
+        alt=""
+        *ngIf="sliderIndex == 1"
+      />
+    </div>
+    <ion-slides pager (ionSlideWillChange)="slideDidChange()">
+      <ion-slide>
+        <h3>Bookmark Posts</h3>
+        <p>So you don't loose your favourite reading blogs</p>
+      </ion-slide>
+
+      <ion-slide>
+        <div></div>
+        <h3>Get Notifications</h3>
+        <p>So you get instant notifications from your subscribed blogs</p>
+      </ion-slide>
+    </ion-slides>
+    <div>
+      <button class="signupButton" (click)="redirectToSignup()">Signup</button>
+      <button class="cancelButton" (click)="closeModal()">
+        <div class="ripple_effect"></div>
+        Skip
+      </button>
+      <div class="tourText tourTextModal">
+        Click here to proceed!
+      </div>
+    </div>
+  </div>
+</div>

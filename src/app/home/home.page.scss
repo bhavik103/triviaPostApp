@@ -153,7 +153,7 @@ select {
 }
 
 .langHead {
-  padding: 22vh 10px 20px;
+  padding: 10px 20px;
 }
 
 .langHead img {
@@ -162,7 +162,6 @@ select {
 }
 
 .langHead p {
-  line-height: 33px;
   font-size: 16px;
   margin: 0;
 }
@@ -185,6 +184,7 @@ ion-card:focus {
   width: 92%;
   border-radius: 10px;
   color: #e41212 !important;
+  font-weight: bolder;
 }
 .active {
   background-color: red;
@@ -222,7 +222,7 @@ ion-card:focus {
 }
 .simpleLoader {
   --background: none;
-  background: url("../../assets/images/simpleLoader.gif") no-repeat left center;;
+  background: url("../../assets/images/simpleLoader.gif") no-repeat left center;
   background-size: cover;
   background-position: center;
 }
@@ -320,13 +320,13 @@ ion-card:focus {
   font-weight: bolder;
   color: #e41212;
 }
-.delayedPopupWindow p{
+.delayedPopupWindow p {
   text-align: center;
   font-size: 14px;
   margin-bottom: 38px;
   padding: 0px 20px;
 }
-.delayedPopupWindow .ratingBack{
+.delayedPopupWindow .ratingBack {
   height: 248px;
   right: 0;
   float: right;
@@ -347,7 +347,8 @@ ion-card:focus {
   z-index: 11;
   padding: 0 17px;
 }
-button#remindLater,button#noThanks {
+button#remindLater,
+button#noThanks {
   background: none;
   padding: 7px;
   border-radius: 10px;
@@ -357,9 +358,72 @@ button#remindLater,button#noThanks {
   border: 1px solid #e41212;
   color: #e41212;
 }
-button#noThanks{
+button#noThanks {
   border: none;
 }
-.disableScroll{
+.disableScroll {
   --overflow: hidden;
+}
+
+//custom checkbox starts
+.container {
+  margin: 15px;
+  background-color: #fff;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  color: #a0a0a0;
+}
+
+#someID {
+  display: none;
+}
+
+.checkbox-1 {
+  cursor: pointer;
+  font-size: 14px;
+  position: relative;
+  padding-left: 40px;
+  padding-top: 5px;
+}
+
+.checkbox-1:before {
+  position: absolute;
+  content: "";
+  width: 21px;
+  height: 21px;
+  border-radius: 4px;
+  background: #33549e;
+  text-align: center;
+  left: 0;
+  top: 2px;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.checkbox-1:after {
+  position: absolute;
+  content: "✔";
+  font-family: "Dosis", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 14px;
+  text-align: center;
+  color: #fff;
+  left: 3px;
+  top: 7px;
+  transform: scale(0);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+#someID:checked + .checkbox-1:after {
+  transform: scale(1);
+}
+//custom checkbox ends
+span.redLink {
+  color: #e41212 !important;
+  border-bottom: 2px solid;
 }

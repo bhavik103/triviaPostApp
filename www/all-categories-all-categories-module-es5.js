@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/settings\"\n      float-left\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\"> {{catTitle[language]}}</span>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n\n<ion-content *ngIf=\"language && !loading\">\n  <ion-row *ngIf=\"categories\">\n    <ion-col size=\"6\" *ngFor=\"let category of categories\" class=\"categoryTiles\">\n      <app-category-tiles\n        [category]=\"category\"\n        (onSubscribe)=\"subscribedCategory($event, isNotify)\"\n        [language]=\"language\"\n      ></app-category-tiles>\n    </ion-col>\n  </ion-row>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>"
+module.exports = "<div>\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/settings\"\n      float-left\n      (click)=\"backButton()\"\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\"> {{catTitle[language]}}</span>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n\n<ion-content *ngIf=\"language && !loading\">\n  <ion-row *ngIf=\"categories\">\n    <ion-col size=\"6\" *ngFor=\"let category of categories\" class=\"categoryTiles\">\n      <app-category-tiles\n        [category]=\"category\"\n        (onSubscribe)=\"subscribedCategory($event, isNotify)\"\n        [language]=\"language\"\n      ></app-category-tiles>\n    </ion-col>\n  </ion-row>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>"
 
 /***/ }),
 
@@ -90,16 +90,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/category.service */ "./src/app/services/category.service.ts");
 /* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../changeLang */ "./src/app/changeLang.ts");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
+
 
 
 
 
 var AllCategoriesPage = /** @class */ (function () {
-    function AllCategoriesPage(_categoryService) {
+    function AllCategoriesPage(platform, appcomponent, _userService, _categoryService) {
+        this.platform = platform;
+        this.appcomponent = appcomponent;
+        this._userService = _userService;
         this._categoryService = _categoryService;
         this.catTitle = _changeLang__WEBPACK_IMPORTED_MODULE_3__["catTitle"];
     }
     AllCategoriesPage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.platform.backButton.subscribe(function () {
+            console.log("GOT IT");
+            _this.appcomponent.openRatingModal();
+        });
         this.language = localStorage.getItem('language');
         var alertOnlineStatus = function () {
         };
@@ -115,6 +129,10 @@ var AllCategoriesPage = /** @class */ (function () {
         }
         this.loading = false;
         this.getCategories();
+    };
+    AllCategoriesPage.prototype.handlingBackButton = function () {
+        this._userService.callComponentMethod('1');
+        console.log("this.openRatingModal", this.appcomponent);
     };
     AllCategoriesPage.prototype.getCategories = function () {
         var _this = this;
@@ -151,7 +169,13 @@ var AllCategoriesPage = /** @class */ (function () {
             }
         }
     };
+    AllCategoriesPage.prototype.backButton = function () {
+        this.appcomponent.openRatingModal();
+    };
     AllCategoriesPage.ctorParameters = function () { return [
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
+        { type: _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"] },
+        { type: _services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"] },
         { type: _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"] }
     ]; };
     AllCategoriesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -160,7 +184,7 @@ var AllCategoriesPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./all-categories.page.html */ "./node_modules/raw-loader/index.js!./src/app/all-categories/all-categories.page.html"),
             styles: [__webpack_require__(/*! ./all-categories.page.scss */ "./src/app/all-categories/all-categories.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"], _services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"]])
     ], AllCategoriesPage);
     return AllCategoriesPage;
 }());

@@ -11,6 +11,7 @@ import 'hammerjs';
 import * as $ from 'jquery';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { error } from 'util';
+import { AppComponent } from '../app.component'
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
@@ -25,9 +26,10 @@ export class LoginComponent implements OnInit {
 	googleSpinner: boolean;
 	facebookSpinner: boolean;
 
-	constructor(private keyboard: Keyboard, private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
+	constructor(public appcomponent: AppComponent, private keyboard: Keyboard, private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
 	ngOnInit() {
 		this.platform.backButton.subscribe(async () => {
+			this.appcomponent.openRatingModal();
 			if (this.router.url.includes('login')) {
 				this.router.navigate(['settings']);
 			}
@@ -67,6 +69,7 @@ export class LoginComponent implements OnInit {
 	}
 
 	goBack() {
+		this.appcomponent.openRatingModal();
 		this.router.navigateByUrl('/settings');
 	}
 
@@ -217,5 +220,8 @@ export class LoginComponent implements OnInit {
 		setTimeout(() => {
 			this.router.navigateByUrl('/signin')
 		}, 1000);
+	}
+	backButton() {
+		this.appcomponent.openRatingModal();
 	}
 }

@@ -88,6 +88,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
 /* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+
+
 
 
 
@@ -95,7 +99,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SigninPage = class SigninPage {
-    constructor(router, _userService, _toastService) {
+    constructor(platform, appcomponent, router, _userService, _toastService) {
+        this.platform = platform;
+        this.appcomponent = appcomponent;
         this.router = router;
         this._userService = _userService;
         this._toastService = _toastService;
@@ -118,6 +124,9 @@ let SigninPage = class SigninPage {
         this.show = false;
     }
     ngOnInit() {
+        this.platform.backButton.subscribe(() => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.appcomponent.openRatingModal();
+        }));
         this.login.userName = localStorage.getItem('email');
         localStorage.removeItem('email');
     }
@@ -154,9 +163,12 @@ let SigninPage = class SigninPage {
     }
     goBack() {
         localStorage.removeItem('email');
+        this.appcomponent.openRatingModal();
     }
 };
 SigninPage.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"] },
+    { type: _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
     { type: _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"] },
     { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_4__["ToastService"] }
@@ -167,7 +179,7 @@ SigninPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./signin.page.html */ "./node_modules/raw-loader/index.js!./src/app/signin/signin.page.html"),
         styles: [__webpack_require__(/*! ./signin.page.scss */ "./src/app/signin/signin.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _services_toast_service__WEBPACK_IMPORTED_MODULE_4__["ToastService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"], _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _services_toast_service__WEBPACK_IMPORTED_MODULE_4__["ToastService"]])
 ], SigninPage);
 
 
