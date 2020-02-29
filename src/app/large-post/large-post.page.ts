@@ -31,6 +31,7 @@ export class LargePostPage implements OnInit {
     this.isPresent = this.visitedArray.includes(this.news.newsId);
     console.log("news[language].title", this.news[this.language].title)
     console.log('this.news', this.news)
+    this.skip = localStorage.getItem('skip');
     this.firstLargePostClick = localStorage.getItem('firstLargePostClick')
     console.log("CATSELECT", this.skip)
   }
@@ -57,34 +58,34 @@ export class LargePostPage implements OnInit {
   }
 
   singleNews(postid) {
-    if (!localStorage.getItem('skip')) {
-      this.modal = true;
-    } else {
-      localStorage.setItem('skip', '1')
-      this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
-      this.visitedArray.push(postid);
-      localStorage.setItem('isVisited', JSON.stringify(this.visitedArray))
-      if (navigator.onLine) {
-        if (this.wrongStatus) {
-          this.wrongStatus = false
-        }
-        else {
-          localStorage.setItem('firstLargePostClick', '1')
-          this.firstLargePostClick = '1';
-          this.router.navigateByUrl('/single-post/' + postid);
-        }
-      } else {
-        this._toastService.toastFunction('No internet connnection', 'danger');
+    // if (!localStorage.getItem('skip')) {
+    //   this.modal = true;
+    // } else {
+    // localStorage.setItem('skip', '1')
+    this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
+    this.visitedArray.push(postid);
+    localStorage.setItem('isVisited', JSON.stringify(this.visitedArray))
+    if (navigator.onLine) {
+      if (this.wrongStatus) {
+        this.wrongStatus = false
       }
+      else {
+        localStorage.setItem('firstLargePostClick', '1')
+        this.firstLargePostClick = '1';
+        this.router.navigateByUrl('/single-post/' + postid);
+      }
+    } else {
+      this._toastService.toastFunction('No internet connnection', 'danger');
     }
+    // }
   }
 
-  closeModal(){
-    localStorage.setItem('skip','1')
+  closeModal() {
+    localStorage.setItem('skip', '1')
     this.router.navigateByUrl('/all-categories')
   }
-  redirectToSignup(){
-    localStorage.setItem('skip','1')
+  redirectToSignup() {
+    localStorage.setItem('skip', '1')
     this.router.navigateByUrl('/login')
   }
 }

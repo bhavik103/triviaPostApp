@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
 	isDisabled: boolean;
 	googleSpinner: boolean;
 	facebookSpinner: boolean;
+	bookmarkFlag: string;
 
 	constructor(public appcomponent: AppComponent, private keyboard: Keyboard, private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
 	ngOnInit() {
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit {
 		});
 	}
 	ionViewWillEnter() {
+		this.bookmarkFlag = localStorage.getItem('bookmarkFlag');
 		this.email = localStorage.getItem('email');
 	}
 
@@ -223,5 +225,8 @@ export class LoginComponent implements OnInit {
 	}
 	backButton() {
 		this.appcomponent.openRatingModal();
+	}
+	skipSignin(){
+		this.router.navigateByUrl('/home')
 	}
 }

@@ -16,10 +16,10 @@ import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 import { SuperTabs } from '@ionic-super-tabs/angular';
 import { SuperTabsConfig } from '@ionic-super-tabs/core';
 import { GeneralService } from '../services/general.service'
-import { langList,tourSkip } from '../changeLang';
+import { langList, tourSkip } from '../changeLang';
 import { AlertController } from '@ionic/angular';
 import { Market } from '@ionic-native/market/ngx';
-import {rateTitle,modalBookmarkText,modalBookmarkTitle,modalNotificationText,modalNotificationTitle,proceedTour,tourReadPost,rateText,catTitle,rateNowButton,rateNoThanksButton,rateRemindButton} from '../changeLang';
+import { rateTitle, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour, tourReadPost, rateText, catTitle, rateNowButton, rateNoThanksButton, rateRemindButton } from '../changeLang';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -75,6 +75,9 @@ export class HomePage implements OnInit {
     modalNotificationText = modalNotificationText
     proceedTour = proceedTour
     isTermsAndCond: any;
+    catModal: any;
+    catModalShow: string;
+    counter: number;
     constructor(private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
         if (!localStorage.getItem('skip')) {
             $('body').addClass('tourBackDrop')
@@ -130,6 +133,7 @@ export class HomePage implements OnInit {
         }
     }
     ionViewWillEnter() {
+        this.catModalShow = localStorage.getItem('catModal');
         this.loading = false
         if (localStorage.getItem('language')) {
             this.getAllPost()
@@ -161,11 +165,17 @@ export class HomePage implements OnInit {
                     handler: (blah) => {
                         this.loading = false;
                         this.skipTheTour = true;
+                        this.skip = '1';
                         localStorage.setItem('skip', '1')
+                        localStorage.setItem('catModalShow', '1')
+                        localStorage.setItem('bookmarkFlag', '1')
+                        localStorage.setItem('shareFlag', '1')
+                        localStorage.setItem('firstLargePostClick', '1')
+                        localStorage.setItem('catModal', '1')
+                        this.catModalShow = '1'
                     }
                 }, {
                     text: 'Start',
-
                     handler: () => {
                         this.loading = false;
                         this.startTour = true;
@@ -241,7 +251,7 @@ export class HomePage implements OnInit {
     checkForRating() {
         if (localStorage.getItem('isRated') != 'true' || localStorage.getItem('isRated') == 'pending') {
             this.showRateModal = true;
-        }else{
+        } else {
             this.showRateModal = false;
         }
     }
@@ -331,43 +341,57 @@ export class HomePage implements OnInit {
     }
 
     //check event for terms and cond.
-    isChecked(e){
-        this.isTermsAndCond = e.target.checked;
+    isChecked(e) {
+        if (e.target.checked) {
+            if (!this.selected) {
+                $('#someID').attr('checked', false);
+                this._toastService.toastFunction('Please Select any Language to continue', '')
+            } else {
+                setTimeout(() => {
+                    this.selectLang();
+                }, 1000);
+            }
+        }
+        // if(this.selected){
+
+        //     this.isTermsAndCond = e.target.checked;
+        // }
     }
     //select lang on first time app opens
     async selectLang() {
-        if (this.selected && this.isTermsAndCond) {
-            this.getAllPost();
-            let lang = this.selected;
-            localStorage.setItem('language', lang);
-            this._generalService.setExtras(lang);
-            this.language = lang;
-
-            this._generalService.setExtras(this.language);
-            this.fcm.getToken().then(token => {
-                localStorage.setItem('deviceToken', token);
-                setTimeout(() => {
-                    if (localStorage.getItem('annonymousNotify')) {
-                        this._userService.firstTimeUser(this.selected).subscribe((res: any) => {
-                            // this.getCategories();
-                            this._userService.serviceFunction();
-                            localStorage.setItem('annonymousNotify', 'true');
-                        },
-                            (err) => {
-                            });
-                    }
-                }, 1000);
-            });
-            this.fcm.onTokenRefresh().subscribe(token => {
-                localStorage.setItem('deviceToken', token);
-            });
-        }else{
-            if(!this.selected){
-                this._toastService.toastFunction('Please Select Language','')
-            }else{
-                this._toastService.toastFunction('Please accept T&C and Privacy Policy','')
-            }
-        }
+        // if (this.selected && this.isTermsAndCond) {
+        this.getAllPost();
+        this.getCategories();
+        let lang = this.selected;
+        localStorage.setItem('language', lang);
+        this._generalService.setExtras(lang);
+        this.language = lang;
+        this.catModal = true;
+        this._generalService.setExtras(this.language);
+        this.fcm.getToken().then(token => {
+            localStorage.setItem('deviceToken', token);
+            setTimeout(() => {
+                if (localStorage.getItem('annonymousNotify')) {
+                    this._userService.firstTimeUser(this.selected).subscribe((res: any) => {
+                        // this.getCategories();
+                        this._userService.serviceFunction();
+                        localStorage.setItem('annonymousNotify', 'true');
+                    },
+                        (err) => {
+                        });
+                }
+            }, 1000);
+        });
+        this.fcm.onTokenRefresh().subscribe(token => {
+            localStorage.setItem('deviceToken', token);
+        });
+        // }else{
+        //     if(!this.selected){
+        //         this._toastService.toastFunction('Please Select Language','')
+        //     }else{
+        //         this._toastService.toastFunction('Please accept T&C and Privacy Policy','')
+        //     }
+        // }
     }
     //select lang on first time app opens
     async selectLangSkip() {
@@ -410,16 +434,17 @@ export class HomePage implements OnInit {
 
     //rate dialog
     rate() {
-        localStorage.setItem('isRated','true')
+        localStorage.setItem('isRated', 'true')
         this.showRateModal = false
         this.market.open('io.ionic.triviapost');
     }
     dismiss() {
-        localStorage.setItem('isRated','true')
-        this.showRateModal = false  
+        localStorage.setItem('isRated', 'true')
+        this.showRateModal = false
     }
     remindLater() {
-        localStorage.setItem('isRated','pending')
-        this.showRateModal = false  
+        localStorage.setItem('isRated', 'pending')
+        this.showRateModal = false
     }
+
 }

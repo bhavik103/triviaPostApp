@@ -108,5 +108,37 @@
       [postCount]="i"
     ></app-related-post>
   </div>
+
+  <!-- modal bookmark -->
+  <div id="open-modal" class="modal-window" *ngIf="bookmarkModal">
+    <div>
+      <div class="img_border">
+        <img src="../../assets/images/bookmarkNew.png" alt="" />
+      </div>
+      <div class="textBoxModal">
+        <h3>{{modalBookmarkTitle[language]}}</h3>
+        <p>{{modalBookmarkText[language]}}</p>
+      </div>
+      <div>
+        <button class="signupButton" (click)="bookmarkClose()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal share -->
+  <div id="open-modal" class="modal-window" *ngIf="shareModal">
+    <div>
+      <div class="img_border">
+        <img src="../../assets/images/share.png" alt="" />
+      </div>
+      <div class="textBoxModal">
+        <h3>Share Post</h3>
+        <p>So you can share interesting post with your friends</p>
+      </div>
+      <div>
+        <button class="signupButton" (click)="shareClose()">Close</button>
+      </div>
+    </div>
+  </div>
 </ion-content>
 <ion-content *ngIf="loading" class="loadingContent"> </ion-content>

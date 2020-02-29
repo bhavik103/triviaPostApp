@@ -7,7 +7,7 @@ import { config } from '../config';
 import { Network } from '@ionic-native/network/ngx';
 import { ToastService } from "../services/toast.service";
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { language, tourCategory, modalBookmarkText,modalBookmarkTitle,modalNotificationText,modalNotificationTitle,proceedTour} from 'app/changeLang';
+import { language, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
 import { IonSlides } from '@ionic/angular';
 import * as introJs from 'intro.js/intro.js';
 @Component({
@@ -38,8 +38,11 @@ export class CategoryTilesPage implements OnInit {
   }
 
   ngOnInit() {
+    console.log("INDEX",this.index)
+    if (!localStorage.getItem('catModal')) {
+      this.modal = true;
+    }
     $('.introjs-helperLayer').click();
-    console.log(" Yash check it true ")
     if (localStorage.getItem('catSelect') == '0') {
       // introJs().start();
       this.ifTourCompleted = 1;
@@ -59,46 +62,47 @@ export class CategoryTilesPage implements OnInit {
   }
 
   singleCategory(catId, catname) {
-    if (!this.firstTime) {
-      this.router.navigateByUrl('single-category/' + catId + '/' + catname);
-    }
+    this.router.navigateByUrl('single-category/' + catId + '/' + catname);
   }
 
   addNotify(catId, isNotify) {
-    console.log('isNotify', isNotify)
-    if (!localStorage.getItem('catModal')) {
-      this.modal = true
+    localStorage.setItem('catModal', '1')
+    if (this.network.type == 'none') {
+      const message = "No internet connection";
+      const color = "danger";
+      this._toastService.toastFunction(message, color);
     } else {
-      localStorage.setItem('catModal','1')
-      if (this.network.type == 'none') {
-        const message = "No internet connection";
-        const color = "danger";
-        this._toastService.toastFunction(message, color);
-      } else {
-        this._categoryService.notifyUser(catId).subscribe((res: any) => {
-          this._toastService.toastFunction(res.message, 'success');
-          var emitObject = { catId: catId, statusCode: res.statusCode }
-          console.log("EMIT OBJECT", emitObject)
-          this.onSubscribe.emit(emitObject);
-        }, err => {
-          this._toastService.toastFunction(err.error.message, 'danger');
-        })
-      }
+      this._categoryService.notifyUser(catId).subscribe((res: any) => {
+        this._toastService.toastFunction(res.message, 'success');
+        var emitObject = { catId: catId, statusCode: res.statusCode }
+        console.log("EMIT OBJECT", emitObject)
+        this.onSubscribe.emit(emitObject);
+      }, err => {
+        this._toastService.toastFunction(err.error.message, 'danger');
+      })
     }
   }
 
   closeModal() {
-    localStorage.setItem('catModal','1')
+    localStorage.setItem('catModal', '1')
     this.modal = false;
   }
 
   redirectToSignup() {
-    localStorage.setItem('catModal','1')
+    localStorage.setItem('catModal', '1')
     this.router.navigateByUrl('/login')
   }
 
   protected async slideDidChange(): Promise<void> {
     this.sliderIndex = await this.slider.getActiveIndex();
     console.log("ACTIVE INDEX", this.sliderIndex)
+  }
+  async next() {
+    if (this.sliderIndex == 2) {
+      localStorage.setItem('catModal', '1')
+      this.router.navigateByUrl('/login')
+    } else {
+      this.slider.slideNext();
+    }
   }
 }

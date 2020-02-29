@@ -73,38 +73,46 @@
   </div>
 </div>
 
-<div id="open-modal" class="modal-window" *ngIf="modal">
+<div id="open-modal" class="modal-window" *ngIf="modal && index == 0">
   <div>
     <div class="img_border">
       <img
-        src="../../assets/images/bookmarkNew.png"
-        alt=""
-        *ngIf="sliderIndex == 0 || !sliderIndex"
-      />
-      <img
         src="../../assets/images/notificationNew.png"
         alt=""
-        *ngIf="sliderIndex == 1"
+        *ngIf="sliderIndex == 0 || !sliderIndex"
+        />
+        <img
+          src="../../assets/images/share.png"
+          alt=""
+          *ngIf="sliderIndex == 1"
+        />
+        <img
+        src="../../assets/images/bookmarkNew.png"
+        alt=""
+        *ngIf="sliderIndex == 2"
       />
     </div>
     <ion-slides pager (ionSlideWillChange)="slideDidChange()">
-      <ion-slide>
-        <h3>{{modalBookmarkTitle[language]}}</h3>
-        <p>{{modalBookmarkText[language]}}</p>
-      </ion-slide>
-
       <ion-slide>
         <div></div>
         <h3>{{modalNotificationTitle[language]}}</h3>
         <p>{{modalNotificationText[language]}}</p>
       </ion-slide>
+      <ion-slide>
+        <h3>Share Post</h3>
+        <p>So you can share interesting post with your friends</p>
+      </ion-slide>
+      <ion-slide>
+        <h3>{{modalBookmarkTitle[language]}}</h3>
+        <p>{{modalBookmarkText[language]}}</p>
+      </ion-slide>
     </ion-slides>
     <div>
-      <button class="signupButton" (click)="redirectToSignup()">Signup</button>
-      <button class="cancelButton" (click)="closeModal()">
+      <button class="signupButton" (click)="next()">Next</button>
+      <!-- <button class="cancelButton" (click)="closeModal()"> -->
         <!-- <div class="ripple_effect"></div> -->
-        Skip
-      </button>
+        <!-- Skip -->
+      <!-- </button> -->
       <!-- <div class="tourText tourTextModal">
         {{proceedTour[language]}}
       </div> -->

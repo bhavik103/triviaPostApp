@@ -259,6 +259,7 @@ b {
   font-size: 18px;
   font-weight: 700;
   color: var(--main-app-color);
+  margin-top: 30%;
 }
 .loginForm {
   padding: 8px 20px;
@@ -498,4 +499,11 @@ input#remember:checked + label:before {
 #backButton {
   width: 21px;
   margin: 25px;
+}
+p.skip {
+  text-align: center;
+  margin-top: 26px;
+  color: red;
+  font-weight: bolder;
+  font-size: 18px;
 }

@@ -1,5 +1,8 @@
 <div no-border>
-  <div class="settingsToolbar" *ngIf="language || (language && skip == '1')">
+  <div
+    class="settingsToolbar"
+    *ngIf="(language || (language && skip == '1')) && catModalShow"
+  >
     <button float-left>
       <ion-icon
         name="settings"
@@ -21,6 +24,23 @@
     <span id="settingTitle" style="margin:0;width: 100%;">
       Language
     </span>
+  </div>
+</div>
+<div *ngIf="!skip && !catModalShow && language">
+  <div class="settingsToolbar">
+    <ion-back-button
+      name="arrow-round-back"
+      class="homeBack"
+      class="homeBack"
+      defaultHref="/settings"
+      float-left
+      (click)="backButton()"
+    >
+    </ion-back-button>
+    <span id="settingTitle"> {{catTitle[language]}}</span>
+    <button float-right routerLink="/home">
+      <ion-icon name="home"></ion-icon>
+    </button>
   </div>
 </div>
 
@@ -60,7 +80,8 @@
       <div class="container">
         <input type="checkbox" id="someID" (change)="isChecked($event)" />
         <label for="someID" class="checkbox-1">
-          By continuing, you accept the <span class="redLink"> "Terms of Use"</span> and
+          By continuing, you accept the
+          <span class="redLink"> "Terms of Use"</span> and
           <span class="redLink"> "Privacy Policy" </span>
         </label>
       </div>
@@ -77,7 +98,7 @@
       <img src="../../assets/images/subject.png" height="30px" width="30px" />
       <p>Choose any language of your preference to continue</p>
     </div>
-    <ion-row>
+    <ion-row style="margin-top: 40%;">
       <ion-col
         size="6"
         *ngFor="let lang of languageList;let i = index"
@@ -96,7 +117,8 @@
       <div class="container">
         <input type="checkbox" id="someID" (change)="isChecked($event)" />
         <label for="someID" class="checkbox-1">
-          By continuing, you accept the <span class="redLink"> "Terms of Use"</span> and
+          By continuing, you accept the
+          <span class="redLink"> "Terms of Use"</span> and
           <span class="redLink"> "Privacy Policy" </span>
         </label>
       </div>
@@ -104,17 +126,29 @@
     <button class="contButton" (click)="selectLangSkip()">Continue</button>
   </div>
 </ion-content>
+<ion-content *ngIf="!skip && !catModalShow && language && categories">
+  <ion-row *ngIf="categories">
+    <ion-col size="6" *ngFor="let category of categories;let i = index" class="categoryTiles">
+      <app-category-tiles
+        [category]="category"
+        (onSubscribe)="subscribedCategory($event, isNotify)"
+        [language]="language"
+        [index]="i"
+      ></app-category-tiles>
+    </ion-col>
+  </ion-row>
+</ion-content>
 <ion-content
-  *ngIf="[(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && !loading && language"
+  *ngIf="[(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && !loading && language && catModalShow"
   [ngClass]="{'disableScroll': !skip}"
 >
-  <div class="skipTour" *ngIf="!skip" (click)="skipTour()">
+  <!-- <div class="skipTour" *ngIf="!skip" (click)="skipTour()">
     <div class="tourText tourTextModal">
       {{tourSkip[language]}}
     </div>
     <div class="ripple_effect"></div>
     <span><img src="../../assets/images/skip.png" alt="" height="48px"/></span>
-  </div>
+  </div> -->
   <ion-row class="feeds" *ngIf="latestPost && !loading">
     <app-large-post
       [news]="latestPost"

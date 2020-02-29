@@ -12,6 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
 import { AppComponent } from '../app.component'
+import { language, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
 
 @Component({
   selector: 'app-single-post',
@@ -36,7 +37,12 @@ export class SinglePostPage implements OnInit {
   loginBookmark: any;
   firstTimeBlur = false;
   showRateModal: boolean;
-  constructor(public appcomponent: AppComponent,private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
+  bookmarkModal: boolean;
+  tourCategory = tourCategory;
+  modalBookmarkTitle = modalBookmarkTitle
+  modalBookmarkText = modalBookmarkText
+  shareModal: boolean;
+  constructor(public appcomponent: AppComponent, private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
     this.platform.backButton.subscribe(async () => {
@@ -142,54 +148,62 @@ export class SinglePostPage implements OnInit {
   }
   //  Do Share Post 
   sharePost(link, newsTitle, newsImage) {
-    console.log(link, newsTitle, newsImage)
-    this.shareBlink = '1';
-    this.skip = '1';
-    this.firstTimeBlur = false;
-    localStorage.setItem('shareBlink', '1')
-    localStorage.setItem('skip', '1')
-    var message = "Check out this amazing news " + '"' + newsTitle + '" ';
-    var subject = "Trivia Post";
-    var str = newsTitle;
-    var file = this.mediaPath + newsImage;
-    var url = link;
-    this.socialSharing.share(url, subject, null, message)
+    if(!localStorage.getItem('shareFlag')){
+      this.shareModal = true;
+    }else{
+      console.log(link, newsTitle, newsImage)
+      this.shareBlink = '1';
+      this.skip = '1';
+      this.firstTimeBlur = false;
+      localStorage.setItem('shareBlink', '1')
+      localStorage.setItem('skip', '1')
+      var message = "Check out this amazing news " + '"' + newsTitle + '" ';
+      var subject = "Trivia Post";
+      var str = newsTitle;
+      var file = this.mediaPath + newsImage;
+      var url = link;
+      this.socialSharing.share(url, subject, null, message)
       .then((entries) => {
       })
       .catch((error) => {
         alert('error ' + JSON.stringify(error));
       });
+    }
   }
 
   //  Do Bookmark
   bookmark(newsid) {
-    this.firstTimeBlur = false;
-    this.shareBlink = '1';
-    this.skip = '1'
-    localStorage.setItem('shareBlink', '1')
-    localStorage.setItem('skip', '1')
-    if (!localStorage.getItem('accessToken')) {
-      console.log("newsId done", newsid);
-      localStorage.setItem('bookmarkId', newsid);
-      this._toastService.toastFunction('You need to login first', 'danger');
-      this.router.navigateByUrl('/login');
+    if (!localStorage.getItem('bookmarkFlag')) {
+      this.bookmarkModal = true;
     } else {
-      if (this.network.type == 'none') {
-        this.singlePostfun(newsid);
-        this._toastService.toastFunction('No internet connection', 'danger');
+      this.firstTimeBlur = false;
+      this.shareBlink = '1';
+      this.skip = '1'
+      localStorage.setItem('shareBlink', '1')
+      localStorage.setItem('skip', '1')
+      if (!localStorage.getItem('accessToken')) {
+        console.log("newsId done", newsid);
+        localStorage.setItem('bookmarkId', newsid);
+        this._toastService.toastFunction('You need to login first', 'danger');
+        this.router.navigateByUrl('/login');
       } else {
-        console.log("BOOKMARK")
-        this._newsService.bookmarkPost(newsid).subscribe((res: any) => {
-          this._toastService.toastFunction(res.message, 'success');
+        if (this.network.type == 'none') {
           this.singlePostfun(newsid);
+          this._toastService.toastFunction('No internet connection', 'danger');
+        } else {
+          console.log("BOOKMARK")
+          this._newsService.bookmarkPost(newsid).subscribe((res: any) => {
+            this._toastService.toastFunction(res.message, 'success');
+            this.singlePostfun(newsid);
 
-          if (localStorage.getItem('bookmarkId')) {
-            localStorage.removeItem('bookmarkId')
-            this.loginBookmark = true;
-          }
-        }, err => {
-          this._toastService.toastFunction(err.error.message, 'danger');
-        })
+            if (localStorage.getItem('bookmarkId')) {
+              localStorage.removeItem('bookmarkId')
+              this.loginBookmark = true;
+            }
+          }, err => {
+            this._toastService.toastFunction(err.error.message, 'danger');
+          })
+        }
       }
     }
   }
@@ -268,5 +282,19 @@ export class SinglePostPage implements OnInit {
 
   homeClick() {
     localStorage.setItem('skip', '1')
+  }
+  bookmarkClose(){
+    this.bookmarkModal = false;
+    localStorage.setItem('bookmarkFlag','1')
+    if(localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')){
+      localStorage.setItem('skip','1');
+    }
+  }
+  shareClose(){
+    this.shareModal = false;
+    localStorage.setItem('shareFlag','1');
+    if(localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')){
+      localStorage.setItem('skip','1');
+    }
   }
 }
