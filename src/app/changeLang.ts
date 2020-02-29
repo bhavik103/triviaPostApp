@@ -216,7 +216,7 @@ export const modalNotificationText = {
 	bn: 'সুতরাং আপনি আপনার সাবস্ক্রাইব করা ব্লগ থেকে তাত্ক্ষণিক বিজ্ঞপ্তিগুলি পান'
 }
 export const proceedTour = {
-	en: 'Click here to skip!',
+	en: 'Click here to next!',
 	hn: 'आगे बढ़ने के लिए यहां क्लिक करें!',
 	as: 'এগিয়ে যেতে এখানে ক্লিক করুন!',
 	bn: 'এগিয়ে যেতে এখানে ক্লিক করুন!'

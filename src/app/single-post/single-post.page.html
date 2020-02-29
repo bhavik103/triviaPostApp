@@ -63,9 +63,19 @@
         *ngIf="!news.bookmarkKey"
         (click)="bookmark(news.newsId)"
       >
+        <div class="tourText tourTextBookmark" *ngIf="!bookmarkFlag">
+          Click here to bookmark this post!
+        </div>
+        <div class="ripple_effect" *ngIf="!bookmarkFlag"></div>
         <img src="assets/images/bookmarkWhite.png" height="52%" alt="" />
-        <!-- <ion-icon name="bookmark" class="my-float unbookmark"></ion-icon> -->
       </span>
+      <!-- <span
+        class="float unbookmarkFloat"
+        *ngIf="!news.bookmarkKey"
+        (click)="bookmark(news.newsId)"
+      >
+        <img src="assets/images/bookmarkWhite.png" height="52%" alt="" />
+      </span> -->
       <span
         class="float bookmarkFloat"
         *ngIf="(news.bookmarkKey || loginBookmark)"
@@ -75,16 +85,12 @@
       </span>
       <span
         class="float floatShare"
-        *ngIf="shareBlink !='1' && skip != '1'"
         (click)="sharePost(news.fcmLink, news[language].title, news.newsImage)"
       >
-        <img src="../../assets/images/Share.png" class="icon shareImage" />
-      </span>
-      <span
-        class="float floatShare"
-        *ngIf="shareBlink =='1' || skip == '1'"
-        (click)="sharePost(news.fcmLink, news[language].title, news.newsImage)"
-      >
+        <div class="tourText tourTextShare" *ngIf="!shareFlag">
+          Click here to share this post!
+        </div>
+        <div class="ripple_effect" *ngIf="!shareFlag"></div>
         <img src="../../assets/images/Share.png" class="icon shareImage" />
       </span>
     </div>

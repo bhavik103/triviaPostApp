@@ -80,13 +80,13 @@
         src="../../assets/images/notificationNew.png"
         alt=""
         *ngIf="sliderIndex == 0 || !sliderIndex"
-        />
-        <img
-          src="../../assets/images/share.png"
-          alt=""
-          *ngIf="sliderIndex == 1"
-        />
-        <img
+      />
+      <img
+        src="../../assets/images/share.png"
+        alt=""
+        *ngIf="sliderIndex == 1"
+      />
+      <img
         src="../../assets/images/bookmarkNew.png"
         alt=""
         *ngIf="sliderIndex == 2"
@@ -108,14 +108,13 @@
       </ion-slide>
     </ion-slides>
     <div>
-      <button class="signupButton" (click)="next()">Next</button>
-      <!-- <button class="cancelButton" (click)="closeModal()"> -->
-        <!-- <div class="ripple_effect"></div> -->
-        <!-- Skip -->
-      <!-- </button> -->
-      <!-- <div class="tourText tourTextModal">
+      <button class="signupButton" (click)="next()">
+        <div class="ripple_effect"></div>
+        Next
+      </button>
+      <div class="tourText tourTextModal">
         {{proceedTour[language]}}
-      </div> -->
+      </div>
     </div>
   </div>
 </div>

@@ -251,3 +251,10 @@ ion-slide h3 {
   left: 25vw;
   color: #fff;
 }
+.ripple_effect {
+  top: unset; 
+  left: unset;
+  border: 1px solid #e42310;
+  z-index: 1;
+  margin-top: -23px;
+}

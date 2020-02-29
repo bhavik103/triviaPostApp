@@ -42,6 +42,8 @@ export class SinglePostPage implements OnInit {
   modalBookmarkTitle = modalBookmarkTitle
   modalBookmarkText = modalBookmarkText
   shareModal: boolean;
+  bookmarkFlag: string;
+  shareFlag: string;
   constructor(public appcomponent: AppComponent, private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
@@ -56,6 +58,12 @@ export class SinglePostPage implements OnInit {
     this.showRateModal = true;
   }
   ionViewWillEnter() {
+    if(localStorage.getItem('bookmarkFlag')){
+      this.bookmarkFlag = '1'
+    }
+    if(localStorage.getItem('shareFlag')){
+      this.shareFlag = '1'
+    }
     this.firstTimeBlur = false;
     if (localStorage.getItem('bookmarkId')) {
       this.bookmark(localStorage.getItem('bookmarkId'));
@@ -286,6 +294,7 @@ export class SinglePostPage implements OnInit {
   bookmarkClose(){
     this.bookmarkModal = false;
     localStorage.setItem('bookmarkFlag','1')
+    this.bookmarkFlag = '1';
     if(localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')){
       localStorage.setItem('skip','1');
     }
@@ -293,6 +302,7 @@ export class SinglePostPage implements OnInit {
   shareClose(){
     this.shareModal = false;
     localStorage.setItem('shareFlag','1');
+    this.shareFlag = '1';
     if(localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')){
       localStorage.setItem('skip','1');
     }

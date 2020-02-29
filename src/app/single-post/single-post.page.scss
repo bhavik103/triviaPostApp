@@ -431,12 +431,11 @@ p.assameseFont.assameseFontTitle {
 }
 .tourText.tourTextBookmark {
   bottom: 0;
-  right: 18vw;
+  right: 15vw;
   font-size: 11px;
 }
 .tourText.tourTextBookmark:before {
   content: "";
-  top: calc(50% - 7px);
   margin: auto;
   left: 100%;
   border-right: 7px solid transparent;
@@ -595,33 +594,26 @@ ion-slide h3 {
 //   background-color: rgba(1, 1, 1, 0.01);
 // }
 .tourText {
-  position: absolute;
-  z-index: 9999;
-  text-align: center;
-  background-color: #e41212 !important;
-  font-weight: 900;
-  padding: 10px;
-  border-radius: 10px;
-  top: 120%;
-  font-size: 17px;
+  top: unset;
+  font-size: 13px;
   width: 50vw;
 }
 .tourText:before {
   content: "";
   position: absolute;
   bottom: 100%;
-  left: 10%;
-  border-bottom: 7px solid #e42310;
+  right: 10%;
+  border-top: 7px solid #e42310;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-} 
+}
 
-.tourTextModal{
+.tourTextModal {
   position: relative;
   top: 2vw;
   left: 25vw;
   color: #fff;
 }
-.modal-window > div{
+.modal-window > div {
   height: 42%;
 }
