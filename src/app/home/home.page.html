@@ -21,8 +21,11 @@
 </div>
 <div no-border>
   <div *ngIf="!language" class="settingsToolbar">
-    <span id="settingTitle" style="margin:0;width: 100%;">
+    <span id="settingTitle" style="margin:0;width: 100%;" *ngIf="!loading && !selected">
       Language
+    </span>
+    <span id="settingTitle" style="margin:0;width: 100%;" *ngIf="!loading && selected">
+      {{languageStatic[selected]}}
     </span>
   </div>
 </div>
@@ -51,7 +54,8 @@
   >
     <div class="langHead">
       <img src="../../assets/images/subject.png" height="30px" width="30px" />
-      <p>Choose any language of your preference to continue</p>
+      <p *ngIf="!selected">Choose any language of your preference!</p>
+      <p *ngIf="selected">{{languagePageHead[selected]}}</p>
     </div>
     <ion-row style="margin-top: 40%;">
       <ion-col
@@ -73,16 +77,24 @@
         >
           {{lang.lang}}
         </ion-card>
-        <div class="tourText tourTextModal" *ngIf="i == 0" style="bottom: 96%;">
+        <div class="tourText tourTextModal" *ngIf="i == 0 && !selected" style="bottom: 96%;">
           Choose any language of your preference!
         </div>
+        <div class="tourText tourTextModal" *ngIf="i == 0 && selected" style="bottom: 96%;">
+          {{languagePageHead[selected]}}
+        </div>
       </ion-col>
-      <div class="container">
+      <div class="container" *ngIf="selected">
         <input type="checkbox" id="someID" (change)="isChecked($event)" />
-        <label for="someID" class="checkbox-1">
+        <label for="someID" class="checkbox-1" *ngIf="!selected">
           By continuing, you accept the
-          <span class="redLink"> "Terms of Use"</span> and
+          <span class="redLink"> "Terms & Condition"</span> &
           <span class="redLink"> "Privacy Policy" </span>
+        </label>
+        <label for="someID" class="checkbox-1" *ngIf="selected">
+          {{acceptTermsPolicy[selected]}}
+          <span class="redLink"> "{{termsTitle[selected]}}"</span> &
+          <span class="redLink"> "{{privacyTitle[selected]}}" </span>
         </label>
       </div>
     </ion-row>
@@ -96,7 +108,8 @@
   >
     <div class="langHead">
       <img src="../../assets/images/subject.png" height="30px" width="30px" />
-      <p>Choose any language of your preference to continue</p>
+      <p *ngIf="!selected">Choose any language of your preference!</p>
+      <p *ngIf="selected">{{languagePageHead[selected]}}</p>
     </div>
     <ion-row style="margin-top: 40%;">
       <ion-col
@@ -114,12 +127,17 @@
           {{lang.lang}}
         </ion-card>
       </ion-col>
-      <div class="container">
+      <div class="container" *ngIf="selected">
         <input type="checkbox" id="someID" (change)="isChecked($event)" />
-        <label for="someID" class="checkbox-1">
+        <label for="someID" class="checkbox-1" *ngIf="!selected">
           By continuing, you accept the
-          <span class="redLink"> "Terms of Use"</span> and
+          <span class="redLink"> "Terms & Condition"</span> &
           <span class="redLink"> "Privacy Policy" </span>
+        </label>
+        <label for="someID" class="checkbox-1" *ngIf="selected">
+          {{acceptTermsPolicy[selected]}}
+          <span class="redLink"> "{{termsTitle[selected]}}"</span> &
+          <span class="redLink"> "{{privacyTitle[selected]}}" </span>
         </label>
       </div>
     </ion-row>

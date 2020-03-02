@@ -19,7 +19,7 @@ import { GeneralService } from '../services/general.service'
 import { langList, tourSkip } from '../changeLang';
 import { AlertController } from '@ionic/angular';
 import { Market } from '@ionic-native/market/ngx';
-import { rateTitle, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour, tourReadPost, rateText, catTitle, rateNowButton, rateNoThanksButton, rateRemindButton } from '../changeLang';
+import {acceptTermsPolicy, termsTitle, privacyTitle, language, languagePageHead, rateTitle, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour, tourReadPost, rateText, catTitle, rateNowButton, rateNoThanksButton, rateRemindButton } from '../changeLang';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -64,8 +64,12 @@ export class HomePage implements OnInit {
     showRateModal: boolean;
     rateTitle = rateTitle;
     rateText = rateText;
+    privacyTitle = privacyTitle;
+    termsTitle = termsTitle;
+    languageStatic = language;
     catTitle = catTitle;
     rateNow = rateNowButton;
+    acceptTermsPolicy = acceptTermsPolicy;
     rateLater = rateRemindButton;
     rateNoThanks = rateNoThanksButton;
     tourReadPost = tourReadPost;
@@ -74,6 +78,7 @@ export class HomePage implements OnInit {
     modalNotificationTitle = modalNotificationTitle
     modalNotificationText = modalNotificationText
     proceedTour = proceedTour
+    languagePageHead = languagePageHead
     isTermsAndCond: any;
     catModal: any;
     catModalShow: string;

@@ -64,8 +64,11 @@
         (click)="bookmark(news.newsId)"
       >
         <span *ngIf="!skip">
-          <div class="tourText tourTextBookmark" *ngIf="bookmarkFlag != '1'">
-            Click here to bookmark this post!
+          <div
+            class="tourText tourTextBookmark tourTextBook"
+            *ngIf="bookmarkFlag != '1'"
+          >
+            {{clickBookmark[language]}}
           </div>
           <div class="ripple_effect" *ngIf="bookmarkFlag != '1'"></div>
         </span>
@@ -91,7 +94,7 @@
       >
         <span *ngIf="!skip">
           <div class="tourText tourTextShare" *ngIf="shareFlag != '1'">
-            Click here to share this post!
+            {{clickShare[language]}}
           </div>
           <div class="ripple_effect" *ngIf="shareFlag != '1'"></div>
         </span>
@@ -130,8 +133,16 @@
         <p>{{modalBookmarkText[language]}}</p>
       </div>
       <div>
-        <button class="signupButton" (click)="bookmarkClose();signup()">Signup</button>
-        <button class="signupButton skipButton" (click)="bookmarkClose()">Skip</button>
+        <button class="signupButton" (click)="bookmarkClose();signup()">
+          {{modalSignupButton[language]}}
+        </button>
+        <button class="signupButton skipButton" (click)="bookmarkClose()">
+          <div class="ripple_effect ripple_effect_modal" *ngIf="!skip"></div>
+          {{modalSkipButton[language]}}
+        </button>
+        <div class="tourText tourTextModal tourTextModal" *ngIf="!skip">
+          {{modalSkipButton[language]}}
+        </div>
       </div>
     </div>
   </div>
@@ -147,8 +158,16 @@
         <p>{{sharePostModalContent[language]}}</p>
       </div>
       <div>
-        <button class="signupButton" (click)="shareClose();signup()">Signup</button>
-        <button class="signupButton skipButton" (click)="shareClose()">Skip</button>
+        <button class="signupButton" (click)="shareClose();signup()">
+          {{modalSignupButton[language]}}
+        </button>
+        <button class="signupButton skipButton" (click)="shareClose()">
+          <div class="ripple_effect ripple_effect_modal" *ngIf="!skip"></div>
+          {{modalSkipButton[language]}}
+        </button>
+        <div class="tourText tourTextModal tourTextModal" *ngIf="!skip">
+          {{modalSkipButton[language]}}
+        </div>
       </div>
     </div>
   </div>

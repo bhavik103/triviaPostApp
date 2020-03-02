@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
 	userRating: string;
 	ratings: any;
 
-	//static variables based on language starts********
+	//static variables based on language selct********
 	langSelectText = langSelectText;
 	shareApp = shareApp;
 	terms = terms;

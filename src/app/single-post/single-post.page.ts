@@ -12,7 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
 import { AppComponent } from '../app.component'
-import { language,sharePostModalContent,sharePostModal, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
+import { modalSignupButton, clickShare, clickBookmark, modalSkipButton, language, sharePostModalContent, sharePostModal, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
 
 @Component({
   selector: 'app-single-post',
@@ -38,11 +38,15 @@ export class SinglePostPage implements OnInit {
   firstTimeBlur = false;
   showRateModal: boolean;
   bookmarkModal: boolean;
+  modalSignupButton = modalSignupButton;
+  clickShare = clickShare;
+  clickBookmark = clickBookmark;
   tourCategory = tourCategory;
+  modalSkipButton = modalSkipButton;
   modalBookmarkTitle = modalBookmarkTitle
   modalBookmarkText = modalBookmarkText
-  sharePostModal= sharePostModal
-  sharePostModalContent=sharePostModalContent;
+  sharePostModal = sharePostModal
+  sharePostModalContent = sharePostModalContent;
   shareModal: boolean;
   bookmarkFlag: string;
   shareFlag: string;
@@ -60,10 +64,10 @@ export class SinglePostPage implements OnInit {
     this.showRateModal = true;
   }
   ionViewWillEnter() {
-    if(localStorage.getItem('bookmarkFlag')){
+    if (localStorage.getItem('bookmarkFlag')) {
       this.bookmarkFlag = '1'
     }
-    if(localStorage.getItem('shareFlag')){
+    if (localStorage.getItem('shareFlag')) {
       this.shareFlag = '1'
     }
     this.firstTimeBlur = false;
@@ -158,9 +162,9 @@ export class SinglePostPage implements OnInit {
   }
   //  Do Share Post 
   sharePost(link, newsTitle, newsImage) {
-    if(!localStorage.getItem('shareFlag')){
+    if (!localStorage.getItem('shareFlag')) {
       this.shareModal = true;
-    }else{
+    } else {
       console.log(link, newsTitle, newsImage)
       this.shareBlink = '1';
       this.skip = '1';
@@ -173,11 +177,11 @@ export class SinglePostPage implements OnInit {
       var file = this.mediaPath + newsImage;
       var url = link;
       this.socialSharing.share(url, subject, null, message)
-      .then((entries) => {
-      })
-      .catch((error) => {
-        alert('error ' + JSON.stringify(error));
-      });
+        .then((entries) => {
+        })
+        .catch((error) => {
+          alert('error ' + JSON.stringify(error));
+        });
     }
   }
 
@@ -287,25 +291,25 @@ export class SinglePostPage implements OnInit {
   homeClick() {
     localStorage.setItem('skip', '1')
   }
-  bookmarkClose(){
+  bookmarkClose() {
     this.bookmarkModal = false;
-    localStorage.setItem('bookmarkFlag','1')
+    localStorage.setItem('bookmarkFlag', '1')
     this.bookmarkFlag = '1';
-    if(localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')){
-      localStorage.setItem('skip','1');
+    if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
+      localStorage.setItem('skip', '1');
       this.skip = '1';
     }
   }
-  shareClose(){
+  shareClose() {
     this.shareModal = false;
-    localStorage.setItem('shareFlag','1');
-    this.shareFlag = '1';
-    if(localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')){
-      localStorage.setItem('skip','1');
+    localStorage.setItem('shareFlag', '1');
+      this.shareFlag = '1';
+    if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
+      localStorage.setItem('skip', '1');
       this.skip = '1';
     }
   }
-  signup(){
+  signup() {
     this.router.navigateByUrl('/login')
   }
 }

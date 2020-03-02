@@ -264,10 +264,10 @@ export const modalSignupButton = {
 	bn: 'নিবন্ধন করুন'
 }
 export const modalSkipButton = {
-	en: 'Skip',
-	hn: 'छोड़ें',
-	as: 'এড়িয়ে',
-	bn: 'এড়িয়ে'
+	en: 'Click to skip',
+	hn: 'स्किप के लिए क्लिक करें',
+	as: 'এড়িয়ে যেতে ক্লিক করুন',
+	bn: 'এড়িয়ে যেতে ক্লিক করুন'
 }
 export const rateNowButton = {
 	en: 'RATE NOW',
@@ -322,4 +322,28 @@ export const nextButton = {
 	hn: 'आगे',
 	as: 'পৰবর্তী',
 	bn: 'পরবর্তী'
+}
+export const languagePageHead = {
+	en: 'Choose any language of your preference!',
+	hn: 'जारी रखने के लिए अपनी पसंद की कोई भी भाषा चुनें',
+	as: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন',
+	bn: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন'
+}
+export const acceptTermsPolicy = {
+	en: 'Choose any language of your preference!',
+	hn: 'जारी रखने के लिए अपनी पसंद की कोई भी भाषा चुनें',
+	as: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন',
+	bn: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন'
+}
+export const clickShare = {
+	en: 'Click here to share this post!',
+	hn: 'इस पोस्ट को शेयर करने के लिए यहाँ क्लिक करें!',
+	as: 'এই পোস্টটি ভাগ করতে এখানে ক্লিক করুন!',
+	bn: 'এই পোস্টটি ভাগ করতে এখানে ক্লিক করুন!'
+}
+export const clickBookmark = {
+	en: 'Click here to bookmark this post!',
+	hn: 'इस पोस्ट को बुकमार्क करने के लिए यहाँ क्लिक करें!',
+	as: 'এই পোস্টটি বুকমার্ক করতে এখানে ক্লিক করুন!',
+	bn: 'এই পোস্টটি বুকমার্ক করতে এখানে ক্লিক করুন!'
 }

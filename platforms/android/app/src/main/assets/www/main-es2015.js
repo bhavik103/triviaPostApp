@@ -1174,7 +1174,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!*******************************!*\
   !*** ./src/app/changeLang.ts ***!
   \*******************************/
-/*! exports provided: langList, langSelectText, shareApp, terms, privacy, feedback, notification, bookmark, language, orUsing, signIn, signInText, savePref, category, tourCategory, tourSkip, modalBookmarkTitle, modalBookmarkText, modalNotificationTitle, modalNotificationText, proceedTour, rateTitle, rateText, catTitle, optionsTitle, termsTitle, privacyTitle, modalSignupButton, modalSkipButton, rateNowButton, rateRemindButton, tourCategoryClick, rateNoThanksButton, tourReadPost, tourCatPost, sharePostModal, sharePostModalContent, nextButton */
+/*! exports provided: langList, langSelectText, shareApp, terms, privacy, feedback, notification, bookmark, language, orUsing, signIn, signInText, savePref, category, tourCategory, tourSkip, modalBookmarkTitle, modalBookmarkText, modalNotificationTitle, modalNotificationText, proceedTour, rateTitle, rateText, catTitle, optionsTitle, termsTitle, privacyTitle, modalSignupButton, modalSkipButton, rateNowButton, rateRemindButton, tourCategoryClick, rateNoThanksButton, tourReadPost, tourCatPost, sharePostModal, sharePostModalContent, nextButton, languagePageHead, acceptTermsPolicy, clickShare, clickBookmark */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1217,6 +1217,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sharePostModal", function() { return sharePostModal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sharePostModalContent", function() { return sharePostModalContent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nextButton", function() { return nextButton; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "languagePageHead", function() { return languagePageHead; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "acceptTermsPolicy", function() { return acceptTermsPolicy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clickShare", function() { return clickShare; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clickBookmark", function() { return clickBookmark; });
 // export const langList = [{ lang: 'English', slug: 'en' }, { lang: 'हिंदी', slug: 'hn' }, { lang: 'অসমীয়া', slug: 'as' }, { lang: 'বাংলা', slug: 'bn' }, { lang: 'ગુજરાતી', slug: 'gu' }, { lang: 'ಕನ್ನಡ', slug: 'kn' }, { lang: 'മലയാളം', slug: 'ml' }, { lang: 'मराठी', slug: 'mr' }, { lang: 'ਪੰਜਾਬੀ', slug: 'pa' }, { lang: 'தமிழ்', slug: 'ta' }, { lang: 'తెలుగు', slug: 'te' }];
 const langList = [{ lang: 'English', slug: 'en' }, { lang: 'हिंदी', slug: 'hn' }, { lang: 'অসমীয়া', slug: 'as' }, { lang: 'বাংলা', slug: 'bn' }];
 const langSelectText = {
@@ -1473,10 +1477,10 @@ const modalSignupButton = {
     bn: 'নিবন্ধন করুন'
 };
 const modalSkipButton = {
-    en: 'Skip',
-    hn: 'छोड़ें',
-    as: 'এড়িয়ে',
-    bn: 'এড়িয়ে'
+    en: 'Click to skip',
+    hn: 'स्किप के लिए क्लिक करें',
+    as: 'এড়িয়ে যেতে ক্লিক করুন',
+    bn: 'এড়িয়ে যেতে ক্লিক করুন'
 };
 const rateNowButton = {
     en: 'RATE NOW',
@@ -1531,6 +1535,30 @@ const nextButton = {
     hn: 'आगे',
     as: 'পৰবর্তী',
     bn: 'পরবর্তী'
+};
+const languagePageHead = {
+    en: 'Choose any language of your preference!',
+    hn: 'जारी रखने के लिए अपनी पसंद की कोई भी भाषा चुनें',
+    as: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন',
+    bn: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন'
+};
+const acceptTermsPolicy = {
+    en: 'Choose any language of your preference!',
+    hn: 'जारी रखने के लिए अपनी पसंद की कोई भी भाषा चुनें',
+    as: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন',
+    bn: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন'
+};
+const clickShare = {
+    en: 'Click here to share this post!',
+    hn: 'इस पोस्ट को शेयर करने के लिए यहाँ क्लिक करें!',
+    as: 'এই পোস্টটি ভাগ করতে এখানে ক্লিক করুন!',
+    bn: 'এই পোস্টটি ভাগ করতে এখানে ক্লিক করুন!'
+};
+const clickBookmark = {
+    en: 'Click here to bookmark this post!',
+    hn: 'इस पोस्ट को बुकमार्क करने के लिए यहाँ क्लिक करें!',
+    as: 'এই পোস্টটি বুকমার্ক করতে এখানে ক্লিক করুন!',
+    bn: 'এই পোস্টটি বুকমার্ক করতে এখানে ক্লিক করুন!'
 };
 
 
@@ -2895,7 +2923,7 @@ let SettingsComponent = class SettingsComponent {
         this.customActionSheetOptions = {
             addCancelButtonWithLabel: false,
         };
-        //static variables based on language starts********
+        //static variables based on language selct********
         this.langSelectText = _changeLang__WEBPACK_IMPORTED_MODULE_10__["langSelectText"];
         this.shareApp = _changeLang__WEBPACK_IMPORTED_MODULE_10__["shareApp"];
         this.terms = _changeLang__WEBPACK_IMPORTED_MODULE_10__["terms"];
