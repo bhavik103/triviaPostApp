@@ -167,9 +167,9 @@ export class HomePage implements OnInit {
                         this.skipTheTour = true;
                         this.skip = '1';
                         localStorage.setItem('skip', '1')
-                        localStorage.setItem('catModalShow', '1')
-                        localStorage.setItem('bookmarkFlag', '1')
-                        localStorage.setItem('shareFlag', '1')
+                        // localStorage.setItem('catModalShow', '1')
+                        // localStorage.setItem('bookmarkFlag', '1')
+                        // localStorage.setItem('shareFlag', '1')
                         localStorage.setItem('firstLargePostClick', '1')
                         localStorage.setItem('catModal', '1')
                         this.catModalShow = '1'

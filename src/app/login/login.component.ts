@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
 	googleSpinner: boolean;
 	facebookSpinner: boolean;
 	bookmarkFlag: string;
+	skip: string;
 
 	constructor(public appcomponent: AppComponent, private keyboard: Keyboard, private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
 	ngOnInit() {
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
 		});
 	}
 	ionViewWillEnter() {
+		this.skip = localStorage.getItem('skip');
 		this.bookmarkFlag = localStorage.getItem('bookmarkFlag');
 		this.email = localStorage.getItem('email');
 	}

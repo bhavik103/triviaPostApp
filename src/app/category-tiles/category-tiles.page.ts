@@ -2,12 +2,10 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import 'hammerjs';
 import { Router } from '@angular/router';
 import { CategoryService } from '../services/category.service';
-import { Observable } from 'rxjs';
 import { config } from '../config';
 import { Network } from '@ionic-native/network/ngx';
 import { ToastService } from "../services/toast.service";
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { language, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
+import {tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
 import { IonSlides } from '@ionic/angular';
 import * as introJs from 'intro.js/intro.js';
 @Component({
@@ -34,17 +32,16 @@ export class CategoryTilesPage implements OnInit {
   sliderIndex: number;
   ifTourCompleted: any;
   introJS = introJs();
+  modalSkip: boolean;
   constructor(private _toastService: ToastService, private network: Network, private _categoryService: CategoryService, private router: Router) {
   }
 
   ngOnInit() {
-    console.log("INDEX",this.index)
+    console.log("INDEX", this.index)
     if (!localStorage.getItem('catModal')) {
       this.modal = true;
     }
-    $('.introjs-helperLayer').click();
     if (localStorage.getItem('catSelect') == '0') {
-      // introJs().start();
       this.ifTourCompleted = 1;
       console.log('this.ifTourCompleted', this.ifTourCompleted)
     }
@@ -66,20 +63,26 @@ export class CategoryTilesPage implements OnInit {
   }
 
   addNotify(catId, isNotify) {
-    localStorage.setItem('catModal', '1')
-    if (this.network.type == 'none') {
-      const message = "No internet connection";
-      const color = "danger";
-      this._toastService.toastFunction(message, color);
-    } else {
-      this._categoryService.notifyUser(catId).subscribe((res: any) => {
-        this._toastService.toastFunction(res.message, 'success');
-        var emitObject = { catId: catId, statusCode: res.statusCode }
-        console.log("EMIT OBJECT", emitObject)
-        this.onSubscribe.emit(emitObject);
-      }, err => {
-        this._toastService.toastFunction(err.error.message, 'danger');
-      })
+    if (!localStorage.getItem('catModalShow') && !localStorage.getItem('skip')) {
+      this.modal = true;
+      localStorage.setItem('catModalShow','1');
+    }else if(localStorage.getItem('skip') && !localStorage.getItem('catModalShow')){
+      this.modalSkip = true;
+    }else {
+      if (this.network.type == 'none') {
+        const message = "No internet connection";
+        const color = "danger";
+        this._toastService.toastFunction(message, color);
+      } else {
+        this._categoryService.notifyUser(catId).subscribe((res: any) => {
+          this._toastService.toastFunction(res.message, 'success');
+          var emitObject = { catId: catId, statusCode: res.statusCode }
+          console.log("EMIT OBJECT", emitObject)
+          this.onSubscribe.emit(emitObject);
+        }, err => {
+          this._toastService.toastFunction(err.error.message, 'danger');
+        })
+      }
     }
   }
 
@@ -99,8 +102,18 @@ export class CategoryTilesPage implements OnInit {
   }
   async next() {
     if (this.sliderIndex == 2) {
+      localStorage.setItem('catModalShow','1')
       localStorage.setItem('catModal', '1')
       this.router.navigateByUrl('/login')
+    } else {
+      this.slider.slideNext();
+    }
+  }
+  nextSkip(){
+    if (this.sliderIndex == 2) {
+      localStorage.setItem('catModalShow','1')
+      localStorage.setItem('catModal', '1')
+      this.modalSkip = false;
     } else {
       this.slider.slideNext();
     }

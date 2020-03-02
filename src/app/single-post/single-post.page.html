@@ -63,10 +63,12 @@
         *ngIf="!news.bookmarkKey"
         (click)="bookmark(news.newsId)"
       >
-        <div class="tourText tourTextBookmark" *ngIf="!bookmarkFlag">
-          Click here to bookmark this post!
-        </div>
-        <div class="ripple_effect" *ngIf="!bookmarkFlag"></div>
+        <span *ngIf="!skip">
+          <div class="tourText tourTextBookmark" *ngIf="bookmarkFlag != '1'">
+            Click here to bookmark this post!
+          </div>
+          <div class="ripple_effect" *ngIf="bookmarkFlag != '1'"></div>
+        </span>
         <img src="assets/images/bookmarkWhite.png" height="52%" alt="" />
       </span>
       <!-- <span
@@ -87,10 +89,12 @@
         class="float floatShare"
         (click)="sharePost(news.fcmLink, news[language].title, news.newsImage)"
       >
-        <div class="tourText tourTextShare" *ngIf="!shareFlag">
-          Click here to share this post!
-        </div>
-        <div class="ripple_effect" *ngIf="!shareFlag"></div>
+        <span *ngIf="!skip">
+          <div class="tourText tourTextShare" *ngIf="shareFlag != '1'">
+            Click here to share this post!
+          </div>
+          <div class="ripple_effect" *ngIf="shareFlag != '1'"></div>
+        </span>
         <img src="../../assets/images/Share.png" class="icon shareImage" />
       </span>
     </div>

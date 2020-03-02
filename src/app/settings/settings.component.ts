@@ -310,7 +310,18 @@ export class SettingsComponent implements OnInit {
 			.catch(e => console.log('Error displaying dialog', e));
 	}
 
+	//on clicking back button
 	backButton() {
 		this.appcomponent.openRatingModal();
+	}
+
+	//on clicking bookmark button
+	routeToBookmark(){
+		if(!localStorage.getItem('acessToken')){
+			this._toastService.toastFunction('You Need To Login First!','danger');
+			this.router.navigateByUrl('/login')
+		}else{
+			this.router.navigateByUrl('/bookmark')
+		}
 	}
 }

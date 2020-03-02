@@ -297,6 +297,7 @@ export class SinglePostPage implements OnInit {
     this.bookmarkFlag = '1';
     if(localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')){
       localStorage.setItem('skip','1');
+      this.skip = '1';
     }
   }
   shareClose(){
@@ -305,6 +306,7 @@ export class SinglePostPage implements OnInit {
     this.shareFlag = '1';
     if(localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')){
       localStorage.setItem('skip','1');
+      this.skip = '1';
     }
   }
 }
