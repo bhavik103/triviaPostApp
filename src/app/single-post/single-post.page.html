@@ -130,7 +130,8 @@
         <p>{{modalBookmarkText[language]}}</p>
       </div>
       <div>
-        <button class="signupButton" (click)="bookmarkClose()">Close</button>
+        <button class="signupButton" (click)="bookmarkClose();signup()">Signup</button>
+        <button class="signupButton skipButton" (click)="bookmarkClose()">Skip</button>
       </div>
     </div>
   </div>
@@ -142,11 +143,12 @@
         <img src="../../assets/images/share.png" alt="" />
       </div>
       <div class="textBoxModal">
-        <h3>Share Post</h3>
-        <p>So you can share interesting post with your friends</p>
+        <h3>{{sharePostModal[language]}}</h3>
+        <p>{{sharePostModalContent[language]}}</p>
       </div>
       <div>
-        <button class="signupButton" (click)="shareClose()">Close</button>
+        <button class="signupButton" (click)="shareClose();signup()">Signup</button>
+        <button class="signupButton skipButton" (click)="shareClose()">Skip</button>
       </div>
     </div>
   </div>

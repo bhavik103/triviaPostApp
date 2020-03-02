@@ -243,8 +243,6 @@ export class SettingsComponent implements OnInit {
 
 	//share app
 	sendShare() {
-		var message = "An awesome news app that is only you need!";
-		var subject = "Install Trivia Post";
 		console.log("Share", this.privacyPolicy)
 		var url = this.privacyPolicy[0].applink;
 		this.socialSharing.share("Read these interesting facts on Trivia Post. Download App", "Trivia Post App", null, url)
@@ -284,8 +282,6 @@ export class SettingsComponent implements OnInit {
 
 	//open select language alert
 	async changeLang(lang) {
-		console.log("LANG", lang);
-
 		for (var i = 0; i < this.languageActionSheet.length; i++) {
 			// look for the entry with a matching `language` value
 			if (this.languageActionSheet[i].shortForm == lang) {
@@ -301,13 +297,6 @@ export class SettingsComponent implements OnInit {
 			buttons: this.languageActionSheet
 		});
 		await actionSheet.present();
-	}
-
-	//rate app
-	rateApp() {
-		this.dialogs.alert('Hello world')
-			.then(() => console.log('Dialog dismissed'))
-			.catch(e => console.log('Error displaying dialog', e));
 	}
 
 	//on clicking back button

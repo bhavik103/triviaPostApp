@@ -18,7 +18,7 @@ export const shareApp = {
 	en: 'Share this app',
 	hn: 'एप को शेयर कीजिए',
 	as: 'এই অ্যাপ্লিকেশন শেয়াৰ কৰক',
-	bn: 'এই অ্যাপ্লিকেশন শেয়াৰ কৰক',
+	bn: 'এই অ্যাপ্লিকেশনতা শেয়ার করুন',
 	gu: 'એપ્લિકેશન શેર કરો',
 	kn: 'ಈ ಅಪ್ಲಿಕೇಶನ್ ಹಂಚಿಕೊಳ್ಳಿ',
 	ml: 'ഈ അപ്ലിക്കേഷൻ പങ്കിടുക',
@@ -141,9 +141,9 @@ export const signIn = {
 	te: 'సైన్ ఇన్ చేయండి'
 }
 export const signInText = {
-	en: 'To save bookmark you must Signin',
+	en: 'Sign in to save your bookmarks',
 	hn: 'अपने बुकमार्क्स को बचाने के लिए साइन इन करें',
-	as: 'আপোনাৰ বুকমার্ক  সংৰক্ষণ কৰিবলৈ সাইনইন কৰক',
+	as: 'আপোনাৰ বুকমার্ক  সংৰক্ষণ কৰিবলৈ চাইনইন কৰক',
 	bn: 'আপনার বুকমার্কগুলি সংরক্ষণ করতে সাইনইন করুন',
 	gu: 'તમારા બુકમાર્ક્સને સાચવવા માટે સાઇન ઇન કરો',
 	kn: 'ನಿಮ್ಮ ಬುಕ್‌ಮಾರ್ಕ್‌ಗಳನ್ನು ಉಳಿಸಲು ಸೈನ್ ಇನ್ ಮಾಡಿ',
@@ -169,8 +169,8 @@ export const savePref = {
 export const category = {
 	en: 'Categories',
 	hn: 'श्रेणियाँ',
-	as: 'শিতানহমূহ',
-	bn: 'শিতানহমূহ',
+	as: 'শিতানসমূহ',
+	bn: 'শিতানসমূহ',
 	gu: 'શ્રેણીઓ',
 	kn: 'ವರ್ಗಗಳು',
 	ml: 'വിഭാഗങ്ങൾ',
@@ -198,22 +198,22 @@ export const modalBookmarkTitle = {
 	bn: 'বুকমার্ক পোস্ট'
 }
 export const modalBookmarkText = {
-	en: "So you don't loose your favourite reading blogs",
-	hn: 'टूर स्किप करने के लिए यहां क्लिक करें!',
-	as: 'সুতরাং আপনি আপনার প্রিয় পড়া ব্লগ আলগা না',
-	bn: 'সুতরাং আপনি আপনার প্রিয় পড়া ব্লগ আলগা না'
+	en: "So you don’t loose your favourite posts!",
+	hn: 'इसलिए आप अपनी पसंदीदा पोस्ट को ढीला नहीं करेंगे!',
+	as: 'তেনেহলে আপোনাৰ ভাল লগা পোস্ট নেহেৰোৱাই!',
+	bn: 'সুতরাং আপনি আপনার পছন্দসই পোস্টগুলি হারান না!'
 }
 export const modalNotificationTitle = {
 	en: 'Get Notifications',
 	hn: 'सूचनाएं प्राप्त करें',
-	as: 'বিজ্ঞপ্তি পেতে',
-	bn: 'বিজ্ঞপ্তি পেতে'
+	as: 'বিজ্ঞপ্তি পাউক ',
+	bn: 'বিজ্ঞাপ্তি পেতে'
 }
 export const modalNotificationText = {
-	en: 'So you get instant notifications from your subscribed blogs',
+	en: 'So you get instant notifications from your subscribed categories only',
 	hn: 'तो आपको अपने सब्स्क्राइब्ड ब्लॉग्स से तुरंत सूचना मिल जाती है',
-	as: 'সুতরাং আপনি আপনার সাবস্ক্রাইব করা ব্লগ থেকে তাত্ক্ষণিক বিজ্ঞপ্তিগুলি পান',
-	bn: 'সুতরাং আপনি আপনার সাবস্ক্রাইব করা ব্লগ থেকে তাত্ক্ষণিক বিজ্ঞপ্তিগুলি পান'
+	as: 'তাৎক্ষণিক বিজ্ঞপ্তি পাব আপোনাৰ সাবস্ক্রাইব কৰা শিতানৰ পৰা',
+	bn: 'সুতরাং আপনি কেবল আপনার সাবস্ক্রাইব করা শিতান থেকে তাত্ক্ষণিক বিজ্ঞপ্তিগুলি পান'
 }
 export const proceedTour = {
 	en: 'Click here to next!',
@@ -224,14 +224,14 @@ export const proceedTour = {
 export const rateTitle = {
 	en: 'Enjoy Our App',
 	hn: 'हमारे एप्लिकेशन का आनंद लें',
-	as: 'আমাদের অ্যাপ্লিকেশন উপভোগ করুন',
-	bn: 'আমাদের অ্যাপ্লিকেশন উপভোগ করুন'
+	as: 'আমাৰ এপ উপভোগ কৰিছে ',
+	bn: 'আমাদের অ্যাপ্লিকেশন উপভোগ করেছেন!'
 }
 export const rateText = {
-	en: ' If you enjoy our app would you mind rating us on the App Store? ',
+	en: 'If yes, would you mind rating us on the app store?',
 	hn: 'यदि आप हमारे ऐप का आनंद लेते हैं, तो क्या आप हमें ऐप स्टोर पर रेटिंग देंगे?',
-	as: 'আপনি যদি আমাদের অ্যাপটি উপভোগ করেন তবে আপনি কি অ্যাপ স্টোরের উপর আমাদের রেটিং দিতে কিছু মনে করবেন?',
-	bn: 'আপনি যদি আমাদের অ্যাপটি উপভোগ করেন তবে আপনি কি অ্যাপ স্টোরের উপর আমাদের রেটিং দিতে কিছু মনে করবেন?'
+	as: 'যদি কৰিছে, আমাক এপ স্টোৰত ৰেটিং দিবলে বেয়া পাব নেকি ?',
+	bn: 'যদি হ্যাঁ হয় তবে আপনি কি আমাদের অ্যাপ স্টোরটিতে রেটিং দিতে আপত্তি করবেন?'
 }
 export const catTitle = {
 	en: 'Categories',
@@ -272,14 +272,14 @@ export const modalSkipButton = {
 export const rateNowButton = {
 	en: 'RATE NOW',
 	hn: 'मूल्यांकन करें',
-	as: 'হার',
-	bn: 'হার'
+	as: 'এতিয়া ৰেটিং দিয়ক ',
+	bn: 'এখনই রেট দিন'
 }
 export const rateRemindButton = {
 	en: 'REMIND ME LATER',
 	hn: 'बाद में',
-	as: 'পরে',
-	bn: 'পরে'
+	as: 'পাছত মনত পেলাই দিব ',
+	bn: 'আমাকে পরে মনে করিয়ে দিবেন'
 }
 export const tourCategoryClick = {
 	en: 'NO, THANKS',
@@ -296,13 +296,30 @@ export const rateNoThanksButton = {
 export const tourReadPost = {
 	en: 'Click here to read this post!',
 	hn: 'इस पोस्ट को पढ़ने के लिए यहाँ क्लिक करें!',
-	as: 'এই পোস্টটি পড়তে এখানে ক্লিক করুন!',
+	as: 'এই পোস্টটা পঢিবলৈ ইয়াত ক্লিক কৰক!',
 	bn: 'এই পোস্টটি পড়তে এখানে ক্লিক করুন!'
 }
 export const tourCatPost = {
 	en: 'Click here to read from this specific category!',
 	hn: 'इस विशिष्ट श्रेणी से पढ़ने के लिए यहां क्लिक करें!',
-	as: 'এই নির্দিষ্ট বিভাগ থেকে পড়তে এখানে ক্লিক করুন!',
-	bn: 'এই নির্দিষ্ট বিভাগ থেকে পড়তে এখানে ক্লিক করুন!'
+	as: 'এই শিতানৰ পৰা পঢিবলৈ ইয়াত ক্লিক কৰক!',
+	bn: 'এই শিতান থেকে পড়তে এখানে ক্লিক করুন!'
 }
-
+export const sharePostModal = {
+	en: 'Share Post',
+	hn: 'शेयर पोस्ट',
+	as: 'ভাগ করুন পোস্ট',
+	bn: 'ভাগ করুন পোস্ট',
+}
+export const sharePostModalContent = {
+	en: 'So you can share interesting post with your friends',
+	hn: 'तो आप अपने दोस्तों के साथ दिलचस्प पोस्ट साझा कर सकते हैं',
+	as: 'তাই আপনি আপনার বন্ধুদের সাথে আকর্ষণীয় পোস্ট ভাগ করতে পারেন',
+	bn: 'তাই আপনি আপনার বন্ধুদের সাথে আকর্ষণীয় পোস্ট ভাগ করতে পারেন'
+}
+export const nextButton = {
+	en: 'Next',
+	hn: 'आगे',
+	as: 'পৰবর্তী',
+	bn: 'পরবর্তী'
+}

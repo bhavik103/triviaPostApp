@@ -99,8 +99,8 @@
         <p>{{modalNotificationText[language]}}</p>
       </ion-slide>
       <ion-slide>
-        <h3>Share Post</h3>
-        <p>So you can share interesting post with your friends</p>
+        <h3>{{sharePostModal[language]}}</h3>
+        <p>{{sharePostModalContent[language]}}</p>
       </ion-slide>
       <ion-slide>
         <h3>{{modalBookmarkTitle[language]}}</h3>
@@ -110,7 +110,7 @@
     <div>
       <button class="signupButton" (click)="next()">
         <div class="ripple_effect" *ngIf="!skip"></div>
-        Next
+        {{nextButton[language]}}
       </button>
       <div class="tourText tourTextModal" *ngIf="!skip">
         {{proceedTour[language]}}
@@ -144,8 +144,8 @@
         <p>{{modalNotificationText[language]}}</p>
       </ion-slide>
       <ion-slide>
-        <h3>Share Post</h3>
-        <p>So you can share interesting post with your friends</p>
+        <h3>{{sharePostModal[language]}}</h3>
+        <p>{{sharePostModalContent[language]}}</p>
       </ion-slide>
       <ion-slide>
         <h3>{{modalBookmarkTitle[language]}}</h3>
@@ -155,7 +155,7 @@
     <div>
       <button class="signupButton" (click)="nextSkip()">
         <div class="ripple_effect" *ngIf="!skip"></div>
-        Next
+        {{nextButton[language]}}
       </button>
       <div class="tourText tourTextModal" *ngIf="!skip">
         {{proceedTour[language]}}

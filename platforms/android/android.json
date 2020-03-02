@@ -154,6 +154,10 @@
             {
               "xml": "<feature name=\"Market\"><param name=\"android-package\" value=\"com.xmartlabs.cordova.market.Market\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -463,6 +467,9 @@
       "PACKAGE_NAME": "io.ionic.triviapost"
     },
     "cordova-plugin-market": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-app-version": {
       "PACKAGE_NAME": "io.ionic.triviapost"
     }
   },
@@ -926,6 +933,14 @@
       "clobbers": [
         "cordova.plugins.market"
       ]
+    },
+    {
+      "id": "cordova-plugin-app-version.AppVersionPlugin",
+      "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
+      "pluginId": "cordova-plugin-app-version",
+      "clobbers": [
+        "cordova.getAppVersion"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -959,6 +974,7 @@
     "cordova-plugin-splashscreen": "5.0.3",
     "cordova-wheel-selector-plugin": "1.0.0",
     "cordova-plugin-dialogs": "2.0.2",
-    "cordova-plugin-market": "1.2.0"
+    "cordova-plugin-market": "1.2.0",
+    "cordova-plugin-app-version": "0.1.9"
   }
 }

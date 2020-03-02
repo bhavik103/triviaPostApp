@@ -558,7 +558,7 @@ module.exports = "<div>\n  <div class=\"settingsToolbar\">\n    <ion-back-button
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content class=\"background\" (swiperight)=\"goBack()\">\n    <!-- <img src=\"assets/images/left-arrow.png\" alt=\"\" id=\"backButton\" routerLink=\"/login\" (click)=\"goBack()\"> -->\n    <div class=\"componentMainDiv\">\n        <div class=\"header\">\n            <img src=\"assets/images/Logo.png\" height=\"auto\" width=\"30%\">\n            <div>Just Read & Share</div>\n        </div>\n        <form [formGroup]=\"loginForm\" padding class=\"loginForm\">\n            <button class=\"googleLogin\" (click)=\"doGoogleLogin()\" [disabled]=\"isDisabled\">\n                <span class=\"socialIcon\">\n                    <img src=\"assets/images/google.png\" alt=\"\" height=\"26px\">\n                </span>\n                <span class=\"socialCenter\">Sign in with Google</span>\n                <span class=\"loginSpinner\" *ngIf=\"googleSpinner\"><img src=\"../../assets/images/loginSpinner.gif\" width=\"32px\" alt=\"\"></span>\n            </button>\n            <button class=\"facebookLogin\" (click)=\"doFbLogin()\" [disabled]=\"isDisabled\">\n                <span class=\"socialIcon\">\n                        <img src=\"assets/images/facebook.png\" alt=\"\" height=\"26px\">\n                </span>\n                <span class=\"socialCenter\">Sign in with Facebook</span>\n                <span class=\"loginSpinner\" *ngIf=\"facebookSpinner\"><img src=\"../../assets/images/loginSpinner.gif\" width=\"32px\" alt=\"\"></span>\n            </button>\n            <button class=\"signupModalButton\" [disabled]=\"isDisabled\">\n                <span class=\"socialIcon\">\n                    <ion-icon name=\"person\"></ion-icon>\n                </span>\n                <span class=\"socialCenter\"><label for=\"signupModal\" class=\"open\">Sign up</label></span>\n            </button>\n            <h2 class=\"otherLoginBreak\"><span> OR </span></h2>\n        </form>\n        <div class=\"pop\">\n            <input type=\"checkbox\" id=\"signupModal\" class=\"checkBox\" />\n            <div class=\"modal signUp\">\n                <div class=\"modal__inner\">\n                    <p style=\"text-align: center;\"><i id=\"signupHead\">Sign Up</i></p>\n                    <form [formGroup]=\"signupForm\">\n                        <div class=\"signup_input\">\n                            <ion-icon name=\"person\"></ion-icon>\n                            <input type=\"text\" name=\"\" placeholder=\"Username\" formControlName=\"userName\"\n                                [(ngModel)]=\"user.userName\">\n                        </div>\n                        <div class=\"signup_input\">\n                            <ion-icon name=\"mail\"></ion-icon>\n                            <input type=\"text\" name=\"\" placeholder=\"Email Address\" formControlName=\"email\"\n                                [(ngModel)]=\"user.email\">\n                        </div>\n                        <div class=\"signup_input\">\n                            <ion-icon name=\"call\"></ion-icon>\n                            <input type=\"text\" name=\"\" placeholder=\"Phone Number\" formControlName=\"mobile\"\n                                [(ngModel)]=\"user.mobile\">\n                        </div>\n                        <div class=\"signup_input\">\n                            <ion-icon name=\"lock\"></ion-icon>\n                            <input type=\"password\" name=\"\" placeholder=\"Password\" formControlName=\"password\"\n                                [(ngModel)]=\"user.password\">\n                        </div>\n                        <div class=\"signupButton\">\n                            <button (click)=\"signup(user)\">Signup</button>\n                        </div>\n                    </form>\n                    <label for=\"signupModal\">\n                        <ion-icon name=\"close\" class=\"signupClose\" (click)=\"signUpClose()\"></ion-icon>\n                    </label>\n                </div>\n            </div>\n        </div>\n        <p id=\"already\">Already have an account?</p>\n        <div class=\"buttonInside\">\n            Username\n            <input id=\"emailInput\" [(ngModel)]=\"email\">\n            <button id=\"linkSignIn\" (click)=\"signInRoute()\"><img src=\"assets/images/right-arrow.png\" alt=\"\"></button>\n            <p id=\"agreement\">By Sign in you agree to <span routerLink=\"/terms\">\"Terms of Use\"</span> and <span routerLink=\"/privacy\">\"Privacy Policy\"</span></p>\n        </div>\n        <p class=\"skip\" (click)=\"skipSignin()\" *ngIf=\"!bookmarkFlag\">Skip, I will do it later.</p>\n    </div>\n</ion-content>"
+module.exports = "<ion-content class=\"background\" (swiperight)=\"goBack()\">\n    <!-- <img src=\"assets/images/left-arrow.png\" alt=\"\" id=\"backButton\" routerLink=\"/login\" (click)=\"goBack()\"> -->\n    <div class=\"componentMainDiv\">\n        <div class=\"header\">\n            <img src=\"assets/images/Logo.png\" height=\"auto\" width=\"30%\">\n            <div>Just Read & Share</div>\n        </div>\n        <form [formGroup]=\"loginForm\" padding class=\"loginForm\">\n            <button class=\"googleLogin\" (click)=\"doGoogleLogin()\" [disabled]=\"isDisabled\">\n                <span class=\"socialIcon\">\n                    <img src=\"assets/images/google.png\" alt=\"\" height=\"26px\">\n                </span>\n                <span class=\"socialCenter\">Sign in with Google</span>\n                <span class=\"loginSpinner\" *ngIf=\"googleSpinner\"><img src=\"../../assets/images/loginSpinner.gif\" width=\"32px\" alt=\"\"></span>\n            </button>\n            <button class=\"facebookLogin\" (click)=\"doFbLogin()\" [disabled]=\"isDisabled\">\n                <span class=\"socialIcon\">\n                        <img src=\"assets/images/facebook.png\" alt=\"\" height=\"26px\">\n                </span>\n                <span class=\"socialCenter\">Sign in with Facebook</span>\n                <span class=\"loginSpinner\" *ngIf=\"facebookSpinner\"><img src=\"../../assets/images/loginSpinner.gif\" width=\"32px\" alt=\"\"></span>\n            </button>\n            <button class=\"signupModalButton\" [disabled]=\"isDisabled\">\n                <span class=\"socialIcon\">\n                    <ion-icon name=\"person\"></ion-icon>\n                </span>\n                <span class=\"socialCenter\"><label for=\"signupModal\" class=\"open\">Sign up</label></span>\n            </button>\n            <h2 class=\"otherLoginBreak\"><span> OR </span></h2>\n        </form>\n        <div class=\"pop\">\n            <input type=\"checkbox\" id=\"signupModal\" class=\"checkBox\" />\n            <div class=\"modal signUp\">\n                <div class=\"modal__inner\">\n                    <p style=\"text-align: center;\"><i id=\"signupHead\">Sign Up</i></p>\n                    <form [formGroup]=\"signupForm\">\n                        <div class=\"signup_input\">\n                            <ion-icon name=\"person\"></ion-icon>\n                            <input type=\"text\" name=\"\" placeholder=\"Username\" formControlName=\"userName\"\n                                [(ngModel)]=\"user.userName\">\n                        </div>\n                        <div class=\"signup_input\">\n                            <ion-icon name=\"mail\"></ion-icon>\n                            <input type=\"text\" name=\"\" placeholder=\"Email Address\" formControlName=\"email\"\n                                [(ngModel)]=\"user.email\">\n                        </div>\n                        <div class=\"signup_input\">\n                            <ion-icon name=\"call\"></ion-icon>\n                            <input type=\"text\" name=\"\" placeholder=\"Phone Number\" formControlName=\"mobile\"\n                                [(ngModel)]=\"user.mobile\">\n                        </div>\n                        <div class=\"signup_input\">\n                            <ion-icon name=\"lock\"></ion-icon>\n                            <input type=\"password\" name=\"\" placeholder=\"Password\" formControlName=\"password\"\n                                [(ngModel)]=\"user.password\">\n                        </div>\n                        <div class=\"signupButton\">\n                            <button (click)=\"signup(user)\">Signup</button>\n                        </div>\n                    </form>\n                    <label for=\"signupModal\">\n                        <ion-icon name=\"close\" class=\"signupClose\" (click)=\"signUpClose()\"></ion-icon>\n                    </label>\n                </div>\n            </div>\n        </div>\n        <p id=\"already\">Already have an account?</p>\n        <div class=\"buttonInside\">\n            Username\n            <input id=\"emailInput\" [(ngModel)]=\"email\">\n            <button id=\"linkSignIn\" (click)=\"signInRoute()\"><img src=\"assets/images/right-arrow.png\" alt=\"\"></button>\n            <p id=\"agreement\">By Sign in you agree to <span routerLink=\"/terms\">\"Terms of Use\"</span> and <span routerLink=\"/privacy\">\"Privacy Policy\"</span></p>\n        </div>\n        <p class=\"skip\" (click)=\"skipSignin()\" *ngIf=\"!skip\">Skip, I will do it later.</p>\n    </div>\n</ion-content>"
 
 /***/ }),
 
@@ -591,7 +591,7 @@ module.exports = "<div>\n  <div class=\"settingsToolbar\">\n    <ion-back-button
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/home\"\n      (click)=\"backButton()\"\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\">{{ options[language] }}</span>\n    <button\n      id=\"profile\"\n      *ngIf=\"tokenLocalStorage && firstCharUser\"\n      (click)=\"logout()\"\n    >\n      {{ firstCharUser }}\n    </button>\n    <button\n      id=\"personIcon\"\n      (click)=\"logout()\"\n      *ngIf=\"tokenLocalStorage && !firstCharUser\"\n    >\n      <ion-icon\n        name=\"person\"\n        style=\"vertical-align: text-bottom; font-size: 24px;\"\n      ></ion-icon>\n    </button>\n    <button float-right *ngIf=\"!tokenLocalStorage\" routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n\n<ion-content>\n  <div class=\"settings loginDiv\" padding *ngIf=\"!tokenLocalStorage\">\n    <h1 class=\"savePref\">{{ savePref[language] }}</h1>\n    <h4 class=\"signInBook\">\n      {{ signInText[language] }}\n    </h4>\n    <div class=\"customLoginDiv\">\n      <button class=\"signInButton\" routerLink=\"/login\"s>\n        {{ signIn[language] }}\n      </button>\n      <span>{{ orUsing[language] }}</span>\n      <button id=\"facebookLogin\" routerLink=\"/login\">\n        <img src=\"assets/images/Facebook.png\" height=\"19px;\" />\n      </button>\n      <button id=\"googleplus\" routerLink=\"/login\">\n        <img src=\"assets/images/GooglePlus.png\" height=\"16px;\" />\n      </button>\n    </div>\n    <!-- <ion-row>\n      <ion-col size=\"5\" class=\"signInCol\">\n        <button id=\"signInButton\" routerLink=\"/login\">\n          {{ signIn[language] }}\n        </button>\n      </ion-col>\n      <ion-col size=\"7\">\n        <span id=\"loginOption\">{{ orUsing[language] }}</span>\n\n        <button id=\"facebookLogin\" routerLink=\"/login\">\n          <img src=\"assets/images/Facebook.png\" height=\"19px;\" />\n        </button>\n        <button id=\"googleplus\" routerLink=\"/login\">\n          <img src=\"assets/images/GooglePlus.png\" height=\"16px;\" />\n        </button>\n      </ion-col>\n    </ion-row> -->\n  </div>\n  <div class=\"optionsDiv\">\n    <ul class=\"option_list\">\n      <li>\n        <div class=\"icon_box\">\n          <span>Aa</span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              languageText[language]\n            }}</span>\n          </div>\n          <div class=\"lang_selector\" (click)=\"changeLang(language)\">\n            <span class=\"selectIcon\">\n              <img\n                src=\"../../assets/images/downarrow.png\"\n                alt=\"\"\n                height=\"15px\"\n              />\n            </span>\n            <span class=\"langColor\" *ngIf=\"language\">{{\n              langSelectText[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n      <li routerLink=\"/bookmark\">\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"bookmark\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              bookmark[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n      <li routerLink=\"/all-categories\">\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"apps\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              category[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n      <li>\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"notifications-outline\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              notification[language]\n            }}</span>\n          </div>\n          <div class=\"lang_selector\">\n            <label\n              class=\"switch\"\n              *ngIf=\"notifyFlag === 'true' || annonymousNotify === 'true'\"\n            >\n              <input\n                type=\"checkbox\"\n                (change)=\"notificationSwitch($event)\"\n                checked=\"checked\"\n              />\n              <div></div>\n            </label>\n            <label\n              class=\"switch\"\n              *ngIf=\"notifyFlag === 'false' || annonymousNotify === 'false'\"\n            >\n              <input type=\"checkbox\" (change)=\"notificationSwitch($event)\" />\n              <div></div>\n            </label>\n          </div>\n        </div>\n      </li>\n      <li routerLink=\"/feedback\">\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"chatboxes\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              feedback[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n      <li routerLink=\"/privacy\">\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"lock\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              privacy[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n      <li routerLink=\"/terms\">\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"paper\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              terms[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n      <li (click)=\"sendShare()\">\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"share\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              shareApp[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n    </ul>\n  </div>\n  <ion-row id=\"ratingRow\"></ion-row>\n</ion-content>\n"
+module.exports = "<div>\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/home\"\n      (click)=\"backButton()\"\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\">{{ options[language] }}</span>\n    <button\n      id=\"profile\"\n      *ngIf=\"tokenLocalStorage && firstCharUser\"\n      (click)=\"logout()\"\n    >\n      {{ firstCharUser }}\n    </button>\n    <button\n      id=\"personIcon\"\n      (click)=\"logout()\"\n      *ngIf=\"tokenLocalStorage && !firstCharUser\"\n    >\n      <ion-icon\n        name=\"person\"\n        style=\"vertical-align: text-bottom; font-size: 24px;\"\n      ></ion-icon>\n    </button>\n    <button float-right *ngIf=\"!tokenLocalStorage\" routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n\n<ion-content>\n  <div class=\"settings loginDiv\" padding *ngIf=\"!tokenLocalStorage\">\n    <h1 class=\"savePref\">{{ savePref[language] }}</h1>\n    <h4 class=\"signInBook\">\n      {{ signInText[language] }}\n    </h4>\n    <div class=\"customLoginDiv\">\n      <button class=\"signInButton\" routerLink=\"/login\"s>\n        {{ signIn[language] }}\n      </button>\n      <span>{{ orUsing[language] }}</span>\n      <button id=\"facebookLogin\" routerLink=\"/login\">\n        <img src=\"assets/images/Facebook.png\" height=\"19px;\" />\n      </button>\n      <button id=\"googleplus\" routerLink=\"/login\">\n        <img src=\"assets/images/GooglePlus.png\" height=\"16px;\" />\n      </button>\n    </div>\n  </div>\n  <div class=\"optionsDiv\">\n    <ul class=\"option_list\">\n      <li>\n        <div class=\"icon_box\">\n          <span>Aa</span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              languageText[language]\n            }}</span>\n          </div>\n          <div class=\"lang_selector\" (click)=\"changeLang(language)\">\n            <span class=\"selectIcon\">\n              <img\n                src=\"../../assets/images/downarrow.png\"\n                alt=\"\"\n                height=\"15px\"\n              />\n            </span>\n            <span class=\"langColor\" *ngIf=\"language\">{{\n              langSelectText[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n      <li (click)=\"routeToBookmark()\">\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"bookmark\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              bookmark[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n      <li routerLink=\"/all-categories\">\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"apps\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              category[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n      <li>\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"notifications-outline\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              notification[language]\n            }}</span>\n          </div>\n          <div class=\"lang_selector\">\n            <label\n              class=\"switch\"\n              *ngIf=\"notifyFlag === 'true' || annonymousNotify === 'true'\"\n            >\n              <input\n                type=\"checkbox\"\n                (change)=\"notificationSwitch($event)\"\n                checked=\"checked\"\n              />\n              <div></div>\n            </label>\n            <label\n              class=\"switch\"\n              *ngIf=\"notifyFlag === 'false' || annonymousNotify === 'false'\"\n            >\n              <input type=\"checkbox\" (change)=\"notificationSwitch($event)\" />\n              <div></div>\n            </label>\n          </div>\n        </div>\n      </li>\n      <li routerLink=\"/feedback\">\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"chatboxes\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              feedback[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n      <li routerLink=\"/privacy\">\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"lock\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              privacy[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n      <li routerLink=\"/terms\">\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"paper\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              terms[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n      <li (click)=\"sendShare()\">\n        <div class=\"icon_box\">\n          <span><ion-icon name=\"share\"></ion-icon></span>\n        </div>\n        <div class=\"menu_link\">\n          <div class=\"menu_link_text\">\n            <span class=\"optionsList\" *ngIf=\"language\">{{\n              shareApp[language]\n            }}</span>\n          </div>\n        </div>\n      </li>\n    </ul>\n  </div>\n  <ion-row id=\"ratingRow\"></ion-row>\n</ion-content>\n"
 
 /***/ }),
 
@@ -775,6 +775,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/general.service */ "./src/app/services/general.service.ts");
 /* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./changeLang */ "./src/app/changeLang.ts");
 /* harmony import */ var _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic-native/market/ngx */ "./node_modules/@ionic-native/market/ngx/index.js");
+/* harmony import */ var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic-native/app-version/ngx */ "./node_modules/@ionic-native/app-version/ngx/index.js");
+
 
 
 
@@ -797,7 +799,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(market, _generalService, keyboard, _toastService, firebaseDynamicLinks, _userService, toastController, platform, splashScreen, statusBar, fcm, router, deeplinks, events) {
+    constructor(appVersion, market, _generalService, keyboard, _toastService, firebaseDynamicLinks, _userService, toastController, platform, splashScreen, statusBar, fcm, router, deeplinks, events) {
+        this.appVersion = appVersion;
         this.market = market;
         this._generalService = _generalService;
         this.keyboard = keyboard;
@@ -832,6 +835,9 @@ let AppComponent = class AppComponent {
             password: "",
         };
         this.navLinksArray = [];
+        // this.appVersion.getVersionNumber().then(version => {
+        //   console.log("APP VERSION", version)
+        // })
         this._userService.customObservable.subscribe((res) => {
             console.log("FINALLY GOT IT", res);
         });
@@ -979,6 +985,7 @@ let AppComponent = class AppComponent {
     }
 };
 AppComponent.ctorParameters = () => [
+    { type: _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_19__["AppVersion"] },
     { type: _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_18__["Market"] },
     { type: _services_general_service__WEBPACK_IMPORTED_MODULE_16__["GeneralService"] },
     { type: _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_15__["Keyboard"] },
@@ -1000,7 +1007,8 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
         styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_18__["Market"],
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_19__["AppVersion"],
+        _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_18__["Market"],
         _services_general_service__WEBPACK_IMPORTED_MODULE_16__["GeneralService"],
         _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_15__["Keyboard"],
         _services_toast_service__WEBPACK_IMPORTED_MODULE_14__["ToastService"],
@@ -1166,7 +1174,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!*******************************!*\
   !*** ./src/app/changeLang.ts ***!
   \*******************************/
-/*! exports provided: langList, langSelectText, shareApp, terms, privacy, feedback, notification, bookmark, language, orUsing, signIn, signInText, savePref, category, tourCategory, tourSkip, modalBookmarkTitle, modalBookmarkText, modalNotificationTitle, modalNotificationText, proceedTour, rateTitle, rateText, catTitle, optionsTitle, termsTitle, privacyTitle, modalSignupButton, modalSkipButton, rateNowButton, rateRemindButton, tourCategoryClick, rateNoThanksButton, tourReadPost, tourCatPost */
+/*! exports provided: langList, langSelectText, shareApp, terms, privacy, feedback, notification, bookmark, language, orUsing, signIn, signInText, savePref, category, tourCategory, tourSkip, modalBookmarkTitle, modalBookmarkText, modalNotificationTitle, modalNotificationText, proceedTour, rateTitle, rateText, catTitle, optionsTitle, termsTitle, privacyTitle, modalSignupButton, modalSkipButton, rateNowButton, rateRemindButton, tourCategoryClick, rateNoThanksButton, tourReadPost, tourCatPost, sharePostModal, sharePostModalContent, nextButton */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1206,6 +1214,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rateNoThanksButton", function() { return rateNoThanksButton; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tourReadPost", function() { return tourReadPost; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tourCatPost", function() { return tourCatPost; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sharePostModal", function() { return sharePostModal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sharePostModalContent", function() { return sharePostModalContent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "nextButton", function() { return nextButton; });
 // export const langList = [{ lang: 'English', slug: 'en' }, { lang: 'हिंदी', slug: 'hn' }, { lang: 'অসমীয়া', slug: 'as' }, { lang: 'বাংলা', slug: 'bn' }, { lang: 'ગુજરાતી', slug: 'gu' }, { lang: 'ಕನ್ನಡ', slug: 'kn' }, { lang: 'മലയാളം', slug: 'ml' }, { lang: 'मराठी', slug: 'mr' }, { lang: 'ਪੰਜਾਬੀ', slug: 'pa' }, { lang: 'தமிழ்', slug: 'ta' }, { lang: 'తెలుగు', slug: 'te' }];
 const langList = [{ lang: 'English', slug: 'en' }, { lang: 'हिंदी', slug: 'hn' }, { lang: 'অসমীয়া', slug: 'as' }, { lang: 'বাংলা', slug: 'bn' }];
 const langSelectText = {
@@ -1225,7 +1236,7 @@ const shareApp = {
     en: 'Share this app',
     hn: 'एप को शेयर कीजिए',
     as: 'এই অ্যাপ্লিকেশন শেয়াৰ কৰক',
-    bn: 'এই অ্যাপ্লিকেশন শেয়াৰ কৰক',
+    bn: 'এই অ্যাপ্লিকেশনতা শেয়ার করুন',
     gu: 'એપ્લિકેશન શેર કરો',
     kn: 'ಈ ಅಪ್ಲಿಕೇಶನ್ ಹಂಚಿಕೊಳ್ಳಿ',
     ml: 'ഈ അപ്ലിക്കേഷൻ പങ്കിടുക',
@@ -1339,9 +1350,9 @@ const signIn = {
     te: 'సైన్ ఇన్ చేయండి'
 };
 const signInText = {
-    en: 'To save bookmark you must Signin',
+    en: 'Sign in to save your bookmarks',
     hn: 'अपने बुकमार्क्स को बचाने के लिए साइन इन करें',
-    as: 'আপোনাৰ বুকমার্ক  সংৰক্ষণ কৰিবলৈ সাইনইন কৰক',
+    as: 'আপোনাৰ বুকমার্ক  সংৰক্ষণ কৰিবলৈ চাইনইন কৰক',
     bn: 'আপনার বুকমার্কগুলি সংরক্ষণ করতে সাইনইন করুন',
     gu: 'તમારા બુકમાર્ક્સને સાચવવા માટે સાઇન ઇન કરો',
     kn: 'ನಿಮ್ಮ ಬುಕ್‌ಮಾರ್ಕ್‌ಗಳನ್ನು ಉಳಿಸಲು ಸೈನ್ ಇನ್ ಮಾಡಿ',
@@ -1367,8 +1378,8 @@ const savePref = {
 const category = {
     en: 'Categories',
     hn: 'श्रेणियाँ',
-    as: 'শিতানহমূহ',
-    bn: 'শিতানহমূহ',
+    as: 'শিতানসমূহ',
+    bn: 'শিতানসমূহ',
     gu: 'શ્રેણીઓ',
     kn: 'ವರ್ಗಗಳು',
     ml: 'വിഭാഗങ്ങൾ',
@@ -1396,22 +1407,22 @@ const modalBookmarkTitle = {
     bn: 'বুকমার্ক পোস্ট'
 };
 const modalBookmarkText = {
-    en: "So you don't loose your favourite reading blogs",
-    hn: 'टूर स्किप करने के लिए यहां क्लिक करें!',
-    as: 'সুতরাং আপনি আপনার প্রিয় পড়া ব্লগ আলগা না',
-    bn: 'সুতরাং আপনি আপনার প্রিয় পড়া ব্লগ আলগা না'
+    en: "So you don’t loose your favourite posts!",
+    hn: 'इसलिए आप अपनी पसंदीदा पोस्ट को ढीला नहीं करेंगे!',
+    as: 'তেনেহলে আপোনাৰ ভাল লগা পোস্ট নেহেৰোৱাই!',
+    bn: 'সুতরাং আপনি আপনার পছন্দসই পোস্টগুলি হারান না!'
 };
 const modalNotificationTitle = {
     en: 'Get Notifications',
     hn: 'सूचनाएं प्राप्त करें',
-    as: 'বিজ্ঞপ্তি পেতে',
-    bn: 'বিজ্ঞপ্তি পেতে'
+    as: 'বিজ্ঞপ্তি পাউক ',
+    bn: 'বিজ্ঞাপ্তি পেতে'
 };
 const modalNotificationText = {
-    en: 'So you get instant notifications from your subscribed blogs',
+    en: 'So you get instant notifications from your subscribed categories only',
     hn: 'तो आपको अपने सब्स्क्राइब्ड ब्लॉग्स से तुरंत सूचना मिल जाती है',
-    as: 'সুতরাং আপনি আপনার সাবস্ক্রাইব করা ব্লগ থেকে তাত্ক্ষণিক বিজ্ঞপ্তিগুলি পান',
-    bn: 'সুতরাং আপনি আপনার সাবস্ক্রাইব করা ব্লগ থেকে তাত্ক্ষণিক বিজ্ঞপ্তিগুলি পান'
+    as: 'তাৎক্ষণিক বিজ্ঞপ্তি পাব আপোনাৰ সাবস্ক্রাইব কৰা শিতানৰ পৰা',
+    bn: 'সুতরাং আপনি কেবল আপনার সাবস্ক্রাইব করা শিতান থেকে তাত্ক্ষণিক বিজ্ঞপ্তিগুলি পান'
 };
 const proceedTour = {
     en: 'Click here to next!',
@@ -1422,14 +1433,14 @@ const proceedTour = {
 const rateTitle = {
     en: 'Enjoy Our App',
     hn: 'हमारे एप्लिकेशन का आनंद लें',
-    as: 'আমাদের অ্যাপ্লিকেশন উপভোগ করুন',
-    bn: 'আমাদের অ্যাপ্লিকেশন উপভোগ করুন'
+    as: 'আমাৰ এপ উপভোগ কৰিছে ',
+    bn: 'আমাদের অ্যাপ্লিকেশন উপভোগ করেছেন!'
 };
 const rateText = {
-    en: ' If you enjoy our app would you mind rating us on the App Store? ',
+    en: 'If yes, would you mind rating us on the app store?',
     hn: 'यदि आप हमारे ऐप का आनंद लेते हैं, तो क्या आप हमें ऐप स्टोर पर रेटिंग देंगे?',
-    as: 'আপনি যদি আমাদের অ্যাপটি উপভোগ করেন তবে আপনি কি অ্যাপ স্টোরের উপর আমাদের রেটিং দিতে কিছু মনে করবেন?',
-    bn: 'আপনি যদি আমাদের অ্যাপটি উপভোগ করেন তবে আপনি কি অ্যাপ স্টোরের উপর আমাদের রেটিং দিতে কিছু মনে করবেন?'
+    as: 'যদি কৰিছে, আমাক এপ স্টোৰত ৰেটিং দিবলে বেয়া পাব নেকি ?',
+    bn: 'যদি হ্যাঁ হয় তবে আপনি কি আমাদের অ্যাপ স্টোরটিতে রেটিং দিতে আপত্তি করবেন?'
 };
 const catTitle = {
     en: 'Categories',
@@ -1470,14 +1481,14 @@ const modalSkipButton = {
 const rateNowButton = {
     en: 'RATE NOW',
     hn: 'मूल्यांकन करें',
-    as: 'হার',
-    bn: 'হার'
+    as: 'এতিয়া ৰেটিং দিয়ক ',
+    bn: 'এখনই রেট দিন'
 };
 const rateRemindButton = {
     en: 'REMIND ME LATER',
     hn: 'बाद में',
-    as: 'পরে',
-    bn: 'পরে'
+    as: 'পাছত মনত পেলাই দিব ',
+    bn: 'আমাকে পরে মনে করিয়ে দিবেন'
 };
 const tourCategoryClick = {
     en: 'NO, THANKS',
@@ -1494,14 +1505,32 @@ const rateNoThanksButton = {
 const tourReadPost = {
     en: 'Click here to read this post!',
     hn: 'इस पोस्ट को पढ़ने के लिए यहाँ क्लिक करें!',
-    as: 'এই পোস্টটি পড়তে এখানে ক্লিক করুন!',
+    as: 'এই পোস্টটা পঢিবলৈ ইয়াত ক্লিক কৰক!',
     bn: 'এই পোস্টটি পড়তে এখানে ক্লিক করুন!'
 };
 const tourCatPost = {
     en: 'Click here to read from this specific category!',
     hn: 'इस विशिष्ट श्रेणी से पढ़ने के लिए यहां क्लिक करें!',
-    as: 'এই নির্দিষ্ট বিভাগ থেকে পড়তে এখানে ক্লিক করুন!',
-    bn: 'এই নির্দিষ্ট বিভাগ থেকে পড়তে এখানে ক্লিক করুন!'
+    as: 'এই শিতানৰ পৰা পঢিবলৈ ইয়াত ক্লিক কৰক!',
+    bn: 'এই শিতান থেকে পড়তে এখানে ক্লিক করুন!'
+};
+const sharePostModal = {
+    en: 'Share Post',
+    hn: 'शेयर पोस्ट',
+    as: 'ভাগ করুন পোস্ট',
+    bn: 'ভাগ করুন পোস্ট',
+};
+const sharePostModalContent = {
+    en: 'So you can share interesting post with your friends',
+    hn: 'तो आप अपने दोस्तों के साथ दिलचस्प पोस्ट साझा कर सकते हैं',
+    as: 'তাই আপনি আপনার বন্ধুদের সাথে আকর্ষণীয় পোস্ট ভাগ করতে পারেন',
+    bn: 'তাই আপনি আপনার বন্ধুদের সাথে আকর্ষণীয় পোস্ট ভাগ করতে পারেন'
+};
+const nextButton = {
+    en: 'Next',
+    hn: 'आगे',
+    as: 'পৰবর্তী',
+    bn: 'পরবর্তী'
 };
 
 
@@ -1890,6 +1919,7 @@ let LoginComponent = class LoginComponent {
         }));
     }
     ionViewWillEnter() {
+        this.skip = localStorage.getItem('skip');
         this.bookmarkFlag = localStorage.getItem('bookmarkFlag');
         this.email = localStorage.getItem('email');
     }
@@ -3066,8 +3096,6 @@ let SettingsComponent = class SettingsComponent {
     }
     //share app
     sendShare() {
-        var message = "An awesome news app that is only you need!";
-        var subject = "Install Trivia Post";
         console.log("Share", this.privacyPolicy);
         var url = this.privacyPolicy[0].applink;
         this.socialSharing.share("Read these interesting facts on Trivia Post. Download App", "Trivia Post App", null, url)
@@ -3103,7 +3131,6 @@ let SettingsComponent = class SettingsComponent {
     //open select language alert
     changeLang(lang) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            console.log("LANG", lang);
             for (var i = 0; i < this.languageActionSheet.length; i++) {
                 // look for the entry with a matching `language` value
                 if (this.languageActionSheet[i].shortForm == lang) {
@@ -3121,14 +3148,19 @@ let SettingsComponent = class SettingsComponent {
             yield actionSheet.present();
         });
     }
-    //rate app
-    rateApp() {
-        this.dialogs.alert('Hello world')
-            .then(() => console.log('Dialog dismissed'))
-            .catch(e => console.log('Error displaying dialog', e));
-    }
+    //on clicking back button
     backButton() {
         this.appcomponent.openRatingModal();
+    }
+    //on clicking bookmark button
+    routeToBookmark() {
+        if (!localStorage.getItem('acessToken')) {
+            this._toastService.toastFunction('You Need To Login First!', 'danger');
+            this.router.navigateByUrl('/login');
+        }
+        else {
+            this.router.navigateByUrl('/bookmark');
+        }
     }
 };
 SettingsComponent.ctorParameters = () => [

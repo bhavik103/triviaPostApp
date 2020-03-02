@@ -19,6 +19,7 @@ import { GeneralService } from './services/general.service';
 declare var $: any;
 import { rateTitle, rateText, rateNowButton, rateNoThanksButton, rateRemindButton } from './changeLang';
 import { Market } from '@ionic-native/market/ngx';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @Component({
   selector: 'app-root',
@@ -54,6 +55,7 @@ export class AppComponent {
   showRateModal: boolean;
   navLinksArray = [];
   constructor(
+    private appVersion: AppVersion,
     private market: Market,
     private _generalService: GeneralService,
     private keyboard: Keyboard,
@@ -69,6 +71,9 @@ export class AppComponent {
     protected deeplinks: Deeplinks,
     public events: Events
   ) {
+    // this.appVersion.getVersionNumber().then(version => {
+    //   console.log("APP VERSION", version)
+    // })
     this._userService.customObservable.subscribe((res) => {
       console.log("FINALLY GOT IT", res)
     }
@@ -113,11 +118,11 @@ export class AppComponent {
     }
     if (localStorage.getItem('language')) {
       localStorage.setItem('skip', '1')
-      localStorage.setItem('catModalShow','1')
-      localStorage.setItem('bookmarkFlag','1')
-      localStorage.setItem('shareFlag','1')
-      localStorage.setItem('firstLargePostClick','1')
-      localStorage.setItem('catModal','1')
+      localStorage.setItem('catModalShow', '1')
+      localStorage.setItem('bookmarkFlag', '1')
+      localStorage.setItem('shareFlag', '1')
+      localStorage.setItem('firstLargePostClick', '1')
+      localStorage.setItem('catModal', '1')
     }
     if (!localStorage.getItem('isVisited')) {
       let isVisited = [];

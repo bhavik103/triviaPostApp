@@ -5,7 +5,7 @@ import { CategoryService } from '../services/category.service';
 import { config } from '../config';
 import { Network } from '@ionic-native/network/ngx';
 import { ToastService } from "../services/toast.service";
-import {tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
+import { nextButton,tourCategory, sharePostModalContent, sharePostModal, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
 import { IonSlides } from '@ionic/angular';
 import * as introJs from 'intro.js/intro.js';
 @Component({
@@ -26,6 +26,9 @@ export class CategoryTilesPage implements OnInit {
   modalNotificationTitle = modalNotificationTitle
   modalNotificationText = modalNotificationText
   proceedTour = proceedTour
+  nextButton = nextButton
+  sharePostModalContent = sharePostModalContent
+  sharePostModal = sharePostModal;
   skip: any
   mediaPath = config.mediaApiUrl;
   modal: boolean;
@@ -65,10 +68,10 @@ export class CategoryTilesPage implements OnInit {
   addNotify(catId, isNotify) {
     if (!localStorage.getItem('catModalShow') && !localStorage.getItem('skip')) {
       this.modal = true;
-      localStorage.setItem('catModalShow','1');
-    }else if(localStorage.getItem('skip') && !localStorage.getItem('catModalShow')){
+      localStorage.setItem('catModalShow', '1');
+    } else if (localStorage.getItem('skip') && !localStorage.getItem('catModalShow')) {
       this.modalSkip = true;
-    }else {
+    } else {
       if (this.network.type == 'none') {
         const message = "No internet connection";
         const color = "danger";
@@ -102,16 +105,16 @@ export class CategoryTilesPage implements OnInit {
   }
   async next() {
     if (this.sliderIndex == 2) {
-      localStorage.setItem('catModalShow','1')
+      localStorage.setItem('catModalShow', '1')
       localStorage.setItem('catModal', '1')
       this.router.navigateByUrl('/login')
     } else {
       this.slider.slideNext();
     }
   }
-  nextSkip(){
+  nextSkip() {
     if (this.sliderIndex == 2) {
-      localStorage.setItem('catModalShow','1')
+      localStorage.setItem('catModalShow', '1')
       localStorage.setItem('catModal', '1')
       this.modalSkip = false;
     } else {

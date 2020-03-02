@@ -12,7 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
 import { AppComponent } from '../app.component'
-import { language, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
+import { language,sharePostModalContent,sharePostModal, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
 
 @Component({
   selector: 'app-single-post',
@@ -41,6 +41,8 @@ export class SinglePostPage implements OnInit {
   tourCategory = tourCategory;
   modalBookmarkTitle = modalBookmarkTitle
   modalBookmarkText = modalBookmarkText
+  sharePostModal= sharePostModal
+  sharePostModalContent=sharePostModalContent;
   shareModal: boolean;
   bookmarkFlag: string;
   shareFlag: string;
@@ -190,7 +192,6 @@ export class SinglePostPage implements OnInit {
       localStorage.setItem('shareBlink', '1')
       localStorage.setItem('skip', '1')
       if (!localStorage.getItem('accessToken')) {
-        console.log("newsId done", newsid);
         localStorage.setItem('bookmarkId', newsid);
         this._toastService.toastFunction('You need to login first', 'danger');
         this.router.navigateByUrl('/login');
@@ -199,7 +200,6 @@ export class SinglePostPage implements OnInit {
           this.singlePostfun(newsid);
           this._toastService.toastFunction('No internet connection', 'danger');
         } else {
-          console.log("BOOKMARK")
           this._newsService.bookmarkPost(newsid).subscribe((res: any) => {
             this._toastService.toastFunction(res.message, 'success');
             this.singlePostfun(newsid);
@@ -222,7 +222,6 @@ export class SinglePostPage implements OnInit {
 
   openWithSystemBrowser(url) {
     if (localStorage.getItem('skip')) {
-      let target = "_blank";
       this.iab.create(url, `_blank`);
     }
   }
@@ -234,7 +233,6 @@ export class SinglePostPage implements OnInit {
     localStorage.setItem('catSelect', '1');
     localStorage.setItem('firstLargePostClick', '1');
     this.skip = localStorage.getItem('skip');
-    console.log('postid', postid);
     this.router.navigateByUrl('/single-post/' + postid);
   }
   singleCategory(catId, catname) {
@@ -247,13 +245,11 @@ export class SinglePostPage implements OnInit {
       localStorage.setItem('firstLargePostClick', '1');
       this.skip = localStorage.getItem('skip');
       localStorage.setItem('skip', '1')
-      console.log('catId compoennt', catId)
       this.router.navigateByUrl('single-category/' + catId + '/' + catname);
     }
   }
   backClick() {
     this.appcomponent.openRatingModal();
-    // localStorage.setItem('skip', '1')
   }
   async skipTour() {
     if (!localStorage.getItem('skip') && localStorage.getItem('firstLargePostClick')) {
@@ -308,5 +304,8 @@ export class SinglePostPage implements OnInit {
       localStorage.setItem('skip','1');
       this.skip = '1';
     }
+  }
+  signup(){
+    this.router.navigateByUrl('/login')
   }
 }

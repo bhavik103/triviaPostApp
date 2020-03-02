@@ -24,6 +24,9 @@
     },
     "cordova-plugin-market": {
       "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-app-version": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
     }
   },
   "dependent_plugins": {
