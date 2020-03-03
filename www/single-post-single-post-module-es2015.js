@@ -346,37 +346,6 @@ let SinglePostPage = class SinglePostPage {
     backClick() {
         this.appcomponent.openRatingModal();
     }
-    skipTour() {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            if (!localStorage.getItem('skip') && localStorage.getItem('firstLargePostClick')) {
-                const alert = yield this.alertController.create({
-                    header: 'Confirm!',
-                    message: 'Are you sure you want to skip the <strong>tour</strong>?',
-                    cssClass: 'alertCustomCss',
-                    buttons: [
-                        {
-                            text: 'Cancel',
-                            role: 'cancel',
-                            handler: (blah) => {
-                            }
-                        }, {
-                            text: 'Skip',
-                            handler: () => {
-                                localStorage.setItem('skip', '1');
-                                localStorage.setItem('skip', 'true');
-                                localStorage.setItem('shareBlink', '1');
-                                localStorage.setItem('catSelect', '1');
-                                localStorage.setItem('firstLargePostClick', '1');
-                                this.skip = localStorage.getItem('skip');
-                                this.router.navigateByUrl('all-categories');
-                            }
-                        }
-                    ]
-                });
-                yield alert.present();
-            }
-        });
-    }
     homeClick() {
         localStorage.setItem('skip', '1');
     }

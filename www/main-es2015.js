@@ -835,12 +835,6 @@ let AppComponent = class AppComponent {
             password: "",
         };
         this.navLinksArray = [];
-        // this.appVersion.getVersionNumber().then(version => {
-        //   console.log("APP VERSION", version)
-        // })
-        this._userService.customObservable.subscribe((res) => {
-            console.log("FINALLY GOT IT", res);
-        });
         const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
         const firstDate = new Date();
         const secondDate = JSON.parse(localStorage.getItem('ratingModalDate'));
@@ -885,9 +879,9 @@ let AppComponent = class AppComponent {
         }
         if (localStorage.getItem('language')) {
             localStorage.setItem('skip', '1');
-            localStorage.setItem('catModalShow', '1');
-            localStorage.setItem('bookmarkFlag', '1');
-            localStorage.setItem('shareFlag', '1');
+            // localStorage.setItem('catModalShow', '1')
+            // localStorage.setItem('bookmarkFlag', '1')
+            // localStorage.setItem('shareFlag', '1')
             localStorage.setItem('firstLargePostClick', '1');
             localStorage.setItem('catModal', '1');
         }

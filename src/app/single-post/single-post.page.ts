@@ -255,38 +255,6 @@ export class SinglePostPage implements OnInit {
   backClick() {
     this.appcomponent.openRatingModal();
   }
-  async skipTour() {
-    if (!localStorage.getItem('skip') && localStorage.getItem('firstLargePostClick')) {
-
-      const alert = await this.alertController.create({
-        header: 'Confirm!',
-        message: 'Are you sure you want to skip the <strong>tour</strong>?',
-        cssClass: 'alertCustomCss',
-        buttons: [
-          {
-            text: 'Cancel',
-            role: 'cancel',
-
-            handler: (blah) => {
-            }
-          }, {
-            text: 'Skip',
-
-            handler: () => {
-              localStorage.setItem('skip', '1')
-              localStorage.setItem('skip', 'true');
-              localStorage.setItem('shareBlink', '1');
-              localStorage.setItem('catSelect', '1');
-              localStorage.setItem('firstLargePostClick', '1');
-              this.skip = localStorage.getItem('skip');
-              this.router.navigateByUrl('all-categories');
-            }
-          }
-        ]
-      });
-      await alert.present();
-    }
-  }
 
   homeClick() {
     localStorage.setItem('skip', '1')

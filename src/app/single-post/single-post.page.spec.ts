@@ -14,7 +14,6 @@ describe('SinglePostPage', () => {
     })
     .compileComponents();
   }));
-
   beforeEach(() => {
     fixture = TestBed.createComponent(SinglePostPage);
     component = fixture.componentInstance;

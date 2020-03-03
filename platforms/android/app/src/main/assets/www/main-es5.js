@@ -845,12 +845,6 @@ var AppComponent = /** @class */ (function () {
             password: "",
         };
         this.navLinksArray = [];
-        // this.appVersion.getVersionNumber().then(version => {
-        //   console.log("APP VERSION", version)
-        // })
-        this._userService.customObservable.subscribe(function (res) {
-            console.log("FINALLY GOT IT", res);
-        });
         var oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
         var firstDate = new Date();
         var secondDate = JSON.parse(localStorage.getItem('ratingModalDate'));
@@ -895,9 +889,9 @@ var AppComponent = /** @class */ (function () {
         }
         if (localStorage.getItem('language')) {
             localStorage.setItem('skip', '1');
-            localStorage.setItem('catModalShow', '1');
-            localStorage.setItem('bookmarkFlag', '1');
-            localStorage.setItem('shareFlag', '1');
+            // localStorage.setItem('catModalShow', '1')
+            // localStorage.setItem('bookmarkFlag', '1')
+            // localStorage.setItem('shareFlag', '1')
             localStorage.setItem('firstLargePostClick', '1');
             localStorage.setItem('catModal', '1');
         }

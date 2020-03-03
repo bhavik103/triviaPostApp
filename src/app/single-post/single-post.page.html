@@ -74,13 +74,6 @@
         </span>
         <img src="assets/images/bookmarkWhite.png" height="52%" alt="" />
       </span>
-      <!-- <span
-        class="float unbookmarkFloat"
-        *ngIf="!news.bookmarkKey"
-        (click)="bookmark(news.newsId)"
-      >
-        <img src="assets/images/bookmarkWhite.png" height="52%" alt="" />
-      </span> -->
       <span
         class="float bookmarkFloat"
         *ngIf="(news.bookmarkKey || loginBookmark)"
@@ -173,3 +166,4 @@
   </div>
 </ion-content>
 <ion-content *ngIf="loading" class="loadingContent"> </ion-content>
+

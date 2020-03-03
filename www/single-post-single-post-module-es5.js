@@ -355,49 +355,6 @@ var SinglePostPage = /** @class */ (function () {
     SinglePostPage.prototype.backClick = function () {
         this.appcomponent.openRatingModal();
     };
-    SinglePostPage.prototype.skipTour = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var alert_1;
-            var _this = this;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!(!localStorage.getItem('skip') && localStorage.getItem('firstLargePostClick'))) return [3 /*break*/, 3];
-                        return [4 /*yield*/, this.alertController.create({
-                                header: 'Confirm!',
-                                message: 'Are you sure you want to skip the <strong>tour</strong>?',
-                                cssClass: 'alertCustomCss',
-                                buttons: [
-                                    {
-                                        text: 'Cancel',
-                                        role: 'cancel',
-                                        handler: function (blah) {
-                                        }
-                                    }, {
-                                        text: 'Skip',
-                                        handler: function () {
-                                            localStorage.setItem('skip', '1');
-                                            localStorage.setItem('skip', 'true');
-                                            localStorage.setItem('shareBlink', '1');
-                                            localStorage.setItem('catSelect', '1');
-                                            localStorage.setItem('firstLargePostClick', '1');
-                                            _this.skip = localStorage.getItem('skip');
-                                            _this.router.navigateByUrl('all-categories');
-                                        }
-                                    }
-                                ]
-                            })];
-                    case 1:
-                        alert_1 = _a.sent();
-                        return [4 /*yield*/, alert_1.present()];
-                    case 2:
-                        _a.sent();
-                        _a.label = 3;
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
     SinglePostPage.prototype.homeClick = function () {
         localStorage.setItem('skip', '1');
     };
