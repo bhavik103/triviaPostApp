@@ -315,3 +315,14 @@ ion-slide h3 {
   left: 25vw;
   color: #fff;
 }
+p.nextButton {
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  background-color: #e41212 !important;
+  color: #fff;
+  z-index: 111;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+}

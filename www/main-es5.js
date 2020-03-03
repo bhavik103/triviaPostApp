@@ -869,8 +869,8 @@ var AppComponent = /** @class */ (function () {
             }, 5 * 60 * 1000);
         }
         if (localStorage.getItem('skip') != '1') {
-            localStorage.setItem('ratingModalDate', JSON.stringify(new Date()));
             setTimeout(function () {
+                localStorage.setItem('ratingModalDate', JSON.stringify(new Date()));
                 if (localStorage.getItem('isRated') != 'true' || localStorage.getItem('isRated') == 'pending') {
                     if (!localStorage.getItem('language')) {
                         _this.language = 'en';
@@ -1356,7 +1356,7 @@ var orUsing = {
 var signIn = {
     en: 'Sign In',
     hn: 'साइन इन',
-    as: 'সিগণ ইন',
+    as: 'কৰক',
     bn: 'সাইন ইন করুন',
     gu: 'સાઇન ઇન',
     kn: 'ಸೈನ್ ಇನ್ ಮಾಡಿ',
@@ -1550,16 +1550,16 @@ var nextButton = {
     bn: 'পরবর্তী'
 };
 var languagePageHead = {
-    en: 'Choose any language of your preference!',
-    hn: 'जारी रखने के लिए अपनी पसंद की कोई भी भाषा चुनें',
-    as: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন',
-    bn: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন'
+    en: 'Choose your preferred language to continue',
+    hn: 'जारी रखने के लिए अपनी पसंदीदा भाषा चुनें',
+    as: 'চালিয়ে যেতে আপনার পছন্দসই ভাষা চয়ন করুন',
+    bn: 'চালিয়ে যেতে আপনার পছন্দসই ভাষা চয়ন করুন'
 };
 var acceptTermsPolicy = {
-    en: 'Choose any language of your preference!',
-    hn: 'जारी रखने के लिए अपनी पसंद की कोई भी भाषा चुनें',
-    as: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন',
-    bn: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন'
+    en: 'By continuing, you accept the',
+    hn: 'जारी रखकर, आप स्वीकार करते हैं',
+    as: 'চালিয়ে যাওয়ার দ্বারা, আপনি এটি গ্রহণ করুন',
+    bn: 'চালিয়ে যাওয়ার দ্বারা, আপনি এটি গ্রহণ করুন'
 };
 var clickShare = {
     en: 'Click here to share this post!',

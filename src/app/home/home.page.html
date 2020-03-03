@@ -20,7 +20,7 @@
   </div>
 </div>
 <div no-border>
-  <div *ngIf="!language" class="settingsToolbar">
+  <div *ngIf="!language && !loading" class="settingsToolbar">
     <span id="settingTitle" style="margin:0;width: 100%;" *ngIf="!loading && !selected">
       Language
     </span>
@@ -54,7 +54,7 @@
   >
     <div class="langHead">
       <img src="../../assets/images/subject.png" height="30px" width="30px" />
-      <p *ngIf="!selected">Choose any language of your preference!</p>
+      <p *ngIf="!selected">Choose your preferred language to continue!</p>
       <p *ngIf="selected">{{languagePageHead[selected]}}</p>
     </div>
     <ion-row style="margin-top: 40%;">
@@ -108,7 +108,7 @@
   >
     <div class="langHead">
       <img src="../../assets/images/subject.png" height="30px" width="30px" />
-      <p *ngIf="!selected">Choose any language of your preference!</p>
+      <p *ngIf="!selected">Choose your preferred language to continue!</p>
       <p *ngIf="selected">{{languagePageHead[selected]}}</p>
     </div>
     <ion-row style="margin-top: 40%;">

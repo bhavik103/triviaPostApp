@@ -322,6 +322,7 @@ ion-toolbar {
   }
   .alert-wrapper {
     min-width: 90%;
+    margin-top: 100% !important;
   }
 }
 
@@ -514,7 +515,3 @@ button#remindLater,button#noThanks {
   border: 1px solid #e41212;
   color: #e41212;
 }
-button#noThanks{
-  border: none;
-}
-

@@ -5,13 +5,13 @@ p {
   margin: 0;
   padding: 0;
 }
-.container {
+.container{
   position: relative;
-  // background: url("../../assets/images/placeholder.png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 50%;
-  background-position: center;
+  /* background-repeat: no-repeat; */
+  /* background-attachment: fixed; */
+  /* background-size: 50%; */
+  /* background-position: center; */
+  height: 160px;
 }
 .category_title {
   display: inline-block;

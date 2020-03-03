@@ -130,7 +130,7 @@ export const orUsing = {
 export const signIn = {
 	en: 'Sign In',
 	hn: 'साइन इन',
-	as: 'সিগণ ইন',
+	as: 'কৰক',
 	bn: 'সাইন ইন করুন',
 	gu: 'સાઇન ઇન',
 	kn: 'ಸೈನ್ ಇನ್ ಮಾಡಿ',
@@ -324,16 +324,16 @@ export const nextButton = {
 	bn: 'পরবর্তী'
 }
 export const languagePageHead = {
-	en: 'Choose any language of your preference!',
-	hn: 'जारी रखने के लिए अपनी पसंद की कोई भी भाषा चुनें',
-	as: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন',
-	bn: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন'
+	en: 'Choose your preferred language to continue',
+	hn: 'जारी रखने के लिए अपनी पसंदीदा भाषा चुनें',
+	as: 'চালিয়ে যেতে আপনার পছন্দসই ভাষা চয়ন করুন',
+	bn: 'চালিয়ে যেতে আপনার পছন্দসই ভাষা চয়ন করুন'
 }
 export const acceptTermsPolicy = {
-	en: 'Choose any language of your preference!',
-	hn: 'जारी रखने के लिए अपनी पसंद की कोई भी भाषा चुनें',
-	as: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন',
-	bn: 'চালিয়ে যেতে আপনার পছন্দের যেকোন ভাষা চয়ন করুন'
+	en: 'By continuing, you accept the',
+	hn: 'जारी रखकर, आप स्वीकार करते हैं',
+	as: 'চালিয়ে যাওয়ার দ্বারা, আপনি এটি গ্রহণ করুন',
+	bn: 'চালিয়ে যাওয়ার দ্বারা, আপনি এটি গ্রহণ করুন'
 }
 export const clickShare = {
 	en: 'Click here to share this post!',

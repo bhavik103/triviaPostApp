@@ -93,8 +93,8 @@ export class AppComponent {
       }, 5 * 60 * 1000);
     }
     if (localStorage.getItem('skip') != '1') {
-      localStorage.setItem('ratingModalDate', JSON.stringify(new Date()))
       setTimeout(() => {
+        localStorage.setItem('ratingModalDate', JSON.stringify(new Date()))
         if (localStorage.getItem('isRated') != 'true' || localStorage.getItem('isRated') == 'pending') {
           if (!localStorage.getItem('language')) {
             this.language = 'en';
