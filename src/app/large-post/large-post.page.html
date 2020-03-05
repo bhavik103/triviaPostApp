@@ -103,7 +103,12 @@
     <div *ngIf="!firstLargePostClick && !skip == '1'" class="tourText">
       {{tourCatPost[language]}}
     </div>
-    <p class="nextButton" *ngIf="!firstLargePostClick && !skip == '1'">Next</p>
+    <span class="nextSpan" *ngIf="!firstLargePostClick && !skip == '1'">
+      <p  class="nextButton">
+        <img src="../../assets/images/nextButton.png" alt="" />
+      </p>
+      <div class="ripple_effect"></div>
+    </span>
   </ion-col>
 </ion-row>
 <div id="open-modal" class="modal-window" *ngIf="modal">

@@ -130,8 +130,8 @@ export const orUsing = {
 export const signIn = {
 	en: 'Sign In',
 	hn: 'साइन इन',
-	as: 'কৰক',
-	bn: 'সাইন ইন করুন',
+	as: 'চাইনইন',
+	bn: 'চাইনইন',
 	gu: 'સાઇન ઇન',
 	kn: 'ಸೈನ್ ಇನ್ ಮಾಡಿ',
 	ml: 'സൈൻ ഇൻ',

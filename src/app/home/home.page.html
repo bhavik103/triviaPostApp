@@ -1,7 +1,7 @@
 <div no-border>
   <div
     class="settingsToolbar"
-    *ngIf="(language || (language && skip == '1')) && catModalShow"
+    *ngIf="[(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && !loading && language && catModalShow"
   >
     <button float-left>
       <ion-icon
@@ -21,15 +21,23 @@
 </div>
 <div no-border>
   <div *ngIf="!language && !loading" class="settingsToolbar">
-    <span id="settingTitle" style="margin:0;width: 100%;" *ngIf="!loading && !selected">
+    <span
+      id="settingTitle"
+      style="margin:0;width: 100%;"
+      *ngIf="!loading && !selected"
+    >
       Language
     </span>
-    <span id="settingTitle" style="margin:0;width: 100%;" *ngIf="!loading && selected">
+    <span
+      id="settingTitle"
+      style="margin:0;width: 100%;"
+      *ngIf="!loading && selected"
+    >
       {{languageStatic[selected]}}
     </span>
   </div>
 </div>
-<div *ngIf="!skip && !catModalShow && language">
+<div *ngIf="!skip && !catModalShow && language && !catLoading">
   <div class="settingsToolbar">
     <ion-back-button
       name="arrow-round-back"
@@ -77,10 +85,18 @@
         >
           {{lang.lang}}
         </ion-card>
-        <div class="tourText tourTextModal" *ngIf="i == 0 && !selected" style="bottom: 96%;">
+        <div
+          class="tourText tourTextModal"
+          *ngIf="i == 0 && !selected"
+          style="bottom: 96%;"
+        >
           Choose any language of your preference!
         </div>
-        <div class="tourText tourTextModal" *ngIf="i == 0 && selected" style="bottom: 96%;">
+        <div
+          class="tourText tourTextModal"
+          *ngIf="i == 0 && selected"
+          style="bottom: 96%;"
+        >
           {{languagePageHead[selected]}}
         </div>
       </ion-col>
@@ -144,9 +160,13 @@
     <button class="contButton" (click)="selectLangSkip()">Continue</button>
   </div>
 </ion-content>
-<ion-content *ngIf="!skip && !catModalShow && language && categories">
+<ion-content *ngIf="!skip && !catModalShow && language && categories && !catLoading">
   <ion-row *ngIf="categories">
-    <ion-col size="6" *ngFor="let category of categories;let i = index" class="categoryTiles">
+    <ion-col
+      size="6"
+      *ngFor="let category of categories;let i = index"
+      class="categoryTiles"
+    >
       <app-category-tiles
         [category]="category"
         (onSubscribe)="subscribedCategory($event, isNotify)"
@@ -158,19 +178,12 @@
 </ion-content>
 <ion-content
   *ngIf="[(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && !loading && language && catModalShow"
-  [ngClass]="{'disableScroll': !skip}"
+  [ngClass]="{'disableScroll': !skip}" class="newsFeedBlock"
 >
-  <!-- <div class="skipTour" *ngIf="!skip" (click)="skipTour()">
-    <div class="tourText tourTextModal">
-      {{tourSkip[language]}}
-    </div>
-    <div class="ripple_effect"></div>
-    <span><img src="../../assets/images/skip.png" alt="" height="48px"/></span>
-  </div> -->
-  <ion-row class="feeds" *ngIf="latestPost && !loading">
+  <ion-row class="feeds" style="min-width: 100%;">
     <app-large-post
+    style="min-width: 100%;color: red!important;"
       [news]="latestPost"
-      *ngIf="latestPost && !loading"
       [language]="language"
       [skip]="skip"
     ></app-large-post>
@@ -178,7 +191,6 @@
       <app-post-tiles
         [news]="news"
         [language]="language"
-        *ngIf="newsArray && !loading"
       ></app-post-tiles>
     </span>
   </ion-row>
@@ -191,7 +203,7 @@
   class="loadingContent"
 ></ion-content>
 <ion-content
-  *ngIf="loading && firstTimeLoad == true"
+  *ngIf="(loading && firstTimeLoad == true) || myloader"
   class="simpleLoader"
 ></ion-content>
 <ion-content

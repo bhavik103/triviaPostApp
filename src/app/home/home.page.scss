@@ -215,6 +215,8 @@ ion-card:focus {
   background: url("../../assets/images/simpleLoader.gif") no-repeat left center;
   background-size: cover;
   background-position: center;
+  z-index: 1111111;
+  position: absolute;
 }
 
 .tourText {

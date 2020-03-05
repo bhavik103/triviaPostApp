@@ -8,7 +8,8 @@
   background: url("../../assets/images/placeholder.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 50%;
+  background-size: 100%;
+  width: 100%;
   background-position: center;
 }
 .latestPost:after {
@@ -146,8 +147,8 @@ img.likeImage {
   border-top: 7px solid #e42310;
   border-bottom: none;
 }
-.isVisited{
-  color: #609
+.isVisited {
+  color: #609;
 }
 .modal-window {
   position: fixed;
@@ -307,22 +308,42 @@ ion-slide h3 {
   border-bottom: 7px solid #e42310;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-} 
+}
 
-.tourTextModal{
+.tourTextModal {
   position: relative;
   top: 2vw;
   left: 25vw;
   color: #fff;
 }
-p.nextButton {
+.nextSpan {
   position: absolute;
-  bottom: 0;
-  right: 10%;
-  background-color: #e41212 !important;
+  bottom: 5px;
+  right: -15px;
   color: #fff;
   z-index: 111;
-  padding: 6px 10px;
-  border-radius: 10px;
-  font-size: 12px;
+  border-radius: 50%;
+  background-color: #fff;
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+  text-align: center;
+  box-shadow: 0px 0px 10px -2px #e42310;
+}
+.nextSpan img {
+  height: 24px;
+  width: 24px;
+  margin-left: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+p.nextButton {
+  margin: 0;
+  text-align: center;
+  font-size: 20px;
+  vertical-align: middle;
 }

@@ -19,7 +19,7 @@ import { GeneralService } from '../services/general.service'
 import { langList, tourSkip } from '../changeLang';
 import { AlertController } from '@ionic/angular';
 import { Market } from '@ionic-native/market/ngx';
-import {acceptTermsPolicy, termsTitle, privacyTitle, language, languagePageHead, rateTitle, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour, tourReadPost, rateText, catTitle, rateNowButton, rateNoThanksButton, rateRemindButton } from '../changeLang';
+import { acceptTermsPolicy, termsTitle, privacyTitle, language, languagePageHead, rateTitle, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour, tourReadPost, rateText, catTitle, rateNowButton, rateNoThanksButton, rateRemindButton } from '../changeLang';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -83,6 +83,7 @@ export class HomePage implements OnInit {
     catModal: any;
     catModalShow: string;
     counter: number;
+    myloader: boolean;
     constructor(private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
         if (!localStorage.getItem('skip')) {
             $('body').addClass('tourBackDrop')
@@ -228,19 +229,25 @@ export class HomePage implements OnInit {
         this.newsArray = []
         this.latestPost = [];
         localStorage.setItem('firstTimeLoaded', 'true');
+        this.firstTimeLoad = true;
         this.loading = true;
         this.language = localStorage.getItem('language');
         if (navigator.onLine) {
             this._newsService.getAllNews().subscribe(
                 (res: any) => {
-                    this.firstTimeLoad = true;
+                    this.loading = false
                     this.newsArray = res;
                     this.latestPost = res[0];
                     console.log('this.latestPost', this.latestPost)
                     this.newsArray.splice(0, 1);
                     if (!localStorage.getItem('skip')) {
                     }
-                    this.loading = false;
+                    $('.newsFeedBlock').hide();
+                    this.myloader = true;
+                    setTimeout(() => {
+                        $('.newsFeedBlock').show();
+                        this.myloader = false
+                    }, 2000);
                     this.checkForRating();
                 },
                 (err) => {
@@ -365,7 +372,7 @@ export class HomePage implements OnInit {
     //select lang on first time app opens
     async selectLang() {
         // if (this.selected && this.isTermsAndCond) {
-        this.getAllPost();
+        // this.getAllPost();
         this.getCategories();
         let lang = this.selected;
         localStorage.setItem('language', lang);
