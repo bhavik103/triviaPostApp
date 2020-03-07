@@ -216,7 +216,7 @@ ion-card:focus {
   background-size: cover;
   background-position: center;
   z-index: 1111111;
-  position: absolute;
+  // position: absolute;
 }
 
 .tourText {
@@ -267,9 +267,9 @@ ion-card:focus {
   margin: 0;
   padding: 0;
   background: #000000;
-  opacity: 0.85;
-  filter: alpha(opacity=85);
-  -moz-opacity: 0.85;
+  opacity: 0.3;
+  // filter: alpha(opacity=85);
+  -moz-opacity: 0.3;
   z-index: 101;
 }
 /*   This is the Popup Window   */
@@ -303,20 +303,29 @@ ion-card:focus {
   box-shadow: 2px 2px 3px 0 #ddd;
   padding-top: 5px;
 }
+.img_border img {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
 .rateButtons {
   float: right;
 }
 .delayedPopupWindow h5 {
   margin-top: 50px;
   text-align: center;
-  font-weight: bolder;
+  font-weight: 900;
   color: #e41212;
+  font-size: 22px;
 }
 .delayedPopupWindow p {
   text-align: center;
-  font-size: 14px;
-  margin-bottom: 38px;
-  padding: 0px 20px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding: 0px 28px;
 }
 .delayedPopupWindow .ratingBack {
   height: 248px;
@@ -325,19 +334,17 @@ ion-card:focus {
   position: absolute;
   bottom: 0;
 }
-#rateButton {
-  background: #e41212;
-  color: #fff;
-  padding: 7px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  width: 100%;
+button#rateButton{
+  font-size: 16px;
+}
+button#remindLater {
+  font-size: 15px!important;
 }
 .rateButton {
   text-align: center;
   position: relative;
   z-index: 11;
-  padding: 0 17px;
+  padding: 0 27px;
 }
 button#remindLater,
 button#noThanks {
@@ -419,4 +426,14 @@ button#noThanks {
 span.redLink {
   color: #e41212 !important;
   border-bottom: 2px solid;
+}
+button.tourButton {
+  min-height: 20px!important;
+}
+p.tourConfirmText {
+  margin-bottom: 24px;
+}
+.showDifferentLoader{
+  --background: none;
+  background: url("../../assets/images/alertBag.png")!important;
 }

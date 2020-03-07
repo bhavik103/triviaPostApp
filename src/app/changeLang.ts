@@ -222,9 +222,9 @@ export const proceedTour = {
 	bn: 'এগিয়ে যেতে এখানে ক্লিক করুন!'
 }
 export const rateTitle = {
-	en: 'Enjoy Our App',
+	en: 'Enjoyed Our App',
 	hn: 'हमारे एप्लिकेशन का आनंद लें',
-	as: 'আমাৰ এপ উপভোগ কৰিছে ',
+	as: 'আমাৰ এপ উপভোগ কৰিছেনে!',
 	bn: 'আমাদের অ্যাপ্লিকেশন উপভোগ করেছেন!'
 }
 export const rateText = {
@@ -236,8 +236,8 @@ export const rateText = {
 export const catTitle = {
 	en: 'Categories',
 	hn: 'श्रेणियाँ',
-	as: 'ধরন',
-	bn: 'ধরন'
+	as: 'শিতানসমূহ',
+	bn: 'শিতানসমূহ'
 }
 export const optionsTitle = {
 	en: 'Options',
@@ -248,14 +248,20 @@ export const optionsTitle = {
 export const termsTitle = {
 	en: 'Terms & Condition',
 	hn: 'नियम व शर्त',
-	as: 'বিধি - নিষেধ এবং শর্তাবলী',
-	bn: 'বিধি - নিষেধ এবং শর্তাবলী'
+	as: 'শর্তাবলী',
+	bn: 'শর্তাবলী'
 }
 export const privacyTitle = {
 	en: 'Privacy Policy',
 	hn: 'गोपनीयता नीति',
 	as: 'গোপনীয়তা নীতি',
 	bn: 'গোপনীয়তা নীতি'
+}
+export const andText = {
+	en: 'and',
+	hn: 'तथा',
+	as: 'তথা',
+	bn: 'এবং'
 }
 export const modalSignupButton = {
 	en: 'Sign Up',
@@ -282,16 +288,16 @@ export const rateRemindButton = {
 	bn: 'আমাকে পরে মনে করিয়ে দিবেন'
 }
 export const tourCategoryClick = {
-	en: 'NO, THANKS',
+	en: 'NO, THANK YOU',
 	hn: 'नहीं, धन्यवाद',
-	as: 'না ধন্যবাদ',
-	bn: 'না ধন্যবাদ'
+	as: 'না, ধন্যবাদ',
+	bn: 'না, ধন্যবাদ'
 }
 export const rateNoThanksButton = {
 	en: 'NO, THANKS',
 	hn: 'नहीं, धन्यवाद',
-	as: 'না ধন্যবাদ',
-	bn: 'না ধন্যবাদ'
+	as: 'না, ধন্যবাদ',
+	bn: 'না, ধন্যবাদ'
 }
 export const tourReadPost = {
 	en: 'Click here to read this post!',
@@ -308,14 +314,14 @@ export const tourCatPost = {
 export const sharePostModal = {
 	en: 'Share Post',
 	hn: 'शेयर पोस्ट',
-	as: 'ভাগ করুন পোস্ট',
-	bn: 'ভাগ করুন পোস্ট',
+	as: 'শেয়াৰ পোস্ট',
+	bn: 'শেয়ার পোস্ট',
 }
 export const sharePostModalContent = {
 	en: 'So you can share interesting post with your friends',
 	hn: 'तो आप अपने दोस्तों के साथ दिलचस्प पोस्ट साझा कर सकते हैं',
-	as: 'তাই আপনি আপনার বন্ধুদের সাথে আকর্ষণীয় পোস্ট ভাগ করতে পারেন',
-	bn: 'তাই আপনি আপনার বন্ধুদের সাথে আকর্ষণীয় পোস্ট ভাগ করতে পারেন'
+	as: 'আপুনি ভাল পোরা পোস্ট বন্ধু বান্ধবৰ লগত শেয়াৰ কৰিব পাৰিব ',
+	bn: 'সুতরাং আপনি মজাদার পোস্টগুলি আপনার বন্ধুদের সাথে শেয়ার করতে পারেন'
 }
 export const nextButton = {
 	en: 'Next',
@@ -324,16 +330,16 @@ export const nextButton = {
 	bn: 'পরবর্তী'
 }
 export const languagePageHead = {
-	en: 'Choose your preferred language to continue',
+	en: 'Choose preferred language to continue',
 	hn: 'जारी रखने के लिए अपनी पसंदीदा भाषा चुनें',
-	as: 'চালিয়ে যেতে আপনার পছন্দসই ভাষা চয়ন করুন',
-	bn: 'চালিয়ে যেতে আপনার পছন্দসই ভাষা চয়ন করুন'
+	as: 'আৰম্ভ কৰিবলৈ হলে ভাষা পছন্দ কৰক ',
+	bn: 'শুরু করার জৈন্য পছন্দ ভাষাটি চয়ন করুন'
 }
 export const acceptTermsPolicy = {
 	en: 'By continuing, you accept the',
 	hn: 'जारी रखकर, आप स्वीकार करते हैं',
-	as: 'চালিয়ে যাওয়ার দ্বারা, আপনি এটি গ্রহণ করুন',
-	bn: 'চালিয়ে যাওয়ার দ্বারা, আপনি এটি গ্রহণ করুন'
+	as: 'আৰম্ভ কৰাৰ লগে লগে  আপুনি আমাৰ',
+	bn: 'শুরু করতেই আপনি'
 }
 export const clickShare = {
 	en: 'Click here to share this post!',

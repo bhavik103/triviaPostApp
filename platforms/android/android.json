@@ -17,6 +17,7 @@
                 "android:hardwareAccelerated": "true",
                 "android:icon": "@mipmap/ic_launcher",
                 "android:label": "@string/app_name",
+                "android:name": ".Singleton",
                 "android:networkSecurityConfig": "@xml/network_security_config",
                 "android:supportsRtl": "true"
               }
@@ -158,6 +159,10 @@
             {
               "xml": "<feature name=\"AppVersion\"><param name=\"android-package\" value=\"uk.co.whiteoctober.cordova.AppVersion\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"AdMob\"><param name=\"android-package\" value=\"name.ratson.cordova.admob.AdMob\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -168,6 +173,14 @@
             {
               "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
               "count": 2
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+              "count": 1
             }
           ],
           "/manifest": [
@@ -255,6 +268,14 @@
             },
             {
               "xml": "<activity android:exported=\"false\" android:launchMode=\"singleInstance\" android:name=\"de.appplant.cordova.plugin.localnotification.ClickReceiver\" android:theme=\"@android:style/Theme.Translucent\" />",
+              "count": 1
+            },
+            {
+              "xml": "<activity android:configChanges=\"keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize\" android:name=\"com.google.android.gms.ads.AdActivity\" android:theme=\"@android:style/Theme.Translucent\" />",
+              "count": 1
+            },
+            {
+              "xml": "<meta-data android:name=\"com.google.android.gms.ads.APPLICATION_ID\" android:value=\"ca-app-pub-4273722207594594~9484706579\" />",
               "count": 1
             }
           ],
@@ -470,6 +491,18 @@
       "PACKAGE_NAME": "io.ionic.triviapost"
     },
     "cordova-plugin-app-version": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-promise-polyfill": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-admob-sdk": {
+      "PLAY_SERVICES_VERSION": "11.0.4",
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-admob-free": {
+      "ADMOB_APP_ID": "ca-app-pub-4273722207594594~9484706579",
+      "PLAY_SERVICES_VERSION": "11.0.4",
       "PACKAGE_NAME": "io.ionic.triviapost"
     }
   },
@@ -941,6 +974,27 @@
       "clobbers": [
         "cordova.getAppVersion"
       ]
+    },
+    {
+      "id": "cordova-promise-polyfill.Promise",
+      "file": "plugins/cordova-promise-polyfill/www/Promise.js",
+      "pluginId": "cordova-promise-polyfill",
+      "runs": true
+    },
+    {
+      "id": "cordova-promise-polyfill.promise.min",
+      "file": "plugins/cordova-promise-polyfill/www/promise.min.js",
+      "pluginId": "cordova-promise-polyfill"
+    },
+    {
+      "id": "cordova-plugin-admob-free.AdMob",
+      "file": "plugins/cordova-plugin-admob-free/www/admob.js",
+      "pluginId": "cordova-plugin-admob-free",
+      "clobbers": [
+        "admob",
+        "AdMob",
+        "plugins.AdMob"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -975,6 +1029,9 @@
     "cordova-wheel-selector-plugin": "1.0.0",
     "cordova-plugin-dialogs": "2.0.2",
     "cordova-plugin-market": "1.2.0",
-    "cordova-plugin-app-version": "0.1.9"
+    "cordova-plugin-app-version": "0.1.9",
+    "cordova-promise-polyfill": "0.0.2",
+    "cordova-admob-sdk": "0.24.1",
+    "cordova-plugin-admob-free": "0.27.0"
   }
 }

@@ -27,10 +27,22 @@
     },
     "cordova-plugin-app-version": {
       "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-plugin-admob-free": {
+      "ADMOB_APP_ID": "ca-app-pub-4273722207594594~9484706579",
+      "PLAY_SERVICES_VERSION": "11.0.4",
+      "PACKAGE_NAME": "io.ionic.triviapost"
     }
   },
   "dependent_plugins": {
     "es6-promise-plugin": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-promise-polyfill": {
+      "PACKAGE_NAME": "io.ionic.triviapost"
+    },
+    "cordova-admob-sdk": {
+      "PLAY_SERVICES_VERSION": "11.0.4",
       "PACKAGE_NAME": "io.ionic.triviapost"
     }
   }

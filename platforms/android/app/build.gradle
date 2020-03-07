@@ -189,7 +189,7 @@ android {
     defaultConfig {
         versionCode cdvVersionCode ?: new BigInteger("" + privateHelpers.extractIntFromManifest("versionCode"))
         applicationId privateHelpers.extractStringFromManifest("package")
-
+        multiDexEnabled true
         if (cdvMinSdkVersion != null) {
             minSdkVersion cdvMinSdkVersion
         }
@@ -299,14 +299,16 @@ dependencies {
     implementation(project(path: ":CordovaLib"))
     implementation "com.squareup.okhttp3:okhttp-urlconnection:3.10.0"
     implementation "com.facebook.android:facebook-android-sdk:5.2.0"
-    implementation "com.google.firebase:firebase-core:17.2.2"
-    implementation "com.google.firebase:firebase-messaging:20.1.0"
-    implementation "com.google.firebase:firebase-analytics:17.2.2"
-    implementation "com.google.firebase:firebase-dynamic-links:19.0.0"
+    implementation "com.google.firebase:firebase-core:17.2.3"
+    implementation "com.google.firebase:firebase-messaging:20.1.2"
+    implementation "com.google.firebase:firebase-analytics:17.2.3"
+    implementation "com.google.firebase:firebase-dynamic-links:19.1.0"
     implementation "com.google.android.gms:play-services-auth:17.0.0"
     implementation "com.google.android.gms:play-services-identity:17.0.0"
     implementation "androidx.annotation:annotation:1.1.0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    implementation "com.google.android.gms:play-services-ads:19.0.0"
+    implementation 'androidx.multidex:multidex:2.0.0'
 }
 
 def promptForReleaseKeyPassword() {

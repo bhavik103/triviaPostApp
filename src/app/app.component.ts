@@ -20,7 +20,6 @@ declare var $: any;
 import { rateTitle, rateText, rateNowButton, rateNoThanksButton, rateRemindButton } from './changeLang';
 import { Market } from '@ionic-native/market/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
-
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -54,6 +53,7 @@ export class AppComponent {
   language: string;
   showRateModal: boolean;
   navLinksArray = [];
+  showTourConfirm: boolean;
   constructor(
     private appVersion: AppVersion,
     private market: Market,

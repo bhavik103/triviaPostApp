@@ -2,8 +2,6 @@ import { Component, OnInit, Input, LOCALE_ID } from '@angular/core';
 import { config } from '../config';
 import { Router } from '@angular/router';
 import { ToastService } from '../services/toast.service'
-import { visitAll } from '@angular/compiler';
-import { decode } from 'punycode';
 
 @Component({
   selector: 'app-post-tiles',

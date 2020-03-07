@@ -13,7 +13,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
 import { AppComponent } from '../app.component'
 import { modalSignupButton, clickShare, clickBookmark, modalSkipButton, language, sharePostModalContent, sharePostModal, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
-
+import { AdmobfreeService } from '../services/admobfree.service'
+import {
+  AdMobFree,
+  AdMobFreeBannerConfig,
+  AdMobFreeInterstitialConfig,
+  AdMobFreeRewardVideoConfig
+} from '@ionic-native/admob-free/ngx';
 @Component({
   selector: 'app-single-post',
   templateUrl: './single-post.page.html',
@@ -50,7 +56,7 @@ export class SinglePostPage implements OnInit {
   shareModal: boolean;
   bookmarkFlag: string;
   shareFlag: string;
-  constructor(public appcomponent: AppComponent, private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
+  constructor(private admobFree: AdMobFree,public _admobService: AdmobfreeService,public appcomponent: AppComponent, private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
     this.platform.backButton.subscribe(async () => {
@@ -63,7 +69,14 @@ export class SinglePostPage implements OnInit {
   ionViewWillLeave() {
     this.showRateModal = true;
   }
+  ionViewDidEnter(){
+    this._admobService.BannerAd();
+    // this._admobService.InterstitialAd();
+    // this._admobService.RewardVideoAd();
+  }
   ionViewWillEnter() {
+    // this._admobService.RewardVideoAd();
+    // this._admobService.InterstitialAd();
     if (localStorage.getItem('bookmarkFlag')) {
       this.bookmarkFlag = '1'
     }
@@ -271,7 +284,7 @@ export class SinglePostPage implements OnInit {
   shareClose() {
     this.shareModal = false;
     localStorage.setItem('shareFlag', '1');
-      this.shareFlag = '1';
+    this.shareFlag = '1';
     if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
       localStorage.setItem('skip', '1');
       this.skip = '1';

@@ -19,7 +19,14 @@ import { GeneralService } from '../services/general.service'
 import { langList, tourSkip } from '../changeLang';
 import { AlertController } from '@ionic/angular';
 import { Market } from '@ionic-native/market/ngx';
-import { acceptTermsPolicy, termsTitle, privacyTitle, language, languagePageHead, rateTitle, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour, tourReadPost, rateText, catTitle, rateNowButton, rateNoThanksButton, rateRemindButton } from '../changeLang';
+import { andText,acceptTermsPolicy, termsTitle, privacyTitle, language, languagePageHead, rateTitle, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour, tourReadPost, rateText, catTitle, rateNowButton, rateNoThanksButton, rateRemindButton } from '../changeLang';
+import { AdmobfreeService } from '../services/admobfree.service';
+import {
+    AdMobFree,
+    AdMobFreeBannerConfig,
+    AdMobFreeInterstitialConfig,
+    AdMobFreeRewardVideoConfig
+} from '@ionic-native/admob-free/ngx';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -64,6 +71,7 @@ export class HomePage implements OnInit {
     showRateModal: boolean;
     rateTitle = rateTitle;
     rateText = rateText;
+    andText = andText;
     privacyTitle = privacyTitle;
     termsTitle = termsTitle;
     languageStatic = language;
@@ -84,7 +92,9 @@ export class HomePage implements OnInit {
     catModalShow: string;
     counter: number;
     myloader: boolean;
-    constructor(private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
+    showTourConfirm: boolean;
+    smallLoading: boolean;
+    constructor(private admobFree: AdMobFree, private _admobService: AdmobfreeService, private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
         if (!localStorage.getItem('skip')) {
             $('body').addClass('tourBackDrop')
         } else {
@@ -104,7 +114,10 @@ export class HomePage implements OnInit {
 
     ionViewDidEnter() {
         if (!localStorage.getItem('language')) {
-            this.askForTour();
+            this.showTourConfirm = true;
+        }
+        if (!localStorage.getItem('language')) {
+            this.askForTour('none');
         }
         console.log('this.firstTimeLoad', this.firstTimeLoad)
         this.skip = localStorage.getItem('skip');
@@ -117,6 +130,7 @@ export class HomePage implements OnInit {
 
     }
     ionViewWillLeave() {
+        this.admobFree.banner.hide()
         this.subscription.unsubscribe();
     }
 
@@ -157,40 +171,8 @@ export class HomePage implements OnInit {
         this.checkforInternet();
     }
 
-    async askForTour() {
+    askForTour(promptReply) {
         this.loading = true;
-        const alert = await this.alertController.create({
-            header: 'Confirm!',
-            message: 'Would you like to start the tour?',
-            cssClass: 'alertCustomCss',
-            buttons: [
-                {
-                    text: 'Skip',
-                    role: 'cancel',
-
-                    handler: (blah) => {
-                        this.loading = false;
-                        this.skipTheTour = true;
-                        this.skip = '1';
-                        localStorage.setItem('skip', '1')
-                        // localStorage.setItem('catModalShow', '1')
-                        // localStorage.setItem('bookmarkFlag', '1')
-                        // localStorage.setItem('shareFlag', '1')
-                        localStorage.setItem('firstLargePostClick', '1')
-                        localStorage.setItem('catModal', '1')
-                        this.catModalShow = '1'
-                    }
-                }, {
-                    text: 'Start',
-                    handler: () => {
-                        this.loading = false;
-                        this.startTour = true;
-                    }
-                }
-            ]
-        });
-
-        await alert.present();
     }
     async skipTour() {
         const alert = await this.alertController.create({
@@ -225,17 +207,19 @@ export class HomePage implements OnInit {
 
     //get all news - HOME PAGE ( FEEDS )
     async getAllPost() {
-
+        this._admobService.BannerAd();
+        // this._admobService.InterstitialAd();
+        // this._admobService.RewardVideoAd();
         this.newsArray = []
         this.latestPost = [];
         localStorage.setItem('firstTimeLoaded', 'true');
-        this.firstTimeLoad = true;
-        this.loading = true;
+        // this.firstTimeLoad = true;
+        // this.loading = true;
+        this.smallLoading = true;
         this.language = localStorage.getItem('language');
         if (navigator.onLine) {
             this._newsService.getAllNews().subscribe(
                 (res: any) => {
-                    this.loading = false
                     this.newsArray = res;
                     this.latestPost = res[0];
                     console.log('this.latestPost', this.latestPost)
@@ -243,11 +227,13 @@ export class HomePage implements OnInit {
                     if (!localStorage.getItem('skip')) {
                     }
                     $('.newsFeedBlock').hide();
-                    this.myloader = true;
+                    // this.myloader = true;
                     setTimeout(() => {
                         $('.newsFeedBlock').show();
-                        this.myloader = false
-                    }, 2000);
+                        // this.myloader = false
+                        this.smallLoading = false;
+                        this.loading = false
+                    }, 1500);
                     this.checkForRating();
                 },
                 (err) => {
@@ -298,15 +284,15 @@ export class HomePage implements OnInit {
     }
     //get categories
     getCategories() {
-        // this.catLoading = true;
+        this.smallLoading = true;
         this.language = localStorage.getItem('language');
         if (navigator.onLine) {
             this._categoryService.getAll().subscribe((res) => {
-                this.catLoading = false;
+                this.smallLoading = false;
                 this.categories = res;
                 console.log("after", this.categories);
             }, (err) => {
-                this.catLoading = false;
+                this.smallLoading = false;
                 this._toastService.toastFunction('Something went wrong while fetching category', 'danger')
             });
 
@@ -364,16 +350,14 @@ export class HomePage implements OnInit {
                 }, 1000);
             }
         }
-        // if(this.selected){
-
-        //     this.isTermsAndCond = e.target.checked;
-        // }
     }
+
     //select lang on first time app opens
     async selectLang() {
-        // if (this.selected && this.isTermsAndCond) {
-        // this.getAllPost();
         this.getCategories();
+        if(localStorage.getItem('skip')){
+            this.getAllPost();
+        }
         let lang = this.selected;
         localStorage.setItem('language', lang);
         this._generalService.setExtras(lang);
@@ -397,18 +381,14 @@ export class HomePage implements OnInit {
         this.fcm.onTokenRefresh().subscribe(token => {
             localStorage.setItem('deviceToken', token);
         });
-        // }else{
-        //     if(!this.selected){
-        //         this._toastService.toastFunction('Please Select Language','')
-        //     }else{
-        //         this._toastService.toastFunction('Please accept T&C and Privacy Policy','')
-        //     }
-        // }
     }
+
     //select lang on first time app opens
     async selectLangSkip() {
+        console.log("skip")
         if (this.selected) {
             this.getCategories();
+            this.getAllPost();
             localStorage.setItem('language', this.selected);
             localStorage.setItem('skip', '1')
             this.router.navigateByUrl('all-categories');
@@ -459,4 +439,24 @@ export class HomePage implements OnInit {
         this.showRateModal = false
     }
 
+    startTourFunction() {
+        this.showTourConfirm = false;
+        $('.loadingContent').removeClass('showDifferentLoader')
+        this.loading = false;
+        this.startTour = true;
+    }
+
+    skipTourFunction() {
+        this.loading = false;
+        $('.loadingContent').removeClass('showDifferentLoader')
+        this.skipTheTour = true;
+        this.skip = '1';
+        localStorage.setItem('skip', '1')
+        // localStorage.setItem('catModalShow', '1')
+        // localStorage.setItem('bookmarkFlag', '1')
+        // localStorage.setItem('shareFlag', '1')
+        localStorage.setItem('firstLargePostClick', '1')
+        localStorage.setItem('catModal', '1')
+        this.catModalShow = '1'
+    }
 }
