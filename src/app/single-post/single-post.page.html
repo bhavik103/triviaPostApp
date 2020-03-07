@@ -16,26 +16,30 @@
   </div>
 </div>
 
-<ion-content *ngIf="!loading">
+<ion-content *ngIf="!loading" [ngClass]="{'notScroll': !skip}">
+  <div class="floatNext" *ngIf="!bookmarkFlag || !shareFlag || !skip" (click)="nextButton()">
+    <div class="ripple_effect"></div>
+    <img src="../../assets/images/nextButton.png" class="my-floatNext" alt=""/>
+  </div>
   <div *ngIf="news" class="singleNews">
-    <div class="container">
+    <div class="container" [ngClass]="{'disableScroll': !skip}">
       <img src="{{mediaPath}}{{news.newsImage}}" alt="" class="postImage" />
       <div class="text-block"></div>
     </div>
 
-    <div class="subPostTitle">
+    <div class="subPostTitle" [ngClass]="{'disableScroll': !skip}">
       <p class="newsInfo" *ngIf="news.picCredit">
         <span>PC : </span><span class="picCredit"> {{news.picCredit}}</span>
       </p>
     </div>
     <div class="newsContent">
-      <div class="postTitle" *ngIf="news[language].title">
+      <div class="postTitle" *ngIf="news[language].title" [ngClass]="{'disableScroll': !skip}">
         <p *ngIf="language != 'as'">{{news[language].title}}</p>
         <p class="assameseFont assameseFontTitle" *ngIf="language == 'as'">
           {{news[language].title}}
         </p>
       </div>
-      <div class="category_title">
+      <div class="category_title" [ngClass]="{'disableScroll': !skip}">
         <span
           (click)="singleCategory(news.newsCategoryId,news.newsCategory[language])"
           *ngIf="language != 'as'"
@@ -50,7 +54,7 @@
           {{news.newsCategory[language] | slice:0:30}}
         </span>
       </div>
-      <div class="post">
+      <div class="post" [ngClass]="{'disableScroll': !skip}">
         <p [innerHTML]="byPassedNews" *ngIf="language != 'as'"></p>
         <p
           [innerHTML]="byPassedNews"
@@ -83,7 +87,7 @@
       </span>
       <span
         class="float floatShare"
-        (click)="sharePost(news.fcmLink, news[language].title, news.newsImage)"
+        (click)="sharePost(news.fcmLink, news[language].title, news.newsImage, false)"
       >
         <span *ngIf="!skip">
           <div class="tourText tourTextShare" *ngIf="shareFlag != '1'">
@@ -126,7 +130,7 @@
         <p>{{modalBookmarkText[language]}}</p>
       </div>
       <div>
-        <button class="signupButton" (click)="bookmarkClose();signup()">
+        <button class="signupButton" (click)="signupBookmark()">
           {{modalSignupButton[language]}}
         </button>
         <button class="signupButton skipButton" (click)="bookmarkClose()">
@@ -166,4 +170,3 @@
   </div>
 </ion-content>
 <ion-content *ngIf="loading" class="loadingContent"> </ion-content>
-

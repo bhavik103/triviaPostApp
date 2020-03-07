@@ -609,16 +609,16 @@ ion-slide h3 {
   border-bottom: 7px solid #e42310;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
-} 
+}
 
-.tourTextModal{
+.tourTextModal {
   position: relative;
   top: 2vw;
   left: 0;
   color: #fff;
 }
 .modal-window > div {
-  height: 54%;
+  height: 49%;
 }
 button.signupButton.skipButton {
   color: #cf2736;
@@ -626,8 +626,36 @@ button.signupButton.skipButton {
   background-color: #fff;
   border: 1px solid #cf2736;
 }
-.ripple_effect_modal{
+.ripple_effect_modal {
   top: unset;
   left: unset;
   margin-top: 15px;
+}
+.floatNext {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  top: 50%;
+  right: -10px;
+  background-color: #fff;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: -3px 3px 14px #999;
+  z-index: 111;
+}
+
+.my-floatNext {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+.disableScroll {
+  filter: blur(7px) grayscale(1);
+}
+.notScroll{
+  --overflow: hidden!important;
 }

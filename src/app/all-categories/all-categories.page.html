@@ -18,11 +18,12 @@
 
 <ion-content *ngIf="language && !loading">
   <ion-row *ngIf="categories">
-    <ion-col size="6" *ngFor="let category of categories" class="categoryTiles">
+    <ion-col size="6" *ngFor="let category of categories;let i = index" class="categoryTiles">
       <app-category-tiles
         [category]="category"
         (onSubscribe)="subscribedCategory($event, isNotify)"
         [language]="language"
+        [index] = "i"
       ></app-category-tiles>
     </ion-col>
   </ion-row>

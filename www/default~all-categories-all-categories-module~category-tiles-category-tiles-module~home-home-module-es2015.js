@@ -2808,6 +2808,7 @@ let CategoryTilesPage = class CategoryTilesPage {
     ngOnInit() {
         console.log("INDEX", this.index);
         if (!localStorage.getItem('catModal')) {
+            console.log("Hello");
             this.modal = true;
         }
         if (localStorage.getItem('catSelect') == '0') {

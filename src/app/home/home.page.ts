@@ -19,7 +19,7 @@ import { GeneralService } from '../services/general.service'
 import { langList, tourSkip } from '../changeLang';
 import { AlertController } from '@ionic/angular';
 import { Market } from '@ionic-native/market/ngx';
-import { andText,acceptTermsPolicy, termsTitle, privacyTitle, language, languagePageHead, rateTitle, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour, tourReadPost, rateText, catTitle, rateNowButton, rateNoThanksButton, rateRemindButton } from '../changeLang';
+import { andText, acceptTermsPolicy, termsTitle, privacyTitle, language, languagePageHead, rateTitle, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour, tourReadPost, rateText, catTitle, rateNowButton, rateNoThanksButton, rateRemindButton } from '../changeLang';
 import { AdmobfreeService } from '../services/admobfree.service';
 import {
     AdMobFree,
@@ -354,8 +354,10 @@ export class HomePage implements OnInit {
 
     //select lang on first time app opens
     async selectLang() {
-        this.getCategories();
-        if(localStorage.getItem('skip')){
+        if (localStorage.getItem('skip')) {
+            this.router.navigateByUrl('/login')
+        } else {
+            this.getCategories();
             this.getAllPost();
         }
         let lang = this.selected;
@@ -451,10 +453,9 @@ export class HomePage implements OnInit {
         $('.loadingContent').removeClass('showDifferentLoader')
         this.skipTheTour = true;
         this.skip = '1';
+        localStorage.setItem('bookmarkFlag','1')
+        localStorage.setItem('shareFlag','1')
         localStorage.setItem('skip', '1')
-        // localStorage.setItem('catModalShow', '1')
-        // localStorage.setItem('bookmarkFlag', '1')
-        // localStorage.setItem('shareFlag', '1')
         localStorage.setItem('firstLargePostClick', '1')
         localStorage.setItem('catModal', '1')
         this.catModalShow = '1'

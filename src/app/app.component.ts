@@ -54,6 +54,7 @@ export class AppComponent {
   showRateModal: boolean;
   navLinksArray = [];
   showTourConfirm: boolean;
+  showLoader: boolean;
   constructor(
     private appVersion: AppVersion,
     private market: Market,
@@ -92,6 +93,14 @@ export class AppComponent {
         }
       }, 5 * 60 * 1000);
     }
+    this.skip = localStorage.getItem('skip')
+    // if(!this.skip){
+    //   this.showLoader = true;
+    //   setTimeout(() => {
+    //   this.showLoader = false;
+    //   }, 2000);
+    // }
+
     if (localStorage.getItem('skip') != '1') {
       setTimeout(() => {
         localStorage.setItem('ratingModalDate', JSON.stringify(new Date()))

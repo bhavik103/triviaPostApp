@@ -2810,6 +2810,7 @@ var CategoryTilesPage = /** @class */ (function () {
     CategoryTilesPage.prototype.ngOnInit = function () {
         console.log("INDEX", this.index);
         if (!localStorage.getItem('catModal')) {
+            console.log("Hello");
             this.modal = true;
         }
         if (localStorage.getItem('catSelect') == '0') {

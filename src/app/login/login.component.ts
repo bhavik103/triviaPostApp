@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 	facebookSpinner: boolean;
 	bookmarkFlag: string;
 	skip: string;
-
+	checkFlag: string;
 	constructor(public appcomponent: AppComponent, private keyboard: Keyboard, private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
 	ngOnInit() {
 		this.platform.backButton.subscribe(async () => {
@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
 	}
 	ionViewWillEnter() {
 		this.skip = localStorage.getItem('skip');
+		this.checkFlag = localStorage.getItem('newsArray');
 		this.bookmarkFlag = localStorage.getItem('bookmarkFlag');
 		this.email = localStorage.getItem('email');
 	}
@@ -229,6 +230,7 @@ export class LoginComponent implements OnInit {
 		this.appcomponent.openRatingModal();
 	}
 	skipSignin(){
+		localStorage.setItem('skip','1')
 		this.router.navigateByUrl('/home')
 	}
 }

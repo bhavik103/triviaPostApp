@@ -56,7 +56,8 @@ export class SinglePostPage implements OnInit {
   shareModal: boolean;
   bookmarkFlag: string;
   shareFlag: string;
-  constructor(private admobFree: AdMobFree,public _admobService: AdmobfreeService,public appcomponent: AppComponent, private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
+  skipClick: any;
+  constructor(private admobFree: AdMobFree, public _admobService: AdmobfreeService, public appcomponent: AppComponent, private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
     this.platform.backButton.subscribe(async () => {
@@ -68,8 +69,9 @@ export class SinglePostPage implements OnInit {
   }
   ionViewWillLeave() {
     this.showRateModal = true;
+    this.admobFree.banner.hide();
   }
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this._admobService.BannerAd();
     // this._admobService.InterstitialAd();
     // this._admobService.RewardVideoAd();
@@ -83,6 +85,7 @@ export class SinglePostPage implements OnInit {
     if (localStorage.getItem('shareFlag')) {
       this.shareFlag = '1'
     }
+    this.skip = localStorage.getItem('skip')
     this.firstTimeBlur = false;
     if (localStorage.getItem('bookmarkId')) {
       this.bookmark(localStorage.getItem('bookmarkId'));
@@ -174,8 +177,8 @@ export class SinglePostPage implements OnInit {
     });
   }
   //  Do Share Post 
-  sharePost(link, newsTitle, newsImage) {
-    if (!localStorage.getItem('shareFlag')) {
+  sharePost(link, newsTitle, newsImage, flag) {
+    if (!localStorage.getItem('shareFlag') || !localStorage.getItem('accessToken') || flag) {
       this.shareModal = true;
     } else {
       console.log(link, newsTitle, newsImage)
@@ -200,7 +203,7 @@ export class SinglePostPage implements OnInit {
 
   //  Do Bookmark
   bookmark(newsid) {
-    if (!localStorage.getItem('bookmarkFlag')) {
+    if (!localStorage.getItem('bookmarkFlag') || !localStorage.getItem('accessToken')) {
       this.bookmarkModal = true;
     } else {
       this.firstTimeBlur = false;
@@ -274,23 +277,42 @@ export class SinglePostPage implements OnInit {
   }
   bookmarkClose() {
     this.bookmarkModal = false;
-    localStorage.setItem('bookmarkFlag', '1')
-    this.bookmarkFlag = '1';
-    if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
-      localStorage.setItem('skip', '1');
-      this.skip = '1';
+    if (!localStorage.getItem('skip')) {
+      localStorage.setItem('bookmarkFlag', '1')
+      this.bookmarkFlag = '1';
+      if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
+        this.router.navigateByUrl('/all-categories')
+      }
     }
   }
   shareClose() {
     this.shareModal = false;
-    localStorage.setItem('shareFlag', '1');
-    this.shareFlag = '1';
-    if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
-      localStorage.setItem('skip', '1');
-      this.skip = '1';
+    if (localStorage.getItem('skip')) {
+      var subject = "Trivia Post";
+      console.log(this.news.fcmLink, this.news[this.language].title, this.news.newsImage)
+      this.socialSharing.share(this.news.fcmLink, subject, null, this.news[this.language].title)
+        .then((entries) => {
+        })
+        .catch((error) => {
+          alert('error ' + JSON.stringify(error));
+        });
+    }
+    if (!localStorage.getItem('skip')) {
+      localStorage.setItem('shareFlag', '1');
+      this.shareFlag = '1';
+      if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
+        this.router.navigateByUrl('/all-categories')
+      }
     }
   }
-  signup() {
+  nextButton() {
+    localStorage.setItem('bookmarkFlag', '1')
+    localStorage.setItem('shareFlag', '1');
+    this.bookmarkFlag = '1';
+    this.shareFlag = '1';
+    this.router.navigateByUrl('/all-categories')
+  }
+  signupBookmark() {
     this.router.navigateByUrl('/login')
   }
 }

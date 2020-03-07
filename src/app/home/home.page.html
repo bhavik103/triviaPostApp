@@ -1,7 +1,7 @@
 <div no-border>
   <div
     class="settingsToolbar"
-    *ngIf="[(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && !loading && language && catModalShow"
+    *ngIf="[(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && !loading && language"
   >
     <button float-left>
       <ion-icon
@@ -37,24 +37,6 @@
     </span>
   </div>
 </div>
-<div *ngIf="!skip && !catModalShow && language && !catLoading && !smallLoading">
-  <div class="settingsToolbar">
-    <ion-back-button
-      name="arrow-round-back"
-      class="homeBack"
-      class="homeBack"
-      defaultHref="/settings"
-      float-left
-      (click)="backButton()"
-    >
-    </ion-back-button>
-    <span id="settingTitle"> {{catTitle[language]}}</span>
-    <button float-right routerLink="/home">
-      <ion-icon name="home"></ion-icon>
-    </button>
-  </div>
-</div>
-
 <ion-content *ngIf="!language && startTour && !loading">
   <div
     class="languageSelect"
@@ -73,7 +55,7 @@
       >
         <div
           class="ripple_effect"
-          *ngIf="i == 0"
+          *ngIf="i == 0 && !selected"
           style="margin-top: 10px;"
         ></div>
         <ion-card
@@ -92,13 +74,13 @@
         >
           Choose any language of your preference!
         </div>
-        <div
+        <!-- <div
           class="tourText tourTextModal"
           *ngIf="i == 0 && selected"
           style="bottom: 96%;"
         >
           {{languagePageHead[selected]}}
-        </div>
+        </div> -->
       </ion-col>
       <div class="container">
         <input type="checkbox" id="someID" (change)="isChecked($event)" />
@@ -109,7 +91,8 @@
         </label>
         <label for="someID" class="checkbox-1" *ngIf="selected">
           {{acceptTermsPolicy[selected]}}
-          <span class="redLink"> "{{termsTitle[selected]}}"</span> {{andText[selected]}}
+          <span class="redLink"> "{{termsTitle[selected]}}"</span>
+          {{andText[selected]}}
           <span class="redLink"> "{{privacyTitle[selected]}}" </span>
         </label>
       </div>
@@ -133,6 +116,11 @@
         *ngFor="let lang of languageList;let i = index"
         class="langCol"
       >
+        <!-- <div
+          class="ripple_effect"
+          *ngIf="i == 0 && !selected"
+          style="margin-top: 10px;"
+        ></div> -->
         <ion-card
           tabindex="{{i}}"
           [style.background]="selected==lang.slug?'red':'white'"
@@ -142,6 +130,13 @@
         >
           {{lang.lang}}
         </ion-card>
+        <div
+          class="tourText tourTextModal"
+          *ngIf="i == 0 && !selected"
+          style="bottom: 96%;"
+        >
+          Choose any language of your preference!
+        </div>
       </ion-col>
       <div class="container">
         <input type="checkbox" id="someID" (change)="isChecked($event)" />
@@ -152,7 +147,8 @@
         </label>
         <label for="someID" class="checkbox-1" *ngIf="selected">
           {{acceptTermsPolicy[selected]}}
-          <span class="redLink"> "{{termsTitle[selected]}}"</span> {{andText[selected]}}
+          <span class="redLink"> "{{termsTitle[selected]}}"</span>
+          {{andText[selected]}}
           <span class="redLink"> "{{privacyTitle[selected]}}" </span>
         </label>
       </div>
@@ -161,34 +157,21 @@
   </div>
 </ion-content>
 <ion-content
-  *ngIf="!skip && !catModalShow && language && categories && !catLoading && !smallLoading"
->
-  <ion-row *ngIf="categories && !smallLoading">
-    <ion-col
-      size="6"
-      *ngFor="let category of categories;let i = index"
-      class="categoryTiles"
-    >
-      <app-category-tiles
-        [category]="category"
-        (onSubscribe)="subscribedCategory($event, isNotify)"
-        [language]="language"
-        [index]="i"
-      ></app-category-tiles>
-    </ion-col>
-  </ion-row>
-</ion-content>
-<ion-content
-  *ngIf="!smallLoading && [(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && language && catModalShow"
+  *ngIf="!smallLoading && [(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && language && newsArray"
   [ngClass]="{'disableScroll': !skip}"
   class="newsFeedBlock"
 >
-  <ion-row class="feeds" style="min-width: 100%;" *ngIf="latestPost && newsArray && !smallLoading">
+  <ion-row
+    class="feeds"
+    style="min-width: 100%;"
+    *ngIf="latestPost && newsArray && !smallLoading"
+  >
     <app-large-post
       style="min-width: 100%;color: red!important;"
       [news]="latestPost"
       [language]="language"
       [skip]="skip"
+      *ngIf="latestPost && newsArray && !smallLoading"
     ></app-large-post>
     <span *ngFor="let news of newsArray" class="newsTiles">
       <app-post-tiles [news]="news" [language]="language"></app-post-tiles>
@@ -198,7 +181,11 @@
 <div class="no-news-text" *ngIf="isTextVisible">
   <span>{{text}}</span>
 </div>
-<ion-content *ngIf="loading && firstTimeLoad != true" class="loadingContent" [ngClass]="{'showDifferentLoader': showTourConfirm}">
+<ion-content
+  *ngIf="loading && firstTimeLoad != true"
+  class="loadingContent"
+  [ngClass]="{'showDifferentLoader': showTourConfirm}"
+>
   <div id="bkgOverlay" class="backgroundOverlay" *ngIf="showTourConfirm"></div>
 
   <div
@@ -207,10 +194,7 @@
     *ngIf="showTourConfirm"
   >
     <div class="img_border">
-      <img
-        src="../../assets/images/book.png"
-        alt=""
-      />
+      <img src="../../assets/images/book.png" alt="" />
     </div>
     <h5>Welcome</h5>
     <p class="tourConfirmText">
