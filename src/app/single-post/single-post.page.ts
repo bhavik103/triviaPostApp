@@ -72,13 +72,16 @@ export class SinglePostPage implements OnInit {
     this.admobFree.banner.hide();
   }
   ionViewDidEnter() {
-    this._admobService.BannerAd();
-    // this._admobService.InterstitialAd();
-    // this._admobService.RewardVideoAd();
+    if (localStorage.getItem('skip')) {
+      this._admobService.BannerAd();
+    }
   }
   ionViewWillEnter() {
-    // this._admobService.RewardVideoAd();
-    // this._admobService.InterstitialAd();
+    if(localStorage.getItem('bookmarkFlag') && localStorage.getItem('shareFlag') && !localStorage.getItem('catModal')){
+      this.router.navigateByUrl('/all-categories')
+    }
+    this.bookmarkFlag = localStorage.getItem('bookmarkFlag')
+    this.shareFlag = localStorage.getItem('shareFlag')
     if (localStorage.getItem('bookmarkFlag')) {
       this.bookmarkFlag = '1'
     }
@@ -271,13 +274,11 @@ export class SinglePostPage implements OnInit {
   backClick() {
     this.appcomponent.openRatingModal();
   }
-
-  homeClick() {
-    localStorage.setItem('skip', '1')
-  }
   bookmarkClose() {
     this.bookmarkModal = false;
-    if (!localStorage.getItem('skip')) {
+    if (localStorage.getItem('skip') || localStorage.getItem('bookmarkFlag')) {
+
+    } else if (!localStorage.getItem('skip')) {
       localStorage.setItem('bookmarkFlag', '1')
       this.bookmarkFlag = '1';
       if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
@@ -287,7 +288,7 @@ export class SinglePostPage implements OnInit {
   }
   shareClose() {
     this.shareModal = false;
-    if (localStorage.getItem('skip')) {
+    if (localStorage.getItem('skip') || localStorage.getItem('shareFlag')) {
       var subject = "Trivia Post";
       console.log(this.news.fcmLink, this.news[this.language].title, this.news.newsImage)
       this.socialSharing.share(this.news.fcmLink, subject, null, this.news[this.language].title)
@@ -297,7 +298,7 @@ export class SinglePostPage implements OnInit {
           alert('error ' + JSON.stringify(error));
         });
     }
-    if (!localStorage.getItem('skip')) {
+    if (!localStorage.getItem('skip') && !localStorage.getItem('shareFlag')) {
       localStorage.setItem('shareFlag', '1');
       this.shareFlag = '1';
       if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {

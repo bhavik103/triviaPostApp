@@ -141,12 +141,12 @@ var PostTilesPage = /** @class */ (function () {
         window.addEventListener('offline', alertOnlineStatus);
     };
     PostTilesPage.prototype.categoryClick = function (catId, catName) {
-        if (localStorage.getItem('skip')) {
+        if (localStorage.getItem('skip') || localStorage.getItem('catModalShow')) {
             this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
         }
     };
     PostTilesPage.prototype.singleNews = function (postid) {
-        if (localStorage.getItem('skip')) {
+        if (localStorage.getItem('skip') || localStorage.getItem('catModalShow')) {
             if (navigator.onLine) {
                 if (this.wrongStatus) {
                     this.wrongStatus = false;

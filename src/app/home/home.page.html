@@ -7,8 +7,7 @@
       <ion-icon
         name="settings"
         class="homeBack"
-        routerLink="/settings"
-        (click)="setFlagTrue()"
+        (click)="settings()"
       ></ion-icon>
     </button>
     <span id="settingTitle">
@@ -63,7 +62,7 @@
           [style.background]="selected==lang.slug?'red':'white'"
           [style.color]="selected==lang.slug?'white':'black'"
           class="divs"
-          (click)="selected=lang.slug"
+          (click)="selected=lang.slug;selectLangDiv()"
         >
           {{lang.lang}}
         </ion-card>
@@ -74,13 +73,6 @@
         >
           Choose any language of your preference!
         </div>
-        <!-- <div
-          class="tourText tourTextModal"
-          *ngIf="i == 0 && selected"
-          style="bottom: 96%;"
-        >
-          {{languagePageHead[selected]}}
-        </div> -->
       </ion-col>
       <div class="container">
         <input type="checkbox" id="someID" (change)="isChecked($event)" />
@@ -116,17 +108,12 @@
         *ngFor="let lang of languageList;let i = index"
         class="langCol"
       >
-        <!-- <div
-          class="ripple_effect"
-          *ngIf="i == 0 && !selected"
-          style="margin-top: 10px;"
-        ></div> -->
         <ion-card
           tabindex="{{i}}"
           [style.background]="selected==lang.slug?'red':'white'"
           [style.color]="selected==lang.slug?'white':'black'"
           class="divs"
-          (click)="selected=lang.slug"
+          (click)="selected=lang.slug;selectLangDiv()"
         >
           {{lang.lang}}
         </ion-card>
@@ -158,7 +145,7 @@
 </ion-content>
 <ion-content
   *ngIf="!smallLoading && [(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && language && newsArray"
-  [ngClass]="{'disableScroll': !skip}"
+  [ngClass]="{'disableScroll': !skip && !catModalShow}"
   class="newsFeedBlock"
 >
   <ion-row

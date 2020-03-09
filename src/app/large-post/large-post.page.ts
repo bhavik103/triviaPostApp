@@ -84,6 +84,7 @@ export class LargePostPage implements OnInit {
     localStorage.setItem('skip', '1')
     this.router.navigateByUrl('/all-categories')
   }
+
   redirectToSignup() {
     localStorage.setItem('skip', '1')
     this.router.navigateByUrl('/login')

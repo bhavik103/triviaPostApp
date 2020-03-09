@@ -4,6 +4,7 @@ import { catTitle } from '../changeLang';
 import { UserService } from '../services/user.service';
 import { AppComponent } from '../app.component'
 import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-all-categories',
   templateUrl: './all-categories.page.html',
@@ -16,11 +17,10 @@ export class AllCategoriesPage implements OnInit {
   catSelect: string;
   catTitle = catTitle;
   openRatingModal: any;
-  constructor(private platform: Platform, private appcomponent: AppComponent, private _userService: UserService, private _categoryService: CategoryService) { }
+  constructor(private router: Router,private platform: Platform, private appcomponent: AppComponent, private _userService: UserService, private _categoryService: CategoryService) { }
 
   ngOnInit() {
     this.platform.backButton.subscribe(() => {
-      console.log("GOT IT");
       this.appcomponent.openRatingModal();
     });
     this.language = localStorage.getItem('language')
@@ -37,7 +37,9 @@ export class AllCategoriesPage implements OnInit {
       localStorage.setItem('catSelect', '1');
       localStorage.setItem('firstLargePostClick', '1');
     }
-
+    if (localStorage.getItem('catModal') && !localStorage.getItem('skip')) {
+      this.router.navigateByUrl('/login')
+    }
     this.loading = false;
     this.getCategories();
   }
@@ -78,7 +80,7 @@ export class AllCategoriesPage implements OnInit {
       }
     }
   }
-  backButton(){
+  backButton() {
     this.appcomponent.openRatingModal();
   }
 }

@@ -90,6 +90,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+
 
 
 
@@ -98,7 +100,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AllCategoriesPage = class AllCategoriesPage {
-    constructor(platform, appcomponent, _userService, _categoryService) {
+    constructor(router, platform, appcomponent, _userService, _categoryService) {
+        this.router = router;
         this.platform = platform;
         this.appcomponent = appcomponent;
         this._userService = _userService;
@@ -107,7 +110,6 @@ let AllCategoriesPage = class AllCategoriesPage {
     }
     ngOnInit() {
         this.platform.backButton.subscribe(() => {
-            console.log("GOT IT");
             this.appcomponent.openRatingModal();
         });
         this.language = localStorage.getItem('language');
@@ -122,6 +124,9 @@ let AllCategoriesPage = class AllCategoriesPage {
             localStorage.setItem('shareBlink', '1');
             localStorage.setItem('catSelect', '1');
             localStorage.setItem('firstLargePostClick', '1');
+        }
+        if (localStorage.getItem('catModal') && !localStorage.getItem('skip')) {
+            this.router.navigateByUrl('/login');
         }
         this.loading = false;
         this.getCategories();
@@ -169,6 +174,7 @@ let AllCategoriesPage = class AllCategoriesPage {
     }
 };
 AllCategoriesPage.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
     { type: _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"] },
     { type: _services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"] },
@@ -180,7 +186,7 @@ AllCategoriesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./all-categories.page.html */ "./node_modules/raw-loader/index.js!./src/app/all-categories/all-categories.page.html"),
         styles: [__webpack_require__(/*! ./all-categories.page.scss */ "./src/app/all-categories/all-categories.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"], _services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"], _services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"]])
 ], AllCategoriesPage);
 
 

@@ -22,10 +22,7 @@ import { Market } from '@ionic-native/market/ngx';
 import { andText, acceptTermsPolicy, termsTitle, privacyTitle, language, languagePageHead, rateTitle, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour, tourReadPost, rateText, catTitle, rateNowButton, rateNoThanksButton, rateRemindButton } from '../changeLang';
 import { AdmobfreeService } from '../services/admobfree.service';
 import {
-    AdMobFree,
-    AdMobFreeBannerConfig,
-    AdMobFreeInterstitialConfig,
-    AdMobFreeRewardVideoConfig
+    AdMobFree
 } from '@ionic-native/admob-free/ngx';
 @Component({
     selector: 'app-home',
@@ -95,24 +92,17 @@ export class HomePage implements OnInit {
     showTourConfirm: boolean;
     smallLoading: boolean;
     constructor(private admobFree: AdMobFree, private _admobService: AdmobfreeService, private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
-        if (!localStorage.getItem('skip')) {
-            $('body').addClass('tourBackDrop')
-        } else {
-            $('body').addClass('notfound')
-        }
     }
 
     // Event Listeners
     ngOnInit() {
-        if (localStorage.getItem('language') && localStorage.getItem('catSelect') == "1") {
-            this.getAllPost();
-        }
         this.firebaseLinkRoute();
         this.language = localStorage.language;
         this.viewInitFunctions();
     }
 
     ionViewDidEnter() {
+        this.catModalShow = localStorage.getItem('catModalShow')
         if (!localStorage.getItem('language')) {
             this.showTourConfirm = true;
         }
@@ -161,7 +151,6 @@ export class HomePage implements OnInit {
         if (localStorage.getItem('skip')) {
             this.skip = '1';
         }
-        console.log("SKIPPPPPPPPPPPPPPPP", this.skip)
         this.navExtras = this._generalService.getExtras();
         if (localStorage.getItem('language') && localStorage.getItem('catSelect') == "1") {
             this.language = localStorage.getItem('language')
@@ -174,47 +163,16 @@ export class HomePage implements OnInit {
     askForTour(promptReply) {
         this.loading = true;
     }
-    async skipTour() {
-        const alert = await this.alertController.create({
-            header: 'Confirm!',
-            message: 'Are you sure you want to skip the <strong>tour</strong>?',
-            cssClass: 'alertCustomCss',
-            buttons: [
-                {
-                    text: 'Cancel',
-                    role: 'cancel',
-
-                    handler: (blah) => {
-                    }
-                }, {
-                    text: 'Skip',
-
-                    handler: () => {
-                        localStorage.setItem('skip', 'true');
-                        localStorage.setItem('shareBlink', '1');
-                        localStorage.setItem('catSelect', '1');
-                        localStorage.setItem('firstLargePostClick', '1');
-                        this.skip = localStorage.getItem('skip');
-                        this.router.navigateByUrl('all-categories');
-                        this.getAllPost();
-                    }
-                }
-            ]
-        });
-
-        await alert.present();
-    }
 
     //get all news - HOME PAGE ( FEEDS )
     async getAllPost() {
-        this._admobService.BannerAd();
-        // this._admobService.InterstitialAd();
-        // this._admobService.RewardVideoAd();
+        if (localStorage.getItem('skip')) {
+            this._admobService.BannerAd();
+        }
         this.newsArray = []
         this.latestPost = [];
         localStorage.setItem('firstTimeLoaded', 'true');
-        // this.firstTimeLoad = true;
-        // this.loading = true;
+
         this.smallLoading = true;
         this.language = localStorage.getItem('language');
         if (navigator.onLine) {
@@ -222,18 +180,17 @@ export class HomePage implements OnInit {
                 (res: any) => {
                     this.newsArray = res;
                     this.latestPost = res[0];
+                    if (localStorage.getItem('firstLargePostClick') && [!localStorage.getItem('bookmarkFlag') || localStorage.getItem('shareFlag')] && !localStorage.getItem('skip')) {
+                        this.router.navigateByUrl('/single-post/' + this.latestPost.newsId);
+                    }
                     console.log('this.latestPost', this.latestPost)
                     this.newsArray.splice(0, 1);
                     if (!localStorage.getItem('skip')) {
                     }
                     $('.newsFeedBlock').hide();
-                    // this.myloader = true;
-                    setTimeout(() => {
-                        $('.newsFeedBlock').show();
-                        // this.myloader = false
-                        this.smallLoading = false;
-                        this.loading = false
-                    }, 1500);
+                    $('.newsFeedBlock').show();
+                    this.smallLoading = false;
+                    this.loading = false
                     this.checkForRating();
                 },
                 (err) => {
@@ -271,60 +228,25 @@ export class HomePage implements OnInit {
         const alertOnlineStatus = () => {
             if (navigator.onLine) {
                 this.hide = false;
-                // this.getAllPost();
             } else {
                 this.hide = true;
                 this._toastService.toastFunction('No internet connection', 'danger');
-                // this.getAllPost();
+
             }
         }
-
         window.addEventListener('online', alertOnlineStatus)
         window.addEventListener('offline', alertOnlineStatus)
     }
-    //get categories
-    getCategories() {
-        this.smallLoading = true;
-        this.language = localStorage.getItem('language');
-        if (navigator.onLine) {
-            this._categoryService.getAll().subscribe((res) => {
-                this.smallLoading = false;
-                this.categories = res;
-                console.log("after", this.categories);
-            }, (err) => {
-                this.smallLoading = false;
-                this._toastService.toastFunction('Something went wrong while fetching category', 'danger')
-            });
-
-        } else {
-            this.categories = JSON.parse(localStorage.getItem('categoryArray'))
-        }
-    }
-    //change on subscription of category
-    subscribedCategory(e) {
-        console.log("Event e", e);
-        if (e.cat === 1) {
-            localStorage.setItem('catSelect', '1');
-            localStorage.setItem('skip', '1');
-            localStorage.setItem('language', this.language);
-            this.catSelect = '1';
-            this.getAllPost();
-        } else {
-            if (e.statusCode == 1) {
-                this.categories.find((o) => o.categoryId === e.catId).isNotify = true;
-            } else if (e.statusCode == 0) {
-                this.categories.find((o) => o.categoryId === e.catId).isNotify = false;
-            }
-        }
-    }
     //navigate to searchbar
     search() {
-        localStorage.setItem('skip', '1');
-        this.router.navigateByUrl('/searchBar');
+        if (localStorage.getItem('skip')) {
+            this.router.navigateByUrl('/searchBar');
+        }
     }
-
-    setFlagTrue() {
-        localStorage.setItem('skip', '1');
+    settings() {
+        if (localStorage.getItem('skip')) {
+            this.router.navigateByUrl('/settings');
+        }
     }
     // Notification and utility
     notificationTapped() {
@@ -352,12 +274,19 @@ export class HomePage implements OnInit {
         }
     }
 
+    //selectLangDiv
+    selectLangDiv() {
+        $('#someID').attr("checked", true);
+        setTimeout(() => {
+            this.selectLang()
+        }, 500);
+
+    }
     //select lang on first time app opens
-    async selectLang() {
+    selectLang() {
         if (localStorage.getItem('skip')) {
             this.router.navigateByUrl('/login')
         } else {
-            this.getCategories();
             this.getAllPost();
         }
         let lang = this.selected;
@@ -371,7 +300,6 @@ export class HomePage implements OnInit {
             setTimeout(() => {
                 if (localStorage.getItem('annonymousNotify')) {
                     this._userService.firstTimeUser(this.selected).subscribe((res: any) => {
-                        // this.getCategories();
                         this._userService.serviceFunction();
                         localStorage.setItem('annonymousNotify', 'true');
                     },
@@ -383,37 +311,6 @@ export class HomePage implements OnInit {
         this.fcm.onTokenRefresh().subscribe(token => {
             localStorage.setItem('deviceToken', token);
         });
-    }
-
-    //select lang on first time app opens
-    async selectLangSkip() {
-        console.log("skip")
-        if (this.selected) {
-            this.getCategories();
-            this.getAllPost();
-            localStorage.setItem('language', this.selected);
-            localStorage.setItem('skip', '1')
-            this.router.navigateByUrl('all-categories');
-
-            this._generalService.setExtras(this.language);
-            this.fcm.getToken().then(token => {
-                localStorage.setItem('deviceToken', token);
-                setTimeout(() => {
-                    if (localStorage.getItem('annonymousNotify')) {
-                        this._userService.firstTimeUser(this.selected).subscribe((res: any) => {
-                            // this.getCategories();
-                            this._userService.serviceFunction();
-                            localStorage.setItem('annonymousNotify', 'true');
-                        },
-                            (err) => {
-                            });
-                    }
-                }, 1000);
-            });
-            this.fcm.onTokenRefresh().subscribe(token => {
-                localStorage.setItem('deviceToken', token);
-            });
-        }
     }
 
     //set fcm token
@@ -453,8 +350,8 @@ export class HomePage implements OnInit {
         $('.loadingContent').removeClass('showDifferentLoader')
         this.skipTheTour = true;
         this.skip = '1';
-        localStorage.setItem('bookmarkFlag','1')
-        localStorage.setItem('shareFlag','1')
+        localStorage.setItem('bookmarkFlag', '1')
+        localStorage.setItem('shareFlag', '1')
         localStorage.setItem('skip', '1')
         localStorage.setItem('firstLargePostClick', '1')
         localStorage.setItem('catModal', '1')

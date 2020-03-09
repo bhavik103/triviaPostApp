@@ -67,13 +67,13 @@ export class PostTilesPage implements OnInit {
   }
 
   categoryClick(catId, catName) {
-    if (localStorage.getItem('skip')) {
+    if (localStorage.getItem('skip') || localStorage.getItem('catModalShow')) {
       this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
     }
   }
 
   singleNews(postid) {
-    if (localStorage.getItem('skip')) {
+    if (localStorage.getItem('skip') || localStorage.getItem('catModalShow')) {
       if (navigator.onLine) {
         if (this.wrongStatus) {
           this.wrongStatus = false

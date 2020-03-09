@@ -10,36 +10,36 @@
     >
     </ion-back-button>
     <span id="settingTitle">Trivia Post</span>
-    <button float-right routerLink="/home" (click)="homeClick()">
+    <button float-right routerLink="/home">
       <ion-icon name="home"></ion-icon>
     </button>
   </div>
 </div>
 
-<ion-content *ngIf="!loading" [ngClass]="{'notScroll': !skip}">
-  <div class="floatNext" *ngIf="!bookmarkFlag || !shareFlag || !skip" (click)="nextButton()">
+<ion-content *ngIf="!loading" [ngClass]="{'notScroll': !bookmarkFlag || !shareFlag}">
+  <div class="floatNext" *ngIf="!bookmarkFlag || !shareFlag" (click)="nextButton()">
     <div class="ripple_effect"></div>
     <img src="../../assets/images/nextButton.png" class="my-floatNext" alt=""/>
   </div>
   <div *ngIf="news" class="singleNews">
-    <div class="container" [ngClass]="{'disableScroll': !skip}">
+    <div class="container" [ngClass]="{'disableScroll': !bookmarkFlag || !shareFlag}">
       <img src="{{mediaPath}}{{news.newsImage}}" alt="" class="postImage" />
       <div class="text-block"></div>
     </div>
 
-    <div class="subPostTitle" [ngClass]="{'disableScroll': !skip}">
+    <div class="subPostTitle" [ngClass]="{'disableScroll': !bookmarkFlag || !shareFlag}">
       <p class="newsInfo" *ngIf="news.picCredit">
         <span>PC : </span><span class="picCredit"> {{news.picCredit}}</span>
       </p>
     </div>
     <div class="newsContent">
-      <div class="postTitle" *ngIf="news[language].title" [ngClass]="{'disableScroll': !skip}">
+      <div class="postTitle" *ngIf="news[language].title" [ngClass]="{'disableScroll': !bookmarkFlag || !shareFlag}">
         <p *ngIf="language != 'as'">{{news[language].title}}</p>
         <p class="assameseFont assameseFontTitle" *ngIf="language == 'as'">
           {{news[language].title}}
         </p>
       </div>
-      <div class="category_title" [ngClass]="{'disableScroll': !skip}">
+      <div class="category_title" [ngClass]="{'disableScroll': !bookmarkFlag || !shareFlag}">
         <span
           (click)="singleCategory(news.newsCategoryId,news.newsCategory[language])"
           *ngIf="language != 'as'"
@@ -54,7 +54,7 @@
           {{news.newsCategory[language] | slice:0:30}}
         </span>
       </div>
-      <div class="post" [ngClass]="{'disableScroll': !skip}">
+      <div class="post" [ngClass]="{'disableScroll': !bookmarkFlag || !shareFlag}">
         <p [innerHTML]="byPassedNews" *ngIf="language != 'as'"></p>
         <p
           [innerHTML]="byPassedNews"
@@ -134,12 +134,9 @@
           {{modalSignupButton[language]}}
         </button>
         <button class="signupButton skipButton" (click)="bookmarkClose()">
-          <div class="ripple_effect ripple_effect_modal" *ngIf="!skip"></div>
+          <div class="ripple_effect ripple_effect_modal" *ngIf="!bookmarkFlag"></div>
           {{modalSkipButton[language]}}
         </button>
-        <!-- <div class="tourText tourTextModal tourTextModal" *ngIf="!skip">
-          {{modalSkipButton[language]}}
-        </div> -->
       </div>
     </div>
   </div>
@@ -159,7 +156,7 @@
           {{modalSignupButton[language]}}
         </button>
         <button class="signupButton skipButton" (click)="shareClose()">
-          <div class="ripple_effect ripple_effect_modal" *ngIf="!skip"></div>
+          <div class="ripple_effect ripple_effect_modal" *ngIf="!shareFlag"></div>
           {{modalSkipButton[language]}}
         </button>
         <!-- <div class="tourText tourTextModal tourTextModal" *ngIf="!skip">
