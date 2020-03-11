@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CategoryService } from '../services/category.service';
 import { config } from '../config';
 import { Router } from '@angular/router';
 import { NewsService } from '../services/news.service';
@@ -91,7 +90,7 @@ export class HomePage implements OnInit {
     myloader: boolean;
     showTourConfirm: boolean;
     smallLoading: boolean;
-    constructor(private admobFree: AdMobFree, private _admobService: AdmobfreeService, private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router, public keyboard: Keyboard) {
+    constructor(private admobFree: AdMobFree, private _admobService: AdmobfreeService, private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, private router: Router, public keyboard: Keyboard) {
     }
 
     // Event Listeners
@@ -102,6 +101,7 @@ export class HomePage implements OnInit {
     }
 
     ionViewDidEnter() {
+        this._admobService.interstitalAdOnFivePageChange()
         this.catModalShow = localStorage.getItem('catModalShow')
         if (!localStorage.getItem('language')) {
             this.showTourConfirm = true;
@@ -120,7 +120,6 @@ export class HomePage implements OnInit {
 
     }
     ionViewWillLeave() {
-        this.admobFree.banner.hide()
         this.subscription.unsubscribe();
     }
 
@@ -167,7 +166,7 @@ export class HomePage implements OnInit {
     //get all news - HOME PAGE ( FEEDS )
     async getAllPost() {
         if (localStorage.getItem('skip')) {
-            this._admobService.BannerAd();
+            // this._admobService.BannerAd();
         }
         this.newsArray = []
         this.latestPost = [];
@@ -188,9 +187,18 @@ export class HomePage implements OnInit {
                     if (!localStorage.getItem('skip')) {
                     }
                     $('.newsFeedBlock').hide();
-                    $('.newsFeedBlock').show();
-                    this.smallLoading = false;
-                    this.loading = false
+
+                    if (!this.skip) {
+                        $('.newsFeedBlock').show();
+                        setTimeout(() => {
+                            this.smallLoading = false;
+                            this.loading = false
+                        }, 1500);
+                    } else {
+                        this.smallLoading = false;
+                        this.loading = false
+                        $('.newsFeedBlock').show();
+                    }
                     this.checkForRating();
                 },
                 (err) => {
@@ -215,8 +223,6 @@ export class HomePage implements OnInit {
         if (!config.isvisited && !config.counter) {
             this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
                 var postId = res.deepLink.split('?')[1].split('=')[1];
-                console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1])
-                console.log('Is Visited:------------- 1', config.isvisited);
                 this.router.navigate(['single-post/' + postId]);
             }, (error: any) => {
                 console.log(error)
@@ -231,7 +237,6 @@ export class HomePage implements OnInit {
             } else {
                 this.hide = true;
                 this._toastService.toastFunction('No internet connection', 'danger');
-
             }
         }
         window.addEventListener('online', alertOnlineStatus)

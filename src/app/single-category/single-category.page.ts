@@ -9,6 +9,7 @@ import { GeneralService } from '../services/general.service'
 import { Platform } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { AppComponent } from '../app.component'
+import { AdmobfreeService } from '../services/admobfree.service';
 
 @Component({
   selector: 'app-single-category',
@@ -28,7 +29,7 @@ export class SingleCategoryPage implements OnInit {
   subscription: any;
   skip: string;
   firstLargePostClick: string;
-  constructor(public appcomponent: AppComponent,public alertController: AlertController, private ngzone: NgZone, private platform: Platform, private _generalService: GeneralService, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) {
+  constructor(private _admobService: AdmobfreeService,public appcomponent: AppComponent,public alertController: AlertController, private ngzone: NgZone, private platform: Platform, private _generalService: GeneralService, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -39,6 +40,7 @@ export class SingleCategoryPage implements OnInit {
     this.catName = this.route.snapshot.params['cat'];
   }
   ionViewWillEnter() {
+    this._admobService.interstitalAdOnFivePageChange()
     if(localStorage.getItem('skip')){
       this.skip = localStorage.getItem('skip');
       this.firstLargePostClick = localStorage.getItem('firstLargePostClick')

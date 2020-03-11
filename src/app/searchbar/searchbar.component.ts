@@ -6,6 +6,7 @@ import { News } from '../home/news';
 import { config } from '../config';
 import { Platform } from '@ionic/angular';
 import { AppComponent } from '../app.component'
+import { AdmobfreeService } from '../services/admobfree.service';
 
 @Component({
     selector: 'app-searchbar',
@@ -25,7 +26,7 @@ export class SearchbarComponent implements OnInit {
     searchLength: any;
     loading: any;
     box: any;
-    constructor(public appcomponent: AppComponent,private platform: Platform, private router: Router, public _newsService: NewsService, private renderer: Renderer, private elementRef: ElementRef, public keyboard: Keyboard) { }
+    constructor(private _admobService: AdmobfreeService,public appcomponent: AppComponent,private platform: Platform, private router: Router, public _newsService: NewsService, private renderer: Renderer, private elementRef: ElementRef, public keyboard: Keyboard) { }
     keyValue;
     @ViewChild('searchInput', { static: false }) searchInput;
     ngOnInit() {
@@ -41,6 +42,7 @@ export class SearchbarComponent implements OnInit {
         this.language = localStorage.getItem('language');
     }
     ionViewWillEnter() {
+        this._admobService.interstitalAdOnFivePageChange()
         this.searchInput.setFocus()
     }
     searchNews(key) {

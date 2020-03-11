@@ -5,6 +5,8 @@ import { UserService } from '../services/user.service';
 import { AppComponent } from '../app.component'
 import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AdmobfreeService } from '../services/admobfree.service';
+
 @Component({
   selector: 'app-all-categories',
   templateUrl: './all-categories.page.html',
@@ -17,7 +19,7 @@ export class AllCategoriesPage implements OnInit {
   catSelect: string;
   catTitle = catTitle;
   openRatingModal: any;
-  constructor(private router: Router,private platform: Platform, private appcomponent: AppComponent, private _userService: UserService, private _categoryService: CategoryService) { }
+  constructor(private _admobService: AdmobfreeService,private router: Router,private platform: Platform, private appcomponent: AppComponent, private _userService: UserService, private _categoryService: CategoryService) { }
 
   ngOnInit() {
     this.platform.backButton.subscribe(() => {
@@ -31,6 +33,7 @@ export class AllCategoriesPage implements OnInit {
     window.addEventListener('offline', alertOnlineStatus)
   }
   ionViewWillEnter() {
+    this._admobService.interstitalAdOnFivePageChange()
     if (localStorage.getItem('skip')) {
       localStorage.setItem('skip', '1');
       localStorage.setItem('shareBlink', '1');

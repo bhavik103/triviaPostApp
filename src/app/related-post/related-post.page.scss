@@ -6,7 +6,6 @@ ion-icon.homeBack.md.hydrated {
 }
 .newsImg {
   padding: 0;
-  height: 100%;
   min-width: 98px;
   background: url("../../assets/images/placeholder.png");
   background-repeat: no-repeat;
@@ -85,7 +84,7 @@ img.likeImage {
 
 .newsImg img {
   width: 100%;
-  height: 100%;
+  height: 60px;
   object-fit: cover;
   margin: auto;
   display: block;

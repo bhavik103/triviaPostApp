@@ -91,6 +91,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+
 
 
 
@@ -100,7 +102,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AllCategoriesPage = class AllCategoriesPage {
-    constructor(router, platform, appcomponent, _userService, _categoryService) {
+    constructor(_admobService, router, platform, appcomponent, _userService, _categoryService) {
+        this._admobService = _admobService;
         this.router = router;
         this.platform = platform;
         this.appcomponent = appcomponent;
@@ -119,6 +122,7 @@ let AllCategoriesPage = class AllCategoriesPage {
         window.addEventListener('offline', alertOnlineStatus);
     }
     ionViewWillEnter() {
+        this._admobService.interstitalAdOnFivePageChange();
         if (localStorage.getItem('skip')) {
             localStorage.setItem('skip', '1');
             localStorage.setItem('shareBlink', '1');
@@ -174,6 +178,7 @@ let AllCategoriesPage = class AllCategoriesPage {
     }
 };
 AllCategoriesPage.ctorParameters = () => [
+    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_8__["AdmobfreeService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
     { type: _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"] },
@@ -186,7 +191,7 @@ AllCategoriesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./all-categories.page.html */ "./node_modules/raw-loader/index.js!./src/app/all-categories/all-categories.page.html"),
         styles: [__webpack_require__(/*! ./all-categories.page.scss */ "./src/app/all-categories/all-categories.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"], _services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_admobfree_service__WEBPACK_IMPORTED_MODULE_8__["AdmobfreeService"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"], _services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"]])
 ], AllCategoriesPage);
 
 

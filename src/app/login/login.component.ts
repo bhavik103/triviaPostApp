@@ -12,6 +12,8 @@ import * as $ from 'jquery';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { error } from 'util';
 import { AppComponent } from '../app.component'
+import { AdmobfreeService } from '../services/admobfree.service';
+
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
@@ -28,7 +30,7 @@ export class LoginComponent implements OnInit {
 	bookmarkFlag: string;
 	skip: string;
 	checkFlag: string;
-	constructor(public appcomponent: AppComponent, private keyboard: Keyboard, private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
+	constructor(private _admobService: AdmobfreeService,public appcomponent: AppComponent, private keyboard: Keyboard, private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
 	ngOnInit() {
 		this.platform.backButton.subscribe(async () => {
 			this.appcomponent.openRatingModal();
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
 		});
 	}
 	ionViewWillEnter() {
+		this._admobService.interstitalAdOnFivePageChange()
 		this.skip = localStorage.getItem('skip');
 		this.checkFlag = localStorage.getItem('newsArray');
 		this.bookmarkFlag = localStorage.getItem('bookmarkFlag');

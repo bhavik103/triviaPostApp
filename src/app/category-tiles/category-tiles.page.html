@@ -24,20 +24,12 @@
       [ngClass]="{'tourBlur': ifTourCompleted && !skip}"
     >
       <p
-        *ngIf="language != 'as'"
-        (click)="singleCategory(category.categoryId,category.category[language])"
-      >
-        {{category.category[language] | slice:0:30}}
-      </p>
-      <p
-        *ngIf="language == 'as'"
-        class="assameseFont"
+        [ngClass]="{'assameseFont': language == 'as'}"
         (click)="singleCategory(category.categoryId,category.category[language])"
       >
         {{category.category[language] | slice:0:30}}
       </p>
     </div>
-    <!-- <p class="postCount">{{category.countPost}} Posts</p> -->
     <button
       *ngIf="!category.isNotify && (!firstTime || skip)"
       class="notSubscribed"
@@ -112,9 +104,6 @@
         <div class="ripple_effect" *ngIf="!skip"></div>
         {{nextButton[language]}}
       </button>
-      <!-- <div class="tourText tourTextModal" *ngIf="!skip">
-        {{proceedTour[language]}}
-      </div> -->
     </div>
   </div>
 </div>

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { privacyTitle } from '../changeLang'
 import { Platform } from '@ionic/angular';
 import { AppComponent } from '../app.component'
+import { AdmobfreeService } from '../services/admobfree.service';
 
 @Component({
 	selector: 'app-privacy',
@@ -17,9 +18,12 @@ export class PrivacyComponent implements OnInit {
 	loading: any;
 	privacyTitle = privacyTitle;
 	language: any;
-	constructor(public appcomponent: AppComponent, private platform: Platform, public _generalService: GeneralService, private router: Router) {
+	constructor(private _admobService: AdmobfreeService,public appcomponent: AppComponent, private platform: Platform, public _generalService: GeneralService, private router: Router) {
 	}
 
+	ionViewWillEnter(){
+		this._admobService.interstitalAdOnFivePageChange()
+	}
 	ngOnInit() {
 		this.language = localStorage.getItem('language')
 		this.platform.backButton.subscribe(async () => {

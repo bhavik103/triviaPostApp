@@ -786,7 +786,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/general.service */ "./src/app/services/general.service.ts");
 /* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./changeLang */ "./src/app/changeLang.ts");
 /* harmony import */ var _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic-native/market/ngx */ "./node_modules/@ionic-native/market/ngx/index.js");
-/* harmony import */ var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic-native/app-version/ngx */ "./node_modules/@ionic-native/app-version/ngx/index.js");
+/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+/* harmony import */ var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ionic-native/app-version/ngx */ "./node_modules/@ionic-native/app-version/ngx/index.js");
+
 
 
 
@@ -810,7 +812,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(appVersion, market, _generalService, keyboard, _toastService, firebaseDynamicLinks, _userService, toastController, platform, splashScreen, statusBar, fcm, router, deeplinks, events) {
+    constructor(appVersion, market, _generalService, keyboard, _toastService, firebaseDynamicLinks, _userService, toastController, platform, splashScreen, statusBar, fcm, router, deeplinks, events, _admobService) {
         this.appVersion = appVersion;
         this.market = market;
         this._generalService = _generalService;
@@ -826,6 +828,7 @@ let AppComponent = class AppComponent {
         this.router = router;
         this.deeplinks = deeplinks;
         this.events = events;
+        this._admobService = _admobService;
         this.hide = true;
         this.loginModalFlag = false;
         this.signupForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_13__["FormGroup"]({
@@ -846,6 +849,7 @@ let AppComponent = class AppComponent {
             password: "",
         };
         this.navLinksArray = [];
+        this.initializeApp();
         const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
         const firstDate = new Date();
         const secondDate = JSON.parse(localStorage.getItem('ratingModalDate'));
@@ -870,12 +874,6 @@ let AppComponent = class AppComponent {
             }, 5 * 60 * 1000);
         }
         this.skip = localStorage.getItem('skip');
-        // if(!this.skip){
-        //   this.showLoader = true;
-        //   setTimeout(() => {
-        //   this.showLoader = false;
-        //   }, 2000);
-        // }
         if (localStorage.getItem('skip') != '1') {
             setTimeout(() => {
                 localStorage.setItem('ratingModalDate', JSON.stringify(new Date()));
@@ -954,11 +952,16 @@ let AppComponent = class AppComponent {
         if (!localStorage.getItem('notification')) {
             localStorage.setItem('notification', "true");
         }
-        this.initializeApp();
+        this.platform.ready().then(() => {
+            console.log("INSIDE PLATFORM READY");
+            this._admobService.BannerAd();
+        });
     }
     initializeApp() {
         const handleBranch = () => {
             this.platform.ready().then(() => {
+                console.log("INSIDE PLATFORM READY");
+                this._admobService.BannerAd();
                 this.firebaseDynamicLinks.onDynamicLink().subscribe((res) => {
                     var postId = res.deepLink.split('?')[1].split('=')[1];
                     this.router.navigate(['single-post/' + postId]);
@@ -997,7 +1000,7 @@ let AppComponent = class AppComponent {
     }
 };
 AppComponent.ctorParameters = () => [
-    { type: _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_19__["AppVersion"] },
+    { type: _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_20__["AppVersion"] },
     { type: _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_18__["Market"] },
     { type: _services_general_service__WEBPACK_IMPORTED_MODULE_16__["GeneralService"] },
     { type: _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_15__["Keyboard"] },
@@ -1011,7 +1014,8 @@ AppComponent.ctorParameters = () => [
     { type: _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_5__["FCM"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] },
     { type: _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__["Deeplinks"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] },
+    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_19__["AdmobfreeService"] }
 ];
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1019,7 +1023,7 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
         styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_19__["AppVersion"],
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_20__["AppVersion"],
         _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_18__["Market"],
         _services_general_service__WEBPACK_IMPORTED_MODULE_16__["GeneralService"],
         _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_15__["Keyboard"],
@@ -1033,7 +1037,8 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_5__["FCM"],
         _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
         _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_7__["Deeplinks"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"]])
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"],
+        _services_admobfree_service__WEBPACK_IMPORTED_MODULE_19__["AdmobfreeService"]])
 ], AppComponent);
 
 
@@ -1501,13 +1506,13 @@ const andText = {
 const modalSignupButton = {
     en: 'Sign Up',
     hn: 'साइन अप',
-    as: 'নিবন্ধন করুন',
+    as: 'চাইন আপ',
     bn: 'নিবন্ধন করুন'
 };
 const modalSkipButton = {
     en: 'Click to skip',
     hn: 'स्किप के लिए क्लिक करें',
-    as: 'এড়িয়ে যেতে ক্লিক করুন',
+    as: 'এৰি দিয়ক',
     bn: 'এড়িয়ে যেতে ক্লিক করুন'
 };
 const rateNowButton = {
@@ -1658,6 +1663,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
 /* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../changeLang */ "./src/app/changeLang.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+
 
 
 
@@ -1668,7 +1675,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let FeedbackComponent = class FeedbackComponent {
-    constructor(appcomponent, platform, _toastService, _userService, router) {
+    constructor(_admobService, appcomponent, platform, _toastService, _userService, router) {
+        this._admobService = _admobService;
         this.appcomponent = appcomponent;
         this.platform = platform;
         this._toastService = _toastService;
@@ -1687,6 +1695,9 @@ let FeedbackComponent = class FeedbackComponent {
             mobile: "",
             message: ""
         };
+    }
+    ionViewWillEnter() {
+        this._admobService.interstitalAdOnFivePageChange();
     }
     ngOnInit() {
         this.language = localStorage.getItem('language');
@@ -1713,6 +1724,7 @@ let FeedbackComponent = class FeedbackComponent {
     }
 };
 FeedbackComponent.ctorParameters = () => [
+    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_9__["AdmobfreeService"] },
     { type: _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
     { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_6__["ToastService"] },
@@ -1725,7 +1737,7 @@ FeedbackComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./feedback.component.html */ "./node_modules/raw-loader/index.js!./src/app/feedback/feedback.component.html"),
         styles: [__webpack_require__(/*! ./feedback.component.scss */ "./src/app/feedback/feedback.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _services_toast_service__WEBPACK_IMPORTED_MODULE_6__["ToastService"], _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_admobfree_service__WEBPACK_IMPORTED_MODULE_9__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _services_toast_service__WEBPACK_IMPORTED_MODULE_6__["ToastService"], _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
 ], FeedbackComponent);
 
 
@@ -1837,26 +1849,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HomePage", function() { return HomePage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/category.service */ "./src/app/services/category.service.ts");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/news.service */ "./src/app/services/news.service.ts");
-/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
-/* harmony import */ var _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/keyboard/ngx */ "./node_modules/@ionic-native/keyboard/ngx/index.js");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
-/* harmony import */ var _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/firebase-dynamic-links/ngx */ "./node_modules/@ionic-native/firebase-dynamic-links/ngx/index.js");
-/* harmony import */ var _ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-super-tabs/angular */ "./node_modules/@ionic-super-tabs/angular/fesm2015/ionic-super-tabs-angular.js");
-/* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../services/general.service */ "./src/app/services/general.service.ts");
-/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../changeLang */ "./src/app/changeLang.ts");
-/* harmony import */ var _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/market/ngx */ "./node_modules/@ionic-native/market/ngx/index.js");
-/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
-/* harmony import */ var _ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic-native/admob-free/ngx */ "./node_modules/@ionic-native/admob-free/ngx/index.js");
-
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/news.service */ "./src/app/services/news.service.ts");
+/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
+/* harmony import */ var _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/keyboard/ngx */ "./node_modules/@ionic-native/keyboard/ngx/index.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
+/* harmony import */ var _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/firebase-dynamic-links/ngx */ "./node_modules/@ionic-native/firebase-dynamic-links/ngx/index.js");
+/* harmony import */ var _ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-super-tabs/angular */ "./node_modules/@ionic-super-tabs/angular/fesm2015/ionic-super-tabs-angular.js");
+/* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../services/general.service */ "./src/app/services/general.service.ts");
+/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../changeLang */ "./src/app/changeLang.ts");
+/* harmony import */ var _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic-native/market/ngx */ "./node_modules/@ionic-native/market/ngx/index.js");
+/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+/* harmony import */ var _ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ionic-native/admob-free/ngx */ "./node_modules/@ionic-native/admob-free/ngx/index.js");
 
 
 
@@ -1879,7 +1889,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HomePage = class HomePage {
-    constructor(admobFree, _admobService, market, alertController, _generalService, firebaseDynamicLinks, _toastService, _userService, screenOrientation, platform, fcm, _newsService, _categoryService, router, keyboard) {
+    constructor(admobFree, _admobService, market, alertController, _generalService, firebaseDynamicLinks, _toastService, _userService, screenOrientation, platform, fcm, _newsService, router, keyboard) {
         this.admobFree = admobFree;
         this._admobService = _admobService;
         this.market = market;
@@ -1892,7 +1902,6 @@ let HomePage = class HomePage {
         this.platform = platform;
         this.fcm = fcm;
         this._newsService = _newsService;
-        this._categoryService = _categoryService;
         this.router = router;
         this.keyboard = keyboard;
         this.loading = false;
@@ -1906,26 +1915,26 @@ let HomePage = class HomePage {
             allowElementScroll: false,
             transitionDuration: 100
         };
-        this.languageList = _changeLang__WEBPACK_IMPORTED_MODULE_16__["langList"];
-        this.tourSkip = _changeLang__WEBPACK_IMPORTED_MODULE_16__["tourSkip"];
-        this.rateTitle = _changeLang__WEBPACK_IMPORTED_MODULE_16__["rateTitle"];
-        this.rateText = _changeLang__WEBPACK_IMPORTED_MODULE_16__["rateText"];
-        this.andText = _changeLang__WEBPACK_IMPORTED_MODULE_16__["andText"];
-        this.privacyTitle = _changeLang__WEBPACK_IMPORTED_MODULE_16__["privacyTitle"];
-        this.termsTitle = _changeLang__WEBPACK_IMPORTED_MODULE_16__["termsTitle"];
-        this.languageStatic = _changeLang__WEBPACK_IMPORTED_MODULE_16__["language"];
-        this.catTitle = _changeLang__WEBPACK_IMPORTED_MODULE_16__["catTitle"];
-        this.rateNow = _changeLang__WEBPACK_IMPORTED_MODULE_16__["rateNowButton"];
-        this.acceptTermsPolicy = _changeLang__WEBPACK_IMPORTED_MODULE_16__["acceptTermsPolicy"];
-        this.rateLater = _changeLang__WEBPACK_IMPORTED_MODULE_16__["rateRemindButton"];
-        this.rateNoThanks = _changeLang__WEBPACK_IMPORTED_MODULE_16__["rateNoThanksButton"];
-        this.tourReadPost = _changeLang__WEBPACK_IMPORTED_MODULE_16__["tourReadPost"];
-        this.modalBookmarkTitle = _changeLang__WEBPACK_IMPORTED_MODULE_16__["modalBookmarkTitle"];
-        this.modalBookmarkText = _changeLang__WEBPACK_IMPORTED_MODULE_16__["modalBookmarkText"];
-        this.modalNotificationTitle = _changeLang__WEBPACK_IMPORTED_MODULE_16__["modalNotificationTitle"];
-        this.modalNotificationText = _changeLang__WEBPACK_IMPORTED_MODULE_16__["modalNotificationText"];
-        this.proceedTour = _changeLang__WEBPACK_IMPORTED_MODULE_16__["proceedTour"];
-        this.languagePageHead = _changeLang__WEBPACK_IMPORTED_MODULE_16__["languagePageHead"];
+        this.languageList = _changeLang__WEBPACK_IMPORTED_MODULE_15__["langList"];
+        this.tourSkip = _changeLang__WEBPACK_IMPORTED_MODULE_15__["tourSkip"];
+        this.rateTitle = _changeLang__WEBPACK_IMPORTED_MODULE_15__["rateTitle"];
+        this.rateText = _changeLang__WEBPACK_IMPORTED_MODULE_15__["rateText"];
+        this.andText = _changeLang__WEBPACK_IMPORTED_MODULE_15__["andText"];
+        this.privacyTitle = _changeLang__WEBPACK_IMPORTED_MODULE_15__["privacyTitle"];
+        this.termsTitle = _changeLang__WEBPACK_IMPORTED_MODULE_15__["termsTitle"];
+        this.languageStatic = _changeLang__WEBPACK_IMPORTED_MODULE_15__["language"];
+        this.catTitle = _changeLang__WEBPACK_IMPORTED_MODULE_15__["catTitle"];
+        this.rateNow = _changeLang__WEBPACK_IMPORTED_MODULE_15__["rateNowButton"];
+        this.acceptTermsPolicy = _changeLang__WEBPACK_IMPORTED_MODULE_15__["acceptTermsPolicy"];
+        this.rateLater = _changeLang__WEBPACK_IMPORTED_MODULE_15__["rateRemindButton"];
+        this.rateNoThanks = _changeLang__WEBPACK_IMPORTED_MODULE_15__["rateNoThanksButton"];
+        this.tourReadPost = _changeLang__WEBPACK_IMPORTED_MODULE_15__["tourReadPost"];
+        this.modalBookmarkTitle = _changeLang__WEBPACK_IMPORTED_MODULE_15__["modalBookmarkTitle"];
+        this.modalBookmarkText = _changeLang__WEBPACK_IMPORTED_MODULE_15__["modalBookmarkText"];
+        this.modalNotificationTitle = _changeLang__WEBPACK_IMPORTED_MODULE_15__["modalNotificationTitle"];
+        this.modalNotificationText = _changeLang__WEBPACK_IMPORTED_MODULE_15__["modalNotificationText"];
+        this.proceedTour = _changeLang__WEBPACK_IMPORTED_MODULE_15__["proceedTour"];
+        this.languagePageHead = _changeLang__WEBPACK_IMPORTED_MODULE_15__["languagePageHead"];
     }
     // Event Listeners
     ngOnInit() {
@@ -1934,6 +1943,7 @@ let HomePage = class HomePage {
         this.viewInitFunctions();
     }
     ionViewDidEnter() {
+        this._admobService.interstitalAdOnFivePageChange();
         this.catModalShow = localStorage.getItem('catModalShow');
         if (!localStorage.getItem('language')) {
             this.showTourConfirm = true;
@@ -1951,7 +1961,6 @@ let HomePage = class HomePage {
         this.notificationTapped();
     }
     ionViewWillLeave() {
-        this.admobFree.banner.hide();
         this.subscription.unsubscribe();
     }
     viewInitFunctions() {
@@ -1995,7 +2004,7 @@ let HomePage = class HomePage {
     getAllPost() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             if (localStorage.getItem('skip')) {
-                this._admobService.BannerAd();
+                // this._admobService.BannerAd();
             }
             this.newsArray = [];
             this.latestPost = [];
@@ -2014,9 +2023,18 @@ let HomePage = class HomePage {
                     if (!localStorage.getItem('skip')) {
                     }
                     $('.newsFeedBlock').hide();
-                    $('.newsFeedBlock').show();
-                    this.smallLoading = false;
-                    this.loading = false;
+                    if (!this.skip) {
+                        $('.newsFeedBlock').show();
+                        setTimeout(() => {
+                            this.smallLoading = false;
+                            this.loading = false;
+                        }, 1500);
+                    }
+                    else {
+                        this.smallLoading = false;
+                        this.loading = false;
+                        $('.newsFeedBlock').show();
+                    }
                     this.checkForRating();
                 }, (err) => {
                     this.newsArray = localStorage.newsArray;
@@ -2039,11 +2057,9 @@ let HomePage = class HomePage {
     }
     //go to specific post when link click
     firebaseLinkRoute() {
-        if (!_config__WEBPACK_IMPORTED_MODULE_3__["config"].isvisited && !_config__WEBPACK_IMPORTED_MODULE_3__["config"].counter) {
+        if (!_config__WEBPACK_IMPORTED_MODULE_2__["config"].isvisited && !_config__WEBPACK_IMPORTED_MODULE_2__["config"].counter) {
             this.firebaseDynamicLinks.onDynamicLink().subscribe((res) => {
                 var postId = res.deepLink.split('?')[1].split('=')[1];
-                console.log("dynamic link", res.deepLink.split('?')[1].split('=')[1]);
-                console.log('Is Visited:------------- 1', _config__WEBPACK_IMPORTED_MODULE_3__["config"].isvisited);
                 this.router.navigate(['single-post/' + postId]);
             }, (error) => {
                 console.log(error);
@@ -2182,25 +2198,24 @@ let HomePage = class HomePage {
     }
 };
 HomePage.ctorParameters = () => [
-    { type: _ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_19__["AdMobFree"] },
-    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_18__["AdmobfreeService"] },
-    { type: _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_17__["Market"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["AlertController"] },
-    { type: _services_general_service__WEBPACK_IMPORTED_MODULE_15__["GeneralService"] },
-    { type: _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_13__["FirebaseDynamicLinks"] },
-    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_12__["ToastService"] },
-    { type: _services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"] },
-    { type: _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__["ScreenOrientation"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"] },
-    { type: _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__["FCM"] },
-    { type: _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"] },
-    { type: _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-    { type: _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_9__["Keyboard"] }
+    { type: _ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_18__["AdMobFree"] },
+    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_17__["AdmobfreeService"] },
+    { type: _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_16__["Market"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["AlertController"] },
+    { type: _services_general_service__WEBPACK_IMPORTED_MODULE_14__["GeneralService"] },
+    { type: _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_12__["FirebaseDynamicLinks"] },
+    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_11__["ToastService"] },
+    { type: _services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"] },
+    { type: _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_7__["ScreenOrientation"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
+    { type: _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_5__["FCM"] },
+    { type: _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
+    { type: _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_8__["Keyboard"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_14__["SuperTabs"], { static: false }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_14__["SuperTabs"])
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_13__["SuperTabs"], { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_super_tabs_angular__WEBPACK_IMPORTED_MODULE_13__["SuperTabs"])
 ], HomePage.prototype, "superTabs", void 0);
 HomePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2208,7 +2223,7 @@ HomePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./home.page.html */ "./node_modules/raw-loader/index.js!./src/app/home/home.page.html"),
         styles: [__webpack_require__(/*! ./home.page.scss */ "./src/app/home/home.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_19__["AdMobFree"], _services_admobfree_service__WEBPACK_IMPORTED_MODULE_18__["AdmobfreeService"], _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_17__["Market"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["AlertController"], _services_general_service__WEBPACK_IMPORTED_MODULE_15__["GeneralService"], _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_13__["FirebaseDynamicLinks"], _services_toast_service__WEBPACK_IMPORTED_MODULE_12__["ToastService"], _services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"], _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__["ScreenOrientation"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__["FCM"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_9__["Keyboard"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_18__["AdMobFree"], _services_admobfree_service__WEBPACK_IMPORTED_MODULE_17__["AdmobfreeService"], _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_16__["Market"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["AlertController"], _services_general_service__WEBPACK_IMPORTED_MODULE_14__["GeneralService"], _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_12__["FirebaseDynamicLinks"], _services_toast_service__WEBPACK_IMPORTED_MODULE_11__["ToastService"], _services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"], _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_7__["ScreenOrientation"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_5__["FCM"], _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_8__["Keyboard"]])
 ], HomePage);
 
 
@@ -2321,6 +2336,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/keyboard/ngx */ "./node_modules/@ionic-native/keyboard/ngx/index.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+
 
 
 
@@ -2335,7 +2352,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let LoginComponent = class LoginComponent {
-    constructor(appcomponent, keyboard, _toastService, platform, googlePlus, _userService, router, fb) {
+    constructor(_admobService, appcomponent, keyboard, _toastService, platform, googlePlus, _userService, router, fb) {
+        this._admobService = _admobService;
         this.appcomponent = appcomponent;
         this.keyboard = keyboard;
         this._toastService = _toastService;
@@ -2376,6 +2394,7 @@ let LoginComponent = class LoginComponent {
         }));
     }
     ionViewWillEnter() {
+        this._admobService.interstitalAdOnFivePageChange();
         this.skip = localStorage.getItem('skip');
         this.checkFlag = localStorage.getItem('newsArray');
         this.bookmarkFlag = localStorage.getItem('bookmarkFlag');
@@ -2542,6 +2561,7 @@ let LoginComponent = class LoginComponent {
     }
 };
 LoginComponent.ctorParameters = () => [
+    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_13__["AdmobfreeService"] },
     { type: _app_component__WEBPACK_IMPORTED_MODULE_12__["AppComponent"] },
     { type: _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_11__["Keyboard"] },
     { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"] },
@@ -2557,7 +2577,7 @@ LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./login.component.html */ "./node_modules/raw-loader/index.js!./src/app/login/login.component.html"),
         styles: [__webpack_require__(/*! ./login.component.scss */ "./src/app/login/login.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_component__WEBPACK_IMPORTED_MODULE_12__["AppComponent"], _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_11__["Keyboard"], _services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_2__["GooglePlus"], _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_5__["Facebook"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_admobfree_service__WEBPACK_IMPORTED_MODULE_13__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_12__["AppComponent"], _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_11__["Keyboard"], _services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _ionic_native_google_plus_ngx__WEBPACK_IMPORTED_MODULE_2__["GooglePlus"], _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"], _ionic_native_facebook_ngx__WEBPACK_IMPORTED_MODULE_5__["Facebook"]])
 ], LoginComponent);
 
 
@@ -2592,6 +2612,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../changeLang */ "./src/app/changeLang.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+
 
 
 
@@ -2600,12 +2622,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let PrivacyComponent = class PrivacyComponent {
-    constructor(appcomponent, platform, _generalService, router) {
+    constructor(_admobService, appcomponent, platform, _generalService, router) {
+        this._admobService = _admobService;
         this.appcomponent = appcomponent;
         this.platform = platform;
         this._generalService = _generalService;
         this.router = router;
         this.privacyTitle = _changeLang__WEBPACK_IMPORTED_MODULE_4__["privacyTitle"];
+    }
+    ionViewWillEnter() {
+        this._admobService.interstitalAdOnFivePageChange();
     }
     ngOnInit() {
         this.language = localStorage.getItem('language');
@@ -2633,6 +2659,7 @@ let PrivacyComponent = class PrivacyComponent {
     }
 };
 PrivacyComponent.ctorParameters = () => [
+    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_7__["AdmobfreeService"] },
     { type: _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
     { type: _services_general_service__WEBPACK_IMPORTED_MODULE_2__["GeneralService"] },
@@ -2644,7 +2671,7 @@ PrivacyComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./privacy.component.html */ "./node_modules/raw-loader/index.js!./src/app/privacy/privacy.component.html"),
         styles: [__webpack_require__(/*! ./privacy.component.scss */ "./src/app/privacy/privacy.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _services_general_service__WEBPACK_IMPORTED_MODULE_2__["GeneralService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_admobfree_service__WEBPACK_IMPORTED_MODULE_7__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _services_general_service__WEBPACK_IMPORTED_MODULE_2__["GeneralService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
 ], PrivacyComponent);
 
 
@@ -2680,6 +2707,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+
 
 
 
@@ -2689,7 +2718,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SearchbarComponent = class SearchbarComponent {
-    constructor(appcomponent, platform, router, _newsService, renderer, elementRef, keyboard) {
+    constructor(_admobService, appcomponent, platform, router, _newsService, renderer, elementRef, keyboard) {
+        this._admobService = _admobService;
         this.appcomponent = appcomponent;
         this.platform = platform;
         this.router = router;
@@ -2713,6 +2743,7 @@ let SearchbarComponent = class SearchbarComponent {
         this.language = localStorage.getItem('language');
     }
     ionViewWillEnter() {
+        this._admobService.interstitalAdOnFivePageChange();
         this.searchInput.setFocus();
     }
     searchNews(key) {
@@ -2750,6 +2781,7 @@ let SearchbarComponent = class SearchbarComponent {
     }
 };
 SearchbarComponent.ctorParameters = () => [
+    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_8__["AdmobfreeService"] },
     { type: _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
@@ -2771,7 +2803,7 @@ SearchbarComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
         selector: '[set-focuser]' // Attribute selector
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_2__["Keyboard"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_admobfree_service__WEBPACK_IMPORTED_MODULE_8__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["Renderer"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"], _ionic_native_keyboard_ngx__WEBPACK_IMPORTED_MODULE_2__["Keyboard"]])
 ], SearchbarComponent);
 
 
@@ -2825,7 +2857,6 @@ let AdmobfreeService = class AdmobfreeService {
         let bannerConfig = {
             isTesting: true,
             autoShow: true,
-            size: 'SMART_BANNER',
         };
         this.admobFree.banner.config(bannerConfig);
         this.admobFree.banner.prepare().then(() => {
@@ -2852,6 +2883,27 @@ let AdmobfreeService = class AdmobfreeService {
             // success
         }).catch(e => alert(e));
     }
+    interstitalAdOnFivePageChange() {
+        if (!localStorage.getItem('interAdCounter')) {
+            localStorage.setItem('interAdCounter', '1');
+        }
+        else if (localStorage.getItem('interAdCounter') == '1') {
+            localStorage.setItem('interAdCounter', '2');
+        }
+        else if (localStorage.getItem('interAdCounter') == '2') {
+            localStorage.setItem('interAdCounter', '3');
+        }
+        else if (localStorage.getItem('interAdCounter') == '3') {
+            localStorage.setItem('interAdCounter', '4');
+        }
+        else if (localStorage.getItem('interAdCounter') == '4') {
+            localStorage.setItem('interAdCounter', '5');
+        }
+        else if (localStorage.getItem('interAdCounter') == '5') {
+            this.InterstitialAd();
+            localStorage.setItem('interAdCounter', '1');
+        }
+    }
 };
 AdmobfreeService.ctorParameters = () => [
     { type: _ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_2__["AdMobFree"] },
@@ -2864,105 +2916,6 @@ AdmobfreeService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_2__["AdMobFree"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["Platform"]])
 ], AdmobfreeService);
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/category.service.ts":
-/*!**********************************************!*\
-  !*** ./src/app/services/category.service.ts ***!
-  \**********************************************/
-/*! exports provided: CategoryService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoryService", function() { return CategoryService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
-
-
-
-
-
-
-
-let CategoryService = class CategoryService {
-    constructor(network, http) {
-        this.network = network;
-        this.http = http;
-    }
-    handleError(error) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])('Error! something went wrong.');
-    }
-    //get all cateogries
-    getAll() {
-        const tokenLocalStorage = localStorage.getItem('accessToken');
-        if (tokenLocalStorage) {
-            var base64Url = tokenLocalStorage.split('.')[1];
-            var base64 = base64Url.replace('-', '+').replace('_', '/');
-            var decodedToken = JSON.parse(window.atob(base64));
-            this.loggedInUser = decodedToken.user._id;
-            console.log("Decoded", this.loggedInUser);
-        }
-        return new rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"](observer => {
-            this.http.get(_config__WEBPACK_IMPORTED_MODULE_3__["config"].baseApiUrl + "category").subscribe((result) => {
-                this.categories = result['data'];
-                var prop = ['category', 'categoryId', 'notify'];
-                let offlineArray = JSON.parse(JSON.stringify(this.categories));
-                offlineArray.forEach(element => {
-                    for (var k in element) {
-                        if (prop.indexOf(k) < 0) {
-                            delete element[k];
-                        }
-                    }
-                });
-                localStorage.removeItem('categoryArray');
-                localStorage.setItem('categoryArray', JSON.stringify(offlineArray));
-                if (tokenLocalStorage) {
-                    this.notifyChange();
-                }
-                observer.next(this.categories);
-                observer.complete();
-            }, (error) => {
-                observer.error(error);
-            });
-        });
-    }
-    //append notification key
-    notifyChange() {
-        lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](this.categories, (user) => {
-            lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](user.notify, (Id) => {
-                if (Id == this.loggedInUser) {
-                    console.log("NOTIFIED CATEGORY", Id);
-                    user['isNotify'] = true;
-                }
-            });
-        });
-    }
-    //subcribing category
-    notifyUser(catId) {
-        console.log(catId);
-        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_3__["config"].baseApiUrl + "category-notify", { categoryId: catId });
-    }
-};
-CategoryService.ctorParameters = () => [
-    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"] },
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
-];
-CategoryService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
-], CategoryService);
 
 
 
@@ -3513,6 +3466,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _ionic_native_dialogs_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/dialogs/ngx */ "./node_modules/@ionic-native/dialogs/ngx/index.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+
 
 
 
@@ -3528,7 +3483,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SettingsComponent = class SettingsComponent {
-    constructor(appcomponent, dialogs, _toastService, cd, _generalService, platform, fcm, storage, socialSharing, actionSheetController, _userService, router) {
+    constructor(_admobService, appcomponent, dialogs, _toastService, cd, _generalService, platform, fcm, storage, socialSharing, actionSheetController, _userService, router) {
+        this._admobService = _admobService;
         this.appcomponent = appcomponent;
         this.dialogs = dialogs;
         this._toastService = _toastService;
@@ -3673,6 +3629,7 @@ let SettingsComponent = class SettingsComponent {
         ];
     }
     ionViewWillEnter() {
+        this._admobService.interstitalAdOnFivePageChange();
         this.displayFirstChar();
         if (this.tokenLocalStorage) {
             $(".optionsDiv").addClass("loggedInDiv");
@@ -3803,16 +3760,19 @@ let SettingsComponent = class SettingsComponent {
     }
     //on clicking bookmark button
     routeToBookmark() {
-        if (!localStorage.getItem('acessToken')) {
-            this._toastService.toastFunction('You Need To Login First!', 'danger');
-            this.router.navigateByUrl('/login');
+        let accessToken = localStorage.getItem('accessToken');
+        console.log("got it", accessToken);
+        if (accessToken) {
+            this.router.navigateByUrl('/bookmark');
         }
         else {
-            this.router.navigateByUrl('/bookmark');
+            this._toastService.toastFunction('You Need To Login First!', 'danger');
+            this.router.navigateByUrl('/login');
         }
     }
 };
 SettingsComponent.ctorParameters = () => [
+    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_14__["AdmobfreeService"] },
     { type: _app_component__WEBPACK_IMPORTED_MODULE_13__["AppComponent"] },
     { type: _ionic_native_dialogs_ngx__WEBPACK_IMPORTED_MODULE_12__["Dialogs"] },
     { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"] },
@@ -3832,7 +3792,7 @@ SettingsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./settings.component.html */ "./node_modules/raw-loader/index.js!./src/app/settings/settings.component.html"),
         styles: [__webpack_require__(/*! ./settings.component.scss */ "./src/app/settings/settings.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_component__WEBPACK_IMPORTED_MODULE_13__["AppComponent"], _ionic_native_dialogs_ngx__WEBPACK_IMPORTED_MODULE_12__["Dialogs"], _services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _services_general_service__WEBPACK_IMPORTED_MODULE_8__["GeneralService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_7__["FCM"], _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_5__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"], _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_admobfree_service__WEBPACK_IMPORTED_MODULE_14__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_13__["AppComponent"], _ionic_native_dialogs_ngx__WEBPACK_IMPORTED_MODULE_12__["Dialogs"], _services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"], _services_general_service__WEBPACK_IMPORTED_MODULE_8__["GeneralService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_7__["FCM"], _ionic_storage__WEBPACK_IMPORTED_MODULE_6__["Storage"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_5__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ActionSheetController"], _services_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
 ], SettingsComponent);
 
 
@@ -3867,6 +3827,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../changeLang */ "./src/app/changeLang.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+
 
 
 
@@ -3875,12 +3837,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let TermsAndCondComponent = class TermsAndCondComponent {
-    constructor(appcomponent, platform, _generalService, router) {
+    constructor(_admobService, appcomponent, platform, _generalService, router) {
+        this._admobService = _admobService;
         this.appcomponent = appcomponent;
         this.platform = platform;
         this._generalService = _generalService;
         this.router = router;
         this.termsTitle = _changeLang__WEBPACK_IMPORTED_MODULE_5__["termsTitle"];
+    }
+    ionViewWillEnter() {
+        this._admobService.interstitalAdOnFivePageChange();
     }
     ngOnInit() {
         this.language = localStorage.getItem('language');
@@ -3914,6 +3880,7 @@ let TermsAndCondComponent = class TermsAndCondComponent {
     }
 };
 TermsAndCondComponent.ctorParameters = () => [
+    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_7__["AdmobfreeService"] },
     { type: _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"] },
     { type: _services_general_service__WEBPACK_IMPORTED_MODULE_2__["GeneralService"] },
@@ -3925,7 +3892,7 @@ TermsAndCondComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./terms-and-cond.component.html */ "./node_modules/raw-loader/index.js!./src/app/terms-and-cond/terms-and-cond.component.html"),
         styles: [__webpack_require__(/*! ./terms-and-cond.component.scss */ "./src/app/terms-and-cond/terms-and-cond.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"], _services_general_service__WEBPACK_IMPORTED_MODULE_2__["GeneralService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_admobfree_service__WEBPACK_IMPORTED_MODULE_7__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"], _services_general_service__WEBPACK_IMPORTED_MODULE_2__["GeneralService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
 ], TermsAndCondComponent);
 
 

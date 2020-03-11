@@ -2535,7 +2535,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div\n  [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n  class=\"container\"\n  (click)=\"singleCategory(category.categoryId,category.category[language])\"\n>\n  <img\n    src=\"{{mediaPath}}{{category.categoryImage}}\"\n    data-src=\"../../assets/images/placeholder.png'\"\n    onerror=\"this.src='../../assets/images/placeholder.png'\"\n    alt=\"Category Image\"\n    style=\"width:100%;\"\n  />\n</div>\n<div class=\"text-block\">\n  <div\n    *ngIf=\"!category.isNotify && (firstTime && !skip) && index == 0\"\n    class=\"tourText\"\n  >\n    {{tourCategory[language]}}\n  </div>\n  <div class=\"\">\n    <div\n      class=\"category_title\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n    >\n      <p\n        *ngIf=\"language != 'as'\"\n        (click)=\"singleCategory(category.categoryId,category.category[language])\"\n      >\n        {{category.category[language] | slice:0:30}}\n      </p>\n      <p\n        *ngIf=\"language == 'as'\"\n        class=\"assameseFont\"\n        (click)=\"singleCategory(category.categoryId,category.category[language])\"\n      >\n        {{category.category[language] | slice:0:30}}\n      </p>\n    </div>\n    <!-- <p class=\"postCount\">{{category.countPost}} Posts</p> -->\n    <button\n      *ngIf=\"!category.isNotify && (!firstTime || skip)\"\n      class=\"notSubscribed\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button\n      *ngIf=\"!category.isNotify && (firstTime && !skip) && index == 0\"\n      class=\"notSubscribed firstTimeButton\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      <div class=\"ripple_effect\"></div>\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button\n      *ngIf=\"!category.isNotify && (firstTime && !skip) && index != 0\"\n      class=\"notSubscribed notFirstTime\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button\n      *ngIf=\"category.isNotify\"\n      class=\"subscribed\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      Subscribed\n    </button>\n  </div>\n</div>\n\n<div id=\"open-modal\" class=\"modal-window\" *ngIf=\"modal && index == 0\">\n  <div>\n    <div class=\"img_border\">\n      <img\n        src=\"../../assets/images/notificationNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 0 || !sliderIndex\"\n      />\n      <img\n        src=\"../../assets/images/share.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 1\"\n      />\n      <img\n        src=\"../../assets/images/bookmarkNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 2\"\n      />\n    </div>\n    <ion-slides pager (ionSlideWillChange)=\"slideDidChange()\">\n      <ion-slide>\n        <div></div>\n        <h3>{{modalNotificationTitle[language]}}</h3>\n        <p>{{modalNotificationText[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{sharePostModal[language]}}</h3>\n        <p>{{sharePostModalContent[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{modalBookmarkTitle[language]}}</h3>\n        <p>{{modalBookmarkText[language]}}</p>\n      </ion-slide>\n    </ion-slides>\n    <div>\n      <button class=\"signupButton\" (click)=\"next()\">\n        <div class=\"ripple_effect\" *ngIf=\"!skip\"></div>\n        {{nextButton[language]}}\n      </button>\n      <!-- <div class=\"tourText tourTextModal\" *ngIf=\"!skip\">\n        {{proceedTour[language]}}\n      </div> -->\n    </div>\n  </div>\n</div>\n<div id=\"open-modal\" class=\"modal-window\" *ngIf=\"modalSkip\">\n  <div>\n    <div class=\"img_border\">\n      <img\n        src=\"../../assets/images/notificationNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 0 || !sliderIndex\"\n      />\n      <img\n        src=\"../../assets/images/share.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 1\"\n      />\n      <img\n        src=\"../../assets/images/bookmarkNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 2\"\n      />\n    </div>\n    <ion-slides pager (ionSlideWillChange)=\"slideDidChange()\">\n      <ion-slide>\n        <div></div>\n        <h3>{{modalNotificationTitle[language]}}</h3>\n        <p>{{modalNotificationText[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{sharePostModal[language]}}</h3>\n        <p>{{sharePostModalContent[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{modalBookmarkTitle[language]}}</h3>\n        <p>{{modalBookmarkText[language]}}</p>\n      </ion-slide>\n    </ion-slides>\n    <div>\n      <button class=\"signupButton\" (click)=\"nextSkip()\">\n        <div class=\"ripple_effect\" *ngIf=\"!skip\"></div>\n        {{nextButton[language]}}\n      </button>\n      <div class=\"tourText tourTextModal\" *ngIf=\"!skip\">\n        {{proceedTour[language]}}\n      </div>\n    </div>\n  </div>\n</div>"
+module.exports = "<div\n  [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n  class=\"container\"\n  (click)=\"singleCategory(category.categoryId,category.category[language])\"\n>\n  <img\n    src=\"{{mediaPath}}{{category.categoryImage}}\"\n    data-src=\"../../assets/images/placeholder.png'\"\n    onerror=\"this.src='../../assets/images/placeholder.png'\"\n    alt=\"Category Image\"\n    style=\"width:100%;\"\n  />\n</div>\n<div class=\"text-block\">\n  <div\n    *ngIf=\"!category.isNotify && (firstTime && !skip) && index == 0\"\n    class=\"tourText\"\n  >\n    {{tourCategory[language]}}\n  </div>\n  <div class=\"\">\n    <div\n      class=\"category_title\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n    >\n      <p\n        [ngClass]=\"{'assameseFont': language == 'as'}\"\n        (click)=\"singleCategory(category.categoryId,category.category[language])\"\n      >\n        {{category.category[language] | slice:0:30}}\n      </p>\n    </div>\n    <button\n      *ngIf=\"!category.isNotify && (!firstTime || skip)\"\n      class=\"notSubscribed\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button\n      *ngIf=\"!category.isNotify && (firstTime && !skip) && index == 0\"\n      class=\"notSubscribed firstTimeButton\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      <div class=\"ripple_effect\"></div>\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button\n      *ngIf=\"!category.isNotify && (firstTime && !skip) && index != 0\"\n      class=\"notSubscribed notFirstTime\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button\n      *ngIf=\"category.isNotify\"\n      class=\"subscribed\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      Subscribed\n    </button>\n  </div>\n</div>\n\n<div id=\"open-modal\" class=\"modal-window\" *ngIf=\"modal && index == 0\">\n  <div>\n    <div class=\"img_border\">\n      <img\n        src=\"../../assets/images/notificationNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 0 || !sliderIndex\"\n      />\n      <img\n        src=\"../../assets/images/share.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 1\"\n      />\n      <img\n        src=\"../../assets/images/bookmarkNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 2\"\n      />\n    </div>\n    <ion-slides pager (ionSlideWillChange)=\"slideDidChange()\">\n      <ion-slide>\n        <div></div>\n        <h3>{{modalNotificationTitle[language]}}</h3>\n        <p>{{modalNotificationText[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{sharePostModal[language]}}</h3>\n        <p>{{sharePostModalContent[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{modalBookmarkTitle[language]}}</h3>\n        <p>{{modalBookmarkText[language]}}</p>\n      </ion-slide>\n    </ion-slides>\n    <div>\n      <button class=\"signupButton\" (click)=\"next()\">\n        <div class=\"ripple_effect\" *ngIf=\"!skip\"></div>\n        {{nextButton[language]}}\n      </button>\n    </div>\n  </div>\n</div>\n<div id=\"open-modal\" class=\"modal-window\" *ngIf=\"modalSkip\">\n  <div>\n    <div class=\"img_border\">\n      <img\n        src=\"../../assets/images/notificationNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 0 || !sliderIndex\"\n      />\n      <img\n        src=\"../../assets/images/share.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 1\"\n      />\n      <img\n        src=\"../../assets/images/bookmarkNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 2\"\n      />\n    </div>\n    <ion-slides pager (ionSlideWillChange)=\"slideDidChange()\">\n      <ion-slide>\n        <div></div>\n        <h3>{{modalNotificationTitle[language]}}</h3>\n        <p>{{modalNotificationText[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{sharePostModal[language]}}</h3>\n        <p>{{sharePostModalContent[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{modalBookmarkTitle[language]}}</h3>\n        <p>{{modalBookmarkText[language]}}</p>\n      </ion-slide>\n    </ion-slides>\n    <div>\n      <button class=\"signupButton\" (click)=\"nextSkip()\">\n        <div class=\"ripple_effect\" *ngIf=\"!skip\"></div>\n        {{nextButton[language]}}\n      </button>\n      <div class=\"tourText tourTextModal\" *ngIf=\"!skip\">\n        {{proceedTour[language]}}\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -2930,6 +2930,105 @@ CategoryTilesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _services_category_service__WEBPACK_IMPORTED_MODULE_4__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
 ], CategoryTilesPage);
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/category.service.ts":
+/*!**********************************************!*\
+  !*** ./src/app/services/category.service.ts ***!
+  \**********************************************/
+/*! exports provided: CategoryService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoryService", function() { return CategoryService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
+
+
+
+
+
+
+
+let CategoryService = class CategoryService {
+    constructor(network, http) {
+        this.network = network;
+        this.http = http;
+    }
+    handleError(error) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])('Error! something went wrong.');
+    }
+    //get all cateogries
+    getAll() {
+        const tokenLocalStorage = localStorage.getItem('accessToken');
+        if (tokenLocalStorage) {
+            var base64Url = tokenLocalStorage.split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+            var decodedToken = JSON.parse(window.atob(base64));
+            this.loggedInUser = decodedToken.user._id;
+            console.log("Decoded", this.loggedInUser);
+        }
+        return new rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"](observer => {
+            this.http.get(_config__WEBPACK_IMPORTED_MODULE_3__["config"].baseApiUrl + "category").subscribe((result) => {
+                this.categories = result['data'];
+                var prop = ['category', 'categoryId', 'notify'];
+                let offlineArray = JSON.parse(JSON.stringify(this.categories));
+                offlineArray.forEach(element => {
+                    for (var k in element) {
+                        if (prop.indexOf(k) < 0) {
+                            delete element[k];
+                        }
+                    }
+                });
+                localStorage.removeItem('categoryArray');
+                localStorage.setItem('categoryArray', JSON.stringify(offlineArray));
+                if (tokenLocalStorage) {
+                    this.notifyChange();
+                }
+                observer.next(this.categories);
+                observer.complete();
+            }, (error) => {
+                observer.error(error);
+            });
+        });
+    }
+    //append notification key
+    notifyChange() {
+        lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](this.categories, (user) => {
+            lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](user.notify, (Id) => {
+                if (Id == this.loggedInUser) {
+                    console.log("NOTIFIED CATEGORY", Id);
+                    user['isNotify'] = true;
+                }
+            });
+        });
+    }
+    //subcribing category
+    notifyUser(catId) {
+        console.log(catId);
+        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_3__["config"].baseApiUrl + "category-notify", { categoryId: catId });
+    }
+};
+CategoryService.ctorParameters = () => [
+    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"] },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+];
+CategoryService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+], CategoryService);
 
 
 

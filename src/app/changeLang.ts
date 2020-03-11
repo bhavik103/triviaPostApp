@@ -266,13 +266,13 @@ export const andText = {
 export const modalSignupButton = {
 	en: 'Sign Up',
 	hn: 'साइन अप',
-	as: 'নিবন্ধন করুন',
+	as: 'চাইন আপ',
 	bn: 'নিবন্ধন করুন'
 }
 export const modalSkipButton = {
 	en: 'Click to skip',
 	hn: 'स्किप के लिए क्लिक करें',
-	as: 'এড়িয়ে যেতে ক্লিক করুন',
+	as: 'এৰি দিয়ক',
 	bn: 'এড়িয়ে যেতে ক্লিক করুন'
 }
 export const rateNowButton = {

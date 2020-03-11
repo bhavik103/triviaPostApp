@@ -12,6 +12,7 @@ import { ToastService } from '../services/toast.service';
 import { Network } from '@ionic-native/network/ngx';
 import { bookmark } from '../changeLang';
 import { AppComponent } from '../app.component'
+import { AdmobfreeService } from '../services/admobfree.service';
 
 @Component({
   selector: 'app-bookmark',
@@ -31,8 +32,9 @@ export class BookmarkPage implements OnInit {
   hide;
   noNews;
   bookmarkTitle = bookmark;
+  wrongStatus: any;
 
-  constructor(private appcomponent: AppComponent, private network: Network, private _toastService: ToastService, private platform: Platform, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router) { }
+  constructor(private _admobService: AdmobfreeService, private appcomponent: AppComponent, private network: Network, private _toastService: ToastService, private platform: Platform, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router) { }
 
   ngOnInit() {
     this.platform.backButton.subscribe(async () => {
@@ -48,6 +50,7 @@ export class BookmarkPage implements OnInit {
     console.log('newsId=', newsId)
   }
   ionViewWillEnter() {
+    this._admobService.interstitalAdOnFivePageChange()
     this.bookmarkedNews();
     // // Check Internet conectivity
     var offline = Observable.fromEvent(document, "offline");
@@ -109,8 +112,12 @@ export class BookmarkPage implements OnInit {
   }
 
   getSingleBookmark(id) {
-    console.log("bookmark id", id)
-    this.router.navigate(['single-post/' + id + '/bookmark']);
+    if (this.wrongStatus) {
+      this.wrongStatus = false
+    } else {
+      console.log("bookmark id", id)
+      this.router.navigate(['single-post/' + id + '/bookmark']);
+    }
   }
   categoryClick(catId, catName) {
     this.router.navigateByUrl('/single-category/' + catId + '/' + catName);

@@ -19,6 +19,7 @@ import { GeneralService } from './services/general.service';
 declare var $: any;
 import { rateTitle, rateText, rateNowButton, rateNoThanksButton, rateRemindButton } from './changeLang';
 import { Market } from '@ionic-native/market/ngx';
+import { AdmobfreeService } from './services/admobfree.service';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 @Component({
   selector: 'app-root',
@@ -70,8 +71,10 @@ export class AppComponent {
     private fcm: FCM,
     private router: Router,
     protected deeplinks: Deeplinks,
-    public events: Events
+    public events: Events,
+    private _admobService: AdmobfreeService
   ) {
+    this.initializeApp();
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     const firstDate: any = new Date();
     const secondDate: any = JSON.parse(localStorage.getItem('ratingModalDate'))
@@ -94,13 +97,6 @@ export class AppComponent {
       }, 5 * 60 * 1000);
     }
     this.skip = localStorage.getItem('skip')
-    // if(!this.skip){
-    //   this.showLoader = true;
-    //   setTimeout(() => {
-    //   this.showLoader = false;
-    //   }, 2000);
-    // }
-
     if (localStorage.getItem('skip') != '1') {
       setTimeout(() => {
         localStorage.setItem('ratingModalDate', JSON.stringify(new Date()))
@@ -182,12 +178,17 @@ export class AppComponent {
     if (!localStorage.getItem('notification')) {
       localStorage.setItem('notification', "true");
     }
-    this.initializeApp();
+    this.platform.ready().then(() => {
+      console.log("INSIDE PLATFORM READY")
+      this._admobService.BannerAd();
+    })
   }
 
   initializeApp() {
     const handleBranch = () => {
       this.platform.ready().then(() => {
+        console.log("INSIDE PLATFORM READY")
+        this._admobService.BannerAd();
         this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
           var postId = res.deepLink.split('?')[1].split('=')[1];
           this.router.navigate(['single-post/' + postId]);

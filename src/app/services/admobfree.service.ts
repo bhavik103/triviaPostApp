@@ -43,8 +43,7 @@ export class AdmobfreeService {
   BannerAd() {
     let bannerConfig: AdMobFreeBannerConfig = {
       isTesting: true, // Remove in production
-      autoShow: true,
-      size: 'SMART_BANNER', 
+      autoShow: true, 
       // id: "ca-app-pub-4273722207594594/7353027940"
     };
     this.admobFree.banner.config(bannerConfig);
@@ -78,5 +77,23 @@ export class AdmobfreeService {
     this.admobFree.rewardVideo.prepare().then(() => {
       // success
     }).catch(e => alert(e));
+  }
+
+  interstitalAdOnFivePageChange(){
+    if(!localStorage.getItem('interAdCounter')){
+      localStorage.setItem('interAdCounter','1')
+    }else if(localStorage.getItem('interAdCounter') == '1'){
+      localStorage.setItem('interAdCounter','2')
+    }else if(localStorage.getItem('interAdCounter') == '2'){
+      localStorage.setItem('interAdCounter','3')
+    }else if(localStorage.getItem('interAdCounter') == '3'){
+      localStorage.setItem('interAdCounter','4')
+    }else if(localStorage.getItem('interAdCounter') == '4'){
+      localStorage.setItem('interAdCounter','5');
+    }else if(localStorage.getItem('interAdCounter') == '5'){
+      this.InterstitialAd();
+      localStorage.setItem('interAdCounter','1');
+    }
+
   }
 }

@@ -287,6 +287,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/general.service */ "./src/app/services/general.service.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+
 
 
 
@@ -299,7 +301,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SingleCategoryPage = class SingleCategoryPage {
-    constructor(appcomponent, alertController, ngzone, platform, _generalService, network, _toastService, _newsService, route, router) {
+    constructor(_admobService, appcomponent, alertController, ngzone, platform, _generalService, network, _toastService, _newsService, route, router) {
+        this._admobService = _admobService;
         this.appcomponent = appcomponent;
         this.alertController = alertController;
         this.ngzone = ngzone;
@@ -320,6 +323,7 @@ let SingleCategoryPage = class SingleCategoryPage {
         this.catName = this.route.snapshot.params['cat'];
     }
     ionViewWillEnter() {
+        this._admobService.interstitalAdOnFivePageChange();
         if (localStorage.getItem('skip')) {
             this.skip = localStorage.getItem('skip');
             this.firstLargePostClick = localStorage.getItem('firstLargePostClick');
@@ -370,6 +374,7 @@ let SingleCategoryPage = class SingleCategoryPage {
     }
 };
 SingleCategoryPage.ctorParameters = () => [
+    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_10__["AdmobfreeService"] },
     { type: _app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["AlertController"] },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"] },
@@ -387,7 +392,7 @@ SingleCategoryPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./single-category.page.html */ "./node_modules/raw-loader/index.js!./src/app/single-category/single-category.page.html"),
         styles: [__webpack_require__(/*! ./single-category.page.scss */ "./src/app/single-category/single-category.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["AlertController"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _services_general_service__WEBPACK_IMPORTED_MODULE_7__["GeneralService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"], _services_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_admobfree_service__WEBPACK_IMPORTED_MODULE_10__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["AlertController"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _services_general_service__WEBPACK_IMPORTED_MODULE_7__["GeneralService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"], _services_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
 ], SingleCategoryPage);
 
 

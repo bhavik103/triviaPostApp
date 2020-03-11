@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import {termsTitle} from '../changeLang'
 import { AppComponent } from '../app.component'
+import { AdmobfreeService } from '../services/admobfree.service';
 
 @Component({
 	selector: 'app-terms-and-cond',
@@ -16,9 +17,12 @@ export class TermsAndCondComponent implements OnInit {
 	loading: any;
 	termsTitle = termsTitle;
 	language: any;
-	constructor(public appcomponent: AppComponent,private platform: Platform, public _generalService: GeneralService, private router: Router) {
+	constructor(private _admobService: AdmobfreeService,public appcomponent: AppComponent,private platform: Platform, public _generalService: GeneralService, private router: Router) {
 	}
 
+	ionViewWillEnter(){
+		this._admobService.interstitalAdOnFivePageChange()
+	}
 	ngOnInit() {
 		this.language = localStorage.getItem('language');
 		this.platform.backButton.subscribe(async () => {

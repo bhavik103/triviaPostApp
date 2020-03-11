@@ -22,7 +22,6 @@ export class LargePostPage implements OnInit {
   tourReadPost = tourReadPost;
   tourCatPost = tourCatPost;
   tourSkip = tourSkip;
-  modal: boolean;
   constructor(private _toastService: ToastService, private router: Router) {
   }
 
@@ -58,10 +57,6 @@ export class LargePostPage implements OnInit {
   }
 
   singleNews(postid) {
-    // if (!localStorage.getItem('skip')) {
-    //   this.modal = true;
-    // } else {
-    // localStorage.setItem('skip', '1')
     this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
     this.visitedArray.push(postid);
     localStorage.setItem('isVisited', JSON.stringify(this.visitedArray))
@@ -71,7 +66,6 @@ export class LargePostPage implements OnInit {
       }
       else {
         localStorage.setItem('firstLargePostClick', '1')
-        this.firstLargePostClick = '1';
         this.router.navigateByUrl('/single-post/' + postid);
       }
     } else {

@@ -36,14 +36,26 @@
             <span
               class="optionsList"
               *ngIf="language != 'as'"
-              [innerHTML]="news[language].title | slice:0:55"
+              [innerHTML]="news[language].title"
             ></span>
             <span
               class="optionsList assameseFont"
               *ngIf="language == 'as'"
-              [innerHTML]="news[language].title | slice:0:35"
+              [innerHTML]="news[language].title"
             ></span>
-            <span *ngIf="news[language].title.length >= 55">...</span>
+            <span
+            class="categoryButton assameseFont"
+            *ngIf="news.newsCategory[language]"
+            [ngClass]="{'assameseFont': language == 'as'}"
+            (click)="categoryClick(news.newsCategoryId,news.newsCategory[language]);wrongStatus = true"
+            >{{news.newsCategory[language]}}</span
+          >
+          <span
+            class="categoryButton"
+            *ngIf="!news.newsCategory[language]"
+            (click)="categoryClick(news.newsCategoryId,news.newsCategory.en);wrongStatus = true"
+            >{{news.newsCategory.en}}</span
+          >
           </div>
         </ion-col>
       </ion-item>

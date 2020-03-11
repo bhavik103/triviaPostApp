@@ -12,7 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
 import { AppComponent } from '../app.component'
-import { modalSignupButton, clickShare, clickBookmark, modalSkipButton, language, sharePostModalContent, sharePostModal, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
+import {nextButton, modalSignupButton, clickShare, clickBookmark, modalSkipButton, language, sharePostModalContent, sharePostModal, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
 import { AdmobfreeService } from '../services/admobfree.service'
 import {
   AdMobFree,
@@ -49,14 +49,16 @@ export class SinglePostPage implements OnInit {
   clickBookmark = clickBookmark;
   tourCategory = tourCategory;
   modalSkipButton = modalSkipButton;
-  modalBookmarkTitle = modalBookmarkTitle
-  modalBookmarkText = modalBookmarkText
-  sharePostModal = sharePostModal
+  modalBookmarkTitle = modalBookmarkTitle;
+  modalBookmarkText = modalBookmarkText;
+  sharePostModal = sharePostModal;
+  next = nextButton;
   sharePostModalContent = sharePostModalContent;
   shareModal: boolean;
   bookmarkFlag: string;
   shareFlag: string;
   skipClick: any;
+  byPassedNewsEn: any;
   constructor(private admobFree: AdMobFree, public _admobService: AdmobfreeService, public appcomponent: AppComponent, private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
@@ -69,15 +71,15 @@ export class SinglePostPage implements OnInit {
   }
   ionViewWillLeave() {
     this.showRateModal = true;
-    this.admobFree.banner.hide();
   }
   ionViewDidEnter() {
     if (localStorage.getItem('skip')) {
-      this._admobService.BannerAd();
+      // this._admobService.BannerAd();
     }
   }
   ionViewWillEnter() {
-    if(localStorage.getItem('bookmarkFlag') && localStorage.getItem('shareFlag') && !localStorage.getItem('catModal')){
+    this._admobService.interstitalAdOnFivePageChange()
+    if (localStorage.getItem('bookmarkFlag') && localStorage.getItem('shareFlag') && !localStorage.getItem('catModal')) {
       this.router.navigateByUrl('/all-categories')
     }
     this.bookmarkFlag = localStorage.getItem('bookmarkFlag')
@@ -168,18 +170,21 @@ export class SinglePostPage implements OnInit {
       this.news = JSON.parse(JSON.stringify(res[0]));
       this.singlepost.splice(0, 1);
       this.loading = false;
-      console.log("SINGLE POST", this.news)
       this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news[this.language].content);
       this.byPassedNews = this.byPassedNews.changingThisBreaksApplicationSecurity;
-      console.log('this.byPassedNews', res)
+
+      if (this.language != 'en') {
+        this.byPassedNewsEn = this.domSanitizer.bypassSecurityTrustHtml(this.news.en.content);
+        this.byPassedNewsEn = this.byPassedNewsEn.changingThisBreaksApplicationSecurity;
+      }
       if (this.platform.is('cordova')) {
         this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.news[this.language].title }).then(res => {
-          // console.log("Post Tracked", this.news[this.language].title)
         })
       }
     });
   }
-  //  Do Share Post 
+  
+  //  Do Share Post
   sharePost(link, newsTitle, newsImage, flag) {
     if (!localStorage.getItem('shareFlag') || !localStorage.getItem('accessToken') || flag) {
       this.shareModal = true;
@@ -192,8 +197,6 @@ export class SinglePostPage implements OnInit {
       localStorage.setItem('skip', '1')
       var message = "Check out this amazing news " + '"' + newsTitle + '" ';
       var subject = "Trivia Post";
-      var str = newsTitle;
-      var file = this.mediaPath + newsImage;
       var url = link;
       this.socialSharing.share(url, subject, null, message)
         .then((entries) => {

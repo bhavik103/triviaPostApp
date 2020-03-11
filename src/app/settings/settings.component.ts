@@ -11,6 +11,7 @@ import { optionsTitle,savePref, category, signInText, signIn, orUsing, langSelec
 import 'jquery';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { AppComponent } from '../app.component'
+import { AdmobfreeService } from '../services/admobfree.service';
 
 @Component({
 	selector: 'app-settings',
@@ -162,10 +163,11 @@ export class SettingsComponent implements OnInit {
 			}
 		}
 	];
-	constructor(public appcomponent: AppComponent,private dialogs: Dialogs, private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
+	constructor(private _admobService: AdmobfreeService,public appcomponent: AppComponent,private dialogs: Dialogs, private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
 	}
 
 	ionViewWillEnter() {
+		this._admobService.interstitalAdOnFivePageChange()
 		this.displayFirstChar();
 		if (this.tokenLocalStorage) {
 			$(".optionsDiv").addClass("loggedInDiv");
@@ -306,11 +308,13 @@ export class SettingsComponent implements OnInit {
 
 	//on clicking bookmark button
 	routeToBookmark(){
-		if(!localStorage.getItem('acessToken')){
+		let accessToken = localStorage.getItem('accessToken')
+		console.log("got it",accessToken)
+		if(accessToken){
+			this.router.navigateByUrl('/bookmark')
+		}else{
 			this._toastService.toastFunction('You Need To Login First!','danger');
 			this.router.navigateByUrl('/login')
-		}else{
-			this.router.navigateByUrl('/bookmark')
 		}
 	}
 }
