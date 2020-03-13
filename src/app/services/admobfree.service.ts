@@ -91,9 +91,10 @@ export class AdmobfreeService {
     }else if(localStorage.getItem('interAdCounter') == '4'){
       localStorage.setItem('interAdCounter','5');
     }else if(localStorage.getItem('interAdCounter') == '5'){
-      this.InterstitialAd();
+      if(this.platform.is('cordova')){
+        this.InterstitialAd();
+      }
       localStorage.setItem('interAdCounter','1');
     }
-
   }
 }

@@ -23,6 +23,7 @@ import { AdmobfreeService } from '../services/admobfree.service';
 import {
     AdMobFree
 } from '@ionic-native/admob-free/ngx';
+
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -90,6 +91,7 @@ export class HomePage implements OnInit {
     myloader: boolean;
     showTourConfirm: boolean;
     smallLoading: boolean;
+    iframe: any;
     constructor(private admobFree: AdMobFree, private _admobService: AdmobfreeService, private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, private router: Router, public keyboard: Keyboard) {
     }
 
@@ -165,52 +167,58 @@ export class HomePage implements OnInit {
 
     //get all news - HOME PAGE ( FEEDS )
     async getAllPost() {
-        if (localStorage.getItem('skip')) {
-            // this._admobService.BannerAd();
-        }
         this.newsArray = []
         this.latestPost = [];
         localStorage.setItem('firstTimeLoaded', 'true');
 
         this.smallLoading = true;
         this.language = localStorage.getItem('language');
-        if (navigator.onLine) {
-            this._newsService.getAllNews().subscribe(
-                (res: any) => {
-                    this.newsArray = res;
-                    this.latestPost = res[0];
-                    if (localStorage.getItem('firstLargePostClick') && [!localStorage.getItem('bookmarkFlag') || localStorage.getItem('shareFlag')] && !localStorage.getItem('skip')) {
-                        this.router.navigateByUrl('/single-post/' + this.latestPost.newsId);
-                    }
-                    console.log('this.latestPost', this.latestPost)
-                    this.newsArray.splice(0, 1);
-                    if (!localStorage.getItem('skip')) {
-                    }
-                    $('.newsFeedBlock').hide();
+        if (!localStorage.getItem('newsArray') || localStorage.getItem('skip') || localStorage.getItem('firstLargePostClick')) {
+            if (navigator.onLine) {
+                this._newsService.getAllNews().subscribe(
+                    (res: any) => {
+                        this.newsArray = res;
+                        this.latestPost = res[0];
+                        if (localStorage.getItem('firstLargePostClick') && [!localStorage.getItem('bookmarkFlag') || localStorage.getItem('shareFlag')] && !localStorage.getItem('skip')) {
+                            this.router.navigateByUrl('/single-post/' + this.latestPost.newsId);
+                        }
+                        console.log('this.latestPost', this.latestPost)
+                        this.newsArray.splice(0, 1);
+                        if (!localStorage.getItem('skip')) {
+                        }
+                        $('.newsFeedBlock').hide();
 
-                    if (!this.skip) {
-                        $('.newsFeedBlock').show();
-                        setTimeout(() => {
+                        if (!this.skip) {
+                            console.log(new Date())
+                            $('.newsFeedBlock').show();
+                            setTimeout(() => {
+                                this.smallLoading = false;
+                                this.loading = false
+                            }, 1500);
+                        } else {
                             this.smallLoading = false;
                             this.loading = false
-                        }, 1500);
-                    } else {
-                        this.smallLoading = false;
-                        this.loading = false
-                        $('.newsFeedBlock').show();
-                    }
-                    this.checkForRating();
-                },
-                (err) => {
-                    this.newsArray = localStorage.newsArray;
-                });
+                            $('.newsFeedBlock').show();
+                        }
+                        this.checkForRating();
+                    },
+                    (err) => {
+                        this.newsArray = localStorage.newsArray;
+                    });
+            } else {
+                this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
+                this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
+                this.newsArray.splice(0, 1)
+            }
         } else {
+            setTimeout(() => {
+                this.smallLoading = false;
+            }, 2000);
             this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
             this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
             this.newsArray.splice(0, 1)
         }
     }
-
     checkForRating() {
         if (localStorage.getItem('isRated') != 'true' || localStorage.getItem('isRated') == 'pending') {
             this.showRateModal = true;
@@ -346,8 +354,12 @@ export class HomePage implements OnInit {
     startTourFunction() {
         this.showTourConfirm = false;
         $('.loadingContent').removeClass('showDifferentLoader')
-        this.loading = false;
+        // this.smallLoading = true
         this.startTour = true;
+        // setTimeout(() => {
+        // this.smallLoading = false;
+        // }, 1000);
+        this.loading = false
     }
 
     skipTourFunction() {

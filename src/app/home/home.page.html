@@ -36,7 +36,7 @@
     </span>
   </div>
 </div>
-<ion-content *ngIf="!language && startTour && !loading">
+<ion-content *ngIf="!language && startTour">
   <div
     class="languageSelect"
     style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;"
@@ -143,28 +143,35 @@
     <button class="contButton" (click)="selectLangSkip()">Continue</button>
   </div>
 </ion-content>
+
 <ion-content
-  *ngIf="!smallLoading && [(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && language && newsArray"
+  *ngIf="language && newsArray"
   [ngClass]="{'disableScroll': !skip && !catModalShow}"
   class="newsFeedBlock"
 >
-  <ion-row
-    class="feeds"
-    style="min-width: 100%;"
-    *ngIf="latestPost && newsArray && !smallLoading"
-  >
+  <ion-row class="feeds" style="min-width: 100%;" *ngIf="!smallLoading">
     <app-large-post
-      style="min-width: 100%;color: red!important;"
       [news]="latestPost"
       [language]="language"
       [skip]="skip"
-      *ngIf="latestPost && newsArray && !smallLoading"
     ></app-large-post>
-    <span *ngFor="let news of newsArray" class="newsTiles">
-      <app-post-tiles [news]="news" [language]="language"></app-post-tiles>
+    <span *ngFor="let news of newsArray;let i = index" class="newsTiles">
+      <app-post-tiles
+        [news]="news"
+        [language]="language"
+        [index]="i"
+      ></app-post-tiles>
     </span>
   </ion-row>
+  <span class="loadingContent" *ngIf="smallLoading">
+    <img
+      src="../../assets/images/simpleLoader.gif"
+      alt=""
+      class="smallLoading"
+    />
+  </span>
 </ion-content>
+<!-- <ion-content class="loadingContent" *ngIf="smallLoading"> </ion-content> -->
 <div class="no-news-text" *ngIf="isTextVisible">
   <span>{{text}}</span>
 </div>
@@ -205,12 +212,3 @@
     />
   </div>
 </ion-content>
-<ion-content
-  *ngIf="smallLoading || myloader"
-  class="simpleLoader"
-></ion-content>
-<!-- <ion-content
-  *ngIf="language && catSelect == '0' && skip != '1' && catLoading"
-  class="loadingContent"
->
-</ion-content> -->

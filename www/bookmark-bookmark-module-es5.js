@@ -347,16 +347,21 @@ var BookmarkPage = /** @class */ (function () {
         }
     };
     BookmarkPage.prototype.shareBookmarked = function (newsImage, link, title) {
-        var message = "Check out this amazing news " + '"' + title + '" ';
-        var subject = "Trivia Post";
-        var url = link;
-        // var file = this.mediaPath + newsImage;
-        this.socialSharing.share(message, subject, null, url)
-            .then(function (entries) {
-            console.log('success ' + JSON.stringify(entries));
-        })
-            .catch(function (error) {
-        });
+        if (localStorage.getItem('accessToken')) {
+            var message = "Check out this amazing news " + '"' + title + '" ';
+            var subject = "Trivia Post";
+            var url = link;
+            // var file = this.mediaPath + newsImage;
+            this.socialSharing.share(message, subject, null, url)
+                .then(function (entries) {
+                console.log('success ' + JSON.stringify(entries));
+            })
+                .catch(function (error) {
+            });
+        }
+        else {
+            this._toastService.toastFunction('You need to login first!', 'danger');
+        }
     };
     BookmarkPage.prototype.getSingleBookmark = function (id) {
         if (this.wrongStatus) {

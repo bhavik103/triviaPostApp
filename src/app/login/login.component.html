@@ -1,76 +1,120 @@
 <ion-content class="background" (swiperight)="goBack()">
-    <!-- <img src="assets/images/left-arrow.png" alt="" id="backButton" routerLink="/login" (click)="goBack()"> -->
-    <div class="componentMainDiv">
-        <div class="header">
-            <img src="assets/images/Logo.png" height="auto" width="30%">
-            <div>Just Read & Share</div>
-        </div>
-        <form [formGroup]="loginForm" padding class="loginForm">
-            <button class="googleLogin" (click)="doGoogleLogin()" [disabled]="isDisabled">
-                <span class="socialIcon">
-                    <img src="assets/images/google.png" alt="" height="26px">
-                </span>
-                <span class="socialCenter">Sign in with Google</span>
-                <span class="loginSpinner" *ngIf="googleSpinner"><img src="../../assets/images/loginSpinner.gif" width="32px" alt=""></span>
-            </button>
-            <button class="facebookLogin" (click)="doFbLogin()" [disabled]="isDisabled">
-                <span class="socialIcon">
-                        <img src="assets/images/facebook.png" alt="" height="26px">
-                </span>
-                <span class="socialCenter">Sign in with Facebook</span>
-                <span class="loginSpinner" *ngIf="facebookSpinner"><img src="../../assets/images/loginSpinner.gif" width="32px" alt=""></span>
-            </button>
-            <button class="signupModalButton" [disabled]="isDisabled">
-                <span class="socialIcon">
-                    <ion-icon name="person"></ion-icon>
-                </span>
-                <span class="socialCenter"><label for="signupModal" class="open">Sign up</label></span>
-            </button>
-            <h2 class="otherLoginBreak"><span> OR </span></h2>
-        </form>
-        <div class="pop">
-            <input type="checkbox" id="signupModal" class="checkBox" />
-            <div class="modal signUp">
-                <div class="modal__inner">
-                    <p style="text-align: center;"><i id="signupHead">Sign Up</i></p>
-                    <form [formGroup]="signupForm">
-                        <div class="signup_input">
-                            <ion-icon name="person"></ion-icon>
-                            <input type="text" name="" placeholder="Username" formControlName="userName"
-                                [(ngModel)]="user.userName">
-                        </div>
-                        <div class="signup_input">
-                            <ion-icon name="mail"></ion-icon>
-                            <input type="text" name="" placeholder="Email Address" formControlName="email"
-                                [(ngModel)]="user.email">
-                        </div>
-                        <div class="signup_input">
-                            <ion-icon name="call"></ion-icon>
-                            <input type="text" name="" placeholder="Phone Number" formControlName="mobile"
-                                [(ngModel)]="user.mobile">
-                        </div>
-                        <div class="signup_input">
-                            <ion-icon name="lock"></ion-icon>
-                            <input type="password" name="" placeholder="Password" formControlName="password"
-                                [(ngModel)]="user.password">
-                        </div>
-                        <div class="signupButton">
-                            <button (click)="signup(user)">Signup</button>
-                        </div>
-                    </form>
-                    <label for="signupModal">
-                        <ion-icon name="close" class="signupClose" (click)="signUpClose()"></ion-icon>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <p id="already">Already have an account?</p>
-        <div class="buttonInside">
-            Username
-            <input id="emailInput" [(ngModel)]="email">
-            <button id="linkSignIn" (click)="signInRoute()"><img src="assets/images/right-arrow.png" alt=""></button>
-            <p id="agreement">By Sign in you agree to <span routerLink="/terms">"Terms of Use"</span> and <span routerLink="/privacy">"Privacy Policy"</span></p>
-        </div>
-        <p class="skip" (click)="skipSignin()" *ngIf="!skip || !checkFlag">Skip, I will do it later.</p>
+  <!-- <img src="assets/images/left-arrow.png" alt="" id="backButton" routerLink="/login" (click)="goBack()"> -->
+  <div class="componentMainDiv">
+    <div class="header">
+      <img src="assets/images/Logo.png" height="auto" width="30%" />
+      <div>Just Read & Share</div>
     </div>
+    <form [formGroup]="loginForm" padding class="loginForm">
+      <button
+        class="googleLogin"
+        (click)="doGoogleLogin()"
+        [disabled]="isDisabled"
+      >
+        <span class="socialIcon">
+          <img src="assets/images/google.png" alt="" height="26px" />
+        </span>
+        <span class="socialCenter">Sign in with Google</span>
+        <span class="loginSpinner" *ngIf="googleSpinner"
+          ><img src="../../assets/images/loginSpinner.gif" width="32px" alt=""
+        /></span>
+      </button>
+      <button
+        class="facebookLogin"
+        (click)="doFbLogin()"
+        [disabled]="isDisabled"
+      >
+        <span class="socialIcon">
+          <img src="assets/images/facebook.png" alt="" height="26px" />
+        </span>
+        <span class="socialCenter">Sign in with Facebook</span>
+        <span class="loginSpinner" *ngIf="facebookSpinner"
+          ><img src="../../assets/images/loginSpinner.gif" width="32px" alt=""
+        /></span>
+      </button>
+      <button class="signupModalButton" [disabled]="isDisabled">
+        <span class="socialIcon">
+          <ion-icon name="person"></ion-icon>
+        </span>
+        <span class="socialCenter"
+          ><label for="signupModal" class="open">Sign up</label></span
+        >
+      </button>
+      <h2 class="otherLoginBreak"><span> OR </span></h2>
+    </form>
+    <div class="pop">
+      <input type="checkbox" id="signupModal" class="checkBox" />
+      <div class="modal signUp">
+        <div class="modal__inner">
+          <p style="text-align: center;"><i id="signupHead">Sign Up</i></p>
+          <form [formGroup]="signupForm">
+            <div class="signup_input">
+              <ion-icon name="person"></ion-icon>
+              <input
+                type="text"
+                name=""
+                placeholder="Username"
+                formControlName="userName"
+                [(ngModel)]="user.userName"
+              />
+            </div>
+            <div class="signup_input">
+              <ion-icon name="mail"></ion-icon>
+              <input
+                type="text"
+                name=""
+                placeholder="Email Address"
+                formControlName="email"
+                [(ngModel)]="user.email"
+              />
+            </div>
+            <div class="signup_input">
+              <ion-icon name="call"></ion-icon>
+              <input
+                type="text"
+                name=""
+                placeholder="Phone Number"
+                formControlName="mobile"
+                [(ngModel)]="user.mobile"
+              />
+            </div>
+            <div class="signup_input">
+              <ion-icon name="lock"></ion-icon>
+              <input
+                type="password"
+                name=""
+                placeholder="Password"
+                formControlName="password"
+                [(ngModel)]="user.password"
+              />
+            </div>
+            <div class="signupButton">
+              <button (click)="signup(user)">Signup</button>
+            </div>
+          </form>
+          <label for="signupModal">
+            <ion-icon
+              name="close"
+              class="signupClose"
+              (click)="signUpClose()"
+            ></ion-icon>
+          </label>
+        </div>
+      </div>
+    </div>
+    <p id="already">Already have an account?</p>
+    <div class="buttonInside">
+      Username
+      <input id="emailInput" [(ngModel)]="email" />
+      <button id="linkSignIn" (click)="signInRoute()">
+        <img src="assets/images/right-arrow.png" alt="" />
+      </button>
+      <p id="agreement">
+        By Sign in you agree to
+        <span routerLink="/terms">"Terms of Use"</span> and
+        <span routerLink="/privacy">"Privacy Policy"</span>
+      </p>
+    </div>
+  </div>
+  <button class="skipButton" *ngIf="!skip || !checkFlag" (click)="skipSignin()">Skip</button>
 </ion-content>

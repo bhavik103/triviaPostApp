@@ -507,3 +507,13 @@ p.skip {
   font-weight: bolder;
   font-size: 18px;
 }
+button.skipButton {
+  margin-left: 43%;
+  background-color: transparent;
+  padding: 10px 20px;
+  border: 1px solid var(--main-app-color);
+  border-radius: 7px;
+  margin-top: 13px;
+  margin-bottom: 13px;
+  color: var(--main-app-color);
+}

@@ -37,13 +37,14 @@ export class NewsService {
 			map((res: any) => {
 				var prop = ['newsId', 'newsCategoryId', 'en', 'hn', 'as', 'bn', 'gu', 'kn', 'ml', 'mr', 'pa', 'ta', 'te', 'newsCategory'];
 				let offlineArray = JSON.parse(JSON.stringify(res.data));
-				offlineArray.forEach(element => {
-					for (var k in element) {
-						if (prop.indexOf(k) < 0) {
-							delete element[k];
-						}
-					}
-				});
+				// offlineArray.forEach(element => {
+				// 	for (var k in element) {
+				// 		if (prop.indexOf(k) < 0) {
+				// 			delete element[k];
+				// 		}
+				// 	}
+				// });
+				console.log('offlineArray',offlineArray)
 				localStorage.removeItem('newsArray')
 				localStorage.setItem('newsArray', JSON.stringify(offlineArray))
 				console.log("FINAL OBJECT", offlineArray)

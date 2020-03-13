@@ -2,6 +2,7 @@ import { Component, OnInit, Input, LOCALE_ID } from '@angular/core';
 import { config } from '../config';
 import { Router } from '@angular/router';
 import { ToastService } from '../services/toast.service'
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-post-tiles',
@@ -11,6 +12,7 @@ import { ToastService } from '../services/toast.service'
 export class PostTilesPage implements OnInit {
   @Input('singleCat') singleCat: any;
   @Input('news') news: any;
+  @Input('index') index: any;
   @Input('language') language: any;
   mediaPath = config.mediaApiUrl;
   wrongStatus = false
@@ -20,10 +22,12 @@ export class PostTilesPage implements OnInit {
   visitedArray: any;
   isPresent: any;
   tokenLocalStorage: string;
-  constructor(private _toastService: ToastService, private router: Router) {
+  iframe: any;
+  constructor(private domSanitizer: DomSanitizer, private _toastService: ToastService, private router: Router) {
   }
 
   ionViewWillEnter() {
+    
     const alertOnlineStatus = () => {
     }
 
@@ -34,8 +38,11 @@ export class PostTilesPage implements OnInit {
     }
     console.log('this.language', this.language)
   }
-
+  
   ngOnInit() {
+    // this.iframe = '<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="https://ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=triviademo-20&marketplace=amazon&region=US&placement=B0859SG6X1&asins=B0859SG6X1&linkId=ab7d5bc2b9aaaface5247bf2ef43f169&show_border=false&link_opens_in_new_window=false&price_color=333333&title_color=0066C0&bg_color=FFFFFF"></iframe>';
+  
+    // this.iframe = this.domSanitizer.bypassSecurityTrustHtml(this.iframe);
     if (!localStorage.getItem('accessToken')) {
       this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
       this.isPresent = this.visitedArray.includes(this.news.newsId);

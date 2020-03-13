@@ -290,17 +290,19 @@ export class SinglePostPage implements OnInit {
     }
   }
   shareClose() {
-    this.shareModal = false;
-    if (localStorage.getItem('skip') || localStorage.getItem('shareFlag')) {
-      var subject = "Trivia Post";
-      console.log(this.news.fcmLink, this.news[this.language].title, this.news.newsImage)
-      this.socialSharing.share(this.news.fcmLink, subject, null, this.news[this.language].title)
-        .then((entries) => {
-        })
-        .catch((error) => {
-          alert('error ' + JSON.stringify(error));
-        });
-    }
+    // setTimeout(() => {
+      this.shareModal = false;
+    // }, 700);
+    // if (localStorage.getItem('skip') || localStorage.getItem('shareFlag')) {
+    //   var subject = "Trivia Post";
+    //   console.log(this.news.fcmLink, this.news[this.language].title, this.news.newsImage)
+    //   this.socialSharing.share(this.news.fcmLink, subject, null, this.news[this.language].title)
+    //     .then((entries) => {
+    //     })
+    //     .catch((error) => {
+    //       alert('error ' + JSON.stringify(error));
+    //     });
+    // }
     if (!localStorage.getItem('skip') && !localStorage.getItem('shareFlag')) {
       localStorage.setItem('shareFlag', '1');
       this.shareFlag = '1';

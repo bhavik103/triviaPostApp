@@ -21,6 +21,8 @@ import { rateTitle, rateText, rateNowButton, rateNoThanksButton, rateRemindButto
 import { Market } from '@ionic-native/market/ngx';
 import { AdmobfreeService } from './services/admobfree.service';
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import {NewsService} from './services/news.service'
+import { News } from './home/news';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -72,6 +74,7 @@ export class AppComponent {
     private router: Router,
     protected deeplinks: Deeplinks,
     public events: Events,
+    private _newsService: NewsService,
     private _admobService: AdmobfreeService
   ) {
     this.initializeApp();
@@ -180,8 +183,14 @@ export class AppComponent {
     }
     this.platform.ready().then(() => {
       console.log("INSIDE PLATFORM READY")
-      this._admobService.BannerAd();
+      if(this.platform.is('cordova')){
+        this._admobService.BannerAd();
+      }
     })
+    this._newsService.getAllNews().subscribe(
+      (res: any) => {
+        console.log("GOT NEWS IN APP COMPONENT",res)
+      })
   }
 
   initializeApp() {
