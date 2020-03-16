@@ -1,0 +1,47 @@
+<div no-border *ngIf="!smallLoading">
+  <div
+    class="settingsToolbar"
+  >
+    <button float-left>
+      <ion-icon
+        name="settings"
+        class="homeBack"
+        (click)="settings()"
+      ></ion-icon>
+    </button>
+    <span id="settingTitle">
+      Trivia Post
+    </span>
+    <button float-right>
+      <ion-icon name="search" class="searchIcon" (click)="search()"></ion-icon>
+    </button>
+  </div>
+</div>
+<ion-content
+  *ngIf="language && newsArray"
+  [ngClass]="{'disableScroll': !skip}"
+  class="newsFeedBlock"
+>
+  <ion-row class="feeds" style="min-width: 100%;width: 100%;" *ngIf="!smallLoading">
+    <app-large-post
+      [news]="latestPost"
+      [language]="language"
+      [skip]="skip"
+    ></app-large-post>
+    <span *ngFor="let news of newsArray;let i = index" class="newsTiles">
+      <app-post-tiles
+        [news]="news"
+        [language]="language"
+        [index]="i"
+      ></app-post-tiles>
+    </span>
+  </ion-row>
+  <span class="loadingContent" *ngIf="smallLoading">
+    <img
+      src="../../assets/images/simpleLoader.gif"
+      alt=""
+      class="smallLoading"
+    />
+  </span>
+</ion-content>
+

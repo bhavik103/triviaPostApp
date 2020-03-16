@@ -1,6 +1,5 @@
 ion-icon.homeBack.md.hydrated {
   float: left !important;
-  /* margin: 4px; */
   font-size: 24px;
   margin-left: 10px;
 }
@@ -50,10 +49,6 @@ ion-icon.homeBack.md.hydrated {
   padding-top: 0;
   padding-left: 13px;
 }
-// ion-list{
-//   min-height: 117px;
-//   max-height: 117px;
-// }
 .otherInfo {
   margin: 0px auto;
   color: gray;
@@ -125,4 +120,10 @@ ion-list{
 .isVisited{
   --background: none;
   background: #ddd;
+}
+span.categoryButton.assameseFont {
+  font-size: 15px!important;
+}
+span.optionsList.assameseFont {
+  font-size: 17px!important;
 }

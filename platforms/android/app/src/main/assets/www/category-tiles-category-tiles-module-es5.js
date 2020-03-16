@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["large-post-large-post-module"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["category-tiles-category-tiles-module"],{
 
 /***/ "./node_modules/time-ago-pipe/esm5/time-ago-pipe.js":
 /*!**********************************************************!*\
@@ -191,4 +191,4 @@ var SharedModule = /** @class */ (function () {
 /***/ })
 
 }]);
-//# sourceMappingURL=large-post-large-post-module-es5.js.map
+//# sourceMappingURL=category-tiles-category-tiles-module-es5.js.map

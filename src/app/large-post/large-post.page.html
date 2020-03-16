@@ -1,10 +1,9 @@
-<ion-row>
+<ion-row class="mainDiv">
   <ion-col size="12" class="latestPost" (click)="singleNews(news.newsId)">
     <img
       class="latestpostimg firstTimeBlur"
       src="{{mediaPath}}{{news.newsImage}}"
       height="100%"
-      data-src="../../assets/images/placeholder.png'"
       onerror="this.src='../../assets/images/placeholder.png'"
       *ngIf="!firstLargePostClick && !skip == 1"
       width="100%"

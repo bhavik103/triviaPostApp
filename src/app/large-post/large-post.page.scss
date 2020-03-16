@@ -5,12 +5,14 @@
 .latestPost {
   padding: 0;
   height: 195px;
-  background: url("../../assets/images/placeholder.png");
+  background-color: pink; 
+  background-image: url("../../assets/images/placeholder.png");
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100%;
-  width: 100%;
-  background-position: center;
+  background-size: cover;
+  min-width: 100%!important;
+  max-width: 100%!important;
+  background-position: center !important;
+  width: 100vw !important;
 }
 .latestPost:after {
   content: "";
@@ -22,6 +24,7 @@
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 0;
   height: 195px;
+  min-width:100%;
 }
 .latestpostimg {
   height: 195px;
@@ -346,4 +349,7 @@ p.nextButton {
   text-align: center;
   font-size: 20px;
   vertical-align: middle;
+}
+button.categoryButton.assameseFont {
+  font-size: 12px!important;
 }

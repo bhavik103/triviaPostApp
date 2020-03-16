@@ -27,7 +27,9 @@ export class LargePostPage implements OnInit {
 
   ngOnInit() {
     this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
-    this.isPresent = this.visitedArray.includes(this.news.newsId);
+    if(this.visitedArray){
+      this.isPresent = this.visitedArray.includes(this.news.newsId);
+    }
     console.log("news[language].title", this.news[this.language].title)
     console.log('this.news', this.news)
     this.skip = localStorage.getItem('skip');

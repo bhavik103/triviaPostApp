@@ -27,7 +27,7 @@ export class PostTilesPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    
+
     const alertOnlineStatus = () => {
     }
 
@@ -38,12 +38,9 @@ export class PostTilesPage implements OnInit {
     }
     console.log('this.language', this.language)
   }
-  
+
   ngOnInit() {
-    // this.iframe = '<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="https://ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ac&ref=tf_til&ad_type=product_link&tracking_id=triviademo-20&marketplace=amazon&region=US&placement=B0859SG6X1&asins=B0859SG6X1&linkId=ab7d5bc2b9aaaface5247bf2ef43f169&show_border=false&link_opens_in_new_window=false&price_color=333333&title_color=0066C0&bg_color=FFFFFF"></iframe>';
-  
-    // this.iframe = this.domSanitizer.bypassSecurityTrustHtml(this.iframe);
-    if (!localStorage.getItem('accessToken')) {
+    if (!localStorage.getItem('accessToken') && localStorage.getItem('visitedArray')) {
       this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
       this.isPresent = this.visitedArray.includes(this.news.newsId);
     } else {
@@ -52,9 +49,10 @@ export class PostTilesPage implements OnInit {
         var base64Url = this.tokenLocalStorage.split('.')[1];
         var base64 = base64Url.replace('-', '+').replace('_', '/');
         var decodedToken = JSON.parse(window.atob(base64));
-        if (this.news[this.language].userViewed.includes(decodedToken.user._id)) {
-          this.isPresent = true;
-          console.log("IS PRESENT", this.isPresent)
+        if (this.news[this.language].userViewed) {
+          if (this.news[this.language].userViewed.includes(decodedToken.user._id)) {
+            this.isPresent = true;
+          }
         }
       }
     }

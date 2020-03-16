@@ -42,6 +42,7 @@ import { Market } from '@ionic-native/market/ngx';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { AdmobfreeService } from './services/admobfree.service';
 import {HomePage} from '../app/home/home.page'
+import {TourHomePage} from '../app/tour-home/tour-home.page'
 export class HammerConfig extends HammerGestureConfig {
   overrides = <any>{
     'swipe': { direction: Hammer.DIRECTION_ALL }
@@ -79,6 +80,7 @@ export class HammerConfig extends HammerGestureConfig {
     Deeplinks,
     ScreenOrientation,
     HomePage,
+    TourHomePage,
     FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true }

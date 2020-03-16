@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["large-post-large-post-module"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["category-tiles-category-tiles-module"],{
 
 /***/ "./node_modules/time-ago-pipe/esm2015/time-ago-pipe.js":
 /*!*************************************************************!*\
@@ -189,4 +189,4 @@ SharedModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /***/ })
 
 }]);
-//# sourceMappingURL=large-post-large-post-module-es2015.js.map
+//# sourceMappingURL=category-tiles-category-tiles-module-es2015.js.map

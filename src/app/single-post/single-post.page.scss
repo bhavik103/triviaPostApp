@@ -17,7 +17,7 @@ p {
 
 .postTitle p {
   font-size: 30px;
-  font-weight: 500;
+  font-weight: 600;
   padding-left: 10px;
   letter-spacing: 0.5px;
   padding-top: 8px;
@@ -25,7 +25,7 @@ p {
 
 .subPostTitle,
 .post p {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 300;
   padding-left: 10px;
 }
@@ -374,9 +374,9 @@ img.likeImage {
 .ripple_effect:after {
   border-color: #fff;
 }
-p.assameseFont.assameseFontTitle {
-  font-size: 30px !important;
-}
+// p.assameseFont.assameseFontTitle {
+//   font-size: 30px !important;
+// }
 .firstTimeBlur {
   border: 1px solid #f7f7f7;
   filter: blur(7px) grayscale(1) brightness(0.5);

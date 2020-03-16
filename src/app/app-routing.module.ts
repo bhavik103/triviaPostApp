@@ -89,6 +89,10 @@ const routes: Routes = [
 	{
 		path: 'all-categories',
 		loadChildren: './all-categories/all-categories.module#AllCategoriesPageModule'
+	},
+	{
+		path: 'tour-home',
+		loadChildren: './tour-home/tour-home.module#TourHomePageModule'
 	}
 ];
 

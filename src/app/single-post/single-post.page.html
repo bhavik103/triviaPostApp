@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!loading">
   <div class="settingsToolbar">
     <ion-back-button
       name="arrow-round-back"
@@ -52,6 +52,7 @@
       >
         <p
           *ngIf="news[language].title"
+          [ngClass]="{'assameseFont': language == 'as'}"
           [ngClass]="{'assameseFontTitle': language == 'as'}"
         >
           {{news[language].title}}
@@ -82,7 +83,7 @@
         class="post"
         [ngClass]="{'disableScroll': !bookmarkFlag || !shareFlag}"
       >
-        <p [innerHTML]="byPassedNews" *ngIf="byPassedNews" [ngClass]="{'assameseFontContent': language == 'as'}"></p>
+        <p [innerHTML]="byPassedNews" *ngIf="byPassedNews" [ngClass]="{'assameseFont': language == 'as'}" [ngClass]="{'assameseFontContent': language == 'as'}"></p>
         <p
           [innerHTML]="byPassedNewsEn"
           *ngIf="!byPassedNews"
@@ -124,8 +125,8 @@
         <img src="../../assets/images/Share.png" class="icon shareImage" />
       </span>
     </div>
-    <div class="subPostTitle postSource">
-      <p class="newsInfo" *ngIf="news.picCredit">
+    <div class="subPostTitle postSource" *ngIf="news.srcTitle != '' && news.srcTitle != null && !news.srcTitle">
+      <p class="newsInfo">
         <span>Source: </span
         ><span class="picCredit" (click)="openWithSystemBrowser(news.srcLink)">
           {{news.srcTitle}}</span

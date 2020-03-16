@@ -1,8 +1,8 @@
-<div no-border>
-  <div
-    class="settingsToolbar"
-    *ngIf="[(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && !loading && language"
-  >
+<div
+  no-border
+  *ngIf="!smallLoading && [(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && !loading && language && skip"
+>
+  <div class="settingsToolbar">
     <button float-left>
       <ion-icon
         name="settings"
@@ -18,8 +18,8 @@
     </button>
   </div>
 </div>
-<div no-border>
-  <div *ngIf="!language && !loading" class="settingsToolbar">
+<div no-border *ngIf="!language && !loading">
+  <div class="settingsToolbar">
     <span
       id="settingTitle"
       style="margin:0;width: 100%;"
@@ -36,7 +36,7 @@
     </span>
   </div>
 </div>
-<ion-content *ngIf="!language && startTour">
+<ion-content *ngIf="!language && !loading && startTour">
   <div
     class="languageSelect"
     style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;"
@@ -145,11 +145,11 @@
 </ion-content>
 
 <ion-content
-  *ngIf="language && newsArray"
+  *ngIf="language && newsArray && !smallLoading"
   [ngClass]="{'disableScroll': !skip && !catModalShow}"
   class="newsFeedBlock"
 >
-  <ion-row class="feeds" style="min-width: 100%;" *ngIf="!smallLoading">
+  <ion-row class="feeds" style="min-width: 100%;" *ngIf="newsArray">
     <app-large-post
       [news]="latestPost"
       [language]="language"
@@ -163,15 +163,21 @@
       ></app-post-tiles>
     </span>
   </ion-row>
-  <span class="loadingContent" *ngIf="smallLoading">
+  <!-- <span class="loadingContent" *ngIf="smallLoading">
     <img
       src="../../assets/images/simpleLoader.gif"
       alt=""
       class="smallLoading"
     />
-  </span>
+  </span> -->
 </ion-content>
-<!-- <ion-content class="loadingContent" *ngIf="smallLoading"> </ion-content> -->
+<ion-content class="loadingContent" *ngIf="smallLoading">
+  <img
+      src="../../assets/images/simpleLoader.gif"
+      alt=""
+      class="smallLoading"
+    />
+</ion-content>
 <div class="no-news-text" *ngIf="isTextVisible">
   <span>{{text}}</span>
 </div>

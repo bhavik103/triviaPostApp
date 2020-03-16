@@ -103,6 +103,25 @@ export class HomePage implements OnInit {
     }
 
     ionViewDidEnter() {
+        this.fcm.getToken().then(token => {
+            localStorage.setItem('deviceToken', token);
+            setTimeout(() => {
+                if (localStorage.getItem('annonymousNotify')) {
+                    this._userService.firstTimeUser(this.selected).subscribe((res: any) => {
+                        this._userService.serviceFunction();
+                        localStorage.setItem('annonymousNotify', 'true');
+                    },
+                        (err) => {
+                        });
+                }
+            }, 1000);
+        });
+        this.fcm.onTokenRefresh().subscribe(token => {
+            localStorage.setItem('deviceToken', token);
+        });
+        if(!localStorage.getItem('firstLargePostClick') && localStorage.getItem('language')){
+            this.router.navigateByUrl('tour-home')
+        }
         this._admobService.interstitalAdOnFivePageChange()
         this.catModalShow = localStorage.getItem('catModalShow')
         if (!localStorage.getItem('language')) {
@@ -167,11 +186,11 @@ export class HomePage implements OnInit {
 
     //get all news - HOME PAGE ( FEEDS )
     async getAllPost() {
+        this.smallLoading = true;
         this.newsArray = []
         this.latestPost = [];
         localStorage.setItem('firstTimeLoaded', 'true');
 
-        this.smallLoading = true;
         this.language = localStorage.getItem('language');
         if (!localStorage.getItem('newsArray') || localStorage.getItem('skip') || localStorage.getItem('firstLargePostClick')) {
             if (navigator.onLine) {
@@ -186,19 +205,19 @@ export class HomePage implements OnInit {
                         this.newsArray.splice(0, 1);
                         if (!localStorage.getItem('skip')) {
                         }
-                        $('.newsFeedBlock').hide();
+                        // $('.newsFeedBlock').hide();
 
                         if (!this.skip) {
                             console.log(new Date())
                             $('.newsFeedBlock').show();
                             setTimeout(() => {
-                                this.smallLoading = false;
                                 this.loading = false
+                                this.smallLoading = false;
                             }, 1500);
                         } else {
-                            this.smallLoading = false;
                             this.loading = false
-                            $('.newsFeedBlock').show();
+                            // $('.newsFeedBlock').show();
+                            this.smallLoading = false;
                         }
                         this.checkForRating();
                     },
@@ -300,30 +319,12 @@ export class HomePage implements OnInit {
         if (localStorage.getItem('skip')) {
             this.router.navigateByUrl('/login')
         } else {
-            this.getAllPost();
+            // this.getAllPost();
         }
         let lang = this.selected;
         localStorage.setItem('language', lang);
-        this._generalService.setExtras(lang);
-        this.language = lang;
-        this.catModal = true;
-        this._generalService.setExtras(this.language);
-        this.fcm.getToken().then(token => {
-            localStorage.setItem('deviceToken', token);
-            setTimeout(() => {
-                if (localStorage.getItem('annonymousNotify')) {
-                    this._userService.firstTimeUser(this.selected).subscribe((res: any) => {
-                        this._userService.serviceFunction();
-                        localStorage.setItem('annonymousNotify', 'true');
-                    },
-                        (err) => {
-                        });
-                }
-            }, 1000);
-        });
-        this.fcm.onTokenRefresh().subscribe(token => {
-            localStorage.setItem('deviceToken', token);
-        });
+        console.log("Date in home",new Date().getSeconds())
+        this.router.navigateByUrl('tour-home');
     }
 
     //set fcm token
@@ -352,14 +353,14 @@ export class HomePage implements OnInit {
     }
 
     startTourFunction() {
-        this.showTourConfirm = false;
         $('.loadingContent').removeClass('showDifferentLoader')
         // this.smallLoading = true
-        this.startTour = true;
-        // setTimeout(() => {
-        // this.smallLoading = false;
-        // }, 1000);
+        
+        setTimeout(() => {
+            this.showTourConfirm = false;
+        }, 1000);
         this.loading = false
+        this.startTour = true;
     }
 
     skipTourFunction() {
