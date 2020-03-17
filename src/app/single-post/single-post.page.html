@@ -18,11 +18,11 @@
 
 <ion-content
   *ngIf="!loading"
-  [ngClass]="{'notScroll': !bookmarkFlag || !shareFlag}"
+  [ngClass]="{'notScroll': (!bookmarkFlag || !shareFlag) && !skip}"
 >
   <div
     class="floatNext"
-    *ngIf="!bookmarkFlag || !shareFlag"
+    *ngIf="(!bookmarkFlag || !shareFlag) && !skip"
     (click)="nextButton()"
   >
     <div class="ripple_effect"></div>
@@ -31,7 +31,7 @@
   <div *ngIf="news" class="singleNews">
     <div
       class="container"
-      [ngClass]="{'disableScroll': !bookmarkFlag || !shareFlag}"
+      [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}"
     >
       <img src="{{mediaPath}}{{news.newsImage}}" alt="" class="postImage" />
       <div class="text-block"></div>
@@ -39,7 +39,7 @@
 
     <div
       class="subPostTitle"
-      [ngClass]="{'disableScroll': !bookmarkFlag || !shareFlag}"
+      [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}"
     >
       <p class="newsInfo" *ngIf="news.picCredit">
         <span>PC : </span><span class="picCredit"> {{news.picCredit}}</span>
@@ -48,7 +48,7 @@
     <div class="newsContent">
       <div
         class="postTitle"
-        [ngClass]="{'disableScroll': !bookmarkFlag || !shareFlag}"
+        [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}"
       >
         <p
           *ngIf="news[language].title"
@@ -63,7 +63,7 @@
       </div>
       <div
         class="category_title"
-        [ngClass]="{'disableScroll': !bookmarkFlag || !shareFlag}"
+        [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}"
       >
         <span
           (click)="singleCategory(news.newsCategoryId,news.newsCategory[language])"
@@ -81,7 +81,7 @@
       </div>
       <div
         class="post"
-        [ngClass]="{'disableScroll': !bookmarkFlag || !shareFlag}"
+        [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}"
       >
         <p [innerHTML]="byPassedNews" *ngIf="byPassedNews" [ngClass]="{'assameseFont': language == 'as'}" [ngClass]="{'assameseFontContent': language == 'as'}"></p>
         <p

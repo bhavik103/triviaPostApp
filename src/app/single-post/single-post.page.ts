@@ -12,7 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
 import { AppComponent } from '../app.component'
-import {nextButton, modalSignupButton, clickShare, clickBookmark, modalSkipButton, language, sharePostModalContent, sharePostModal, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
+import { nextButton, modalSignupButton, clickShare, clickBookmark, modalSkipButton, language, sharePostModalContent, sharePostModal, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
 import { AdmobfreeService } from '../services/admobfree.service'
 import {
   AdMobFree,
@@ -183,7 +183,7 @@ export class SinglePostPage implements OnInit {
       }
     });
   }
-  
+
   //  Do Share Post
   sharePost(link, newsTitle, newsImage, flag) {
     if (!localStorage.getItem('shareFlag') || !localStorage.getItem('accessToken') || flag) {
@@ -278,47 +278,40 @@ export class SinglePostPage implements OnInit {
     this.appcomponent.openRatingModal();
   }
   bookmarkClose() {
-    this.bookmarkModal = false;
     if (localStorage.getItem('skip') || localStorage.getItem('bookmarkFlag')) {
-
+      
     } else if (!localStorage.getItem('skip')) {
       localStorage.setItem('bookmarkFlag', '1')
       this.bookmarkFlag = '1';
       if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
         this.router.navigateByUrl('/all-categories')
+        this.bookmarkModal = false;
+      }else{
+        this.bookmarkModal = false;
       }
     }
   }
   shareClose() {
-    // setTimeout(() => {
-      this.shareModal = false;
-    // }, 700);
-    // if (localStorage.getItem('skip') || localStorage.getItem('shareFlag')) {
-    //   var subject = "Trivia Post";
-    //   console.log(this.news.fcmLink, this.news[this.language].title, this.news.newsImage)
-    //   this.socialSharing.share(this.news.fcmLink, subject, null, this.news[this.language].title)
-    //     .then((entries) => {
-    //     })
-    //     .catch((error) => {
-    //       alert('error ' + JSON.stringify(error));
-    //     });
-    // }
     if (!localStorage.getItem('skip') && !localStorage.getItem('shareFlag')) {
       localStorage.setItem('shareFlag', '1');
       this.shareFlag = '1';
       if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
         this.router.navigateByUrl('/all-categories')
+        this.shareModal = false;
+      }else{
+        this.shareModal = false;
       }
     }
   }
   nextButton() {
+    this.router.navigateByUrl('/all-categories')
     localStorage.setItem('bookmarkFlag', '1')
     localStorage.setItem('shareFlag', '1');
     this.bookmarkFlag = '1';
     this.shareFlag = '1';
-    this.router.navigateByUrl('/all-categories')
   }
   signupBookmark() {
+    localStorage.setItem('skip','1')
     this.router.navigateByUrl('/login')
   }
 }

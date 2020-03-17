@@ -119,14 +119,11 @@ export class HomePage implements OnInit {
         this.fcm.onTokenRefresh().subscribe(token => {
             localStorage.setItem('deviceToken', token);
         });
-        if(!localStorage.getItem('firstLargePostClick') && localStorage.getItem('language')){
+        if (!localStorage.getItem('firstLargePostClick') && localStorage.getItem('language')) {
             this.router.navigateByUrl('tour-home')
         }
         this._admobService.interstitalAdOnFivePageChange()
         this.catModalShow = localStorage.getItem('catModalShow')
-        if (!localStorage.getItem('language')) {
-            this.showTourConfirm = true;
-        }
         if (!localStorage.getItem('language')) {
             this.askForTour('none');
         }
@@ -163,11 +160,18 @@ export class HomePage implements OnInit {
         }
     }
     ionViewWillEnter() {
-        this.catModalShow = localStorage.getItem('catModal');
-        this.loading = false
+        if (!localStorage.getItem('language')) {
+            $('.tourModal').show()
+            this.showTourConfirm = true;
+        }
         if (localStorage.getItem('language')) {
+            this.smallLoading = true;
+            this.offlineNews();
+            this._admobService.BannerAd();
             this.getAllPost()
         }
+        this.catModalShow = localStorage.getItem('catModal');
+        this.loading = false
         if (localStorage.getItem('skip')) {
             this.skip = '1';
         }
@@ -184,59 +188,31 @@ export class HomePage implements OnInit {
         this.loading = true;
     }
 
-    //get all news - HOME PAGE ( FEEDS )
-    async getAllPost() {
-        this.smallLoading = true;
-        this.newsArray = []
-        this.latestPost = [];
-        localStorage.setItem('firstTimeLoaded', 'true');
-
+    offlineNews() {
         this.language = localStorage.getItem('language');
-        if (!localStorage.getItem('newsArray') || localStorage.getItem('skip') || localStorage.getItem('firstLargePostClick')) {
-            if (navigator.onLine) {
-                this._newsService.getAllNews().subscribe(
-                    (res: any) => {
-                        this.newsArray = res;
-                        this.latestPost = res[0];
-                        if (localStorage.getItem('firstLargePostClick') && [!localStorage.getItem('bookmarkFlag') || localStorage.getItem('shareFlag')] && !localStorage.getItem('skip')) {
-                            this.router.navigateByUrl('/single-post/' + this.latestPost.newsId);
-                        }
-                        console.log('this.latestPost', this.latestPost)
-                        this.newsArray.splice(0, 1);
-                        if (!localStorage.getItem('skip')) {
-                        }
-                        // $('.newsFeedBlock').hide();
-
-                        if (!this.skip) {
-                            console.log(new Date())
-                            $('.newsFeedBlock').show();
-                            setTimeout(() => {
-                                this.loading = false
-                                this.smallLoading = false;
-                            }, 1500);
-                        } else {
-                            this.loading = false
-                            // $('.newsFeedBlock').show();
-                            this.smallLoading = false;
-                        }
-                        this.checkForRating();
-                    },
-                    (err) => {
-                        this.newsArray = localStorage.newsArray;
-                    });
-            } else {
-                this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
-                this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
-                this.newsArray.splice(0, 1)
+        this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
+        this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
+        this.newsArray.splice(0, 1)
+        setTimeout(() => {
+            if (localStorage.getItem('firstLargePostClick') && [!localStorage.getItem('bookmarkFlag') || localStorage.getItem('shareFlag')] && !localStorage.getItem('skip')) {
+                this.router.navigateByUrl('/single-post/' + this.latestPost.newsId);
             }
-        } else {
-            setTimeout(() => {
-                this.smallLoading = false;
-            }, 2000);
-            this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
-            this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
-            this.newsArray.splice(0, 1)
-        }
+            this.smallLoading = false
+            $('.feeds').fadeIn()
+            $('.triviaHeader').show()
+        }, 2000);
+    }
+    // get all news - HOME PAGE ( FEEDS )
+    async getAllPost() {
+        localStorage.setItem('firstTimeLoaded', 'true');
+        this._newsService.getAllNews().subscribe(
+            (res: any) => {
+                console.log('this.allnews =======', res)
+                this.checkForRating();
+            },
+            (err) => {
+                this.newsArray = localStorage.newsArray;
+            });
     }
     checkForRating() {
         if (localStorage.getItem('isRated') != 'true' || localStorage.getItem('isRated') == 'pending') {
@@ -323,7 +299,7 @@ export class HomePage implements OnInit {
         }
         let lang = this.selected;
         localStorage.setItem('language', lang);
-        console.log("Date in home",new Date().getSeconds())
+        console.log("Date in home", new Date().getSeconds())
         this.router.navigateByUrl('tour-home');
     }
 
@@ -353,9 +329,9 @@ export class HomePage implements OnInit {
     }
 
     startTourFunction() {
+        $('.tourModal').hide()
         $('.loadingContent').removeClass('showDifferentLoader')
-        // this.smallLoading = true
-        
+
         setTimeout(() => {
             this.showTourConfirm = false;
         }, 1000);
@@ -364,6 +340,7 @@ export class HomePage implements OnInit {
     }
 
     skipTourFunction() {
+        $('.tourModal').hide()
         this.loading = false;
         $('.loadingContent').removeClass('showDifferentLoader')
         this.skipTheTour = true;
@@ -374,5 +351,6 @@ export class HomePage implements OnInit {
         localStorage.setItem('firstLargePostClick', '1')
         localStorage.setItem('catModal', '1')
         this.catModalShow = '1'
+        $('.skipLanguage').show();
     }
 }

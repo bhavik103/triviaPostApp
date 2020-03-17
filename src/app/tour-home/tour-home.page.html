@@ -18,7 +18,7 @@
   </div>
 </div>
 <ion-content
-  *ngIf="language && newsArray"
+  *ngIf="language && newsArray && !smallLoading"
   [ngClass]="{'disableScroll': !skip}"
   class="newsFeedBlock"
 >

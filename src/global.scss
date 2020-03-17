@@ -516,3 +516,11 @@ button#remindLater,button#noThanks {
   color: #e41212;
   min-height: 38px;
 }
+.confirmTourPopup .img_border img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}

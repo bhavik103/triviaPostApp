@@ -14,15 +14,15 @@ export class TourHomePage implements OnInit {
   skip: any;
   loading: boolean;
   showRateModal: boolean;
-  
+
   constructor(public _newsService: NewsService, private router: Router) { }
-  
+
   ngOnInit() {
   }
-  
+
   ionViewWillEnter() {
     this.skip = localStorage.getItem('skip')
-    console.log("Date in home tour",new Date().getSeconds())
+    console.log("Date in home tour", new Date().getSeconds())
     this.smallLoading = true;
     this.getAllPost();
   }
@@ -33,7 +33,7 @@ export class TourHomePage implements OnInit {
     localStorage.setItem('firstTimeLoaded', 'true');
 
     this.language = localStorage.getItem('language');
-    if (!localStorage.getItem('newsArray') || localStorage.getItem('skip') || localStorage.getItem('firstLargePostClick')) {
+    if (!localStorage.getItem('newsArray')) {
       if (navigator.onLine) {
         this._newsService.getAllNews().subscribe(
           (res: any) => {
@@ -69,17 +69,14 @@ export class TourHomePage implements OnInit {
         this.newsArray.splice(0, 1)
       }
     } else {
-      console.log("Date in home tour outside tour",new Date().getSeconds())
-      // setTimeout(() => {
-        // console.log("Date in home tour",new Date().getSeconds())
-      // }, 2000);
       this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
       this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
       this.newsArray.splice(0, 1)
-      this.smallLoading = false;
-
-
-
+      if (localStorage.getItem('firstLargePostClick') && [!localStorage.getItem('bookmarkFlag') || localStorage.getItem('shareFlag')] && !localStorage.getItem('skip')) {
+        this.router.navigateByUrl('/single-post/' + this.latestPost.newsId);
+      } else {
+        this.smallLoading = false;
+      }
     }
   }
 

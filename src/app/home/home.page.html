@@ -1,6 +1,7 @@
 <div
   no-border
-  *ngIf="!smallLoading && [(latestPost && language) || (language && latestPost && skip == '1') || (skip == '1' && latestPost)] && !loading && language && skip"
+  class="triviaHeader"
+  [ngClass]="{'showHeader': newsArray && !smallLoading && language}"
 >
   <div class="settingsToolbar">
     <button float-left>
@@ -36,6 +37,7 @@
     </span>
   </div>
 </div>
+
 <ion-content *ngIf="!language && !loading && startTour">
   <div
     class="languageSelect"
@@ -92,7 +94,7 @@
     <button class="contButton" (click)="selectLang()">Continue</button>
   </div>
 </ion-content>
-<ion-content *ngIf="!language && !loading && skipTheTour">
+<ion-content class="skipLanguage">
   <div
     class="languageSelect"
     style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;"
@@ -145,11 +147,15 @@
 </ion-content>
 
 <ion-content
-  *ngIf="language && newsArray && !smallLoading"
+  *ngIf="language && newsArray"
   [ngClass]="{'disableScroll': !skip && !catModalShow}"
   class="newsFeedBlock"
 >
-  <ion-row class="feeds" style="min-width: 100%;" *ngIf="newsArray">
+  <ion-row
+    class="feeds"
+    style="min-width: 100%;"
+    [ngClass]="{'showFeeds': newsArray && !smallLoading}"
+  >
     <app-large-post
       [news]="latestPost"
       [language]="language"
@@ -163,36 +169,31 @@
       ></app-post-tiles>
     </span>
   </ion-row>
-  <!-- <span class="loadingContent" *ngIf="smallLoading">
+  <span class="loadingContent" [ngClass]="{'showLoader': !smallLoading}">
     <img
       src="../../assets/images/simpleLoader.gif"
       alt=""
       class="smallLoading"
     />
-  </span> -->
+  </span>
 </ion-content>
-<ion-content class="loadingContent" *ngIf="smallLoading">
+<!-- <ion-content class="loadingContent" *ngIf="smallLoading">
   <img
       src="../../assets/images/simpleLoader.gif"
       alt=""
       class="smallLoading"
     />
-</ion-content>
+</ion-content> -->
 <div class="no-news-text" *ngIf="isTextVisible">
   <span>{{text}}</span>
 </div>
 <ion-content
-  *ngIf="loading && firstTimeLoad != true"
-  class="loadingContent"
+  class="loadingContent tourModal"
   [ngClass]="{'showDifferentLoader': showTourConfirm}"
 >
-  <div id="bkgOverlay" class="backgroundOverlay" *ngIf="showTourConfirm"></div>
+  <div id="bkgOverlay" class="backgroundOverlay"></div>
 
-  <div
-    id="delayedPopup"
-    class="delayedPopupWindow confirmTourPopup"
-    *ngIf="showTourConfirm"
-  >
+  <div id="delayedPopup" class="delayedPopupWindow confirmTourPopup">
     <div class="img_border">
       <img src="../../assets/images/book.png" alt="" />
     </div>

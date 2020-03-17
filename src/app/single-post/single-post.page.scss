@@ -26,7 +26,7 @@ p {
 .subPostTitle,
 .post p {
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 300!important;
   padding-left: 10px;
 }
 
@@ -588,14 +588,9 @@ ion-slide h3 {
   filter: blur(5px) grayscale(1);
   background-color: rgba(1, 1, 1, 0.01);
 }
-// .category_title,
-// .notFirstTime {
-//   filter: blur(5px);
-//   background-color: rgba(1, 1, 1, 0.01);
-// }
 .tourText {
   top: unset;
-  font-size: 13px;
+  font-size: 11px;
   width: 50vw;
 }
 .tourTextModal:before {

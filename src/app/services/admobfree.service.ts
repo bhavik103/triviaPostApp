@@ -91,7 +91,7 @@ export class AdmobfreeService {
     }else if(localStorage.getItem('interAdCounter') == '4'){
       localStorage.setItem('interAdCounter','5');
     }else if(localStorage.getItem('interAdCounter') == '5'){
-      if(this.platform.is('cordova')){
+      if(this.platform.is('cordova') && localStorage.getItem('skip')){
         this.InterstitialAd();
       }
       localStorage.setItem('interAdCounter','1');

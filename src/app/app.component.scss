@@ -235,3 +235,16 @@ input {
 .tourLoader img {
   width: 100%;
 }
+.tourPopUpDiv .backgroundOverlay {
+  --background: none;
+  background: url("../assets/images/simpleLoader.gif");
+  background-size: cover;
+  background-position: center;
+  opacity: 1;
+}
+.tourModalFlag{
+  display: none;
+}
+#rateButton,button#remindLater, button#noThanks {
+  min-height: 30px;
+}

@@ -40,9 +40,10 @@ export class PostTilesPage implements OnInit {
   }
 
   ngOnInit() {
-    if (!localStorage.getItem('accessToken') && localStorage.getItem('visitedArray')) {
+    if (!localStorage.getItem('accessToken') && localStorage.getItem('isVisited')) {
       this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
       this.isPresent = this.visitedArray.includes(this.news.newsId);
+      console.log('this.isPresent',this.isPresent)
     } else {
       this.tokenLocalStorage = localStorage.getItem('accessToken');
       if (this.tokenLocalStorage) {

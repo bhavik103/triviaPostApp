@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { FCM } from '@ionic-native/fcm/ngx';
 import { Router } from '@angular/router';
 import { Deeplinks } from '@ionic-native/deeplinks/ngx';
 import { Observable } from 'rxjs/Observable';
@@ -13,16 +12,11 @@ import { Events } from '@ionic/angular';
 import 'rxjs/add/observable/fromEvent';
 import { UserService } from './services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ToastService } from "./services/toast.service";
-import { Keyboard } from '@ionic-native/keyboard/ngx';
-import { GeneralService } from './services/general.service';
 declare var $: any;
 import { rateTitle, rateText, rateNowButton, rateNoThanksButton, rateRemindButton } from './changeLang';
 import { Market } from '@ionic-native/market/ngx';
-import { AdmobfreeService } from './services/admobfree.service';
-import { AppVersion } from '@ionic-native/app-version/ngx';
-import {NewsService} from './services/news.service'
-import { News } from './home/news';
+import { NewsService } from './services/news.service'
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -58,25 +52,26 @@ export class AppComponent {
   navLinksArray = [];
   showTourConfirm: boolean;
   showLoader: boolean;
+  showTourModel: boolean;
   constructor(
-    private appVersion: AppVersion,
     private market: Market,
-    private _generalService: GeneralService,
-    private keyboard: Keyboard,
-    private _toastService: ToastService,
     private firebaseDynamicLinks: FirebaseDynamicLinks,
     private _userService: UserService,
     public toastController: ToastController,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private fcm: FCM,
     private router: Router,
     protected deeplinks: Deeplinks,
     public events: Events,
-    private _newsService: NewsService,
-    private _admobService: AdmobfreeService
+    private _newsService: NewsService
   ) {
+    if(!localStorage.getItem('language')){
+      this.showTourConfirm = true
+    }
+    setTimeout(() => {
+      this.splashScreen.hide();
+    }, 2000);
     this.initializeApp();
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     const firstDate: any = new Date();
@@ -119,7 +114,6 @@ export class AppComponent {
     }
     if (localStorage.getItem('language')) {
       localStorage.setItem('skip', '1')
-      // localStorage.setItem('catModalShow', '1')
       localStorage.setItem('bookmarkFlag', '1')
       localStorage.setItem('shareFlag', '1')
       localStorage.setItem('firstLargePostClick', '1')
@@ -129,7 +123,6 @@ export class AppComponent {
       let isVisited = [];
       localStorage.setItem('isVisited', JSON.stringify(isVisited))
     }
-    // this.language = localStorage.getItem('language');
     localStorage.removeItem('firstTimeLoaded');
 
     this._userService.currentData.subscribe(value => {
@@ -181,23 +174,19 @@ export class AppComponent {
     if (!localStorage.getItem('notification')) {
       localStorage.setItem('notification', "true");
     }
-    this.platform.ready().then(() => {
-      console.log("INSIDE PLATFORM READY")
-      if(this.platform.is('cordova')){
-        this._admobService.BannerAd();
-      }
-    })
-    this._newsService.getAllNews().subscribe(
-      (res: any) => {
-        console.log("GOT NEWS IN APP COMPONENT",res)
-      })
+    if (!localStorage.getItem('skip')) {
+      this._newsService.getAllNews().subscribe(
+        (res: any) => {
+          console.log("GOT NEWS IN APP COMPONENT", res)
+        })
+    }
   }
 
   initializeApp() {
     const handleBranch = () => {
       this.platform.ready().then(() => {
         console.log("INSIDE PLATFORM READY")
-        this._admobService.BannerAd();
+        // this._admobService.BannerAd();
         this.firebaseDynamicLinks.onDynamicLink().subscribe((res: any) => {
           var postId = res.deepLink.split('?')[1].split('=')[1];
           this.router.navigate(['single-post/' + postId]);
@@ -205,7 +194,6 @@ export class AppComponent {
         }, (error: any) => {
           console.log(error)
         });
-        this.splashScreen.hide();
         this.statusBar.backgroundColorByHexString('#000000');
       });
     }
