@@ -66,7 +66,7 @@ export class AppComponent {
     public events: Events,
     private _newsService: NewsService
   ) {
-    if(!localStorage.getItem('language')){
+    if (!localStorage.getItem('language')) {
       this.showTourConfirm = true
     }
     setTimeout(() => {
@@ -215,12 +215,14 @@ export class AppComponent {
 
   openRatingModal() {
     console.log("INSIDE APP COMPONENT");
-    if (!localStorage.getItem('rateModalFirst')) {
-      this.language = localStorage.getItem('language')
-      this.showRateModal = true;
-    }
-    if (this.showRateModal == true) {
-      localStorage.setItem('rateModalFirst', '1')
+    if (localStorage.getItem('skip')) {
+      if (!localStorage.getItem('rateModalFirst')) {
+        this.language = localStorage.getItem('language')
+        this.showRateModal = true;
+      }
+      if (this.showRateModal == true) {
+        localStorage.setItem('rateModalFirst', '1')
+      }
     }
   }
 }

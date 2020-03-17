@@ -1011,12 +1011,14 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.openRatingModal = function () {
         console.log("INSIDE APP COMPONENT");
-        if (!localStorage.getItem('rateModalFirst')) {
-            this.language = localStorage.getItem('language');
-            this.showRateModal = true;
-        }
-        if (this.showRateModal == true) {
-            localStorage.setItem('rateModalFirst', '1');
+        if (localStorage.getItem('skip')) {
+            if (!localStorage.getItem('rateModalFirst')) {
+                this.language = localStorage.getItem('language');
+                this.showRateModal = true;
+            }
+            if (this.showRateModal == true) {
+                localStorage.setItem('rateModalFirst', '1');
+            }
         }
     };
     AppComponent.ctorParameters = function () { return [
