@@ -1,5 +1,5 @@
 let envs = [];
-let env = "testing";
+let env = "productionV2";
 
 envs['production'] = {
 	baseApiUrl: 'https://admin.triviapost.in:5000/api/',
@@ -8,15 +8,21 @@ envs['production'] = {
 	counter: 0
 }
 envs['development'] = {
-	baseApiUrl: 'http://192.168.1.116:3000/api/',
+	baseApiUrl: 'http://192.168.1.28:3000/api/',
 	//mediaApiUrl: 'http://192.168.1.58/Bhavik/triviaBackend/',
-	mediaApiUrl: 'https://testing.triviapost.in:3000/',
+	mediaApiUrl: 'https://admin.triviapost.in/server/uploads/',
 	isvisited: false,
 	counter: 0
 }
 envs['testing'] = {
 	baseApiUrl: 'https://testing.triviapost.in:3000/api/',
 	mediaApiUrl: 'https://testing.triviapost.in:3000/',
+	isvisited: false,
+	counter: 0
+}
+envs['productionV2'] = {
+	baseApiUrl: 'https://admin.triviapost.in:4000/api/',
+	mediaApiUrl: 'https://admin.triviapost.in/server/uploads/',
 	isvisited: false,
 	counter: 0
 }

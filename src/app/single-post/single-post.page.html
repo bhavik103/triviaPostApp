@@ -33,7 +33,7 @@
       class="container"
       [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}"
     >
-      <img src="{{mediaPath}}{{news.newsImage}}" alt="" class="postImage" />
+      <img src="{{mediaPath}}{{news.newsImage}}" onerror="this.src='../../assets/images/placeholder.png'" alt="" class="postImage" />
       <div class="text-block"></div>
     </div>
 

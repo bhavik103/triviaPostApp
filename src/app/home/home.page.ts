@@ -122,7 +122,9 @@ export class HomePage implements OnInit {
         if (!localStorage.getItem('firstLargePostClick') && localStorage.getItem('language')) {
             this.router.navigateByUrl('tour-home')
         }
-        this._admobService.interstitalAdOnFivePageChange()
+        if (this.platform.is('cordova')) {
+            this._admobService.interstitalAdOnFivePageChange()
+        }
         this.catModalShow = localStorage.getItem('catModalShow')
         if (!localStorage.getItem('language')) {
             this.askForTour('none');
@@ -167,7 +169,9 @@ export class HomePage implements OnInit {
         if (localStorage.getItem('language')) {
             this.smallLoading = true;
             this.offlineNews();
-            this._admobService.BannerAd();
+            if(this.platform.is('cordova')){
+                this._admobService.BannerAd();
+            }
             this.getAllPost()
         }
         this.catModalShow = localStorage.getItem('catModal');

@@ -234,6 +234,6 @@ export class LoginComponent implements OnInit {
 	}
 	skipSignin(){
 		localStorage.setItem('skip','1')
-		this.router.navigateByUrl('/home')
+		this.router.navigateByUrl('/tour-home')
 	}
 }

@@ -42,9 +42,9 @@ export class AdmobfreeService {
 
   BannerAd() {
     let bannerConfig: AdMobFreeBannerConfig = {
-      isTesting: true, // Remove in production
+      // isTesting: true, // Remove in production
       autoShow: true, 
-      // id: "ca-app-pub-4273722207594594/7353027940"
+      id: "ca-app-pub-4273722207594594/7353027940"
     };
     this.admobFree.banner.config(bannerConfig);
 
@@ -55,9 +55,9 @@ export class AdmobfreeService {
 
   InterstitialAd() {
     let interstitialConfig: AdMobFreeInterstitialConfig = {
-      isTesting: true, // Remove in production
+      // isTesting: true, // Remove in production
       autoShow: true,
-      // id: "ca-app-pub-4273722207594594/7353027940"
+      id: "ca-app-pub-4273722207594594/7353027940"
     };
     this.admobFree.interstitial.config(interstitialConfig);
 
