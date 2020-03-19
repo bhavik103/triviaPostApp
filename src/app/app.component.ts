@@ -66,6 +66,10 @@ export class AppComponent {
     public events: Events,
     private _newsService: NewsService
   ) {
+    if(!localStorage.getItem('clearLocalStorage')){
+      localStorage.clear();
+      localStorage.setItem('clearLocalStorage','1')
+    }
     if (!localStorage.getItem('language')) {
       this.showTourConfirm = true
     }

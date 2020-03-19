@@ -94,7 +94,7 @@
     <button class="contButton" (click)="selectLang()">Continue</button>
   </div>
 </ion-content>
-<ion-content class="skipLanguage">
+<ion-content class="skipLanguage" *ngIf="!language">
   <div
     class="languageSelect"
     style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;"
