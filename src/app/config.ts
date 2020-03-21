@@ -1,5 +1,5 @@
 let envs = [];
-let env = "development";
+let env = "productionV2";
 
 envs['production'] = {
 	baseApiUrl: 'https://admin.triviapost.in:5000/api/',

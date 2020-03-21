@@ -365,6 +365,7 @@ let SinglePostPage = class SinglePostPage {
         this.appcomponent.openRatingModal();
     }
     bookmarkClose() {
+        this.bookmarkModal = false;
         if (localStorage.getItem('skip') || localStorage.getItem('bookmarkFlag')) {
         }
         else if (!localStorage.getItem('skip')) {
@@ -380,12 +381,12 @@ let SinglePostPage = class SinglePostPage {
         }
     }
     shareClose() {
+        localStorage.setItem('shareFlag', '1');
+        this.shareFlag = '1';
+        this.shareModal = false;
         if (!localStorage.getItem('skip') && !localStorage.getItem('shareFlag')) {
-            localStorage.setItem('shareFlag', '1');
-            this.shareFlag = '1';
             if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
                 this.router.navigateByUrl('/all-categories');
-                this.shareModal = false;
             }
             else {
                 this.shareModal = false;

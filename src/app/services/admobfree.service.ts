@@ -57,7 +57,7 @@ export class AdmobfreeService {
     let interstitialConfig: AdMobFreeInterstitialConfig = {
       // isTesting: true, // Remove in production
       autoShow: true,
-      id: "ca-app-pub-4273722207594594/7353027940"
+      id: "ca-app-pub-4273722207594594/4423612275"
     };
     this.admobFree.interstitial.config(interstitialConfig);
 

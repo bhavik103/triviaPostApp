@@ -293,9 +293,9 @@ export class SinglePostPage implements OnInit {
     }
   }
   shareClose() {
+    this.shareModal = false;
     localStorage.setItem('shareFlag', '1');
     this.shareFlag = '1';
-    this.shareModal = false;
     if (!localStorage.getItem('skip') && !localStorage.getItem('shareFlag')) {
       if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
         this.router.navigateByUrl('/all-categories')
