@@ -169,7 +169,7 @@ export class HomePage implements OnInit {
         if (localStorage.getItem('language')) {
             this.smallLoading = true;
             this.offlineNews();
-            if(this.platform.is('cordova')){
+            if (this.platform.is('cordova')) {
                 this._admobService.BannerAd();
             }
             this.getAllPost()
@@ -211,7 +211,10 @@ export class HomePage implements OnInit {
         localStorage.setItem('firstTimeLoaded', 'true');
         this._newsService.getAllNews().subscribe(
             (res: any) => {
-                console.log('this.allnews =======', res)
+                this.newsArray = res;
+                this.latestPost = this.newsArray.shift();
+                console.log('this.allnews =======', this.newsArray)
+                console.log('this.allnews =======', this.latestPost)
                 this.checkForRating();
             },
             (err) => {

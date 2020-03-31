@@ -1,99 +1,52 @@
 <div *ngIf="!loading">
-  <div class="settingsToolbar">
-    <ion-back-button
-      name="arrow-round-back"
-      class="homeBack"
-      class="homeBack"
-      defaultHref="/home"
-      float-left
-      (click)="backClick()"
-    >
-    </ion-back-button>
-    <span id="settingTitle">Trivia Post</span>
-    <button float-right routerLink="/home">
+    <div class="settingsToolbar">
+        <ion-back-button name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/home" float-left (click)="backClick()">
+        </ion-back-button>
+        <span id="settingTitle">Trivia Post</span>
+        <button float-right routerLink="/home">
       <ion-icon name="home"></ion-icon>
     </button>
-  </div>
+    </div>
 </div>
 
-<ion-content
-  *ngIf="!loading"
-  [ngClass]="{'notScroll': (!bookmarkFlag || !shareFlag) && !skip}"
->
-  <div
-    class="floatNext"
-    *ngIf="(!bookmarkFlag || !shareFlag) && !skip"
-    (click)="nextButton()"
-  >
-    <div class="ripple_effect"></div>
-    <img src="../../assets/images/nextButton.png" class="my-floatNext" alt="" />
-  </div>
-  <div *ngIf="news" class="singleNews">
-    <div
-      class="container"
-      [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}"
-    >
-      <img src="{{mediaPath}}{{news.newsImage}}" onerror="this.src='../../assets/images/placeholder.png'" alt="" class="postImage" />
-      <div class="text-block"></div>
+<ion-content *ngIf="!loading" [ngClass]="{'notScroll': (!bookmarkFlag || !shareFlag) && !skip}">
+    <div class="floatNext" *ngIf="(!bookmarkFlag || !shareFlag) && !skip" (click)="nextButton()">
+        <div class="ripple_effect"></div>
+        <img src="../../assets/images/nextButton.png" class="my-floatNext" alt="" />
     </div>
+    <div *ngIf="news" class="singleNews">
+        <div class="container" [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}">
+            <img src="{{mediaPath}}{{news.newsImage}}" onerror="this.src='../../assets/images/placeholder.png'" alt="" class="postImage" />
+            <div class="text-block"></div>
+        </div>
 
-    <div
-      class="subPostTitle"
-      [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}"
-    >
-      <p class="newsInfo" *ngIf="news.picCredit">
-        <span>PC : </span><span class="picCredit"> {{news.picCredit}}</span>
-      </p>
-    </div>
-    <div class="newsContent">
-      <div
-        class="postTitle"
-        [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}"
-      >
-        <p
-          *ngIf="news[language].title"
-          [ngClass]="{'assameseFont': language == 'as'}"
-          [ngClass]="{'assameseFontTitle': language == 'as'}"
-        >
-          {{news[language].title}}
-        </p>
-        <p *ngIf="!news[language].title">
-          {{news.en.title}}
-        </p>
-      </div>
-      <div
-        class="category_title"
-        [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}"
-      >
-        <span
-          (click)="singleCategory(news.newsCategoryId,news.newsCategory[language])"
-          *ngIf="news.newsCategory[language]"
-          [ngClass]="{'assameseFont': language == 'as'}"
-        >
+        <div class="subPostTitle" [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}">
+            <p class="newsInfo" *ngIf="news.picCredit">
+                <span>PC : </span><span class="picCredit"> {{news.picCredit}}</span>
+            </p>
+        </div>
+        <div class="newsContent">
+            <div class="postTitle" [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}">
+                <p *ngIf="news[language].title" [ngClass]="{'assameseFont': language == 'as'}" [ngClass]="{'assameseFontTitle': language == 'as'}">
+                    {{news[language].title}}
+                </p>
+                <p *ngIf="!news[language].title">
+                    {{news.en.title}}
+                </p>
+            </div>
+            <div class="category_title" [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}">
+                <span (click)="singleCategory(news.newsCategoryId,news.newsCategory[language])" *ngIf="news.newsCategory[language]" [ngClass]="{'assameseFont': language == 'as'}">
           {{news.newsCategory[language] | slice:0:30}}
         </span>
-        <span
-          (click)="singleCategory(news.newsCategoryId,news.newsCategory.en)"
-          *ngIf="!news.newsCategory[language]"
-        >
+                <span (click)="singleCategory(news.newsCategoryId,news.newsCategory.en)" *ngIf="!news.newsCategory[language]">
           {{news.newsCategory.en | slice:0:30}}
         </span>
-      </div>
-      <div
-        class="post"
-        [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}"
-      >
-        <p [innerHTML]="byPassedNews" *ngIf="byPassedNews" [ngClass]="{'assameseFont': language == 'as'}" [ngClass]="{'assameseFontContent': language == 'as'}"></p>
-        <p
-          [innerHTML]="byPassedNewsEn"
-          *ngIf="!byPassedNews"
-        ></p>
-      </div>
-      <span
-        class="float unbookmarkFloat"
-        *ngIf="!news.bookmarkKey"
-        (click)="bookmark(news.newsId)"
-      >
+            </div>
+            <div class="post" [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}">
+                <p [innerHTML]="byPassedNews" *ngIf="byPassedNews" [ngClass]="{'assameseFont': language == 'as'}" [ngClass]="{'assameseFontContent': language == 'as'}"></p>
+                <p [innerHTML]="byPassedNewsEn" *ngIf="!byPassedNews"></p>
+            </div>
+            <span class="float unbookmarkFloat" *ngIf="!news.bookmarkKey" (click)="bookmark(news.newsId)">
         <span *ngIf="!skip">
           <div
             class="tourText tourTextBookmark tourTextBook"
@@ -103,31 +56,24 @@
           </div>
           <div class="ripple_effect" *ngIf="bookmarkFlag != '1'"></div>
         </span>
+            <img src="assets/images/bookmarkWhite.png" height="52%" alt="" />
+            </span>
+            <span class="float bookmarkFloat" *ngIf="(news.bookmarkKey || loginBookmark)" (click)="bookmark(news.newsId)">
         <img src="assets/images/bookmarkWhite.png" height="52%" alt="" />
       </span>
-      <span
-        class="float bookmarkFloat"
-        *ngIf="(news.bookmarkKey || loginBookmark)"
-        (click)="bookmark(news.newsId)"
-      >
-        <img src="assets/images/bookmarkWhite.png" height="52%" alt="" />
-      </span>
-      <span
-        class="float floatShare"
-        (click)="sharePost(news.fcmLink, news[language].title, news.newsImage, false)"
-      >
+            <span class="float floatShare" (click)="sharePost(news.fcmLink, news, news.newsImage, false)">
         <span *ngIf="!skip">
           <div class="tourText tourTextShare" *ngIf="shareFlag != '1'">
             {{clickShare[language]}}
           </div>
           <div class="ripple_effect" *ngIf="shareFlag != '1'"></div>
         </span>
-        <img src="../../assets/images/Share.png" class="icon shareImage" />
-      </span>
-    </div>
-    <div class="subPostTitle postSource" *ngIf="news.srcTitle != '' && news.srcTitle != null && !news.srcTitle">
-      <p class="newsInfo">
-        <span>Source: </span
+            <img src="../../assets/images/Share.png" class="icon shareImage" />
+            </span>
+        </div>
+        <div class="subPostTitle postSource" *ngIf="news.srcTitle != '' && news.srcTitle != null && !news.srcTitle">
+            <p class="newsInfo">
+                <span>Source: </span
         ><span class="picCredit" (click)="openWithSystemBrowser(news.srcLink)">
           {{news.srcTitle}}</span
         >

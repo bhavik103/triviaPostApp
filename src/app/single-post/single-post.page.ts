@@ -12,7 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
 import { AppComponent } from '../app.component'
-import { nextButton, modalSignupButton, clickShare, clickBookmark, modalSkipButton, language, sharePostModalContent, sharePostModal, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
+import { nextButton, modalSignupButton,shareMessage, clickShare, clickBookmark, modalSkipButton, language, sharePostModalContent, sharePostModal, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
 import { AdmobfreeService } from '../services/admobfree.service'
 import {
   AdMobFree,
@@ -54,6 +54,7 @@ export class SinglePostPage implements OnInit {
   sharePostModal = sharePostModal;
   next = nextButton;
   sharePostModalContent = sharePostModalContent;
+  shareMessage = shareMessage;
   shareModal: boolean;
   bookmarkFlag: string;
   shareFlag: string;
@@ -185,7 +186,14 @@ export class SinglePostPage implements OnInit {
   }
 
   //  Do Share Post
-  sharePost(link, newsTitle, newsImage, flag) {
+  sharePost(link, news, newsImage, flag) {
+    let newsTitle;
+    if(this.news[this.language].title != ''){
+      newsTitle = this.news[this.language].title;
+    }else{
+      newsTitle = news.en.title;
+    }
+    console.log(newsTitle)
     if (!localStorage.getItem('shareFlag') || !localStorage.getItem('accessToken') || flag) {
       this.shareModal = true;
     } else {
@@ -195,7 +203,7 @@ export class SinglePostPage implements OnInit {
       this.firstTimeBlur = false;
       localStorage.setItem('shareBlink', '1')
       localStorage.setItem('skip', '1')
-      var message = "Check out this amazing news " + '"' + newsTitle + '" ';
+      var message = shareMessage[this.language] + '"' + newsTitle + '" ';
       var subject = "Trivia Post";
       var url = link;
       this.socialSharing.share(url, subject, null, message)

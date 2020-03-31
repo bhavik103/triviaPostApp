@@ -44,7 +44,7 @@ export class NewsService {
 				// 		}
 				// 	}
 				// });
-				console.log('offlineArray',offlineArray)
+				console.log('offlineArray', offlineArray)
 				localStorage.removeItem('newsArray')
 				localStorage.setItem('newsArray', JSON.stringify(offlineArray))
 				console.log("FINAL OBJECT", offlineArray)
@@ -95,7 +95,7 @@ export class NewsService {
 		}
 	}
 
-	searchedNews(searchKey,lang) {
+	searchedNews(searchKey, lang) {
 		if (this.network.type == 'none') {
 			return new Observable(observer => {
 				console.log("fdfdfd", JSON.parse(localStorage.getItem("newsArray")));
@@ -206,7 +206,11 @@ export class NewsService {
 		if (localStorage.getItem('accessToken')) {
 			return this.http.put(config.baseApiUrl + 'post-view-loggedin', { postId: id, postType: postType });
 		} else {
-			return this.http.put(config.baseApiUrl + 'post-view-without-login', { postId: id, postType: postType });
+			const deviceToken = localStorage.getItem('deviceToken');
+			if (localStorage.getItem('deviceToken')) {
+				// const deviceToken = Math.floor(Math.random() * 6) + 1  
+				return this.http.put(config.baseApiUrl + 'post-view-without-login', { postId: id, postType: postType, deviceToken: deviceToken });
+			}
 		}
 	}
 }

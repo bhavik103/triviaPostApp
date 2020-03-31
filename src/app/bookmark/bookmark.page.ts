@@ -13,7 +13,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { bookmark } from '../changeLang';
 import { AppComponent } from '../app.component'
 import { AdmobfreeService } from '../services/admobfree.service';
-
+import {shareMessage} from '../changeLang'
 @Component({
   selector: 'app-bookmark',
   templateUrl: './bookmark.page.html',
@@ -33,6 +33,7 @@ export class BookmarkPage implements OnInit {
   noNews;
   bookmarkTitle = bookmark;
   wrongStatus: any;
+  shareMessage = shareMessage;
 
   constructor(private _admobService: AdmobfreeService, private appcomponent: AppComponent, private network: Network, private _toastService: ToastService, private platform: Platform, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router) { }
 
@@ -43,13 +44,13 @@ export class BookmarkPage implements OnInit {
         this.router.navigate(['settings']);
       }
     });
-    this.language = localStorage.getItem('language');
   }
-
+  
   onPress(newsImage, fcmLink, newsId, newsTitleEnglish, $event) {
     console.log('newsId=', newsId)
   }
   ionViewWillEnter() {
+    this.language = localStorage.getItem('language');
     this._admobService.interstitalAdOnFivePageChange()
     this.bookmarkedNews();
     // // Check Internet conectivity
@@ -74,7 +75,7 @@ export class BookmarkPage implements OnInit {
         this.loading = false;
         this.newsObj = res;
         this.newsArray = this.newsObj;
-        console.log(" BOOKMARKED NEWS", this.newsArray)
+        console.log(" BOOKMARKED NEWS ", this.newsArray)
         this.bookmarkLength = this.newsArray.length;
       },
       (err) => {
@@ -99,8 +100,9 @@ export class BookmarkPage implements OnInit {
   }
 
   shareBookmarked(newsImage, link, title) {
+    console.log(shareMessage[this.language])
     if (localStorage.getItem('accessToken')) {
-      var message = "Check out this amazing news " + '"' + title + '" ';
+      var message = shareMessage[this.language] + '"' + title + '" ';
       var subject = "Trivia Post";
       var url = link;
       // var file = this.mediaPath + newsImage;
