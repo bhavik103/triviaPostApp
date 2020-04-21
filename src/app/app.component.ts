@@ -167,19 +167,21 @@ export class AppComponent {
         }, randomNum * 1000);
       }
     });
-    this.deeplinks
-      .route({
-        "/": {},
-        "/nr5y": { "post:": true },
-        "/post/:id": { "post:": true }
-      })
-      .subscribe(
-        match => {
-          console.log("match link", match.$args.id);
-          this.router.navigate(["single-post/" + match.$args.id]);
-        },
-        nomatch => {}
-      );
+    this.platform.ready().then(() => {
+      this.deeplinks
+        .route({
+          "/": {},
+          "/nr5y": { "post:": true },
+          "/post/:id": { "post:": true }
+        })
+        .subscribe(
+          match => {
+            console.log("match link", match.$args.id);
+            this.router.navigate(["single-post/" + match.$args.id]);
+          },
+          nomatch => { }
+        );
+    })
     var offline = Observable.fromEvent(document, "offline");
     var online = Observable.fromEvent(document, "online");
 
@@ -229,7 +231,9 @@ export class AppComponent {
   rate() {
     localStorage.setItem("isRated", "true");
     this.showRateModal = false;
-    this.market.open("io.ionic.triviapost");
+    this.platform.ready().then(() => {
+      this.market.open("io.ionic.triviapost");
+    })
   }
   dismiss() {
     localStorage.setItem("isRated", "true");

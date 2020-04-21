@@ -103,22 +103,24 @@ export class HomePage implements OnInit {
     }
 
     ionViewDidEnter() {
-        this.fcm.getToken().then(token => {
-            localStorage.setItem('deviceToken', token);
-            setTimeout(() => {
-                if (localStorage.getItem('annonymousNotify')) {
-                    this._userService.firstTimeUser(this.selected).subscribe((res: any) => {
-                        this._userService.serviceFunction();
-                        localStorage.setItem('annonymousNotify', 'true');
-                    },
-                        (err) => {
-                        });
-                }
-            }, 1000);
-        });
-        this.fcm.onTokenRefresh().subscribe(token => {
-            localStorage.setItem('deviceToken', token);
-        });
+        this.platform.ready().then(() => {
+            this.fcm.getToken().then(token => {
+                localStorage.setItem('deviceToken', token);
+                setTimeout(() => {
+                    if (localStorage.getItem('annonymousNotify')) {
+                        this._userService.firstTimeUser(this.selected).subscribe((res: any) => {
+                            this._userService.serviceFunction();
+                            localStorage.setItem('annonymousNotify', 'true');
+                        },
+                            (err) => {
+                            });
+                    }
+                }, 1000);
+            });
+            this.fcm.onTokenRefresh().subscribe(token => {
+                localStorage.setItem('deviceToken', token);
+            });
+        })
         if (!localStorage.getItem('firstLargePostClick') && localStorage.getItem('language')) {
             this.router.navigateByUrl('tour-home')
         }

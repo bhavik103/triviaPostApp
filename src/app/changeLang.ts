@@ -17,7 +17,7 @@ export const langSelectText = {
 export const shareApp = {
 	en: 'Share this app',
 	hn: 'एप को शेयर कीजिए',
-	as: 'এই অ্যাপ্লিকেশন শেয়াৰ কৰক',
+	as: 'এই এপ্ প্লিকেশ্বন শ্বেয়াৰ কৰক।',
 	bn: 'এই অ্যাপ্লিকেশনতা শেয়ার করুন',
 	gu: 'એપ્લિકેશન શેર કરો',
 	kn: 'ಈ ಅಪ್ಲಿಕೇಶನ್ ಹಂಚಿಕೊಳ್ಳಿ',
@@ -75,7 +75,7 @@ export const feedback = {
 export const notification = {
 	en: 'Notification',
 	hn: 'अधिसूचना',
-	as: 'নোটিফিকেশন',
+	as: 'বিজ্ঞপ্তি',
 	bn: 'নোটিফিকেশন',
 	gu: 'સૂચના',
 	kn: 'ಅಧಿಸೂಚನೆ',
@@ -90,7 +90,7 @@ export const notification = {
 export const bookmark = {
 	en: 'Bookmarks',
 	hn: 'बुकमार्क',
-	as: 'বুকমার্ক',
+	as: 'পুস্তক চিহ্ন',
 	bn: 'বুকমার্ক',
 	gu: 'બુકમાર્ક્સ',
 	kn: 'ಬುಕ್‌ಮಾರ್ಕ್‌ಗಳು',
@@ -248,7 +248,7 @@ export const optionsTitle = {
 export const termsTitle = {
 	en: 'Terms & Condition',
 	hn: 'नियम व शर्त',
-	as: 'শর্তাবলী',
+	as: 'চৰ্তাৱলী',
 	bn: 'শর্তাবলী'
 }
 export const privacyTitle = {
@@ -356,6 +356,6 @@ export const clickBookmark = {
 export const shareMessage = {
 	en: 'Just read & share ',
 	hn: 'बस पढ़ें और शेयर करें ',
-	as: 'পঢ়ক আৰু শেয়াৰ কৰক  ',
+	as: 'পঢ়ক আৰু শ্বেয়াৰ কৰক   ',
 	bn: 'শুধু পড়ুন এবং শেয়ার করুন  '
 }
