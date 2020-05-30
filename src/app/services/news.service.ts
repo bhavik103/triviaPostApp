@@ -32,18 +32,10 @@ export class NewsService {
 	constructor(public _userService: UserService, private network: Network, private http: HttpClient) { }
 
 	//fetch all news
-	getAllNews() {
-		return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').pipe(
+	getAllNews(pageNumber, pageLimit) {
+		return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&appRequest=true&page='+pageNumber+'&limit='+pageLimit).pipe(
 			map((res: any) => {
-				var prop = ['newsId', 'newsCategoryId', 'en', 'hn', 'as', 'bn', 'gu', 'kn', 'ml', 'mr', 'pa', 'ta', 'te', 'newsCategory'];
 				let offlineArray = JSON.parse(JSON.stringify(res.data));
-				// offlineArray.forEach(element => {
-				// 	for (var k in element) {
-				// 		if (prop.indexOf(k) < 0) {
-				// 			delete element[k];
-				// 		}
-				// 	}
-				// });
 				console.log('offlineArray', offlineArray)
 				localStorage.removeItem('newsArray')
 				localStorage.setItem('newsArray', JSON.stringify(offlineArray))
@@ -55,7 +47,7 @@ export class NewsService {
 
 
 	//all cat news
-	allCatNews(id) {
+	allCatNews(id,page,limit) {
 		console.log("Inside", id)
 		if (this.network.type == 'none') {
 			return new Observable(observer => {
@@ -80,7 +72,7 @@ export class NewsService {
 		} else {
 			return new Observable(observer => {
 				console.log("in ");
-				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&categoryId=' + id).subscribe(
+				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&categoryId=' + id + '&appRequest=true&page='+page+'&limit='+limit).subscribe(
 					(result: object) => {
 						this.newsArray = result['data'];
 						console.log("in cat service", this.newsArray);

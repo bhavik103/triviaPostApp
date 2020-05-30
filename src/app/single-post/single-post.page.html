@@ -43,7 +43,7 @@
         </span>
             </div>
             <div class="post" [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}">
-                <p [innerHTML]="byPassedNews" *ngIf="byPassedNews" [ngClass]="{'assameseFont': language == 'as'}" [ngClass]="{'assameseFontContent': language == 'as'}"></p>
+                <p [innerHTML]="byPassedNews" *ngIf="byPassedNews"></p>
                 <p [innerHTML]="byPassedNewsEn" *ngIf="!byPassedNews"></p>
             </div>
             <span class="float unbookmarkFloat" *ngIf="!news.bookmarkKey" (click)="bookmark(news.newsId)">

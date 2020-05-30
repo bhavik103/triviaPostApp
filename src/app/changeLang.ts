@@ -31,7 +31,7 @@ export const shareApp = {
 export const terms = {
 	en: 'Terms & Conditions',
 	hn: 'नियम और शर्तें',
-	as: 'শর্তাবলী',
+	as: 'চৰ্তাৱলী',
 	bn: 'শর্তাবলী',
 	gu: 'શરતો અને નિયમો',
 	kn: 'ನಿಯಮ ಮತ್ತು ಶರತ್ತುಗಳು',
@@ -194,7 +194,7 @@ export const tourSkip = {
 export const modalBookmarkTitle = {
 	en: 'Bookmark Posts!',
 	hn: 'बुकमार्क पोस्ट',
-	as: 'বুকমার্ক পোস্ট',
+	as: 'পুস্তক চিহ্ন',
 	bn: 'বুকমার্ক পোস্ট'
 }
 export const modalBookmarkText = {
@@ -314,13 +314,13 @@ export const tourCatPost = {
 export const sharePostModal = {
 	en: 'Share Post',
 	hn: 'शेयर पोस्ट',
-	as: 'শেয়াৰ পোস্ট',
+	as: 'শ্বেয়াৰ পোস্ট',
 	bn: 'শেয়ার পোস্ট',
 }
 export const sharePostModalContent = {
 	en: 'So you can share interesting post with your friends',
 	hn: 'तो आप अपने दोस्तों के साथ दिलचस्प पोस्ट साझा कर सकते हैं',
-	as: 'আপুনি ভাল পোরা পোস্ট বন্ধু বান্ধবৰ লগত শেয়াৰ কৰিব পাৰিব ',
+	as: 'আপুনি ভাল পোরা পোস্ট বন্ধু বান্ধবৰ লগত শ্বেয়াৰ কৰিব পাৰিব ',
 	bn: 'সুতরাং আপনি মজাদার পোস্টগুলি আপনার বন্ধুদের সাথে শেয়ার করতে পারেন'
 }
 export const nextButton = {

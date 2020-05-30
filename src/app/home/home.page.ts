@@ -23,6 +23,8 @@ import { AdmobfreeService } from '../services/admobfree.service';
 import {
     AdMobFree
 } from '@ionic-native/admob-free/ngx';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { IonContent } from '@ionic/angular';
 
 @Component({
     selector: 'app-home',
@@ -32,6 +34,8 @@ import {
 
 export class HomePage implements OnInit {
     @ViewChild(SuperTabs, { static: false }) superTabs: SuperTabs;
+    @ViewChild(IonContent, { static: false }) content: IonContent;
+
     selected;
     tokenLocalStorage: any;
     language: string;
@@ -92,34 +96,66 @@ export class HomePage implements OnInit {
     showTourConfirm: boolean;
     smallLoading: boolean;
     iframe: any;
+    page_number = 1;
+    page_limit = 10;
+    
     constructor(private admobFree: AdMobFree, private _admobService: AdmobfreeService, private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, private router: Router, public keyboard: Keyboard) {
     }
-
+    
     // Event Listeners
     ngOnInit() {
-        this.firebaseLinkRoute();
+        this.platform.ready().then(() => {
+            this.firebaseLinkRoute();
+        })
         this.language = localStorage.language;
         this.viewInitFunctions();
     }
 
     ionViewDidEnter() {
         this.platform.ready().then(() => {
-            this.fcm.getToken().then(token => {
-                localStorage.setItem('deviceToken', token);
-                setTimeout(() => {
-                    if (localStorage.getItem('annonymousNotify')) {
-                        this._userService.firstTimeUser(this.selected).subscribe((res: any) => {
+            if (!localStorage.getItem('deviceToken')) {
+                this.fcm.getToken().then(token => {
+                    localStorage.setItem('deviceToken', token);
+                    setTimeout(async () => {
+                        console.log('this.selected', localStorage.getItem('language'))
+                        if (!localStorage.getItem('accessToken')) {
+                            this._userService.firstTimeUser(await localStorage.getItem('language')).subscribe((res: any) => {
+                                this._userService.serviceFunction();
+                                localStorage.setItem('annonymousNotify', 'true');
+                            },
+                                (err) => {
+                                });
+                        } else {
+                            let accessToken = await localStorage.getItem('accessToken');
+                            let deviceToken = await localStorage.getItem('deviceToken');
+                            this._userService.loggedInUserDeviceToken(accessToken, deviceToken).subscribe((res: any) => {
+                                console.log("RES FROM UPDATING DEVICE TOKEN", res)
+                            })
+                        }
+                    }, 1000);
+                });
+                this.fcm.onTokenRefresh().subscribe(token => {
+                    localStorage.setItem('deviceToken', token);
+                });
+            } else {
+                setTimeout(async () => {
+                    console.log('this.selected', localStorage.getItem('language'))
+                    if (!localStorage.getItem('accessToken')) {
+                        this._userService.firstTimeUser(await localStorage.getItem('language')).subscribe((res: any) => {
                             this._userService.serviceFunction();
                             localStorage.setItem('annonymousNotify', 'true');
                         },
                             (err) => {
                             });
+                    } else {
+                        let accessToken = await localStorage.getItem('accessToken');
+                        let deviceToken = await localStorage.getItem('deviceToken');
+                        this._userService.loggedInUserDeviceToken(accessToken, deviceToken).subscribe((res: any) => {
+                            console.log("RES FROM UPDATING DEVICE TOKEN", res)
+                        })
                     }
                 }, 1000);
-            });
-            this.fcm.onTokenRefresh().subscribe(token => {
-                localStorage.setItem('deviceToken', token);
-            });
+            }
         })
         if (!localStorage.getItem('firstLargePostClick') && localStorage.getItem('language')) {
             this.router.navigateByUrl('tour-home')
@@ -142,7 +178,11 @@ export class HomePage implements OnInit {
 
     }
     ionViewWillLeave() {
+        this.page_number = 1;
         this.subscription.unsubscribe();
+        // this.newsArray = [];
+        // this.content.scrollToTop(400);
+
     }
 
     viewInitFunctions() {
@@ -174,7 +214,7 @@ export class HomePage implements OnInit {
             if (this.platform.is('cordova')) {
                 this._admobService.BannerAd();
             }
-            this.getAllPost()
+            this.getAllPost(false, "");
         }
         this.catModalShow = localStorage.getItem('catModal');
         this.loading = false
@@ -186,7 +226,9 @@ export class HomePage implements OnInit {
             this.language = localStorage.getItem('language')
             this.catSelect = localStorage.getItem('catSelect')
         }
-        this.fcmToken();
+        this.platform.ready().then(() => {
+            this.fcmToken();
+        })
         this.checkforInternet();
     }
 
@@ -209,20 +251,36 @@ export class HomePage implements OnInit {
         }, 2000);
     }
     // get all news - HOME PAGE ( FEEDS )
-    async getAllPost() {
+    async getAllPost(isFirstLoad, event) {
+        // this.smallLoading = true;
         localStorage.setItem('firstTimeLoaded', 'true');
-        this._newsService.getAllNews().subscribe(
+        this._newsService.getAllNews(this.page_number,this.page_limit).subscribe(
             (res: any) => {
-                this.newsArray = res;
-                this.latestPost = this.newsArray.shift();
+                if(this.page_number == 1){
+                    this.latestPost = res.shift();
+                }
+                this.newsArray.push(...res);
+                // this.newsArray = res;
+                if (isFirstLoad)
+                event.target.complete();
+                
+                this.page_number++;
+                // this.latestPost = this.newsArray.shift();
                 console.log('this.allnews =======', this.newsArray)
                 console.log('this.allnews =======', this.latestPost)
                 this.checkForRating();
+                // this.smallLoading = false;
             },
             (err) => {
                 this.newsArray = localStorage.newsArray;
             });
     }
+
+    doInfinite(event) {
+        this.getAllPost(true,event);
+        console.log(event);
+    }
+
     checkForRating() {
         if (localStorage.getItem('isRated') != 'true' || localStorage.getItem('isRated') == 'pending') {
             this.showRateModal = true;
@@ -314,12 +372,14 @@ export class HomePage implements OnInit {
 
     //set fcm token
     fcmToken() {
-        this.fcm.onNotification().subscribe(data => {
-            this.router.navigate(['home/single-news/' + data.newsId]);
-            if (data.wasTapped) {
-            } else {
-            }
-        });
+        this.platform.ready().then(() => {
+            this.fcm.onNotification().subscribe(data => {
+                this.router.navigate(['home/single-news/' + data.newsId]);
+                if (data.wasTapped) {
+                } else {
+                }
+            });
+        })
     }
 
     //rate dialog

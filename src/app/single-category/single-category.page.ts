@@ -17,7 +17,7 @@ import { AdmobfreeService } from '../services/admobfree.service';
   styleUrls: ['./single-category.page.scss'],
 })
 export class SingleCategoryPage implements OnInit {
-  newsArray: any;
+  newsArray = [];
   mediaPath = config.mediaApiUrl;
   catName;
   noNews;
@@ -29,7 +29,10 @@ export class SingleCategoryPage implements OnInit {
   subscription: any;
   skip: string;
   firstLargePostClick: string;
-  constructor(private _admobService: AdmobfreeService,public appcomponent: AppComponent,public alertController: AlertController, private ngzone: NgZone, private platform: Platform, private _generalService: GeneralService, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) {
+  limit: any;
+  page_number = 1;
+  page_limit = 10;
+  constructor(private _admobService: AdmobfreeService, public appcomponent: AppComponent, public alertController: AlertController, private ngzone: NgZone, private platform: Platform, private _generalService: GeneralService, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -41,39 +44,53 @@ export class SingleCategoryPage implements OnInit {
   }
   ionViewWillEnter() {
     this._admobService.interstitalAdOnFivePageChange()
-    if(localStorage.getItem('skip')){
+    if (localStorage.getItem('skip')) {
       this.skip = localStorage.getItem('skip');
       this.firstLargePostClick = localStorage.getItem('firstLargePostClick')
     }
-    
-    this.singleCategory();
+
+    this.singleCategory(false, '');
     this.newsArrayLength = false;
     this.language = localStorage.getItem('language');
   }
-  async singleCategory() {
-    this.loading = true
+  async singleCategory(isFirstLoad, event) {
+    if (this.page_number == 1) {
+      this.loading = true
+    }
     var catId = this.route.snapshot.params['id'];
     console.log('catId', catId);
-    this._newsService.allCatNews(catId).subscribe((res: any) => {
+    this._newsService.allCatNews(catId, this.page_number, this.page_limit).subscribe((res: any) => {
       console.log("catNews", res);
-      this.loading = false
-      if (res.length == 1) {
-        this.newsArrayLength = true;
-        console.log("length news", res.length)
-      } else if (res.length == 0) {
-        this.noNews = true;
-        console.log('this.noNews', this.noNews)
+      if (this.page_number == 1) {
+        if (res.length == 1) {
+          this.newsArrayLength = true;
+          console.log("length news", res.length)
+        } else if (res.length == 0) {
+          this.noNews = true;
+          console.log('this.noNews', this.noNews)
+        }
       }
-      this.newsArray = res;
-      this.news = res[0];
-      console.log('this.news large', this.news);
-      this.newsArray.splice(0, 1);
-      this.latestPost = JSON.parse(JSON.stringify(res[0]));
+      if (isFirstLoad) {
+        event.target.complete();
+      }
 
-      console.log('this.latestPost', this.newsArray[0]);
+      if (this.page_number == 1) {
+        this.news = res.shift();
+      }
+      this.newsArray.push(...res);
+      console.log('this.latestPost', this.latestPost);
+      console.log('this.newsArray', this.newsArray);
+      this.page_number++;
+      this.loading = false
+      // console.log('this.latestPost', this.newsArray[0]);
     }, err => {
       this._toastService.toastFunction(err.error.message, 'danger');
     })
+  }
+
+  doInfinite(event) {
+    this.singleCategory(true, event);
+    console.log(event);
   }
 
   goToCategories() {
@@ -87,6 +104,6 @@ export class SingleCategoryPage implements OnInit {
     this._generalService.setExtras(page);
   }
   backButton() {
-		this.appcomponent.openRatingModal();
-	}
+    this.appcomponent.openRatingModal();
+  }
 }

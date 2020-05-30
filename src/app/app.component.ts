@@ -59,6 +59,8 @@ export class AppComponent {
   showTourConfirm: boolean;
   showLoader: boolean;
   showTourModel: boolean;
+  page_number = 1;
+  page_limit = 10;
   constructor(
     private market: Market,
     private firebaseDynamicLinks: FirebaseDynamicLinks,
@@ -92,9 +94,11 @@ export class AppComponent {
     if (!localStorage.getItem("language")) {
       this.showTourConfirm = true;
     }
-    setTimeout(() => {
-      this.splashScreen.hide();
-    }, 2000);
+    this.platform.ready().then(() => {
+      setTimeout(() => {
+        this.splashScreen.hide();
+      }, 2000);
+    })
     this.initializeApp();
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     const firstDate: any = new Date();
@@ -212,7 +216,7 @@ export class AppComponent {
       localStorage.setItem("notification", "true");
     }
     if (!localStorage.getItem("skip")) {
-      this._newsService.getAllNews().subscribe((res: any) => {
+      this._newsService.getAllNews(this.page_number,this.page_limit).subscribe((res: any) => {
         console.log("GOT NEWS IN APP COMPONENT", res);
       });
     }

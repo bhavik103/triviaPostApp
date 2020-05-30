@@ -1,3 +1,5 @@
+import { langList } from './../changeLang';
+import { language } from 'app/changeLang';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { config } from '../config';
@@ -55,6 +57,14 @@ export class UserService {
 		return this.http.post(config.baseApiUrl + "register-token", annonymousUser);
 	}
 
+	loggedInUserDeviceToken(accessToken,deviceToken){
+		const userData = {
+			deviceToken: deviceToken,
+			accessToken: accessToken
+		}
+		return this.http.post(config.baseApiUrl + "update-device-token", userData);
+	}
+
 	//changeLanguage
 	changeLanguage(lang) {
 		this.tokenLocalStorage = localStorage.getItem('accessToken');
@@ -67,9 +77,11 @@ export class UserService {
 	}
 	googleLogin(token) {
 		var deviceToken = localStorage.getItem('deviceToken');
+		var language = localStorage.getItem('language');
 		const accessToken = {
 			accessToken: token,
-			deviceToken: deviceToken
+			deviceToken: deviceToken,
+			language: language
 		}
 		console.log('service google', accessToken);
 		return this.http.post(config.baseApiUrl + "googleLogin", accessToken).
@@ -92,9 +104,11 @@ export class UserService {
 
 	fbLogin(token) {
 		var deviceToken = localStorage.getItem('deviceToken');
+		var language = localStorage.getItem('language');
 		const accessToken = {
 			accessToken: token,
-			deviceToken: deviceToken
+			deviceToken: deviceToken,
+			language: language
 		}
 		console.log('service facebook', accessToken);
 		return this.http.post(config.baseApiUrl + "facebookLogin", accessToken).pipe(map((user: any) => {
@@ -118,11 +132,15 @@ export class UserService {
 	}
 
 	signup(user) {
+		user.language = localStorage.getItem('language');
+		user.deviceToken = localStorage.getItem('deviceToken');
 		return this.http.post(config.baseApiUrl + "user", user);
 	}
 
 	customLogin(login) {
 		login.deviceToken = localStorage.getItem('deviceToken');
+		login.language = localStorage.getItem('language');
+	
 		console.log(login);
 		return this.http.put(config.baseApiUrl + "user-login", login).pipe(map((user: any) => {
 			if (user && user.data.accessToken) {

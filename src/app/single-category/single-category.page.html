@@ -1,53 +1,45 @@
 <div *ngIf="!loading">
-  <div class="settingsToolbar">
-    <ion-back-button
-      name="arrow-round-back"
-      class="homeBack"
-      class="homeBack"
-      defaultHref="/home"
-      float-left
-      (click)="backButton()"
-    >
-    </ion-back-button>
-    <span id="settingTitle">{{catName}}</span>
-    <button float-right routerLink="/home">
+    <div class="settingsToolbar">
+        <ion-back-button name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/home" float-left (click)="backButton()">
+        </ion-back-button>
+        <span id="settingTitle">{{catName}}</span>
+        <button float-right routerLink="/home">
       <ion-icon name="home"></ion-icon>
     </button>
-  </div>
+    </div>
 </div>
 <ion-content (swiperight)="goToCategories()" ion-padding *ngIf="!loading">
-  <ion-row class="feeds" *ngIf="news">
-    <app-large-post
-      [news]="news"
-      [language]="language"
-      [singleCat]="true"
-      [skip]="skip"
-    ></app-large-post>
-  </ion-row>
-  <ion-row class="feeds" *ngIf="news && newsArray && newsArray.length">
-    <span *ngFor="let news of newsArray;">
+    <ion-row class="feeds" *ngIf="news">
+        <app-large-post [news]="news" [language]="language" [singleCat]="true" [skip]="skip"></app-large-post>
+    </ion-row>
+    <ion-row class="feeds" *ngIf="news && newsArray && newsArray.length">
+        <span *ngFor="let news of newsArray;">
       <app-post-tiles
         [news]="news"
         [language]="language"
         [singleCat]="true"
       ></app-post-tiles>
     </span>
-  </ion-row>
-  <ion-row class="onePost" *ngIf="newsArrayLength">
-    <ion-col size="12">Only one post in this category !</ion-col>
-  </ion-row>
-  <ion-row class="onePost" *ngIf="noNews == true">
-    <ion-col size="12">No posts in this category !</ion-col>
-  </ion-row>
-  <div id="loader-wrapper" *ngIf="loading">
-    <div id="loader">
-      <div class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-      </div>
-      <p class="text-center">Loading...</p>
+        <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more posts...">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ion-row>
+    <ion-row class="onePost" *ngIf="newsArrayLength">
+        <ion-col size="12">Only one post in this category !</ion-col>
+    </ion-row>
+    <ion-row class="onePost" *ngIf="noNews == true">
+        <ion-col size="12">No posts in this category !</ion-col>
+    </ion-row>
+    <div id="loader-wrapper" *ngIf="loading">
+        <div id="loader">
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+            <p class="text-center">Loading...</p>
+        </div>
     </div>
-  </div>
 </ion-content>
 <ion-content *ngIf="loading" class="loadingContent"> </ion-content>

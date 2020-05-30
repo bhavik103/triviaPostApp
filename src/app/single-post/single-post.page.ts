@@ -12,7 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertController } from '@ionic/angular';
 import { AppComponent } from '../app.component'
-import { nextButton, modalSignupButton,shareMessage, clickShare, clickBookmark, modalSkipButton, language, sharePostModalContent, sharePostModal, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
+import { nextButton, modalSignupButton, shareMessage, clickShare, clickBookmark, modalSkipButton, language, sharePostModalContent, sharePostModal, tourCategory, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
 import { AdmobfreeService } from '../services/admobfree.service'
 import {
   AdMobFree,
@@ -60,6 +60,7 @@ export class SinglePostPage implements OnInit {
   shareFlag: string;
   skipClick: any;
   byPassedNewsEn: any;
+  iframe: any;
   constructor(private admobFree: AdMobFree, public _admobService: AdmobfreeService, public appcomponent: AppComponent, private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
@@ -79,6 +80,8 @@ export class SinglePostPage implements OnInit {
     }
   }
   ionViewWillEnter() {
+    let tempIframe = "<iframe class='ql-video' frameborder='0' allowfullscreen='true' src='https://www.youtube.com/embed/hRDM3ir3l5M?showinfo=0'></iframe>";
+    this.iframe = this.domSanitizer.bypassSecurityTrustHtml(tempIframe)
     this._admobService.interstitalAdOnFivePageChange()
     if (localStorage.getItem('bookmarkFlag') && localStorage.getItem('shareFlag') && !localStorage.getItem('catModal')) {
       this.router.navigateByUrl('/all-categories')
@@ -171,13 +174,13 @@ export class SinglePostPage implements OnInit {
       this.news = JSON.parse(JSON.stringify(res[0]));
       this.singlepost.splice(0, 1);
       this.loading = false;
+      let temp;
       this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news[this.language].content);
-      this.byPassedNews = this.byPassedNews.changingThisBreaksApplicationSecurity;
-
-      if (this.language != 'en') {
-        this.byPassedNewsEn = this.domSanitizer.bypassSecurityTrustHtml(this.news.en.content);
-        this.byPassedNewsEn = this.byPassedNewsEn.changingThisBreaksApplicationSecurity;
+      if (this.news[this.language].content == '') {
+        this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news.en.content);
       }
+      // this.byPassedNews = this.byPassedNews.changingThisBreaksApplicationSecurity;
+      console.log("this.byPassedNews", this.byPassedNews)
       if (this.platform.is('cordova')) {
         this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.news[this.language].title }).then(res => {
         })
@@ -188,9 +191,9 @@ export class SinglePostPage implements OnInit {
   //  Do Share Post
   sharePost(link, news, newsImage, flag) {
     let newsTitle;
-    if(this.news[this.language].title != ''){
+    if (this.news[this.language].title != '') {
       newsTitle = this.news[this.language].title;
-    }else{
+    } else {
       newsTitle = news.en.title;
     }
     console.log(newsTitle)
@@ -288,14 +291,14 @@ export class SinglePostPage implements OnInit {
   bookmarkClose() {
     this.bookmarkModal = false
     if (localStorage.getItem('skip') || localStorage.getItem('bookmarkFlag')) {
-      
+
     } else if (!localStorage.getItem('skip')) {
       localStorage.setItem('bookmarkFlag', '1')
       this.bookmarkFlag = '1';
       if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
         this.router.navigateByUrl('/all-categories')
         this.bookmarkModal = false;
-      }else{
+      } else {
         this.bookmarkModal = false;
       }
     }
@@ -307,7 +310,7 @@ export class SinglePostPage implements OnInit {
     if (!localStorage.getItem('skip') && !localStorage.getItem('shareFlag')) {
       if (localStorage.getItem('shareFlag') && localStorage.getItem('bookmarkFlag')) {
         this.router.navigateByUrl('/all-categories')
-      }else{
+      } else {
         this.shareModal = false;
       }
     }
@@ -320,7 +323,7 @@ export class SinglePostPage implements OnInit {
     this.shareFlag = '1';
   }
   signupBookmark() {
-    localStorage.setItem('skip','1')
+    localStorage.setItem('skip', '1')
     this.router.navigateByUrl('/login')
   }
 }

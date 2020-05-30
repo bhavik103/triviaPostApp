@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"!loading\">\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/home\"\n      float-left\n      (click)=\"backButton()\"\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\">{{catName}}</span>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n<ion-content (swiperight)=\"goToCategories()\" ion-padding *ngIf=\"!loading\">\n  <ion-row class=\"feeds\" *ngIf=\"news\">\n    <app-large-post\n      [news]=\"news\"\n      [language]=\"language\"\n      [singleCat]=\"true\"\n      [skip]=\"skip\"\n    ></app-large-post>\n  </ion-row>\n  <ion-row class=\"feeds\" *ngIf=\"news && newsArray && newsArray.length\">\n    <span *ngFor=\"let news of newsArray;\">\n      <app-post-tiles\n        [news]=\"news\"\n        [language]=\"language\"\n        [singleCat]=\"true\"\n      ></app-post-tiles>\n    </span>\n  </ion-row>\n  <ion-row class=\"onePost\" *ngIf=\"newsArrayLength\">\n    <ion-col size=\"12\">Only one post in this category !</ion-col>\n  </ion-row>\n  <ion-row class=\"onePost\" *ngIf=\"noNews == true\">\n    <ion-col size=\"12\">No posts in this category !</ion-col>\n  </ion-row>\n  <div id=\"loader-wrapper\" *ngIf=\"loading\">\n    <div id=\"loader\">\n      <div class=\"spinner\">\n        <div class=\"bounce1\"></div>\n        <div class=\"bounce2\"></div>\n        <div class=\"bounce3\"></div>\n      </div>\n      <p class=\"text-center\">Loading...</p>\n    </div>\n  </div>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>\n"
+module.exports = "<div *ngIf=\"!loading\">\n    <div class=\"settingsToolbar\">\n        <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/home\" float-left (click)=\"backButton()\">\n        </ion-back-button>\n        <span id=\"settingTitle\">{{catName}}</span>\n        <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n    </div>\n</div>\n<ion-content (swiperight)=\"goToCategories()\" ion-padding *ngIf=\"!loading\">\n    <ion-row class=\"feeds\" *ngIf=\"news\">\n        <app-large-post [news]=\"news\" [language]=\"language\" [singleCat]=\"true\" [skip]=\"skip\"></app-large-post>\n    </ion-row>\n    <ion-row class=\"feeds\" *ngIf=\"news && newsArray && newsArray.length\">\n        <span *ngFor=\"let news of newsArray;\">\n      <app-post-tiles\n        [news]=\"news\"\n        [language]=\"language\"\n        [singleCat]=\"true\"\n      ></app-post-tiles>\n    </span>\n        <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n            <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"Loading more posts...\">\n            </ion-infinite-scroll-content>\n        </ion-infinite-scroll>\n    </ion-row>\n    <ion-row class=\"onePost\" *ngIf=\"newsArrayLength\">\n        <ion-col size=\"12\">Only one post in this category !</ion-col>\n    </ion-row>\n    <ion-row class=\"onePost\" *ngIf=\"noNews == true\">\n        <ion-col size=\"12\">No posts in this category !</ion-col>\n    </ion-row>\n    <div id=\"loader-wrapper\" *ngIf=\"loading\">\n        <div id=\"loader\">\n            <div class=\"spinner\">\n                <div class=\"bounce1\"></div>\n                <div class=\"bounce2\"></div>\n                <div class=\"bounce3\"></div>\n            </div>\n            <p class=\"text-center\">Loading...</p>\n        </div>\n    </div>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>"
 
 /***/ }),
 
@@ -128,7 +128,10 @@ var SingleCategoryPage = /** @class */ (function () {
         this._newsService = _newsService;
         this.route = route;
         this.router = router;
+        this.newsArray = [];
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_4__["config"].mediaApiUrl;
+        this.page_number = 1;
+        this.page_limit = 10;
     }
     SingleCategoryPage.prototype.ngOnInit = function () {
         var _this = this;
@@ -147,41 +150,55 @@ var SingleCategoryPage = /** @class */ (function () {
             this.skip = localStorage.getItem('skip');
             this.firstLargePostClick = localStorage.getItem('firstLargePostClick');
         }
-        this.singleCategory();
+        this.singleCategory(false, '');
         this.newsArrayLength = false;
         this.language = localStorage.getItem('language');
     };
-    SingleCategoryPage.prototype.singleCategory = function () {
+    SingleCategoryPage.prototype.singleCategory = function (isFirstLoad, event) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var catId;
             var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                this.loading = true;
+                if (this.page_number == 1) {
+                    this.loading = true;
+                }
                 catId = this.route.snapshot.params['id'];
                 console.log('catId', catId);
-                this._newsService.allCatNews(catId).subscribe(function (res) {
+                this._newsService.allCatNews(catId, this.page_number, this.page_limit).subscribe(function (res) {
+                    var _a;
                     console.log("catNews", res);
+                    if (_this.page_number == 1) {
+                        if (res.length == 1) {
+                            _this.newsArrayLength = true;
+                            console.log("length news", res.length);
+                        }
+                        else if (res.length == 0) {
+                            _this.noNews = true;
+                            console.log('this.noNews', _this.noNews);
+                        }
+                    }
+                    if (isFirstLoad) {
+                        event.target.complete();
+                    }
+                    if (_this.page_number == 1) {
+                        _this.news = res.shift();
+                    }
+                    (_a = _this.newsArray).push.apply(_a, res);
+                    console.log('this.latestPost', _this.latestPost);
+                    console.log('this.newsArray', _this.newsArray);
+                    _this.page_number++;
                     _this.loading = false;
-                    if (res.length == 1) {
-                        _this.newsArrayLength = true;
-                        console.log("length news", res.length);
-                    }
-                    else if (res.length == 0) {
-                        _this.noNews = true;
-                        console.log('this.noNews', _this.noNews);
-                    }
-                    _this.newsArray = res;
-                    _this.news = res[0];
-                    console.log('this.news large', _this.news);
-                    _this.newsArray.splice(0, 1);
-                    _this.latestPost = JSON.parse(JSON.stringify(res[0]));
-                    console.log('this.latestPost', _this.newsArray[0]);
+                    // console.log('this.latestPost', this.newsArray[0]);
                 }, function (err) {
                     _this._toastService.toastFunction(err.error.message, 'danger');
                 });
                 return [2 /*return*/];
             });
         });
+    };
+    SingleCategoryPage.prototype.doInfinite = function (event) {
+        this.singleCategory(true, event);
+        console.log(event);
     };
     SingleCategoryPage.prototype.goToCategories = function () {
         this.router.navigateByUrl('/home/categories');
