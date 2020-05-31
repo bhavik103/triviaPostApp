@@ -87,7 +87,7 @@ export class NewsService {
 		}
 	}
 
-	searchedNews(searchKey, lang) {
+	searchedNews(searchKey, lang, page, limit) {
 		if (this.network.type == 'none') {
 			return new Observable(observer => {
 				console.log("fdfdfd", JSON.parse(localStorage.getItem("newsArray")));
@@ -103,7 +103,7 @@ export class NewsService {
 			});
 		} else {
 			return new Observable(observer => {
-				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&language&keyword=' + searchKey).subscribe(
+				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&language&keyword=' + searchKey + '&appRequest=true&page='+page+'&limit='+limit).subscribe(
 					(result: object) => {
 						this.newsArray = result['data'];
 						console.log("in cat service", this.newsArray);
@@ -153,10 +153,15 @@ export class NewsService {
 				this.http.get(config.baseApiUrl + 'bookmark').subscribe(
 					(res: object) => {
 						this.newsArray = res['data'];
-						this.newsArray = this.newsArray.post;
-						this.newsArray.map((e) => {
-							e['bookmarkKey'] = true;
-						});
+						if(this.newsArray.length > 0){
+
+							this.newsArray = this.newsArray[0].post;
+							this.newsArray.map((e) => {
+								e['bookmarkKey'] = true;
+							});
+						}
+						console.log(this.newsArray)
+
 						console.log('this.newsArraythis.newsArraythis.newsArray', this.newsArray);
 						observer.next(this.newsArray);
 						observer.complete();

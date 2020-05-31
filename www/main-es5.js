@@ -603,7 +603,7 @@ module.exports = "<div *ngIf=\"!loading\">\n  <div class=\"settingsToolbar\">\n 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/home\"\n      float-left\n      (click)=\"backButton()\"\n    >\n    </ion-back-button>\n    <ion-input\n      set-focuser\n      #searchInput\n      type=\"text\"\n      placeholder=\"Search here..\"\n      (input)=\"searchNews($event.target.value)\"\n    ></ion-input>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n<ion-content padding>\n  <ion-row class=\"searchResults\" *ngFor=\"let searchNews of newsArray\">\n    <ion-col\n      size=\"3\"\n      class=\"newsImg\"\n      padding\n      (click)=\"getSingleSearch(searchNews.newsId)\"\n    >\n      <img\n        src=\"{{ mediaPath }}{{ searchNews.newsImage }}\"\n        height=\"100%\"\n        width=\"100%\"\n      />\n    </ion-col>\n    <ion-col size=\"9\">\n      <div padding>\n        <span\n          class=\"optionsList\"\n          *ngIf=\"language != 'as'\"\n          (click)=\"getSingleSearch(searchNews.newsId)\"\n          [innerHTML]=\"searchNews[language].title | slice: 0:70\"\n        ></span>\n        <p\n          class=\"newsCat\"\n          *ngIf=\"language != 'as'\"\n          (click)=\"\n            categoryClick(\n              searchNews.newsCategoryId,\n              searchNews.newsCategory[language]\n            )\n          \"\n        >\n          {{ searchNews.newsCategory[language] }}\n        </p>\n        <span\n          class=\"optionsList assameseFont\"\n          *ngIf=\"language == 'as'\"\n          (click)=\"getSingleSearch(searchNews.newsId)\"\n          [innerHTML]=\"searchNews[language].title | slice: 0:70\"\n        ></span>\n        <p\n          class=\"newsCat assameseFont\"\n          *ngIf=\"language == 'as'\"\n          (click)=\"\n            categoryClick(\n              searchNews.newsCategoryId,\n              searchNews.newsCategory[language]\n            )\n          \"\n        >\n          {{ searchNews.newsCategory[language] }}\n        </p>\n      </div>\n    </ion-col>\n  </ion-row>\n  <div *ngIf=\"box && !searchLength\" id=\"box\">\n    <img src=\"assets/images/seo.png\" alt=\"\" />\n  </div>\n  <div *ngIf=\"searchLength == 0\" id=\"box\">\n    <img src=\"assets/images/noresult.png\" alt=\"\" />\n  </div>\n</ion-content>\n"
+module.exports = "<div>\n    <div class=\"settingsToolbar\">\n        <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/home\" float-left (click)=\"backButton()\">\n        </ion-back-button>\n        <ion-input set-focuser #searchInput type=\"text\" placeholder=\"Search here..\" (input)=\"searchNews($event.target.value)\" [(ngModel)]=\"keywordSearch\"></ion-input>\n        <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n    </div>\n</div>\n<ion-content padding>\n    <ion-row class=\"searchResults\" *ngFor=\"let searchNews of newsArray\">\n        <ion-col size=\"3\" class=\"newsImg\" padding (click)=\"getSingleSearch(searchNews.newsId)\">\n            <img src=\"{{ mediaPath }}{{ searchNews.newsImage }}\" height=\"100%\" width=\"100%\" />\n        </ion-col>\n        <ion-col size=\"9\">\n            <div padding>\n                <span class=\"optionsList\" *ngIf=\"language != 'as'\" (click)=\"getSingleSearch(searchNews.newsId)\" [innerHTML]=\"searchNews[language].title | slice: 0:70\"></span>\n                <p class=\"newsCat\" *ngIf=\"language != 'as'\" (click)=\"\n            categoryClick(\n              searchNews.newsCategoryId,\n              searchNews.newsCategory[language]\n            )\n          \">\n                    {{ searchNews.newsCategory[language] }}\n                </p>\n                <span class=\"optionsList assameseFont\" *ngIf=\"language == 'as'\" (click)=\"getSingleSearch(searchNews.newsId)\" [innerHTML]=\"searchNews[language].title | slice: 0:70\"></span>\n                <p class=\"newsCat assameseFont\" *ngIf=\"language == 'as'\" (click)=\"\n            categoryClick(\n              searchNews.newsCategoryId,\n              searchNews.newsCategory[language]\n            )\n          \">\n                    {{ searchNews.newsCategory[language] }}\n                </p>\n            </div>\n        </ion-col>\n    </ion-row>\n    <div *ngIf=\"box && !searchLength\" id=\"box\">\n        <img src=\"assets/images/seo.png\" alt=\"\" />\n    </div>\n    <div *ngIf=\"searchLength == 0\" id=\"box\">\n        <img src=\"assets/images/noresult.png\" alt=\"\" />\n    </div>\n</ion-content>"
 
 /***/ }),
 
@@ -810,9 +810,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_add_observable_fromEvent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/add/observable/fromEvent */ "./node_modules/rxjs-compat/_esm5/add/observable/fromEvent.js");
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./changeLang */ "./src/app/changeLang.ts");
-/* harmony import */ var _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/market/ngx */ "./node_modules/@ionic-native/market/ngx/index.js");
-/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/news.service */ "./src/app/services/news.service.ts");
+/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
+/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./changeLang */ "./src/app/changeLang.ts");
+/* harmony import */ var _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/market/ngx */ "./node_modules/@ionic-native/market/ngx/index.js");
+/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/news.service */ "./src/app/services/news.service.ts");
+
 
 
 
@@ -832,8 +834,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(market, firebaseDynamicLinks, _userService, toastController, platform, splashScreen, statusBar, router, deeplinks, events, _newsService) {
+    function AppComponent(fcm, market, firebaseDynamicLinks, _userService, toastController, platform, splashScreen, statusBar, router, deeplinks, events, _newsService) {
         var _this = this;
+        this.fcm = fcm;
         this.market = market;
         this.firebaseDynamicLinks = firebaseDynamicLinks;
         this._userService = _userService;
@@ -853,11 +856,11 @@ var AppComponent = /** @class */ (function () {
             mobile: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required),
             password: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required)
         });
-        this.rateTitle = _changeLang__WEBPACK_IMPORTED_MODULE_13__["rateTitle"];
-        this.rateText = _changeLang__WEBPACK_IMPORTED_MODULE_13__["rateText"];
-        this.rateNow = _changeLang__WEBPACK_IMPORTED_MODULE_13__["rateNowButton"];
-        this.rateLater = _changeLang__WEBPACK_IMPORTED_MODULE_13__["rateRemindButton"];
-        this.rateNoThanks = _changeLang__WEBPACK_IMPORTED_MODULE_13__["rateNoThanksButton"];
+        this.rateTitle = _changeLang__WEBPACK_IMPORTED_MODULE_14__["rateTitle"];
+        this.rateText = _changeLang__WEBPACK_IMPORTED_MODULE_14__["rateText"];
+        this.rateNow = _changeLang__WEBPACK_IMPORTED_MODULE_14__["rateNowButton"];
+        this.rateLater = _changeLang__WEBPACK_IMPORTED_MODULE_14__["rateRemindButton"];
+        this.rateNoThanks = _changeLang__WEBPACK_IMPORTED_MODULE_14__["rateNoThanksButton"];
         this.user = {
             userName: "",
             email: "",
@@ -867,7 +870,18 @@ var AppComponent = /** @class */ (function () {
         this.navLinksArray = [];
         this.page_number = 1;
         this.page_limit = 10;
+        //this function is also present in home page
         this.platform.ready().then(function () {
+            _this.fcm.onNotification().subscribe(function (data) {
+                if (data.wasTapped) {
+                    console.log("TAPPED", data);
+                    _this.router.navigate(['/single-post/' + data.newsId]);
+                    console.log('Received in background', data.wasTapped);
+                }
+                else {
+                    console.log('Received in foreground');
+                }
+            });
             _this.firebaseDynamicLinks.onDynamicLink().subscribe(function (res) {
                 console.log("DEEPLINK", res);
                 var postId = res.deepLink.split("?")[1].split("=")[1];
@@ -1044,7 +1058,8 @@ var AppComponent = /** @class */ (function () {
         }
     };
     AppComponent.ctorParameters = function () { return [
-        { type: _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_14__["Market"] },
+        { type: _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_13__["FCM"] },
+        { type: _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_15__["Market"] },
         { type: _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_8__["FirebaseDynamicLinks"] },
         { type: _services_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
@@ -1054,7 +1069,7 @@ var AppComponent = /** @class */ (function () {
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
         { type: _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_6__["Deeplinks"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] },
-        { type: _services_news_service__WEBPACK_IMPORTED_MODULE_15__["NewsService"] }
+        { type: _services_news_service__WEBPACK_IMPORTED_MODULE_16__["NewsService"] }
     ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1062,7 +1077,8 @@ var AppComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_14__["Market"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_13__["FCM"],
+            _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_15__["Market"],
             _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_8__["FirebaseDynamicLinks"],
             _services_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"],
@@ -1072,7 +1088,7 @@ var AppComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
             _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_6__["Deeplinks"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"],
-            _services_news_service__WEBPACK_IMPORTED_MODULE_15__["NewsService"]])
+            _services_news_service__WEBPACK_IMPORTED_MODULE_16__["NewsService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -2005,7 +2021,7 @@ var HomePage = /** @class */ (function () {
         this.proceedTour = _changeLang__WEBPACK_IMPORTED_MODULE_15__["proceedTour"];
         this.languagePageHead = _changeLang__WEBPACK_IMPORTED_MODULE_15__["languagePageHead"];
         this.page_number = 1;
-        this.page_limit = 10;
+        this.page_limit = 20;
     }
     // Event Listeners
     HomePage.prototype.ngOnInit = function () {
@@ -2018,6 +2034,7 @@ var HomePage = /** @class */ (function () {
     };
     HomePage.prototype.ionViewDidEnter = function () {
         var _this = this;
+        this.notificationTapped();
         this.platform.ready().then(function () {
             if (!localStorage.getItem('deviceToken')) {
                 _this.fcm.getToken().then(function (token) {
@@ -2109,7 +2126,6 @@ var HomePage = /** @class */ (function () {
         this.subscription = this.platform.backButton.subscribe(function () {
             navigator['app'].exitApp();
         });
-        this.notificationTapped();
     };
     HomePage.prototype.ionViewWillLeave = function () {
         this.page_number = 1;
@@ -2263,9 +2279,11 @@ var HomePage = /** @class */ (function () {
     // Notification and utility
     HomePage.prototype.notificationTapped = function () {
         var _this = this;
+        console.log("TAPPED");
         this.fcm.onNotification().subscribe(function (data) {
-            _this.router.navigate(['/single-post/' + data.newsId]);
             if (data.wasTapped) {
+                console.log("TAPPED", data);
+                _this.router.navigate(['/single-post/' + data.newsId]);
                 console.log('Received in background', data.wasTapped);
             }
             else {
@@ -2921,6 +2939,8 @@ var SearchbarComponent = /** @class */ (function () {
         this.keyboard = keyboard;
         this.error = '';
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_5__["config"].mediaApiUrl;
+        this.page_number = 1;
+        this.page_limit = 20;
     }
     SearchbarComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -2942,8 +2962,9 @@ var SearchbarComponent = /** @class */ (function () {
         this._admobService.interstitalAdOnFivePageChange();
         this.searchInput.setFocus();
     };
-    SearchbarComponent.prototype.searchNews = function (key) {
+    SearchbarComponent.prototype.searchNews = function (key, isFirstLoad, event) {
         var _this = this;
+        console.log(this.keywordSearch);
         this.loading = true;
         this.keyValue = key;
         if (this.keyValue.length == 0) {
@@ -2953,7 +2974,7 @@ var SearchbarComponent = /** @class */ (function () {
             this.box = true;
         }
         else {
-            this._newsService.searchedNews(key, this.language).subscribe(function (res) {
+            this._newsService.searchedNews(key, this.language, this.page_number, this.page_limit).subscribe(function (res) {
                 _this.loading = false;
                 _this.newsArray = res;
                 _this.searchLength = _this.newsArray.length;
@@ -2964,6 +2985,10 @@ var SearchbarComponent = /** @class */ (function () {
                 _this.error = err;
             });
         }
+    };
+    SearchbarComponent.prototype.doInfinite = function (event) {
+        this.searchNews(this.keywordSearch, true, event);
+        console.log(event);
     };
     SearchbarComponent.prototype.getSingleSearch = function (postid) {
         var _this = this;
@@ -3276,7 +3301,7 @@ var NewsService = /** @class */ (function () {
             });
         }
     };
-    NewsService.prototype.searchedNews = function (searchKey, lang) {
+    NewsService.prototype.searchedNews = function (searchKey, lang, page, limit) {
         var _this = this;
         if (this.network.type == 'none') {
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
@@ -3294,7 +3319,7 @@ var NewsService = /** @class */ (function () {
         }
         else {
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
-                _this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&language&keyword=' + searchKey).subscribe(function (result) {
+                _this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&language&keyword=' + searchKey + '&appRequest=true&page=' + page + '&limit=' + limit).subscribe(function (result) {
                     _this.newsArray = result['data'];
                     console.log("in cat service", _this.newsArray);
                     // localStorage.setItem('newsArray',JSON.stringify(this.newsArray))
@@ -3342,10 +3367,13 @@ var NewsService = /** @class */ (function () {
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](function (observer) {
                 _this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'bookmark').subscribe(function (res) {
                     _this.newsArray = res['data'];
-                    _this.newsArray = _this.newsArray.post;
-                    _this.newsArray.map(function (e) {
-                        e['bookmarkKey'] = true;
-                    });
+                    if (_this.newsArray.length > 0) {
+                        _this.newsArray = _this.newsArray[0].post;
+                        _this.newsArray.map(function (e) {
+                            e['bookmarkKey'] = true;
+                        });
+                    }
+                    console.log(_this.newsArray);
                     console.log('this.newsArraythis.newsArraythis.newsArray', _this.newsArray);
                     observer.next(_this.newsArray);
                     observer.complete();
@@ -4205,7 +4233,7 @@ var TourHomePage = /** @class */ (function () {
         this._newsService = _newsService;
         this.router = router;
         this.page_number = 1;
-        this.page_limit = 10;
+        this.page_limit = 20;
     }
     TourHomePage.prototype.ngOnInit = function () {
     };

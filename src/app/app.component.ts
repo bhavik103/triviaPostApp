@@ -13,6 +13,8 @@ import "rxjs/add/observable/fromEvent";
 import { UserService } from "./services/user.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 declare var $: any;
+import { FCM } from '@ionic-native/fcm/ngx';
+
 import {
   rateTitle,
   rateText,
@@ -62,6 +64,7 @@ export class AppComponent {
   page_number = 1;
   page_limit = 10;
   constructor(
+    private fcm: FCM,
     private market: Market,
     private firebaseDynamicLinks: FirebaseDynamicLinks,
     private _userService: UserService,
@@ -74,7 +77,17 @@ export class AppComponent {
     public events: Events,
     private _newsService: NewsService
   ) {
+    //this function is also present in home page
     this.platform.ready().then(() => {
+      this.fcm.onNotification().subscribe(data => {
+        if (data.wasTapped) {
+          console.log("TAPPED", data);
+          this.router.navigate(['/single-post/' + data.newsId]);
+          console.log('Received in background', data.wasTapped);
+        } else {
+          console.log('Received in foreground');
+        }
+      });
       this.firebaseDynamicLinks.onDynamicLink().subscribe(
         (res: any) => {
           console.log("DEEPLINK", res);
@@ -216,7 +229,7 @@ export class AppComponent {
       localStorage.setItem("notification", "true");
     }
     if (!localStorage.getItem("skip")) {
-      this._newsService.getAllNews(this.page_number,this.page_limit).subscribe((res: any) => {
+      this._newsService.getAllNews(this.page_number, this.page_limit).subscribe((res: any) => {
         console.log("GOT NEWS IN APP COMPONENT", res);
       });
     }

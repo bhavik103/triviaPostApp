@@ -16,7 +16,7 @@ export class TourHomePage implements OnInit {
   loading: boolean;
   showRateModal: boolean;
   page_number = 1;
-  page_limit = 10;
+  page_limit = 20;
 
   constructor(public _userService: UserService, public _newsService: NewsService, private router: Router) { }
 

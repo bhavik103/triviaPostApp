@@ -1,85 +1,45 @@
 <div>
-  <div class="settingsToolbar">
-    <ion-back-button
-      name="arrow-round-back"
-      class="homeBack"
-      class="homeBack"
-      defaultHref="/home"
-      float-left
-      (click)="backButton()"
-    >
-    </ion-back-button>
-    <ion-input
-      set-focuser
-      #searchInput
-      type="text"
-      placeholder="Search here.."
-      (input)="searchNews($event.target.value)"
-    ></ion-input>
-    <button float-right routerLink="/home">
+    <div class="settingsToolbar">
+        <ion-back-button name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/home" float-left (click)="backButton()">
+        </ion-back-button>
+        <ion-input set-focuser #searchInput type="text" placeholder="Search here.." (input)="searchNews($event.target.value)" [(ngModel)]="keywordSearch"></ion-input>
+        <button float-right routerLink="/home">
       <ion-icon name="home"></ion-icon>
     </button>
-  </div>
+    </div>
 </div>
 <ion-content padding>
-  <ion-row class="searchResults" *ngFor="let searchNews of newsArray">
-    <ion-col
-      size="3"
-      class="newsImg"
-      padding
-      (click)="getSingleSearch(searchNews.newsId)"
-    >
-      <img
-        src="{{ mediaPath }}{{ searchNews.newsImage }}"
-        height="100%"
-        width="100%"
-      />
-    </ion-col>
-    <ion-col size="9">
-      <div padding>
-        <span
-          class="optionsList"
-          *ngIf="language != 'as'"
-          (click)="getSingleSearch(searchNews.newsId)"
-          [innerHTML]="searchNews[language].title | slice: 0:70"
-        ></span>
-        <p
-          class="newsCat"
-          *ngIf="language != 'as'"
-          (click)="
+    <ion-row class="searchResults" *ngFor="let searchNews of newsArray">
+        <ion-col size="3" class="newsImg" padding (click)="getSingleSearch(searchNews.newsId)">
+            <img src="{{ mediaPath }}{{ searchNews.newsImage }}" height="100%" width="100%" />
+        </ion-col>
+        <ion-col size="9">
+            <div padding>
+                <span class="optionsList" *ngIf="language != 'as'" (click)="getSingleSearch(searchNews.newsId)" [innerHTML]="searchNews[language].title | slice: 0:70"></span>
+                <p class="newsCat" *ngIf="language != 'as'" (click)="
             categoryClick(
               searchNews.newsCategoryId,
               searchNews.newsCategory[language]
             )
-          "
-        >
-          {{ searchNews.newsCategory[language] }}
-        </p>
-        <span
-          class="optionsList assameseFont"
-          *ngIf="language == 'as'"
-          (click)="getSingleSearch(searchNews.newsId)"
-          [innerHTML]="searchNews[language].title | slice: 0:70"
-        ></span>
-        <p
-          class="newsCat assameseFont"
-          *ngIf="language == 'as'"
-          (click)="
+          ">
+                    {{ searchNews.newsCategory[language] }}
+                </p>
+                <span class="optionsList assameseFont" *ngIf="language == 'as'" (click)="getSingleSearch(searchNews.newsId)" [innerHTML]="searchNews[language].title | slice: 0:70"></span>
+                <p class="newsCat assameseFont" *ngIf="language == 'as'" (click)="
             categoryClick(
               searchNews.newsCategoryId,
               searchNews.newsCategory[language]
             )
-          "
-        >
-          {{ searchNews.newsCategory[language] }}
-        </p>
-      </div>
-    </ion-col>
-  </ion-row>
-  <div *ngIf="box && !searchLength" id="box">
-    <img src="assets/images/seo.png" alt="" />
-  </div>
-  <div *ngIf="searchLength == 0" id="box">
-    <img src="assets/images/noresult.png" alt="" />
-  </div>
+          ">
+                    {{ searchNews.newsCategory[language] }}
+                </p>
+            </div>
+        </ion-col>
+    </ion-row>
+    <div *ngIf="box && !searchLength" id="box">
+        <img src="assets/images/seo.png" alt="" />
+    </div>
+    <div *ngIf="searchLength == 0" id="box">
+        <img src="assets/images/noresult.png" alt="" />
+    </div>
 </ion-content>

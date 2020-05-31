@@ -31,7 +31,7 @@ export class SingleCategoryPage implements OnInit {
   firstLargePostClick: string;
   limit: any;
   page_number = 1;
-  page_limit = 10;
+  page_limit = 20;
   constructor(private _admobService: AdmobfreeService, public appcomponent: AppComponent, public alertController: AlertController, private ngzone: NgZone, private platform: Platform, private _generalService: GeneralService, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) {
   }
 

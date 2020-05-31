@@ -131,7 +131,7 @@ var SingleCategoryPage = /** @class */ (function () {
         this.newsArray = [];
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_4__["config"].mediaApiUrl;
         this.page_number = 1;
-        this.page_limit = 10;
+        this.page_limit = 20;
     }
     SingleCategoryPage.prototype.ngOnInit = function () {
         var _this = this;

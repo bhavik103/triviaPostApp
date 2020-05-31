@@ -597,7 +597,7 @@ module.exports = "<div *ngIf=\"!loading\">\n  <div class=\"settingsToolbar\">\n 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/home\"\n      float-left\n      (click)=\"backButton()\"\n    >\n    </ion-back-button>\n    <ion-input\n      set-focuser\n      #searchInput\n      type=\"text\"\n      placeholder=\"Search here..\"\n      (input)=\"searchNews($event.target.value)\"\n    ></ion-input>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n<ion-content padding>\n  <ion-row class=\"searchResults\" *ngFor=\"let searchNews of newsArray\">\n    <ion-col\n      size=\"3\"\n      class=\"newsImg\"\n      padding\n      (click)=\"getSingleSearch(searchNews.newsId)\"\n    >\n      <img\n        src=\"{{ mediaPath }}{{ searchNews.newsImage }}\"\n        height=\"100%\"\n        width=\"100%\"\n      />\n    </ion-col>\n    <ion-col size=\"9\">\n      <div padding>\n        <span\n          class=\"optionsList\"\n          *ngIf=\"language != 'as'\"\n          (click)=\"getSingleSearch(searchNews.newsId)\"\n          [innerHTML]=\"searchNews[language].title | slice: 0:70\"\n        ></span>\n        <p\n          class=\"newsCat\"\n          *ngIf=\"language != 'as'\"\n          (click)=\"\n            categoryClick(\n              searchNews.newsCategoryId,\n              searchNews.newsCategory[language]\n            )\n          \"\n        >\n          {{ searchNews.newsCategory[language] }}\n        </p>\n        <span\n          class=\"optionsList assameseFont\"\n          *ngIf=\"language == 'as'\"\n          (click)=\"getSingleSearch(searchNews.newsId)\"\n          [innerHTML]=\"searchNews[language].title | slice: 0:70\"\n        ></span>\n        <p\n          class=\"newsCat assameseFont\"\n          *ngIf=\"language == 'as'\"\n          (click)=\"\n            categoryClick(\n              searchNews.newsCategoryId,\n              searchNews.newsCategory[language]\n            )\n          \"\n        >\n          {{ searchNews.newsCategory[language] }}\n        </p>\n      </div>\n    </ion-col>\n  </ion-row>\n  <div *ngIf=\"box && !searchLength\" id=\"box\">\n    <img src=\"assets/images/seo.png\" alt=\"\" />\n  </div>\n  <div *ngIf=\"searchLength == 0\" id=\"box\">\n    <img src=\"assets/images/noresult.png\" alt=\"\" />\n  </div>\n</ion-content>\n"
+module.exports = "<div>\n    <div class=\"settingsToolbar\">\n        <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/home\" float-left (click)=\"backButton()\">\n        </ion-back-button>\n        <ion-input set-focuser #searchInput type=\"text\" placeholder=\"Search here..\" (input)=\"searchNews($event.target.value)\" [(ngModel)]=\"keywordSearch\"></ion-input>\n        <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n    </div>\n</div>\n<ion-content padding>\n    <ion-row class=\"searchResults\" *ngFor=\"let searchNews of newsArray\">\n        <ion-col size=\"3\" class=\"newsImg\" padding (click)=\"getSingleSearch(searchNews.newsId)\">\n            <img src=\"{{ mediaPath }}{{ searchNews.newsImage }}\" height=\"100%\" width=\"100%\" />\n        </ion-col>\n        <ion-col size=\"9\">\n            <div padding>\n                <span class=\"optionsList\" *ngIf=\"language != 'as'\" (click)=\"getSingleSearch(searchNews.newsId)\" [innerHTML]=\"searchNews[language].title | slice: 0:70\"></span>\n                <p class=\"newsCat\" *ngIf=\"language != 'as'\" (click)=\"\n            categoryClick(\n              searchNews.newsCategoryId,\n              searchNews.newsCategory[language]\n            )\n          \">\n                    {{ searchNews.newsCategory[language] }}\n                </p>\n                <span class=\"optionsList assameseFont\" *ngIf=\"language == 'as'\" (click)=\"getSingleSearch(searchNews.newsId)\" [innerHTML]=\"searchNews[language].title | slice: 0:70\"></span>\n                <p class=\"newsCat assameseFont\" *ngIf=\"language == 'as'\" (click)=\"\n            categoryClick(\n              searchNews.newsCategoryId,\n              searchNews.newsCategory[language]\n            )\n          \">\n                    {{ searchNews.newsCategory[language] }}\n                </p>\n            </div>\n        </ion-col>\n    </ion-row>\n    <div *ngIf=\"box && !searchLength\" id=\"box\">\n        <img src=\"assets/images/seo.png\" alt=\"\" />\n    </div>\n    <div *ngIf=\"searchLength == 0\" id=\"box\">\n        <img src=\"assets/images/noresult.png\" alt=\"\" />\n    </div>\n</ion-content>"
 
 /***/ }),
 
@@ -801,9 +801,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_add_observable_fromEvent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/add/observable/fromEvent */ "./node_modules/rxjs-compat/_esm2015/add/observable/fromEvent.js");
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./changeLang */ "./src/app/changeLang.ts");
-/* harmony import */ var _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/market/ngx */ "./node_modules/@ionic-native/market/ngx/index.js");
-/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/news.service */ "./src/app/services/news.service.ts");
+/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
+/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./changeLang */ "./src/app/changeLang.ts");
+/* harmony import */ var _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ionic-native/market/ngx */ "./node_modules/@ionic-native/market/ngx/index.js");
+/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/news.service */ "./src/app/services/news.service.ts");
+
 
 
 
@@ -823,7 +825,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(market, firebaseDynamicLinks, _userService, toastController, platform, splashScreen, statusBar, router, deeplinks, events, _newsService) {
+    constructor(fcm, market, firebaseDynamicLinks, _userService, toastController, platform, splashScreen, statusBar, router, deeplinks, events, _newsService) {
+        this.fcm = fcm;
         this.market = market;
         this.firebaseDynamicLinks = firebaseDynamicLinks;
         this._userService = _userService;
@@ -843,11 +846,11 @@ let AppComponent = class AppComponent {
             mobile: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required),
             password: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required)
         });
-        this.rateTitle = _changeLang__WEBPACK_IMPORTED_MODULE_13__["rateTitle"];
-        this.rateText = _changeLang__WEBPACK_IMPORTED_MODULE_13__["rateText"];
-        this.rateNow = _changeLang__WEBPACK_IMPORTED_MODULE_13__["rateNowButton"];
-        this.rateLater = _changeLang__WEBPACK_IMPORTED_MODULE_13__["rateRemindButton"];
-        this.rateNoThanks = _changeLang__WEBPACK_IMPORTED_MODULE_13__["rateNoThanksButton"];
+        this.rateTitle = _changeLang__WEBPACK_IMPORTED_MODULE_14__["rateTitle"];
+        this.rateText = _changeLang__WEBPACK_IMPORTED_MODULE_14__["rateText"];
+        this.rateNow = _changeLang__WEBPACK_IMPORTED_MODULE_14__["rateNowButton"];
+        this.rateLater = _changeLang__WEBPACK_IMPORTED_MODULE_14__["rateRemindButton"];
+        this.rateNoThanks = _changeLang__WEBPACK_IMPORTED_MODULE_14__["rateNoThanksButton"];
         this.user = {
             userName: "",
             email: "",
@@ -857,7 +860,18 @@ let AppComponent = class AppComponent {
         this.navLinksArray = [];
         this.page_number = 1;
         this.page_limit = 10;
+        //this function is also present in home page
         this.platform.ready().then(() => {
+            this.fcm.onNotification().subscribe(data => {
+                if (data.wasTapped) {
+                    console.log("TAPPED", data);
+                    this.router.navigate(['/single-post/' + data.newsId]);
+                    console.log('Received in background', data.wasTapped);
+                }
+                else {
+                    console.log('Received in foreground');
+                }
+            });
             this.firebaseDynamicLinks.onDynamicLink().subscribe((res) => {
                 console.log("DEEPLINK", res);
                 var postId = res.deepLink.split("?")[1].split("=")[1];
@@ -1033,7 +1047,8 @@ let AppComponent = class AppComponent {
     }
 };
 AppComponent.ctorParameters = () => [
-    { type: _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_14__["Market"] },
+    { type: _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_13__["FCM"] },
+    { type: _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_15__["Market"] },
     { type: _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_8__["FirebaseDynamicLinks"] },
     { type: _services_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
@@ -1043,7 +1058,7 @@ AppComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
     { type: _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_6__["Deeplinks"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] },
-    { type: _services_news_service__WEBPACK_IMPORTED_MODULE_15__["NewsService"] }
+    { type: _services_news_service__WEBPACK_IMPORTED_MODULE_16__["NewsService"] }
 ];
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1051,7 +1066,8 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
         styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_14__["Market"],
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_13__["FCM"],
+        _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_15__["Market"],
         _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_8__["FirebaseDynamicLinks"],
         _services_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"],
@@ -1061,7 +1077,7 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
         _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_6__["Deeplinks"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"],
-        _services_news_service__WEBPACK_IMPORTED_MODULE_15__["NewsService"]])
+        _services_news_service__WEBPACK_IMPORTED_MODULE_16__["NewsService"]])
 ], AppComponent);
 
 
@@ -1976,7 +1992,7 @@ let HomePage = class HomePage {
         this.proceedTour = _changeLang__WEBPACK_IMPORTED_MODULE_15__["proceedTour"];
         this.languagePageHead = _changeLang__WEBPACK_IMPORTED_MODULE_15__["languagePageHead"];
         this.page_number = 1;
-        this.page_limit = 10;
+        this.page_limit = 20;
     }
     // Event Listeners
     ngOnInit() {
@@ -1987,6 +2003,7 @@ let HomePage = class HomePage {
         this.viewInitFunctions();
     }
     ionViewDidEnter() {
+        this.notificationTapped();
         this.platform.ready().then(() => {
             if (!localStorage.getItem('deviceToken')) {
                 this.fcm.getToken().then(token => {
@@ -2050,7 +2067,6 @@ let HomePage = class HomePage {
         this.subscription = this.platform.backButton.subscribe(() => {
             navigator['app'].exitApp();
         });
-        this.notificationTapped();
     }
     ionViewWillLeave() {
         this.page_number = 1;
@@ -2194,9 +2210,11 @@ let HomePage = class HomePage {
     }
     // Notification and utility
     notificationTapped() {
+        console.log("TAPPED");
         this.fcm.onNotification().subscribe(data => {
-            this.router.navigate(['/single-post/' + data.newsId]);
             if (data.wasTapped) {
+                console.log("TAPPED", data);
+                this.router.navigate(['/single-post/' + data.newsId]);
                 console.log('Received in background', data.wasTapped);
             }
             else {
@@ -2824,6 +2842,8 @@ let SearchbarComponent = class SearchbarComponent {
         this.keyboard = keyboard;
         this.error = '';
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_5__["config"].mediaApiUrl;
+        this.page_number = 1;
+        this.page_limit = 20;
     }
     ngOnInit() {
         this.box = true;
@@ -2841,7 +2861,8 @@ let SearchbarComponent = class SearchbarComponent {
         this._admobService.interstitalAdOnFivePageChange();
         this.searchInput.setFocus();
     }
-    searchNews(key) {
+    searchNews(key, isFirstLoad, event) {
+        console.log(this.keywordSearch);
         this.loading = true;
         this.keyValue = key;
         if (this.keyValue.length == 0) {
@@ -2851,7 +2872,7 @@ let SearchbarComponent = class SearchbarComponent {
             this.box = true;
         }
         else {
-            this._newsService.searchedNews(key, this.language).subscribe((res) => {
+            this._newsService.searchedNews(key, this.language, this.page_number, this.page_limit).subscribe((res) => {
                 this.loading = false;
                 this.newsArray = res;
                 this.searchLength = this.newsArray.length;
@@ -2862,6 +2883,10 @@ let SearchbarComponent = class SearchbarComponent {
                 this.error = err;
             });
         }
+    }
+    doInfinite(event) {
+        this.searchNews(this.keywordSearch, true, event);
+        console.log(event);
     }
     getSingleSearch(postid) {
         setTimeout(() => {
@@ -3168,7 +3193,7 @@ let NewsService = class NewsService {
             });
         }
     }
-    searchedNews(searchKey, lang) {
+    searchedNews(searchKey, lang, page, limit) {
         if (this.network.type == 'none') {
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](observer => {
                 console.log("fdfdfd", JSON.parse(localStorage.getItem("newsArray")));
@@ -3185,7 +3210,7 @@ let NewsService = class NewsService {
         }
         else {
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](observer => {
-                this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&language&keyword=' + searchKey).subscribe((result) => {
+                this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'news?isApproved=APPROVED&language&keyword=' + searchKey + '&appRequest=true&page=' + page + '&limit=' + limit).subscribe((result) => {
                     this.newsArray = result['data'];
                     console.log("in cat service", this.newsArray);
                     // localStorage.setItem('newsArray',JSON.stringify(this.newsArray))
@@ -3232,10 +3257,13 @@ let NewsService = class NewsService {
             return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"](observer => {
                 this.http.get(_config__WEBPACK_IMPORTED_MODULE_5__["config"].baseApiUrl + 'bookmark').subscribe((res) => {
                     this.newsArray = res['data'];
-                    this.newsArray = this.newsArray.post;
-                    this.newsArray.map((e) => {
-                        e['bookmarkKey'] = true;
-                    });
+                    if (this.newsArray.length > 0) {
+                        this.newsArray = this.newsArray[0].post;
+                        this.newsArray.map((e) => {
+                            e['bookmarkKey'] = true;
+                        });
+                    }
+                    console.log(this.newsArray);
                     console.log('this.newsArraythis.newsArraythis.newsArray', this.newsArray);
                     observer.next(this.newsArray);
                     observer.complete();
@@ -4046,7 +4074,7 @@ let TourHomePage = class TourHomePage {
         this._newsService = _newsService;
         this.router = router;
         this.page_number = 1;
-        this.page_limit = 10;
+        this.page_limit = 20;
     }
     ngOnInit() {
     }

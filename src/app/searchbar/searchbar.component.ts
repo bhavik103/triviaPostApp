@@ -26,6 +26,9 @@ export class SearchbarComponent implements OnInit {
     searchLength: any;
     loading: any;
     box: any;
+    keywordSearch: any;
+    page_number = 1;
+    page_limit = 20;
     constructor(private _admobService: AdmobfreeService,public appcomponent: AppComponent,private platform: Platform, private router: Router, public _newsService: NewsService, private renderer: Renderer, private elementRef: ElementRef, public keyboard: Keyboard) { }
     keyValue;
     @ViewChild('searchInput', { static: false }) searchInput;
@@ -45,7 +48,8 @@ export class SearchbarComponent implements OnInit {
         this._admobService.interstitalAdOnFivePageChange()
         this.searchInput.setFocus()
     }
-    searchNews(key) {
+    searchNews(key,isFirstLoad, event) {
+        console.log(this.keywordSearch)
         this.loading = true;
         this.keyValue = key;
         if (this.keyValue.length == 0) {
@@ -54,7 +58,7 @@ export class SearchbarComponent implements OnInit {
             this.searchLength = this.newsArray;
             this.box = true;
         } else {
-            this._newsService.searchedNews(key,this.language).subscribe(
+            this._newsService.searchedNews(key,this.language,this.page_number,this.page_limit).subscribe(
                 (res: any) => {
                     this.loading = false;
                     this.newsArray = res;
@@ -67,6 +71,12 @@ export class SearchbarComponent implements OnInit {
                     this.error = err;
                 });
         }
+    }
+
+    doInfinite(event) {
+        
+        this.searchNews(this.keywordSearch,true,event);
+        console.log(event);
     }
 
     getSingleSearch(postid) {

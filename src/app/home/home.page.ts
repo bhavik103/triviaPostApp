@@ -97,7 +97,7 @@ export class HomePage implements OnInit {
     smallLoading: boolean;
     iframe: any;
     page_number = 1;
-    page_limit = 10;
+    page_limit = 20;
     
     constructor(private admobFree: AdMobFree, private _admobService: AdmobfreeService, private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, private router: Router, public keyboard: Keyboard) {
     }
@@ -112,6 +112,7 @@ export class HomePage implements OnInit {
     }
 
     ionViewDidEnter() {
+        this.notificationTapped();
         this.platform.ready().then(() => {
             if (!localStorage.getItem('deviceToken')) {
                 this.fcm.getToken().then(token => {
@@ -174,8 +175,6 @@ export class HomePage implements OnInit {
         this.subscription = this.platform.backButton.subscribe(() => {
             navigator['app'].exitApp();
         });
-        this.notificationTapped();
-
     }
     ionViewWillLeave() {
         this.page_number = 1;
@@ -325,9 +324,11 @@ export class HomePage implements OnInit {
     }
     // Notification and utility
     notificationTapped() {
+        console.log("TAPPED");
         this.fcm.onNotification().subscribe(data => {
-            this.router.navigate(['/single-post/' + data.newsId]);
             if (data.wasTapped) {
+                console.log("TAPPED",data);
+                this.router.navigate(['/single-post/' + data.newsId]);
                 console.log('Received in background', data.wasTapped);
             } else {
                 console.log('Received in foreground');

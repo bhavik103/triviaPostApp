@@ -128,7 +128,7 @@ let SingleCategoryPage = class SingleCategoryPage {
         this.newsArray = [];
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_4__["config"].mediaApiUrl;
         this.page_number = 1;
-        this.page_limit = 10;
+        this.page_limit = 20;
     }
     ngOnInit() {
         this.platform.backButton.subscribe(() => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
