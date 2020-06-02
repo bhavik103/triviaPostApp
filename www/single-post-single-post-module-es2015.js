@@ -164,9 +164,7 @@ let SinglePostPage = class SinglePostPage {
         this.showRateModal = true;
     }
     ionViewDidEnter() {
-        if (localStorage.getItem('skip')) {
-            // this._admobService.BannerAd();
-        }
+        $('.indexLoader').css('display', 'none');
     }
     ionViewWillEnter() {
         let tempIframe = "<iframe class='ql-video' frameborder='0' allowfullscreen='true' src='https://www.youtube.com/embed/hRDM3ir3l5M?showinfo=0'></iframe>";

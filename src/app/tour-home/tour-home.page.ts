@@ -15,7 +15,7 @@ export class TourHomePage implements OnInit {
   skip: any;
   loading: boolean;
   showRateModal: boolean;
-  page_number = 1;
+  page_number = 2;
   page_limit = 20;
 
   constructor(public _userService: UserService, public _newsService: NewsService, private router: Router) { }
@@ -40,7 +40,7 @@ export class TourHomePage implements OnInit {
       if (navigator.onLine) {
         this._newsService.getAllNews(this.page_number, this.page_limit).subscribe(
           (res: any) => {
-            if (this.page_number == 1) {
+            if (this.page_number == 2) {
               this.latestPost = res.shift();
             }
             this.newsArray.push(...res);

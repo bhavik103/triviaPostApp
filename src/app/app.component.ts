@@ -80,7 +80,9 @@ export class AppComponent {
     //this function is also present in home page
     this.platform.ready().then(() => {
       this.fcm.onNotification().subscribe(data => {
+        console.log("YEAHHHHHHHHHHHH",data)
         if (data.wasTapped) {
+          $('.indexLoader').css('display','block');
           console.log("TAPPED", data);
           this.router.navigate(['/single-post/' + data.newsId]);
           console.log('Received in background', data.wasTapped);
@@ -229,7 +231,7 @@ export class AppComponent {
       localStorage.setItem("notification", "true");
     }
     if (!localStorage.getItem("skip")) {
-      this._newsService.getAllNews(this.page_number, this.page_limit).subscribe((res: any) => {
+      this._newsService.getAllNews(this.page_number, 'offline').subscribe((res: any) => {
         console.log("GOT NEWS IN APP COMPONENT", res);
       });
     }

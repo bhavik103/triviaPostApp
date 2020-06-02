@@ -1,3 +1,4 @@
+import { LargePostPage } from './../large-post/large-post.page';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { config } from '../config';
 import { Router } from '@angular/router';
@@ -25,7 +26,8 @@ import {
 } from '@ionic-native/admob-free/ngx';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { IonContent } from '@ionic/angular';
-
+import { Network } from '@ionic-native/network/ngx';
+import {StorageService} from '../services/storage.service';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -98,10 +100,10 @@ export class HomePage implements OnInit {
     iframe: any;
     page_number = 1;
     page_limit = 20;
-    
-    constructor(private admobFree: AdMobFree, private _admobService: AdmobfreeService, private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, private router: Router, public keyboard: Keyboard) {
+
+    constructor(private network: Network, private _admobService: AdmobfreeService, private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, private router: Router, public keyboard: Keyboard, public _storageService: StorageService) {
     }
-    
+
     // Event Listeners
     ngOnInit() {
         this.platform.ready().then(() => {
@@ -178,6 +180,10 @@ export class HomePage implements OnInit {
     }
     ionViewWillLeave() {
         this.page_number = 1;
+        // if(this.page_number == 1){
+        this.newsArray = [];
+        this.latestPost = {};
+        // }
         this.subscription.unsubscribe();
         // this.newsArray = [];
         // this.content.scrollToTop(400);
@@ -203,20 +209,21 @@ export class HomePage implements OnInit {
         }
     }
     ionViewWillEnter() {
+        this.getNewsForOffline();
         if (!localStorage.getItem('language')) {
             $('.tourModal').show()
             this.showTourConfirm = true;
         }
         if (localStorage.getItem('language')) {
             this.smallLoading = true;
-            this.offlineNews();
+            // this.offlineNews();
             if (this.platform.is('cordova')) {
                 this._admobService.BannerAd();
             }
             this.getAllPost(false, "");
         }
         this.catModalShow = localStorage.getItem('catModal');
-        this.loading = false
+        // this.loading = false
         if (localStorage.getItem('skip')) {
             this.skip = '1';
         }
@@ -235,6 +242,18 @@ export class HomePage implements OnInit {
         this.loading = true;
     }
 
+    getNewsForOffline() {
+        if (this.network.type != 'none') {
+
+            this._newsService.getAllNews(this.page_number, "offline").subscribe(
+                (res: any) => {
+                    
+                },
+                (error) => {
+
+                })
+        }
+    }
     offlineNews() {
         this.language = localStorage.getItem('language');
         this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
@@ -244,39 +263,59 @@ export class HomePage implements OnInit {
             if (localStorage.getItem('firstLargePostClick') && [!localStorage.getItem('bookmarkFlag') || localStorage.getItem('shareFlag')] && !localStorage.getItem('skip')) {
                 this.router.navigateByUrl('/single-post/' + this.latestPost.newsId);
             }
-            this.smallLoading = false
             $('.feeds').fadeIn()
             $('.triviaHeader').show()
         }, 2000);
     }
     // get all news - HOME PAGE ( FEEDS )
     async getAllPost(isFirstLoad, event) {
-        // this.smallLoading = true;
+        if (this.page_number == 1) {
+            this.smallLoading = true;
+            this.newsArray = [];
+            this.latestPost = {};
+        }
+        // this.latestPost = {};
         localStorage.setItem('firstTimeLoaded', 'true');
-        this._newsService.getAllNews(this.page_number,this.page_limit).subscribe(
-            (res: any) => {
-                if(this.page_number == 1){
-                    this.latestPost = res.shift();
-                }
-                this.newsArray.push(...res);
-                // this.newsArray = res;
-                if (isFirstLoad)
-                event.target.complete();
-                
-                this.page_number++;
-                // this.latestPost = this.newsArray.shift();
-                console.log('this.allnews =======', this.newsArray)
-                console.log('this.allnews =======', this.latestPost)
-                this.checkForRating();
-                // this.smallLoading = false;
-            },
-            (err) => {
-                this.newsArray = localStorage.newsArray;
-            });
+        if (this.network.type != 'none') {
+
+            this._newsService.getAllNews(this.page_number, this.page_limit).subscribe(
+                (res: any) => {
+                    if (this.page_number == 1) {
+                        this.latestPost = res.shift();
+                    }
+                    console.log('this.latestPost', this.latestPost);
+                    this.newsArray.push(...res);
+                    // this.newsArray = res;
+                    if (isFirstLoad)
+                        event.target.complete();
+
+                    this.page_number++;
+                    // this.latestPost = this.newsArray.shift();
+                    console.log('this.allnews =======', this.newsArray)
+                    console.log('this.allnews =======', this.latestPost)
+                    this.checkForRating();
+                    setTimeout(() => {
+                        this.smallLoading = false;
+                    }, 1000);
+                },
+                (err) => {
+                    this.smallLoading = false;
+                    this.newsArray = JSON.parse(localStorage.newsArray);
+                    this.latestPost = this.newsArray.shift();
+                });
+        } else {
+            this.smallLoading = false;
+            this.newsArray = JSON.parse(localStorage.newsArray);
+            this.latestPost = this.newsArray.shift();
+        }
     }
 
     doInfinite(event) {
-        this.getAllPost(true,event);
+        this.getAllPost(true, event);
+        if (this.network.type == 'none') {
+            this._toastService.toastFunction('No internet connection', 'danger');
+            event.target.complete();
+        }
         console.log(event);
     }
 
@@ -327,7 +366,7 @@ export class HomePage implements OnInit {
         console.log("TAPPED");
         this.fcm.onNotification().subscribe(data => {
             if (data.wasTapped) {
-                console.log("TAPPED",data);
+                console.log("TAPPED", data);
                 this.router.navigate(['/single-post/' + data.newsId]);
                 console.log('Received in background', data.wasTapped);
             } else {

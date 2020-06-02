@@ -1,4 +1,4 @@
-<div no-border class="triviaHeader" [ngClass]="{'showHeader': newsArray && !smallLoading && language}">
+<div no-border class="triviaHeader" *ngIf="language && newsArray && latestPost">
     <div class="settingsToolbar">
         <button float-left>
       <ion-icon
@@ -96,8 +96,8 @@
     </div>
 </ion-content>
 
-<ion-content *ngIf="language && newsArray" [ngClass]="{'disableScroll': !skip && !catModalShow}" class="newsFeedBlock">
-    <ion-row class="feeds" style="min-width: 100%;" [ngClass]="{'showFeeds': newsArray && !smallLoading}">
+<ion-content *ngIf="language && newsArray" class="newsFeedBlock">
+    <ion-row class="feeds" style="min-width: 100%;" *ngIf="!smallLoading">
         <app-large-post [news]="latestPost" [language]="language" [skip]="skip">
         </app-large-post>
         <span *ngFor="let news of newsArray;let i = index" class="newsTiles">
@@ -108,7 +108,7 @@
             </ion-infinite-scroll-content>
         </ion-infinite-scroll>
     </ion-row>
-    <span class="loadingContent" [ngClass]="{'showLoader': !smallLoading}">
+    <span class="loadingContent" *ngIf="smallLoading">
     <img
       src="../../assets/images/simpleLoader.gif"
       alt=""

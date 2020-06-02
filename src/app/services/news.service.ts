@@ -33,21 +33,28 @@ export class NewsService {
 
 	//fetch all news
 	getAllNews(pageNumber, pageLimit) {
-		return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&appRequest=true&page='+pageNumber+'&limit='+pageLimit).pipe(
-			map((res: any) => {
-				let offlineArray = JSON.parse(JSON.stringify(res.data));
-				console.log('offlineArray', offlineArray)
-				localStorage.removeItem('newsArray')
-				localStorage.setItem('newsArray', JSON.stringify(offlineArray))
-				console.log("FINAL OBJECT", offlineArray)
-				return res.data
-			})
-		);
+		if (pageLimit != 'offline') {
+			return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&appRequest=true&page=' + pageNumber + '&limit=' + pageLimit).pipe(
+				map((res: any) => {
+					return res.data
+				})
+			);
+		} else {
+			return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').pipe(
+				map((res: any) => {
+					let offlineArray = JSON.parse(JSON.stringify(res.data));
+					localStorage.removeItem('newsArray')
+					localStorage.setItem('newsArray', JSON.stringify(offlineArray))
+					console.log("FINAL OBJECT", offlineArray)
+					return res.data
+				})
+			);
+		}
 	}
 
 
 	//all cat news
-	allCatNews(id,page,limit) {
+	allCatNews(id, page, limit) {
 		console.log("Inside", id)
 		if (this.network.type == 'none') {
 			return new Observable(observer => {
@@ -72,7 +79,7 @@ export class NewsService {
 		} else {
 			return new Observable(observer => {
 				console.log("in ");
-				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&categoryId=' + id + '&appRequest=true&page='+page+'&limit='+limit).subscribe(
+				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&categoryId=' + id + '&appRequest=true&page=' + page + '&limit=' + limit).subscribe(
 					(result: object) => {
 						this.newsArray = result['data'];
 						console.log("in cat service", this.newsArray);
@@ -103,7 +110,7 @@ export class NewsService {
 			});
 		} else {
 			return new Observable(observer => {
-				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&language&keyword=' + searchKey + '&appRequest=true&page='+page+'&limit='+limit).subscribe(
+				this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED&language&keyword=' + searchKey + '&appRequest=true&page=' + page + '&limit=' + limit).subscribe(
 					(result: object) => {
 						this.newsArray = result['data'];
 						console.log("in cat service", this.newsArray);
@@ -153,7 +160,7 @@ export class NewsService {
 				this.http.get(config.baseApiUrl + 'bookmark').subscribe(
 					(res: object) => {
 						this.newsArray = res['data'];
-						if(this.newsArray.length > 0){
+						if (this.newsArray.length > 0) {
 
 							this.newsArray = this.newsArray[0].post;
 							this.newsArray.map((e) => {

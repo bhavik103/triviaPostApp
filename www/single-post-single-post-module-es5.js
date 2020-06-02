@@ -171,9 +171,7 @@ var SinglePostPage = /** @class */ (function () {
         this.showRateModal = true;
     };
     SinglePostPage.prototype.ionViewDidEnter = function () {
-        if (localStorage.getItem('skip')) {
-            // this._admobService.BannerAd();
-        }
+        $('.indexLoader').css('display', 'none');
     };
     SinglePostPage.prototype.ionViewWillEnter = function () {
         var tempIframe = "<iframe class='ql-video' frameborder='0' allowfullscreen='true' src='https://www.youtube.com/embed/hRDM3ir3l5M?showinfo=0'></iframe>";

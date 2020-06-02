@@ -308,6 +308,7 @@ let AllCategoriesPage = class AllCategoriesPage {
         else {
             console.log("OFFFFFFFFF");
             this.categories = JSON.parse(localStorage.getItem('categoryArray'));
+            this.loading = false;
         }
     }
     //change on subscription of category

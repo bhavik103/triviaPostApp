@@ -1,483 +1,529 @@
 ion-label {
-  font-size: 18.5px;
+    font-size: 18.5px;
 }
+
 .post_img {
-  width: 100%;
-  padding-top: calc(100% * 9 / 16);
-  overflow: hidden;
-  position: relative;
-  display: inline-block;
+    width: 100%;
+    padding-top: calc(100% * 9 / 16);
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
 }
 
 .post_img img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  -o-object-fit: cover;
-  object-fit: cover;
-  min-width: 100%;
-  min-height: 100%;
-  max-height: 100%;
-  max-width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -o-object-fit: cover;
+    object-fit: cover;
+    min-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    max-width: 100%;
 }
+
 .share-button {
-  width: 40px;
-  height: 40px;
-  background-color: var(--main-app-color);
-  border-radius: 50%;
-  position: absolute;
-  bottom: 1px;
-  right: 10px;
-  z-index: 9999;
+    width: 40px;
+    height: 40px;
+    background-color: var(--main-app-color);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 1px;
+    right: 10px;
+    z-index: 9999;
 }
 
 img.icon {
-  height: 20px;
-  width: 20px;
-  margin-top: 10px;
-  margin-left: -3px;
+    height: 20px;
+    width: 20px;
+    margin-top: 10px;
+    margin-left: -3px;
 }
 
 img.bookmark {
-  height: 30px;
-  width: 20px;
-  margin-left: 10px;
-  z-index: 1111111;
+    height: 30px;
+    width: 20px;
+    margin-left: 10px;
+    z-index: 1111111;
 }
 
 .news-title {
-  margin: auto;
-  font-size: 14pt;
-  color: black;
-  text-align: left;
-  position: absolute;
-  bottom: 10px;
+    margin: auto;
+    font-size: 14pt;
+    color: black;
+    text-align: left;
+    position: absolute;
+    bottom: 10px;
 }
 
 .no-news-text {
-  height: 100%;
-  width: 100%;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    height: 100%;
+    width: 100%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .contentPost {
-  text-align: left;
+    text-align: left;
 }
 
 .no-news-text span {
-  font-size: 35px;
+    font-size: 35px;
 }
 
 // loader
-
 #loader-wrapper {
-  background: #fff !important;
+    background: #fff !important;
 }
+
 .welcomeTo {
-  font-weight: 500;
-  font-size: 30px;
+    font-weight: 500;
+    font-size: 30px;
 }
+
 .appDesc {
-  font-size: 25px;
+    font-size: 25px;
 }
 
 .ion-color-primary {
-  --ion-color-contrast: var(--main-app-color) !important;
-  --ion-color-base: #fff !important;
-  --ion-color-base-rgb: var(--ion-color-primary-rgb, 56, 128, 255) !important;
-  --ion-color-contrast-rgb: var(
-    --ion-color-primary-contrast-rgb,
-    255,
-    255,
-    255
-  ) !important;
-  --ion-color-shade: #fff !important;
-  --ion-color-tint: #fff !important;
+    --ion-color-contrast: var(--main-app-color) !important;
+    --ion-color-base: #fff !important;
+    --ion-color-base-rgb: var(--ion-color-primary-rgb, 56, 128, 255) !important;
+    --ion-color-contrast-rgb: var( --ion-color-primary-contrast-rgb, 255, 255, 255) !important;
+    --ion-color-shade: #fff !important;
+    --ion-color-tint: #fff !important;
 }
+
 .active ion-label {
-  color: var(--main-app-color) !important;
+    color: var(--main-app-color) !important;
 }
+
 ion-label {
-  text-transform: none !important;
+    text-transform: none !important;
 }
+
 .categoryTiles {
-  padding-bottom: 0px;
+    padding-bottom: 0px;
 }
+
 select {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
 .langSubmit {
-  position: fixed;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
 .langSubmit {
-  padding: 10px;
-  background-color: red;
-  color: #fff;
-  border-radius: 6px;
+    padding: 10px;
+    background-color: red;
+    color: #fff;
+    border-radius: 6px;
 }
 
 .languageSelect select {
-  border: 5px red solid;
-
-  animation: blink 1s;
-  animation-iteration-count: infinite;
+    border: 5px red solid;
+    animation: blink 1s;
+    animation-iteration-count: infinite;
 }
 
 @keyframes blink {
-  50% {
-    border-color: #fff;
-  }
+    50% {
+        border-color: #fff;
+    }
 }
 
 .langHead {
-  padding: 10px 20px;
+    padding: 10px 20px;
 }
 
 .langHead img {
-  margin-right: 17px;
-  float: left;
+    margin-right: 17px;
+    float: left;
 }
 
 .langHead p {
-  font-size: 16px;
-  margin: 0;
-  margin-top: 10px;
+    font-size: 16px;
+    margin: 0;
+    margin-top: 10px;
 }
+
 ion-card {
-  pointer-events: all;
-  border-radius: 10px;
-  padding: 4vh 0;
-  text-align: center;
-  line-height: 5vh;
-  margin: 1vw 1vh;
+    pointer-events: all;
+    border-radius: 10px;
+    padding: 4vh 0;
+    text-align: center;
+    line-height: 5vh;
+    margin: 1vw 1vh;
 }
+
 ion-card:focus {
-  background-color: #e41212 !important;
-  color: #fff;
+    background-color: #e41212 !important;
+    color: #fff;
 }
+
 .contButton {
-  display: none;
-  padding: 14px;
-  margin-left: 17px;
-  margin-right: 17px;
-  width: 92%;
-  border-radius: 10px;
-  color: #e41212 !important;
-  font-weight: bolder;
+    display: none;
+    padding: 14px;
+    margin-left: 17px;
+    margin-right: 17px;
+    width: 92%;
+    border-radius: 10px;
+    color: #e41212 !important;
+    font-weight: bolder;
 }
+
 .active {
-  background-color: red;
+    background-color: red;
 }
 
 .skipTour {
-  position: fixed;
-  bottom: 10px;
-  left: 15px;
-  z-index: 1;
-  background-color: #fff;
-  border-radius: 50%;
+    position: fixed;
+    bottom: 10px;
+    left: 15px;
+    z-index: 1;
+    background-color: #fff;
+    border-radius: 50%;
 }
+
 .skipTour img {
-  float: left;
+    float: left;
 }
+
 .skipTour button {
-  padding: 10px;
-  background-color: #e41212 !important;
-  color: #fff;
+    padding: 10px;
+    background-color: #e41212 !important;
+    color: #fff;
 }
+
 .ripple_effect {
-  background-color: rgb(228, 35, 16) !important;
-  border-color: #fff;
+    background-color: rgb(228, 35, 16) !important;
+    border-color: #fff;
 }
+
 .ripple_effect:before,
 .ripple_effect:after {
-  border-color: #fff;
+    border-color: #fff;
 }
+
 .loadingContent {
-  --background: none;
-  background: url("../../assets/images/simpleLoader.gif");
-  background-size: cover;
-  background-position: center;
+    --background: none;
+    background: url("../../assets/images/simpleLoader.gif");
+    background-size: cover;
+    background-position: center;
 }
+
 .simpleLoader {
-  --background: none;
-  background: url("../../assets/images/simpleLoader.gif") no-repeat left center;
-  background-size: cover;
-  background-position: center;
-  z-index: 1111111;
-  // position: absolute;
+    --background: none;
+    background: url("../../assets/images/simpleLoader.gif") no-repeat left center;
+    background-size: cover;
+    background-position: center;
+    z-index: 1111111;
+    // position: absolute;
 }
 
 .tourText {
-  position: absolute;
-  z-index: 9999;
-  text-align: center;
-  background-color: #e41212 !important;
-  font-weight: 900;
-  padding: 10px;
-  border-radius: 10px;
-  bottom: 120%;
-  font-size: 17px;
-  color: #fff;
-  width: 50vw;
+    position: absolute;
+    z-index: 9999;
+    text-align: center;
+    background-color: #e41212 !important;
+    font-weight: 900;
+    padding: 10px;
+    border-radius: 10px;
+    bottom: 120%;
+    font-size: 17px;
+    color: #fff;
+    width: 50vw;
 }
+
 .tourText:before {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 10%;
-  border-top: 7px solid #e42310;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 10%;
+    border-top: 7px solid #e42310;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
 }
+
 .disableScroll {
-  --overflow: hidden;
+    --overflow: hidden;
 }
 
 //modal popup
 .instructions {
-  text-align: center;
-  font-size: 20px;
-  margin: 15vh;
+    text-align: center;
+    font-size: 20px;
+    margin: 15vh;
 }
+
 
 /* //////////////////////////////////////////////////////////////////////////////////////////////
 	//   Default Modal Styles   //
 ////////////////////////////////////////////////////////////////////////////////////////////// */
+
+
 /*   This is the background overlay   */
+
 .backgroundOverlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  background: #000000;
-  opacity: 0.3;
-  // filter: alpha(opacity=85);
-  -moz-opacity: 0.3;
-  z-index: 101;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #000000;
+    opacity: 0.3;
+    // filter: alpha(opacity=85);
+    -moz-opacity: 0.3;
+    z-index: 101;
 }
+
+
 /*   This is the Popup Window   */
+
 .delayedPopupWindow {
-  position: fixed;
-  width: 80%;
-  background-color: #efefef;
-  border: 2px solid #333;
-  z-index: 102;
-  padding: 10px 20px;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  border-radius: 11px;
+    position: fixed;
+    width: 80%;
+    background-color: #efefef;
+    border: 2px solid #333;
+    z-index: 102;
+    padding: 10px 20px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 11px;
 }
+
 .img_border {
-  position: absolute;
-  border: 1px solid #fff;
-  background-color: #fff;
-  border-radius: 50%;
-  margin: auto;
-  width: 77px;
-  height: 77px;
-  padding: 13px;
-  top: -10%;
-  left: 0;
-  right: 0;
-  box-shadow: 2px 2px 3px 0 #ddd;
-  padding-top: 5px;
+    position: absolute;
+    border: 1px solid #fff;
+    background-color: #fff;
+    border-radius: 50%;
+    margin: auto;
+    width: 77px;
+    height: 77px;
+    padding: 13px;
+    top: -10%;
+    left: 0;
+    right: 0;
+    box-shadow: 2px 2px 3px 0 #ddd;
+    padding-top: 5px;
 }
+
 .img_border img {
-  position: absolute;
-  right: 0;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 }
+
 .rateButtons {
-  float: right;
+    float: right;
 }
+
 .delayedPopupWindow h5 {
-  margin-top: 50px;
-  text-align: center;
-  font-weight: 900;
-  color: #e41212;
-  font-size: 22px;
+    margin-top: 50px;
+    text-align: center;
+    font-weight: 900;
+    color: #e41212;
+    font-size: 22px;
 }
+
 .delayedPopupWindow p {
-  text-align: center;
-  font-size: 16px;
-  margin-bottom: 20px;
-  padding: 0px 28px;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 20px;
+    padding: 0px 28px;
 }
+
 .delayedPopupWindow .ratingBack {
-  height: 248px;
-  right: 0;
-  float: right;
-  position: absolute;
-  bottom: 0;
+    height: 248px;
+    right: 0;
+    float: right;
+    position: absolute;
+    bottom: 0;
 }
+
 button#rateButton {
-  font-size: 16px;
+    font-size: 16px;
 }
+
 button#remindLater {
-  font-size: 15px !important;
+    font-size: 15px !important;
 }
+
 .rateButton {
-  text-align: center;
-  position: relative;
-  z-index: 11;
-  padding: 0 27px;
+    text-align: center;
+    position: relative;
+    z-index: 11;
+    padding: 0 27px;
 }
+
 button#remindLater,
 button#noThanks {
-  background: none;
-  padding: 7px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  width: 100%;
-  font-size: 10px;
-  border: 1px solid #e41212;
-  color: #e41212;
+    background: none;
+    padding: 7px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    font-size: 10px;
+    border: 1px solid #e41212;
+    color: #e41212;
 }
+
 button#noThanks {
-  border: none;
+    border: none;
 }
+
 .disableScroll {
-  --overflow: hidden;
+    --overflow: hidden;
 }
 
 //custom checkbox starts
 .container {
-  margin: 15px;
-  background-color: #fff;
-  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-    0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  padding: 10px;
-  width: 100%;
-  border-radius: 10px;
-  color: #a0a0a0;
+    margin: 15px;
+    background-color: #fff;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    color: #a0a0a0;
 }
 
 #someID {
-  display: none;
+    display: none;
 }
 
 .checkbox-1 {
-  cursor: pointer;
-  font-size: 14px;
-  position: relative;
-  padding-left: 40px;
-  padding-top: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    position: relative;
+    padding-left: 40px;
+    padding-top: 5px;
 }
 
 .checkbox-1:before {
-  position: absolute;
-  content: "";
-  width: 21px;
-  height: 21px;
-  border-radius: 4px;
-  background: #fff;
-  text-align: center;
-  left: 0;
-  top: 2px;
-  border: 1px solid #e41212;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+    position: absolute;
+    content: "";
+    width: 21px;
+    height: 21px;
+    border-radius: 4px;
+    background: #fff;
+    text-align: center;
+    left: 0;
+    top: 2px;
+    border: 1px solid #e41212;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .checkbox-1:after {
-  position: absolute;
-  content: "✔";
-  font-family: "Dosis", sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 14px;
-  text-align: center;
-  color: #e41212;
-  left: 3px;
-  top: 7px;
-  transform: scale(0);
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+    position: absolute;
+    content: "✔";
+    font-family: "Dosis", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: center;
+    color: #e41212;
+    left: 3px;
+    top: 7px;
+    transform: scale(0);
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-#someID:checked + .checkbox-1:after {
-  transform: scale(1);
+#someID:checked+.checkbox-1:after {
+    transform: scale(1);
 }
+
 //custom checkbox ends
 span.redLink {
-  color: #e41212 !important;
-  border-bottom: 2px solid;
+    color: #e41212 !important;
+    border-bottom: 2px solid;
 }
+
 button.tourButton {
-  min-height: 20px !important;
+    min-height: 20px !important;
 }
+
 p.tourConfirmText {
-  margin-bottom: 24px;
+    margin-bottom: 24px;
 }
+
 .showDifferentLoader {
-  --background: none;
-  background: url("../../assets/images/alertBag.png") !important;
+    --background: none;
+    background: url("../../assets/images/alertBag.png") !important;
 }
+
 .smallLoading[_ngcontent-pnv-c1] {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
+
 .nextSpan {
-  position: absolute;
-  bottom: 5px;
-  right: -15px;
-  color: #fff;
-  z-index: 111;
-  border-radius: 50%;
-  background-color: #fff;
-  height: 50px;
-  width: 50px;
-  line-height: 50px;
-  text-align: center;
-  box-shadow: 0px 0px 10px -2px #e42310;
+    position: absolute;
+    bottom: 5px;
+    right: -15px;
+    color: #fff;
+    z-index: 111;
+    border-radius: 50%;
+    background-color: #fff;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    box-shadow: 0px 0px 10px -2px #e42310;
 }
+
 .nextSpan img {
-  height: 24px;
-  width: 24px;
-  margin-left: 0;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
+    height: 24px;
+    width: 24px;
+    margin-left: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
+
 p.nextButton {
-  margin: 0;
-  text-align: center;
-  font-size: 20px;
-  vertical-align: middle;
+    margin: 0;
+    text-align: center;
+    font-size: 20px;
+    vertical-align: middle;
 }
+
 img.smallLoading {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
-.feeds,.triviaHeader,.skipLanguage,.tourModal,.startLanguage,.showLoader{
-  display: none;
+
+.skipLanguage,
+.tourModal,
+.startLanguage,
+.showLoader {
+    display: none;
 }
