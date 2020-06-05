@@ -94,8 +94,8 @@
         <button class="contButton" (click)="selectLangSkip()">Continue</button>
     </div>
 </ion-content>
-<ion-content *ngIf="language" class="newsFeedBlock">
-    <ion-row class="feeds" style="min-width: 100%;" *ngIf="!smallLoading && newsArray && latestPost">
+<ion-content *ngIf="language" class="">
+    <ion-row class="" style="min-width: 100%;" *ngIf="latestPost && newsArray.length">
         <app-large-post [news]="latestPost" [language]="language" [skip]="skip">
         </app-large-post>
         <span *ngFor="let news of newsArray;let i = index" class="newsTiles">

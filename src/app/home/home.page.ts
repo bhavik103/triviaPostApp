@@ -216,9 +216,7 @@ export class HomePage implements OnInit {
             }
             this.getAllPost(false, "");
         }
-        this.subscription = this.platform.backButton.subscribe(() => {
-            navigator['app'].exitApp();
-        });
+        
         this.catModalShow = localStorage.getItem('catModal');
         // this.loading = false
         if (localStorage.getItem('skip')) {
@@ -241,22 +239,22 @@ export class HomePage implements OnInit {
     // get all news - HOME PAGE ( FEEDS )
     async getAllPost(isFirstLoad, event) {
         console.log("HELLOOOOOO")
-        if (this.page_number == 1) {
-            this.smallLoading = true;
-            this.newsArray = [];
-            this.latestPost = {};
-        }
         // this.latestPost = {};
         localStorage.setItem('firstTimeLoaded', 'true');
         if (this.network.type != 'none') {
-
+            
             this._newsService.getAllNews(this.page_number, this.page_limit).subscribe(
-                (res: any) => {
+                async (res: any) => {
+                    if (this.page_number == 1) {
+                        // this.smallLoading = true;
+                        this.newsArray = [];
+                        // this.latestPost = {};
+                    }
                     if (this.page_number == 1) {
                         this.latestPost = res.shift();
                     }
                     console.log('this.latestPost', this.latestPost);
-                    this.newsArray.push(...res);
+                    await this.newsArray.push(...res);
                     // this.newsArray = res;
                     if (isFirstLoad)
                         event.target.complete();
@@ -266,9 +264,9 @@ export class HomePage implements OnInit {
                     console.log('this.allnews =======', this.newsArray)
                     console.log('this.allnews =======', this.latestPost)
                     // this.checkForRating();
-                    // setTimeout(() => {
+                    setTimeout(() => {
                         this.smallLoading = false;
-                    // }, 5000);
+                    }, 1000);
                 },
                 (err) => {
                     this.smallLoading = false;

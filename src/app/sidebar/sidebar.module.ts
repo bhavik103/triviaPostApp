@@ -17,11 +17,11 @@ const routes: Routes = [
     path: '',
     component: SidebarPage,
     children: [
-      {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-      },
+      // {
+      //   path: '',
+      //   redirectTo: 'home',
+      //   pathMatch: 'full'
+      // },
       {
         path: 'home',
         children: [
