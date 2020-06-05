@@ -265,10 +265,10 @@ export class HomePage implements OnInit {
                     // this.latestPost = this.newsArray.shift();
                     console.log('this.allnews =======', this.newsArray)
                     console.log('this.allnews =======', this.latestPost)
-                    this.checkForRating();
-                    setTimeout(() => {
+                    // this.checkForRating();
+                    // setTimeout(() => {
                         this.smallLoading = false;
-                    }, 1000);
+                    // }, 5000);
                 },
                 (err) => {
                     this.smallLoading = false;

@@ -1,4 +1,5 @@
 <ion-menu side="start" menuId="first" contentId="content" overflow-scroll="true">
+    <h1 text-center>Categories</h1>
     <ion-list style="overflow-y: scroll;" *ngIf="menuPages">
         <ion-item *ngFor="let page of menuPages">
             <ion-label routerLink="/single-category/{{page.categoryId}}/{{page.category[language]}}" (click)="closeMenu()">{{page.category[language]}}</ion-label>

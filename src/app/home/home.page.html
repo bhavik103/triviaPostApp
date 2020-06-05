@@ -1,13 +1,8 @@
 <div no-border class="triviaHeader" *ngIf="language && newsArray && latestPost">
     <div class="settingsToolbar">
-        <!-- <ion-toolbar> -->
         <button float-left>
         <ion-menu-button></ion-menu-button>
     </button>
-        <!-- <button float-left menuToggle>
-            <ion-icon name="menu" class="menuIcon" float-left (click)="openMenu()"></ion-icon>
-            </button> -->
-        <!-- </ion-toolbar> -->
         <span id="settingTitle">
       Trivia Post
     </span>
@@ -99,8 +94,8 @@
         <button class="contButton" (click)="selectLangSkip()">Continue</button>
     </div>
 </ion-content>
-<ion-content *ngIf="language && newsArray" class="newsFeedBlock">
-    <ion-row class="feeds" style="min-width: 100%;" *ngIf="!smallLoading">
+<ion-content *ngIf="language" class="newsFeedBlock">
+    <ion-row class="feeds" style="min-width: 100%;" *ngIf="!smallLoading && newsArray && latestPost">
         <app-large-post [news]="latestPost" [language]="language" [skip]="skip">
         </app-large-post>
         <span *ngFor="let news of newsArray;let i = index" class="newsTiles">
@@ -120,16 +115,12 @@
   </span>
 </ion-content>
 <!-- <ion-content class="loadingContent" *ngIf="smallLoading">
-  <img
-      src="../../assets/images/simpleLoader.gif"
-      alt=""
-      class="smallLoading"
-    />
+    <img src="../../assets/images/simpleLoader.gif" alt="" class="smallLoading" />
 </ion-content> -->
 <div class="no-news-text" *ngIf="isTextVisible">
     <span>{{text}}</span>
 </div>
-<ion-content class="loadingContent tourModal" [ngClass]="{'showDifferentLoader': showTourConfirm}">
+<ion-content class="loadingContent tourModal" *ngIf="!skip" [ngClass]="{'showDifferentLoader': showTourConfirm}">
     <div id="bkgOverlay" class="backgroundOverlay"></div>
 
     <div id="delayedPopup" class="delayedPopupWindow confirmTourPopup">
