@@ -12,7 +12,7 @@
 <ion-content *ngIf="!loading" [ngClass]="{'notScroll': (!bookmarkFlag || !shareFlag) && !skip}">
     <div class="floatNext" *ngIf="(!bookmarkFlag || !shareFlag) && !skip" (click)="nextButton()">
         <div class="ripple_effect"></div>
-        <img src="../../assets/images/nextButton.png" class="my-floatNext" alt="" />
+        <img src="assets/images/nextButton.png" class="my-floatNext" alt="" />
     </div>
     <div *ngIf="news" class="singleNews">
         <div class="container" [ngClass]="{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}">
@@ -68,7 +68,7 @@
           </div>
           <div class="ripple_effect" *ngIf="shareFlag != '1'"></div>
         </span>
-            <img src="../../assets/images/Share.png" class="icon shareImage" />
+            <img src="assets/images/Share.png" class="icon shareImage" />
             </span>
         </div>
         <div class="subPostTitle postSource" *ngIf="news.srcTitle != '' && news.srcTitle != null && !news.srcTitle">
@@ -96,7 +96,7 @@
   <div id="open-modal" class="modal-window" *ngIf="bookmarkModal">
     <div>
       <div class="img_border">
-        <img src="../../assets/images/bookmarkNew.png" alt="" />
+        <img src="assets/images/bookmarkNew.png" alt="" />
       </div>
       <div class="textBoxModal">
         <h3>{{modalBookmarkTitle[language]}}</h3>
@@ -124,7 +124,7 @@
   <div id="open-modal" class="modal-window" *ngIf="shareModal">
     <div>
       <div class="img_border">
-        <img src="../../assets/images/share.png" alt="" />
+        <img src="assets/images/share.png" alt="" />
       </div>
       <div class="textBoxModal">
         <h3>{{sharePostModal[language]}}</h3>

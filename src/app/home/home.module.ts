@@ -8,8 +8,7 @@ import { SuperTabsModule } from '@ionic-super-tabs/angular';
 import {CategoryTilesPageModule} from '../category-tiles/category-tiles.module';
 import {LargePostPageModule} from '../large-post/large-post.module';
 import {PostTilesPageModule} from '../post-tiles/post-tiles.module';
-import {SidebarPageModule} from '../sidebar/sidebar.module';
-import { SidebarPage } from 'app/sidebar/sidebar.page';
+
 @NgModule({
   imports: [
     CategoryTilesPageModule,

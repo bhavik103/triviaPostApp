@@ -41,19 +41,34 @@ import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { Market } from '@ionic-native/market/ngx';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { AdmobfreeService } from './services/admobfree.service';
-import {HomePage} from '../app/home/home.page'
-import {TourHomePage} from '../app/tour-home/tour-home.page'
 export class HammerConfig extends HammerGestureConfig {
-  overrides = <any>{
-    'swipe': { direction: Hammer.DIRECTION_ALL }
-  };
+  overrides = {
+    swipe: { direction: Hammer.DIRECTION_ALL }
+  } as any;
 }
 
 @NgModule({
-  declarations: [AppComponent, SettingsComponent, LoginComponent, FeedbackComponent, PrivacyComponent,
-    SearchbarComponent, TermsAndCondComponent],
+  declarations: [
+    AppComponent,
+    SettingsComponent,
+    LoginComponent,
+    FeedbackComponent,
+    PrivacyComponent,
+    SearchbarComponent,
+    TermsAndCondComponent
+  ],
   entryComponents: [],
-  imports: [SuperTabsModule.forRoot(), StarRatingModule, FormsModule, BrowserModule, ReactiveFormsModule, IonicStorageModule.forRoot(), IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [
+    SuperTabsModule.forRoot(),
+    StarRatingModule,
+    FormsModule,
+    BrowserModule,
+    ReactiveFormsModule,
+    IonicStorageModule.forRoot(),
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule
+  ],
   providers: [
     AdMobFree,
     AdmobfreeService,
@@ -79,8 +94,6 @@ export class HammerConfig extends HammerGestureConfig {
     Keyboard,
     Deeplinks,
     ScreenOrientation,
-    HomePage,
-    TourHomePage,
     FCM,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: MyInterceptor, multi: true }

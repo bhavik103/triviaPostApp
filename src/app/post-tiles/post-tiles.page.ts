@@ -4,6 +4,7 @@ import { config } from '../config';
 import { Router } from '@angular/router';
 import { ToastService } from '../services/toast.service'
 import { DomSanitizer } from '@angular/platform-browser';
+import { NavController } from '@ionic/angular';
 @Component({
   selector: 'app-post-tiles',
   templateUrl: './post-tiles.page.html',
@@ -23,7 +24,8 @@ export class PostTilesPage implements OnInit {
   isPresent: any;
   tokenLocalStorage: string;
   iframe: any;
-  constructor(private _storageService: StorageService,private domSanitizer: DomSanitizer, private _toastService: ToastService, private router: Router) {
+  constructor(private _storageService: StorageService, private domSanitizer: DomSanitizer, private _toastService: ToastService, private router: Router,
+    private nav: NavController) {
   }
 
   ionViewWillEnter() {
@@ -43,7 +45,7 @@ export class PostTilesPage implements OnInit {
     if (!localStorage.getItem('accessToken') && localStorage.getItem('isVisited')) {
       this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
       this.isPresent = this.visitedArray.includes(this.news.newsId);
-      console.log('this.isPresent',this.isPresent)
+      console.log('this.isPresent', this.isPresent)
     } else {
       this.tokenLocalStorage = localStorage.getItem('accessToken');
       if (this.tokenLocalStorage) {
@@ -83,22 +85,21 @@ export class PostTilesPage implements OnInit {
       if (navigator.onLine) {
         if (this.wrongStatus) {
           this.wrongStatus = false
-        }
-        else {
+        } else {
           this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
           this.visitedArray.push(postid);
           localStorage.setItem('isVisited', JSON.stringify(this.visitedArray))
           localStorage.setItem('firstLargePostClick', '1')
           // localStorage.setItem('skip', '1')
           console.log('postid', postid);
-          this.router.navigateByUrl('/single-post/' + postid);
+          this.nav.navigateRoot('/single-post/' + postid);
 
         }
       } else {
         if (this.wrongStatus) {
           this.wrongStatus = false
-        }else{
-          this.router.navigateByUrl('/single-post/' + postid);
+        } else {
+          this.nav.navigateRoot('/single-post/' + postid);
           this._toastService.toastFunction('No internet connnection', 'danger');
         }
       }

@@ -1,15 +1,10 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-router-outlet id="main"></ion-router-outlet>
   <div id="bkgOverlay" class="backgroundOverlay" *ngIf="showRateModal"></div>
 
   <div id="delayedPopup" class="delayedPopupWindow" *ngIf="showRateModal">
     <div class="img_border">
-      <img
-        src="../../assets/images/rating.png"
-        height="64px"
-        width="50px"
-        alt=""
-      />
+      <img src="assets/images/rating.png" height="64px" width="50px" alt="" />
     </div>
     <h5>{{ rateTitle[language] }}</h5>
     <p>
@@ -31,13 +26,9 @@
       </ion-row>
     </div>
     <div class="otherButton"></div>
-    <img
-      src="../../assets/images/ratingBackground.png"
-      alt=""
-      class="ratingBack"
-    />
+    <img src="assets/images/ratingBackground.png" alt="" class="ratingBack" />
   </div>
   <!-- <div class="tourLoader" *ngIf="showLoader">
-    <img src="../assets/images/mainLoader.gif" />
+    <img src="assets/images/mainLoader.gif" />
   </div> -->
 </ion-app>

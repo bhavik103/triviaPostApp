@@ -12,14 +12,14 @@
     <img
       src="{{mediaPath}}{{news.newsImage}}"
       height="100%"
-      data-src="../../assets/images/placeholder.png'"
+      data-src="assets/images/placeholder.png'"
       onerror="this.src='../../assets/images/placeholder.png'"
       width="100%"
       *ngIf="firstLargePostClick === '1' || skip == 1"
       (click)="singleNews(news.newsId)"
     />
     <img
-      data-src="../../assets/images/placeholder.png'"
+      data-src="assets/images/placeholder.png'"
       onerror="this.src='../../assets/images/placeholder.png'"
       height="100%"
       width="100%"
@@ -87,7 +87,7 @@
     </div>
     <span class="nextSpan" *ngIf="!firstLargePostClick && !skip == '1'">
       <p class="nextButton">
-        <img src="../../assets/images/nextButton.png" alt="" />
+        <img src="assets/images/nextButton.png" alt="" />
       </p>
       <div class="ripple_effect"></div>
     </span>
