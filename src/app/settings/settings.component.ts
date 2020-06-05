@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
 import { FCM } from '@ionic-native/fcm/ngx';
 import { GeneralService } from '../services/general.service';
 import { ToastService } from "../services/toast.service";
-import { optionsTitle,savePref, category, signInText, signIn, orUsing, langSelectText, shareApp, terms, privacy, feedback, notification, bookmark, language } from '../changeLang';
+import { optionsTitle, savePref, category, signInText, signIn, orUsing, langSelectText, shareApp, terms, privacy, feedback, notification, bookmark, language } from '../changeLang';
 import 'jquery';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { AppComponent } from '../app.component'
@@ -163,7 +163,7 @@ export class SettingsComponent implements OnInit {
 			}
 		}
 	];
-	constructor(private _admobService: AdmobfreeService,public appcomponent: AppComponent,private dialogs: Dialogs, private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
+	constructor(private _admobService: AdmobfreeService, public appcomponent: AppComponent, private dialogs: Dialogs, private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
 	}
 
 	ionViewWillEnter() {
@@ -183,8 +183,8 @@ export class SettingsComponent implements OnInit {
 
 	ngOnInit() {
 		this.platform.backButton.subscribe(async () => {
-            this.appcomponent.openRatingModal();
-        });
+			this.appcomponent.openRatingModal();
+		});
 		this.getUrl();
 		this.notifyFlag = localStorage.getItem('notification');
 		this.annonymousNotify = localStorage.getItem('annonymousNotify');
@@ -231,7 +231,7 @@ export class SettingsComponent implements OnInit {
 					this.fcm.onTokenRefresh().subscribe(token => {
 						localStorage.setItem('deviceToken', token);
 					});
-					this.router.navigate(['/home']);
+					this.router.navigate(['/sidebar/home']);
 					this._toastService.toastFunction('You have been logged out!', 'primary');
 				}
 			}, {
@@ -244,8 +244,11 @@ export class SettingsComponent implements OnInit {
 	}
 
 	//share app
-	sendShare() {
+	async sendShare() {
 		console.log("Share", this.privacyPolicy)
+		if (!this.privacyPolicy) {
+			this.privacyPolicy = await this.storage.get('terms');
+		}
 		var url = this.privacyPolicy[0].applink;
 		this.socialSharing.share("Read these interesting facts on Trivia Post. Download App", "Trivia Post App", null, url)
 			.then((entries) => {
@@ -258,17 +261,22 @@ export class SettingsComponent implements OnInit {
 
 	//notify toggle function
 	notificationSwitch(e) {
+		console.log(e.target.checked);
 		localStorage.setItem('notification', e.target.checked);
 		localStorage.setItem('annonymousNotify', e.target.checked);
 		var accessToken = localStorage.getItem('accessToken');
-		this._userService.notifyToggle(e.target.checked).subscribe((res: any) => {
-			if (accessToken) {
-				this.getUserDetail();
-			}
-			this._toastService.toastFunction(res.message, 'danger');
-		}, err => {
-			this._toastService.toastFunction(err.error.message, 'danger');
-		})
+		if (navigator.onLine) {
+			this._userService.notifyToggle(e.target.checked).subscribe((res: any) => {
+				if (accessToken) {
+					this.getUserDetail();
+				}
+				this._toastService.toastFunction(res.message, 'danger');
+			}, err => {
+				this._toastService.toastFunction(err.error.message, 'danger');
+			})
+		}else{
+			this._toastService.toastFunction('No Internet Connection', 'danger');
+		}
 	}
 
 	//user detail for notification switch
@@ -307,13 +315,13 @@ export class SettingsComponent implements OnInit {
 	}
 
 	//on clicking bookmark button
-	routeToBookmark(){
+	routeToBookmark() {
 		let accessToken = localStorage.getItem('accessToken')
-		console.log("got it",accessToken)
-		if(accessToken){
+		console.log("got it", accessToken)
+		if (accessToken) {
 			this.router.navigateByUrl('/bookmark')
-		}else{
-			this._toastService.toastFunction('You Need To Login First!','danger');
+		} else {
+			this._toastService.toastFunction('You Need To Login First!', 'danger');
 			this.router.navigateByUrl('/login')
 		}
 	}

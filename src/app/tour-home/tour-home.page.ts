@@ -1,7 +1,9 @@
+import { StorageService } from './../services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NewsService } from '../services/news.service';
 import { UserService } from '../services/user.service';
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-tour-home',
   templateUrl: './tour-home.page.html',
@@ -18,7 +20,7 @@ export class TourHomePage implements OnInit {
   page_number = 2;
   page_limit = 20;
 
-  constructor(public _userService: UserService, public _newsService: NewsService, private router: Router) { }
+  constructor(public _storageService: StorageService, public storage: Storage, public _userService: UserService, public _newsService: NewsService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -36,7 +38,8 @@ export class TourHomePage implements OnInit {
     localStorage.setItem('firstTimeLoaded', 'true');
 
     this.language = localStorage.getItem('language');
-    if (!localStorage.getItem('newsArray')) {
+
+    if (!this.storage.get('news')) {
       if (navigator.onLine) {
         this._newsService.getAllNews(this.page_number, this.page_limit).subscribe(
           (res: any) => {
@@ -72,18 +75,18 @@ export class TourHomePage implements OnInit {
             this.newsArray = localStorage.newsArray;
           });
       } else {
-        this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
-        this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
+        this.newsArray = await this._storageService.getNewsForOffline();
+        this.latestPost = this.newsArray[0];
         this.newsArray.splice(0, 1)
       }
     } else {
-      this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
-      this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
+      let offlinePosts = await this._storageService.getNewsForOffline();
+      this.newsArray = JSON.parse(offlinePosts)
+      this.latestPost = this.newsArray[0];
       this.newsArray.splice(0, 1)
       if (localStorage.getItem('firstLargePostClick') && [!localStorage.getItem('bookmarkFlag') || localStorage.getItem('shareFlag')] && !localStorage.getItem('skip')) {
         this.router.navigateByUrl('/single-post/' + this.latestPost.newsId);
       } else {
-
         this.smallLoading = false;
       }
     }
@@ -104,27 +107,27 @@ export class TourHomePage implements OnInit {
   async getPagePosts(isFirstLoad, event) {
     // this.smallLoading = true;
     localStorage.setItem('firstTimeLoaded', 'true');
-    this._newsService.getAllNews(this.page_number,this.page_limit).subscribe(
-        (res: any) => {
-            if(this.page_number == 1){
-                this.latestPost = res.shift();
-            }
-            this.newsArray.push(...res);
-            // this.newsArray = res;
-            if (isFirstLoad)
-            event.target.complete();
-            
-            this.page_number++;
-            // this.latestPost = this.newsArray.shift();
-            console.log('this.allnews =======', this.newsArray)
-            console.log('this.allnews =======', this.latestPost)
-            this.checkForRating();
-            // this.smallLoading = false;
-        },
-        (err) => {
-            this.newsArray = localStorage.newsArray;
-        });
-}
+    this._newsService.getAllNews(this.page_number, this.page_limit).subscribe(
+      (res: any) => {
+        if (this.page_number == 1) {
+          this.latestPost = res.shift();
+        }
+        this.newsArray.push(...res);
+        // this.newsArray = res;
+        if (isFirstLoad)
+          event.target.complete();
+
+        this.page_number++;
+        // this.latestPost = this.newsArray.shift();
+        console.log('this.allnews =======', this.newsArray)
+        console.log('this.allnews =======', this.latestPost)
+        this.checkForRating();
+        // this.smallLoading = false;
+      },
+      (err) => {
+        this.newsArray = localStorage.newsArray;
+      });
+  }
   checkForRating() {
     if (localStorage.getItem('isRated') != 'true' || localStorage.getItem('isRated') == 'pending') {
       this.showRateModal = true;

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { NewsService } from '../services/news.service';
 import { FCM } from '@ionic-native/fcm/ngx';
 declare var $: any;
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import * as _ from 'lodash';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
@@ -21,13 +21,9 @@ import { AlertController } from '@ionic/angular';
 import { Market } from '@ionic-native/market/ngx';
 import { andText, acceptTermsPolicy, termsTitle, privacyTitle, language, languagePageHead, rateTitle, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour, tourReadPost, rateText, catTitle, rateNowButton, rateNoThanksButton, rateRemindButton } from '../changeLang';
 import { AdmobfreeService } from '../services/admobfree.service';
-import {
-    AdMobFree
-} from '@ionic-native/admob-free/ngx';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { IonContent } from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
-import {StorageService} from '../services/storage.service';
+import { StorageService } from '../services/storage.service';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -100,12 +96,15 @@ export class HomePage implements OnInit {
     iframe: any;
     page_number = 1;
     page_limit = 20;
+    navigate: { title: string; url: string; icon: string; }[];
 
-    constructor(private network: Network, private _admobService: AdmobfreeService, private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, private router: Router, public keyboard: Keyboard, public _storageService: StorageService) {
+    constructor(private menu: MenuController, private network: Network, private _admobService: AdmobfreeService, private market: Market, public alertController: AlertController, private _generalService: GeneralService, private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService, private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService, private router: Router, public keyboard: Keyboard, public _storageService: StorageService) {
+        console.log("INSIDE CONSTRUCTER")
     }
 
     // Event Listeners
     ngOnInit() {
+        console.log("HELLO 33")
         this.platform.ready().then(() => {
             this.firebaseLinkRoute();
         })
@@ -115,7 +114,7 @@ export class HomePage implements OnInit {
 
     ionViewDidEnter() {
         this.notificationTapped();
-        this.platform.ready().then(() => {
+        this.platform.ready().then(async () => {
             if (!localStorage.getItem('deviceToken')) {
                 this.fcm.getToken().then(token => {
                     localStorage.setItem('deviceToken', token);
@@ -124,7 +123,9 @@ export class HomePage implements OnInit {
                         if (!localStorage.getItem('accessToken')) {
                             this._userService.firstTimeUser(await localStorage.getItem('language')).subscribe((res: any) => {
                                 this._userService.serviceFunction();
-                                localStorage.setItem('annonymousNotify', 'true');
+                                if (!localStorage.getItem('annonymousNotify')) {
+                                    localStorage.setItem('annonymousNotify', 'true');
+                                }
                             },
                                 (err) => {
                                 });
@@ -141,27 +142,29 @@ export class HomePage implements OnInit {
                     localStorage.setItem('deviceToken', token);
                 });
             } else {
-                setTimeout(async () => {
-                    console.log('this.selected', localStorage.getItem('language'))
-                    if (!localStorage.getItem('accessToken')) {
-                        this._userService.firstTimeUser(await localStorage.getItem('language')).subscribe((res: any) => {
-                            this._userService.serviceFunction();
+                // setTimeout(async () => {
+                console.log('this.selected', localStorage.getItem('language'))
+                if (!localStorage.getItem('accessToken')) {
+                    this._userService.firstTimeUser(await localStorage.getItem('language')).subscribe((res: any) => {
+                        this._userService.serviceFunction();
+                        if (!localStorage.getItem('annonymousNotify')) {
                             localStorage.setItem('annonymousNotify', 'true');
-                        },
-                            (err) => {
-                            });
-                    } else {
-                        let accessToken = await localStorage.getItem('accessToken');
-                        let deviceToken = await localStorage.getItem('deviceToken');
-                        this._userService.loggedInUserDeviceToken(accessToken, deviceToken).subscribe((res: any) => {
-                            console.log("RES FROM UPDATING DEVICE TOKEN", res)
-                        })
-                    }
-                }, 1000);
+                        }
+                    },
+                        (err) => {
+                        });
+                } else {
+                    let accessToken = await localStorage.getItem('accessToken');
+                    let deviceToken = await localStorage.getItem('deviceToken');
+                    this._userService.loggedInUserDeviceToken(accessToken, deviceToken).subscribe((res: any) => {
+                        console.log("RES FROM UPDATING DEVICE TOKEN", res)
+                    })
+                }
+                // }, 1000);
             }
         })
         if (!localStorage.getItem('firstLargePostClick') && localStorage.getItem('language')) {
-            this.router.navigateByUrl('tour-home')
+            this.router.navigateByUrl('sidebar/tour-home')
         }
         if (this.platform.is('cordova')) {
             this._admobService.interstitalAdOnFivePageChange()
@@ -174,20 +177,12 @@ export class HomePage implements OnInit {
         this.skip = localStorage.getItem('skip');
         this.catSelect = localStorage.getItem('catSelect');
         this.language = localStorage.getItem('language')
-        this.subscription = this.platform.backButton.subscribe(() => {
-            navigator['app'].exitApp();
-        });
     }
     ionViewWillLeave() {
         this.page_number = 1;
-        // if(this.page_number == 1){
         this.newsArray = [];
         this.latestPost = {};
-        // }
         this.subscription.unsubscribe();
-        // this.newsArray = [];
-        // this.content.scrollToTop(400);
-
     }
 
     viewInitFunctions() {
@@ -209,19 +204,21 @@ export class HomePage implements OnInit {
         }
     }
     ionViewWillEnter() {
-        this.getNewsForOffline();
+        console.log("HELLO, BYE")
         if (!localStorage.getItem('language')) {
             $('.tourModal').show()
             this.showTourConfirm = true;
         }
         if (localStorage.getItem('language')) {
             this.smallLoading = true;
-            // this.offlineNews();
             if (this.platform.is('cordova')) {
                 this._admobService.BannerAd();
             }
             this.getAllPost(false, "");
         }
+        this.subscription = this.platform.backButton.subscribe(() => {
+            navigator['app'].exitApp();
+        });
         this.catModalShow = localStorage.getItem('catModal');
         // this.loading = false
         if (localStorage.getItem('skip')) {
@@ -241,34 +238,9 @@ export class HomePage implements OnInit {
     askForTour(promptReply) {
         this.loading = true;
     }
-
-    getNewsForOffline() {
-        if (this.network.type != 'none') {
-
-            this._newsService.getAllNews(this.page_number, "offline").subscribe(
-                (res: any) => {
-                    
-                },
-                (error) => {
-
-                })
-        }
-    }
-    offlineNews() {
-        this.language = localStorage.getItem('language');
-        this.newsArray = JSON.parse(localStorage.getItem('newsArray'))
-        this.latestPost = JSON.parse(localStorage.getItem('newsArray'))[0];
-        this.newsArray.splice(0, 1)
-        setTimeout(() => {
-            if (localStorage.getItem('firstLargePostClick') && [!localStorage.getItem('bookmarkFlag') || localStorage.getItem('shareFlag')] && !localStorage.getItem('skip')) {
-                this.router.navigateByUrl('/single-post/' + this.latestPost.newsId);
-            }
-            $('.feeds').fadeIn()
-            $('.triviaHeader').show()
-        }, 2000);
-    }
     // get all news - HOME PAGE ( FEEDS )
     async getAllPost(isFirstLoad, event) {
+        console.log("HELLOOOOOO")
         if (this.page_number == 1) {
             this.smallLoading = true;
             this.newsArray = [];
@@ -304,17 +276,19 @@ export class HomePage implements OnInit {
                     this.latestPost = this.newsArray.shift();
                 });
         } else {
-            this.smallLoading = false;
-            this.newsArray = JSON.parse(localStorage.newsArray);
+            let newsArrayOffline = await this._storageService.getNewsForOffline();
+            this.newsArray = JSON.parse(newsArrayOffline);
             this.latestPost = this.newsArray.shift();
+            this.smallLoading = false;
         }
     }
 
     doInfinite(event) {
-        this.getAllPost(true, event);
         if (this.network.type == 'none') {
             this._toastService.toastFunction('No internet connection', 'danger');
             event.target.complete();
+        } else {
+            this.getAllPost(true, event);
         }
         console.log(event);
     }
@@ -407,7 +381,7 @@ export class HomePage implements OnInit {
         let lang = this.selected;
         localStorage.setItem('language', lang);
         console.log("Date in home", new Date().getSeconds())
-        this.router.navigateByUrl('tour-home');
+        this.router.navigateByUrl('sidebar/tour-home');
     }
 
     //set fcm token
@@ -461,5 +435,10 @@ export class HomePage implements OnInit {
         localStorage.setItem('catModal', '1')
         this.catModalShow = '1'
         $('.skipLanguage').show();
+    }
+
+    openMenu() {
+        console.log("HELLO");
+        this.menu.open('mainContent');
     }
 }

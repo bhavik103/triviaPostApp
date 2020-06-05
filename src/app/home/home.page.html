@@ -1,17 +1,21 @@
 <div no-border class="triviaHeader" *ngIf="language && newsArray && latestPost">
     <div class="settingsToolbar">
+        <!-- <ion-toolbar> -->
         <button float-left>
-      <ion-icon
-        name="settings"
-        class="homeBack"
-        (click)="settings()"
-      ></ion-icon>
+        <ion-menu-button></ion-menu-button>
     </button>
+        <!-- <button float-left menuToggle>
+            <ion-icon name="menu" class="menuIcon" float-left (click)="openMenu()"></ion-icon>
+            </button> -->
+        <!-- </ion-toolbar> -->
         <span id="settingTitle">
       Trivia Post
     </span>
         <button float-right>
-      <ion-icon name="search" class="searchIcon" (click)="search()"></ion-icon>
+        <ion-icon name="search" class="searchIcon" (click)="search()"></ion-icon>
+    </button>
+        <button float-left>
+                <ion-icon name="settings" class="homeBack" (click)="settings()"></ion-icon>
     </button>
     </div>
 </div>
@@ -95,7 +99,6 @@
         <button class="contButton" (click)="selectLangSkip()">Continue</button>
     </div>
 </ion-content>
-
 <ion-content *ngIf="language && newsArray" class="newsFeedBlock">
     <ion-row class="feeds" style="min-width: 100%;" *ngIf="!smallLoading">
         <app-large-post [news]="latestPost" [language]="language" [skip]="skip">

@@ -6,6 +6,7 @@ import { privacyTitle } from '../changeLang'
 import { Platform } from '@ionic/angular';
 import { AppComponent } from '../app.component'
 import { AdmobfreeService } from '../services/admobfree.service';
+import {Storage} from '@ionic/storage';	
 
 @Component({
 	selector: 'app-privacy',
@@ -18,7 +19,7 @@ export class PrivacyComponent implements OnInit {
 	loading: any;
 	privacyTitle = privacyTitle;
 	language: any;
-	constructor(private _admobService: AdmobfreeService,public appcomponent: AppComponent, private platform: Platform, public _generalService: GeneralService, private router: Router) {
+	constructor(private storage: Storage,private _admobService: AdmobfreeService,public appcomponent: AppComponent, private platform: Platform, public _generalService: GeneralService, private router: Router) {
 	}
 
 	ionViewWillEnter(){
@@ -35,18 +36,25 @@ export class PrivacyComponent implements OnInit {
 		this.getPrivacyPolicy();
 	}
 
-	getPrivacyPolicy(): void {
+	async getPrivacyPolicy(){
 		this.loading = true;
-		this._generalService.getPolicy().subscribe(
-			(res: any) => {
-				this.loading = false;
-				this.privacyPolicy = res;
-				console.log(this.privacyPolicy);
-			},
-			(err) => {
-				this.loading = false;
-				this.error = err;
-			});
+		if(navigator.onLine){
+
+			this._generalService.getPolicy().subscribe(
+				(res: any) => {
+					this.loading = false;
+					this.privacyPolicy = res;
+					console.log(this.privacyPolicy);
+				},
+				(err) => {
+					this.loading = false;
+					this.error = err;
+				});
+			}else{
+				let termsString = await this.storage.get('terms');
+			this.privacyPolicy = JSON.parse(termsString);
+			this.loading = false;
+			}
 	}
 	backButton() {
 		this.appcomponent.openRatingModal();

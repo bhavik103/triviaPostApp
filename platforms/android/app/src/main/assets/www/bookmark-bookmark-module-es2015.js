@@ -310,19 +310,25 @@ let BookmarkPage = class BookmarkPage {
     }
     bookmarkedNews() {
         this.loading = true;
-        this._newsService.getAllBookmarks().subscribe((res) => {
-            if (res.length === 0) {
-                this.noNews = true;
-            }
+        if (navigator.onLine) {
+            this._newsService.getAllBookmarks().subscribe((res) => {
+                if (res.length === 0) {
+                    this.noNews = true;
+                }
+                this.loading = false;
+                this.newsObj = res;
+                this.newsArray = this.newsObj;
+                console.log(" BOOKMARKED NEWS ", this.newsArray);
+                this.bookmarkLength = this.newsArray.length;
+            }, (err) => {
+                this.loading = false;
+                this.error = err;
+            });
+        }
+        else {
             this.loading = false;
-            this.newsObj = res;
-            this.newsArray = this.newsObj;
-            console.log(" BOOKMARKED NEWS ", this.newsArray);
-            this.bookmarkLength = this.newsArray.length;
-        }, (err) => {
-            this.loading = false;
-            this.error = err;
-        });
+            this._toastService.toastFunction('No internet connection', 'danger');
+        }
     }
     deleteBookmarked(id) {
         if (this.network.type == 'none') {
@@ -393,105 +399,6 @@ BookmarkPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_admobfree_service__WEBPACK_IMPORTED_MODULE_13__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_12__["AppComponent"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_10__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ActionSheetController"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
 ], BookmarkPage);
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/category.service.ts":
-/*!**********************************************!*\
-  !*** ./src/app/services/category.service.ts ***!
-  \**********************************************/
-/*! exports provided: CategoryService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoryService", function() { return CategoryService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
-
-
-
-
-
-
-
-let CategoryService = class CategoryService {
-    constructor(network, http) {
-        this.network = network;
-        this.http = http;
-    }
-    handleError(error) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])('Error! something went wrong.');
-    }
-    //get all cateogries
-    getAll() {
-        const tokenLocalStorage = localStorage.getItem('accessToken');
-        if (tokenLocalStorage) {
-            var base64Url = tokenLocalStorage.split('.')[1];
-            var base64 = base64Url.replace('-', '+').replace('_', '/');
-            var decodedToken = JSON.parse(window.atob(base64));
-            this.loggedInUser = decodedToken.user._id;
-            console.log("Decoded", this.loggedInUser);
-        }
-        return new rxjs__WEBPACK_IMPORTED_MODULE_4__["Observable"](observer => {
-            this.http.get(_config__WEBPACK_IMPORTED_MODULE_3__["config"].baseApiUrl + "category").subscribe((result) => {
-                this.categories = result['data'];
-                var prop = ['category', 'categoryId', 'notify'];
-                let offlineArray = JSON.parse(JSON.stringify(this.categories));
-                offlineArray.forEach(element => {
-                    for (var k in element) {
-                        if (prop.indexOf(k) < 0) {
-                            delete element[k];
-                        }
-                    }
-                });
-                localStorage.removeItem('categoryArray');
-                localStorage.setItem('categoryArray', JSON.stringify(offlineArray));
-                if (tokenLocalStorage) {
-                    this.notifyChange();
-                }
-                observer.next(this.categories);
-                observer.complete();
-            }, (error) => {
-                observer.error(error);
-            });
-        });
-    }
-    //append notification key
-    notifyChange() {
-        lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](this.categories, (user) => {
-            lodash__WEBPACK_IMPORTED_MODULE_6__["forEach"](user.notify, (Id) => {
-                if (Id == this.loggedInUser) {
-                    console.log("NOTIFIED CATEGORY", Id);
-                    user['isNotify'] = true;
-                }
-            });
-        });
-    }
-    //subcribing category
-    notifyUser(catId) {
-        console.log(catId);
-        return this.http.put(_config__WEBPACK_IMPORTED_MODULE_3__["config"].baseApiUrl + "category-notify", { categoryId: catId });
-    }
-};
-CategoryService.ctorParameters = () => [
-    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"] },
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
-];
-CategoryService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
-], CategoryService);
 
 
 

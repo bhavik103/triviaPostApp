@@ -1,6 +1,6 @@
 <div>
     <div class="settingsToolbar">
-        <ion-back-button name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/home" float-left (click)="backButton()">
+        <ion-back-button name="arrow-round-back" class="homeBack" defaultHref="/home" float-left (click)="backButton()">
         </ion-back-button>
         <ion-input set-focuser #searchInput type="text" placeholder="Search here.." (input)="searchNews($event.target.value)" [(ngModel)]="keywordSearch"></ion-input>
         <button float-right routerLink="/home">
@@ -11,7 +11,7 @@
 <ion-content padding>
     <ion-row class="searchResults" *ngFor="let searchNews of newsArray">
         <ion-col size="3" class="newsImg" padding (click)="getSingleSearch(searchNews.newsId)">
-            <img src="{{ mediaPath }}{{ searchNews.newsImage }}" height="100%" width="100%" />
+            <img src="{{ mediaPath }}{{ searchNews.newsImage }}" data-src="../../assets/images/placeholder.png'" onerror="this.src='../../assets/images/placeholder.png'" height="100%" width="100%" />
         </ion-col>
         <ion-col size="9">
             <div padding>

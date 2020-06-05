@@ -44,6 +44,7 @@ export class RelatedPostPage implements OnInit {
 
         }
       } else {
+        this.router.navigateByUrl('/single-post/' + postid);
         this._toastService.toastFunction('No internet connnection', 'danger');
       }
     }

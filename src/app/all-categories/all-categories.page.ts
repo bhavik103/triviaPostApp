@@ -1,3 +1,4 @@
+import { StorageService } from './../services/storage.service';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { catTitle } from '../changeLang';
@@ -6,7 +7,7 @@ import { AppComponent } from '../app.component'
 import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AdmobfreeService } from '../services/admobfree.service';
-
+import {Storage} from '@ionic/storage'
 @Component({
   selector: 'app-all-categories',
   templateUrl: './all-categories.page.html',
@@ -19,7 +20,7 @@ export class AllCategoriesPage implements OnInit {
   catSelect: string;
   catTitle = catTitle;
   openRatingModal: any;
-  constructor(private _admobService: AdmobfreeService,private router: Router,private platform: Platform, private appcomponent: AppComponent, private _userService: UserService, private _categoryService: CategoryService) { }
+  constructor(private storage: Storage,private _storageService: StorageService, private _admobService: AdmobfreeService, private router: Router, private platform: Platform, private appcomponent: AppComponent, private _userService: UserService, private _categoryService: CategoryService) { }
 
   ngOnInit() {
     this.platform.backButton.subscribe(() => {
@@ -51,21 +52,23 @@ export class AllCategoriesPage implements OnInit {
     this._userService.callComponentMethod('1');
     console.log("this.openRatingModal", this.appcomponent)
   }
-  getCategories() {
+  async getCategories() {
     this.loading = true;
     this.language = localStorage.getItem('language');
     if (navigator.onLine) {
-      this._categoryService.getAll().subscribe((res) => {
+      this._categoryService.getAll().toPromise().then((res: any) => {
+        console.log("after", res);
         this.categories = res;
         this.loading = false;
-        console.log("after", this.categories);
       },
         (err) => {
           this.loading = false;
         });
     } else {
-      console.log("OFFFFFFFFF")
-      this.categories = JSON.parse(localStorage.getItem('categoryArray'))
+      console.log("HELLO")
+      let catString = await this.storage.get('cat')
+      this.categories = JSON.parse(catString);
+      console.log("OFFLINE CATEGORY",this.categories);
       this.loading = false
     }
   }

@@ -1,3 +1,5 @@
+import { News } from './../home/news';
+import { StorageService } from './../services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NewsService } from "../services/news.service";
@@ -20,13 +22,14 @@ import {
   AdMobFreeInterstitialConfig,
   AdMobFreeRewardVideoConfig
 } from '@ionic-native/admob-free/ngx';
+import { single, count } from 'rxjs/operators';
 @Component({
   selector: 'app-single-post',
   templateUrl: './single-post.page.html',
   styleUrls: ['./single-post.page.scss'],
 })
 export class SinglePostPage implements OnInit {
-  singlepost: any;
+  singlepost = [];
   mediaPath = config.mediaApiUrl;
   tokenLocalStorage: string;
   loggedInUser: any;
@@ -61,7 +64,7 @@ export class SinglePostPage implements OnInit {
   skipClick: any;
   byPassedNewsEn: any;
   iframe: any;
-  constructor(private admobFree: AdMobFree, public _admobService: AdmobfreeService, public appcomponent: AppComponent, private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
+  constructor(private _StorageService: StorageService, private admobFree: AdMobFree, public _admobService: AdmobfreeService, public appcomponent: AppComponent, private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
     this.platform.backButton.subscribe(async () => {
@@ -72,14 +75,13 @@ export class SinglePostPage implements OnInit {
     });
   }
   ionViewWillLeave() {
+    this.singlepost = [];
     this.showRateModal = true;
   }
   ionViewDidEnter() {
-    $('.indexLoader').css('display','none');
+    $('.indexLoader').css('display', 'none');
   }
   ionViewWillEnter() {
-    let tempIframe = "<iframe class='ql-video' frameborder='0' allowfullscreen='true' src='https://www.youtube.com/embed/hRDM3ir3l5M?showinfo=0'></iframe>";
-    this.iframe = this.domSanitizer.bypassSecurityTrustHtml(tempIframe)
     this._admobService.interstitalAdOnFivePageChange()
     if (localStorage.getItem('bookmarkFlag') && localStorage.getItem('shareFlag') && !localStorage.getItem('catModal')) {
       this.router.navigateByUrl('/all-categories')
@@ -153,37 +155,57 @@ export class SinglePostPage implements OnInit {
     this.singlePostfun(postId);
   }
 
-  singlePostfun(postid) {
-    this._newsService.getSingleNews(postid).subscribe(res => {
-      const singlepostArray = [];
-      singlepostArray.push(JSON.parse(JSON.stringify(res)));
-      this.singlepost = JSON.parse(JSON.stringify(singlepostArray));
-      if (this.tokenLocalStorage) {
-        _.forEach(res, (save: { [x: string]: boolean; bookMark: any; }) => {
-          _.forEach(save.bookMark, (Id: any) => {
-            if (Id.toString() == this.loggedInUser) {
-              console.log("ID =====", Id);
-              save['bookmarkKey'] = true
-            }
+  async singlePostfun(postid) {
+    if (navigator.onLine) {
+
+      this._newsService.getSingleNews(postid).subscribe(res => {
+        const singlepostArray = [];
+        singlepostArray.push(JSON.parse(JSON.stringify(res)));
+        this.singlepost = JSON.parse(JSON.stringify(singlepostArray));
+        if (this.tokenLocalStorage) {
+          _.forEach(res, (save: { [x: string]: boolean; bookMark: any; }) => {
+            _.forEach(save.bookMark, (Id: any) => {
+              if (Id.toString() == this.loggedInUser) {
+                console.log("ID =====", Id);
+                save['bookmarkKey'] = true
+              }
+            })
           })
-        })
-      }
-      this.singlepost = JSON.parse(JSON.stringify(res));
-      this.news = JSON.parse(JSON.stringify(res[0]));
-      this.singlepost.splice(0, 1);
-      this.loading = false;
-      let temp;
+        }
+        this.singlepost = JSON.parse(JSON.stringify(res));
+        this.news = JSON.parse(JSON.stringify(res[0]));
+        this.singlepost.splice(0, 1);
+        this.loading = false;
+        let temp;
+        this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news[this.language].content);
+        if (this.news[this.language].content == '') {
+          this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news.en.content);
+        }
+        // this.byPassedNews = this.byPassedNews.changingThisBreaksApplicationSecurity;
+        console.log("this.byPassedNews", this.byPassedNews)
+        if (this.platform.is('cordova')) {
+          this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.news[this.language].title }).then(res => {
+          })
+        }
+      });
+    } else {
+      let tempPostString = await this._StorageService.getNewsForOffline();
+      let tempNewsArray = JSON.parse(tempPostString);
+      let singleNews = tempNewsArray.find(el => el.newsId == postid);
+      console.log("FIRST POST", singleNews)
+      this.news = singleNews;
       this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news[this.language].content);
-      if (this.news[this.language].content == '') {
-        this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news.en.content);
-      }
-      // this.byPassedNews = this.byPassedNews.changingThisBreaksApplicationSecurity;
-      console.log("this.byPassedNews", this.byPassedNews)
-      if (this.platform.is('cordova')) {
-        this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.news[this.language].title }).then(res => {
-        })
-      }
-    });
+      let counter = 1;
+      await tempNewsArray.forEach(element => {
+        if(element.newsId != postid && this.singlepost.length < 5){
+          console.log("nnn",counter)
+          this.singlepost.push(element);
+        }
+        counter++
+      });
+      console.log("nnn",this.singlepost)
+      this.loading = false
+    }
   }
 
   //  Do Share Post

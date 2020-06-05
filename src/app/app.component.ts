@@ -14,7 +14,9 @@ import { UserService } from "./services/user.service";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 declare var $: any;
 import { FCM } from '@ionic-native/fcm/ngx';
-
+import { Network } from '@ionic-native/network/ngx';
+import {StorageService} from './services/storage.service';
+import {CategoryService} from './services/category.service';
 import {
   rateTitle,
   rateText,
@@ -24,7 +26,7 @@ import {
 } from "./changeLang";
 import { Market } from "@ionic-native/market/ngx";
 import { NewsService } from "./services/news.service";
-
+import {GeneralService} from './services/general.service';
 @Component({
   selector: "app-root",
   templateUrl: "app.component.html",
@@ -64,6 +66,7 @@ export class AppComponent {
   page_number = 1;
   page_limit = 10;
   constructor(
+    private network: Network,
     private fcm: FCM,
     private market: Market,
     private firebaseDynamicLinks: FirebaseDynamicLinks,
@@ -75,14 +78,17 @@ export class AppComponent {
     private router: Router,
     protected deeplinks: Deeplinks,
     public events: Events,
-    private _newsService: NewsService
+    private _newsService: NewsService,
+    private _storageService: StorageService,
+    private _categoryService: CategoryService,
+    private _generalService: GeneralService,
   ) {
     //this function is also present in home page
     this.platform.ready().then(() => {
       this.fcm.onNotification().subscribe(data => {
-        console.log("YEAHHHHHHHHHHHH",data)
+        console.log("YEAHHHHHHHHHHHH", data)
         if (data.wasTapped) {
-          $('.indexLoader').css('display','block');
+          $('.indexLoader').css('display', 'block');
           console.log("TAPPED", data);
           this.router.navigate(['/single-post/' + data.newsId]);
           console.log('Received in background', data.wasTapped);
@@ -102,6 +108,8 @@ export class AppComponent {
         }
       );
     });
+    this.getNewsForOffline();
+    this.getCatForOffline();
     if (!localStorage.getItem("clearLocalStorage")) {
       localStorage.clear();
       localStorage.setItem("clearLocalStorage", "1");
@@ -231,9 +239,9 @@ export class AppComponent {
       localStorage.setItem("notification", "true");
     }
     if (!localStorage.getItem("skip")) {
-      this._newsService.getAllNews(this.page_number, 'offline').subscribe((res: any) => {
-        console.log("GOT NEWS IN APP COMPONENT", res);
-      });
+      // this._newsService.getAllNews(this.page_number, 'offline').subscribe((res: any) => {
+      //   console.log("GOT NEWS IN APP COMPONENT", res);
+      // });
     }
   }
 
@@ -273,6 +281,34 @@ export class AppComponent {
       if (this.showRateModal == true) {
         localStorage.setItem("rateModalFirst", "1");
       }
+    }
+  }
+
+  getNewsForOffline() {
+    if (this.network.type != 'none') {
+      this._storageService.getNewsForOfflineFromServer().subscribe(
+        async (res: any) => {
+          this._storageService.storeNewsForOffline(JSON.stringify(res.data)).then((storageRes) => {
+          })
+        },
+        (error) => {
+        })
+    }
+  }
+
+  getCatForOffline() {
+    if (this.network.type != 'none') {
+      this._categoryService.getAll().toPromise().then(
+        async (res: any) => {
+          console.log(res)
+          this._storageService.storeCatForOffline(JSON.stringify(res)).then((storageRes) => {
+          })
+        },
+        (error) => {
+        })
+
+        this._generalService.getPolicy().subscribe((res)=>{
+        })
     }
   }
 }

@@ -283,6 +283,7 @@ let RelatedPostPage = class RelatedPostPage {
                 }
             }
             else {
+                this.router.navigateByUrl('/single-post/' + postid);
                 this._toastService.toastFunction('No internet connnection', 'danger');
             }
         }

@@ -11,6 +11,196 @@ module.exports = "<div *ngIf=\"!loading\">\n    <div class=\"settingsToolbar\">\
 
 /***/ }),
 
+/***/ "./node_modules/time-ago-pipe/esm5/time-ago-pipe.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/time-ago-pipe/esm5/time-ago-pipe.js ***!
+  \**********************************************************/
+/*! exports provided: TimeAgoPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TimeAgoPipe", function() { return TimeAgoPipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var TimeAgoPipe = /** @class */ (function () {
+    /**
+     * @param {?} changeDetectorRef
+     * @param {?} ngZone
+     */
+    function TimeAgoPipe(changeDetectorRef, ngZone) {
+        this.changeDetectorRef = changeDetectorRef;
+        this.ngZone = ngZone;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    TimeAgoPipe.prototype.transform = function (value) {
+        var _this = this;
+        this.removeTimer();
+        var /** @type {?} */ d = new Date(value);
+        var /** @type {?} */ now = new Date();
+        var /** @type {?} */ seconds = Math.round(Math.abs((now.getTime() - d.getTime()) / 1000));
+        var /** @type {?} */ timeToUpdate = (Number.isNaN(seconds)) ? 1000 : this.getSecondsUntilUpdate(seconds) * 1000;
+        this.timer = this.ngZone.runOutsideAngular(function () {
+            if (typeof window !== 'undefined') {
+                return window.setTimeout(function () {
+                    _this.ngZone.run(function () { return _this.changeDetectorRef.markForCheck(); });
+                }, timeToUpdate);
+            }
+            return null;
+        });
+        var /** @type {?} */ minutes = Math.round(Math.abs(seconds / 60));
+        var /** @type {?} */ hours = Math.round(Math.abs(minutes / 60));
+        var /** @type {?} */ days = Math.round(Math.abs(hours / 24));
+        var /** @type {?} */ months = Math.round(Math.abs(days / 30.416));
+        var /** @type {?} */ years = Math.round(Math.abs(days / 365));
+        if (Number.isNaN(seconds)) {
+            return '';
+        }
+        else if (seconds <= 45) {
+            return 'a few seconds ago';
+        }
+        else if (seconds <= 90) {
+            return 'a minute ago';
+        }
+        else if (minutes <= 45) {
+            return minutes + ' minutes ago';
+        }
+        else if (minutes <= 90) {
+            return 'an hour ago';
+        }
+        else if (hours <= 22) {
+            return hours + ' hours ago';
+        }
+        else if (hours <= 36) {
+            return 'a day ago';
+        }
+        else if (days <= 25) {
+            return days + ' days ago';
+        }
+        else if (days <= 45) {
+            return 'a month ago';
+        }
+        else if (days <= 345) {
+            return months + ' months ago';
+        }
+        else if (days <= 545) {
+            return 'a year ago';
+        }
+        else {
+            // (days > 545)
+            return years + ' years ago';
+        }
+    };
+    /**
+     * @return {?}
+     */
+    TimeAgoPipe.prototype.ngOnDestroy = function () {
+        this.removeTimer();
+    };
+    /**
+     * @return {?}
+     */
+    TimeAgoPipe.prototype.removeTimer = function () {
+        if (this.timer) {
+            window.clearTimeout(this.timer);
+            this.timer = null;
+        }
+    };
+    /**
+     * @param {?} seconds
+     * @return {?}
+     */
+    TimeAgoPipe.prototype.getSecondsUntilUpdate = function (seconds) {
+        var /** @type {?} */ min = 60;
+        var /** @type {?} */ hr = min * 60;
+        var /** @type {?} */ day = hr * 24;
+        if (seconds < min) {
+            // less than 1 min, update every 2 secs
+            return 2;
+        }
+        else if (seconds < hr) {
+            // less than an hour, update every 30 secs
+            return 30;
+        }
+        else if (seconds < day) {
+            // less then a day, update every 5 mins
+            return 300;
+        }
+        else {
+            // update every hour
+            return 3600;
+        }
+    };
+    return TimeAgoPipe;
+}());
+TimeAgoPipe.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"], args: [{
+                name: 'timeAgo',
+                pure: false
+            },] },
+];
+/** @nocollapse */
+TimeAgoPipe.ctorParameters = function () { return [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"], },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"], },
+]; };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+//# sourceMappingURL=time-ago-pipe.js.map
+
+
+/***/ }),
+
+/***/ "./src/app/shared/shared.module.ts":
+/*!*****************************************!*\
+  !*** ./src/app/shared/shared.module.ts ***!
+  \*****************************************/
+/*! exports provided: SharedModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function() { return SharedModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var time_ago_pipe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! time-ago-pipe */ "./node_modules/time-ago-pipe/esm5/time-ago-pipe.js");
+
+
+
+
+var SharedModule = /** @class */ (function () {
+    function SharedModule() {
+    }
+    SharedModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            declarations: [time_ago_pipe__WEBPACK_IMPORTED_MODULE_3__["TimeAgoPipe"]],
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]
+            ],
+            exports: [time_ago_pipe__WEBPACK_IMPORTED_MODULE_3__["TimeAgoPipe"]]
+        })
+    ], SharedModule);
+    return SharedModule;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/single-category/single-category.module.ts":
 /*!***********************************************************!*\
   !*** ./src/app/single-category/single-category.module.ts ***!
@@ -103,6 +293,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+/* harmony import */ var _services_storage_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../services/storage.service */ "./src/app/services/storage.service.ts");
+
 
 
 
@@ -116,7 +308,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var SingleCategoryPage = /** @class */ (function () {
-    function SingleCategoryPage(_admobService, appcomponent, alertController, ngzone, platform, _generalService, network, _toastService, _newsService, route, router) {
+    function SingleCategoryPage(_storageService, _admobService, appcomponent, alertController, ngzone, platform, _generalService, network, _toastService, _newsService, route, router) {
+        this._storageService = _storageService;
         this._admobService = _admobService;
         this.appcomponent = appcomponent;
         this.alertController = alertController;
@@ -154,6 +347,9 @@ var SingleCategoryPage = /** @class */ (function () {
         this.newsArrayLength = false;
         this.language = localStorage.getItem('language');
     };
+    SingleCategoryPage.prototype.ionViewWillLeave = function () {
+        this.newsArray = [];
+    };
     SingleCategoryPage.prototype.singleCategory = function (isFirstLoad, event) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var catId;
@@ -164,10 +360,38 @@ var SingleCategoryPage = /** @class */ (function () {
                 }
                 catId = this.route.snapshot.params['id'];
                 console.log('catId', catId);
-                this._newsService.allCatNews(catId, this.page_number, this.page_limit).subscribe(function (res) {
-                    var _a;
-                    console.log("catNews", res);
-                    if (_this.page_number == 1) {
+                if (navigator.onLine) {
+                    this._newsService.allCatNews(catId, this.page_number, this.page_limit).subscribe(function (res) {
+                        var _a;
+                        console.log("catNews", res);
+                        if (_this.page_number == 1) {
+                            if (res.length == 1) {
+                                _this.newsArrayLength = true;
+                                console.log("length news", res.length);
+                            }
+                            else if (res.length == 0) {
+                                _this.noNews = true;
+                                console.log('this.noNews', _this.noNews);
+                            }
+                        }
+                        if (isFirstLoad) {
+                            event.target.complete();
+                        }
+                        if (_this.page_number == 1) {
+                            _this.news = res.shift();
+                        }
+                        (_a = _this.newsArray).push.apply(_a, res);
+                        console.log('this.latestPost', _this.latestPost);
+                        console.log('this.newsArray', _this.newsArray);
+                        _this.page_number++;
+                        _this.loading = false;
+                        // console.log('this.latestPost', this.newsArray[0]);
+                    }, function (err) {
+                    });
+                }
+                else {
+                    this._storageService.getPostByCatOffline(catId).then(function (res) {
+                        var _a;
                         if (res.length == 1) {
                             _this.newsArrayLength = true;
                             console.log("length news", res.length);
@@ -176,29 +400,24 @@ var SingleCategoryPage = /** @class */ (function () {
                             _this.noNews = true;
                             console.log('this.noNews', _this.noNews);
                         }
-                    }
-                    if (isFirstLoad) {
-                        event.target.complete();
-                    }
-                    if (_this.page_number == 1) {
                         _this.news = res.shift();
-                    }
-                    (_a = _this.newsArray).push.apply(_a, res);
-                    console.log('this.latestPost', _this.latestPost);
-                    console.log('this.newsArray', _this.newsArray);
-                    _this.page_number++;
-                    _this.loading = false;
-                    // console.log('this.latestPost', this.newsArray[0]);
-                }, function (err) {
-                    _this._toastService.toastFunction(err.error.message, 'danger');
-                });
+                        (_a = _this.newsArray).push.apply(_a, res);
+                        _this.loading = false;
+                    });
+                }
                 return [2 /*return*/];
             });
         });
     };
     SingleCategoryPage.prototype.doInfinite = function (event) {
-        this.singleCategory(true, event);
-        console.log(event);
+        if (navigator.onLine) {
+            this.singleCategory(true, event);
+            console.log(event);
+        }
+        else {
+            event.target.complete();
+            this._toastService.toast('No internet connection', 'danger');
+        }
     };
     SingleCategoryPage.prototype.goToCategories = function () {
         this.router.navigateByUrl('/home/categories');
@@ -214,6 +433,7 @@ var SingleCategoryPage = /** @class */ (function () {
         this.appcomponent.openRatingModal();
     };
     SingleCategoryPage.ctorParameters = function () { return [
+        { type: _services_storage_service__WEBPACK_IMPORTED_MODULE_11__["StorageService"] },
         { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_10__["AdmobfreeService"] },
         { type: _app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["AlertController"] },
@@ -232,7 +452,7 @@ var SingleCategoryPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./single-category.page.html */ "./node_modules/raw-loader/index.js!./src/app/single-category/single-category.page.html"),
             styles: [__webpack_require__(/*! ./single-category.page.scss */ "./src/app/single-category/single-category.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_admobfree_service__WEBPACK_IMPORTED_MODULE_10__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["AlertController"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _services_general_service__WEBPACK_IMPORTED_MODULE_7__["GeneralService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"], _services_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_storage_service__WEBPACK_IMPORTED_MODULE_11__["StorageService"], _services_admobfree_service__WEBPACK_IMPORTED_MODULE_10__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["AlertController"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgZone"], _ionic_angular__WEBPACK_IMPORTED_MODULE_8__["Platform"], _services_general_service__WEBPACK_IMPORTED_MODULE_7__["GeneralService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"], _services_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], SingleCategoryPage);
     return SingleCategoryPage;
 }());

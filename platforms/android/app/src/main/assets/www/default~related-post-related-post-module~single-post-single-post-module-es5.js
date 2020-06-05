@@ -285,6 +285,7 @@ var RelatedPostPage = /** @class */ (function () {
                 }
             }
             else {
+                this.router.navigateByUrl('/single-post/' + postid);
                 this._toastService.toastFunction('No internet connnection', 'danger');
             }
         }

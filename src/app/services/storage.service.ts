@@ -11,18 +11,39 @@ export class StorageService {
 
   constructor(public storage: Storage,private http: HttpClient) { }
 
-  public setNewsOffline() {
-    return this.http.get(config.baseApiUrl + 'news?isApproved=APPROVED').pipe(
+  public getNewsForOfflineFromServer(){
+    return this.http.get(config.baseApiUrl + 'get-news-for-offline').pipe(
       map((res: any) => {
-        let offlineArray = JSON.parse(JSON.stringify(res.data));
-        this.storage.remove('news')
-        this.storage.set('news', JSON.stringify(offlineArray));
+        return res;
       })
     );
-    // return this.storage.set(`one`, 3);
-  }
-  public async getNewsOffline() {
-    return await this.storage.get(`news`);
   }
 
+  public storeNewsForOffline(news){
+    return this.storage.set('news',news);
+  }
+
+  public getNewsForOffline(){
+    return this.storage.get('news');
+  }
+
+  public storeCatForOffline(categories){
+    return this.storage.set('cat',categories);
+  }
+
+  public getCatForOffline(){
+    return this.storage.get('cat');
+  }
+
+  public async getPostByCatOffline(catId){
+    let allNewsString = await this.getNewsForOffline();
+    let allNews = JSON.parse(allNewsString);
+    let catWisePost = [];
+    await allNews.forEach(post => {
+      if(post.newsCategoryId == catId){
+        catWisePost.push(post)
+      }
+    });
+    return catWisePost;
+  }
 }

@@ -10,7 +10,7 @@ import { Platform } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { AppComponent } from '../app.component'
 import { AdmobfreeService } from '../services/admobfree.service';
-
+import {StorageService} from '../services/storage.service';
 @Component({
   selector: 'app-single-category',
   templateUrl: './single-category.page.html',
@@ -32,7 +32,7 @@ export class SingleCategoryPage implements OnInit {
   limit: any;
   page_number = 1;
   page_limit = 20;
-  constructor(private _admobService: AdmobfreeService, public appcomponent: AppComponent, public alertController: AlertController, private ngzone: NgZone, private platform: Platform, private _generalService: GeneralService, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) {
+  constructor(private _storageService: StorageService,private _admobService: AdmobfreeService, public appcomponent: AppComponent, public alertController: AlertController, private ngzone: NgZone, private platform: Platform, private _generalService: GeneralService, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -53,15 +53,45 @@ export class SingleCategoryPage implements OnInit {
     this.newsArrayLength = false;
     this.language = localStorage.getItem('language');
   }
+  ionViewWillLeave(){
+    this.newsArray = []
+  }
   async singleCategory(isFirstLoad, event) {
     if (this.page_number == 1) {
       this.loading = true
     }
     var catId = this.route.snapshot.params['id'];
     console.log('catId', catId);
-    this._newsService.allCatNews(catId, this.page_number, this.page_limit).subscribe((res: any) => {
-      console.log("catNews", res);
-      if (this.page_number == 1) {
+
+    if (navigator.onLine) {
+      this._newsService.allCatNews(catId, this.page_number, this.page_limit).subscribe((res: any) => {
+        console.log("catNews", res);
+        if (this.page_number == 1) {
+          if (res.length == 1) {
+            this.newsArrayLength = true;
+            console.log("length news", res.length)
+          } else if (res.length == 0) {
+            this.noNews = true;
+            console.log('this.noNews', this.noNews)
+          }
+        }
+        if (isFirstLoad) {
+          event.target.complete();
+        }
+
+        if (this.page_number == 1) {
+          this.news = res.shift();
+        }
+        this.newsArray.push(...res);
+        console.log('this.latestPost', this.latestPost);
+        console.log('this.newsArray', this.newsArray);
+        this.page_number++;
+        this.loading = false
+        // console.log('this.latestPost', this.newsArray[0]);
+      }, err => {
+      })
+    }else{
+      this._storageService.getPostByCatOffline(catId).then((res: any) =>{
         if (res.length == 1) {
           this.newsArrayLength = true;
           console.log("length news", res.length)
@@ -69,28 +99,21 @@ export class SingleCategoryPage implements OnInit {
           this.noNews = true;
           console.log('this.noNews', this.noNews)
         }
-      }
-      if (isFirstLoad) {
-        event.target.complete();
-      }
-
-      if (this.page_number == 1) {
         this.news = res.shift();
-      }
-      this.newsArray.push(...res);
-      console.log('this.latestPost', this.latestPost);
-      console.log('this.newsArray', this.newsArray);
-      this.page_number++;
-      this.loading = false
-      // console.log('this.latestPost', this.newsArray[0]);
-    }, err => {
-      this._toastService.toastFunction(err.error.message, 'danger');
-    })
+        this.newsArray.push(...res);
+        this.loading = false;
+      })
+    }
   }
 
   doInfinite(event) {
-    this.singleCategory(true, event);
-    console.log(event);
+    if(navigator.onLine){
+      this.singleCategory(true, event);
+      console.log(event);
+    }else{
+      event.target.complete();
+      this._toastService.toast('No internet connection','danger')
+    }
   }
 
   goToCategories() {

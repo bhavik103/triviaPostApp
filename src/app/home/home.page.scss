@@ -527,3 +527,19 @@ img.smallLoading {
 .showLoader {
     display: none;
 }
+
+.settingsToolbar button {
+    width: 45px
+}
+
+menuIcon {
+    float: left;
+}
+
+.settingsToolbar #settingTitle {
+    width: calc(100% - 162px)
+}
+
+ion-menu.my-custom-menu {
+    --width: 500px;
+}

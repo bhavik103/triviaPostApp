@@ -359,3 +359,9 @@ export const shareMessage = {
 	as: 'পঢ়ক আৰু শ্বেয়াৰ কৰক   ',
 	bn: 'শুধু পড়ুন এবং শেয়ার করুন  '
 }
+export const noInternet = {
+	en : 'No internet connection',
+	hn: 'इंटरनेट कनेक्शन उपलब्ध नहीं',
+	as: '',
+	bn: ''
+}

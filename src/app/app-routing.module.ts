@@ -1,3 +1,4 @@
+import { HomePage } from './home/home.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { SettingsComponent } from './settings/settings.component';
@@ -10,12 +11,17 @@ import { AuthGuard, LoginGuard } from './guards/user.guard';
 const routes: Routes = [
 	{
 		path: '',
-		redirectTo: 'home',
+		redirectTo: '/sidebar/home',
 		pathMatch: 'full'
 	},
 	{
-		path: 'home',
-		loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+		path: 'sidebar',
+		children: [
+			{
+				path: '',
+				loadChildren: () => import('./sidebar/sidebar.module').then(m => m.SidebarPageModule)
+			}
+		]
 	},
 	{
 		path: 'settings',
@@ -89,10 +95,6 @@ const routes: Routes = [
 	{
 		path: 'all-categories',
 		loadChildren: './all-categories/all-categories.module#AllCategoriesPageModule'
-	},
-	{
-		path: 'tour-home',
-		loadChildren: './tour-home/tour-home.module#TourHomePageModule'
 	}
 ];
 

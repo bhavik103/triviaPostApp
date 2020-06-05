@@ -12,17 +12,17 @@ import * as _ from 'lodash';
 	providedIn: 'root'
 })
 export class CategoryService {
-	categories: Category[];
+	categories: any;
 	loggedInUser;
 	loading: any;
-	constructor(private network: Network, private http: HttpClient) { }
+	constructor(public storage: Storage, private network: Network, private http: HttpClient) { }
 
 	private handleError(error: HttpErrorResponse) {
 		return throwError('Error! something went wrong.');
 	}
 
 	//get all cateogries
-	getAll(): Observable<any> {
+	getAll() {
 		const tokenLocalStorage = localStorage.getItem('accessToken');
 		if (tokenLocalStorage) {
 			var base64Url = tokenLocalStorage.split('.')[1];
@@ -31,33 +31,19 @@ export class CategoryService {
 			this.loggedInUser = decodedToken.user._id;
 			console.log("Decoded", this.loggedInUser);
 		}
-		return new Observable(observer => {
-			this.http.get(config.baseApiUrl + "category").subscribe(
-				(result: object) => {
-					this.categories = result['data'];
-					var prop = ['category', 'categoryId', 'notify'];
-					let offlineArray = JSON.parse(JSON.stringify(this.categories));
-					offlineArray.forEach(element => {
-						for (var k in element) {
-							if (prop.indexOf(k) < 0) {
-								delete element[k];
-							}
-						}
-					});
-					localStorage.removeItem('categoryArray')
-					localStorage.setItem('categoryArray', JSON.stringify(offlineArray))
-					if(tokenLocalStorage){
-						this.notifyChange();
-					}
-					observer.next(this.categories);
-					observer.complete();
-				},
-				(error) => {
-					observer.error(error);
-				});
-		});
-
-	}
+		return this.http.get(config.baseApiUrl + "category").pipe(
+			map(async (result: any) => {
+				this.categories = result['data'];
+				if (tokenLocalStorage) {
+					this.notifyChange();
+				}
+				console.log("THIS.CATEGORIES2", this.categories);
+				await this.storage.remove('cat');
+				await this.storage.set('cat', JSON.stringify(this.categories));
+				return result['data'];
+			})
+		)
+	};
 
 	//append notification key
 	notifyChange() {

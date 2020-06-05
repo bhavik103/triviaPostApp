@@ -3,8 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { config } from '../config';
 import { Storage } from '@ionic/storage';
 import { map, catchError } from 'rxjs/operators';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { Platform } from '@ionic/angular';
+import {Observable, throwError } from 'rxjs';
 import { privacyPolicy } from '../privacy/privacyPolicy';
 
 @Injectable({
@@ -14,7 +13,7 @@ export class GeneralService {
 	privacy: any;
 	updates: any;
 	extras: any;
-	constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient, public storage: Storage) { }
 
 	private handleError(error: HttpErrorResponse) {
 		return throwError('Error! something went wrong.');
@@ -25,6 +24,7 @@ export class GeneralService {
 		return this.http.get(config.baseApiUrl + "terms").pipe(
 			map((res) => {
 				this.privacy = res['data'];
+				this.storage.set('terms',JSON.stringify(this.privacy));
 				return this.privacy;
 			}),
 			catchError(this.handleError));

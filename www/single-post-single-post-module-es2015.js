@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"!loading\">\n    <div class=\"settingsToolbar\">\n        <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/home\" float-left (click)=\"backClick()\">\n        </ion-back-button>\n        <span id=\"settingTitle\">Trivia Post</span>\n        <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n    </div>\n</div>\n\n<ion-content *ngIf=\"!loading\" [ngClass]=\"{'notScroll': (!bookmarkFlag || !shareFlag) && !skip}\">\n    <div class=\"floatNext\" *ngIf=\"(!bookmarkFlag || !shareFlag) && !skip\" (click)=\"nextButton()\">\n        <div class=\"ripple_effect\"></div>\n        <img src=\"../../assets/images/nextButton.png\" class=\"my-floatNext\" alt=\"\" />\n    </div>\n    <div *ngIf=\"news\" class=\"singleNews\">\n        <div class=\"container\" [ngClass]=\"{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}\">\n            <img src=\"{{mediaPath}}{{news.newsImage}}\" onerror=\"this.src='../../assets/images/placeholder.png'\" alt=\"\" class=\"postImage\" />\n            <div class=\"text-block\"></div>\n        </div>\n\n        <div class=\"subPostTitle\" [ngClass]=\"{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}\">\n            <p class=\"newsInfo\" *ngIf=\"news.picCredit\">\n                <span>PC : </span><span class=\"picCredit\"> {{news.picCredit}}</span>\n            </p>\n        </div>\n        <div class=\"newsContent\">\n            <div class=\"postTitle\" [ngClass]=\"{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}\">\n                <p *ngIf=\"news[language].title\" [ngClass]=\"{'assameseFont': language == 'as'}\" [ngClass]=\"{'assameseFontTitle': language == 'as'}\">\n                    {{news[language].title}}\n                </p>\n                <p *ngIf=\"!news[language].title\">\n                    {{news.en.title}}\n                </p>\n            </div>\n            <div class=\"category_title\" [ngClass]=\"{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}\">\n                <span (click)=\"singleCategory(news.newsCategoryId,news.newsCategory[language])\" *ngIf=\"news.newsCategory[language]\" [ngClass]=\"{'assameseFont': language == 'as'}\">\n          {{news.newsCategory[language] | slice:0:30}}\n        </span>\n                <span (click)=\"singleCategory(news.newsCategoryId,news.newsCategory.en)\" *ngIf=\"!news.newsCategory[language]\">\n          {{news.newsCategory.en | slice:0:30}}\n        </span>\n            </div>\n            <div class=\"post\" [ngClass]=\"{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}\">\n                <p [innerHTML]=\"byPassedNews\" *ngIf=\"byPassedNews\"></p>\n                <p [innerHTML]=\"byPassedNewsEn\" *ngIf=\"!byPassedNews\"></p>\n            </div>\n            <span class=\"float unbookmarkFloat\" *ngIf=\"!news.bookmarkKey\" (click)=\"bookmark(news.newsId)\">\n        <span *ngIf=\"!skip\">\n          <div\n            class=\"tourText tourTextBookmark tourTextBook\"\n            *ngIf=\"bookmarkFlag != '1'\"\n          >\n            {{clickBookmark[language]}}\n          </div>\n          <div class=\"ripple_effect\" *ngIf=\"bookmarkFlag != '1'\"></div>\n        </span>\n            <img src=\"assets/images/bookmarkWhite.png\" height=\"52%\" alt=\"\" />\n            </span>\n            <span class=\"float bookmarkFloat\" *ngIf=\"(news.bookmarkKey || loginBookmark)\" (click)=\"bookmark(news.newsId)\">\n        <img src=\"assets/images/bookmarkWhite.png\" height=\"52%\" alt=\"\" />\n      </span>\n            <span class=\"float floatShare\" (click)=\"sharePost(news.fcmLink, news, news.newsImage, false)\">\n        <span *ngIf=\"!skip\">\n          <div class=\"tourText tourTextShare\" *ngIf=\"shareFlag != '1'\">\n            {{clickShare[language]}}\n          </div>\n          <div class=\"ripple_effect\" *ngIf=\"shareFlag != '1'\"></div>\n        </span>\n            <img src=\"../../assets/images/Share.png\" class=\"icon shareImage\" />\n            </span>\n        </div>\n        <div class=\"subPostTitle postSource\" *ngIf=\"news.srcTitle != '' && news.srcTitle != null && !news.srcTitle\">\n            <p class=\"newsInfo\">\n                <span>Source: </span\n        ><span class=\"picCredit\" (click)=\"openWithSystemBrowser(news.srcLink)\">\n          {{news.srcTitle}}</span\n        >\n      </p>\n      <p class=\"newsInfo\" *ngIf=\"!news.picCredit\"></p>\n    </div>\n  </div>\n  <p *ngIf=\"news\" class=\"alsoRead\">\n    Also Read:\n  </p>\n  <div *ngFor=\"let news of singlepost; let i = index\" class=\"singlePost\">\n    <app-related-post\n      [news]=\"news\"\n      [language]=\"language\"\n      [postCount]=\"i\"\n    ></app-related-post>\n  </div>\n\n  <!-- modal bookmark -->\n  <div id=\"open-modal\" class=\"modal-window\" *ngIf=\"bookmarkModal\">\n    <div>\n      <div class=\"img_border\">\n        <img src=\"../../assets/images/bookmarkNew.png\" alt=\"\" />\n      </div>\n      <div class=\"textBoxModal\">\n        <h3>{{modalBookmarkTitle[language]}}</h3>\n        <p>{{modalBookmarkText[language]}}</p>\n      </div>\n      <div>\n        <button class=\"signupButton\" (click)=\"signupBookmark()\">\n          {{modalSignupButton[language]}}\n        </button>\n        <button class=\"signupButton skipButton\" *ngIf=\"skip\" (click)=\"bookmarkClose()\">\n          {{modalSkipButton[language]}}\n        </button>\n        <button class=\"signupButton skipButton\" *ngIf=\"!skip\" (click)=\"bookmarkClose()\">\n          <div\n            class=\"ripple_effect ripple_effect_modal\"\n            *ngIf=\"!bookmarkFlag\"\n          ></div>\n          {{next[language]}}\n        </button>\n      </div>\n    </div>\n  </div>\n\n  <!-- modal share -->\n  <div id=\"open-modal\" class=\"modal-window\" *ngIf=\"shareModal\">\n    <div>\n      <div class=\"img_border\">\n        <img src=\"../../assets/images/share.png\" alt=\"\" />\n      </div>\n      <div class=\"textBoxModal\">\n        <h3>{{sharePostModal[language]}}</h3>\n        <p>{{sharePostModalContent[language]}}</p>\n      </div>\n      <div>\n        <button class=\"signupButton\" (click)=\"shareClose();signupBookmark()\">\n          {{modalSignupButton[language]}}\n        </button>\n        <button class=\"signupButton skipButton\" *ngIf=\"skip\" (click)=\"shareClose()\">\n          {{modalSkipButton[language]}}\n        </button>\n        <button class=\"signupButton skipButton\" *ngIf=\"!skip\" (click)=\"shareClose()\">\n          <div\n            class=\"ripple_effect ripple_effect_modal\"\n            *ngIf=\"!shareFlag\"\n          ></div>\n          {{next[language]}}\n        </button>\n      </div>\n    </div>\n  </div>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>"
+module.exports = "<div *ngIf=\"!loading\">\n    <div class=\"settingsToolbar\">\n        <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/sidebar/home\" float-left (click)=\"backClick()\">\n        </ion-back-button>\n        <span id=\"settingTitle\">Trivia Post</span>\n        <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n    </div>\n</div>\n\n<ion-content *ngIf=\"!loading\" [ngClass]=\"{'notScroll': (!bookmarkFlag || !shareFlag) && !skip}\">\n    <div class=\"floatNext\" *ngIf=\"(!bookmarkFlag || !shareFlag) && !skip\" (click)=\"nextButton()\">\n        <div class=\"ripple_effect\"></div>\n        <img src=\"../../assets/images/nextButton.png\" class=\"my-floatNext\" alt=\"\" />\n    </div>\n    <div *ngIf=\"news\" class=\"singleNews\">\n        <div class=\"container\" [ngClass]=\"{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}\">\n            <img src=\"{{mediaPath}}{{news.newsImage}}\" onerror=\"this.src='../../assets/images/placeholder.png'\" alt=\"\" class=\"postImage\" />\n            <div class=\"text-block\"></div>\n        </div>\n\n        <div class=\"subPostTitle\" [ngClass]=\"{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}\">\n            <p class=\"newsInfo\" *ngIf=\"news.picCredit\">\n                <span>PC : </span><span class=\"picCredit\"> {{news.picCredit}}</span>\n            </p>\n        </div>\n        <div class=\"newsContent\">\n            <div class=\"postTitle\" [ngClass]=\"{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}\">\n                <p *ngIf=\"news[language].title\" [ngClass]=\"{'assameseFont': language == 'as'}\" [ngClass]=\"{'assameseFontTitle': language == 'as'}\">\n                    {{news[language].title}}\n                </p>\n                <p *ngIf=\"!news[language].title\">\n                    {{news.en.title}}\n                </p>\n            </div>\n            <div class=\"category_title\" [ngClass]=\"{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}\">\n                <span (click)=\"singleCategory(news.newsCategoryId,news.newsCategory[language])\" *ngIf=\"news.newsCategory[language]\" [ngClass]=\"{'assameseFont': language == 'as'}\">\n          {{news.newsCategory[language] | slice:0:30}}\n        </span>\n                <span (click)=\"singleCategory(news.newsCategoryId,news.newsCategory.en)\" *ngIf=\"!news.newsCategory[language]\">\n          {{news.newsCategory.en | slice:0:30}}\n        </span>\n            </div>\n            <div class=\"post\" [ngClass]=\"{'disableScroll': (!bookmarkFlag || !shareFlag) && !skip}\">\n                <p [innerHTML]=\"byPassedNews\" *ngIf=\"byPassedNews\"></p>\n                <p [innerHTML]=\"byPassedNewsEn\" *ngIf=\"!byPassedNews\"></p>\n            </div>\n            <span class=\"float unbookmarkFloat\" *ngIf=\"!news.bookmarkKey\" (click)=\"bookmark(news.newsId)\">\n        <span *ngIf=\"!skip\">\n          <div\n            class=\"tourText tourTextBookmark tourTextBook\"\n            *ngIf=\"bookmarkFlag != '1'\"\n          >\n            {{clickBookmark[language]}}\n          </div>\n          <div class=\"ripple_effect\" *ngIf=\"bookmarkFlag != '1'\"></div>\n        </span>\n            <img src=\"assets/images/bookmarkWhite.png\" height=\"52%\" alt=\"\" />\n            </span>\n            <span class=\"float bookmarkFloat\" *ngIf=\"(news.bookmarkKey || loginBookmark)\" (click)=\"bookmark(news.newsId)\">\n        <img src=\"assets/images/bookmarkWhite.png\" height=\"52%\" alt=\"\" />\n      </span>\n            <span class=\"float floatShare\" (click)=\"sharePost(news.fcmLink, news, news.newsImage, false)\">\n        <span *ngIf=\"!skip\">\n          <div class=\"tourText tourTextShare\" *ngIf=\"shareFlag != '1'\">\n            {{clickShare[language]}}\n          </div>\n          <div class=\"ripple_effect\" *ngIf=\"shareFlag != '1'\"></div>\n        </span>\n            <img src=\"../../assets/images/Share.png\" class=\"icon shareImage\" />\n            </span>\n        </div>\n        <div class=\"subPostTitle postSource\" *ngIf=\"news.srcTitle != '' && news.srcTitle != null && !news.srcTitle\">\n            <p class=\"newsInfo\">\n                <span>Source: </span\n        ><span class=\"picCredit\" (click)=\"openWithSystemBrowser(news.srcLink)\">\n          {{news.srcTitle}}</span\n        >\n      </p>\n      <p class=\"newsInfo\" *ngIf=\"!news.picCredit\"></p>\n    </div>\n  </div>\n  <p *ngIf=\"news\" class=\"alsoRead\">\n    Also Read:\n  </p>\n  <div *ngFor=\"let news of singlepost; let i = index\" class=\"singlePost\">\n    <app-related-post\n      [news]=\"news\"\n      [language]=\"language\"\n      [postCount]=\"i\"\n    ></app-related-post>\n  </div>\n\n  <!-- modal bookmark -->\n  <div id=\"open-modal\" class=\"modal-window\" *ngIf=\"bookmarkModal\">\n    <div>\n      <div class=\"img_border\">\n        <img src=\"../../assets/images/bookmarkNew.png\" alt=\"\" />\n      </div>\n      <div class=\"textBoxModal\">\n        <h3>{{modalBookmarkTitle[language]}}</h3>\n        <p>{{modalBookmarkText[language]}}</p>\n      </div>\n      <div>\n        <button class=\"signupButton\" (click)=\"signupBookmark()\">\n          {{modalSignupButton[language]}}\n        </button>\n        <button class=\"signupButton skipButton\" *ngIf=\"skip\" (click)=\"bookmarkClose()\">\n          {{modalSkipButton[language]}}\n        </button>\n        <button class=\"signupButton skipButton\" *ngIf=\"!skip\" (click)=\"bookmarkClose()\">\n          <div\n            class=\"ripple_effect ripple_effect_modal\"\n            *ngIf=\"!bookmarkFlag\"\n          ></div>\n          {{next[language]}}\n        </button>\n      </div>\n    </div>\n  </div>\n\n  <!-- modal share -->\n  <div id=\"open-modal\" class=\"modal-window\" *ngIf=\"shareModal\">\n    <div>\n      <div class=\"img_border\">\n        <img src=\"../../assets/images/share.png\" alt=\"\" />\n      </div>\n      <div class=\"textBoxModal\">\n        <h3>{{sharePostModal[language]}}</h3>\n        <p>{{sharePostModalContent[language]}}</p>\n      </div>\n      <div>\n        <button class=\"signupButton\" (click)=\"shareClose();signupBookmark()\">\n          {{modalSignupButton[language]}}\n        </button>\n        <button class=\"signupButton skipButton\" *ngIf=\"skip\" (click)=\"shareClose()\">\n          {{modalSkipButton[language]}}\n        </button>\n        <button class=\"signupButton skipButton\" *ngIf=\"!skip\" (click)=\"shareClose()\">\n          <div\n            class=\"ripple_effect ripple_effect_modal\"\n            *ngIf=\"!shareFlag\"\n          ></div>\n          {{next[language]}}\n        </button>\n      </div>\n    </div>\n  </div>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>"
 
 /***/ }),
 
@@ -87,23 +87,25 @@ module.exports = "p {\n  margin: 5px;\n}\n\n.postImage {\n  -o-object-fit: cover
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SinglePostPage", function() { return SinglePostPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/news.service */ "./src/app/services/news.service.ts");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
-/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
-/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_firebase_analytics_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/firebase-analytics/ngx */ "./node_modules/@ionic-native/firebase-analytics/ngx/index.js");
-/* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "./node_modules/@ionic-native/in-app-browser/ngx/index.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
-/* harmony import */ var app_changeLang__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! app/changeLang */ "./src/app/changeLang.ts");
-/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
-/* harmony import */ var _ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ionic-native/admob-free/ngx */ "./node_modules/@ionic-native/admob-free/ngx/index.js");
+/* harmony import */ var _services_storage_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../services/storage.service */ "./src/app/services/storage.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/news.service */ "./src/app/services/news.service.ts");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
+/* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_firebase_analytics_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/firebase-analytics/ngx */ "./node_modules/@ionic-native/firebase-analytics/ngx/index.js");
+/* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "./node_modules/@ionic-native/in-app-browser/ngx/index.js");
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+/* harmony import */ var app_changeLang__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! app/changeLang */ "./src/app/changeLang.ts");
+/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+/* harmony import */ var _ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/admob-free/ngx */ "./node_modules/@ionic-native/admob-free/ngx/index.js");
+
 
 
 
@@ -123,7 +125,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SinglePostPage = class SinglePostPage {
-    constructor(admobFree, _admobService, appcomponent, alertController, domSanitizer, iab, firebaseAnalytics, platform, network, _toastService, _newsService, route, socialSharing, router) {
+    constructor(_StorageService, admobFree, _admobService, appcomponent, alertController, domSanitizer, iab, firebaseAnalytics, platform, network, _toastService, _newsService, route, socialSharing, router) {
+        this._StorageService = _StorageService;
         this.admobFree = admobFree;
         this._admobService = _admobService;
         this.appcomponent = appcomponent;
@@ -138,19 +141,20 @@ let SinglePostPage = class SinglePostPage {
         this.route = route;
         this.socialSharing = socialSharing;
         this.router = router;
-        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_4__["config"].mediaApiUrl;
+        this.singlepost = [];
+        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_5__["config"].mediaApiUrl;
         this.firstTimeBlur = false;
-        this.modalSignupButton = app_changeLang__WEBPACK_IMPORTED_MODULE_14__["modalSignupButton"];
-        this.clickShare = app_changeLang__WEBPACK_IMPORTED_MODULE_14__["clickShare"];
-        this.clickBookmark = app_changeLang__WEBPACK_IMPORTED_MODULE_14__["clickBookmark"];
-        this.tourCategory = app_changeLang__WEBPACK_IMPORTED_MODULE_14__["tourCategory"];
-        this.modalSkipButton = app_changeLang__WEBPACK_IMPORTED_MODULE_14__["modalSkipButton"];
-        this.modalBookmarkTitle = app_changeLang__WEBPACK_IMPORTED_MODULE_14__["modalBookmarkTitle"];
-        this.modalBookmarkText = app_changeLang__WEBPACK_IMPORTED_MODULE_14__["modalBookmarkText"];
-        this.sharePostModal = app_changeLang__WEBPACK_IMPORTED_MODULE_14__["sharePostModal"];
-        this.next = app_changeLang__WEBPACK_IMPORTED_MODULE_14__["nextButton"];
-        this.sharePostModalContent = app_changeLang__WEBPACK_IMPORTED_MODULE_14__["sharePostModalContent"];
-        this.shareMessage = app_changeLang__WEBPACK_IMPORTED_MODULE_14__["shareMessage"];
+        this.modalSignupButton = app_changeLang__WEBPACK_IMPORTED_MODULE_15__["modalSignupButton"];
+        this.clickShare = app_changeLang__WEBPACK_IMPORTED_MODULE_15__["clickShare"];
+        this.clickBookmark = app_changeLang__WEBPACK_IMPORTED_MODULE_15__["clickBookmark"];
+        this.tourCategory = app_changeLang__WEBPACK_IMPORTED_MODULE_15__["tourCategory"];
+        this.modalSkipButton = app_changeLang__WEBPACK_IMPORTED_MODULE_15__["modalSkipButton"];
+        this.modalBookmarkTitle = app_changeLang__WEBPACK_IMPORTED_MODULE_15__["modalBookmarkTitle"];
+        this.modalBookmarkText = app_changeLang__WEBPACK_IMPORTED_MODULE_15__["modalBookmarkText"];
+        this.sharePostModal = app_changeLang__WEBPACK_IMPORTED_MODULE_15__["sharePostModal"];
+        this.next = app_changeLang__WEBPACK_IMPORTED_MODULE_15__["nextButton"];
+        this.sharePostModalContent = app_changeLang__WEBPACK_IMPORTED_MODULE_15__["sharePostModalContent"];
+        this.shareMessage = app_changeLang__WEBPACK_IMPORTED_MODULE_15__["shareMessage"];
     }
     ngOnInit() {
         this.platform.backButton.subscribe(() => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -161,14 +165,13 @@ let SinglePostPage = class SinglePostPage {
         });
     }
     ionViewWillLeave() {
+        this.singlepost = [];
         this.showRateModal = true;
     }
     ionViewDidEnter() {
         $('.indexLoader').css('display', 'none');
     }
     ionViewWillEnter() {
-        let tempIframe = "<iframe class='ql-video' frameborder='0' allowfullscreen='true' src='https://www.youtube.com/embed/hRDM3ir3l5M?showinfo=0'></iframe>";
-        this.iframe = this.domSanitizer.bypassSecurityTrustHtml(tempIframe);
         this._admobService.interstitalAdOnFivePageChange();
         if (localStorage.getItem('bookmarkFlag') && localStorage.getItem('shareFlag') && !localStorage.getItem('catModal')) {
             this.router.navigateByUrl('/all-categories');
@@ -242,34 +245,56 @@ let SinglePostPage = class SinglePostPage {
         this.singlePostfun(postId);
     }
     singlePostfun(postid) {
-        this._newsService.getSingleNews(postid).subscribe(res => {
-            const singlepostArray = [];
-            singlepostArray.push(JSON.parse(JSON.stringify(res)));
-            this.singlepost = JSON.parse(JSON.stringify(singlepostArray));
-            if (this.tokenLocalStorage) {
-                lodash__WEBPACK_IMPORTED_MODULE_8__["forEach"](res, (save) => {
-                    lodash__WEBPACK_IMPORTED_MODULE_8__["forEach"](save.bookMark, (Id) => {
-                        if (Id.toString() == this.loggedInUser) {
-                            console.log("ID =====", Id);
-                            save['bookmarkKey'] = true;
-                        }
-                    });
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (navigator.onLine) {
+                this._newsService.getSingleNews(postid).subscribe(res => {
+                    const singlepostArray = [];
+                    singlepostArray.push(JSON.parse(JSON.stringify(res)));
+                    this.singlepost = JSON.parse(JSON.stringify(singlepostArray));
+                    if (this.tokenLocalStorage) {
+                        lodash__WEBPACK_IMPORTED_MODULE_9__["forEach"](res, (save) => {
+                            lodash__WEBPACK_IMPORTED_MODULE_9__["forEach"](save.bookMark, (Id) => {
+                                if (Id.toString() == this.loggedInUser) {
+                                    console.log("ID =====", Id);
+                                    save['bookmarkKey'] = true;
+                                }
+                            });
+                        });
+                    }
+                    this.singlepost = JSON.parse(JSON.stringify(res));
+                    this.news = JSON.parse(JSON.stringify(res[0]));
+                    this.singlepost.splice(0, 1);
+                    this.loading = false;
+                    let temp;
+                    this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news[this.language].content);
+                    if (this.news[this.language].content == '') {
+                        this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news.en.content);
+                    }
+                    // this.byPassedNews = this.byPassedNews.changingThisBreaksApplicationSecurity;
+                    console.log("this.byPassedNews", this.byPassedNews);
+                    if (this.platform.is('cordova')) {
+                        this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.news[this.language].title }).then(res => {
+                        });
+                    }
                 });
             }
-            this.singlepost = JSON.parse(JSON.stringify(res));
-            this.news = JSON.parse(JSON.stringify(res[0]));
-            this.singlepost.splice(0, 1);
-            this.loading = false;
-            let temp;
-            this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news[this.language].content);
-            if (this.news[this.language].content == '') {
-                this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news.en.content);
-            }
-            // this.byPassedNews = this.byPassedNews.changingThisBreaksApplicationSecurity;
-            console.log("this.byPassedNews", this.byPassedNews);
-            if (this.platform.is('cordova')) {
-                this.firebaseAnalytics.logEvent('post_viewed', { postTitle: this.news[this.language].title }).then(res => {
+            else {
+                let tempPostString = yield this._StorageService.getNewsForOffline();
+                let tempNewsArray = JSON.parse(tempPostString);
+                let singleNews = tempNewsArray.find(el => el.newsId == postid);
+                console.log("FIRST POST", singleNews);
+                this.news = singleNews;
+                this.byPassedNews = this.domSanitizer.bypassSecurityTrustHtml(this.news[this.language].content);
+                let counter = 1;
+                yield tempNewsArray.forEach(element => {
+                    if (element.newsId != postid && this.singlepost.length < 5) {
+                        console.log("nnn", counter);
+                        this.singlepost.push(element);
+                    }
+                    counter++;
                 });
+                console.log("nnn", this.singlepost);
+                this.loading = false;
             }
         });
     }
@@ -293,7 +318,7 @@ let SinglePostPage = class SinglePostPage {
             this.firstTimeBlur = false;
             localStorage.setItem('shareBlink', '1');
             localStorage.setItem('skip', '1');
-            var message = app_changeLang__WEBPACK_IMPORTED_MODULE_14__["shareMessage"][this.language] + '"' + newsTitle + '" ';
+            var message = app_changeLang__WEBPACK_IMPORTED_MODULE_15__["shareMessage"][this.language] + '"' + newsTitle + '" ';
             var subject = "Trivia Post";
             var url = link;
             this.socialSharing.share(url, subject, null, message)
@@ -416,28 +441,29 @@ let SinglePostPage = class SinglePostPage {
     }
 };
 SinglePostPage.ctorParameters = () => [
-    { type: _ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_16__["AdMobFree"] },
-    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_15__["AdmobfreeService"] },
-    { type: _app_component__WEBPACK_IMPORTED_MODULE_13__["AppComponent"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["AlertController"] },
-    { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__["DomSanitizer"] },
-    { type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_11__["InAppBrowser"] },
-    { type: _ionic_native_firebase_analytics_ngx__WEBPACK_IMPORTED_MODULE_10__["FirebaseAnalytics"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["Platform"] },
-    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_7__["Network"] },
-    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_6__["ToastService"] },
-    { type: _services_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
-    { type: _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_5__["SocialSharing"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+    { type: _services_storage_service__WEBPACK_IMPORTED_MODULE_1__["StorageService"] },
+    { type: _ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_17__["AdMobFree"] },
+    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_16__["AdmobfreeService"] },
+    { type: _app_component__WEBPACK_IMPORTED_MODULE_14__["AppComponent"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_10__["AlertController"] },
+    { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_13__["DomSanitizer"] },
+    { type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_12__["InAppBrowser"] },
+    { type: _ionic_native_firebase_analytics_ngx__WEBPACK_IMPORTED_MODULE_11__["FirebaseAnalytics"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_10__["Platform"] },
+    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_8__["Network"] },
+    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"] },
+    { type: _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"] },
+    { type: _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_6__["SocialSharing"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
 ];
 SinglePostPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
         selector: 'app-single-post',
         template: __webpack_require__(/*! raw-loader!./single-post.page.html */ "./node_modules/raw-loader/index.js!./src/app/single-post/single-post.page.html"),
         styles: [__webpack_require__(/*! ./single-post.page.scss */ "./src/app/single-post/single-post.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_16__["AdMobFree"], _services_admobfree_service__WEBPACK_IMPORTED_MODULE_15__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_13__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["AlertController"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_12__["DomSanitizer"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_11__["InAppBrowser"], _ionic_native_firebase_analytics_ngx__WEBPACK_IMPORTED_MODULE_10__["FirebaseAnalytics"], _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["Platform"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_7__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_6__["ToastService"], _services_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_5__["SocialSharing"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_storage_service__WEBPACK_IMPORTED_MODULE_1__["StorageService"], _ionic_native_admob_free_ngx__WEBPACK_IMPORTED_MODULE_17__["AdMobFree"], _services_admobfree_service__WEBPACK_IMPORTED_MODULE_16__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_14__["AppComponent"], _ionic_angular__WEBPACK_IMPORTED_MODULE_10__["AlertController"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_13__["DomSanitizer"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_12__["InAppBrowser"], _ionic_native_firebase_analytics_ngx__WEBPACK_IMPORTED_MODULE_11__["FirebaseAnalytics"], _ionic_angular__WEBPACK_IMPORTED_MODULE_10__["Platform"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_8__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"], _services_news_service__WEBPACK_IMPORTED_MODULE_4__["NewsService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_6__["SocialSharing"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
 ], SinglePostPage);
 
 

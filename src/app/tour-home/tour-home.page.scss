@@ -1,8 +1,21 @@
 img.smallLoading {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
+
 .disableScroll {
-  --overflow: hidden;
+    --overflow: hidden;
+}
+
+.settingsToolbar button {
+    width: 45px
+}
+
+ion-menu-button {
+    float: left;
+}
+
+.settingsToolbar #settingTitle {
+    width: calc(100% - 162px)
 }

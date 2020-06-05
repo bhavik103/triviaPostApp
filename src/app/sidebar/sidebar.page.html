@@ -1,0 +1,10 @@
+<ion-menu side="start" menuId="first" contentId="content" overflow-scroll="true">
+    <ion-list style="overflow-y: scroll;" *ngIf="menuPages">
+        <ion-item *ngFor="let page of menuPages">
+            <ion-label routerLink="/single-category/{{page.categoryId}}/{{page.category[language]}}" (click)="closeMenu()">{{page.category[language]}}</ion-label>
+            <ion-icon name="notifications" style="color: #e41212;" *ngIf="page.isNotify == true" (click)="notify(page.categoryId)"></ion-icon>
+            <ion-icon name="notifications-outline" *ngIf="!page.isNotify" (click)="notify(page.categoryId)"></ion-icon>
+        </ion-item>
+    </ion-list>
+</ion-menu>
+<ion-router-outlet main id="content"></ion-router-outlet>

@@ -71,6 +71,7 @@ export class LargePostPage implements OnInit {
         this.router.navigateByUrl('/single-post/' + postid);
       }
     } else {
+      this.router.navigateByUrl('/single-post/' + postid);
       this._toastService.toastFunction('No internet connnection', 'danger');
     }
     // }

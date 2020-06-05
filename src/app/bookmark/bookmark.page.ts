@@ -13,7 +13,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { bookmark } from '../changeLang';
 import { AppComponent } from '../app.component'
 import { AdmobfreeService } from '../services/admobfree.service';
-import {shareMessage} from '../changeLang'
+import { shareMessage } from '../changeLang'
 @Component({
   selector: 'app-bookmark',
   templateUrl: './bookmark.page.html',
@@ -45,7 +45,7 @@ export class BookmarkPage implements OnInit {
       }
     });
   }
-  
+
   onPress(newsImage, fcmLink, newsId, newsTitleEnglish, $event) {
     console.log('newsId=', newsId)
   }
@@ -67,21 +67,27 @@ export class BookmarkPage implements OnInit {
 
   bookmarkedNews(): void {
     this.loading = true;
-    this._newsService.getAllBookmarks().subscribe(
-      (res: any) => {
-        if (res.length === 0) {
-          this.noNews = true
-        }
-        this.loading = false;
-        this.newsObj = res;
-        this.newsArray = this.newsObj;
-        console.log(" BOOKMARKED NEWS ", this.newsArray)
-        this.bookmarkLength = this.newsArray.length;
-      },
-      (err) => {
-        this.loading = false;
-        this.error = err;
-      });
+    if (navigator.onLine) {
+
+      this._newsService.getAllBookmarks().subscribe(
+        (res: any) => {
+          if (res.length === 0) {
+            this.noNews = true
+          }
+          this.loading = false;
+          this.newsObj = res;
+          this.newsArray = this.newsObj;
+          console.log(" BOOKMARKED NEWS ", this.newsArray)
+          this.bookmarkLength = this.newsArray.length;
+        },
+        (err) => {
+          this.loading = false;
+          this.error = err;
+        });
+    }else{
+      this.loading = false
+      this._toastService.toastFunction('No internet connection', 'danger');
+    }
   }
 
   deleteBookmarked(id) {
@@ -112,8 +118,8 @@ export class BookmarkPage implements OnInit {
         })
         .catch((error) => {
         });
-    }else{
-      this._toastService.toastFunction('You need to login first!','danger')
+    } else {
+      this._toastService.toastFunction('You need to login first!', 'danger')
     }
   }
 

@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
 						this.postId = localStorage.getItem('likepostId');
 						this.router.navigateByUrl('/single-post/' + this.postId);
 					} else {
-						this.router.navigate(['home']);
+						this.router.navigate(['sidebar/home']);
 					}
 				}, err => {
 					this.isDisabled = false;
@@ -143,7 +143,7 @@ export class LoginComponent implements OnInit {
 						this.postId = localStorage.getItem('likepostId');
 						this.router.navigateByUrl('/single-post/' + this.postId);
 					} else {
-						this.router.navigate(['home']);
+						this.router.navigate(['sidebar/home']);
 					}
 				}, err => {
 					this.facebookSpinner = false;
@@ -196,7 +196,7 @@ export class LoginComponent implements OnInit {
 				this.postId = localStorage.getItem('likepostId');
 				this.router.navigateByUrl('/single-post/' + this.postId);
 			} else {
-				this.router.navigate(['home']);
+				this.router.navigate(['sidebar/home']);
 			}
 		}, err => {
 			this.loading = false;
@@ -234,6 +234,6 @@ export class LoginComponent implements OnInit {
 	}
 	skipSignin(){
 		localStorage.setItem('skip','1')
-		this.router.navigateByUrl('/tour-home')
+		this.router.navigateByUrl('sidebar/tour-home')
 	}
 }
