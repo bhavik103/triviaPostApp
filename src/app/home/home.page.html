@@ -1,41 +1,44 @@
 <div no-border class="triviaHeader" *ngIf="language && newsArray && latestPost">
     <div class="settingsToolbar">
         <button float-left>
-        <ion-menu-button></ion-menu-button>
-    </button>
+            <ion-menu-button></ion-menu-button>
+        </button>
         <span id="settingTitle">
-      Trivia Post
-    </span>
+            Trivia Post
+        </span>
         <button float-right>
-        <ion-icon name="search" class="searchIcon" (click)="search()"></ion-icon>
-    </button>
+            <ion-icon name="search" class="searchIcon" (click)="search()"></ion-icon>
+        </button>
         <button float-left>
-                <ion-icon name="settings" class="homeBack" (click)="settings()"></ion-icon>
-    </button>
+            <ion-icon name="settings" class="homeBack" (click)="settings()"></ion-icon>
+        </button>
     </div>
 </div>
 <div no-border *ngIf="!language && !loading">
     <div class="settingsToolbar">
         <span id="settingTitle" style="margin:0;width: 100%;" *ngIf="!loading && !selected">
-      Language
-    </span>
+            Language
+        </span>
         <span id="settingTitle" style="margin:0;width: 100%;" *ngIf="!loading && selected">
-      {{languageStatic[selected]}}
-    </span>
+            {{languageStatic[selected]}}
+        </span>
     </div>
 </div>
 
 <ion-content *ngIf="!language && !loading && startTour">
-    <div class="languageSelect" style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;">
+    <div class="languageSelect"
+        style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;">
         <div class="langHead">
-            <img src="../../assets/images/subject.png" height="30px" width="30px" />
+            <img src="assets/images/subject.png" height="30px" width="30px" />
             <p *ngIf="!selected">Choose your preferred language to continue!</p>
             <p *ngIf="selected">{{languagePageHead[selected]}}</p>
         </div>
         <ion-row style="margin-top: 27%;">
             <ion-col size="6" *ngFor="let lang of languageList;let i = index" class="langCol">
                 <div class="ripple_effect" *ngIf="i == 0 && !selected" style="margin-top: 10px;"></div>
-                <ion-card tabindex="{{i}}" [style.background]="selected==lang.slug?'red':'white'" [style.color]="selected==lang.slug?'white':'black'" class="divs" (click)="selected=lang.slug;selectLangDiv()">
+                <ion-card tabindex="{{i}}" [style.background]="selected==lang.slug?'red':'white'"
+                    [style.color]="selected==lang.slug?'white':'black'" class="divs"
+                    (click)="selected=lang.slug;selectLangDiv()">
                     {{lang.lang}}
                 </ion-card>
                 <div class="tourText tourTextModal" *ngIf="i == 0 && !selected" style="bottom: 96%;">
@@ -45,31 +48,34 @@
             <div class="container">
                 <input type="checkbox" id="someID" (change)="isChecked($event)" />
                 <label for="someID" class="checkbox-1" *ngIf="!selected">
-          By continuing, you accept the
-          <span class="redLink"> "Terms & Condition"</span> and
-          <span class="redLink"> "Privacy Policy" </span>
-        </label>
+                    By continuing, you accept the
+                    <span class="redLink"> "Terms & Condition"</span> and
+                    <span class="redLink"> "Privacy Policy" </span>
+                </label>
                 <label for="someID" class="checkbox-1" *ngIf="selected">
-          {{acceptTermsPolicy[selected]}}
-          <span class="redLink"> "{{termsTitle[selected]}}"</span>
-          {{andText[selected]}}
-          <span class="redLink"> "{{privacyTitle[selected]}}" </span>
-        </label>
+                    {{acceptTermsPolicy[selected]}}
+                    <span class="redLink"> "{{termsTitle[selected]}}"</span>
+                    {{andText[selected]}}
+                    <span class="redLink"> "{{privacyTitle[selected]}}" </span>
+                </label>
             </div>
         </ion-row>
         <button class="contButton" (click)="selectLang()">Continue</button>
     </div>
 </ion-content>
 <ion-content class="skipLanguage" *ngIf="!language">
-    <div class="languageSelect" style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;">
+    <div class="languageSelect"
+        style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;">
         <div class="langHead">
-            <img src="../../assets/images/subject.png" height="30px" width="30px" />
+            <img src="assets/images/subject.png" height="30px" width="30px" />
             <p *ngIf="!selected">Choose your preferred language to continue!</p>
             <p *ngIf="selected">{{languagePageHead[selected]}}</p>
         </div>
         <ion-row style="margin-top: 27%;">
             <ion-col size="6" *ngFor="let lang of languageList;let i = index" class="langCol">
-                <ion-card tabindex="{{i}}" [style.background]="selected==lang.slug?'red':'white'" [style.color]="selected==lang.slug?'white':'black'" class="divs" (click)="selected=lang.slug;selectLangDiv()">
+                <ion-card tabindex="{{i}}" [style.background]="selected==lang.slug?'red':'white'"
+                    [style.color]="selected==lang.slug?'white':'black'" class="divs"
+                    (click)="selected=lang.slug;selectLangDiv()">
                     {{lang.lang}}
                 </ion-card>
                 <div class="tourText tourTextModal" *ngIf="i == 0 && !selected" style="bottom: 96%;">
@@ -79,16 +85,16 @@
             <div class="container">
                 <input type="checkbox" id="someID" (change)="isChecked($event)" />
                 <label for="someID" class="checkbox-1" *ngIf="!selected">
-          By continuing, you accept the
-          <span class="redLink"> "Terms & Condition"</span> and
-          <span class="redLink"> "Privacy Policy" </span>
-        </label>
+                    By continuing, you accept the
+                    <span class="redLink"> "Terms & Condition"</span> and
+                    <span class="redLink"> "Privacy Policy" </span>
+                </label>
                 <label for="someID" class="checkbox-1" *ngIf="selected">
-          {{acceptTermsPolicy[selected]}}
-          <span class="redLink"> "{{termsTitle[selected]}}"</span>
-          {{andText[selected]}}
-          <span class="redLink"> "{{privacyTitle[selected]}}" </span>
-        </label>
+                    {{acceptTermsPolicy[selected]}}
+                    <span class="redLink"> "{{termsTitle[selected]}}"</span>
+                    {{andText[selected]}}
+                    <span class="redLink"> "{{privacyTitle[selected]}}" </span>
+                </label>
             </div>
         </ion-row>
         <button class="contButton" (click)="selectLangSkip()">Continue</button>
@@ -99,23 +105,19 @@
         <app-large-post [news]="latestPost" [language]="language" [skip]="skip">
         </app-large-post>
         <span *ngFor="let news of newsArray;let i = index" class="newsTiles">
-      <app-post-tiles [news]="news" [language]="language" [index]="i"></app-post-tiles>
-    </span>
+            <app-post-tiles [news]="news" [language]="language" [index]="i"></app-post-tiles>
+        </span>
         <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
             <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more posts...">
             </ion-infinite-scroll-content>
         </ion-infinite-scroll>
     </ion-row>
     <span class="loadingContent" *ngIf="smallLoading">
-    <img
-      src="../../assets/images/simpleLoader.gif"
-      alt=""
-      class="smallLoading"
-    />
-  </span>
+        <img src="assets/images/simpleLoader.gif" alt="" class="smallLoading" />
+    </span>
 </ion-content>
 <!-- <ion-content class="loadingContent" *ngIf="smallLoading">
-    <img src="../../assets/images/simpleLoader.gif" alt="" class="smallLoading" />
+    <img src="assets/images/simpleLoader.gif" alt="" class="smallLoading" />
 </ion-content> -->
 <div class="no-news-text" *ngIf="isTextVisible">
     <span>{{text}}</span>
@@ -125,7 +127,7 @@
 
     <div id="delayedPopup" class="delayedPopupWindow confirmTourPopup">
         <div class="img_border">
-            <img src="../../assets/images/book.png" alt="" />
+            <img src="assets/images/book.png" alt="" />
         </div>
         <h5>Welcome</h5>
         <p class="tourConfirmText">
@@ -142,6 +144,6 @@
             </ion-row>
         </div>
         <div class="otherButton"></div>
-        <img src="../../assets/images/ratingBackground.png" alt="" class="ratingBack" />
+        <img src="assets/images/ratingBackground.png" alt="" class="ratingBack" />
     </div>
 </ion-content>

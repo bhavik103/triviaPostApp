@@ -1,6 +1,4 @@
 import { PostTilesPageModule } from './../post-tiles/post-tiles.module';
-import { HomePage } from './../home/home.page';
-import { TourHomePage } from './../tour-home/tour-home.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,8 +8,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SidebarPage } from './sidebar.page';
 import { LargePostPageModule } from '../large-post/large-post.module';
-import { TourHomePageModule } from '../tour-home/tour-home.module';
-import { HomePageModule } from '../home/home.module';
+
 const routes: Routes = [
   {
     path: '',
@@ -24,22 +21,11 @@ const routes: Routes = [
       // },
       {
         path: 'home',
-        children: [
-          {
-            path: '',
-            loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
-          }
-        ]
+        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
         path: 'tour-home',
-        children: [
-          {
-            path: '',
-            loadChildren: () => import('../tour-home/tour-home.module').then(m => m.TourHomePageModule)
-          }
-        ]
-
+        loadChildren: () => import('../tour-home/tour-home.module').then(m => m.TourHomePageModule)
       }
     ]
   }
@@ -52,8 +38,6 @@ const routes: Routes = [
     IonicModule,
     LargePostPageModule,
     PostTilesPageModule,
-    TourHomePageModule,
-    HomePageModule,
     RouterModule.forChild(routes)
   ],
   declarations: [SidebarPage]

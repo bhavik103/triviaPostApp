@@ -11,17 +11,60 @@ import { AuthGuard, LoginGuard } from './guards/user.guard';
 const routes: Routes = [
 	{
 		path: '',
-		redirectTo: '/sidebar/home',
+		redirectTo: 'sidebar',
 		pathMatch: 'full'
 	},
 	{
 		path: 'sidebar',
-		children: [
-			{
-				path: '',
-				loadChildren: () => import('./sidebar/sidebar.module').then(m => m.SidebarPageModule)
-			}
-		]
+		loadChildren: () => import('./sidebar/sidebar.module').then(m => m.SidebarPageModule)
+	},
+	{
+		path: 'single-post/:id',
+		loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostPageModule)
+	},
+	{
+		path: 'single-post/:id/:bookmark',
+		loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostPageModule)
+	},
+	{
+		path: 'single-post/:id/:search',
+		loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostPageModule)
+	},
+	{
+		path: 'single-post/:id/:category',
+		loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostPageModule)
+	},
+	{
+		path: 'single-category/:id/:cat',
+		loadChildren: () => import('./single-category/single-category.module').then(m => m.SingleCategoryPageModule)
+	},
+	{
+		path: 'signin',
+		loadChildren: () => import('./signin/signin.module').then(m => m.SigninPageModule)
+	},
+	{
+		path: 'bookmark',
+		loadChildren: () => import('./bookmark/bookmark.module').then(m => m.BookmarkPageModule)
+	},
+	{
+		path: 'post-tiles',
+		loadChildren: () => import('./post-tiles/post-tiles.module').then(m => m.PostTilesPageModule)
+	},
+	{
+		path: 'category-tiles',
+		loadChildren: () => import('./category-tiles/category-tiles.module').then(m => m.CategoryTilesPageModule)
+	},
+	{
+		path: 'related-post',
+		loadChildren: () => import('./related-post/related-post.module').then(m => m.RelatedPostPageModule)
+	},
+	{
+		path: 'large-post',
+		loadChildren: () => import('./large-post/large-post.module').then(m => m.LargePostPageModule)
+	},
+	{
+		path: 'all-categories',
+		loadChildren: () => import('./all-categories/all-categories.module').then(m => m.AllCategoriesPageModule)
 	},
 	{
 		path: 'settings',
@@ -48,54 +91,6 @@ const routes: Routes = [
 		path: 'terms',
 		component: TermsAndCondComponent
 	},
-	{
-		path: 'single-post/:id',
-		loadChildren: './single-post/single-post.module#SinglePostPageModule'
-	},
-	{
-		path: 'single-post/:id/:bookmark',
-		loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostPageModule)
-	},
-	{
-		path: 'single-post/:id/:search',
-		loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostPageModule)
-	},
-	{
-		path: 'single-post/:id/:category',
-		loadChildren: () => import('./single-post/single-post.module').then(m => m.SinglePostPageModule)
-	},
-	{
-		path: 'single-category/:id/:cat',
-		loadChildren: './single-category/single-category.module#SingleCategoryPageModule'
-	},
-	{
-		path: 'signin',
-		loadChildren: './signin/signin.module#SigninPageModule'
-	},
-	{
-		path: 'bookmark',
-		loadChildren: './bookmark/bookmark.module#BookmarkPageModule'
-	},
-	{
-		path: 'post-tiles',
-		loadChildren: './post-tiles/post-tiles.module#PostTilesPageModule'
-	},
-	{
-		path: 'category-tiles',
-		loadChildren: './category-tiles/category-tiles.module#CategoryTilesPageModule'
-	},
-	{
-		path: 'related-post',
-		loadChildren: './related-post/related-post.module#RelatedPostPageModule'
-	},
-	{
-		path: 'large-post',
-		loadChildren: './large-post/large-post.module#LargePostPageModule'
-	},
-	{
-		path: 'all-categories',
-		loadChildren: './all-categories/all-categories.module#AllCategoriesPageModule'
-	}
 ];
 
 @NgModule({
