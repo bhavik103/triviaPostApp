@@ -15,5 +15,17 @@
     "This Username Is Not Registered Please Signup": "এই নামৰ অস্তিত্ব নাই ।  চাইন আপ কৰক",
     "New Password is sent on Email.": "নতুন পাছৱৰ্ড ইমেইল যুগে পঠিওৱা হৈছে",
     "Notification Turned On": "বিজ্ঞপ্তি পাবলৈ আৰম্ভ কৰা হ'ল",
-    "Notification Turned Off": "বিজ্ঞপ্তি পোৱাতু বন্ধ কৰা হ'ল"
+    "Notification Turned Off": "বিজ্ঞপ্তি পোৱাতু বন্ধ কৰা হ'ল",
+    "Name is Required": "নাম প্রয়োজন",
+    "Message is required": "বার্তা প্রয়োজন",
+    "Email is required": "ই মেইল ঠিকনা প্রয়োজন",
+    "Email is not valid": "ই মেইল ঠিকনা অবৈধ",
+    "Contact is required": "মোবাইল নম্বৰ  প্রয়োজন",
+    "User Not Found": "উপভোক্তা বিচাৰি পোৱা নাই",
+    "You Are Logged In With Social Media": "আপুনি পাছৱৰ্ড সলনি কৰিব নোৱাৰিব",
+    "Username is required": "উপভোক্তাৰ নাম প্রয়োজন",
+    "UserName is required": "উপভোক্তাৰ নাম প্রয়োজন",
+    "Password is required": "পাছৱৰ্ডৰ প্রয়োজন",
+    "UserName must be 6 to 20 length": "উপভোক্তাৰ নাম 6 টাৰ  পৰা  20 টা আখৰৰ ভিতৰত হব লাগিব ",
+    "Email Already Registered.": "ই মেইল ঠিকনা ব্যৱহাৰত আছে "
 }

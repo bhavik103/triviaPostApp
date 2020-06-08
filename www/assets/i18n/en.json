@@ -15,5 +15,18 @@
     "This Username Is Not Registered Please Signup": "Username does not exist. Please Signup",
     "New Password is sent on Email.": "New Password is sent on Email.",
     "Notification Turned On": "Notification Turned On",
-    "Notification Turned Off": "Notification Turned Off"
+    "Notification Turned Off": "Notification Turned Off",
+    "Name is Required": "Name is required",
+    "Message is required": "Message is required",
+    "Email is required": "Email Address is required",
+    "Email is not valid": "Email Address is invalid",
+    "Contact is required": "Mobile number is required",
+    "User Not Found": "User Not Found",
+    "You Are Logged In With Social Media": "You cannot change the password",
+    "Username is required": "User Name is required",
+    "UserName is required": "User Name is required",
+    "Password is required": "Password is required",
+    "UserName must be 6 to 20 length": "User Name must be between 6 to 20 characters",
+    "Email Already Registered.": "Email Address is already Registered"
+
 }

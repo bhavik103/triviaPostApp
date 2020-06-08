@@ -174,7 +174,9 @@ var SigninPage = /** @class */ (function () {
             _this.router.navigate(['settings']);
         }, function (err) {
             _this.loading = false;
-            _this._toastService.toastFunction(err.error.message, 'success');
+            _this.translate.get(err.error.message).subscribe(function (res) {
+                _this._toastService.toastFunction(res, 'success');
+            });
         });
     };
     SigninPage.prototype.signUpClose = function () {

@@ -165,7 +165,9 @@ let SigninPage = class SigninPage {
             this.router.navigate(['settings']);
         }, err => {
             this.loading = false;
-            this._toastService.toastFunction(err.error.message, 'success');
+            this.translate.get(err.error.message).subscribe((res) => {
+                this._toastService.toastFunction(res, 'success');
+            });
         });
     }
     signUpClose() {

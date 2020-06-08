@@ -34,6 +34,11 @@ export class AllCategoriesPage implements OnInit {
     window.addEventListener('offline', alertOnlineStatus)
   }
   ionViewWillEnter() {
+    this.initFun();
+    this.getCategories();
+  }
+
+  initFun(){
     this._admobService.interstitalAdOnFivePageChange()
     if (localStorage.getItem('skip')) {
       localStorage.setItem('skip', '1');
@@ -45,7 +50,6 @@ export class AllCategoriesPage implements OnInit {
       this.router.navigateByUrl('/login')
     }
     this.loading = false;
-    this.getCategories();
   }
 
   handlingBackButton() {

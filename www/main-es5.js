@@ -1699,7 +1699,7 @@ var noInternet = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "config", function() { return config; });
 var envs = [];
-var env = "productionV2";
+var env = "testing";
 envs['production'] = {
     baseApiUrl: 'https://admin.triviapost.in:5000/api/',
     mediaApiUrl: 'https://admin.triviapost.in/server/',
@@ -1823,7 +1823,9 @@ var FeedbackComponent = /** @class */ (function () {
             _this.router.navigate(['settings']);
         }, function (err) {
             _this.loading = false;
-            _this._toastService.toastFunction(err.error.message, 'danger');
+            _this.translate.get(err.error.message).subscribe(function (mes) {
+                _this._toastService.toastFunction(mes, 'success');
+            });
         });
     };
     FeedbackComponent.prototype.backButton = function () {
@@ -2225,7 +2227,10 @@ var LoginComponent = /** @class */ (function () {
         }, function (err) {
             _this.isDisabled = false;
             _this.loading = false;
-            _this._toastService.toastFunction(err.error.message, 'danger');
+            _this.translate.get(err.error.message).subscribe(function (res) {
+                _this._toastService.toastFunction(res, 'success');
+            });
+            // this._toastService.toastFunction(err.error.message, 'danger');
         });
     };
     LoginComponent.prototype.resetPassword = function (user) {
