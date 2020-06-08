@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content class=\"background\">\n  <img src=\"assets/images/left-arrow.png\" alt=\"\" id=\"backButton\" routerLink=\"/login\" (click)=\"goBack()\">\n  <div class=\"loginDiv\">\n    <div class=\"header\">\n      <img src=\"assets/images/Logo.png\" height=\"auto\" width=\"30%\">\n      <div>Just Read & Share</div>\n    </div>\n    <div class=\"loginBody\">\n      <form [formGroup]=\"loginForm\" padding class=\"loginForm\">\n        <div class=\"buttonInside\">\n          Username:\n          <input [(ngModel)]=\"login.userName\" [ngModelOptions]=\"{standalone: true}\">\n          <button id=\"eye\">\n            <ion-icon name=\"person\"></ion-icon>\n          </button>\n        </div>\n        <div class=\"buttonInside\">\n          Password:\n          <input [type]=\"passwordType\" [(ngModel)]=\"login.password\" [ngModelOptions]=\"{standalone: true}\">\n          <button id=\"eye\">\n            <ion-icon name=\"eye\" [name]=\"passwordIcon\" (click)='hideShowPassword()'></ion-icon>\n          </button>\n        </div>\n        <button class=\"submitLogin\" (click)=\"loginClick(login)\">\n          Sign In\n        </button>\n        <span class=\"fdiv\">\n          <label id=\"forgotPassword\" for=\"forgotPasswordModal\">Forgot Password?</label>\n          <input type=\"checkbox\" id=\"forgotPasswordModal\" class=\"checkBox\" />\n          <div class=\"modal\">\n            <div class=\"modal__inner\">\n              <p style=\"text-align: center;\"><i id=\"signup\">Forgot Password</i></p>\n              <form [formGroup]=\"forgotPassword\">\n                <div class=\"signup_input\">\n                  <input type=\"text\" name=\"\" placeholder=\"Please enter email\" formControlName=\"email\"\n                    [(ngModel)]=\"forgot.email\">\n                </div>\n                <button (click)=\"resetPassword(forgot)\" class=\"submitLogin resetPass\">Reset Password</button>\n              </form>\n              <label for=\"forgotPasswordModal\">\n                <ion-icon class=\"forgotModalClose\" name=\"close\" (click)=\"signUpClose()\"></ion-icon>\n              </label>\n            </div>\n          </div>\n        </span>\n      </form>\n    </div>\n  </div>\n  <div id=\"loader-wrapper\" *ngIf=\"loading\">\n    <div id=\"loader\">\n      <span class=\"welcomeTo\">Welcome to</span>\n      <span class=\"logo_container\">\n        <img src=\"../../assets/images/Logo.png\" alt=\"logo\">\n      </span>\n      <div class=\"welcomeTo appDesc\">Interesting and</div>\n      <div class=\"welcomeTo appDesc\">Informative reads</div>\n      <div class=\"spinner\">\n        <div class=\"bounce1\"></div>\n        <div class=\"bounce2\"></div>\n        <div class=\"bounce3\"></div>\n      </div>\n      <p class=\"text-center\">Loding...</p>\n    </div>\n  </div>\n</ion-content>"
+module.exports = "<ion-content class=\"background\">\n  <img src=\"assets/images/left-arrow.png\" alt=\"\" id=\"backButton\" routerLink=\"/login\" (click)=\"goBack()\">\n  <div class=\"loginDiv\">\n    <div class=\"header\">\n      <img src=\"assets/images/Logo.png\" height=\"auto\" width=\"30%\">\n      <div>Just Read & Share</div>\n    </div>\n    <div class=\"loginBody\">\n      <form [formGroup]=\"loginForm\" padding class=\"loginForm\">\n        <div class=\"buttonInside\">\n          Username:\n          <input [(ngModel)]=\"login.userName\" [ngModelOptions]=\"{standalone: true}\">\n          <button id=\"eye\">\n            <ion-icon name=\"person\"></ion-icon>\n          </button>\n        </div>\n        <div class=\"buttonInside\">\n          Password:\n          <input [type]=\"passwordType\" [(ngModel)]=\"login.password\" [ngModelOptions]=\"{standalone: true}\">\n          <button id=\"eye\">\n            <ion-icon name=\"eye\" [name]=\"passwordIcon\" (click)='hideShowPassword()'></ion-icon>\n          </button>\n        </div>\n        <button class=\"submitLogin\" (click)=\"loginClick(login)\">\n          Sign In\n        </button>\n        <span class=\"fdiv\">\n          <label id=\"forgotPassword\" for=\"forgotPasswordModal\">Forgot Password?</label>\n          <input type=\"checkbox\" id=\"forgotPasswordModal\" class=\"checkBox\" />\n          <div class=\"modal\">\n            <div class=\"modal__inner\">\n              <p style=\"text-align: center;\"><i id=\"signup\">Forgot Password</i></p>\n              <form [formGroup]=\"forgotPassword\">\n                <div class=\"signup_input\">\n                  <input type=\"text\" name=\"\" placeholder=\"Please enter email\" formControlName=\"email\"\n                    [(ngModel)]=\"forgot.email\">\n                </div>\n                <button (click)=\"resetPassword(forgot)\" class=\"submitLogin resetPass\">Reset Password</button>\n              </form>\n              <label for=\"forgotPasswordModal\">\n                <ion-icon class=\"forgotModalClose\" name=\"close\" (click)=\"signUpClose()\"></ion-icon>\n              </label>\n            </div>\n          </div>\n        </span>\n      </form>\n    </div>\n  </div>\n  <div id=\"loader-wrapper\" *ngIf=\"loading\">\n    <div id=\"loader\">\n      <span class=\"welcomeTo\">Welcome to</span>\n      <span class=\"logo_container\">\n        <img src=\"assets/images/Logo.png\" alt=\"logo\">\n      </span>\n      <div class=\"welcomeTo appDesc\">Interesting and</div>\n      <div class=\"welcomeTo appDesc\">Informative reads</div>\n      <div class=\"spinner\">\n        <div class=\"bounce1\"></div>\n        <div class=\"bounce2\"></div>\n        <div class=\"bounce3\"></div>\n      </div>\n      <p class=\"text-center\">Loding...</p>\n    </div>\n  </div>\n</ion-content>"
 
 /***/ }),
 
@@ -91,6 +91,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
+
 
 
 
@@ -101,7 +103,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SigninPage = class SigninPage {
-    constructor(_admobService, platform, appcomponent, router, _userService, _toastService) {
+    constructor(translate, _admobService, platform, appcomponent, router, _userService, _toastService) {
+        this.translate = translate;
         this._admobService = _admobService;
         this.platform = platform;
         this.appcomponent = appcomponent;
@@ -141,11 +144,16 @@ let SigninPage = class SigninPage {
         console.log(login);
         this._userService.customLogin(login).subscribe((res) => {
             this.loading = false;
-            this._toastService.toastFunction(res.message, 'success');
+            this.translate.get('You have successfully Logged In').subscribe((res) => {
+                this._toastService.toastFunction(res, 'success');
+            });
             this.router.navigate(['home']);
         }, err => {
             this.loading = false;
-            this._toastService.toastFunction(err.error.message, 'success');
+            console.log("ERRORR", err.error.message);
+            this.translate.get(err.error.message).subscribe((res) => {
+                this._toastService.toastFunction(res, 'success');
+            });
         });
     }
     resetPassword(user) {
@@ -173,6 +181,7 @@ let SigninPage = class SigninPage {
     }
 };
 SigninPage.ctorParameters = () => [
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__["TranslateService"] },
     { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_8__["AdmobfreeService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"] },
     { type: _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"] },
@@ -186,7 +195,7 @@ SigninPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./signin.page.html */ "./node_modules/raw-loader/index.js!./src/app/signin/signin.page.html"),
         styles: [__webpack_require__(/*! ./signin.page.scss */ "./src/app/signin/signin.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_admobfree_service__WEBPACK_IMPORTED_MODULE_8__["AdmobfreeService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"], _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _services_toast_service__WEBPACK_IMPORTED_MODULE_4__["ToastService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__["TranslateService"], _services_admobfree_service__WEBPACK_IMPORTED_MODULE_8__["AdmobfreeService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"], _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _services_toast_service__WEBPACK_IMPORTED_MODULE_4__["ToastService"]])
 ], SigninPage);
 
 

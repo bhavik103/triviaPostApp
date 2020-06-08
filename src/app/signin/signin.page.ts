@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AppComponent } from '../app.component'
 import { Platform } from '@ionic/angular';
 import { AdmobfreeService } from '../services/admobfree.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signin',
@@ -18,7 +19,7 @@ export class SigninPage implements OnInit {
   loading: any;
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
-  constructor(private _admobService: AdmobfreeService,private platform: Platform, public appcomponent: AppComponent, private router: Router, private _userService: UserService, private _toastService: ToastService) {
+  constructor(private translate: TranslateService,private _admobService: AdmobfreeService,private platform: Platform, public appcomponent: AppComponent, private router: Router, private _userService: UserService, private _toastService: ToastService) {
     this.show = false;
   }
 
@@ -52,11 +53,16 @@ export class SigninPage implements OnInit {
     console.log(login);
     this._userService.customLogin(login).subscribe((res: any) => {
       this.loading = false;
-      this._toastService.toastFunction(res.message, 'success');
+      this.translate.get('You have successfully Logged In').subscribe((res:any)=>{
+        this._toastService.toastFunction(res, 'success');
+      })
       this.router.navigate(['home']);
     }, err => {
       this.loading = false;
-      this._toastService.toastFunction(err.error.message, 'success');
+      console.log("ERRORR",err.error.message)
+      this.translate.get(err.error.message).subscribe((res:any)=>{
+        this._toastService.toastFunction(res, 'success');
+      })
     })
   }
 
@@ -69,7 +75,9 @@ export class SigninPage implements OnInit {
       this.router.navigate(['settings']);
     }, err => {
       this.loading = false;
-      this._toastService.toastFunction(err.error.message, 'success');
+      this.translate.get(err.error.message).subscribe((res:any)=>{
+        this._toastService.toastFunction(res, 'success');
+      })
     })
   }
 

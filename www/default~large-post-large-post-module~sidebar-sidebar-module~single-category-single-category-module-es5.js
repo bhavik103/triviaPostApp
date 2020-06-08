@@ -7,7 +7,160 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-row class=\"mainDiv\">\n  <ion-col size=\"12\" class=\"latestPost\" (click)=\"singleNews(news.newsId)\">\n    <img\n      class=\"latestpostimg firstTimeBlur\"\n      src=\"{{mediaPath}}{{news.newsImage}}\"\n      height=\"100%\"\n      onerror=\"this.src='../../assets/images/placeholder.png'\"\n      *ngIf=\"!firstLargePostClick && !skip == 1\"\n      width=\"100%\"\n      (click)=\"singleNews(news.newsId)\"\n    />\n    <img\n      src=\"{{mediaPath}}{{news.newsImage}}\"\n      height=\"100%\"\n      data-src=\"../../assets/images/placeholder.png'\"\n      onerror=\"this.src='../../assets/images/placeholder.png'\"\n      width=\"100%\"\n      *ngIf=\"firstLargePostClick === '1' || skip == 1\"\n      (click)=\"singleNews(news.newsId)\"\n    />\n    <img\n      data-src=\"../../assets/images/placeholder.png'\"\n      onerror=\"this.src='../../assets/images/placeholder.png'\"\n      height=\"100%\"\n      width=\"100%\"\n      *ngIf=\"(firstLargePostClick === '1' || skip == 1) && noConnection\"\n      (click)=\"singleNews(news.newsId)\"\n    />\n    <div\n      *ngIf=\"!firstLargePostClick && !skip == '1'\"\n      class=\"tourText tourTextTitle\"\n    >\n      {{tourReadPost[language]}}\n    </div>\n    <div class=\"textBlock\">\n      <span\n        class=\"latestNews\"\n        [ngClass]=\"{'assameseFont': language == 'as'}\"\n        *ngIf=\"!firstLargePostClick && !skip == '1' && news[language].title\"\n        (click)=\"singleNews(news.newsId)\"\n      >\n        {{news[language].title}}\n        <div class=\"ripple_effect\"></div>\n      </span>\n      <span\n        class=\"latestNews\"\n        [ngClass]=\"{'assameseFont': language == 'as'}\"\n        *ngIf=\"(skip == '1' || firstLargePostClick === '1') && news[language].title\"\n        [innerHTML]=\"news[language].title\"\n        (click)=\"singleNews(news.newsId)\"\n      >\n      </span>\n      <span\n        class=\"latestNews\"\n        *ngIf=\"(skip == '1' || firstLargePostClick === '1') && !news[language].title\"\n        [innerHTML]=\"news.en.title\"\n        (click)=\"singleNews(news.newsId)\"\n      >\n      </span>\n    </div>\n    <button\n      (click)=\"singleNews(news.newsId)\"\n      class=\"categoryButton blinkCat\"\n      [ngClass]=\"{'assameseFont': language == 'as'}\"\n      *ngIf=\"!firstLargePostClick && !skip == '1'\"\n    >\n      <div class=\"ripple_effect\"></div>\n      {{news.newsCategory[language]}}\n    </button>\n    <button\n      (click)=\"categoryClick(news.newsCategoryId, news.newsCategory[language]);wrongStatus = true\"\n      class=\"categoryButton\"\n      [ngClass]=\"{'assameseFont': language == 'as'}\"\n      *ngIf=\"(firstLargePostClick === '1' || skip == '1') && news.newsCategory[language]\"\n    >\n      {{news.newsCategory[language]}}\n    </button>\n    <button\n      (click)=\"categoryClick(news.newsCategoryId, news.newsCategory.en);wrongStatus = true\"\n      class=\"categoryButton\"\n      *ngIf=\"(firstLargePostClick === '1' || skip == '1') && !news.newsCategory[language]\"\n    >\n      {{news.newsCategory.en}}\n    </button>\n    <div *ngIf=\"!firstLargePostClick && !skip == '1'\" class=\"tourText\">\n      {{tourCatPost[language]}}\n    </div>\n    <span class=\"nextSpan\" *ngIf=\"!firstLargePostClick && !skip == '1'\">\n      <p class=\"nextButton\">\n        <img src=\"../../assets/images/nextButton.png\" alt=\"\" />\n      </p>\n      <div class=\"ripple_effect\"></div>\n    </span>\n  </ion-col>\n</ion-row>\n"
+module.exports = "<ion-row class=\"mainDiv\">\n  <ion-col size=\"12\" class=\"latestPost\" (click)=\"singleNews(news.newsId)\">\n    <img\n      class=\"latestpostimg firstTimeBlur\"\n      src=\"{{mediaPath}}{{news.newsImage}}\"\n      height=\"100%\"\n      onerror=\"this.src='../../assets/images/placeholder.png'\"\n      *ngIf=\"!firstLargePostClick && !skip == 1\"\n      width=\"100%\"\n      (click)=\"singleNews(news.newsId)\"\n    />\n    <img\n      src=\"{{mediaPath}}{{news.newsImage}}\"\n      height=\"100%\"\n      data-src=\"assets/images/placeholder.png'\"\n      onerror=\"this.src='../../assets/images/placeholder.png'\"\n      width=\"100%\"\n      *ngIf=\"firstLargePostClick === '1' || skip == 1\"\n      (click)=\"singleNews(news.newsId)\"\n    />\n    <img\n      data-src=\"assets/images/placeholder.png'\"\n      onerror=\"this.src='../../assets/images/placeholder.png'\"\n      height=\"100%\"\n      width=\"100%\"\n      *ngIf=\"(firstLargePostClick === '1' || skip == 1) && noConnection\"\n      (click)=\"singleNews(news.newsId)\"\n    />\n    <div\n      *ngIf=\"!firstLargePostClick && !skip == '1'\"\n      class=\"tourText tourTextTitle\"\n    >\n      {{tourReadPost[language]}}\n    </div>\n    <div class=\"textBlock\">\n      <span\n        class=\"latestNews\"\n        [ngClass]=\"{'assameseFont': language == 'as'}\"\n        *ngIf=\"!firstLargePostClick && !skip == '1' && news[language].title\"\n        (click)=\"singleNews(news.newsId)\"\n      >\n        {{news[language].title}}\n        <div class=\"ripple_effect\"></div>\n      </span>\n      <span\n        class=\"latestNews\"\n        [ngClass]=\"{'assameseFont': language == 'as'}\"\n        *ngIf=\"(skip == '1' || firstLargePostClick === '1') && news[language].title\"\n        [innerHTML]=\"news[language].title\"\n        (click)=\"singleNews(news.newsId)\"\n      >\n      </span>\n      <span\n        class=\"latestNews\"\n        *ngIf=\"(skip == '1' || firstLargePostClick === '1') && !news[language].title\"\n        [innerHTML]=\"news.en.title\"\n        (click)=\"singleNews(news.newsId)\"\n      >\n      </span>\n    </div>\n    <button\n      (click)=\"singleNews(news.newsId)\"\n      class=\"categoryButton blinkCat\"\n      [ngClass]=\"{'assameseFont': language == 'as'}\"\n      *ngIf=\"!firstLargePostClick && !skip == '1'\"\n    >\n      <div class=\"ripple_effect\"></div>\n      {{news.newsCategory[language]}}\n    </button>\n    <button\n      (click)=\"categoryClick(news.newsCategoryId, news.newsCategory[language]);wrongStatus = true\"\n      class=\"categoryButton\"\n      [ngClass]=\"{'assameseFont': language == 'as'}\"\n      *ngIf=\"(firstLargePostClick === '1' || skip == '1') && news.newsCategory[language]\"\n    >\n      {{news.newsCategory[language]}}\n    </button>\n    <button\n      (click)=\"categoryClick(news.newsCategoryId, news.newsCategory.en);wrongStatus = true\"\n      class=\"categoryButton\"\n      *ngIf=\"(firstLargePostClick === '1' || skip == '1') && !news.newsCategory[language]\"\n    >\n      {{news.newsCategory.en}}\n    </button>\n    <div *ngIf=\"!firstLargePostClick && !skip == '1'\" class=\"tourText\">\n      {{tourCatPost[language]}}\n    </div>\n    <span class=\"nextSpan\" *ngIf=\"!firstLargePostClick && !skip == '1'\">\n      <p class=\"nextButton\">\n        <img src=\"assets/images/nextButton.png\" alt=\"\" />\n      </p>\n      <div class=\"ripple_effect\"></div>\n    </span>\n  </ion-col>\n</ion-row>\n"
+
+/***/ }),
+
+/***/ "./node_modules/time-ago-pipe/esm5/time-ago-pipe.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/time-ago-pipe/esm5/time-ago-pipe.js ***!
+  \**********************************************************/
+/*! exports provided: TimeAgoPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TimeAgoPipe", function() { return TimeAgoPipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var TimeAgoPipe = /** @class */ (function () {
+    /**
+     * @param {?} changeDetectorRef
+     * @param {?} ngZone
+     */
+    function TimeAgoPipe(changeDetectorRef, ngZone) {
+        this.changeDetectorRef = changeDetectorRef;
+        this.ngZone = ngZone;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    TimeAgoPipe.prototype.transform = function (value) {
+        var _this = this;
+        this.removeTimer();
+        var /** @type {?} */ d = new Date(value);
+        var /** @type {?} */ now = new Date();
+        var /** @type {?} */ seconds = Math.round(Math.abs((now.getTime() - d.getTime()) / 1000));
+        var /** @type {?} */ timeToUpdate = (Number.isNaN(seconds)) ? 1000 : this.getSecondsUntilUpdate(seconds) * 1000;
+        this.timer = this.ngZone.runOutsideAngular(function () {
+            if (typeof window !== 'undefined') {
+                return window.setTimeout(function () {
+                    _this.ngZone.run(function () { return _this.changeDetectorRef.markForCheck(); });
+                }, timeToUpdate);
+            }
+            return null;
+        });
+        var /** @type {?} */ minutes = Math.round(Math.abs(seconds / 60));
+        var /** @type {?} */ hours = Math.round(Math.abs(minutes / 60));
+        var /** @type {?} */ days = Math.round(Math.abs(hours / 24));
+        var /** @type {?} */ months = Math.round(Math.abs(days / 30.416));
+        var /** @type {?} */ years = Math.round(Math.abs(days / 365));
+        if (Number.isNaN(seconds)) {
+            return '';
+        }
+        else if (seconds <= 45) {
+            return 'a few seconds ago';
+        }
+        else if (seconds <= 90) {
+            return 'a minute ago';
+        }
+        else if (minutes <= 45) {
+            return minutes + ' minutes ago';
+        }
+        else if (minutes <= 90) {
+            return 'an hour ago';
+        }
+        else if (hours <= 22) {
+            return hours + ' hours ago';
+        }
+        else if (hours <= 36) {
+            return 'a day ago';
+        }
+        else if (days <= 25) {
+            return days + ' days ago';
+        }
+        else if (days <= 45) {
+            return 'a month ago';
+        }
+        else if (days <= 345) {
+            return months + ' months ago';
+        }
+        else if (days <= 545) {
+            return 'a year ago';
+        }
+        else {
+            // (days > 545)
+            return years + ' years ago';
+        }
+    };
+    /**
+     * @return {?}
+     */
+    TimeAgoPipe.prototype.ngOnDestroy = function () {
+        this.removeTimer();
+    };
+    /**
+     * @return {?}
+     */
+    TimeAgoPipe.prototype.removeTimer = function () {
+        if (this.timer) {
+            window.clearTimeout(this.timer);
+            this.timer = null;
+        }
+    };
+    /**
+     * @param {?} seconds
+     * @return {?}
+     */
+    TimeAgoPipe.prototype.getSecondsUntilUpdate = function (seconds) {
+        var /** @type {?} */ min = 60;
+        var /** @type {?} */ hr = min * 60;
+        var /** @type {?} */ day = hr * 24;
+        if (seconds < min) {
+            // less than 1 min, update every 2 secs
+            return 2;
+        }
+        else if (seconds < hr) {
+            // less than an hour, update every 30 secs
+            return 30;
+        }
+        else if (seconds < day) {
+            // less then a day, update every 5 mins
+            return 300;
+        }
+        else {
+            // update every hour
+            return 3600;
+        }
+    };
+    return TimeAgoPipe;
+}());
+TimeAgoPipe.decorators = [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"], args: [{
+                name: 'timeAgo',
+                pure: false
+            },] },
+];
+/** @nocollapse */
+TimeAgoPipe.ctorParameters = function () { return [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"], },
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"], },
+]; };
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+
+//# sourceMappingURL=time-ago-pipe.js.map
+
 
 /***/ }),
 
@@ -84,11 +237,15 @@ module.exports = ".newsImg {\n  padding: 6px;\n  height: 88px;\n}\n\n.latestPost
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LargePostPage", function() { return LargePostPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
-/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../changeLang */ "./src/app/changeLang.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
+/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../changeLang */ "./src/app/changeLang.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+
+
 
 
 
@@ -96,14 +253,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LargePostPage = /** @class */ (function () {
-    function LargePostPage(_toastService, router) {
+    function LargePostPage(translate, navctrl, _toastService, router) {
+        this.translate = translate;
+        this.navctrl = navctrl;
         this._toastService = _toastService;
         this.router = router;
-        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_2__["config"].mediaApiUrl;
+        this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_3__["config"].mediaApiUrl;
         this.wrongStatus = false;
-        this.tourReadPost = _changeLang__WEBPACK_IMPORTED_MODULE_5__["tourReadPost"];
-        this.tourCatPost = _changeLang__WEBPACK_IMPORTED_MODULE_5__["tourCatPost"];
-        this.tourSkip = _changeLang__WEBPACK_IMPORTED_MODULE_5__["tourSkip"];
+        this.tourReadPost = _changeLang__WEBPACK_IMPORTED_MODULE_6__["tourReadPost"];
+        this.tourCatPost = _changeLang__WEBPACK_IMPORTED_MODULE_6__["tourCatPost"];
+        this.tourSkip = _changeLang__WEBPACK_IMPORTED_MODULE_6__["tourSkip"];
     }
     LargePostPage.prototype.ngOnInit = function () {
         this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
@@ -135,6 +294,7 @@ var LargePostPage = /** @class */ (function () {
         this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
     };
     LargePostPage.prototype.singleNews = function (postid) {
+        var _this = this;
         this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
         this.visitedArray.push(postid);
         localStorage.setItem('isVisited', JSON.stringify(this.visitedArray));
@@ -144,52 +304,93 @@ var LargePostPage = /** @class */ (function () {
             }
             else {
                 localStorage.setItem('firstLargePostClick', '1');
-                this.router.navigateByUrl('/single-post/' + postid);
+                this.navctrl.navigateRoot('/single-post/' + postid);
             }
         }
         else {
-            this.router.navigateByUrl('/single-post/' + postid);
-            this._toastService.toastFunction('No internet connnection', 'danger');
+            this.navctrl.navigateRoot('/single-post/' + postid);
+            this.translate.get('No internet connnection').subscribe(function (mes) {
+                _this._toastService.toastFunction(mes, 'danger');
+            });
         }
         // }
     };
     LargePostPage.prototype.closeModal = function () {
         localStorage.setItem('skip', '1');
-        this.router.navigateByUrl('/all-categories');
+        this.navctrl.navigateRoot('/all-categories');
     };
     LargePostPage.prototype.redirectToSignup = function () {
         localStorage.setItem('skip', '1');
         this.router.navigateByUrl('/login');
     };
     LargePostPage.ctorParameters = function () { return [
-        { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_4__["ToastService"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
+        { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateService"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavController"] },
+        { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"] },
+        { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
     ]; };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('news'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])('news'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], LargePostPage.prototype, "news", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('singleCat'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])('singleCat'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
     ], LargePostPage.prototype, "singleCat", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('language'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])('language'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], LargePostPage.prototype, "language", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('skip'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])('skip'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
     ], LargePostPage.prototype, "skip", void 0);
     LargePostPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Component"])({
             selector: 'app-large-post',
             template: __webpack_require__(/*! raw-loader!./large-post.page.html */ "./node_modules/raw-loader/index.js!./src/app/large-post/large-post.page.html"),
             styles: [__webpack_require__(/*! ./large-post.page.scss */ "./src/app/large-post/large-post.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_toast_service__WEBPACK_IMPORTED_MODULE_4__["ToastService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_1__["NavController"], _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], LargePostPage);
     return LargePostPage;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/shared.module.ts":
+/*!*****************************************!*\
+  !*** ./src/app/shared/shared.module.ts ***!
+  \*****************************************/
+/*! exports provided: SharedModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function() { return SharedModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var time_ago_pipe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! time-ago-pipe */ "./node_modules/time-ago-pipe/esm5/time-ago-pipe.js");
+
+
+
+
+var SharedModule = /** @class */ (function () {
+    function SharedModule() {
+    }
+    SharedModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+            declarations: [time_ago_pipe__WEBPACK_IMPORTED_MODULE_3__["TimeAgoPipe"]],
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]
+            ],
+            exports: [time_ago_pipe__WEBPACK_IMPORTED_MODULE_3__["TimeAgoPipe"]]
+        })
+    ], SharedModule);
+    return SharedModule;
 }());
 
 

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { config } from '../config';
 import {ToastService} from '../services/toast.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-related-post',
   templateUrl: './related-post.page.html',
@@ -17,7 +18,7 @@ export class RelatedPostPage implements OnInit {
   wrongStatus: boolean;
   visitedArray: any;
   isPresent: any;
-  constructor(private router: Router, private _toastService: ToastService) { }
+  constructor(private translate: TranslateService,private router: Router, private _toastService: ToastService) { }
 
   ngOnInit() {
     this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
@@ -45,7 +46,9 @@ export class RelatedPostPage implements OnInit {
         }
       } else {
         this.router.navigateByUrl('/single-post/' + postid);
-        this._toastService.toastFunction('No internet connnection', 'danger');
+        this.translate.get('No internet connection').subscribe((mes:any)=>{
+          this._toastService.toastFunction(mes, 'danger');
+        })
       }
     }
   }

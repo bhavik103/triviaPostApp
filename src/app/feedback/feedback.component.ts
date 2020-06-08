@@ -9,6 +9,7 @@ import { ToastService } from "../services/toast.service";
 import { feedback } from '../changeLang';
 import { AppComponent } from '../app.component'
 import { AdmobfreeService } from '../services/admobfree.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'app-feedback',
@@ -19,8 +20,8 @@ export class FeedbackComponent implements OnInit {
 	loading: any;
 	feedbackTitle = feedback;
 	language: string;
-	constructor(private _admobService: AdmobfreeService,public appcomponent: AppComponent, public platform: Platform, public _toastService: ToastService, public _userService: UserService, private router: Router) { }
-
+	constructor(private translate: TranslateService,private _admobService: AdmobfreeService,public appcomponent: AppComponent, public platform: Platform, public _toastService: ToastService, public _userService: UserService, private router: Router) { }
+	
 	ionViewWillEnter(){
 		this._admobService.interstitalAdOnFivePageChange()
 	}
@@ -52,11 +53,15 @@ export class FeedbackComponent implements OnInit {
 		this.loading = true;
 		this._userService.userFeedbackFrom(feedback).subscribe((res: any) => {
 			this.loading = false;
-			this._toastService.toastFunction(res.message, 'success')
+			this.translate.get(res.message).subscribe((mes:any)=>{
+				this._toastService.toastFunction(mes, 'success')
+			})
 			this.router.navigate(['settings']);
 		}, err => {
 			this.loading = false;
-			this._toastService.toastFunction(err.error.message, 'danger');
+			this.translate.get(err.error.message).subscribe((mes:any)=>{
+				this._toastService.toastFunction(mes, 'success')
+			})
 		})
 	}
 	backButton() {

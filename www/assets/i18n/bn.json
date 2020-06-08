@@ -1,0 +1,19 @@
+{
+    "No internet connection": "ইন্টারনেট সংযোগ নেই",
+    "Please Login": " লগইন করুন",
+    "You are logged out": "আপনি লগ আউট করেছেন",
+    "Bookmark Removed Successfully.": "বুকমার্ক সরানো হয়েছে",
+    "Bookmark Added Successfully.": "বুকমার্ক যুক্ত হয়েছে",
+    "Unsubscribed successfully.": "আনসাবস্ক্রাইব করা হয়েছে",
+    "Subscribed successfully.": "সাবস্ক্রাইব করা হয়েছে",
+    "Feedback Submitted Successfully.": "প্রতিক্রিয়া দেওয়া হয়েছে",
+    "You have registered successfully.": "আপনি রেজিস্টার করেছেন",
+    "Username Already Exists": "এই নামটি আগে থেকেই আছে",
+    "Email Address is already Registered": "ই - মেইল ​​ঠিকানাটি ব্যবহৃত হচ্ছে",
+    "You have successfully Logged In": "আপনি সফলভাবে লগ ইন করেছেন",
+    "Invalid Password. Please enter Valid Password": "অবৈধ পাসওয়ার্ড । বৈধ পাসওয়ার্ড ব্যবহার করুন",
+    "This Username Is Not Registered Please Signup": "ব্যাবহার কারীর নামের অস্তিত্ব নেই । সাইন আপ করুন",
+    "New Password is sent on Email.": "নতুন পাসওয়ার্ড ইতিমধ্যে ইমেল পাঠানো হয়েছে",
+    "Notification Turned On": "বিজ্ঞপ্তি চালু হয়েছে",
+    "Notification Turned Off": "বিজ্ঞপ্তি বন্ধ করা হয়েছে"
+}

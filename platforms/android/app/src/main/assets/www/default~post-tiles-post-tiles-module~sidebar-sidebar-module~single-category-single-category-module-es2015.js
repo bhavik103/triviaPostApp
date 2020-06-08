@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-list\n  lines=\"none\"\n  [ngClass]=\"{'firstTimeBlur': firstTimeBlur, 'isVisited':isPresent}\"\n>\n  <ion-item-sliding class=\"feeds\">\n    <ion-item [ngClass]=\"{'isVisited':isPresent}\">\n      <ion-col size=\"3\" class=\"newsImg\">\n        <div class=\"imageBg\">\n        <img\n          src=\"{{mediaPath}}{{news.newsImage}}\"\n          data-src=\"../../assets/images/placeholder.png'\"\n          onerror=\"this.src='../../assets/images/placeholder.png'\"\n          width=\"100%\"\n          (click)=\"singleNews(news.newsId)\"\n          class=\"loading\"\n        />\n      </div>\n      </ion-col>\n      <ion-col\n        size=\"9\"\n        class=\"postDescription\"\n        (click)=\"singleNews(news.newsId)\"\n      >\n        <div>\n          <span\n            class=\"optionsList\"\n            *ngIf=\"news[language].title\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            [innerHTML]=\"news[language].title\"\n          ></span>\n          <span\n            class=\"optionsList\"\n            *ngIf=\"!news[language].title\"\n            [innerHTML]=\"news.en.title\"\n          ></span>\n          <span\n            class=\"categoryButton assameseFont\"\n            *ngIf=\"news.newsCategory[language]\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            (click)=\"categoryClick(news.newsCategoryId,news.newsCategory[language]);wrongStatus = true\"\n            >{{news.newsCategory[language]}}</span\n          >\n          <span\n            class=\"categoryButton\"\n            *ngIf=\"!news.newsCategory[language]\"\n            (click)=\"categoryClick(news.newsCategoryId,news.newsCategory.en);wrongStatus = true\"\n            >{{news.newsCategory.en}}</span\n          >\n        </div>\n      </ion-col>\n    </ion-item>\n  </ion-item-sliding>\n</ion-list>"
+module.exports = "<ion-list\n  lines=\"none\"\n  [ngClass]=\"{'firstTimeBlur': firstTimeBlur, 'isVisited':isPresent}\"\n>\n  <ion-item-sliding class=\"feeds\">\n    <ion-item [ngClass]=\"{'isVisited':isPresent}\">\n      <ion-col size=\"3\" class=\"newsImg\">\n        <div class=\"imageBg\">\n        <img\n          src=\"{{mediaPath}}{{news.newsImage}}\"\n          data-src=\"assets/images/placeholder.png'\"\n          onerror=\"this.src='../../assets/images/placeholder.png'\"\n          width=\"100%\"\n          (click)=\"singleNews(news.newsId)\"\n          class=\"loading\"\n        />\n      </div>\n      </ion-col>\n      <ion-col\n        size=\"9\"\n        class=\"postDescription\"\n        (click)=\"singleNews(news.newsId)\"\n      >\n        <div>\n          <span\n            class=\"optionsList\"\n            *ngIf=\"news[language].title\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            [innerHTML]=\"news[language].title\"\n          ></span>\n          <span\n            class=\"optionsList\"\n            *ngIf=\"!news[language].title\"\n            [innerHTML]=\"news.en.title\"\n          ></span>\n          <span\n            class=\"categoryButton assameseFont\"\n            *ngIf=\"news.newsCategory[language]\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            (click)=\"categoryClick(news.newsCategoryId,news.newsCategory[language]);wrongStatus = true\"\n            >{{news.newsCategory[language]}}</span\n          >\n          <span\n            class=\"categoryButton\"\n            *ngIf=\"!news.newsCategory[language]\"\n            (click)=\"categoryClick(news.newsCategoryId,news.newsCategory.en);wrongStatus = true\"\n            >{{news.newsCategory.en}}</span\n          >\n        </div>\n      </ion-col>\n    </ion-item>\n  </ion-item-sliding>\n</ion-list>"
 
 /***/ }),
 
@@ -87,6 +87,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
+
+
 
 
 
@@ -95,11 +99,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let PostTilesPage = class PostTilesPage {
-    constructor(_storageService, domSanitizer, _toastService, router) {
+    constructor(translate, _storageService, domSanitizer, _toastService, router, nav) {
+        this.translate = translate;
         this._storageService = _storageService;
         this.domSanitizer = domSanitizer;
         this._toastService = _toastService;
         this.router = router;
+        this.nav = nav;
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_3__["config"].mediaApiUrl;
         this.wrongStatus = false;
         this.firstTimeBlur = false;
@@ -163,7 +169,7 @@ let PostTilesPage = class PostTilesPage {
                     localStorage.setItem('firstLargePostClick', '1');
                     // localStorage.setItem('skip', '1')
                     console.log('postid', postid);
-                    this.router.navigateByUrl('/single-post/' + postid);
+                    this.nav.navigateRoot('/single-post/' + postid);
                 }
             }
             else {
@@ -171,18 +177,22 @@ let PostTilesPage = class PostTilesPage {
                     this.wrongStatus = false;
                 }
                 else {
-                    this.router.navigateByUrl('/single-post/' + postid);
-                    this._toastService.toastFunction('No internet connnection', 'danger');
+                    this.nav.navigateRoot('/single-post/' + postid);
+                    this.translate.get('No internet connection').subscribe((mes) => {
+                        this._toastService.toastFunction(mes, 'danger');
+                    });
                 }
             }
         }
     }
 };
 PostTilesPage.ctorParameters = () => [
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_8__["TranslateService"] },
     { type: _services_storage_service__WEBPACK_IMPORTED_MODULE_1__["StorageService"] },
     { type: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__["DomSanitizer"] },
     { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"] },
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["NavController"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Input"])('singleCat'),
@@ -206,7 +216,8 @@ PostTilesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./post-tiles.page.html */ "./node_modules/raw-loader/index.js!./src/app/post-tiles/post-tiles.page.html"),
         styles: [__webpack_require__(/*! ./post-tiles.page.scss */ "./src/app/post-tiles/post-tiles.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_storage_service__WEBPACK_IMPORTED_MODULE_1__["StorageService"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__["DomSanitizer"], _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_8__["TranslateService"], _services_storage_service__WEBPACK_IMPORTED_MODULE_1__["StorageService"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_6__["DomSanitizer"], _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["NavController"]])
 ], PostTilesPage);
 
 

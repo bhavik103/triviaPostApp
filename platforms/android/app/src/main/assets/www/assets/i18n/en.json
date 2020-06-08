@@ -1,0 +1,19 @@
+{
+    "No internet connection": "No internet connection",
+    "Please Login": "Please Login",
+    "You are logged out": "You are logged out",
+    "Bookmark Removed Successfully.": "Bookmark Removed Successfully",
+    "Bookmark Added Successfully.": "Bookmark Added Successfully",
+    "Unsubscribed successfully.": "Unsubscribed Successfully",
+    "Subscribed successfully.": "Subscribed Successfully",
+    "Feedback Submitted Successfully.": "Feedback Submitted Successfully",
+    "You have Registered Successfully": "You have Registered Successfully",
+    "Username Already Exists": "Username Already Exists",
+    "You have registered successfully.": "Email Address is already Registered",
+    "You have successfully Logged In": "You have successfully Logged In",
+    "Invalid Password. Please enter Valid Password": "Invalid Password. Please enter Valid Password",
+    "This Username Is Not Registered Please Signup": "Username does not exist. Please Signup",
+    "New Password is sent on Email.": "New Password is sent on Email.",
+    "Notification Turned On": "Notification Turned On",
+    "Notification Turned Off": "Notification Turned Off"
+}

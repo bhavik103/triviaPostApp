@@ -11,7 +11,7 @@ import { AuthGuard, LoginGuard } from './guards/user.guard';
 const routes: Routes = [
 	{
 		path: '',
-		redirectTo: 'sidebar',
+		redirectTo: 'sidebar/home',
 		pathMatch: 'full'
 	},
 	{

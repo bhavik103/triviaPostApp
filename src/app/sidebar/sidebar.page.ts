@@ -1,3 +1,4 @@
+import { shareMessage } from './../changeLang';
 import { CategoryService } from './../services/category.service';
 import { ToastService } from './../services/toast.service';
 import { StorageService } from './../services/storage.service';
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import * as _ from 'lodash';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.page.html',
@@ -16,6 +18,7 @@ export class SidebarPage implements OnInit {
   subscription: any;
   language: any;
   constructor(
+    private translate: TranslateService,
     private menu: MenuController,
     private platform: Platform,
     private _storageService: StorageService,
@@ -42,6 +45,7 @@ export class SidebarPage implements OnInit {
   }
 
   getMenuItems() {
+    this.language = localStorage.getItem('language');
     if (navigator.onLine) {
       this._categoryService.getAll().toPromise().then((res: any) => {
         console.log('edfsfsfdsfd', res);
@@ -62,7 +66,9 @@ export class SidebarPage implements OnInit {
             });
           });
         }
-        console.log('OFFLINE', this.menuPages);
+        this.menuPages =  [].concat(this.menuPages).reverse();
+        console.log("THIS.MEWNU",this.menuPages)
+        console.log('ONLINE', this.menuPages);
       });
     } else {
       this._storageService.getCatForOffline().then((res: any) => {
@@ -83,6 +89,8 @@ export class SidebarPage implements OnInit {
               }
             });
           });
+          this.menuPages =  [].concat(this.menuPages).reverse();
+          console.log("THIS.MEWNU",this.menuPages)
           console.log('OFFLINE', this.menuPages);
         }
       });
@@ -94,19 +102,20 @@ export class SidebarPage implements OnInit {
 
   notify(catId) {
     if (!navigator.onLine) {
-      const message = 'No internet connection';
-      const color = 'danger';
-      this._toastService.toastFunction(message, color);
+      this.translate.get('No internet connection').subscribe((res: any) => {
+        this._toastService.toastFunction(res, '');
+      })
     } else if (!localStorage.getItem('accessToken')) {
-      const message = 'You need to login first';
-      const color = 'danger';
-      this._toastService.toastFunction(message, color);
+      this.translate.get('Please Login').subscribe((res: any) => {
+        this._toastService.toastFunction(res, '');
+      })
     } else {
       this._categoryService.notifyUser(catId).subscribe((res: any) => {
         this.getMenuItems();
-        this._toastService.toastFunction(res.message, 'success');
+        this.translate.get(res.message).subscribe((res: any) => {
+          this._toastService.toastFunction(res, 'success');
+        })
       }, err => {
-        this._toastService.toastFunction(err.error.message, 'danger');
       });
     }
   }

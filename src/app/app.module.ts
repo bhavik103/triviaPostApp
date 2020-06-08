@@ -37,10 +37,17 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { SuperTabsModule } from '@ionic-super-tabs/angular';
+import {HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { Market } from '@ionic-native/market/ngx';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { AdmobfreeService } from './services/admobfree.service';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+}
+
 export class HammerConfig extends HammerGestureConfig {
   overrides = {
     swipe: { direction: Hammer.DIRECTION_ALL }
@@ -64,10 +71,18 @@ export class HammerConfig extends HammerGestureConfig {
     FormsModule,
     BrowserModule,
     ReactiveFormsModule,
+    
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (HttpLoaderFactory),
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     AdMobFree,

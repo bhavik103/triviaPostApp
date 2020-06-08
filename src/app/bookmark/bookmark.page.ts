@@ -14,6 +14,8 @@ import { bookmark } from '../changeLang';
 import { AppComponent } from '../app.component'
 import { AdmobfreeService } from '../services/admobfree.service';
 import { shareMessage } from '../changeLang'
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-bookmark',
   templateUrl: './bookmark.page.html',
@@ -35,7 +37,7 @@ export class BookmarkPage implements OnInit {
   wrongStatus: any;
   shareMessage = shareMessage;
 
-  constructor(private _admobService: AdmobfreeService, private appcomponent: AppComponent, private network: Network, private _toastService: ToastService, private platform: Platform, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router) { }
+  constructor(private translate: TranslateService,private _admobService: AdmobfreeService, private appcomponent: AppComponent, private network: Network, private _toastService: ToastService, private platform: Platform, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _newsService: NewsService, public _categoryService: CategoryService, private router: Router) { }
 
   ngOnInit() {
     this.platform.backButton.subscribe(async () => {
@@ -61,7 +63,9 @@ export class BookmarkPage implements OnInit {
       this.hide = false;
       const message = 'No internet connection';
       const color = 'danger';
-      this._toastService.toastFunction(message, color);
+      this.translate.get(message).subscribe((mes:any)=>{
+				this._toastService.toastFunction(mes, 'success')
+			})
     });
   }
 
@@ -86,20 +90,26 @@ export class BookmarkPage implements OnInit {
         });
     }else{
       this.loading = false
-      this._toastService.toastFunction('No internet connection', 'danger');
+      this.translate.get('No internet connection').subscribe((mes:any)=>{
+				this._toastService.toastFunction(mes, 'success')
+			})
     }
   }
 
   deleteBookmarked(id) {
     if (this.network.type == 'none') {
-      this._toastService.toastFunction('No internet connection', 'danger');
+      this.translate.get('No internet connection').subscribe((mes:any)=>{
+				this._toastService.toastFunction(mes, 'success')
+			})
     } else {
       this._newsService.bookmarkPost(id).subscribe((res: any) => {
         console.log("res", res);
-        this._toastService.toastFunction(res.message, 'success');
+        this.translate.get('Bookmark Removed Successfully.').subscribe((mes:any)=>{
+          this._toastService.toastFunction(mes, 'success')
+        })  
         this.bookmarkedNews();
       }, err => {
-        this._toastService.toastFunction(err.error.message, 'danger');
+        // this._toastService.toastFunction(err.error.message, 'danger');
         this.bookmarkedNews();
       })
     }
@@ -119,7 +129,9 @@ export class BookmarkPage implements OnInit {
         .catch((error) => {
         });
     } else {
-      this._toastService.toastFunction('You need to login first!', 'danger')
+      this.translate.get('Please Login').subscribe((mes:any)=>{
+        this._toastService.toastFunction(mes, 'success')
+      })  
     }
   }
 

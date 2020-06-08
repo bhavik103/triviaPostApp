@@ -1,3 +1,4 @@
+import { SidebarPage } from './../sidebar/sidebar.page';
 import { LargePostPage } from './../large-post/large-post.page';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { config } from '../config';
@@ -24,6 +25,7 @@ import { AdmobfreeService } from '../services/admobfree.service';
 import { IonContent } from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
 import { StorageService } from '../services/storage.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -99,6 +101,7 @@ export class HomePage implements OnInit {
     navigate: { title: string; url: string; icon: string; }[];
 
     constructor(
+        private navctrl: NavController, private sidebar: SidebarPage, private translate: TranslateService,
         private menu: MenuController, private network: Network, private _admobService: AdmobfreeService, private market: Market,
         public alertController: AlertController, private _generalService: GeneralService, private nav: NavController,
         private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService,
@@ -170,7 +173,7 @@ export class HomePage implements OnInit {
             }
         });
         if (!localStorage.getItem('firstLargePostClick') && localStorage.getItem('language')) {
-            this.router.navigateByUrl('sidebar/tour-home');
+            this.navctrl.navigateRoot('sidebar/tour-home');
         }
         if (this.platform.is('cordova')) {
             this._admobService.interstitalAdOnFivePageChange();
@@ -232,7 +235,7 @@ export class HomePage implements OnInit {
             }
             this.getAllPost(false, '');
         }
-        
+
         this.catModalShow = localStorage.getItem('catModal');
         // this.loading = false
         if (localStorage.getItem('skip')) {
@@ -263,7 +266,7 @@ export class HomePage implements OnInit {
         // this.latestPost = {};
         localStorage.setItem('firstTimeLoaded', 'true');
         if (this.network.type != 'none') {
-            
+
             this._newsService.getAllNews(this.page_number, this.page_limit).subscribe(
                 async (res: any) => {
                     if (this.page_number == 1) {
@@ -305,7 +308,9 @@ export class HomePage implements OnInit {
 
     doInfinite(event) {
         if (this.network.type == 'none') {
-            this._toastService.toastFunction('No internet connection', 'danger');
+            this.translate.get('No internet connection').subscribe((mes: any) => {
+                this._toastService.toastFunction(mes, 'danger');
+            })
             event.target.complete();
         } else {
             this.getAllPost(true, event);
@@ -338,7 +343,9 @@ export class HomePage implements OnInit {
                 this.hide = false;
             } else {
                 this.hide = true;
-                this._toastService.toastFunction('No internet connection', 'danger');
+                this.translate.get('No internet connection').subscribe((mes: any) => {
+                    this._toastService.toastFunction(mes, 'danger');
+                })
             }
         };
         window.addEventListener('online', alertOnlineStatus);
@@ -401,8 +408,11 @@ export class HomePage implements OnInit {
         }
         const lang = this.selected;
         localStorage.setItem('language', lang);
+        this.translate.use(localStorage.getItem('language'))
+
         console.log('Date in home', new Date().getSeconds());
-        this.router.navigateByUrl('sidebar/tour-home');
+        this.sidebar.getMenuItems();
+        this.navctrl.navigateRoot('sidebar/tour-home');
     }
 
     // set fcm token

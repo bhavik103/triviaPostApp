@@ -251,6 +251,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../changeLang */ "./src/app/changeLang.ts");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
+
 
 
 
@@ -267,7 +269,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let BookmarkPage = class BookmarkPage {
-    constructor(_admobService, appcomponent, network, _toastService, platform, socialSharing, actionSheetController, _newsService, _categoryService, router) {
+    constructor(translate, _admobService, appcomponent, network, _toastService, platform, socialSharing, actionSheetController, _newsService, _categoryService, router) {
+        this.translate = translate;
         this._admobService = _admobService;
         this.appcomponent = appcomponent;
         this.network = network;
@@ -305,7 +308,9 @@ let BookmarkPage = class BookmarkPage {
             this.hide = false;
             const message = 'No internet connection';
             const color = 'danger';
-            this._toastService.toastFunction(message, color);
+            this.translate.get(message).subscribe((mes) => {
+                this._toastService.toastFunction(mes, 'success');
+            });
         });
     }
     bookmarkedNews() {
@@ -327,20 +332,26 @@ let BookmarkPage = class BookmarkPage {
         }
         else {
             this.loading = false;
-            this._toastService.toastFunction('No internet connection', 'danger');
+            this.translate.get('No internet connection').subscribe((mes) => {
+                this._toastService.toastFunction(mes, 'success');
+            });
         }
     }
     deleteBookmarked(id) {
         if (this.network.type == 'none') {
-            this._toastService.toastFunction('No internet connection', 'danger');
+            this.translate.get('No internet connection').subscribe((mes) => {
+                this._toastService.toastFunction(mes, 'success');
+            });
         }
         else {
             this._newsService.bookmarkPost(id).subscribe((res) => {
                 console.log("res", res);
-                this._toastService.toastFunction(res.message, 'success');
+                this.translate.get('Bookmark Removed Successfully.').subscribe((mes) => {
+                    this._toastService.toastFunction(mes, 'success');
+                });
                 this.bookmarkedNews();
             }, err => {
-                this._toastService.toastFunction(err.error.message, 'danger');
+                // this._toastService.toastFunction(err.error.message, 'danger');
                 this.bookmarkedNews();
             });
         }
@@ -360,7 +371,9 @@ let BookmarkPage = class BookmarkPage {
             });
         }
         else {
-            this._toastService.toastFunction('You need to login first!', 'danger');
+            this.translate.get('Please Login').subscribe((mes) => {
+                this._toastService.toastFunction(mes, 'success');
+            });
         }
     }
     getSingleBookmark(id) {
@@ -380,6 +393,7 @@ let BookmarkPage = class BookmarkPage {
     }
 };
 BookmarkPage.ctorParameters = () => [
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__["TranslateService"] },
     { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_13__["AdmobfreeService"] },
     { type: _app_component__WEBPACK_IMPORTED_MODULE_12__["AppComponent"] },
     { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_10__["Network"] },
@@ -397,7 +411,7 @@ BookmarkPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./bookmark.page.html */ "./node_modules/raw-loader/index.js!./src/app/bookmark/bookmark.page.html"),
         styles: [__webpack_require__(/*! ./bookmark.page.scss */ "./src/app/bookmark/bookmark.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_admobfree_service__WEBPACK_IMPORTED_MODULE_13__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_12__["AppComponent"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_10__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ActionSheetController"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__["TranslateService"], _services_admobfree_service__WEBPACK_IMPORTED_MODULE_13__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_12__["AppComponent"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_10__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ActionSheetController"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
 ], BookmarkPage);
 
 

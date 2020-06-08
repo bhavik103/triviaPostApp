@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ToastService } from '../services/toast.service'
 import { DomSanitizer } from '@angular/platform-browser';
 import { NavController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-post-tiles',
   templateUrl: './post-tiles.page.html',
@@ -24,7 +25,7 @@ export class PostTilesPage implements OnInit {
   isPresent: any;
   tokenLocalStorage: string;
   iframe: any;
-  constructor(private _storageService: StorageService, private domSanitizer: DomSanitizer, private _toastService: ToastService, private router: Router,
+  constructor(private translate: TranslateService,private _storageService: StorageService, private domSanitizer: DomSanitizer, private _toastService: ToastService, private router: Router,
     private nav: NavController) {
   }
 
@@ -100,7 +101,9 @@ export class PostTilesPage implements OnInit {
           this.wrongStatus = false
         } else {
           this.nav.navigateRoot('/single-post/' + postid);
-          this._toastService.toastFunction('No internet connnection', 'danger');
+          this.translate.get('No internet connection').subscribe((mes:any)=>{
+            this._toastService.toastFunction(mes, 'danger');
+          })
         }
       }
     }

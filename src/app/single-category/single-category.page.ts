@@ -11,6 +11,7 @@ import { AlertController } from '@ionic/angular';
 import { AppComponent } from '../app.component'
 import { AdmobfreeService } from '../services/admobfree.service';
 import {StorageService} from '../services/storage.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-single-category',
   templateUrl: './single-category.page.html',
@@ -32,7 +33,7 @@ export class SingleCategoryPage implements OnInit {
   limit: any;
   page_number = 1;
   page_limit = 20;
-  constructor(private _storageService: StorageService,private _admobService: AdmobfreeService, public appcomponent: AppComponent, public alertController: AlertController, private ngzone: NgZone, private platform: Platform, private _generalService: GeneralService, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) {
+  constructor(private translate: TranslateService,private _storageService: StorageService,private _admobService: AdmobfreeService, public appcomponent: AppComponent, public alertController: AlertController, private ngzone: NgZone, private platform: Platform, private _generalService: GeneralService, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -112,7 +113,9 @@ export class SingleCategoryPage implements OnInit {
       console.log(event);
     }else{
       event.target.complete();
-      this._toastService.toast('No internet connection','danger')
+      this.translate.get('No internet connection').subscribe((res:any)=>{
+        this._toastService.toast(res,'danger')
+      })
     }
   }
 

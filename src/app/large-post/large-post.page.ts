@@ -1,8 +1,10 @@
+import { NavController } from '@ionic/angular';
 import { Component, OnInit, Input } from '@angular/core';
 import { config } from '../config';
 import { Router } from '@angular/router';
 import { ToastService } from '../services/toast.service'
 import { tourReadPost, tourCatPost, tourSkip } from '../changeLang';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-large-post',
   templateUrl: './large-post.page.html',
@@ -22,7 +24,7 @@ export class LargePostPage implements OnInit {
   tourReadPost = tourReadPost;
   tourCatPost = tourCatPost;
   tourSkip = tourSkip;
-  constructor(private _toastService: ToastService, private router: Router) {
+  constructor(private translate: TranslateService,private navctrl:NavController,private _toastService: ToastService, private router: Router) {
   }
 
   ngOnInit() {
@@ -68,18 +70,20 @@ export class LargePostPage implements OnInit {
       }
       else {
         localStorage.setItem('firstLargePostClick', '1')
-        this.router.navigateByUrl('/single-post/' + postid);
+        this.navctrl.navigateRoot('/single-post/' + postid);
       }
     } else {
-      this.router.navigateByUrl('/single-post/' + postid);
-      this._toastService.toastFunction('No internet connnection', 'danger');
+      this.navctrl.navigateRoot('/single-post/' + postid);
+      this.translate.get('No internet connnection').subscribe((mes:any)=>{
+        this._toastService.toastFunction(mes, 'danger');
+      })
     }
     // }
   }
 
   closeModal() {
     localStorage.setItem('skip', '1')
-    this.router.navigateByUrl('/all-categories')
+    this.navctrl.navigateRoot('/all-categories')
   }
 
   redirectToSignup() {

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~all-categories-all-categories-module~category-tiles-category-tiles-module~sidebar-sidebar-module"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["default~all-categories-all-categories-module~category-tiles-category-tiles-module~home-home-module"],{
 
 /***/ "./node_modules/intro.js/intro.js":
 /*!****************************************!*\
@@ -2535,160 +2535,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div\n  [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n  class=\"container\"\n  (click)=\"singleCategory(category.categoryId,category.category[language])\"\n>\n  <img\n    src=\"{{mediaPath}}{{category.categoryImage}}\"\n    data-src=\"../../assets/images/placeholder.png'\"\n    onerror=\"this.src='../../assets/images/placeholder.png'\"\n    alt=\"Category Image\"\n    style=\"width:100%;\"\n  />\n</div>\n<div class=\"text-block\">\n  <div\n    *ngIf=\"!category.isNotify && (firstTime && !skip) && index == 0\"\n    class=\"tourText\"\n  >\n    {{tourCategory[language]}}\n  </div>\n  <div class=\"\">\n    <div\n      class=\"category_title\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n    >\n      <p\n        [ngClass]=\"{'assameseFont': language == 'as'}\"\n        (click)=\"singleCategory(category.categoryId,category.category[language])\"\n      >\n        {{category.category[language] | slice:0:30}}\n      </p>\n    </div>\n    <button\n      *ngIf=\"!category.isNotify && (!firstTime || skip)\"\n      class=\"notSubscribed\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button\n      *ngIf=\"!category.isNotify && (firstTime && !skip) && index == 0\"\n      class=\"notSubscribed firstTimeButton\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      <div class=\"ripple_effect\"></div>\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button\n      *ngIf=\"!category.isNotify && (firstTime && !skip) && index != 0\"\n      class=\"notSubscribed notFirstTime\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button\n      *ngIf=\"category.isNotify\"\n      class=\"subscribed\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      Subscribed\n    </button>\n  </div>\n</div>\n\n<div id=\"open-modal\" class=\"modal-window\" *ngIf=\"modal && index == 0\">\n  <div>\n    <div class=\"img_border\">\n      <img\n        src=\"../../assets/images/notificationNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 0 || !sliderIndex\"\n      />\n      <img\n        src=\"../../assets/images/share.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 1\"\n      />\n      <img\n        src=\"../../assets/images/bookmarkNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 2\"\n      />\n    </div>\n    <ion-slides pager (ionSlideWillChange)=\"slideDidChange()\">\n      <ion-slide>\n        <div></div>\n        <h3>{{modalNotificationTitle[language]}}</h3>\n        <p>{{modalNotificationText[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{sharePostModal[language]}}</h3>\n        <p>{{sharePostModalContent[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{modalBookmarkTitle[language]}}</h3>\n        <p>{{modalBookmarkText[language]}}</p>\n      </ion-slide>\n    </ion-slides>\n    <div>\n      <button class=\"signupButton\" (click)=\"next()\">\n        <div class=\"ripple_effect\" *ngIf=\"!skip\"></div>\n        {{nextButton[language]}}\n      </button>\n    </div>\n  </div>\n</div>\n<div id=\"open-modal\" class=\"modal-window\" *ngIf=\"modalSkip\">\n  <div>\n    <div class=\"img_border\">\n      <img\n        src=\"../../assets/images/notificationNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 0 || !sliderIndex\"\n      />\n      <img\n        src=\"../../assets/images/share.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 1\"\n      />\n      <img\n        src=\"../../assets/images/bookmarkNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 2\"\n      />\n    </div>\n    <ion-slides pager (ionSlideWillChange)=\"slideDidChange()\">\n      <ion-slide>\n        <div></div>\n        <h3>{{modalNotificationTitle[language]}}</h3>\n        <p>{{modalNotificationText[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{sharePostModal[language]}}</h3>\n        <p>{{sharePostModalContent[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{modalBookmarkTitle[language]}}</h3>\n        <p>{{modalBookmarkText[language]}}</p>\n      </ion-slide>\n    </ion-slides>\n    <div>\n      <button class=\"signupButton\" (click)=\"nextSkip()\">\n        <div class=\"ripple_effect\" *ngIf=\"!skip\"></div>\n        {{nextButton[language]}}\n      </button>\n      <div class=\"tourText tourTextModal\" *ngIf=\"!skip\">\n        {{proceedTour[language]}}\n      </div>\n    </div>\n  </div>\n</div>"
-
-/***/ }),
-
-/***/ "./node_modules/time-ago-pipe/esm5/time-ago-pipe.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/time-ago-pipe/esm5/time-ago-pipe.js ***!
-  \**********************************************************/
-/*! exports provided: TimeAgoPipe */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TimeAgoPipe", function() { return TimeAgoPipe; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var TimeAgoPipe = /** @class */ (function () {
-    /**
-     * @param {?} changeDetectorRef
-     * @param {?} ngZone
-     */
-    function TimeAgoPipe(changeDetectorRef, ngZone) {
-        this.changeDetectorRef = changeDetectorRef;
-        this.ngZone = ngZone;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    TimeAgoPipe.prototype.transform = function (value) {
-        var _this = this;
-        this.removeTimer();
-        var /** @type {?} */ d = new Date(value);
-        var /** @type {?} */ now = new Date();
-        var /** @type {?} */ seconds = Math.round(Math.abs((now.getTime() - d.getTime()) / 1000));
-        var /** @type {?} */ timeToUpdate = (Number.isNaN(seconds)) ? 1000 : this.getSecondsUntilUpdate(seconds) * 1000;
-        this.timer = this.ngZone.runOutsideAngular(function () {
-            if (typeof window !== 'undefined') {
-                return window.setTimeout(function () {
-                    _this.ngZone.run(function () { return _this.changeDetectorRef.markForCheck(); });
-                }, timeToUpdate);
-            }
-            return null;
-        });
-        var /** @type {?} */ minutes = Math.round(Math.abs(seconds / 60));
-        var /** @type {?} */ hours = Math.round(Math.abs(minutes / 60));
-        var /** @type {?} */ days = Math.round(Math.abs(hours / 24));
-        var /** @type {?} */ months = Math.round(Math.abs(days / 30.416));
-        var /** @type {?} */ years = Math.round(Math.abs(days / 365));
-        if (Number.isNaN(seconds)) {
-            return '';
-        }
-        else if (seconds <= 45) {
-            return 'a few seconds ago';
-        }
-        else if (seconds <= 90) {
-            return 'a minute ago';
-        }
-        else if (minutes <= 45) {
-            return minutes + ' minutes ago';
-        }
-        else if (minutes <= 90) {
-            return 'an hour ago';
-        }
-        else if (hours <= 22) {
-            return hours + ' hours ago';
-        }
-        else if (hours <= 36) {
-            return 'a day ago';
-        }
-        else if (days <= 25) {
-            return days + ' days ago';
-        }
-        else if (days <= 45) {
-            return 'a month ago';
-        }
-        else if (days <= 345) {
-            return months + ' months ago';
-        }
-        else if (days <= 545) {
-            return 'a year ago';
-        }
-        else {
-            // (days > 545)
-            return years + ' years ago';
-        }
-    };
-    /**
-     * @return {?}
-     */
-    TimeAgoPipe.prototype.ngOnDestroy = function () {
-        this.removeTimer();
-    };
-    /**
-     * @return {?}
-     */
-    TimeAgoPipe.prototype.removeTimer = function () {
-        if (this.timer) {
-            window.clearTimeout(this.timer);
-            this.timer = null;
-        }
-    };
-    /**
-     * @param {?} seconds
-     * @return {?}
-     */
-    TimeAgoPipe.prototype.getSecondsUntilUpdate = function (seconds) {
-        var /** @type {?} */ min = 60;
-        var /** @type {?} */ hr = min * 60;
-        var /** @type {?} */ day = hr * 24;
-        if (seconds < min) {
-            // less than 1 min, update every 2 secs
-            return 2;
-        }
-        else if (seconds < hr) {
-            // less than an hour, update every 30 secs
-            return 30;
-        }
-        else if (seconds < day) {
-            // less then a day, update every 5 mins
-            return 300;
-        }
-        else {
-            // update every hour
-            return 3600;
-        }
-    };
-    return TimeAgoPipe;
-}());
-TimeAgoPipe.decorators = [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"], args: [{
-                name: 'timeAgo',
-                pure: false
-            },] },
-];
-/** @nocollapse */
-TimeAgoPipe.ctorParameters = function () { return [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ChangeDetectorRef"], },
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"], },
-]; };
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
- */
-
-//# sourceMappingURL=time-ago-pipe.js.map
-
+module.exports = "<div\n  [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n  class=\"container\"\n  (click)=\"singleCategory(category.categoryId,category.category[language])\"\n>\n  <img\n    src=\"{{mediaPath}}{{category.categoryImage}}\"\n    data-src=\"assets/images/placeholder.png'\"\n    onerror=\"this.src='../../assets/images/placeholder.png'\"\n    alt=\"Category Image\"\n    style=\"width:100%;\"\n  />\n</div>\n<div class=\"text-block\">\n  <div\n    *ngIf=\"!category.isNotify && (firstTime && !skip) && index == 0\"\n    class=\"tourText\"\n  >\n    {{tourCategory[language]}}\n  </div>\n  <div class=\"\">\n    <div\n      class=\"category_title\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n    >\n      <p\n        [ngClass]=\"{'assameseFont': language == 'as'}\"\n        (click)=\"singleCategory(category.categoryId,category.category[language])\"\n      >\n        {{category.category[language] | slice:0:30}}\n      </p>\n    </div>\n    <button\n      *ngIf=\"!category.isNotify && (!firstTime || skip)\"\n      class=\"notSubscribed\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button\n      *ngIf=\"!category.isNotify && (firstTime && !skip) && index == 0\"\n      class=\"notSubscribed firstTimeButton\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      <div class=\"ripple_effect\"></div>\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button\n      *ngIf=\"!category.isNotify && (firstTime && !skip) && index != 0\"\n      class=\"notSubscribed notFirstTime\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      <ion-icon name=\"notifications-outline\"></ion-icon> Subscribe\n    </button>\n    <button\n      *ngIf=\"category.isNotify\"\n      class=\"subscribed\"\n      [ngClass]=\"{'tourBlur': ifTourCompleted && !skip}\"\n      (click)=\"addNotify(category.categoryId, category.isNotify,firstTime)\"\n    >\n      Subscribed\n    </button>\n  </div>\n</div>\n\n<div id=\"open-modal\" class=\"modal-window\" *ngIf=\"modal && index == 0\">\n  <div>\n    <div class=\"img_border\">\n      <img\n        src=\"assets/images/notificationNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 0 || !sliderIndex\"\n      />\n      <img\n        src=\"assets/images/share.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 1\"\n      />\n      <img\n        src=\"assets/images/bookmarkNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 2\"\n      />\n    </div>\n    <ion-slides pager (ionSlideWillChange)=\"slideDidChange()\">\n      <ion-slide>\n        <div></div>\n        <h3>{{modalNotificationTitle[language]}}</h3>\n        <p>{{modalNotificationText[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{sharePostModal[language]}}</h3>\n        <p>{{sharePostModalContent[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{modalBookmarkTitle[language]}}</h3>\n        <p>{{modalBookmarkText[language]}}</p>\n      </ion-slide>\n    </ion-slides>\n    <div>\n      <button class=\"signupButton\" (click)=\"next()\">\n        <div class=\"ripple_effect\" *ngIf=\"!skip\"></div>\n        {{nextButton[language]}}\n      </button>\n    </div>\n  </div>\n</div>\n<div id=\"open-modal\" class=\"modal-window\" *ngIf=\"modalSkip\">\n  <div>\n    <div class=\"img_border\">\n      <img\n        src=\"assets/images/notificationNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 0 || !sliderIndex\"\n      />\n      <img\n        src=\"assets/images/share.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 1\"\n      />\n      <img\n        src=\"assets/images/bookmarkNew.png\"\n        alt=\"\"\n        *ngIf=\"sliderIndex == 2\"\n      />\n    </div>\n    <ion-slides pager (ionSlideWillChange)=\"slideDidChange()\">\n      <ion-slide>\n        <div></div>\n        <h3>{{modalNotificationTitle[language]}}</h3>\n        <p>{{modalNotificationText[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{sharePostModal[language]}}</h3>\n        <p>{{sharePostModalContent[language]}}</p>\n      </ion-slide>\n      <ion-slide>\n        <h3>{{modalBookmarkTitle[language]}}</h3>\n        <p>{{modalBookmarkText[language]}}</p>\n      </ion-slide>\n    </ion-slides>\n    <div>\n      <button class=\"signupButton\" (click)=\"nextSkip()\">\n        <div class=\"ripple_effect\" *ngIf=\"!skip\"></div>\n        {{nextButton[language]}}\n      </button>\n      <div class=\"tourText tourTextModal\" *ngIf=\"!skip\">\n        {{proceedTour[language]}}\n      </div>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -2703,9 +2550,9 @@ TimeAgoPipe.ctorParameters = function () { return [
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoryTilesPageModule", function() { return CategoryTilesPageModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../shared/shared.module */ "./src/app/shared/shared.module.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _category_tiles_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./category-tiles.page */ "./src/app/category-tiles/category-tiles.page.ts");
@@ -2716,28 +2563,25 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var CategoryTilesPageModule = /** @class */ (function () {
-    function CategoryTilesPageModule() {
-    }
-    CategoryTilesPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [
-                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-                _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
-                _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
-            ],
-            declarations: [_category_tiles_page__WEBPACK_IMPORTED_MODULE_6__["CategoryTilesPage"]],
-            entryComponents: [
-                _category_tiles_page__WEBPACK_IMPORTED_MODULE_6__["CategoryTilesPage"],
-            ],
-            exports: [
-                _category_tiles_page__WEBPACK_IMPORTED_MODULE_6__["CategoryTilesPage"],
-            ],
-        })
-    ], CategoryTilesPageModule);
-    return CategoryTilesPageModule;
-}());
+let CategoryTilesPageModule = class CategoryTilesPageModule {
+};
+CategoryTilesPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        imports: [
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["IonicModule"],
+            _shared_shared_module__WEBPACK_IMPORTED_MODULE_4__["SharedModule"]
+        ],
+        declarations: [_category_tiles_page__WEBPACK_IMPORTED_MODULE_6__["CategoryTilesPage"]],
+        entryComponents: [
+            _category_tiles_page__WEBPACK_IMPORTED_MODULE_6__["CategoryTilesPage"],
+        ],
+        exports: [
+            _category_tiles_page__WEBPACK_IMPORTED_MODULE_6__["CategoryTilesPage"],
+        ],
+    })
+], CategoryTilesPageModule);
 
 
 
@@ -2765,10 +2609,10 @@ module.exports = "ion-col {\n  padding: 12px;\n}\n\np {\n  margin: 0;\n  padding
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoryTilesPage", function() { return CategoryTilesPage; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
 /* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/category.service */ "./src/app/services/category.service.ts");
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
 /* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
@@ -2777,6 +2621,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var intro_js_intro_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! intro.js/intro.js */ "./node_modules/intro.js/intro.js");
 /* harmony import */ var intro_js_intro_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(intro_js_intro_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 
 
 
@@ -2788,8 +2633,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var CategoryTilesPage = /** @class */ (function () {
-    function CategoryTilesPage(_toastService, network, _categoryService, router) {
+
+let CategoryTilesPage = class CategoryTilesPage {
+    constructor(translate, _toastService, network, _categoryService, router) {
+        this.translate = translate;
         this._toastService = _toastService;
         this.network = network;
         this._categoryService = _categoryService;
@@ -2807,7 +2654,7 @@ var CategoryTilesPage = /** @class */ (function () {
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_5__["config"].mediaApiUrl;
         this.introJS = intro_js_intro_js__WEBPACK_IMPORTED_MODULE_10__();
     }
-    CategoryTilesPage.prototype.ngOnInit = function () {
+    ngOnInit() {
         console.log("INDEX", this.index);
         if (!localStorage.getItem('catModal')) {
             console.log("Hello");
@@ -2818,21 +2665,20 @@ var CategoryTilesPage = /** @class */ (function () {
             console.log('this.ifTourCompleted', this.ifTourCompleted);
         }
         this.skip = localStorage.getItem('skip');
-        var alertOnlineStatus = function () {
+        const alertOnlineStatus = () => {
         };
         window.addEventListener('online', alertOnlineStatus);
         window.addEventListener('offline', alertOnlineStatus);
         console.log("this.categories in child", this.category);
         console.log("this.categories in child", this.language);
-    };
-    CategoryTilesPage.prototype.goToAllPosts = function () {
+    }
+    goToAllPosts() {
         this.router.navigateByUrl('/home/all-post');
-    };
-    CategoryTilesPage.prototype.singleCategory = function (catId, catname) {
+    }
+    singleCategory(catId, catname) {
         this.router.navigateByUrl('single-category/' + catId + '/' + catname);
-    };
-    CategoryTilesPage.prototype.addNotify = function (catId, isNotify) {
-        var _this = this;
+    }
+    addNotify(catId, isNotify) {
         if (!localStorage.getItem('catModalShow') && !localStorage.getItem('skip')) {
             this.modal = true;
             localStorage.setItem('catModalShow', '1');
@@ -2842,62 +2688,52 @@ var CategoryTilesPage = /** @class */ (function () {
         }
         else {
             if (this.network.type == 'none') {
-                var message = "No internet connection";
-                var color = "danger";
-                this._toastService.toastFunction(message, color);
+                const message = "No internet connection";
+                const color = "danger";
+                this.translate.get(message).subscribe((res) => {
+                    this._toastService.toastFunction(res, color);
+                });
             }
             else {
-                this._categoryService.notifyUser(catId).subscribe(function (res) {
-                    _this._toastService.toastFunction(res.message, 'success');
+                this._categoryService.notifyUser(catId).subscribe((res) => {
+                    this.translate.get(res.message).subscribe((mes) => {
+                        this._toastService.toastFunction(mes, 'success');
+                    });
                     var emitObject = { catId: catId, statusCode: res.statusCode };
                     console.log("EMIT OBJECT", emitObject);
-                    _this.onSubscribe.emit(emitObject);
-                }, function (err) {
-                    _this._toastService.toastFunction(err.error.message, 'danger');
+                    this.onSubscribe.emit(emitObject);
+                }, err => {
                 });
             }
         }
-    };
-    CategoryTilesPage.prototype.closeModal = function () {
+    }
+    closeModal() {
         localStorage.setItem('catModal', '1');
         this.modal = false;
-    };
-    CategoryTilesPage.prototype.redirectToSignup = function () {
+    }
+    redirectToSignup() {
         localStorage.setItem('catModal', '1');
         this.router.navigateByUrl('/login');
-    };
-    CategoryTilesPage.prototype.slideDidChange = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            var _a;
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.slider.getActiveIndex()];
-                    case 1:
-                        _a.sliderIndex = _b.sent();
-                        console.log("ACTIVE INDEX", this.sliderIndex);
-                        return [2 /*return*/];
-                }
-            });
+    }
+    slideDidChange() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.sliderIndex = yield this.slider.getActiveIndex();
+            console.log("ACTIVE INDEX", this.sliderIndex);
         });
-    };
-    CategoryTilesPage.prototype.next = function () {
-        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
-            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
-                if (this.sliderIndex == 2) {
-                    localStorage.setItem('catModalShow', '1');
-                    localStorage.setItem('catModal', '1');
-                    this.router.navigateByUrl('/login');
-                }
-                else {
-                    this.slider.slideNext();
-                }
-                return [2 /*return*/];
-            });
+    }
+    next() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            if (this.sliderIndex == 2) {
+                localStorage.setItem('catModalShow', '1');
+                localStorage.setItem('catModal', '1');
+                this.router.navigateByUrl('/login');
+            }
+            else {
+                this.slider.slideNext();
+            }
         });
-    };
-    CategoryTilesPage.prototype.nextSkip = function () {
+    }
+    nextSkip() {
         if (this.sliderIndex == 2) {
             localStorage.setItem('catModalShow', '1');
             localStorage.setItem('catModal', '1');
@@ -2906,88 +2742,51 @@ var CategoryTilesPage = /** @class */ (function () {
         else {
             this.slider.slideNext();
         }
-    };
-    CategoryTilesPage.ctorParameters = function () { return [
-        { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"] },
-        { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"] },
-        { type: _services_category_service__WEBPACK_IMPORTED_MODULE_4__["CategoryService"] },
-        { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
-    ]; };
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('category'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], CategoryTilesPage.prototype, "category", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('language'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
-    ], CategoryTilesPage.prototype, "language", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('firstTime'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], CategoryTilesPage.prototype, "firstTime", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('index'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
-    ], CategoryTilesPage.prototype, "index", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
-    ], CategoryTilesPage.prototype, "onSubscribe", void 0);
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_9__["IonSlides"], { static: false }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["IonSlides"])
-    ], CategoryTilesPage.prototype, "slider", void 0);
-    CategoryTilesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-category-tiles',
-            template: __webpack_require__(/*! raw-loader!./category-tiles.page.html */ "./node_modules/raw-loader/index.js!./src/app/category-tiles/category-tiles.page.html"),
-            styles: [__webpack_require__(/*! ./category-tiles.page.scss */ "./src/app/category-tiles/category-tiles.page.scss")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _services_category_service__WEBPACK_IMPORTED_MODULE_4__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
-    ], CategoryTilesPage);
-    return CategoryTilesPage;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/shared/shared.module.ts":
-/*!*****************************************!*\
-  !*** ./src/app/shared/shared.module.ts ***!
-  \*****************************************/
-/*! exports provided: SharedModule */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedModule", function() { return SharedModule; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var time_ago_pipe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! time-ago-pipe */ "./node_modules/time-ago-pipe/esm5/time-ago-pipe.js");
-
-
-
-
-var SharedModule = /** @class */ (function () {
-    function SharedModule() {
     }
-    SharedModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            declarations: [time_ago_pipe__WEBPACK_IMPORTED_MODULE_3__["TimeAgoPipe"]],
-            imports: [
-                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]
-            ],
-            exports: [time_ago_pipe__WEBPACK_IMPORTED_MODULE_3__["TimeAgoPipe"]]
-        })
-    ], SharedModule);
-    return SharedModule;
-}());
+};
+CategoryTilesPage.ctorParameters = () => [
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_11__["TranslateService"] },
+    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"] },
+    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"] },
+    { type: _services_category_service__WEBPACK_IMPORTED_MODULE_4__["CategoryService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] }
+];
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('category'),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+], CategoryTilesPage.prototype, "category", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('language'),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
+], CategoryTilesPage.prototype, "language", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('firstTime'),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+], CategoryTilesPage.prototype, "firstTime", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])('index'),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+], CategoryTilesPage.prototype, "index", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"])
+], CategoryTilesPage.prototype, "onSubscribe", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])(_ionic_angular__WEBPACK_IMPORTED_MODULE_9__["IonSlides"], { static: false }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _ionic_angular__WEBPACK_IMPORTED_MODULE_9__["IonSlides"])
+], CategoryTilesPage.prototype, "slider", void 0);
+CategoryTilesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-category-tiles',
+        template: __webpack_require__(/*! raw-loader!./category-tiles.page.html */ "./node_modules/raw-loader/index.js!./src/app/category-tiles/category-tiles.page.html"),
+        styles: [__webpack_require__(/*! ./category-tiles.page.scss */ "./src/app/category-tiles/category-tiles.page.scss")]
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_11__["TranslateService"], _services_toast_service__WEBPACK_IMPORTED_MODULE_7__["ToastService"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_6__["Network"], _services_category_service__WEBPACK_IMPORTED_MODULE_4__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+], CategoryTilesPage);
 
 
 
 /***/ })
 
 }]);
-//# sourceMappingURL=default~all-categories-all-categories-module~category-tiles-category-tiles-module~sidebar-sidebar-module-es5.js.map
+//# sourceMappingURL=default~all-categories-all-categories-module~category-tiles-category-tiles-module~home-home-module-es2015.js.map

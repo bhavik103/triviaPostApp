@@ -22,7 +22,8 @@ import {
   AdMobFreeInterstitialConfig,
   AdMobFreeRewardVideoConfig
 } from '@ionic-native/admob-free/ngx';
-import { single, count } from 'rxjs/operators';
+import { Location } from "@angular/common";
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-single-post',
   templateUrl: './single-post.page.html',
@@ -64,10 +65,11 @@ export class SinglePostPage implements OnInit {
   skipClick: any;
   byPassedNewsEn: any;
   iframe: any;
-  constructor(private _StorageService: StorageService, private admobFree: AdMobFree, public _admobService: AdmobfreeService, public appcomponent: AppComponent, private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
+  constructor(private translate: TranslateService,private location: Location,private _StorageService: StorageService, private admobFree: AdMobFree, public _admobService: AdmobfreeService, public appcomponent: AppComponent, private alertController: AlertController, private domSanitizer: DomSanitizer, private iab: InAppBrowser, private firebaseAnalytics: FirebaseAnalytics, private platform: Platform, private network: Network, private _toastService: ToastService, private _newsService: NewsService, private route: ActivatedRoute, private socialSharing: SocialSharing, private router: Router) { }
 
   ngOnInit() {
     this.platform.backButton.subscribe(async () => {
+      // this.location.back();
       this.appcomponent.openRatingModal();
     });
     this.route.params.subscribe((param: any) => {
@@ -82,6 +84,7 @@ export class SinglePostPage implements OnInit {
     $('.indexLoader').css('display', 'none');
   }
   ionViewWillEnter() {
+    
     this._admobService.interstitalAdOnFivePageChange()
     if (localStorage.getItem('bookmarkFlag') && localStorage.getItem('shareFlag') && !localStorage.getItem('catModal')) {
       this.router.navigateByUrl('/all-categories')
@@ -250,15 +253,22 @@ export class SinglePostPage implements OnInit {
       localStorage.setItem('skip', '1')
       if (!localStorage.getItem('accessToken')) {
         localStorage.setItem('bookmarkId', newsid);
-        this._toastService.toastFunction('You need to login first', 'danger');
+        this.translate.get('Please Login').subscribe((res:any)=>{
+          this._toastService.toastFunction(res, 'danger');
+        })
         this.router.navigateByUrl('/login');
       } else {
         if (this.network.type == 'none') {
           this.singlePostfun(newsid);
-          this._toastService.toastFunction('No internet connection', 'danger');
+          this.translate.get('No internet connection').subscribe((res:any)=>{
+            this._toastService.toastFunction(res, 'danger');
+          })
         } else {
           this._newsService.bookmarkPost(newsid).subscribe((res: any) => {
-            this._toastService.toastFunction(res.message, 'success');
+            this.translate.get(res.message).subscribe((res:any)=>{
+              this._toastService.toastFunction(res, 'danger');
+            })
+  
             this.singlePostfun(newsid);
 
             if (localStorage.getItem('bookmarkId')) {
@@ -266,15 +276,10 @@ export class SinglePostPage implements OnInit {
               this.loginBookmark = true;
             }
           }, err => {
-            this._toastService.toastFunction(err.error.message, 'danger');
           })
         }
       }
     }
-  }
-
-  alreadyLiked() {
-    this._toastService.toastFunction('You have already liked!', 'danger');
   }
 
   openWithSystemBrowser(url) {

@@ -1,3 +1,4 @@
+import { NavController } from '@ionic/angular';
 import { StorageService } from './../services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -20,7 +21,7 @@ export class TourHomePage implements OnInit {
   page_number = 2;
   page_limit = 20;
 
-  constructor(public _storageService: StorageService, public storage: Storage, public _userService: UserService, public _newsService: NewsService, private router: Router) { }
+  constructor(public navctrl: NavController,public _storageService: StorageService, public storage: Storage, public _userService: UserService, public _newsService: NewsService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -138,12 +139,12 @@ export class TourHomePage implements OnInit {
   //navigate to searchbar
   search() {
     if (localStorage.getItem('skip')) {
-      this.router.navigateByUrl('/searchBar');
+      this.navctrl.navigateRoot('/searchBar');
     }
   }
   settings() {
     if (localStorage.getItem('skip')) {
-      this.router.navigateByUrl('/settings');
+      this.navctrl.navigateRoot('/settings');
     }
   }
 }

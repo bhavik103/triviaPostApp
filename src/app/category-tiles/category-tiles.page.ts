@@ -5,9 +5,10 @@ import { CategoryService } from '../services/category.service';
 import { config } from '../config';
 import { Network } from '@ionic-native/network/ngx';
 import { ToastService } from "../services/toast.service";
-import { nextButton,tourCategory, sharePostModalContent, sharePostModal, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
+import { nextButton, tourCategory, sharePostModalContent, sharePostModal, modalBookmarkText, modalBookmarkTitle, modalNotificationText, modalNotificationTitle, proceedTour } from 'app/changeLang';
 import { IonSlides } from '@ionic/angular';
 import * as introJs from 'intro.js/intro.js';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-category-tiles',
   templateUrl: './category-tiles.page.html',
@@ -36,7 +37,7 @@ export class CategoryTilesPage implements OnInit {
   ifTourCompleted: any;
   introJS = introJs();
   modalSkip: boolean;
-  constructor(private _toastService: ToastService, private network: Network, private _categoryService: CategoryService, private router: Router) {
+  constructor(private translate: TranslateService,private _toastService: ToastService, private network: Network, private _categoryService: CategoryService, private router: Router) {
   }
 
   ngOnInit() {
@@ -76,15 +77,18 @@ export class CategoryTilesPage implements OnInit {
       if (this.network.type == 'none') {
         const message = "No internet connection";
         const color = "danger";
-        this._toastService.toastFunction(message, color);
+        this.translate.get(message).subscribe((res: any)=>{
+          this._toastService.toastFunction(res, color);
+        })
       } else {
         this._categoryService.notifyUser(catId).subscribe((res: any) => {
-          this._toastService.toastFunction(res.message, 'success');
+        this.translate.get(res.message).subscribe((mes: any)=>{
+          this._toastService.toastFunction(mes, 'success');
+        })
           var emitObject = { catId: catId, statusCode: res.statusCode }
           console.log("EMIT OBJECT", emitObject)
           this.onSubscribe.emit(emitObject);
         }, err => {
-          this._toastService.toastFunction(err.error.message, 'danger');
         })
       }
     }

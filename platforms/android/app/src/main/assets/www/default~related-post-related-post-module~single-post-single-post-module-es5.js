@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-list lines=\"none\" [ngClass]=\"{'isVisited':isPresent}\">\n  <ion-item-sliding class=\"feeds\">\n    <ion-item [ngClass]=\"{'isVisited':isPresent}\">\n      <ion-col size=\"3\" class=\"newsImg\" padding>\n        <img\n          src=\"{{mediaPath}}{{news.newsImage}}\"\n          data-src=\"../../assets/images/placeholder.png'\"\n          onerror=\"this.src='../../assets/images/placeholder.png'\"\n          width=\"100%\"\n          (click)=\"singleNews(news.newsId)\"\n          class=\"loading\"\n        />\n      </ion-col>\n      <ion-col\n        size=\"9\"\n        class=\"postDescription\"\n        (click)=\"singleNews(news.newsId)\"\n      >\n        <div>\n          <span\n            class=\"optionsList\"\n            *ngIf=\"news[language].title\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            [innerHTML]=\"news[language].title\"\n          ></span>\n          <span\n            class=\"optionsList\"\n            *ngIf=\"!news[language].title\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            [innerHTML]=\"news.en.title\"\n          ></span>\n          <span\n            class=\"categoryButton\"\n            *ngIf=\"news.newsCategory[language]\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            (click)=\"categoryClick(news.newsCategoryId,news.newsCategory[language]);wrongStatus = true\"\n            >{{news.newsCategory[language]}}</span\n          >\n          <span\n            class=\"categoryButton\"\n            *ngIf=\"!news.newsCategory[language]\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            (click)=\"categoryClick(news.newsCategoryId,news.newsCategory[language]);wrongStatus = true\"\n            >{{news.newsCategory.en}}</span\n          >\n        </div>\n      </ion-col>\n    </ion-item>\n  </ion-item-sliding>\n</ion-list>"
+module.exports = "<ion-list lines=\"none\" [ngClass]=\"{'isVisited':isPresent}\">\n  <ion-item-sliding class=\"feeds\">\n    <ion-item [ngClass]=\"{'isVisited':isPresent}\">\n      <ion-col size=\"3\" class=\"newsImg\" padding>\n        <img\n          src=\"{{mediaPath}}{{news.newsImage}}\"\n          data-src=\"assets/images/placeholder.png'\"\n          onerror=\"this.src='../../assets/images/placeholder.png'\"\n          width=\"100%\"\n          (click)=\"singleNews(news.newsId)\"\n          class=\"loading\"\n        />\n      </ion-col>\n      <ion-col\n        size=\"9\"\n        class=\"postDescription\"\n        (click)=\"singleNews(news.newsId)\"\n      >\n        <div>\n          <span\n            class=\"optionsList\"\n            *ngIf=\"news[language].title\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            [innerHTML]=\"news[language].title\"\n          ></span>\n          <span\n            class=\"optionsList\"\n            *ngIf=\"!news[language].title\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            [innerHTML]=\"news.en.title\"\n          ></span>\n          <span\n            class=\"categoryButton\"\n            *ngIf=\"news.newsCategory[language]\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            (click)=\"categoryClick(news.newsCategoryId,news.newsCategory[language]);wrongStatus = true\"\n            >{{news.newsCategory[language]}}</span\n          >\n          <span\n            class=\"categoryButton\"\n            *ngIf=\"!news.newsCategory[language]\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            (click)=\"categoryClick(news.newsCategoryId,news.newsCategory[language]);wrongStatus = true\"\n            >{{news.newsCategory.en}}</span\n          >\n        </div>\n      </ion-col>\n    </ion-item>\n  </ion-item-sliding>\n</ion-list>"
 
 /***/ }),
 
@@ -249,6 +249,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../config */ "./src/app/config.ts");
 /* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+
 
 
 
@@ -256,7 +258,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var RelatedPostPage = /** @class */ (function () {
-    function RelatedPostPage(router, _toastService) {
+    function RelatedPostPage(translate, router, _toastService) {
+        this.translate = translate;
         this.router = router;
         this._toastService = _toastService;
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_4__["config"].mediaApiUrl;
@@ -269,6 +272,7 @@ var RelatedPostPage = /** @class */ (function () {
         console.log("GOT 4", this.postCount);
     };
     RelatedPostPage.prototype.singleNews = function (postid) {
+        var _this = this;
         this.visitedArray = JSON.parse(localStorage.getItem('isVisited'));
         this.visitedArray.push(postid);
         localStorage.setItem('isVisited', JSON.stringify(this.visitedArray));
@@ -286,7 +290,9 @@ var RelatedPostPage = /** @class */ (function () {
             }
             else {
                 this.router.navigateByUrl('/single-post/' + postid);
-                this._toastService.toastFunction('No internet connnection', 'danger');
+                this.translate.get('No internet connection').subscribe(function (mes) {
+                    _this._toastService.toastFunction(mes, 'danger');
+                });
             }
         }
     };
@@ -295,6 +301,7 @@ var RelatedPostPage = /** @class */ (function () {
         this.router.navigateByUrl('/single-category/' + catId + '/' + catName);
     };
     RelatedPostPage.ctorParameters = function () { return [
+        { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslateService"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
         { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"] }
     ]; };
@@ -316,7 +323,7 @@ var RelatedPostPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./related-post.page.html */ "./node_modules/raw-loader/index.js!./src/app/related-post/related-post.page.html"),
             styles: [__webpack_require__(/*! ./related-post.page.scss */ "./src/app/related-post/related-post.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslateService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _services_toast_service__WEBPACK_IMPORTED_MODULE_5__["ToastService"]])
     ], RelatedPostPage);
     return RelatedPostPage;
 }());

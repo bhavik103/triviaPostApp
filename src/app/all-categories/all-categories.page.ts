@@ -58,7 +58,7 @@ export class AllCategoriesPage implements OnInit {
     if (navigator.onLine) {
       this._categoryService.getAll().toPromise().then((res: any) => {
         console.log("after", res);
-        this.categories = res;
+        this.categories = [].concat(res).reverse();
         this.loading = false;
       },
         (err) => {

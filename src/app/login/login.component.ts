@@ -6,13 +6,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastService } from "../services/toast.service";
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import 'hammerjs';
 import * as $ from 'jquery';
 import { Keyboard } from '@ionic-native/keyboard/ngx';
 import { error } from 'util';
 import { AppComponent } from '../app.component'
 import { AdmobfreeService } from '../services/admobfree.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'app-login',
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
 	bookmarkFlag: string;
 	skip: string;
 	checkFlag: string;
-	constructor(private _admobService: AdmobfreeService,public appcomponent: AppComponent, private keyboard: Keyboard, private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
+	constructor(private translate: TranslateService, private navctrl: NavController, private _admobService: AdmobfreeService, public appcomponent: AppComponent, private keyboard: Keyboard, private _toastService: ToastService, public platform: Platform, private googlePlus: GooglePlus, public _userService: UserService, private router: Router, private fb: Facebook) { }
 	ngOnInit() {
 		this.platform.backButton.subscribe(async () => {
 			this.appcomponent.openRatingModal();
@@ -165,7 +166,9 @@ export class LoginComponent implements OnInit {
 		this._userService.signup(user).subscribe((res: any) => {
 			this.loading = false;
 			this.isDisabled = false;
-			this._toastService.toastFunction(res.message, 'success');
+			this.translate.get(res.message).subscribe((mes: any) => {
+				this._toastService.toastFunction(mes, 'success')
+			})
 			this.signupForm.reset();
 			this.router.navigate(['settings']);
 			this.router.navigate(['login']);
@@ -173,35 +176,11 @@ export class LoginComponent implements OnInit {
 			err => {
 				this.isDisabled = false;
 				this.loading = false;
-				this._toastService.toastFunction(err.error.message, 'danger');
+				this.translate.get(err.error.message).subscribe((res: any) => {
+					this._toastService.toastFunction(res, 'success');
+				})
+				// this._toastService.toastFunction(err.error.message, 'danger');
 			})
-	}
-
-	userLogin(login) {
-		this.loading = true;
-		const element = document.getElementById('remember') as HTMLInputElement;
-		if (element.checked) {
-			localStorage.setItem("remembered", JSON.stringify(login));
-		} else {
-			localStorage.removeItem('remembered');
-		}
-		console.log(login);
-		this._userService.customLogin(login).subscribe((res: any) => {
-			this.loading = false;
-			this._toastService.toastFunction(res.message, 'success');
-			if (localStorage.getItem('bookmarkId')) {
-				this.postId = localStorage.getItem('bookmarkId');
-				this.router.navigateByUrl('/single-post/' + this.postId)
-			} else if (localStorage.getItem('likepostId')) {
-				this.postId = localStorage.getItem('likepostId');
-				this.router.navigateByUrl('/single-post/' + this.postId);
-			} else {
-				this.router.navigate(['sidebar/home']);
-			}
-		}, err => {
-			this.loading = false;
-			this._toastService.toastFunction(err.error.message, 'success');
-		})
 	}
 
 	resetPassword(user) {
@@ -232,8 +211,8 @@ export class LoginComponent implements OnInit {
 	backButton() {
 		this.appcomponent.openRatingModal();
 	}
-	skipSignin(){
-		localStorage.setItem('skip','1')
-		this.router.navigateByUrl('sidebar/tour-home')
+	skipSignin() {
+		localStorage.setItem('skip', '1')
+		this.navctrl.navigateRoot('sidebar/tour-home')
 	}
 }

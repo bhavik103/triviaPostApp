@@ -17,6 +17,7 @@ import { FCM } from '@ionic-native/fcm/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { StorageService } from './services/storage.service';
 import { CategoryService } from './services/category.service';
+import { ToastService } from './services/toast.service';
 import {
   rateTitle,
   rateText,
@@ -27,6 +28,7 @@ import {
 import { Market } from '@ionic-native/market/ngx';
 import { NewsService } from './services/news.service';
 import { GeneralService } from './services/general.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -68,6 +70,7 @@ export class AppComponent {
   constructor(
     private network: Network,
     private fcm: FCM,
+    private translate:TranslateService,
     private market: Market,
     private firebaseDynamicLinks: FirebaseDynamicLinks,
     private _userService: UserService,
@@ -82,10 +85,18 @@ export class AppComponent {
     private _storageService: StorageService,
     private _categoryService: CategoryService,
     private _generalService: GeneralService,
+    private _toastService: ToastService,
+    
   ) {
     // this function is also present in home page
-    this.platform.ready().then(() => {
+    this.platform.ready().then(async () => {
+      this.translate.addLangs(['en', 'hn', 'as', 'bn']);
+      this.translate.setDefaultLang('en');
+      if(localStorage.getItem('language')){
+        this.translate.use(localStorage.getItem('language'))
+      }
       this.fcm.onNotification().subscribe(data => {
+        console.log(this.translate.currentLang)
         console.log('YEAHHHHHHHHHHHH', data);
         if (data.wasTapped) {
           $('.indexLoader').css('display', 'block');
@@ -214,24 +225,13 @@ export class AppComponent {
 
     offline.subscribe(() => {
       this.hide = false;
-      this.toast = this.toastController
-        .create({
-          message: 'No internet connection',
-          animated: true,
-          showCloseButton: true,
-          duration: 2000,
-          closeButtonText: 'OK',
-          cssClass: 'my-toast',
-          position: 'bottom',
-          color: 'danger'
-        })
-        .then(obj => {
-          obj.present();
-        });
+      this.translate.get('No internet connection').subscribe((res:any)=>{
+        this._toastService.toastFunction(res,'');
+      })
     });
 
     online.subscribe(() => {
-      this.toastController.dismiss();
+      // this.toastController.dismiss();
       this.hide = true;
     });
 
@@ -253,6 +253,14 @@ export class AppComponent {
         this.statusBar.backgroundColorByHexString('#000000');
       });
     };
+  }
+  subscriber(message: Observable<any>): string {
+    let msg;
+    message.subscribe(res => {
+      msg = res;
+    });
+    console.log(msg);
+    return msg;
   }
   // rate dialog
   rate() {

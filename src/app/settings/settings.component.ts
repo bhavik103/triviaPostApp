@@ -12,6 +12,7 @@ import 'jquery';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { AppComponent } from '../app.component'
 import { AdmobfreeService } from '../services/admobfree.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'app-settings',
@@ -137,6 +138,7 @@ export class SettingsComponent implements OnInit {
 			text: 'English', shortForm: 'en', role: 'destructive', handler: () => {
 				this.language = 'en';
 				localStorage.setItem('language', 'en');
+				this.translate.use(localStorage.getItem('language'))
 				this._userService.changeLanguage('en').subscribe();
 			}
 		},
@@ -145,6 +147,7 @@ export class SettingsComponent implements OnInit {
 				this.language = 'hn';
 				localStorage.setItem('language', 'hn');
 				this.language = localStorage.getItem('language');
+				this.translate.use(localStorage.getItem('language'))
 				this._userService.changeLanguage('hn').subscribe();
 			}
 		},
@@ -152,6 +155,7 @@ export class SettingsComponent implements OnInit {
 			text: 'অসমীয়া', shortForm: 'as', role: 'destructive', handler: () => {
 				this.language = 'as';
 				localStorage.setItem('language', 'as');
+				this.translate.use(localStorage.getItem('language'))
 				this._userService.changeLanguage('as').subscribe();
 			}
 		},
@@ -159,11 +163,12 @@ export class SettingsComponent implements OnInit {
 			text: 'বাংলা', shortForm: 'bn', role: 'destructive', handler: () => {
 				this.language = 'bn';
 				localStorage.setItem('language', 'bn')
+				this.translate.use(localStorage.getItem('language'))
 				this._userService.changeLanguage('bn').subscribe();
 			}
 		}
 	];
-	constructor(private _admobService: AdmobfreeService, public appcomponent: AppComponent, private dialogs: Dialogs, private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
+	constructor(private translate: TranslateService, private _admobService: AdmobfreeService, public appcomponent: AppComponent, private dialogs: Dialogs, private _toastService: ToastService, private cd: ChangeDetectorRef, public _generalService: GeneralService, private platform: Platform, private fcm: FCM, private storage: Storage, private socialSharing: SocialSharing, public actionSheetController: ActionSheetController, public _userService: UserService, private router: Router) {
 	}
 
 	ionViewWillEnter() {
@@ -232,7 +237,9 @@ export class SettingsComponent implements OnInit {
 						localStorage.setItem('deviceToken', token);
 					});
 					this.router.navigate(['/sidebar/home']);
-					this._toastService.toastFunction('You have been logged out!', 'primary');
+					this.translate.get('You are logged out').subscribe((mes: any) => {
+						this._toastService.toastFunction(mes, 'primary');
+					})
 				}
 			}, {
 				text: 'Cancel',
@@ -270,12 +277,21 @@ export class SettingsComponent implements OnInit {
 				if (accessToken) {
 					this.getUserDetail();
 				}
-				this._toastService.toastFunction(res.message, 'danger');
+				if (e.target.checked) {
+					this.translate.get('Notification Turned On').subscribe((mes: any) => {
+						this._toastService.toastFunction(mes, 'danger');
+					})
+				} else {
+					this.translate.get('Notification Turned Off').subscribe((mes: any) => {
+						this._toastService.toastFunction(mes, 'danger');
+					})
+				}
 			}, err => {
-				this._toastService.toastFunction(err.error.message, 'danger');
 			})
-		}else{
-			this._toastService.toastFunction('No Internet Connection', 'danger');
+		} else {
+			this.translate.get('No internet connection').subscribe((mes: any) => {
+				this._toastService.toastFunction(mes, 'danger');
+			})
 		}
 	}
 
@@ -321,7 +337,9 @@ export class SettingsComponent implements OnInit {
 		if (accessToken) {
 			this.router.navigateByUrl('/bookmark')
 		} else {
-			this._toastService.toastFunction('You Need To Login First!', 'danger');
+			this.translate.get('Please Login').subscribe((mes: any) => {
+				this._toastService.toastFunction(mes, 'danger');
+			})
 			this.router.navigateByUrl('/login')
 		}
 	}
