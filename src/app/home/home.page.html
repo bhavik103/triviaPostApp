@@ -1,4 +1,4 @@
-<div no-border class="triviaHeader" *ngIf="language && newsArray && latestPost">
+<!-- <div no-border class="triviaHeader" *ngIf="language && newsArray && latestPost">
     <div class="settingsToolbar">
         <button float-left>
             <ion-menu-button></ion-menu-button>
@@ -13,7 +13,24 @@
             <ion-icon name="settings" class="homeBack" (click)="settings()"></ion-icon>
         </button>
     </div>
-</div>
+</div> -->
+
+<ion-header>
+    <ion-toolbar color="red">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Trivia Post</ion-title>
+        <ion-buttons slot="end">
+            <ion-button slot="icon-only" (click)="settings()">
+                <ion-icon name="settings" class="homeBack"></ion-icon>
+            </ion-button>
+            <ion-button slot="icon-only" (click)="search()">
+                <ion-icon name="search" class="searchIcon"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 <div no-border *ngIf="!language && !loading">
     <div class="settingsToolbar">
         <span id="settingTitle" style="margin:0;width: 100%;" *ngIf="!loading && !selected">

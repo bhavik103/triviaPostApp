@@ -9,7 +9,6 @@
 * https://ionicframework.com/docs/layout/global-stylesheets
 */
 
-
 /* Core CSS required for Ionic components to work properly */
 
 //page navigation animation
@@ -81,7 +80,7 @@ ion-toolbar {
 //   font-weight: bold !important;
 // }
 .assameseFontContent {
-    font-weight: normal!important;
+    font-weight: normal !important;
 }
 
 ion-spinner {
@@ -98,7 +97,6 @@ ion-spinner {
 }
 
 ion-header ion-toolbar:first-child {
-    --background: #e41212 !important;
     position: relative;
 }
 
@@ -157,7 +155,6 @@ ion-toolbar {
     font-size: 25px;
 }
 
-
 /*Huge thanks to @tobiasahlin at http://tobiasahlin.com/spinkit/ */
 
 .spinner {
@@ -166,7 +163,7 @@ ion-toolbar {
     text-align: center;
 }
 
-.spinner>div {
+.spinner > div {
     width: 18px;
     height: 18px;
     background-color: red;
@@ -404,7 +401,7 @@ ion-toolbar {
 
 .introjs-helperLayer {
     background: transparent;
-    width: 106px!important;
+    width: 106px !important;
 }
 
 .introjs-overlay {
@@ -413,17 +410,17 @@ ion-toolbar {
 
 .introjs-helperLayer:before {
     opacity: 0;
-    content: '';
+    content: "";
     position: fixed;
     width: inherit;
     height: inherit;
     // border-radius: 0.5em;
-    box-shadow: 0 0 0 1000em rgba(0, 0, 0, .9);
+    box-shadow: 0 0 0 1000em rgba(0, 0, 0, 0.9);
     opacity: 1;
 }
 
 .introjs-helperLayer:after {
-    content: '';
+    content: "";
     left: 0;
     right: 0;
     top: 0;
@@ -456,7 +453,6 @@ ion-toolbar {
     -moz-opacity: 0.5;
     z-index: 101;
 }
-
 
 /*   This is the Popup Window   */
 

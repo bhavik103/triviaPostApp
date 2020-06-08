@@ -37,7 +37,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { SuperTabsModule } from '@ionic-super-tabs/angular';
-import {HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 import { Market } from '@ionic-native/market/ngx';
@@ -71,7 +71,7 @@ export class HammerConfig extends HammerGestureConfig {
     FormsModule,
     BrowserModule,
     ReactiveFormsModule,
-    
+
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(),
     AppRoutingModule,
