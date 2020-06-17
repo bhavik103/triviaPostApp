@@ -1,51 +1,31 @@
-<div>
-  <div class="settingsToolbar">
-    <ion-back-button
-      name="arrow-round-back"
-      class="homeBack"
-      class="homeBack"
-      defaultHref="/settings"
-      float-left
-      (click)="backButton()"
-    >
-    </ion-back-button>
-    <span id="settingTitle">{{feedbackTitle[language]}}</span>
-    <button float-right routerLink="/home">
-      <ion-icon name="home"></ion-icon>
-    </button>
-  </div>
-</div>
+<ion-header>
+    <ion-toolbar color="red">
+        <ion-buttons slot="start">
+            <ion-back-button name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/settings" float-left (click)="backButton()">
+            </ion-back-button>
+        </ion-buttons>
+        <ion-title>{{feedbackTitle[language]}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button slot="icon-only" routerLink="/sidebar/home">
+                <ion-icon name="home"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 <ion-content padding>
-  <div id="feedbackForm">
-    <form [formGroup]="feedbackForm">
-      <div>
-        <input
-          placeholder="Name"
-          formControlName="name"
-          [(ngModel)]="feedback.name"
-        /><br /><br />
-      </div>
-      <div>
-        <input
-          placeholder="Email"
-          formControlName="email"
-          [(ngModel)]="feedback.email"
-        /><br /><br />
-      </div>
-      <div>
-        <input
-          placeholder="Mobile Number"
-          formControlName="mobile"
-          [(ngModel)]="feedback.mobile"
-        /><br /><br />
-      </div>
-      <div>
-        <textarea
-          placeholder="Message"
-          rows="6"
-          formControlName="message"
-          [(ngModel)]="feedback.message"
-        ></textarea
+    <div id="feedbackForm">
+        <form [formGroup]="feedbackForm">
+            <div>
+                <input placeholder="Name" formControlName="name" [(ngModel)]="feedback.name" /><br /><br />
+            </div>
+            <div>
+                <input placeholder="Email" formControlName="email" [(ngModel)]="feedback.email" /><br /><br />
+            </div>
+            <div>
+                <input placeholder="Mobile Number" formControlName="mobile" [(ngModel)]="feedback.mobile" /><br /><br />
+            </div>
+            <div>
+                <textarea placeholder="Message" rows="6" formControlName="message" [(ngModel)]="feedback.message"></textarea
         ><br /><br />
       </div>
       <button (click)="userFeedback(feedback)">Send</button>

@@ -26,6 +26,7 @@ import { IonContent } from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
 import { StorageService } from '../services/storage.service';
 import { TranslateService } from '@ngx-translate/core';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 @Component({
     selector: 'app-home',
     templateUrl: 'home.page.html',
@@ -101,7 +102,7 @@ export class HomePage implements OnInit {
     navigate: { title: string; url: string; icon: string; }[];
 
     constructor(
-        private navctrl: NavController, private sidebar: SidebarPage, private translate: TranslateService,
+        private navctrl: NavController, private sidebar: SidebarPage, private translate: TranslateService, private localNotifications: LocalNotifications,
         private menu: MenuController, private network: Network, private _admobService: AdmobfreeService, private market: Market,
         public alertController: AlertController, private _generalService: GeneralService, private nav: NavController,
         private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService,
@@ -121,57 +122,55 @@ export class HomePage implements OnInit {
         this.viewInitFunctions();
     }
 
-    ionViewDidEnter() {
+    async ionViewDidEnter() {
         this.notificationTapped();
-        this.platform.ready().then(async () => {
-            if (!localStorage.getItem('deviceToken')) {
-                this.fcm.getToken().then(token => {
-                    localStorage.setItem('deviceToken', token);
-                    setTimeout(async () => {
-                        console.log('this.selected', localStorage.getItem('language'));
-                        if (!localStorage.getItem('accessToken')) {
-                            this._userService.firstTimeUser(await localStorage.getItem('language')).subscribe((res: any) => {
-                                this._userService.serviceFunction();
-                                if (!localStorage.getItem('annonymousNotify')) {
-                                    localStorage.setItem('annonymousNotify', 'true');
-                                }
-                            },
-                                (err) => {
-                                });
-                        } else {
-                            const accessToken = await localStorage.getItem('accessToken');
-                            const deviceToken = await localStorage.getItem('deviceToken');
-                            this._userService.loggedInUserDeviceToken(accessToken, deviceToken).subscribe((res: any) => {
-                                console.log('RES FROM UPDATING DEVICE TOKEN', res);
+        if (!localStorage.getItem('deviceToken')) {
+            this.fcm.getToken().then(token => {
+                localStorage.setItem('deviceToken', token);
+                setTimeout(async () => {
+                    console.log('this.selected', localStorage.getItem('language'));
+                    if (!localStorage.getItem('accessToken')) {
+                        this._userService.firstTimeUser(await localStorage.getItem('language')).subscribe((res: any) => {
+                            this._userService.serviceFunction();
+                            if (!localStorage.getItem('annonymousNotify')) {
+                                localStorage.setItem('annonymousNotify', 'true');
+                            }
+                        },
+                            (err) => {
                             });
-                        }
-                    }, 1000);
-                });
-                this.fcm.onTokenRefresh().subscribe(token => {
-                    localStorage.setItem('deviceToken', token);
-                });
-            } else {
-                // setTimeout(async () => {
-                console.log('this.selected', localStorage.getItem('language'));
-                if (!localStorage.getItem('accessToken')) {
-                    this._userService.firstTimeUser(await localStorage.getItem('language')).subscribe((res: any) => {
-                        this._userService.serviceFunction();
-                        if (!localStorage.getItem('annonymousNotify')) {
-                            localStorage.setItem('annonymousNotify', 'true');
-                        }
-                    },
-                        (err) => {
+                    } else {
+                        const accessToken = await localStorage.getItem('accessToken');
+                        const deviceToken = await localStorage.getItem('deviceToken');
+                        this._userService.loggedInUserDeviceToken(accessToken, deviceToken).subscribe((res: any) => {
+                            console.log('RES FROM UPDATING DEVICE TOKEN', res);
                         });
-                } else {
-                    const accessToken = await localStorage.getItem('accessToken');
-                    const deviceToken = await localStorage.getItem('deviceToken');
-                    this._userService.loggedInUserDeviceToken(accessToken, deviceToken).subscribe((res: any) => {
-                        console.log('RES FROM UPDATING DEVICE TOKEN', res);
+                    }
+                }, 1000);
+            });
+            this.fcm.onTokenRefresh().subscribe(token => {
+                localStorage.setItem('deviceToken', token);
+            });
+        } else {
+            // setTimeout(async () => {
+            console.log('this.selected', localStorage.getItem('language'));
+            if (!localStorage.getItem('accessToken')) {
+                this._userService.firstTimeUser(await localStorage.getItem('language')).subscribe((res: any) => {
+                    this._userService.serviceFunction();
+                    if (!localStorage.getItem('annonymousNotify')) {
+                        localStorage.setItem('annonymousNotify', 'true');
+                    }
+                },
+                    (err) => {
                     });
-                }
-                // }, 1000);
+            } else {
+                const accessToken = await localStorage.getItem('accessToken');
+                const deviceToken = await localStorage.getItem('deviceToken');
+                this._userService.loggedInUserDeviceToken(accessToken, deviceToken).subscribe((res: any) => {
+                    console.log('RES FROM UPDATING DEVICE TOKEN', res);
+                });
             }
-        });
+            // }, 1000);
+        }
         if (!localStorage.getItem('firstLargePostClick') && localStorage.getItem('language')) {
             this.navctrl.navigateRoot('sidebar/tour-home');
         }
@@ -223,7 +222,9 @@ export class HomePage implements OnInit {
         }
     }
     ionViewWillEnter() {
-        console.log('HELLO, BYE');
+        this.localNotifications.on('click').subscribe((res: any) => {
+            this.router.navigate(['/single-post/' + res.data.newsId]);
+        })
         if (!localStorage.getItem('language')) {
             $('.tourModal').show();
             this.showTourConfirm = true;
@@ -249,7 +250,7 @@ export class HomePage implements OnInit {
         this.platform.ready().then(() => {
             this.fcmToken();
         });
-        this.checkforInternet();
+
     }
 
     askForTour(promptReply) {
@@ -336,21 +337,7 @@ export class HomePage implements OnInit {
             });
         }
     }
-    // check for internet
-    checkforInternet() {
-        const alertOnlineStatus = () => {
-            if (navigator.onLine) {
-                this.hide = false;
-            } else {
-                this.hide = true;
-                this.translate.get('No internet connection').subscribe((mes: any) => {
-                    this._toastService.toastFunction(mes, 'danger');
-                })
-            }
-        };
-        window.addEventListener('online', alertOnlineStatus);
-        window.addEventListener('offline', alertOnlineStatus);
-    }
+
     // navigate to searchbar
     search() {
         if (localStorage.getItem('skip')) {
@@ -372,11 +359,41 @@ export class HomePage implements OnInit {
                 this.router.navigate(['/single-post/' + data.newsId]);
                 console.log('Received in background', data.wasTapped);
             } else {
+                console.log("NOTIFICATION DATA", data)
+                this.showLocalNotification(data.newsId);
+                // this.router.navigate(['/single-post/' + data.newsId]);
                 console.log('Received in foreground');
+
             }
         });
     }
 
+    showLocalNotification(newsId) {
+        this._newsService.getSingleNews(newsId).subscribe(res => {
+            const url = config.mediaApiUrl + res[0].newsImage
+            console.log("SINGLE POST RES =====", res)
+            var max = 20000000000;
+            var min = 1;
+            var random = Math.floor((Math.random() * ((max + 1) - min)) + min);
+            if (res[0][this.language].title) {
+                this.localNotifications.schedule({
+                    id: random,
+                    attachments: [url],
+                    badge: 1,
+                    text: res[0][this.language].title,
+                    data: { newsId: newsId }
+                });
+            } else {
+                this.localNotifications.schedule({
+                    id: random,
+                    attachments: [url],
+                    badge: 1,
+                    text: res[0].en.title,
+                    data: { newsId: newsId }
+                });
+            }
+        })
+    }
     // check event for terms and cond.
     isChecked(e) {
         if (e.target.checked) {
@@ -400,19 +417,39 @@ export class HomePage implements OnInit {
 
     }
     // select lang on first time app opens
-    selectLang() {
-        if (localStorage.getItem('skip')) {
-            this.router.navigateByUrl('/login');
-        } else {
-            // this.getAllPost();
-        }
+    async selectLang() {
+        // if (localStorage.getItem('skip')) {
+        //     this.router.navigateByUrl('/login');
+        // } else {
+        // }
         const lang = this.selected;
         localStorage.setItem('language', lang);
         this.translate.use(localStorage.getItem('language'))
-
         console.log('Date in home', new Date().getSeconds());
         this.sidebar.getMenuItems();
-        this.navctrl.navigateRoot('sidebar/tour-home');
+        if (localStorage.getItem('skip')) {
+            this.getAllPost(false, '');
+            this.notificationTapped();
+            this.language = this.selected
+            this._userService.firstTimeUser(await localStorage.getItem('language')).subscribe((res: any) => {
+                this._userService.serviceFunction();
+                if (!localStorage.getItem('annonymousNotify')) {
+                    localStorage.setItem('annonymousNotify', 'true');
+                }
+            },
+                (err) => {
+                });
+        } else {
+            this._userService.firstTimeUser(await localStorage.getItem('language')).subscribe((res: any) => {
+                this._userService.serviceFunction();
+                if (!localStorage.getItem('annonymousNotify')) {
+                    localStorage.setItem('annonymousNotify', 'true');
+                }
+            },
+                (err) => {
+                });
+            this.navctrl.navigateRoot('sidebar/tour-home');
+        }
     }
 
     // set fcm token
@@ -466,10 +503,5 @@ export class HomePage implements OnInit {
         localStorage.setItem('catModal', '1');
         this.catModalShow = '1';
         $('.skipLanguage').show();
-    }
-
-    openMenu() {
-        console.log('HELLO');
-        this.menu.open('mainContent');
     }
 }

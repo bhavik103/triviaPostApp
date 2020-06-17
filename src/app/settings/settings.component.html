@@ -1,22 +1,23 @@
-<div>
-    <div class="settingsToolbar">
-        <ion-back-button name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/sidebar/home" (click)="backButton()">
-        </ion-back-button>
-        <span id="settingTitle">{{ options[language] }}</span>
-        <button id="profile" *ngIf="tokenLocalStorage && firstCharUser" (click)="logout()">
-      {{ firstCharUser }}
-    </button>
-        <button id="personIcon" (click)="logout()" *ngIf="tokenLocalStorage && !firstCharUser">
-      <ion-icon
-        name="person"
-        style="vertical-align: text-bottom; font-size: 24px;"
-      ></ion-icon>
-    </button>
-        <button float-right *ngIf="!tokenLocalStorage" routerLink="/sidebar/home">
-      <ion-icon name="home"></ion-icon>
-    </button>
-    </div>
-</div>
+<ion-header>
+    <ion-toolbar color="red">
+        <ion-buttons slot="start">
+            <ion-back-button name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/sidebar/home" (click)="backButton()">
+            </ion-back-button>
+        </ion-buttons>
+        <ion-title>{{ options[language] }}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button slot="icon-only" id="personIcon" (click)="logout()" *ngIf="tokenLocalStorage && firstCharUser">
+                {{ firstCharUser }}
+            </ion-button>
+            <ion-button slot="icon-only" id="personIcon" (click)="logout()" *ngIf="tokenLocalStorage && !firstCharUser">
+                <ion-icon name="person" style="vertical-align: text-bottom; font-size: 24px;"></ion-icon>
+            </ion-button>
+            <ion-button slot="icon-only" *ngIf="!tokenLocalStorage" routerLink="/sidebar/home">
+                <ion-icon name="home"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 
 <ion-content>
     <div class="settings loginDiv" padding *ngIf="!tokenLocalStorage">

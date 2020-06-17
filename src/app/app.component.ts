@@ -10,7 +10,6 @@ import { FirebaseDynamicLinks } from '@ionic-native/firebase-dynamic-links/ngx';
 import { config } from './config';
 import { Events } from '@ionic/angular';
 import 'rxjs/add/observable/fromEvent';
-import { UserService } from './services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 declare var $: any;
 import { FCM } from '@ionic-native/fcm/ngx';
@@ -26,9 +25,9 @@ import {
   rateRemindButton
 } from './changeLang';
 import { Market } from '@ionic-native/market/ngx';
-import { NewsService } from './services/news.service';
 import { GeneralService } from './services/general.service';
 import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -70,10 +69,9 @@ export class AppComponent {
   constructor(
     private network: Network,
     private fcm: FCM,
-    private translate:TranslateService,
+    private translate: TranslateService,
     private market: Market,
     private firebaseDynamicLinks: FirebaseDynamicLinks,
-    private _userService: UserService,
     public toastController: ToastController,
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -81,59 +79,121 @@ export class AppComponent {
     private router: Router,
     protected deeplinks: Deeplinks,
     public events: Events,
-    private _newsService: NewsService,
     private _storageService: StorageService,
     private _categoryService: CategoryService,
     private _generalService: GeneralService,
     private _toastService: ToastService,
-    
+
   ) {
-    // this function is also present in home page
-    this.platform.ready().then(async () => {
-      this.translate.addLangs(['en', 'hn', 'as', 'bn']);
-      this.translate.setDefaultLang('en');
-      if(localStorage.getItem('language')){
-        this.translate.use(localStorage.getItem('language'))
-      }
-      this.fcm.onNotification().subscribe(data => {
-        console.log(this.translate.currentLang)
-        console.log('YEAHHHHHHHHHHHH', data);
-        if (data.wasTapped) {
-          $('.indexLoader').css('display', 'block');
-          console.log('TAPPED', data);
-          this.router.navigate(['/single-post/' + data.newsId]);
-          console.log('Received in background', data.wasTapped);
-        } else {
-          console.log('Received in foreground');
-        }
-      });
-      this.firebaseDynamicLinks.onDynamicLink().subscribe(
-        (res: any) => {
-          console.log('DEEPLINK', res);
-          const postId = res.deepLink.split('?')[1].split('=')[1];
-          this.router.navigate(['single-post/' + postId]);
-          config.isvisited = true;
-        },
-        (error: any) => {
-          console.log(error);
-        }
-      );
+    this.initializeApp();
+  }
+
+  initializeApp() {
+    this.platform.ready().then(() => {
+      console.log('INSIDE PLATFORM READY');
+      this.checkforInternet();
+      this.setLanguage();
+      this.onTapLinkAndnotification();
+      this.getNewsForOffline();
+      this.getCatForOffline();
+      this.setLocalStorageItems();
+      this.showRateModalFun();
+      // this._admobService.BannerAd();
+      this.statusBar.backgroundColorByHexString('#000000');
     });
-    this.getNewsForOffline();
-    this.getCatForOffline();
+    // };
+  }
+  subscriber(message: Observable<any>): string {
+    let msg;
+    message.subscribe(res => {
+      msg = res;
+    });
+    console.log(msg);
+    return msg;
+  }
+  // rate dialog
+  rate() {
+    localStorage.setItem('isRated', 'true');
+    this.showRateModal = false;
+    this.market.open('io.ionic.triviapost');
+  }
+  dismiss() {
+    localStorage.setItem('isRated', 'true');
+    this.showRateModal = false;
+  }
+  remindLater() {
+    localStorage.setItem('isRated', 'pending');
+    this.showRateModal = false;
+  }
+
+  setLanguage() {
+    this.translate.addLangs(['en', 'hn', 'as', 'bn']);
+    this.translate.setDefaultLang('en');
+    if (localStorage.getItem('language')) {
+      this.translate.use(localStorage.getItem('language'))
+    }
+  }
+
+  onTapLinkAndnotification() {
+    this.firebaseDynamicLinks.onDynamicLink().subscribe(
+      (res: any) => {
+        const postId = res.deepLink.split('?')[1].split('=')[1];
+        this.router.navigate(['single-post/' + postId]);
+        config.isvisited = true;
+      },
+      (error: any) => {
+      }
+    );
+  }
+
+  setLocalStorageItems() {
     if (!localStorage.getItem('clearLocalStorage')) {
       localStorage.clear();
       localStorage.setItem('clearLocalStorage', '1');
     }
+    if(localStorage.getItem('interAdCounter')){
+      localStorage.removeItem('interAdCounter')
+    }
     if (!localStorage.getItem('language')) {
       this.showTourConfirm = true;
     }
-    this.platform.ready().then(() => {
-      setTimeout(() => {
-        this.splashScreen.hide();
-      }, 2000);
-    });
-    this.initializeApp();
+    setTimeout(() => {
+      this.splashScreen.hide();
+    }, 2000);
+
+    if (!localStorage.getItem('notification')) {
+      localStorage.setItem('notification', 'true');
+    }
+
+    if (localStorage.getItem('language')) {
+      localStorage.setItem('skip', '1');
+      localStorage.setItem('bookmarkFlag', '1');
+      localStorage.setItem('shareFlag', '1');
+      localStorage.setItem('firstLargePostClick', '1');
+      localStorage.setItem('catModal', '1');
+    }
+    if (!localStorage.getItem('isVisited')) {
+      const isVisited = [];
+      localStorage.setItem('isVisited', JSON.stringify(isVisited));
+    }
+    localStorage.removeItem('firstTimeLoaded');
+  }
+
+
+  openRatingModal() {
+    console.log('INSIDE APP COMPONENT');
+    if (localStorage.getItem('skip')) {
+      if (!localStorage.getItem('rateModalFirst')) {
+        this.language = localStorage.getItem('language');
+        this.showRateModal = true;
+      }
+      if (this.showRateModal == true) {
+        localStorage.setItem('rateModalFirst', '1');
+      }
+    }
+  }
+
+  showRateModalFun() {
     const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
     const firstDate: any = new Date();
     const secondDate: any = JSON.parse(localStorage.getItem('ratingModalDate'));
@@ -180,116 +240,6 @@ export class AppComponent {
         }
       }, 5 * 60 * 1000);
     }
-    if (localStorage.getItem('language')) {
-      localStorage.setItem('skip', '1');
-      localStorage.setItem('bookmarkFlag', '1');
-      localStorage.setItem('shareFlag', '1');
-      localStorage.setItem('firstLargePostClick', '1');
-      localStorage.setItem('catModal', '1');
-    }
-    if (!localStorage.getItem('isVisited')) {
-      const isVisited = [];
-      localStorage.setItem('isVisited', JSON.stringify(isVisited));
-    }
-    localStorage.removeItem('firstTimeLoaded');
-
-    this._userService.currentData.subscribe(value => {
-      console.log('VALUEEEE', value);
-      if (this.loginModalFlag != true) {
-        // generates random time for opennig modal between 25 and 40 seconds
-        const randomNum = Math.floor(Math.random() * (30 - 14 + 1)) + 14;
-        setTimeout(() => {
-          $('#fadeDiv').addClass('opened');
-          this.hidden = true;
-          this.loginModalFlag = true;
-        }, randomNum * 1000);
-      }
-    });
-    this.platform.ready().then(() => {
-      this.deeplinks
-        .route({
-          '/': {},
-          '/nr5y': { 'post:': true },
-          '/post/:id': { 'post:': true }
-        })
-        .subscribe(
-          match => {
-            console.log('match link', match.$args.id);
-            this.router.navigate(['single-post/' + match.$args.id]);
-          },
-          nomatch => { }
-        );
-    });
-    const offline = Observable.fromEvent(document, 'offline');
-    const online = Observable.fromEvent(document, 'online');
-
-    offline.subscribe(() => {
-      this.hide = false;
-      this.translate.get('No internet connection').subscribe((res:any)=>{
-        this._toastService.toastFunction(res,'');
-      })
-    });
-
-    online.subscribe(() => {
-      // this.toastController.dismiss();
-      this.hide = true;
-    });
-
-    if (!localStorage.getItem('notification')) {
-      localStorage.setItem('notification', 'true');
-    }
-    if (!localStorage.getItem('skip')) {
-      // this._newsService.getAllNews(this.page_number, 'offline').subscribe((res: any) => {
-      //   console.log("GOT NEWS IN APP COMPONENT", res);
-      // });
-    }
-  }
-
-  initializeApp() {
-    const handleBranch = () => {
-      this.platform.ready().then(() => {
-        console.log('INSIDE PLATFORM READY');
-        // this._admobService.BannerAd();
-        this.statusBar.backgroundColorByHexString('#000000');
-      });
-    };
-  }
-  subscriber(message: Observable<any>): string {
-    let msg;
-    message.subscribe(res => {
-      msg = res;
-    });
-    console.log(msg);
-    return msg;
-  }
-  // rate dialog
-  rate() {
-    localStorage.setItem('isRated', 'true');
-    this.showRateModal = false;
-    this.platform.ready().then(() => {
-      this.market.open('io.ionic.triviapost');
-    });
-  }
-  dismiss() {
-    localStorage.setItem('isRated', 'true');
-    this.showRateModal = false;
-  }
-  remindLater() {
-    localStorage.setItem('isRated', 'pending');
-    this.showRateModal = false;
-  }
-
-  openRatingModal() {
-    console.log('INSIDE APP COMPONENT');
-    if (localStorage.getItem('skip')) {
-      if (!localStorage.getItem('rateModalFirst')) {
-        this.language = localStorage.getItem('language');
-        this.showRateModal = true;
-      }
-      if (this.showRateModal == true) {
-        localStorage.setItem('rateModalFirst', '1');
-      }
-    }
   }
 
   getNewsForOffline() {
@@ -302,6 +252,16 @@ export class AppComponent {
         (error) => {
         });
     }
+  }
+
+  // check for internet
+  checkforInternet() {
+    this.network.onDisconnect().subscribe(() => {
+      console.log('network was disconnected :-(');
+      this.translate.get('No internet connection').subscribe((mes: any) => {
+        this._toastService.toastFunction(mes, 'danger');
+      })
+    });
   }
 
   getCatForOffline() {

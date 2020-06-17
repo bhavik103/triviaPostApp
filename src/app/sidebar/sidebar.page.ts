@@ -66,7 +66,6 @@ export class SidebarPage implements OnInit {
             });
           });
         }
-        this.menuPages =  [].concat(this.menuPages).reverse();
         console.log("THIS.MEWNU",this.menuPages)
         console.log('ONLINE', this.menuPages);
       });
@@ -89,7 +88,7 @@ export class SidebarPage implements OnInit {
               }
             });
           });
-          this.menuPages =  [].concat(this.menuPages).reverse();
+          // this.menuPages =  [].concat(this.menuPages).reverse();
           console.log("THIS.MEWNU",this.menuPages)
           console.log('OFFLINE', this.menuPages);
         }

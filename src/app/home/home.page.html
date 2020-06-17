@@ -1,21 +1,5 @@
-<!-- <div no-border class="triviaHeader" *ngIf="language && newsArray && latestPost">
-    <div class="settingsToolbar">
-        <button float-left>
-            <ion-menu-button></ion-menu-button>
-        </button>
-        <span id="settingTitle">
-            Trivia Post
-        </span>
-        <button float-right>
-            <ion-icon name="search" class="searchIcon" (click)="search()"></ion-icon>
-        </button>
-        <button float-left>
-            <ion-icon name="settings" class="homeBack" (click)="settings()"></ion-icon>
-        </button>
-    </div>
-</div> -->
-
-<ion-header>
+<!-- HEADER FOR POSTS LIST -->
+<ion-header *ngIf="language && newsArray && latestPost">
     <ion-toolbar color="red">
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
@@ -31,20 +15,18 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<div no-border *ngIf="!language && !loading">
-    <div class="settingsToolbar">
-        <span id="settingTitle" style="margin:0;width: 100%;" *ngIf="!loading && !selected">
-            Language
-        </span>
-        <span id="settingTitle" style="margin:0;width: 100%;" *ngIf="!loading && selected">
-            {{languageStatic[selected]}}
-        </span>
-    </div>
-</div>
 
+<!-- HEADER FOR LANGUAGE SELECTION -->
+<ion-header *ngIf="!language && !loading">
+    <ion-toolbar color="red">
+        <ion-title *ngIf="!loading && !selected">Language</ion-title>
+        <ion-title *ngIf="!loading && selected">Language</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<!-- IF USER SELECTS START TOUR -->
 <ion-content *ngIf="!language && !loading && startTour">
-    <div class="languageSelect"
-        style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;">
+    <div class="languageSelect" style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;">
         <div class="langHead">
             <img src="assets/images/subject.png" height="30px" width="30px" />
             <p *ngIf="!selected">Choose your preferred language to continue!</p>
@@ -53,9 +35,7 @@
         <ion-row style="margin-top: 27%;">
             <ion-col size="6" *ngFor="let lang of languageList;let i = index" class="langCol">
                 <div class="ripple_effect" *ngIf="i == 0 && !selected" style="margin-top: 10px;"></div>
-                <ion-card tabindex="{{i}}" [style.background]="selected==lang.slug?'red':'white'"
-                    [style.color]="selected==lang.slug?'white':'black'" class="divs"
-                    (click)="selected=lang.slug;selectLangDiv()">
+                <ion-card tabindex="{{i}}" [style.background]="selected==lang.slug?'red':'white'" [style.color]="selected==lang.slug?'white':'black'" class="divs" (click)="selected=lang.slug;selectLangDiv()">
                     {{lang.lang}}
                 </ion-card>
                 <div class="tourText tourTextModal" *ngIf="i == 0 && !selected" style="bottom: 96%;">
@@ -80,9 +60,10 @@
         <button class="contButton" (click)="selectLang()">Continue</button>
     </div>
 </ion-content>
+
+<!-- IF USER SELECTED TO SKIP TOUR -->
 <ion-content class="skipLanguage" *ngIf="!language">
-    <div class="languageSelect"
-        style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;">
+    <div class="languageSelect" style="height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;">
         <div class="langHead">
             <img src="assets/images/subject.png" height="30px" width="30px" />
             <p *ngIf="!selected">Choose your preferred language to continue!</p>
@@ -90,9 +71,7 @@
         </div>
         <ion-row style="margin-top: 27%;">
             <ion-col size="6" *ngFor="let lang of languageList;let i = index" class="langCol">
-                <ion-card tabindex="{{i}}" [style.background]="selected==lang.slug?'red':'white'"
-                    [style.color]="selected==lang.slug?'white':'black'" class="divs"
-                    (click)="selected=lang.slug;selectLangDiv()">
+                <ion-card tabindex="{{i}}" [style.background]="selected==lang.slug?'red':'white'" [style.color]="selected==lang.slug?'white':'black'" class="divs" (click)="selected=lang.slug;selectLangDiv()">
                     {{lang.lang}}
                 </ion-card>
                 <div class="tourText tourTextModal" *ngIf="i == 0 && !selected" style="bottom: 96%;">
@@ -117,6 +96,8 @@
         <button class="contButton" (click)="selectLangSkip()">Continue</button>
     </div>
 </ion-content>
+
+<!-- DISPLAYING POSTS LIST -->
 <ion-content *ngIf="language" class="">
     <ion-row class="" style="min-width: 100%;" *ngIf="latestPost && newsArray.length">
         <app-large-post [news]="latestPost" [language]="language" [skip]="skip">
@@ -133,12 +114,8 @@
         <img src="assets/images/simpleLoader.gif" alt="" class="smallLoading" />
     </span>
 </ion-content>
-<!-- <ion-content class="loadingContent" *ngIf="smallLoading">
-    <img src="assets/images/simpleLoader.gif" alt="" class="smallLoading" />
-</ion-content> -->
-<div class="no-news-text" *ngIf="isTextVisible">
-    <span>{{text}}</span>
-</div>
+
+<!-- POPUP FOR ASKING USER FOR TOUR -->
 <ion-content class="loadingContent tourModal" *ngIf="!skip" [ngClass]="{'showDifferentLoader': showTourConfirm}">
     <div id="bkgOverlay" class="backgroundOverlay"></div>
 

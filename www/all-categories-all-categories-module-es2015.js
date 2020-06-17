@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"!loading\">\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/settings\"\n      float-left\n      (click)=\"backButton()\"\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\"> {{catTitle[language]}}</span>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n\n<ion-content *ngIf=\"language && !loading\">\n  <ion-row *ngIf=\"categories\">\n    <ion-col size=\"6\" *ngFor=\"let category of categories;let i = index\" class=\"categoryTiles\">\n      <app-category-tiles\n        [category]=\"category\"\n        (onSubscribe)=\"subscribedCategory($event, isNotify)\"\n        [language]=\"language\"\n        [index] = \"i\"\n      ></app-category-tiles>\n    </ion-col>\n  </ion-row>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>"
+module.exports = "<ion-header *ngIf=\"!loading\">\n    <ion-toolbar color=\"red\">\n        <ion-buttons slot=\"start\">\n            <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/settings\" float-left (click)=\"backButton()\">\n            </ion-back-button>\n        </ion-buttons>\n        <ion-title>{{catTitle[language]}}</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button slot=\"icon-only\" routerLink=\"/sidebar/home\">\n                <ion-icon name=\"home\"></ion-icon>\n            </ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"language && !loading\">\n    <ion-row *ngIf=\"categories\">\n        <ion-col size=\"6\" *ngFor=\"let category of categories;let i = index\" class=\"categoryTiles\">\n            <app-category-tiles [category]=\"category\" (onSubscribe)=\"subscribedCategory($event, isNotify)\" [language]=\"language\" [index]=\"i\"></app-category-tiles>\n        </ion-col>\n    </ion-row>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>"
 
 /***/ }),
 
@@ -276,12 +276,13 @@ let AllCategoriesPage = class AllCategoriesPage {
             this.appcomponent.openRatingModal();
         });
         this.language = localStorage.getItem('language');
-        const alertOnlineStatus = () => {
-        };
-        window.addEventListener('online', alertOnlineStatus);
-        window.addEventListener('offline', alertOnlineStatus);
     }
     ionViewWillEnter() {
+        this.loading = true;
+        this.viewEnterFun();
+        this.getCategories();
+    }
+    viewEnterFun() {
         this._admobService.interstitalAdOnFivePageChange();
         if (localStorage.getItem('skip')) {
             localStorage.setItem('skip', '1');
@@ -292,8 +293,6 @@ let AllCategoriesPage = class AllCategoriesPage {
         if (localStorage.getItem('catModal') && !localStorage.getItem('skip')) {
             this.router.navigateByUrl('/login');
         }
-        this.loading = false;
-        this.getCategories();
     }
     handlingBackButton() {
         this._userService.callComponentMethod('1');
@@ -306,7 +305,8 @@ let AllCategoriesPage = class AllCategoriesPage {
             if (navigator.onLine) {
                 this._categoryService.getAll().toPromise().then((res) => {
                     console.log("after", res);
-                    this.categories = [].concat(res).reverse();
+                    this.categories = res;
+                    // this.categories = [].concat(res).reverse();
                     this.loading = false;
                 }, (err) => {
                     this.loading = false;

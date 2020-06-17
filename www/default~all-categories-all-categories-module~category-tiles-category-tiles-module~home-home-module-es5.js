@@ -2668,12 +2668,6 @@ var CategoryTilesPage = /** @class */ (function () {
             console.log('this.ifTourCompleted', this.ifTourCompleted);
         }
         this.skip = localStorage.getItem('skip');
-        var alertOnlineStatus = function () {
-        };
-        window.addEventListener('online', alertOnlineStatus);
-        window.addEventListener('offline', alertOnlineStatus);
-        console.log("this.categories in child", this.category);
-        console.log("this.categories in child", this.language);
     };
     CategoryTilesPage.prototype.goToAllPosts = function () {
         this.router.navigateByUrl('/home/all-post');

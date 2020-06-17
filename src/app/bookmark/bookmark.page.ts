@@ -4,10 +4,8 @@ import { Category } from '../home/category';
 import { config } from '../config';
 import { Router } from '@angular/router';
 import { NewsService } from '../services/news.service';
-import { News } from '../home/news';
 import { ActionSheetController, Platform } from '@ionic/angular';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { Observable } from 'rxjs/Observable';
 import { ToastService } from '../services/toast.service';
 import { Network } from '@ionic-native/network/ngx';
 import { bookmark } from '../changeLang';
@@ -48,29 +46,18 @@ export class BookmarkPage implements OnInit {
     });
   }
 
-  onPress(newsImage, fcmLink, newsId, newsTitleEnglish, $event) {
-    console.log('newsId=', newsId)
-  }
   ionViewWillEnter() {
+    this.loading = true;
+    this.viewEnterFun();
+    this.bookmarkedNews();
+  }
+
+  viewEnterFun(){
     this.language = localStorage.getItem('language');
     this._admobService.interstitalAdOnFivePageChange()
-    this.bookmarkedNews();
-    // // Check Internet conectivity
-    var offline = Observable.fromEvent(document, "offline");
-    var online = Observable.fromEvent(document, "online");
-
-    offline.subscribe(() => {
-      this.hide = false;
-      const message = 'No internet connection';
-      const color = 'danger';
-      this.translate.get(message).subscribe((mes:any)=>{
-				this._toastService.toastFunction(mes, 'success')
-			})
-    });
   }
 
   bookmarkedNews(): void {
-    this.loading = true;
     if (navigator.onLine) {
 
       this._newsService.getAllBookmarks().subscribe(
@@ -109,7 +96,6 @@ export class BookmarkPage implements OnInit {
         })  
         this.bookmarkedNews();
       }, err => {
-        // this._toastService.toastFunction(err.error.message, 'danger');
         this.bookmarkedNews();
       })
     }
@@ -121,7 +107,6 @@ export class BookmarkPage implements OnInit {
       var message = shareMessage[this.language] + '"' + title + '" ';
       var subject = "Trivia Post";
       var url = link;
-      // var file = this.mediaPath + newsImage;
       this.socialSharing.share(message, subject, null, url)
         .then((entries) => {
           console.log('success ' + JSON.stringify(entries));

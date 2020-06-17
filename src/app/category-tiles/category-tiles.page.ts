@@ -51,13 +51,6 @@ export class CategoryTilesPage implements OnInit {
       console.log('this.ifTourCompleted', this.ifTourCompleted)
     }
     this.skip = localStorage.getItem('skip');
-    const alertOnlineStatus = () => {
-    }
-
-    window.addEventListener('online', alertOnlineStatus)
-    window.addEventListener('offline', alertOnlineStatus)
-    console.log("this.categories in child", this.category)
-    console.log("this.categories in child", this.language)
   }
   goToAllPosts() {
     this.router.navigateByUrl('/home/all-post')

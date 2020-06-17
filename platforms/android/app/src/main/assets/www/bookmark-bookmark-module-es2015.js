@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"!loading\">\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/settings\"\n      float-left\n      (click)=\"backButton()\"\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\">{{bookmarkTitle[language]}}</span>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n\n<ion-content *ngIf=\"!loading\">\n  <ion-list>\n    <ion-item-sliding\n      class=\"feeds\"\n      *ngFor=\"let news of newsArray; let i = index; last as isLast\"\n    >\n      <ion-item>\n        <ion-col size=\"3\" class=\"newsImg\" padding>\n          <img\n            src=\"{{mediaPath}}{{news.newsImage}}\"\n            height=\"73px\"\n            width=\"100%\"\n            (click)=\"getSingleBookmark(news.newsId)\"\n          />\n        </ion-col>\n        <ion-col size=\"9\" (click)=\"getSingleBookmark(news.newsId)\">\n          <div>\n            <span\n              class=\"optionsList\"\n              *ngIf=\"language != 'as'\"\n              [innerHTML]=\"news[language].title\"\n            ></span>\n            <span\n              class=\"optionsList assameseFont\"\n              *ngIf=\"language == 'as'\"\n              [innerHTML]=\"news[language].title\"\n            ></span>\n            <span\n            class=\"categoryButton assameseFont\"\n            *ngIf=\"news.newsCategory[language]\"\n            [ngClass]=\"{'assameseFont': language == 'as'}\"\n            (click)=\"categoryClick(news.newsCategoryId,news.newsCategory[language]);wrongStatus = true\"\n            >{{news.newsCategory[language]}}</span\n          >\n          <span\n            class=\"categoryButton\"\n            *ngIf=\"!news.newsCategory[language]\"\n            (click)=\"categoryClick(news.newsCategoryId,news.newsCategory.en);wrongStatus = true\"\n            >{{news.newsCategory.en}}</span\n          >\n          </div>\n        </ion-col>\n      </ion-item>\n\n      <ion-item-options side=\"end\">\n        <ion-item-option color=\"danger\">\n          <ion-icon\n            slot=\"icon-only\"\n            name=\"trash\"\n            (click)=\"deleteBookmarked(news.newsId)\"\n          ></ion-icon>\n        </ion-item-option>\n        <ion-item-option>\n          <ion-icon\n            slot=\"icon-only\"\n            name=\"share\"\n            *ngIf=\"language != 'as'\"\n            (click)=\"shareBookmarked(news.newsImage,news.fcmLink, news[language].title)\"\n          ></ion-icon>\n          <ion-icon\n            slot=\"icon-only\"\n            name=\"share\"\n            *ngIf=\"language == 'as'\"\n            (click)=\"shareBookmarked(news.newsImage,news.fcmLink, news.en.title)\"\n          ></ion-icon>\n        </ion-item-option>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n  <div class=\"noBookmark\" *ngIf=\"bookmarkLength == 0\">\n    <img src=\"assets/images/bookmarkEmpty.png\" />\n  </div>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>"
+module.exports = "<ion-header *ngIf=\"!loading\">\n    <ion-toolbar color=\"red\">\n        <ion-buttons slot=\"start\">\n            <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/settings\" float-left (click)=\"backButton()\">\n            </ion-back-button>\n        </ion-buttons>\n        <ion-title>{{bookmarkTitle[language]}}</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button slot=\"icon-only\" routerLink=\"/sidebar/home\">\n                <ion-icon name=\"home\"></ion-icon>\n            </ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content *ngIf=\"!loading\">\n    <ion-list>\n        <ion-item-sliding class=\"feeds\" *ngFor=\"let news of newsArray; let i = index; last as isLast\">\n            <ion-item>\n                <ion-col size=\"3\" class=\"newsImg\" padding>\n                    <img src=\"{{mediaPath}}{{news.newsImage}}\" height=\"73px\" width=\"100%\" (click)=\"getSingleBookmark(news.newsId)\" />\n                </ion-col>\n                <ion-col size=\"9\" (click)=\"getSingleBookmark(news.newsId)\">\n                    <div>\n                        <span class=\"optionsList\" *ngIf=\"language != 'as'\" [innerHTML]=\"news[language].title\"></span>\n                        <span class=\"optionsList assameseFont\" *ngIf=\"language == 'as'\" [innerHTML]=\"news[language].title\"></span>\n                        <span class=\"categoryButton assameseFont\" *ngIf=\"news.newsCategory[language]\" [ngClass]=\"{'assameseFont': language == 'as'}\" (click)=\"categoryClick(news.newsCategoryId,news.newsCategory[language]);wrongStatus = true\">{{news.newsCategory[language]}}</span\n          >\n          <span\n            class=\"categoryButton\"\n            *ngIf=\"!news.newsCategory[language]\"\n            (click)=\"categoryClick(news.newsCategoryId,news.newsCategory.en);wrongStatus = true\"\n            >{{news.newsCategory.en}}</span\n          >\n          </div>\n        </ion-col>\n      </ion-item>\n\n      <ion-item-options side=\"end\">\n        <ion-item-option color=\"danger\">\n          <ion-icon\n            slot=\"icon-only\"\n            name=\"trash\"\n            (click)=\"deleteBookmarked(news.newsId)\"\n          ></ion-icon>\n        </ion-item-option>\n        <ion-item-option>\n          <ion-icon\n            slot=\"icon-only\"\n            name=\"share\"\n            *ngIf=\"language != 'as'\"\n            (click)=\"shareBookmarked(news.newsImage,news.fcmLink, news[language].title)\"\n          ></ion-icon>\n          <ion-icon\n            slot=\"icon-only\"\n            name=\"share\"\n            *ngIf=\"language == 'as'\"\n            (click)=\"shareBookmarked(news.newsImage,news.fcmLink, news.en.title)\"\n          ></ion-icon>\n        </ion-item-option>\n      </ion-item-options>\n    </ion-item-sliding>\n  </ion-list>\n  <div class=\"noBookmark\" *ngIf=\"bookmarkLength == 0\">\n    <img src=\"assets/images/bookmarkEmpty.png\" />\n  </div>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>"
 
 /***/ }),
 
@@ -245,14 +245,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/news.service */ "./src/app/services/news.service.ts");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/social-sharing/ngx */ "./node_modules/@ionic-native/social-sharing/ngx/index.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs-compat/_esm2015/Observable.js");
-/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
-/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../changeLang */ "./src/app/changeLang.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
-
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/toast.service */ "./src/app/services/toast.service.ts");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../changeLang */ "./src/app/changeLang.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _services_admobfree_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../services/admobfree.service */ "./src/app/services/admobfree.service.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 
 
 
@@ -283,8 +281,8 @@ let BookmarkPage = class BookmarkPage {
         this.router = router;
         this.error = '';
         this.mediaPath = _config__WEBPACK_IMPORTED_MODULE_3__["config"].mediaApiUrl;
-        this.bookmarkTitle = _changeLang__WEBPACK_IMPORTED_MODULE_11__["bookmark"];
-        this.shareMessage = _changeLang__WEBPACK_IMPORTED_MODULE_11__["shareMessage"];
+        this.bookmarkTitle = _changeLang__WEBPACK_IMPORTED_MODULE_10__["bookmark"];
+        this.shareMessage = _changeLang__WEBPACK_IMPORTED_MODULE_10__["shareMessage"];
     }
     ngOnInit() {
         this.platform.backButton.subscribe(() => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -294,27 +292,16 @@ let BookmarkPage = class BookmarkPage {
             }
         }));
     }
-    onPress(newsImage, fcmLink, newsId, newsTitleEnglish, $event) {
-        console.log('newsId=', newsId);
-    }
     ionViewWillEnter() {
+        this.loading = true;
+        this.viewEnterFun();
+        this.bookmarkedNews();
+    }
+    viewEnterFun() {
         this.language = localStorage.getItem('language');
         this._admobService.interstitalAdOnFivePageChange();
-        this.bookmarkedNews();
-        // // Check Internet conectivity
-        var offline = rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__["Observable"].fromEvent(document, "offline");
-        var online = rxjs_Observable__WEBPACK_IMPORTED_MODULE_8__["Observable"].fromEvent(document, "online");
-        offline.subscribe(() => {
-            this.hide = false;
-            const message = 'No internet connection';
-            const color = 'danger';
-            this.translate.get(message).subscribe((mes) => {
-                this._toastService.toastFunction(mes, 'success');
-            });
-        });
     }
     bookmarkedNews() {
-        this.loading = true;
         if (navigator.onLine) {
             this._newsService.getAllBookmarks().subscribe((res) => {
                 if (res.length === 0) {
@@ -351,18 +338,16 @@ let BookmarkPage = class BookmarkPage {
                 });
                 this.bookmarkedNews();
             }, err => {
-                // this._toastService.toastFunction(err.error.message, 'danger');
                 this.bookmarkedNews();
             });
         }
     }
     shareBookmarked(newsImage, link, title) {
-        console.log(_changeLang__WEBPACK_IMPORTED_MODULE_11__["shareMessage"][this.language]);
+        console.log(_changeLang__WEBPACK_IMPORTED_MODULE_10__["shareMessage"][this.language]);
         if (localStorage.getItem('accessToken')) {
-            var message = _changeLang__WEBPACK_IMPORTED_MODULE_11__["shareMessage"][this.language] + '"' + title + '" ';
+            var message = _changeLang__WEBPACK_IMPORTED_MODULE_10__["shareMessage"][this.language] + '"' + title + '" ';
             var subject = "Trivia Post";
             var url = link;
-            // var file = this.mediaPath + newsImage;
             this.socialSharing.share(message, subject, null, url)
                 .then((entries) => {
                 console.log('success ' + JSON.stringify(entries));
@@ -393,11 +378,11 @@ let BookmarkPage = class BookmarkPage {
     }
 };
 BookmarkPage.ctorParameters = () => [
-    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__["TranslateService"] },
-    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_13__["AdmobfreeService"] },
-    { type: _app_component__WEBPACK_IMPORTED_MODULE_12__["AppComponent"] },
-    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_10__["Network"] },
-    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"] },
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__["TranslateService"] },
+    { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_12__["AdmobfreeService"] },
+    { type: _app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"] },
+    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_9__["Network"] },
+    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_8__["ToastService"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
     { type: _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__["SocialSharing"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ActionSheetController"] },
@@ -411,7 +396,7 @@ BookmarkPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./bookmark.page.html */ "./node_modules/raw-loader/index.js!./src/app/bookmark/bookmark.page.html"),
         styles: [__webpack_require__(/*! ./bookmark.page.scss */ "./src/app/bookmark/bookmark.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__["TranslateService"], _services_admobfree_service__WEBPACK_IMPORTED_MODULE_13__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_12__["AppComponent"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_10__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_9__["ToastService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ActionSheetController"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ngx_translate_core__WEBPACK_IMPORTED_MODULE_13__["TranslateService"], _services_admobfree_service__WEBPACK_IMPORTED_MODULE_12__["AdmobfreeService"], _app_component__WEBPACK_IMPORTED_MODULE_11__["AppComponent"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_9__["Network"], _services_toast_service__WEBPACK_IMPORTED_MODULE_8__["ToastService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_social_sharing_ngx__WEBPACK_IMPORTED_MODULE_7__["SocialSharing"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ActionSheetController"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"], _services_category_service__WEBPACK_IMPORTED_MODULE_2__["CategoryService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
 ], BookmarkPage);
 
 

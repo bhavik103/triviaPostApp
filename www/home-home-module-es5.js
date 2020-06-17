@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div no-border class=\"triviaHeader\" *ngIf=\"language && newsArray && latestPost\">\n    <div class=\"settingsToolbar\">\n        <button float-left>\n            <ion-menu-button></ion-menu-button>\n        </button>\n        <span id=\"settingTitle\">\n            Trivia Post\n        </span>\n        <button float-right>\n            <ion-icon name=\"search\" class=\"searchIcon\" (click)=\"search()\"></ion-icon>\n        </button>\n        <button float-left>\n            <ion-icon name=\"settings\" class=\"homeBack\" (click)=\"settings()\"></ion-icon>\n        </button>\n    </div>\n</div>\n<div no-border *ngIf=\"!language && !loading\">\n    <div class=\"settingsToolbar\">\n        <span id=\"settingTitle\" style=\"margin:0;width: 100%;\" *ngIf=\"!loading && !selected\">\n            Language\n        </span>\n        <span id=\"settingTitle\" style=\"margin:0;width: 100%;\" *ngIf=\"!loading && selected\">\n            {{languageStatic[selected]}}\n        </span>\n    </div>\n</div>\n\n<ion-content *ngIf=\"!language && !loading && startTour\">\n    <div class=\"languageSelect\"\n        style=\"height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;\">\n        <div class=\"langHead\">\n            <img src=\"assets/images/subject.png\" height=\"30px\" width=\"30px\" />\n            <p *ngIf=\"!selected\">Choose your preferred language to continue!</p>\n            <p *ngIf=\"selected\">{{languagePageHead[selected]}}</p>\n        </div>\n        <ion-row style=\"margin-top: 27%;\">\n            <ion-col size=\"6\" *ngFor=\"let lang of languageList;let i = index\" class=\"langCol\">\n                <div class=\"ripple_effect\" *ngIf=\"i == 0 && !selected\" style=\"margin-top: 10px;\"></div>\n                <ion-card tabindex=\"{{i}}\" [style.background]=\"selected==lang.slug?'red':'white'\"\n                    [style.color]=\"selected==lang.slug?'white':'black'\" class=\"divs\"\n                    (click)=\"selected=lang.slug;selectLangDiv()\">\n                    {{lang.lang}}\n                </ion-card>\n                <div class=\"tourText tourTextModal\" *ngIf=\"i == 0 && !selected\" style=\"bottom: 96%;\">\n                    Choose any language of your preference!\n                </div>\n            </ion-col>\n            <div class=\"container\">\n                <input type=\"checkbox\" id=\"someID\" (change)=\"isChecked($event)\" />\n                <label for=\"someID\" class=\"checkbox-1\" *ngIf=\"!selected\">\n                    By continuing, you accept the\n                    <span class=\"redLink\"> \"Terms & Condition\"</span> and\n                    <span class=\"redLink\"> \"Privacy Policy\" </span>\n                </label>\n                <label for=\"someID\" class=\"checkbox-1\" *ngIf=\"selected\">\n                    {{acceptTermsPolicy[selected]}}\n                    <span class=\"redLink\"> \"{{termsTitle[selected]}}\"</span>\n                    {{andText[selected]}}\n                    <span class=\"redLink\"> \"{{privacyTitle[selected]}}\" </span>\n                </label>\n            </div>\n        </ion-row>\n        <button class=\"contButton\" (click)=\"selectLang()\">Continue</button>\n    </div>\n</ion-content>\n<ion-content class=\"skipLanguage\" *ngIf=\"!language\">\n    <div class=\"languageSelect\"\n        style=\"height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;\">\n        <div class=\"langHead\">\n            <img src=\"assets/images/subject.png\" height=\"30px\" width=\"30px\" />\n            <p *ngIf=\"!selected\">Choose your preferred language to continue!</p>\n            <p *ngIf=\"selected\">{{languagePageHead[selected]}}</p>\n        </div>\n        <ion-row style=\"margin-top: 27%;\">\n            <ion-col size=\"6\" *ngFor=\"let lang of languageList;let i = index\" class=\"langCol\">\n                <ion-card tabindex=\"{{i}}\" [style.background]=\"selected==lang.slug?'red':'white'\"\n                    [style.color]=\"selected==lang.slug?'white':'black'\" class=\"divs\"\n                    (click)=\"selected=lang.slug;selectLangDiv()\">\n                    {{lang.lang}}\n                </ion-card>\n                <div class=\"tourText tourTextModal\" *ngIf=\"i == 0 && !selected\" style=\"bottom: 96%;\">\n                    Choose any language of your preference!\n                </div>\n            </ion-col>\n            <div class=\"container\">\n                <input type=\"checkbox\" id=\"someID\" (change)=\"isChecked($event)\" />\n                <label for=\"someID\" class=\"checkbox-1\" *ngIf=\"!selected\">\n                    By continuing, you accept the\n                    <span class=\"redLink\"> \"Terms & Condition\"</span> and\n                    <span class=\"redLink\"> \"Privacy Policy\" </span>\n                </label>\n                <label for=\"someID\" class=\"checkbox-1\" *ngIf=\"selected\">\n                    {{acceptTermsPolicy[selected]}}\n                    <span class=\"redLink\"> \"{{termsTitle[selected]}}\"</span>\n                    {{andText[selected]}}\n                    <span class=\"redLink\"> \"{{privacyTitle[selected]}}\" </span>\n                </label>\n            </div>\n        </ion-row>\n        <button class=\"contButton\" (click)=\"selectLangSkip()\">Continue</button>\n    </div>\n</ion-content>\n<ion-content *ngIf=\"language\" class=\"\">\n    <ion-row class=\"\" style=\"min-width: 100%;\" *ngIf=\"latestPost && newsArray.length\">\n        <app-large-post [news]=\"latestPost\" [language]=\"language\" [skip]=\"skip\">\n        </app-large-post>\n        <span *ngFor=\"let news of newsArray;let i = index\" class=\"newsTiles\">\n            <app-post-tiles [news]=\"news\" [language]=\"language\" [index]=\"i\"></app-post-tiles>\n        </span>\n        <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n            <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"Loading more posts...\">\n            </ion-infinite-scroll-content>\n        </ion-infinite-scroll>\n    </ion-row>\n    <span class=\"loadingContent\" *ngIf=\"smallLoading\">\n        <img src=\"assets/images/simpleLoader.gif\" alt=\"\" class=\"smallLoading\" />\n    </span>\n</ion-content>\n<!-- <ion-content class=\"loadingContent\" *ngIf=\"smallLoading\">\n    <img src=\"assets/images/simpleLoader.gif\" alt=\"\" class=\"smallLoading\" />\n</ion-content> -->\n<div class=\"no-news-text\" *ngIf=\"isTextVisible\">\n    <span>{{text}}</span>\n</div>\n<ion-content class=\"loadingContent tourModal\" *ngIf=\"!skip\" [ngClass]=\"{'showDifferentLoader': showTourConfirm}\">\n    <div id=\"bkgOverlay\" class=\"backgroundOverlay\"></div>\n\n    <div id=\"delayedPopup\" class=\"delayedPopupWindow confirmTourPopup\">\n        <div class=\"img_border\">\n            <img src=\"assets/images/book.png\" alt=\"\" />\n        </div>\n        <h5>Welcome</h5>\n        <p class=\"tourConfirmText\">\n            Would you like to start the tour?\n        </p>\n        <div class=\"rateButton\">\n            <ion-row>\n                <ion-col size=\"12\" (click)=\"startTourFunction()\">\n                    <button id=\"rateButton\" class=\"tourButton\">Start</button>\n                </ion-col>\n                <ion-col size=\"12\" (click)=\"skipTourFunction()\">\n                    <button id=\"remindLater\" class=\"tourButton\">Skip</button>\n                </ion-col>\n            </ion-row>\n        </div>\n        <div class=\"otherButton\"></div>\n        <img src=\"assets/images/ratingBackground.png\" alt=\"\" class=\"ratingBack\" />\n    </div>\n</ion-content>"
+module.exports = "<!-- HEADER FOR POSTS LIST -->\n<ion-header *ngIf=\"language && newsArray && latestPost\">\n    <ion-toolbar color=\"red\">\n        <ion-buttons slot=\"start\">\n            <ion-menu-button></ion-menu-button>\n        </ion-buttons>\n        <ion-title>Trivia Post</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button slot=\"icon-only\" (click)=\"settings()\">\n                <ion-icon name=\"settings\" class=\"homeBack\"></ion-icon>\n            </ion-button>\n            <ion-button slot=\"icon-only\" (click)=\"search()\">\n                <ion-icon name=\"search\" class=\"searchIcon\"></ion-icon>\n            </ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<!-- HEADER FOR LANGUAGE SELECTION -->\n<ion-header *ngIf=\"!language && !loading\">\n    <ion-toolbar color=\"red\">\n        <ion-title *ngIf=\"!loading && !selected\">Language</ion-title>\n        <ion-title *ngIf=\"!loading && selected\">Language</ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<!-- IF USER SELECTS START TOUR -->\n<ion-content *ngIf=\"!language && !loading && startTour\">\n    <div class=\"languageSelect\" style=\"height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;\">\n        <div class=\"langHead\">\n            <img src=\"assets/images/subject.png\" height=\"30px\" width=\"30px\" />\n            <p *ngIf=\"!selected\">Choose your preferred language to continue!</p>\n            <p *ngIf=\"selected\">{{languagePageHead[selected]}}</p>\n        </div>\n        <ion-row style=\"margin-top: 27%;\">\n            <ion-col size=\"6\" *ngFor=\"let lang of languageList;let i = index\" class=\"langCol\">\n                <div class=\"ripple_effect\" *ngIf=\"i == 0 && !selected\" style=\"margin-top: 10px;\"></div>\n                <ion-card tabindex=\"{{i}}\" [style.background]=\"selected==lang.slug?'red':'white'\" [style.color]=\"selected==lang.slug?'white':'black'\" class=\"divs\" (click)=\"selected=lang.slug;selectLangDiv()\">\n                    {{lang.lang}}\n                </ion-card>\n                <div class=\"tourText tourTextModal\" *ngIf=\"i == 0 && !selected\" style=\"bottom: 96%;\">\n                    Choose any language of your preference!\n                </div>\n            </ion-col>\n            <div class=\"container\">\n                <input type=\"checkbox\" id=\"someID\" (change)=\"isChecked($event)\" />\n                <label for=\"someID\" class=\"checkbox-1\" *ngIf=\"!selected\">\n                    By continuing, you accept the\n                    <span class=\"redLink\"> \"Terms & Condition\"</span> and\n                    <span class=\"redLink\"> \"Privacy Policy\" </span>\n                </label>\n                <label for=\"someID\" class=\"checkbox-1\" *ngIf=\"selected\">\n                    {{acceptTermsPolicy[selected]}}\n                    <span class=\"redLink\"> \"{{termsTitle[selected]}}\"</span>\n                    {{andText[selected]}}\n                    <span class=\"redLink\"> \"{{privacyTitle[selected]}}\" </span>\n                </label>\n            </div>\n        </ion-row>\n        <button class=\"contButton\" (click)=\"selectLang()\">Continue</button>\n    </div>\n</ion-content>\n\n<!-- IF USER SELECTED TO SKIP TOUR -->\n<ion-content class=\"skipLanguage\" *ngIf=\"!language\">\n    <div class=\"languageSelect\" style=\"height: calc(100vh - 54px);background-image: url('../../assets/images/langBackground.png');background-repeat: no-repeat;background-size: cover;\">\n        <div class=\"langHead\">\n            <img src=\"assets/images/subject.png\" height=\"30px\" width=\"30px\" />\n            <p *ngIf=\"!selected\">Choose your preferred language to continue!</p>\n            <p *ngIf=\"selected\">{{languagePageHead[selected]}}</p>\n        </div>\n        <ion-row style=\"margin-top: 27%;\">\n            <ion-col size=\"6\" *ngFor=\"let lang of languageList;let i = index\" class=\"langCol\">\n                <ion-card tabindex=\"{{i}}\" [style.background]=\"selected==lang.slug?'red':'white'\" [style.color]=\"selected==lang.slug?'white':'black'\" class=\"divs\" (click)=\"selected=lang.slug;selectLangDiv()\">\n                    {{lang.lang}}\n                </ion-card>\n                <div class=\"tourText tourTextModal\" *ngIf=\"i == 0 && !selected\" style=\"bottom: 96%;\">\n                    Choose any language of your preference!\n                </div>\n            </ion-col>\n            <div class=\"container\">\n                <input type=\"checkbox\" id=\"someID\" (change)=\"isChecked($event)\" />\n                <label for=\"someID\" class=\"checkbox-1\" *ngIf=\"!selected\">\n                    By continuing, you accept the\n                    <span class=\"redLink\"> \"Terms & Condition\"</span> and\n                    <span class=\"redLink\"> \"Privacy Policy\" </span>\n                </label>\n                <label for=\"someID\" class=\"checkbox-1\" *ngIf=\"selected\">\n                    {{acceptTermsPolicy[selected]}}\n                    <span class=\"redLink\"> \"{{termsTitle[selected]}}\"</span>\n                    {{andText[selected]}}\n                    <span class=\"redLink\"> \"{{privacyTitle[selected]}}\" </span>\n                </label>\n            </div>\n        </ion-row>\n        <button class=\"contButton\" (click)=\"selectLangSkip()\">Continue</button>\n    </div>\n</ion-content>\n\n<!-- DISPLAYING POSTS LIST -->\n<ion-content *ngIf=\"language\" class=\"\">\n    <ion-row class=\"\" style=\"min-width: 100%;\" *ngIf=\"latestPost && newsArray.length\">\n        <app-large-post [news]=\"latestPost\" [language]=\"language\" [skip]=\"skip\">\n        </app-large-post>\n        <span *ngFor=\"let news of newsArray;let i = index\" class=\"newsTiles\">\n            <app-post-tiles [news]=\"news\" [language]=\"language\" [index]=\"i\"></app-post-tiles>\n        </span>\n        <ion-infinite-scroll (ionInfinite)=\"doInfinite($event)\">\n            <ion-infinite-scroll-content loadingSpinner=\"bubbles\" loadingText=\"Loading more posts...\">\n            </ion-infinite-scroll-content>\n        </ion-infinite-scroll>\n    </ion-row>\n    <span class=\"loadingContent\" *ngIf=\"smallLoading\">\n        <img src=\"assets/images/simpleLoader.gif\" alt=\"\" class=\"smallLoading\" />\n    </span>\n</ion-content>\n\n<!-- POPUP FOR ASKING USER FOR TOUR -->\n<ion-content class=\"loadingContent tourModal\" *ngIf=\"!skip\" [ngClass]=\"{'showDifferentLoader': showTourConfirm}\">\n    <div id=\"bkgOverlay\" class=\"backgroundOverlay\"></div>\n\n    <div id=\"delayedPopup\" class=\"delayedPopupWindow confirmTourPopup\">\n        <div class=\"img_border\">\n            <img src=\"assets/images/book.png\" alt=\"\" />\n        </div>\n        <h5>Welcome</h5>\n        <p class=\"tourConfirmText\">\n            Would you like to start the tour?\n        </p>\n        <div class=\"rateButton\">\n            <ion-row>\n                <ion-col size=\"12\" (click)=\"startTourFunction()\">\n                    <button id=\"rateButton\" class=\"tourButton\">Start</button>\n                </ion-col>\n                <ion-col size=\"12\" (click)=\"skipTourFunction()\">\n                    <button id=\"remindLater\" class=\"tourButton\">Skip</button>\n                </ion-col>\n            </ion-row>\n        </div>\n        <div class=\"otherButton\"></div>\n        <img src=\"assets/images/ratingBackground.png\" alt=\"\" class=\"ratingBack\" />\n    </div>\n</ion-content>"
 
 /***/ }),
 
@@ -117,6 +117,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
 /* harmony import */ var _services_storage_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../services/storage.service */ "./src/app/services/storage.service.ts");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ionic-native/local-notifications/ngx */ "./node_modules/@ionic-native/local-notifications/ngx/index.js");
+
 
 
 
@@ -143,10 +145,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var HomePage = /** @class */ (function () {
-    function HomePage(navctrl, sidebar, translate, menu, network, _admobService, market, alertController, _generalService, nav, firebaseDynamicLinks, _toastService, _userService, screenOrientation, platform, fcm, _newsService, router, keyboard, _storageService) {
+    function HomePage(navctrl, sidebar, translate, localNotifications, menu, network, _admobService, market, alertController, _generalService, nav, firebaseDynamicLinks, _toastService, _userService, screenOrientation, platform, fcm, _newsService, router, keyboard, _storageService) {
         this.navctrl = navctrl;
         this.sidebar = sidebar;
         this.translate = translate;
+        this.localNotifications = localNotifications;
         this.menu = menu;
         this.network = network;
         this._admobService = _admobService;
@@ -210,14 +213,13 @@ var HomePage = /** @class */ (function () {
         this.viewInitFunctions();
     };
     HomePage.prototype.ionViewDidEnter = function () {
-        var _this = this;
-        this.notificationTapped();
-        this.platform.ready().then(function () { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
             var _a, _b, accessToken, deviceToken;
             var _this = this;
             return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_c) {
                 switch (_c.label) {
                     case 0:
+                        this.notificationTapped();
                         if (!!localStorage.getItem('deviceToken')) return [3 /*break*/, 1];
                         this.fcm.getToken().then(function (token) {
                             localStorage.setItem('deviceToken', token);
@@ -284,24 +286,25 @@ var HomePage = /** @class */ (function () {
                             console.log('RES FROM UPDATING DEVICE TOKEN', res);
                         });
                         _c.label = 6;
-                    case 6: return [2 /*return*/];
+                    case 6:
+                        if (!localStorage.getItem('firstLargePostClick') && localStorage.getItem('language')) {
+                            this.navctrl.navigateRoot('sidebar/tour-home');
+                        }
+                        if (this.platform.is('cordova')) {
+                            this._admobService.interstitalAdOnFivePageChange();
+                        }
+                        this.catModalShow = localStorage.getItem('catModalShow');
+                        if (!localStorage.getItem('language')) {
+                            this.askForTour('none');
+                        }
+                        console.log('this.firstTimeLoad', this.firstTimeLoad);
+                        this.skip = localStorage.getItem('skip');
+                        this.catSelect = localStorage.getItem('catSelect');
+                        this.language = localStorage.getItem('language');
+                        return [2 /*return*/];
                 }
             });
-        }); });
-        if (!localStorage.getItem('firstLargePostClick') && localStorage.getItem('language')) {
-            this.navctrl.navigateRoot('sidebar/tour-home');
-        }
-        if (this.platform.is('cordova')) {
-            this._admobService.interstitalAdOnFivePageChange();
-        }
-        this.catModalShow = localStorage.getItem('catModalShow');
-        if (!localStorage.getItem('language')) {
-            this.askForTour('none');
-        }
-        console.log('this.firstTimeLoad', this.firstTimeLoad);
-        this.skip = localStorage.getItem('skip');
-        this.catSelect = localStorage.getItem('catSelect');
-        this.language = localStorage.getItem('language');
+        });
     };
     HomePage.prototype.ionViewWillLeave = function () {
         console.log('Leaving Home page');
@@ -337,7 +340,9 @@ var HomePage = /** @class */ (function () {
     };
     HomePage.prototype.ionViewWillEnter = function () {
         var _this = this;
-        console.log('HELLO, BYE');
+        this.localNotifications.on('click').subscribe(function (res) {
+            _this.router.navigate(['/single-post/' + res.data.newsId]);
+        });
         if (!localStorage.getItem('language')) {
             $('.tourModal').show();
             this.showTourConfirm = true;
@@ -362,7 +367,6 @@ var HomePage = /** @class */ (function () {
         this.platform.ready().then(function () {
             _this.fcmToken();
         });
-        this.checkforInternet();
     };
     HomePage.prototype.askForTour = function (promptReply) {
         this.loading = true;
@@ -466,23 +470,6 @@ var HomePage = /** @class */ (function () {
             });
         }
     };
-    // check for internet
-    HomePage.prototype.checkforInternet = function () {
-        var _this = this;
-        var alertOnlineStatus = function () {
-            if (navigator.onLine) {
-                _this.hide = false;
-            }
-            else {
-                _this.hide = true;
-                _this.translate.get('No internet connection').subscribe(function (mes) {
-                    _this._toastService.toastFunction(mes, 'danger');
-                });
-            }
-        };
-        window.addEventListener('online', alertOnlineStatus);
-        window.addEventListener('offline', alertOnlineStatus);
-    };
     // navigate to searchbar
     HomePage.prototype.search = function () {
         if (localStorage.getItem('skip')) {
@@ -506,7 +493,38 @@ var HomePage = /** @class */ (function () {
                 console.log('Received in background', data.wasTapped);
             }
             else {
+                console.log("NOTIFICATION DATA", data);
+                _this.showLocalNotification(data.newsId);
+                // this.router.navigate(['/single-post/' + data.newsId]);
                 console.log('Received in foreground');
+            }
+        });
+    };
+    HomePage.prototype.showLocalNotification = function (newsId) {
+        var _this = this;
+        this._newsService.getSingleNews(newsId).subscribe(function (res) {
+            var url = _config__WEBPACK_IMPORTED_MODULE_3__["config"].mediaApiUrl + res[0].newsImage;
+            console.log("SINGLE POST RES =====", res);
+            var max = 20000000000;
+            var min = 1;
+            var random = Math.floor((Math.random() * ((max + 1) - min)) + min);
+            if (res[0][_this.language].title) {
+                _this.localNotifications.schedule({
+                    id: random,
+                    attachments: [url],
+                    badge: 1,
+                    text: res[0][_this.language].title,
+                    data: { newsId: newsId }
+                });
+            }
+            else {
+                _this.localNotifications.schedule({
+                    id: random,
+                    attachments: [url],
+                    badge: 1,
+                    text: res[0].en.title,
+                    data: { newsId: newsId }
+                });
             }
         });
     };
@@ -535,18 +553,49 @@ var HomePage = /** @class */ (function () {
     };
     // select lang on first time app opens
     HomePage.prototype.selectLang = function () {
-        if (localStorage.getItem('skip')) {
-            this.router.navigateByUrl('/login');
-        }
-        else {
-            // this.getAllPost();
-        }
-        var lang = this.selected;
-        localStorage.setItem('language', lang);
-        this.translate.use(localStorage.getItem('language'));
-        console.log('Date in home', new Date().getSeconds());
-        this.sidebar.getMenuItems();
-        this.navctrl.navigateRoot('sidebar/tour-home');
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+            var lang, _a, _b, _c, _d;
+            var _this = this;
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_e) {
+                switch (_e.label) {
+                    case 0:
+                        lang = this.selected;
+                        localStorage.setItem('language', lang);
+                        this.translate.use(localStorage.getItem('language'));
+                        console.log('Date in home', new Date().getSeconds());
+                        this.sidebar.getMenuItems();
+                        if (!localStorage.getItem('skip')) return [3 /*break*/, 2];
+                        this.getAllPost(false, '');
+                        this.notificationTapped();
+                        this.language = this.selected;
+                        _b = (_a = this._userService).firstTimeUser;
+                        return [4 /*yield*/, localStorage.getItem('language')];
+                    case 1:
+                        _b.apply(_a, [_e.sent()]).subscribe(function (res) {
+                            _this._userService.serviceFunction();
+                            if (!localStorage.getItem('annonymousNotify')) {
+                                localStorage.setItem('annonymousNotify', 'true');
+                            }
+                        }, function (err) {
+                        });
+                        return [3 /*break*/, 4];
+                    case 2:
+                        _d = (_c = this._userService).firstTimeUser;
+                        return [4 /*yield*/, localStorage.getItem('language')];
+                    case 3:
+                        _d.apply(_c, [_e.sent()]).subscribe(function (res) {
+                            _this._userService.serviceFunction();
+                            if (!localStorage.getItem('annonymousNotify')) {
+                                localStorage.setItem('annonymousNotify', 'true');
+                            }
+                        }, function (err) {
+                        });
+                        this.navctrl.navigateRoot('sidebar/tour-home');
+                        _e.label = 4;
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
     };
     // set fcm token
     HomePage.prototype.fcmToken = function () {
@@ -599,14 +648,11 @@ var HomePage = /** @class */ (function () {
         this.catModalShow = '1';
         $('.skipLanguage').show();
     };
-    HomePage.prototype.openMenu = function () {
-        console.log('HELLO');
-        this.menu.open('mainContent');
-    };
     HomePage.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["NavController"] },
         { type: _sidebar_sidebar_page__WEBPACK_IMPORTED_MODULE_1__["SidebarPage"] },
         { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_21__["TranslateService"] },
+        { type: _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_22__["LocalNotifications"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["MenuController"] },
         { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_19__["Network"] },
         { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_18__["AdmobfreeService"] },
@@ -639,7 +685,7 @@ var HomePage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./home.page.html */ "./node_modules/raw-loader/index.js!./src/app/home/home.page.html"),
             styles: [__webpack_require__(/*! ./home.page.scss */ "./src/app/home/home.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["NavController"], _sidebar_sidebar_page__WEBPACK_IMPORTED_MODULE_1__["SidebarPage"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_21__["TranslateService"],
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["NavController"], _sidebar_sidebar_page__WEBPACK_IMPORTED_MODULE_1__["SidebarPage"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_21__["TranslateService"], _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_22__["LocalNotifications"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["MenuController"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_19__["Network"], _services_admobfree_service__WEBPACK_IMPORTED_MODULE_18__["AdmobfreeService"], _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_17__["Market"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["AlertController"], _services_general_service__WEBPACK_IMPORTED_MODULE_15__["GeneralService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["NavController"],
             _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_13__["FirebaseDynamicLinks"], _services_toast_service__WEBPACK_IMPORTED_MODULE_12__["ToastService"], _services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"],

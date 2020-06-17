@@ -1,31 +1,23 @@
-<div *ngIf="!loading">
-  <div class="settingsToolbar">
-    <ion-back-button
-      name="arrow-round-back"
-      class="homeBack"
-      class="homeBack"
-      defaultHref="/settings"
-      float-left
-      (click)="backButton()"
-    >
-    </ion-back-button>
-    <span id="settingTitle"> {{catTitle[language]}}</span>
-    <button float-right routerLink="/home">
-      <ion-icon name="home"></ion-icon>
-    </button>
-  </div>
-</div>
+<ion-header *ngIf="!loading">
+    <ion-toolbar color="red">
+        <ion-buttons slot="start">
+            <ion-back-button name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/settings" float-left (click)="backButton()">
+            </ion-back-button>
+        </ion-buttons>
+        <ion-title>{{catTitle[language]}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button slot="icon-only" routerLink="/sidebar/home">
+                <ion-icon name="home"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 
 <ion-content *ngIf="language && !loading">
-  <ion-row *ngIf="categories">
-    <ion-col size="6" *ngFor="let category of categories;let i = index" class="categoryTiles">
-      <app-category-tiles
-        [category]="category"
-        (onSubscribe)="subscribedCategory($event, isNotify)"
-        [language]="language"
-        [index] = "i"
-      ></app-category-tiles>
-    </ion-col>
-  </ion-row>
+    <ion-row *ngIf="categories">
+        <ion-col size="6" *ngFor="let category of categories;let i = index" class="categoryTiles">
+            <app-category-tiles [category]="category" (onSubscribe)="subscribedCategory($event, isNotify)" [language]="language" [index]="i"></app-category-tiles>
+        </ion-col>
+    </ion-row>
 </ion-content>
 <ion-content *ngIf="loading" class="loadingContent"> </ion-content>

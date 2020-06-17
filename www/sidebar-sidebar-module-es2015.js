@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-menu side=\"start\" menuId=\"first\" contentId=\"content1\" overflow-scroll=\"true\">\n    <ion-header>\n        <ion-toolbar style=\"background-color: #e41212 !important;\">\n            <ion-title>Categories</ion-title>\n        </ion-toolbar>\n    </ion-header>\n    <ion-content>\n        <ion-list *ngIf=\"menuPages\">\n            <ion-item *ngFor=\"let page of menuPages\">\n                <ion-label routerLink=\"/single-category/{{page.categoryId}}/{{page.category[language]}}\" (click)=\"closeMenu()\">{{page.category[language]}}</ion-label>\n                <ion-icon name=\"notifications\" style=\"color: #e41212;\" *ngIf=\"page.isNotify\" (click)=\"notify(page.categoryId)\"></ion-icon>\n                <ion-icon name=\"notifications-outline\" *ngIf=\"!page.isNotify\" (click)=\"notify(page.categoryId)\">\n                </ion-icon>\n            </ion-item>\n        </ion-list>\n    </ion-content>\n</ion-menu>\n<ion-router-outlet id=\"content1\" main></ion-router-outlet>"
+module.exports = "<ion-menu side=\"start\" menuId=\"first\" contentId=\"content1\" overflow-scroll=\"true\">\n    <ion-header>\n        <ion-toolbar style=\"--background: #e41212 !important;color\">\n            <ion-title>Categories</ion-title>\n        </ion-toolbar>\n    </ion-header>\n    <ion-content>\n        <ion-list *ngIf=\"menuPages\">\n            <ion-item *ngFor=\"let page of menuPages\">\n                <ion-label routerLink=\"/single-category/{{page.categoryId}}/{{page.category[language]}}\" (click)=\"closeMenu()\">{{page.category[language]}}</ion-label>\n                <ion-icon name=\"notifications\" style=\"color: #e41212;\" *ngIf=\"page.isNotify\" (click)=\"notify(page.categoryId)\"></ion-icon>\n                <ion-icon name=\"notifications-outline\" *ngIf=\"!page.isNotify\" (click)=\"notify(page.categoryId)\">\n                </ion-icon>\n            </ion-item>\n        </ion-list>\n    </ion-content>\n</ion-menu>\n<ion-router-outlet id=\"content1\" main></ion-router-outlet>"
 
 /***/ }),
 
@@ -166,7 +166,6 @@ let SidebarPage = class SidebarPage {
                         });
                     });
                 }
-                this.menuPages = [].concat(this.menuPages).reverse();
                 console.log("THIS.MEWNU", this.menuPages);
                 console.log('ONLINE', this.menuPages);
             });
@@ -190,7 +189,7 @@ let SidebarPage = class SidebarPage {
                             }
                         });
                     });
-                    this.menuPages = [].concat(this.menuPages).reverse();
+                    // this.menuPages =  [].concat(this.menuPages).reverse();
                     console.log("THIS.MEWNU", this.menuPages);
                     console.log('OFFLINE', this.menuPages);
                 }

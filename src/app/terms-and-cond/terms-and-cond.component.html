@@ -1,23 +1,20 @@
-<div *ngIf="!loading">
-  <div class="settingsToolbar">
-    <ion-back-button
-      name="arrow-round-back"
-      class="homeBack"
-      class="homeBack"
-      defaultHref="/home"
-      float-left
-      (click)="backButton()"
-    >
-    </ion-back-button>
-    <span id="settingTitle">{{termsTitle[language]}}</span>
-    <button float-right routerLink="/home">
-      <ion-icon name="home"></ion-icon>
-    </button>
-  </div>
-</div>
+<ion-header *ngIf="!loading">
+    <ion-toolbar color="red">
+        <ion-buttons slot="start">
+            <ion-back-button name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/sidebar/home" float-left (click)="backButton()">
+            </ion-back-button>
+        </ion-buttons>
+        <ion-title>{{termsTitle[language]}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button slot="icon-only" routerLink="/sidebar/home">
+                <ion-icon name="home"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 <ion-content padding *ngIf="!loading">
-  <div *ngFor="let policy of privacyPolicy">
-    <div [innerHTML]="policy.terms" id="termsAndCondotion"></div>
-  </div>
+    <div *ngFor="let policy of privacyPolicy">
+        <div [innerHTML]="policy.terms" id="termsAndCondotion"></div>
+    </div>
 </ion-content>
 <ion-content *ngIf="loading" class="loadingContent"> </ion-content>

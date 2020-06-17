@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <div class="settingsToolbar">
         <ion-back-button name="arrow-round-back" class="homeBack" defaultHref="/sidebar/home" float-left (click)="backButton()">
         </ion-back-button>
@@ -8,17 +8,31 @@
             <ion-icon name="home"></ion-icon>
         </button>
     </div>
-</div>
+</div> -->
+
+<ion-header>
+    <ion-toolbar color="red">
+        <ion-buttons slot="start">
+            <ion-back-button name="arrow-round-back" class="homeBack" class="homeBack" defaultHref="/sidebar/home" float-left (click)="backButton()">
+            </ion-back-button>
+        </ion-buttons>
+        <ion-input set-focuser #searchInput type="text" placeholder="Search here.." (input)="searchNews($event.target.value)" [(ngModel)]="keywordSearch"></ion-input>
+        <!-- <ion-title>{{privacyTitle[language]}}</ion-title> -->
+        <ion-buttons slot="end">
+            <ion-button slot="icon-only" routerLink="/sidebar/home">
+                <ion-icon name="home"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
 <ion-content padding>
     <ion-row class="searchResults" *ngFor="let searchNews of newsArray">
         <ion-col size="3" class="newsImg" padding (click)="getSingleSearch(searchNews.newsId)">
-            <img src="{{ mediaPath }}{{ searchNews.newsImage }}" data-src="assets/images/placeholder.png'"
-                onerror="this.src='../../assets/images/placeholder.png'" height="100%" width="100%" />
+            <img src="{{ mediaPath }}{{ searchNews.newsImage }}" data-src="assets/images/placeholder.png'" onerror="this.src='../../assets/images/placeholder.png'" height="100%" width="100%" />
         </ion-col>
         <ion-col size="9">
             <div padding>
-                <span class="optionsList" *ngIf="language != 'as'" (click)="getSingleSearch(searchNews.newsId)"
-                    [innerHTML]="searchNews[language].title | slice: 0:70"></span>
+                <span class="optionsList" *ngIf="language != 'as'" (click)="getSingleSearch(searchNews.newsId)" [innerHTML]="searchNews[language].title | slice: 0:70"></span>
                 <p class="newsCat" *ngIf="language != 'as'" (click)="
             categoryClick(
               searchNews.newsCategoryId,
@@ -27,9 +41,7 @@
           ">
                     {{ searchNews.newsCategory[language] }}
                 </p>
-                <span class="optionsList assameseFont" *ngIf="language == 'as'"
-                    (click)="getSingleSearch(searchNews.newsId)"
-                    [innerHTML]="searchNews[language].title | slice: 0:70"></span>
+                <span class="optionsList assameseFont" *ngIf="language == 'as'" (click)="getSingleSearch(searchNews.newsId)" [innerHTML]="searchNews[language].title | slice: 0:70"></span>
                 <p class="newsCat assameseFont" *ngIf="language == 'as'" (click)="
             categoryClick(
               searchNews.newsCategoryId,

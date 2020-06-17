@@ -7,7 +7,7 @@ import { AppComponent } from '../app.component'
 import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AdmobfreeService } from '../services/admobfree.service';
-import {Storage} from '@ionic/storage'
+import { Storage } from '@ionic/storage'
 @Component({
   selector: 'app-all-categories',
   templateUrl: './all-categories.page.html',
@@ -20,25 +20,21 @@ export class AllCategoriesPage implements OnInit {
   catSelect: string;
   catTitle = catTitle;
   openRatingModal: any;
-  constructor(private storage: Storage,private _storageService: StorageService, private _admobService: AdmobfreeService, private router: Router, private platform: Platform, private appcomponent: AppComponent, private _userService: UserService, private _categoryService: CategoryService) { }
+  constructor(private storage: Storage, private _storageService: StorageService, private _admobService: AdmobfreeService, private router: Router, private platform: Platform, private appcomponent: AppComponent, private _userService: UserService, private _categoryService: CategoryService) { }
 
   ngOnInit() {
     this.platform.backButton.subscribe(() => {
       this.appcomponent.openRatingModal();
     });
     this.language = localStorage.getItem('language')
-    const alertOnlineStatus = () => {
-    }
-
-    window.addEventListener('online', alertOnlineStatus)
-    window.addEventListener('offline', alertOnlineStatus)
   }
   ionViewWillEnter() {
-    this.initFun();
+    this.loading = true;
+    this.viewEnterFun();
     this.getCategories();
   }
 
-  initFun(){
+  viewEnterFun() {
     this._admobService.interstitalAdOnFivePageChange()
     if (localStorage.getItem('skip')) {
       localStorage.setItem('skip', '1');
@@ -49,7 +45,6 @@ export class AllCategoriesPage implements OnInit {
     if (localStorage.getItem('catModal') && !localStorage.getItem('skip')) {
       this.router.navigateByUrl('/login')
     }
-    this.loading = false;
   }
 
   handlingBackButton() {
@@ -62,7 +57,8 @@ export class AllCategoriesPage implements OnInit {
     if (navigator.onLine) {
       this._categoryService.getAll().toPromise().then((res: any) => {
         console.log("after", res);
-        this.categories = [].concat(res).reverse();
+        this.categories = res;
+        // this.categories = [].concat(res).reverse();
         this.loading = false;
       },
         (err) => {
@@ -72,7 +68,7 @@ export class AllCategoriesPage implements OnInit {
       console.log("HELLO")
       let catString = await this.storage.get('cat')
       this.categories = JSON.parse(catString);
-      console.log("OFFLINE CATEGORY",this.categories);
+      console.log("OFFLINE CATEGORY", this.categories);
       this.loading = false
     }
   }

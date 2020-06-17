@@ -497,7 +497,7 @@ module.exports = "<ion-app>\n  <ion-router-outlet id=\"main\"></ion-router-outle
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/settings\"\n      float-left\n      (click)=\"backButton()\"\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\">{{feedbackTitle[language]}}</span>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n<ion-content padding>\n  <div id=\"feedbackForm\">\n    <form [formGroup]=\"feedbackForm\">\n      <div>\n        <input\n          placeholder=\"Name\"\n          formControlName=\"name\"\n          [(ngModel)]=\"feedback.name\"\n        /><br /><br />\n      </div>\n      <div>\n        <input\n          placeholder=\"Email\"\n          formControlName=\"email\"\n          [(ngModel)]=\"feedback.email\"\n        /><br /><br />\n      </div>\n      <div>\n        <input\n          placeholder=\"Mobile Number\"\n          formControlName=\"mobile\"\n          [(ngModel)]=\"feedback.mobile\"\n        /><br /><br />\n      </div>\n      <div>\n        <textarea\n          placeholder=\"Message\"\n          rows=\"6\"\n          formControlName=\"message\"\n          [(ngModel)]=\"feedback.message\"\n        ></textarea\n        ><br /><br />\n      </div>\n      <button (click)=\"userFeedback(feedback)\">Send</button>\n    </form>\n  </div>\n</ion-content>\n"
+module.exports = "<ion-header>\n    <ion-toolbar color=\"red\">\n        <ion-buttons slot=\"start\">\n            <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/settings\" float-left (click)=\"backButton()\">\n            </ion-back-button>\n        </ion-buttons>\n        <ion-title>{{feedbackTitle[language]}}</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button slot=\"icon-only\" routerLink=\"/sidebar/home\">\n                <ion-icon name=\"home\"></ion-icon>\n            </ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n<ion-content padding>\n    <div id=\"feedbackForm\">\n        <form [formGroup]=\"feedbackForm\">\n            <div>\n                <input placeholder=\"Name\" formControlName=\"name\" [(ngModel)]=\"feedback.name\" /><br /><br />\n            </div>\n            <div>\n                <input placeholder=\"Email\" formControlName=\"email\" [(ngModel)]=\"feedback.email\" /><br /><br />\n            </div>\n            <div>\n                <input placeholder=\"Mobile Number\" formControlName=\"mobile\" [(ngModel)]=\"feedback.mobile\" /><br /><br />\n            </div>\n            <div>\n                <textarea placeholder=\"Message\" rows=\"6\" formControlName=\"message\" [(ngModel)]=\"feedback.message\"></textarea\n        ><br /><br />\n      </div>\n      <button (click)=\"userFeedback(feedback)\">Send</button>\n    </form>\n  </div>\n</ion-content>"
 
 /***/ }),
 
@@ -519,7 +519,7 @@ module.exports = "<ion-content class=\"background\" (swiperight)=\"goBack()\">\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"!loading\">\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/settings\"\n      float-left\n      (click)=\"backButton()\"\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\">{{privacyTitle[language]}}</span>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n<ion-content padding *ngIf=\"!loading\">\n  <div *ngFor=\"let policy of privacyPolicy\">\n    <div [innerHTML]=\"policy.policy\"></div>\n  </div>\n</ion-content>\n<ion-content class=\"loadingContent\" *ngIf=\"loading\"></ion-content>"
+module.exports = "<ion-header>\n    <ion-toolbar color=\"red\">\n        <ion-buttons slot=\"start\">\n            <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/settings\" float-left (click)=\"backButton()\">\n            </ion-back-button>\n        </ion-buttons>\n        <ion-title>{{privacyTitle[language]}}</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button slot=\"icon-only\" routerLink=\"/sidebar/home\">\n                <ion-icon name=\"home\"></ion-icon>\n            </ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n<ion-content padding *ngIf=\"!loading\">\n    <div *ngFor=\"let policy of privacyPolicy\">\n        <div [innerHTML]=\"policy.policy\"></div>\n    </div>\n</ion-content>\n<ion-content class=\"loadingContent\" *ngIf=\"loading\"></ion-content>"
 
 /***/ }),
 
@@ -530,7 +530,7 @@ module.exports = "<div *ngIf=\"!loading\">\n  <div class=\"settingsToolbar\">\n 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <div class=\"settingsToolbar\">\n        <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" defaultHref=\"/sidebar/home\" float-left (click)=\"backButton()\">\n        </ion-back-button>\n        <ion-input set-focuser #searchInput type=\"text\" placeholder=\"Search here..\"\n            (input)=\"searchNews($event.target.value)\" [(ngModel)]=\"keywordSearch\"></ion-input>\n        <button float-right routerLink=\"/home\">\n            <ion-icon name=\"home\"></ion-icon>\n        </button>\n    </div>\n</div>\n<ion-content padding>\n    <ion-row class=\"searchResults\" *ngFor=\"let searchNews of newsArray\">\n        <ion-col size=\"3\" class=\"newsImg\" padding (click)=\"getSingleSearch(searchNews.newsId)\">\n            <img src=\"{{ mediaPath }}{{ searchNews.newsImage }}\" data-src=\"assets/images/placeholder.png'\"\n                onerror=\"this.src='../../assets/images/placeholder.png'\" height=\"100%\" width=\"100%\" />\n        </ion-col>\n        <ion-col size=\"9\">\n            <div padding>\n                <span class=\"optionsList\" *ngIf=\"language != 'as'\" (click)=\"getSingleSearch(searchNews.newsId)\"\n                    [innerHTML]=\"searchNews[language].title | slice: 0:70\"></span>\n                <p class=\"newsCat\" *ngIf=\"language != 'as'\" (click)=\"\n            categoryClick(\n              searchNews.newsCategoryId,\n              searchNews.newsCategory[language]\n            )\n          \">\n                    {{ searchNews.newsCategory[language] }}\n                </p>\n                <span class=\"optionsList assameseFont\" *ngIf=\"language == 'as'\"\n                    (click)=\"getSingleSearch(searchNews.newsId)\"\n                    [innerHTML]=\"searchNews[language].title | slice: 0:70\"></span>\n                <p class=\"newsCat assameseFont\" *ngIf=\"language == 'as'\" (click)=\"\n            categoryClick(\n              searchNews.newsCategoryId,\n              searchNews.newsCategory[language]\n            )\n          \">\n                    {{ searchNews.newsCategory[language] }}\n                </p>\n            </div>\n        </ion-col>\n    </ion-row>\n    <div *ngIf=\"box && !searchLength\" id=\"box\">\n        <img src=\"assets/images/seo.png\" alt=\"\" />\n    </div>\n    <div *ngIf=\"searchLength == 0\" id=\"box\">\n        <img src=\"assets/images/noresult.png\" alt=\"\" />\n    </div>\n</ion-content>"
+module.exports = "<!-- <div>\n    <div class=\"settingsToolbar\">\n        <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" defaultHref=\"/sidebar/home\" float-left (click)=\"backButton()\">\n        </ion-back-button>\n        <ion-input set-focuser #searchInput type=\"text\" placeholder=\"Search here..\"\n            (input)=\"searchNews($event.target.value)\" [(ngModel)]=\"keywordSearch\"></ion-input>\n        <button float-right routerLink=\"/home\">\n            <ion-icon name=\"home\"></ion-icon>\n        </button>\n    </div>\n</div> -->\n\n<ion-header>\n    <ion-toolbar color=\"red\">\n        <ion-buttons slot=\"start\">\n            <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/sidebar/home\" float-left (click)=\"backButton()\">\n            </ion-back-button>\n        </ion-buttons>\n        <ion-input set-focuser #searchInput type=\"text\" placeholder=\"Search here..\" (input)=\"searchNews($event.target.value)\" [(ngModel)]=\"keywordSearch\"></ion-input>\n        <!-- <ion-title>{{privacyTitle[language]}}</ion-title> -->\n        <ion-buttons slot=\"end\">\n            <ion-button slot=\"icon-only\" routerLink=\"/sidebar/home\">\n                <ion-icon name=\"home\"></ion-icon>\n            </ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n<ion-content padding>\n    <ion-row class=\"searchResults\" *ngFor=\"let searchNews of newsArray\">\n        <ion-col size=\"3\" class=\"newsImg\" padding (click)=\"getSingleSearch(searchNews.newsId)\">\n            <img src=\"{{ mediaPath }}{{ searchNews.newsImage }}\" data-src=\"assets/images/placeholder.png'\" onerror=\"this.src='../../assets/images/placeholder.png'\" height=\"100%\" width=\"100%\" />\n        </ion-col>\n        <ion-col size=\"9\">\n            <div padding>\n                <span class=\"optionsList\" *ngIf=\"language != 'as'\" (click)=\"getSingleSearch(searchNews.newsId)\" [innerHTML]=\"searchNews[language].title | slice: 0:70\"></span>\n                <p class=\"newsCat\" *ngIf=\"language != 'as'\" (click)=\"\n            categoryClick(\n              searchNews.newsCategoryId,\n              searchNews.newsCategory[language]\n            )\n          \">\n                    {{ searchNews.newsCategory[language] }}\n                </p>\n                <span class=\"optionsList assameseFont\" *ngIf=\"language == 'as'\" (click)=\"getSingleSearch(searchNews.newsId)\" [innerHTML]=\"searchNews[language].title | slice: 0:70\"></span>\n                <p class=\"newsCat assameseFont\" *ngIf=\"language == 'as'\" (click)=\"\n            categoryClick(\n              searchNews.newsCategoryId,\n              searchNews.newsCategory[language]\n            )\n          \">\n                    {{ searchNews.newsCategory[language] }}\n                </p>\n            </div>\n        </ion-col>\n    </ion-row>\n    <div *ngIf=\"box && !searchLength\" id=\"box\">\n        <img src=\"assets/images/seo.png\" alt=\"\" />\n    </div>\n    <div *ngIf=\"searchLength == 0\" id=\"box\">\n        <img src=\"assets/images/noresult.png\" alt=\"\" />\n    </div>\n</ion-content>"
 
 /***/ }),
 
@@ -541,7 +541,7 @@ module.exports = "<div>\n    <div class=\"settingsToolbar\">\n        <ion-back-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <div class=\"settingsToolbar\">\n        <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/sidebar/home\" (click)=\"backButton()\">\n        </ion-back-button>\n        <span id=\"settingTitle\">{{ options[language] }}</span>\n        <button id=\"profile\" *ngIf=\"tokenLocalStorage && firstCharUser\" (click)=\"logout()\">\n      {{ firstCharUser }}\n    </button>\n        <button id=\"personIcon\" (click)=\"logout()\" *ngIf=\"tokenLocalStorage && !firstCharUser\">\n      <ion-icon\n        name=\"person\"\n        style=\"vertical-align: text-bottom; font-size: 24px;\"\n      ></ion-icon>\n    </button>\n        <button float-right *ngIf=\"!tokenLocalStorage\" routerLink=\"/sidebar/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n    </div>\n</div>\n\n<ion-content>\n    <div class=\"settings loginDiv\" padding *ngIf=\"!tokenLocalStorage\">\n        <h1 class=\"savePref\">{{ savePref[language] }}</h1>\n        <h4 class=\"signInBook\">\n            {{ signInText[language] }}\n        </h4>\n        <div class=\"customLoginDiv\">\n            <button class=\"signInButton\" routerLink=\"/login\" s>\n        {{ signIn[language] }}\n      </button>\n            <span>{{ orUsing[language] }}</span>\n            <button id=\"facebookLogin\" routerLink=\"/login\">\n        <img src=\"assets/images/Facebook.png\" height=\"19px;\" />\n      </button>\n            <button id=\"googleplus\" routerLink=\"/login\">\n        <img src=\"assets/images/GooglePlus.png\" height=\"16px;\" />\n      </button>\n        </div>\n    </div>\n    <div class=\"optionsDiv\">\n        <ul class=\"option_list\">\n            <li>\n                <div class=\"icon_box\">\n                    <span>Aa</span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              languageText[language]\n            }}</span>\n                    </div>\n                    <div class=\"lang_selector\" (click)=\"changeLang(language)\">\n                        <span class=\"selectIcon\">\n              <img\n                src=\"assets/images/downarrow.png\"\n                alt=\"\"\n                height=\"15px\"\n              />\n            </span>\n                        <span class=\"langColor\" *ngIf=\"language\">{{\n              langSelectText[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n            <li (click)=\"routeToBookmark()\">\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"bookmark\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              bookmark[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n            <li routerLink=\"/all-categories\">\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"apps\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              category[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n            <li>\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"notifications-outline\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              notification[language]\n            }}</span>\n                    </div>\n                    <div class=\"lang_selector\">\n                        <label class=\"switch\" *ngIf=\"notifyFlag === 'true' || annonymousNotify === 'true'\">\n              <input\n                type=\"checkbox\"\n                (change)=\"notificationSwitch($event)\"\n                checked=\"checked\"\n              />\n              <div></div>\n            </label>\n                        <label class=\"switch\" *ngIf=\"notifyFlag === 'false' || annonymousNotify === 'false'\">\n              <input type=\"checkbox\" (change)=\"notificationSwitch($event)\" />\n              <div></div>\n            </label>\n                    </div>\n                </div>\n            </li>\n            <li routerLink=\"/feedback\">\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"chatboxes\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              feedback[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n            <li routerLink=\"/privacy\">\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"lock\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              privacy[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n            <li routerLink=\"/terms\">\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"paper\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              terms[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n            <li (click)=\"sendShare()\">\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"share\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              shareApp[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n        </ul>\n    </div>\n    <ion-row id=\"ratingRow\"></ion-row>\n</ion-content>"
+module.exports = "<ion-header>\n    <ion-toolbar color=\"red\">\n        <ion-buttons slot=\"start\">\n            <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/sidebar/home\" (click)=\"backButton()\">\n            </ion-back-button>\n        </ion-buttons>\n        <ion-title>{{ options[language] }}</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button slot=\"icon-only\" id=\"personIcon\" (click)=\"logout()\" *ngIf=\"tokenLocalStorage && firstCharUser\">\n                {{ firstCharUser }}\n            </ion-button>\n            <ion-button slot=\"icon-only\" id=\"personIcon\" (click)=\"logout()\" *ngIf=\"tokenLocalStorage && !firstCharUser\">\n                <ion-icon name=\"person\" style=\"vertical-align: text-bottom; font-size: 24px;\"></ion-icon>\n            </ion-button>\n            <ion-button slot=\"icon-only\" *ngIf=\"!tokenLocalStorage\" routerLink=\"/sidebar/home\">\n                <ion-icon name=\"home\"></ion-icon>\n            </ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <div class=\"settings loginDiv\" padding *ngIf=\"!tokenLocalStorage\">\n        <h1 class=\"savePref\">{{ savePref[language] }}</h1>\n        <h4 class=\"signInBook\">\n            {{ signInText[language] }}\n        </h4>\n        <div class=\"customLoginDiv\">\n            <button class=\"signInButton\" routerLink=\"/login\" s>\n        {{ signIn[language] }}\n      </button>\n            <span>{{ orUsing[language] }}</span>\n            <button id=\"facebookLogin\" routerLink=\"/login\">\n        <img src=\"assets/images/Facebook.png\" height=\"19px;\" />\n      </button>\n            <button id=\"googleplus\" routerLink=\"/login\">\n        <img src=\"assets/images/GooglePlus.png\" height=\"16px;\" />\n      </button>\n        </div>\n    </div>\n    <div class=\"optionsDiv\">\n        <ul class=\"option_list\">\n            <li>\n                <div class=\"icon_box\">\n                    <span>Aa</span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              languageText[language]\n            }}</span>\n                    </div>\n                    <div class=\"lang_selector\" (click)=\"changeLang(language)\">\n                        <span class=\"selectIcon\">\n              <img\n                src=\"assets/images/downarrow.png\"\n                alt=\"\"\n                height=\"15px\"\n              />\n            </span>\n                        <span class=\"langColor\" *ngIf=\"language\">{{\n              langSelectText[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n            <li (click)=\"routeToBookmark()\">\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"bookmark\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              bookmark[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n            <li routerLink=\"/all-categories\">\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"apps\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              category[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n            <li>\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"notifications-outline\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              notification[language]\n            }}</span>\n                    </div>\n                    <div class=\"lang_selector\">\n                        <label class=\"switch\" *ngIf=\"notifyFlag === 'true' || annonymousNotify === 'true'\">\n              <input\n                type=\"checkbox\"\n                (change)=\"notificationSwitch($event)\"\n                checked=\"checked\"\n              />\n              <div></div>\n            </label>\n                        <label class=\"switch\" *ngIf=\"notifyFlag === 'false' || annonymousNotify === 'false'\">\n              <input type=\"checkbox\" (change)=\"notificationSwitch($event)\" />\n              <div></div>\n            </label>\n                    </div>\n                </div>\n            </li>\n            <li routerLink=\"/feedback\">\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"chatboxes\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              feedback[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n            <li routerLink=\"/privacy\">\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"lock\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              privacy[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n            <li routerLink=\"/terms\">\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"paper\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              terms[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n            <li (click)=\"sendShare()\">\n                <div class=\"icon_box\">\n                    <span><ion-icon name=\"share\"></ion-icon></span>\n                </div>\n                <div class=\"menu_link\">\n                    <div class=\"menu_link_text\">\n                        <span class=\"optionsList\" *ngIf=\"language\">{{\n              shareApp[language]\n            }}</span>\n                    </div>\n                </div>\n            </li>\n        </ul>\n    </div>\n    <ion-row id=\"ratingRow\"></ion-row>\n</ion-content>"
 
 /***/ }),
 
@@ -552,7 +552,7 @@ module.exports = "<div>\n    <div class=\"settingsToolbar\">\n        <ion-back-
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"!loading\">\n  <div class=\"settingsToolbar\">\n    <ion-back-button\n      name=\"arrow-round-back\"\n      class=\"homeBack\"\n      class=\"homeBack\"\n      defaultHref=\"/home\"\n      float-left\n      (click)=\"backButton()\"\n    >\n    </ion-back-button>\n    <span id=\"settingTitle\">{{termsTitle[language]}}</span>\n    <button float-right routerLink=\"/home\">\n      <ion-icon name=\"home\"></ion-icon>\n    </button>\n  </div>\n</div>\n<ion-content padding *ngIf=\"!loading\">\n  <div *ngFor=\"let policy of privacyPolicy\">\n    <div [innerHTML]=\"policy.terms\" id=\"termsAndCondotion\"></div>\n  </div>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>\n"
+module.exports = "<ion-header *ngIf=\"!loading\">\n    <ion-toolbar color=\"red\">\n        <ion-buttons slot=\"start\">\n            <ion-back-button name=\"arrow-round-back\" class=\"homeBack\" class=\"homeBack\" defaultHref=\"/sidebar/home\" float-left (click)=\"backButton()\">\n            </ion-back-button>\n        </ion-buttons>\n        <ion-title>{{termsTitle[language]}}</ion-title>\n        <ion-buttons slot=\"end\">\n            <ion-button slot=\"icon-only\" routerLink=\"/sidebar/home\">\n                <ion-icon name=\"home\"></ion-icon>\n            </ion-button>\n        </ion-buttons>\n    </ion-toolbar>\n</ion-header>\n<ion-content padding *ngIf=\"!loading\">\n    <div *ngFor=\"let policy of privacyPolicy\">\n        <div [innerHTML]=\"policy.terms\" id=\"termsAndCondotion\"></div>\n    </div>\n</ion-content>\n<ion-content *ngIf=\"loading\" class=\"loadingContent\"> </ion-content>"
 
 /***/ }),
 
@@ -713,25 +713,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "./node_modules/@ionic-native/status-bar/ngx/index.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
 /* harmony import */ var _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/deeplinks/ngx */ "./node_modules/@ionic-native/deeplinks/ngx/index.js");
-/* harmony import */ var rxjs_Observable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/Observable */ "./node_modules/rxjs-compat/_esm2015/Observable.js");
-/* harmony import */ var _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/firebase-dynamic-links/ngx */ "./node_modules/@ionic-native/firebase-dynamic-links/ngx/index.js");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./config */ "./src/app/config.ts");
-/* harmony import */ var rxjs_add_observable_fromEvent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! rxjs/add/observable/fromEvent */ "./node_modules/rxjs-compat/_esm2015/add/observable/fromEvent.js");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
-/* harmony import */ var _services_storage_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/storage.service */ "./src/app/services/storage.service.ts");
-/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/category.service */ "./src/app/services/category.service.ts");
-/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./services/toast.service */ "./src/app/services/toast.service.ts");
-/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./changeLang */ "./src/app/changeLang.ts");
-/* harmony import */ var _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic-native/market/ngx */ "./node_modules/@ionic-native/market/ngx/index.js");
-/* harmony import */ var _services_news_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./services/news.service */ "./src/app/services/news.service.ts");
-/* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./services/general.service */ "./src/app/services/general.service.ts");
-/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
-
-
-
+/* harmony import */ var _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic-native/firebase-dynamic-links/ngx */ "./node_modules/@ionic-native/firebase-dynamic-links/ngx/index.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./config */ "./src/app/config.ts");
+/* harmony import */ var rxjs_add_observable_fromEvent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/add/observable/fromEvent */ "./node_modules/rxjs-compat/_esm2015/add/observable/fromEvent.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/fcm/ngx */ "./node_modules/@ionic-native/fcm/ngx/index.js");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+/* harmony import */ var _services_storage_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/storage.service */ "./src/app/services/storage.service.ts");
+/* harmony import */ var _services_category_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./services/category.service */ "./src/app/services/category.service.ts");
+/* harmony import */ var _services_toast_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/toast.service */ "./src/app/services/toast.service.ts");
+/* harmony import */ var _changeLang__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./changeLang */ "./src/app/changeLang.ts");
+/* harmony import */ var _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ionic-native/market/ngx */ "./node_modules/@ionic-native/market/ngx/index.js");
+/* harmony import */ var _services_general_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./services/general.service */ "./src/app/services/general.service.ts");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm2015/ngx-translate-core.js");
 
 
 
@@ -755,13 +749,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(network, fcm, translate, market, firebaseDynamicLinks, _userService, toastController, platform, splashScreen, statusBar, router, deeplinks, events, _newsService, _storageService, _categoryService, _generalService, _toastService) {
+    constructor(network, fcm, translate, market, firebaseDynamicLinks, toastController, platform, splashScreen, statusBar, router, deeplinks, events, _storageService, _categoryService, _generalService, _toastService) {
         this.network = network;
         this.fcm = fcm;
         this.translate = translate;
         this.market = market;
         this.firebaseDynamicLinks = firebaseDynamicLinks;
-        this._userService = _userService;
         this.toastController = toastController;
         this.platform = platform;
         this.splashScreen = splashScreen;
@@ -769,24 +762,23 @@ let AppComponent = class AppComponent {
         this.router = router;
         this.deeplinks = deeplinks;
         this.events = events;
-        this._newsService = _newsService;
         this._storageService = _storageService;
         this._categoryService = _categoryService;
         this._generalService = _generalService;
         this._toastService = _toastService;
         this.hide = true;
         this.loginModalFlag = false;
-        this.signupForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormGroup"]({
-            userName: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required),
-            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].email]),
-            mobile: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required),
-            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_12__["Validators"].required)
+        this.signupForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormGroup"]({
+            userName: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].required),
+            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].email]),
+            mobile: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].required),
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_10__["Validators"].required)
         });
-        this.rateTitle = _changeLang__WEBPACK_IMPORTED_MODULE_18__["rateTitle"];
-        this.rateText = _changeLang__WEBPACK_IMPORTED_MODULE_18__["rateText"];
-        this.rateNow = _changeLang__WEBPACK_IMPORTED_MODULE_18__["rateNowButton"];
-        this.rateLater = _changeLang__WEBPACK_IMPORTED_MODULE_18__["rateRemindButton"];
-        this.rateNoThanks = _changeLang__WEBPACK_IMPORTED_MODULE_18__["rateNoThanksButton"];
+        this.rateTitle = _changeLang__WEBPACK_IMPORTED_MODULE_16__["rateTitle"];
+        this.rateText = _changeLang__WEBPACK_IMPORTED_MODULE_16__["rateText"];
+        this.rateNow = _changeLang__WEBPACK_IMPORTED_MODULE_16__["rateNowButton"];
+        this.rateLater = _changeLang__WEBPACK_IMPORTED_MODULE_16__["rateRemindButton"];
+        this.rateNoThanks = _changeLang__WEBPACK_IMPORTED_MODULE_16__["rateNoThanksButton"];
         this.user = {
             userName: '',
             email: '',
@@ -796,50 +788,103 @@ let AppComponent = class AppComponent {
         this.navLinksArray = [];
         this.page_number = 1;
         this.page_limit = 10;
-        // this function is also present in home page
-        this.platform.ready().then(() => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            this.translate.addLangs(['en', 'hn', 'as', 'bn']);
-            this.translate.setDefaultLang('en');
-            if (localStorage.getItem('language')) {
-                this.translate.use(localStorage.getItem('language'));
-            }
-            this.fcm.onNotification().subscribe(data => {
-                console.log(this.translate.currentLang);
-                console.log('YEAHHHHHHHHHHHH', data);
-                if (data.wasTapped) {
-                    $('.indexLoader').css('display', 'block');
-                    console.log('TAPPED', data);
-                    this.router.navigate(['/single-post/' + data.newsId]);
-                    console.log('Received in background', data.wasTapped);
-                }
-                else {
-                    console.log('Received in foreground');
-                }
-            });
-            this.firebaseDynamicLinks.onDynamicLink().subscribe((res) => {
-                console.log('DEEPLINK', res);
-                const postId = res.deepLink.split('?')[1].split('=')[1];
-                this.router.navigate(['single-post/' + postId]);
-                _config__WEBPACK_IMPORTED_MODULE_9__["config"].isvisited = true;
-            }, (error) => {
-                console.log(error);
-            });
-        }));
-        this.getNewsForOffline();
-        this.getCatForOffline();
+        this.initializeApp();
+    }
+    initializeApp() {
+        this.platform.ready().then(() => {
+            console.log('INSIDE PLATFORM READY');
+            this.checkforInternet();
+            this.setLanguage();
+            this.onTapLinkAndnotification();
+            this.getNewsForOffline();
+            this.getCatForOffline();
+            this.setLocalStorageItems();
+            this.showRateModalFun();
+            // this._admobService.BannerAd();
+            this.statusBar.backgroundColorByHexString('#000000');
+        });
+        // };
+    }
+    subscriber(message) {
+        let msg;
+        message.subscribe(res => {
+            msg = res;
+        });
+        console.log(msg);
+        return msg;
+    }
+    // rate dialog
+    rate() {
+        localStorage.setItem('isRated', 'true');
+        this.showRateModal = false;
+        this.market.open('io.ionic.triviapost');
+    }
+    dismiss() {
+        localStorage.setItem('isRated', 'true');
+        this.showRateModal = false;
+    }
+    remindLater() {
+        localStorage.setItem('isRated', 'pending');
+        this.showRateModal = false;
+    }
+    setLanguage() {
+        this.translate.addLangs(['en', 'hn', 'as', 'bn']);
+        this.translate.setDefaultLang('en');
+        if (localStorage.getItem('language')) {
+            this.translate.use(localStorage.getItem('language'));
+        }
+    }
+    onTapLinkAndnotification() {
+        this.firebaseDynamicLinks.onDynamicLink().subscribe((res) => {
+            const postId = res.deepLink.split('?')[1].split('=')[1];
+            this.router.navigate(['single-post/' + postId]);
+            _config__WEBPACK_IMPORTED_MODULE_8__["config"].isvisited = true;
+        }, (error) => {
+        });
+    }
+    setLocalStorageItems() {
         if (!localStorage.getItem('clearLocalStorage')) {
             localStorage.clear();
             localStorage.setItem('clearLocalStorage', '1');
         }
+        if (localStorage.getItem('interAdCounter')) {
+            localStorage.removeItem('interAdCounter');
+        }
         if (!localStorage.getItem('language')) {
             this.showTourConfirm = true;
         }
-        this.platform.ready().then(() => {
-            setTimeout(() => {
-                this.splashScreen.hide();
-            }, 2000);
-        });
-        this.initializeApp();
+        setTimeout(() => {
+            this.splashScreen.hide();
+        }, 2000);
+        if (!localStorage.getItem('notification')) {
+            localStorage.setItem('notification', 'true');
+        }
+        if (localStorage.getItem('language')) {
+            localStorage.setItem('skip', '1');
+            localStorage.setItem('bookmarkFlag', '1');
+            localStorage.setItem('shareFlag', '1');
+            localStorage.setItem('firstLargePostClick', '1');
+            localStorage.setItem('catModal', '1');
+        }
+        if (!localStorage.getItem('isVisited')) {
+            const isVisited = [];
+            localStorage.setItem('isVisited', JSON.stringify(isVisited));
+        }
+        localStorage.removeItem('firstTimeLoaded');
+    }
+    openRatingModal() {
+        console.log('INSIDE APP COMPONENT');
+        if (localStorage.getItem('skip')) {
+            if (!localStorage.getItem('rateModalFirst')) {
+                this.language = localStorage.getItem('language');
+                this.showRateModal = true;
+            }
+            if (this.showRateModal == true) {
+                localStorage.setItem('rateModalFirst', '1');
+            }
+        }
+    }
+    showRateModalFun() {
         const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
         const firstDate = new Date();
         const secondDate = JSON.parse(localStorage.getItem('ratingModalDate'));
@@ -886,107 +931,6 @@ let AppComponent = class AppComponent {
                 }
             }, 5 * 60 * 1000);
         }
-        if (localStorage.getItem('language')) {
-            localStorage.setItem('skip', '1');
-            localStorage.setItem('bookmarkFlag', '1');
-            localStorage.setItem('shareFlag', '1');
-            localStorage.setItem('firstLargePostClick', '1');
-            localStorage.setItem('catModal', '1');
-        }
-        if (!localStorage.getItem('isVisited')) {
-            const isVisited = [];
-            localStorage.setItem('isVisited', JSON.stringify(isVisited));
-        }
-        localStorage.removeItem('firstTimeLoaded');
-        this._userService.currentData.subscribe(value => {
-            console.log('VALUEEEE', value);
-            if (this.loginModalFlag != true) {
-                // generates random time for opennig modal between 25 and 40 seconds
-                const randomNum = Math.floor(Math.random() * (30 - 14 + 1)) + 14;
-                setTimeout(() => {
-                    $('#fadeDiv').addClass('opened');
-                    this.hidden = true;
-                    this.loginModalFlag = true;
-                }, randomNum * 1000);
-            }
-        });
-        this.platform.ready().then(() => {
-            this.deeplinks
-                .route({
-                '/': {},
-                '/nr5y': { 'post:': true },
-                '/post/:id': { 'post:': true }
-            })
-                .subscribe(match => {
-                console.log('match link', match.$args.id);
-                this.router.navigate(['single-post/' + match.$args.id]);
-            }, nomatch => { });
-        });
-        const offline = rxjs_Observable__WEBPACK_IMPORTED_MODULE_7__["Observable"].fromEvent(document, 'offline');
-        const online = rxjs_Observable__WEBPACK_IMPORTED_MODULE_7__["Observable"].fromEvent(document, 'online');
-        offline.subscribe(() => {
-            this.hide = false;
-            this.translate.get('No internet connection').subscribe((res) => {
-                this._toastService.toastFunction(res, '');
-            });
-        });
-        online.subscribe(() => {
-            // this.toastController.dismiss();
-            this.hide = true;
-        });
-        if (!localStorage.getItem('notification')) {
-            localStorage.setItem('notification', 'true');
-        }
-        if (!localStorage.getItem('skip')) {
-            // this._newsService.getAllNews(this.page_number, 'offline').subscribe((res: any) => {
-            //   console.log("GOT NEWS IN APP COMPONENT", res);
-            // });
-        }
-    }
-    initializeApp() {
-        const handleBranch = () => {
-            this.platform.ready().then(() => {
-                console.log('INSIDE PLATFORM READY');
-                // this._admobService.BannerAd();
-                this.statusBar.backgroundColorByHexString('#000000');
-            });
-        };
-    }
-    subscriber(message) {
-        let msg;
-        message.subscribe(res => {
-            msg = res;
-        });
-        console.log(msg);
-        return msg;
-    }
-    // rate dialog
-    rate() {
-        localStorage.setItem('isRated', 'true');
-        this.showRateModal = false;
-        this.platform.ready().then(() => {
-            this.market.open('io.ionic.triviapost');
-        });
-    }
-    dismiss() {
-        localStorage.setItem('isRated', 'true');
-        this.showRateModal = false;
-    }
-    remindLater() {
-        localStorage.setItem('isRated', 'pending');
-        this.showRateModal = false;
-    }
-    openRatingModal() {
-        console.log('INSIDE APP COMPONENT');
-        if (localStorage.getItem('skip')) {
-            if (!localStorage.getItem('rateModalFirst')) {
-                this.language = localStorage.getItem('language');
-                this.showRateModal = true;
-            }
-            if (this.showRateModal == true) {
-                localStorage.setItem('rateModalFirst', '1');
-            }
-        }
     }
     getNewsForOffline() {
         if (this.network.type != 'none') {
@@ -996,6 +940,15 @@ let AppComponent = class AppComponent {
             }), (error) => {
             });
         }
+    }
+    // check for internet
+    checkforInternet() {
+        this.network.onDisconnect().subscribe(() => {
+            console.log('network was disconnected :-(');
+            this.translate.get('No internet connection').subscribe((mes) => {
+                this._toastService.toastFunction(mes, 'danger');
+            });
+        });
     }
     getCatForOffline() {
         if (this.network.type != 'none') {
@@ -1011,12 +964,11 @@ let AppComponent = class AppComponent {
     }
 };
 AppComponent.ctorParameters = () => [
-    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_14__["Network"] },
-    { type: _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_13__["FCM"] },
-    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_22__["TranslateService"] },
-    { type: _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_19__["Market"] },
-    { type: _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_8__["FirebaseDynamicLinks"] },
-    { type: _services_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"] },
+    { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_12__["Network"] },
+    { type: _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_11__["FCM"] },
+    { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_19__["TranslateService"] },
+    { type: _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_17__["Market"] },
+    { type: _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_7__["FirebaseDynamicLinks"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"] },
     { type: _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"] },
@@ -1024,11 +976,10 @@ AppComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
     { type: _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_6__["Deeplinks"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"] },
-    { type: _services_news_service__WEBPACK_IMPORTED_MODULE_20__["NewsService"] },
-    { type: _services_storage_service__WEBPACK_IMPORTED_MODULE_15__["StorageService"] },
-    { type: _services_category_service__WEBPACK_IMPORTED_MODULE_16__["CategoryService"] },
-    { type: _services_general_service__WEBPACK_IMPORTED_MODULE_21__["GeneralService"] },
-    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_17__["ToastService"] }
+    { type: _services_storage_service__WEBPACK_IMPORTED_MODULE_13__["StorageService"] },
+    { type: _services_category_service__WEBPACK_IMPORTED_MODULE_14__["CategoryService"] },
+    { type: _services_general_service__WEBPACK_IMPORTED_MODULE_18__["GeneralService"] },
+    { type: _services_toast_service__WEBPACK_IMPORTED_MODULE_15__["ToastService"] }
 ];
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1036,12 +987,11 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./app.component.html */ "./node_modules/raw-loader/index.js!./src/app/app.component.html"),
         styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_14__["Network"],
-        _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_13__["FCM"],
-        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_22__["TranslateService"],
-        _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_19__["Market"],
-        _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_8__["FirebaseDynamicLinks"],
-        _services_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"],
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_12__["Network"],
+        _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_11__["FCM"],
+        _ngx_translate_core__WEBPACK_IMPORTED_MODULE_19__["TranslateService"],
+        _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_17__["Market"],
+        _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_7__["FirebaseDynamicLinks"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Platform"],
         _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_3__["SplashScreen"],
@@ -1049,11 +999,10 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
         _ionic_native_deeplinks_ngx__WEBPACK_IMPORTED_MODULE_6__["Deeplinks"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["Events"],
-        _services_news_service__WEBPACK_IMPORTED_MODULE_20__["NewsService"],
-        _services_storage_service__WEBPACK_IMPORTED_MODULE_15__["StorageService"],
-        _services_category_service__WEBPACK_IMPORTED_MODULE_16__["CategoryService"],
-        _services_general_service__WEBPACK_IMPORTED_MODULE_21__["GeneralService"],
-        _services_toast_service__WEBPACK_IMPORTED_MODULE_17__["ToastService"]])
+        _services_storage_service__WEBPACK_IMPORTED_MODULE_13__["StorageService"],
+        _services_category_service__WEBPACK_IMPORTED_MODULE_14__["CategoryService"],
+        _services_general_service__WEBPACK_IMPORTED_MODULE_18__["GeneralService"],
+        _services_toast_service__WEBPACK_IMPORTED_MODULE_15__["ToastService"]])
 ], AppComponent);
 
 
@@ -1667,7 +1616,7 @@ const noInternet = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "config", function() { return config; });
 let envs = [];
-let env = "testing";
+let env = "productionV2";
 envs['production'] = {
     baseApiUrl: 'https://admin.triviapost.in:5000/api/',
     mediaApiUrl: 'https://admin.triviapost.in/server/',
