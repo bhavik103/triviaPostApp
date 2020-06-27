@@ -142,12 +142,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let HomePage = class HomePage {
-    constructor(navctrl, sidebar, translate, localNotifications, menu, network, _admobService, market, alertController, _generalService, nav, firebaseDynamicLinks, _toastService, _userService, screenOrientation, platform, fcm, _newsService, router, keyboard, _storageService) {
+    constructor(navctrl, sidebar, translate, localNotifications, network, _admobService, market, alertController, _generalService, nav, firebaseDynamicLinks, _toastService, _userService, screenOrientation, platform, fcm, _newsService, router, keyboard, _storageService) {
         this.navctrl = navctrl;
         this.sidebar = sidebar;
         this.translate = translate;
         this.localNotifications = localNotifications;
-        this.menu = menu;
         this.network = network;
         this._admobService = _admobService;
         this.market = market;
@@ -201,7 +200,6 @@ let HomePage = class HomePage {
     }
     // Event Listeners
     ngOnInit() {
-        console.log('HELLO 33');
         this.platform.ready().then(() => {
             this.firebaseLinkRoute();
         });
@@ -437,13 +435,11 @@ let HomePage = class HomePage {
             if (data.wasTapped) {
                 console.log('TAPPED', data);
                 this.router.navigate(['/single-post/' + data.newsId]);
-                console.log('Received in background', data.wasTapped);
             }
             else {
                 console.log("NOTIFICATION DATA", data);
                 this.showLocalNotification(data.newsId);
                 // this.router.navigate(['/single-post/' + data.newsId]);
-                console.log('Received in foreground');
             }
         });
     }
@@ -498,10 +494,6 @@ let HomePage = class HomePage {
     // select lang on first time app opens
     selectLang() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            // if (localStorage.getItem('skip')) {
-            //     this.router.navigateByUrl('/login');
-            // } else {
-            // }
             const lang = this.selected;
             localStorage.setItem('language', lang);
             this.translate.use(localStorage.getItem('language'));
@@ -586,7 +578,6 @@ HomePage.ctorParameters = () => [
     { type: _sidebar_sidebar_page__WEBPACK_IMPORTED_MODULE_1__["SidebarPage"] },
     { type: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_21__["TranslateService"] },
     { type: _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_22__["LocalNotifications"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["MenuController"] },
     { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_19__["Network"] },
     { type: _services_admobfree_service__WEBPACK_IMPORTED_MODULE_18__["AdmobfreeService"] },
     { type: _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_17__["Market"] },
@@ -618,8 +609,7 @@ HomePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./home.page.html */ "./node_modules/raw-loader/index.js!./src/app/home/home.page.html"),
         styles: [__webpack_require__(/*! ./home.page.scss */ "./src/app/home/home.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["NavController"], _sidebar_sidebar_page__WEBPACK_IMPORTED_MODULE_1__["SidebarPage"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_21__["TranslateService"], _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_22__["LocalNotifications"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["MenuController"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_19__["Network"], _services_admobfree_service__WEBPACK_IMPORTED_MODULE_18__["AdmobfreeService"], _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_17__["Market"],
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_7__["NavController"], _sidebar_sidebar_page__WEBPACK_IMPORTED_MODULE_1__["SidebarPage"], _ngx_translate_core__WEBPACK_IMPORTED_MODULE_21__["TranslateService"], _ionic_native_local_notifications_ngx__WEBPACK_IMPORTED_MODULE_22__["LocalNotifications"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_19__["Network"], _services_admobfree_service__WEBPACK_IMPORTED_MODULE_18__["AdmobfreeService"], _ionic_native_market_ngx__WEBPACK_IMPORTED_MODULE_17__["Market"],
         _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["AlertController"], _services_general_service__WEBPACK_IMPORTED_MODULE_15__["GeneralService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["NavController"],
         _ionic_native_firebase_dynamic_links_ngx__WEBPACK_IMPORTED_MODULE_13__["FirebaseDynamicLinks"], _services_toast_service__WEBPACK_IMPORTED_MODULE_12__["ToastService"], _services_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"],
         _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_8__["ScreenOrientation"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["Platform"], _ionic_native_fcm_ngx__WEBPACK_IMPORTED_MODULE_6__["FCM"], _services_news_service__WEBPACK_IMPORTED_MODULE_5__["NewsService"],

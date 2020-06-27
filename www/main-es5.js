@@ -1646,7 +1646,7 @@ var noInternet = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "config", function() { return config; });
 var envs = [];
-var env = "productionV2";
+var env = "testing";
 envs['production'] = {
     baseApiUrl: 'https://admin.triviapost.in:5000/api/',
     mediaApiUrl: 'https://admin.triviapost.in/server/',

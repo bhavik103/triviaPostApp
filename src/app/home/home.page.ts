@@ -1,5 +1,4 @@
 import { SidebarPage } from './../sidebar/sidebar.page';
-import { LargePostPage } from './../large-post/large-post.page';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { config } from '../config';
 import { Router } from '@angular/router';
@@ -102,8 +101,7 @@ export class HomePage implements OnInit {
     navigate: { title: string; url: string; icon: string; }[];
 
     constructor(
-        private navctrl: NavController, private sidebar: SidebarPage, private translate: TranslateService, private localNotifications: LocalNotifications,
-        private menu: MenuController, private network: Network, private _admobService: AdmobfreeService, private market: Market,
+        private navctrl: NavController, private sidebar: SidebarPage, private translate: TranslateService, private localNotifications: LocalNotifications, private network: Network, private _admobService: AdmobfreeService, private market: Market,
         public alertController: AlertController, private _generalService: GeneralService, private nav: NavController,
         private firebaseDynamicLinks: FirebaseDynamicLinks, private _toastService: ToastService, private _userService: UserService,
         private screenOrientation: ScreenOrientation, private platform: Platform, private fcm: FCM, public _newsService: NewsService,
@@ -114,7 +112,6 @@ export class HomePage implements OnInit {
 
     // Event Listeners
     ngOnInit() {
-        console.log('HELLO 33');
         this.platform.ready().then(() => {
             this.firebaseLinkRoute();
         });
@@ -357,13 +354,10 @@ export class HomePage implements OnInit {
             if (data.wasTapped) {
                 console.log('TAPPED', data);
                 this.router.navigate(['/single-post/' + data.newsId]);
-                console.log('Received in background', data.wasTapped);
             } else {
                 console.log("NOTIFICATION DATA", data)
                 this.showLocalNotification(data.newsId);
                 // this.router.navigate(['/single-post/' + data.newsId]);
-                console.log('Received in foreground');
-
             }
         });
     }
@@ -418,10 +412,6 @@ export class HomePage implements OnInit {
     }
     // select lang on first time app opens
     async selectLang() {
-        // if (localStorage.getItem('skip')) {
-        //     this.router.navigateByUrl('/login');
-        // } else {
-        // }
         const lang = this.selected;
         localStorage.setItem('language', lang);
         this.translate.use(localStorage.getItem('language'))
